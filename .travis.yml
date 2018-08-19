@@ -20,7 +20,7 @@ script:
 - cd _book
 - pdftk _main.pdf cat 2-r3 output adv-r_ori.pdf
 - pdftk adv-r_cover.pdf adv-r_ori.pdf cat output adv-r.pdf && rm -r adv-r_*.pdf
-- cd -
+- cd - 
 
 deploy:
   provider: pages
