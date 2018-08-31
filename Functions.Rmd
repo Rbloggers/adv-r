@@ -11,7 +11,7 @@ If you're reading this book, you've probably already created many R functions an
 
 ### Quiz {-}
 
-Answer the following questions to see if you can safely skip this chapter. You can find the answers at the end of the chapter in [answers](#function-answers).
+Answer the following questions to see if you can safely skip this chapter. You can find the answers in \@ref(function-answer).
 
 1.  What are the three components of a function?
 
@@ -85,7 +85,7 @@ To understand functions in R you need to internalise two important ideas:
 
 There are exceptions to every rule, and in this case, there is a small selection of "primitive" base functions that are implemented purely in C.
 
-### First-class functions
+### First-class functions {#first-class-functions}
 
 The most important thing to understand about R is that functions are objects in their own right, a language property often called "first-class functions". Unlike in many other languages, there is no special syntax for defining and naming a function: you simply create a function object (with `function`) and bind it to a name with `<-`:
 
@@ -96,7 +96,7 @@ f01 <- function(x) {
 ```
 
 ```{r, echo = FALSE, out.width = NULL}
-knitr::include_graphics("diagrams/functions/first-class.png", dpi = 300)
+knitr::include_graphics("diagrams/functions/first-class.png")
 ```
 
 \index{functions!anonymous} 
@@ -147,7 +147,7 @@ the values associated with the names.
 I'll draw functions as in the following diagram. The black dot on the left is the environment. The two blocks to the right are the function arguments. I won't draw the body, because it's usually large, and doesn't help you understand the "shape" of the function.
 
 ```{r, echo = FALSE, out.width = NULL}
-knitr::include_graphics("diagrams/functions/components.png", dpi = 300)
+knitr::include_graphics("diagrams/functions/components.png")
 ```
 
 While the formals and body are specified explicitly when you create a function, the environment is specified implicitly, based on _where_ you defined the function. The function environment always exists, but it is only printed when the function isn't defined in the global environment.
@@ -409,7 +409,7 @@ One way to detect this problem is to use `codetools::findGlobals()`. This functi
 codetools::findGlobals(g12)
 ```
 
-Another way to try and solve the problem would be to manually change the environment of the function to the `emptyenv()`, an environment which contains nothing:
+Another way to solve the problem would be to manually change the environment of the function to the `emptyenv()`, an environment which contains nothing:
 
 ```{r, error = TRUE}
 environment(g12) <- emptyenv()
@@ -777,7 +777,7 @@ There are two primary uses of `...`, both of which we'll come back to later in t
     str(lapply(x, mean, na.rm = TRUE))
     ```
     
-    We'll come back to this technique in Section \@ref(functional-dot-dot-dot).
+    We'll come back to this technique in Section \@ref(functional-arguments).
     
 *   If your function is an S3 generic, you need some way to allow methods to 
     take arbitrary extra arguments. For example, take the `print()` function.
@@ -824,7 +824,7 @@ Using `...` comes with two downsides:
 1.  In the following call, explain how to find the documentation for the
     named arguments in the following function call:
     
-    ```{r, fig.asp = 1}
+    ```{r, fig.asp = 1, small_mar = TRUE, fig.width = 3}
     plot(1:10, col = "red", pch = 20, xlab = "x", col.lab = "blue")
     ```
     
@@ -1118,7 +1118,7 @@ sapply(1:5, `+`, 3)
 
 We'll explore this idea in detail in [functionals].
 
-### Prefix form
+### Prefix form {prefix-form}
 \index{functions!arguments}
 
 The prefix form is the most common form in R code, and indeed in the majority of programming languages. Prefix calls in R are a little special because you can specify arguments in three ways:

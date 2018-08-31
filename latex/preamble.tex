@@ -16,9 +16,9 @@
 \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
 \setmonofont[Mapping=tex-ansi]{Inconsolata}
 
-\renewenvironment{quote}{\begin{VF}}{\end{VF}}
+% Place links inline
 \let\oldhref\href
-\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+\renewcommand{\href}[2]{#2 (\url{#1})}
 
 \makeatletter
 \newenvironment{kframe}{%
