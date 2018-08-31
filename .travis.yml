@@ -13,6 +13,8 @@ before_install:
 - cp Makevars ~/.R
 - npm install netlify-cli -g
 - sudo apt-get install pdftk
+- sudo apt-get install fonts-inconsolata -y
+- sudo fc-cache -fv
 
 script:
 - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
