@@ -1,10 +1,10 @@
-# Preface
+# Preface {-}
 
 Welcome to the work-in-progress 2nd edition of __Advanced R__. This preface describes the major changes that I have made to the book.
 
 The 2nd edition has been published in colour, which as well as improving the syntax highlighting of the code chunks, has considerably increased the scope for helpful diagrams. I have taken advantage of this and included many more diagrams throughout the book. 
 
-## rlang
+## rlang {-}
 
 A big change since the first edition of the book is the creation of the [rlang](http://rlang.r-lib.org) package, written primarily by Lionel Henry. The goal of this package is to provide a clean interface to low-level data structures and operations. I use this package in favour of base R because I believe it makes easier to understand how the R language works. Instead of struggling with the incidentals of functions that evolved organically over many years, the more consistent rlang API makes it easier to focus on the big ideas.
 
@@ -12,7 +12,7 @@ In each section, I'll briefly outline the base R equivalents to rlang code. But 
 
 Overall, rlang is still a work in progress, and much of the API continues to mature. However, the code used in this book is part of the rlang's testing process and will continue to work in the future. You can also see our confidence in the stability of rlang functions with the lifecycle badges at the documentation.
 
-## Foundations
+## Foundations {-}
 
 *   Environments: more pictures. Much improved discussion of frames and how they
     relate to the call stack.
@@ -34,7 +34,7 @@ Overall, rlang is still a work in progress, and much of the API continues to mat
     is more natural in the context of functional programming, and programming
     with NSE is not the challenge it once was (now that tidy evaluation exists).
 
-## Programming paradigms
+## Programming paradigms {-}
 
 After foundations, the book is now organised around the three most important programming paradigms in R:
 
@@ -54,11 +54,11 @@ After foundations, the book is now organised around the three most important pro
   first edition has been substantially expanded (from three chapters to five)
   and reorganised. More diagrams.
 
-## Techniques
+## Techniques {-}
 
 Final section discusses programming techniques, including both debugging, profiling, improving performance, and connecting R and C++.
 
-## Removals
+## Removals {-}
 
 * Chapter of base R vocabulary was removed.
 
