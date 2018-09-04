@@ -49,9 +49,9 @@ microbenchmark(
   x ^ 0.5
 )
 #> Unit: nanoseconds
-#>     expr   min    lq  mean median    uq    max neval
-#>  sqrt(x)   852 1,110  1397  1,250 1,430  6,480   100
-#>    x^0.5 9,200 9,490 10203  9,680 9,930 46,500   100
+#>     expr   min    lq mean median    uq    max neval
+#>  sqrt(x) 1,140 1,580 1769  1,760 1,890  5,580   100
+#>    x^0.5 8,290 8,670 9442  8,840 9,030 41,600   100
 ```
 
 
@@ -158,15 +158,15 @@ microbenchmark(
 )
 #> Unit: nanoseconds
 #>  expr    min     lq  mean median     uq       max neval
-#>   fun    175    196   389    221    232    15,100   100
-#>    S3    976  1,130 10513  1,190  1,320   894,000   100
-#>    S4 12,000 12,400 28115 12,900 14,600   961,000   100
-#>    RC  8,050  8,310 39731  8,500  8,950 3,070,000   100
+#>   fun    182    216   429    260    333    14,300   100
+#>    S3  1,060  1,480 11444  1,860  2,100   933,000   100
+#>    S4 14,500 16,500 33677 18,200 19,600   997,000   100
+#>    RC  8,100  9,260 42004 10,500 12,100 3,110,000   100
 ```
 
 
 
-The bare function takes about 200 ns. S3 method dispatch takes an additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 8,000 ns. S3 and S4 method dispatch are expensive because R must search for the right method every time the generic is called; it might have changed between this call and the last. R could do better by caching methods between calls, but caching is hard to do correctly and a notorious source of bugs.
+The bare function takes about 300 ns. S3 method dispatch takes an additional 2,000 ns; S4 dispatch, 20,000 ns; and RC dispatch, 10,000 ns. S3 and S4 method dispatch are expensive because R must search for the right method every time the generic is called; it might have changed between this call and the last. R could do better by caching methods between calls, but caching is hard to do correctly and a notorious source of bugs.
 
 ### Name lookup with mutable environments
 
@@ -340,9 +340,9 @@ microbenchmark(
 )
 #> Unit: microseconds
 #>             expr   min    lq mean median    uq   max neval
-#>       squish_ife 20.00 22.40 53.1  26.90 31.60 2,420   100
-#>         squish_p 12.50 13.00 36.4  13.50 14.60 1,630   100
-#>  squish_in_place  2.85  3.35 32.3   3.76  4.65 2,830   100
+#>       squish_ife 22.90 29.70 63.6  34.80 38.40 2,780   100
+#>         squish_p 13.40 16.20 41.5  17.80 19.40 1,780   100
+#>  squish_in_place  3.14  3.98 37.8   4.71  5.56 3,270   100
 ```
 
 Using `pmin()` and `pmax()` is about 2x faster than `ifelse()`, and using subsetting directly is about 4x as fast again. We can often do even better by using C++. The following example compares the best R implementation to a relatively simple, if verbose, implementation in C++. Even if you've never used C++, you should still be able to follow the basic strategy: loop over every element in the vector and perform a different action depending on whether or not the value is less than `a` and/or greater than `b`. 
@@ -383,11 +383,11 @@ microbenchmark(
 )
 #> Unit: microseconds
 #>             expr  min   lq  mean median   uq     max neval
-#>  squish_in_place 3.71 4.24  5.05   4.69 5.16    32.1   100
-#>       squish_cpp 2.25 2.82 17.54   3.15 3.48 1,390.0   100
+#>  squish_in_place 3.92 5.04  5.94   5.38 5.87    35.2   100
+#>       squish_cpp 2.53 3.00 18.17   3.25 3.54 1,470.0   100
 ```
 
-The C++ implementation is around 1x faster than the best pure R implementation.
+The C++ implementation is around 2x faster than the best pure R implementation.
 
 ### Exercises
 
@@ -486,9 +486,9 @@ microbenchmark(
   unit = "ms"
 )
 #> Unit: milliseconds
-#>          expr   min    lq  mean median    uq    max neval
-#>  cond_sum_cpp  5.21  5.24  5.31   5.26  5.28   8.16   100
-#>    cond_sum_r 12.10 13.60 15.74  14.60 15.10 146.00   100
+#>          expr   min    lq  mean median    uq   max neval
+#>  cond_sum_cpp  4.69  4.72  4.76   4.74  4.76   6.2   100
+#>    cond_sum_r 10.90 12.10 13.68  12.40 12.70 139.0   100
 ```
 
 On my computer, this approach is about 3x faster than the vectorised R equivalent, which is already pretty fast.
