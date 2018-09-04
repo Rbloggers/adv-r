@@ -14,6 +14,10 @@ before_install:
 - cp Makevars ~/.R
 - npm install netlify-cli -g
 - sudo apt-get install pdftk
+- sudo apt-get install texlive-fonts-recommended
+- sudo apt-get install texlive-fonts-extra
+- sudo apt-get install texlive-latex-extra
+- sudo apt-get install texlive-xetex
 - sudo apt-get install fonts-inconsolata -y
 - sudo fc-cache -fv
 
@@ -29,7 +33,6 @@ before_install:
 
 script:
 - Rscript -e "install.packages('tinytex')"
-- Rscript -e "tinytex::install_tinytex()"
 - Rscript -e "tinytex::tlmgr_install(c('lm-math', 'unicode-math', 'filehook'))"
 - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
 - cp adv-r_cover.pdf _book
