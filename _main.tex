@@ -12209,7 +12209,7 @@ least useful. Generally, they don't tend to reduce overall code
 complexity. Instead, they tend to partition complexity into more easily
 digested chunks. Function factories are also an important building block
 for the very useful function operators, which you'll learn about in
-Chapter @ref(\#function-operators).
+Chapter \ref{function-operators}.
 
 \hypertarget{outline-6}{%
 \subsection*{Outline}\label{outline-6}}
@@ -25911,9 +25911,9 @@ root.
 \NormalTok{  x }\OperatorTok{^}\StringTok{ }\FloatTok{0.5}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
-\CommentTok{#>     expr   min    lq mean median    uq    max neval}
-\CommentTok{#>  sqrt(x) 1,140 1,580 1769  1,760 1,890  5,580   100}
-\CommentTok{#>    x^0.5 8,290 8,670 9442  8,840 9,030 41,600   100}
+\CommentTok{#>     expr   min    lq  mean median    uq    max neval}
+\CommentTok{#>  sqrt(x)   871 1,150  1344  1,260 1,450  5,350   100}
+\CommentTok{#>    x^0.5 9,200 9,500 10248  9,780 9,920 45,600   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26097,15 +26097,15 @@ comparison. \index{methods!cost of dispatch}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>  expr    min     lq  mean median     uq       max neval}
-\CommentTok{#>   fun    182    216   429    260    333    14,300   100}
-\CommentTok{#>    S3  1,060  1,480 11444  1,860  2,100   933,000   100}
-\CommentTok{#>    S4 14,500 16,500 33677 18,200 19,600   997,000   100}
-\CommentTok{#>    RC  8,100  9,260 42004 10,500 12,100 3,110,000   100}
+\CommentTok{#>   fun    180    200   387    223    234    14,700   100}
+\CommentTok{#>    S3    987  1,130 10789  1,220  1,360   925,000   100}
+\CommentTok{#>    S4 11,900 12,600 28142 12,900 13,800   951,000   100}
+\CommentTok{#>    RC  8,250  8,520 40643  8,740  9,150 3,130,000   100}
 \end{Highlighting}
 \end{Shaded}
 
-The bare function takes about 300 ns. S3 method dispatch takes an
-additional 2,000 ns; S4 dispatch, 20,000 ns; and RC dispatch, 10,000 ns.
+The bare function takes about 200 ns. S3 method dispatch takes an
+additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 9,000 ns.
 S3 and S4 method dispatch are expensive because R must search for the
 right method every time the generic is called; it might have changed
 between this call and the last. R could do better by caching methods
@@ -26385,9 +26385,9 @@ subassignment. \indexc{ifelse()} \indexc{pmin()} \indexc{pmax()}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
 \CommentTok{#>             expr   min    lq mean median    uq   max neval}
-\CommentTok{#>       squish_ife 22.90 29.70 63.6  34.80 38.40 2,780   100}
-\CommentTok{#>         squish_p 13.40 16.20 41.5  17.80 19.40 1,780   100}
-\CommentTok{#>  squish_in_place  3.14  3.98 37.8   4.71  5.56 3,270   100}
+\CommentTok{#>       squish_ife 20.10 22.60 53.8  27.40 33.10 2,370   100}
+\CommentTok{#>         squish_p 12.30 13.10 37.0  13.70 15.50 1,560   100}
+\CommentTok{#>  squish_in_place  2.92  3.27 32.3   3.53  4.54 2,830   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26438,8 +26438,8 @@ value is less than \texttt{a} and/or greater than \texttt{b}.
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
 \CommentTok{#>             expr  min   lq  mean median   uq     max neval}
-\CommentTok{#>  squish_in_place 3.92 5.04  5.94   5.38 5.87    35.2   100}
-\CommentTok{#>       squish_cpp 2.53 3.00 18.17   3.25 3.54 1,470.0   100}
+\CommentTok{#>  squish_in_place 3.49 4.32  5.43   4.76 5.45    35.1   100}
+\CommentTok{#>       squish_cpp 2.45 2.83 18.15   3.08 3.36 1,470.0   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26594,9 +26594,9 @@ seen:
   \DataTypeTok{unit =} \StringTok{"ms"}
 \NormalTok{)}
 \CommentTok{#> Unit: milliseconds}
-\CommentTok{#>          expr   min    lq  mean median    uq   max neval}
-\CommentTok{#>  cond_sum_cpp  4.69  4.72  4.76   4.74  4.76   6.2   100}
-\CommentTok{#>    cond_sum_r 10.90 12.10 13.68  12.40 12.70 139.0   100}
+\CommentTok{#>          expr   min    lq  mean median    uq    max neval}
+\CommentTok{#>  cond_sum_cpp  5.19  5.21  5.26   5.23  5.25   6.61   100}
+\CommentTok{#>    cond_sum_r 12.30 13.40 15.53  14.10 14.90 145.00   100}
 \end{Highlighting}
 \end{Shaded}
 
