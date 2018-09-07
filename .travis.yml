@@ -14,22 +14,9 @@ before_install:
 - cp Makevars ~/.R
 - npm install netlify-cli -g
 - sudo apt-get install pdftk
-- sudo apt-get install texlive-latex-base
-- sudo apt-get install texlive-fonts-recommended
-- sudo apt-get install texlive-fonts-extra
-- sudo apt-get install texlive-latex-extra
-- sudo apt-get install texlive-xetex
 - sudo apt-get install fonts-inconsolata -y
 - sudo fc-cache -fv
 
-#- sudo apt-get install texlive-latex-base
-#- sudo apt-get install texlive-fonts-recommended
-#- sudo apt-get install texlive-latex-extra
-#- sudo apt-get install texlive-xetex
-#- sudo apt-get install xzdec
-#- sudo tlmgr init-usertree
-#- sudo tlmgr update --all
-#- sudo tlmgr install lm-math unicode-math filehook
 
 
 script:
