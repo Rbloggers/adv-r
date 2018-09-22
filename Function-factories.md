@@ -229,7 +229,7 @@ counter_two()
 
 Stateful functions are best used in moderation. As soon as your function starts managing the state of multiple variables, it's better to switch to R6, the topic of Chapter \@ref(R6).
 
-### Potential pitfalls
+### Potential pitfalls {#factory-pitfalls}
 
 There are two potential pitfalls to be aware of when creating your own function factories: forgetting to evaluate all inputs and accidentally capturing large objects. 
 

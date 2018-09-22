@@ -230,11 +230,11 @@ lifecycle badges at the documentation.
   how they relate to the call stack.
 \item
   New chapter on ``Names and values'' that helps you form a better
-  mental of \texttt{\textless{}-}, and to better understand when R makes
-  copies of existing data structures. Understanding the distinction
-  between names and values is important for functional programming, and
-  understanding when R makes copies is critical for accurate performance
-  predictions.
+  mental model of \texttt{\textless{}-}, and to better understand when R
+  makes copies of existing data structures. Understanding the
+  distinction between names and values is important for functional
+  programming, and understanding when R makes copies is critical for
+  accurate performance predictions.
 \item
   Vectors (previously data structures) has been rewritten with more
   diagrams to focus on vector types. More information about other
@@ -243,10 +243,11 @@ lifecycle badges at the documentation.
 \item
   Exceptions and debugging has been split into two chapters,
   ``debugging'' and ``conditions''. The contents of conditions has been
-  expanded. The section of defensive programming has been removed,
+  expanded. The section on defensive programming has been removed,
   because discussing type stability is more natural in the context of
-  functional programming, and programming with NSE is not the challenge
-  it once was (now that tidy evaluation exists).
+  functional programming, and programming with NSE (non-standard
+  evaluation) is not the challenge it once was (now that tidy evaluation
+  exists).
 \end{itemize}
 
 \hypertarget{programming-paradigms}{%
@@ -259,12 +260,13 @@ important programming paradigms in R:
 \begin{itemize}
 \item
   Functional programming has been updated to focus on the tools provided
-  by the purrr package. The greatear consistency in the purrr package
+  by the purrr package. The greater consistency in the purrr package
   makes it possible to focus more on the underlying ideas without being
   distracted by incidental details. Divided more cleanly into
   functionals, function factories, and function operators. Greater focus
   on what time has shown to be important in practice. Less math + stat,
-  and more data science.
+  and more data science. Focus on composition with the pipe, rather than
+  more esoteric forms.
 \item
   Object oriented programming (OOP) now forms a major section of the
   book with individual chapters on base types, S3, S4, R6, and the
@@ -272,7 +274,7 @@ important programming paradigms in R:
 \item
   Metaprogramming, formerly computing on the language, describes the
   suite of tools that you can use to generate code with code. Compared
-  to the first edition has been substantially expanded (from three
+  to the first edition it has been substantially expanded (from three
   chapters to five) and reorganised. More diagrams.
 \end{itemize}
 
@@ -289,7 +291,7 @@ debugging, profiling, improving performance, and connecting R and C++.
 
 \begin{itemize}
 \item
-  Chapter of base R vocabulary was removed.
+  Chapter on base R vocabulary was removed.
 \item
   The style guide has moved to \url{http://style.tidyverse.org/}. It is
   now paired with the \href{http://styler.r-lib.org/}{styler} package
@@ -354,7 +356,7 @@ language worthwhile. To me, some of the best features are:
   \href{https://jumpingrivers.github.io/meetingsR/}{user groups}.
 \item
   Powerful tools for communicating your results. R packages make it easy
-  to produce html or pdf \href{http://yihui.name/knitr/}{reports}, or
+  to produce HTML or PDF \href{http://yihui.name/knitr/}{reports}, or
   create \href{http://www.rstudio.com/shiny/}{interactive websites}.
 \item
   A strong foundation in functional programming. The ideas of functional
@@ -432,14 +434,14 @@ and although you may currently struggle to use them effectively, you
 should be familiar with the apply family (like \texttt{apply()} and
 \texttt{lapply()}).
 
-This books works the narrow line between being a reference book
+This book works the narrow line between being a reference book
 (primarily used for lookup), and being linearly readable. This involves
 some tradeoffs, because it's difficult to linearise material while still
 keeping related materials together, whereas some concepts are much
 easier to explain if you're already familiar with specific technically
 vocabulary. I've tried to use footnotes and cross-references to make
 sure you can still make sense even if you just dip your toes in the
-occassional chapter.
+occasional chapter.
 
 \hypertarget{related-work}{%
 \section{Related work}\label{related-work}}
@@ -555,8 +557,9 @@ programmer.
 Currently, there are three main venues to get help when you're stuck and
 can't figure out what's causing the problem:
 \href{https://community.rstudio.com/}{RStudio Community},
-\href{http://stackoverflow.com}{stackoverflow} and the R-help mailing
-list. You can get fantastic help in each venue, but they do have their
+\href{http://stackoverflow.com}{stackoverflow} and the
+\href{https://stat.ethz.ch/mailman/listinfo/r-help}{R-help mailing
+list}. You can get fantastic help in each venue, but they do have their
 own cultures and expectations. It's usually a good idea to spend a
 little time lurking, learning about community expectations, before you
 put up your first post. \index{help}
@@ -575,8 +578,8 @@ Some good general advice:
   the course of making the problem reproducible you often figure out
   what's causing the problem. The
   \href{https://reprex.tidyverse.org/}{\texttt{reprex}} package can help
-  you create a \textbf{repr}oducible \textbf{ex}ample that will can
-  easily be run by people trying to help you. There are
+  you create a \textbf{repr}oducible \textbf{ex}ample that can easily be
+  run by people trying to help you. There are
   \href{https://community.rstudio.com/t/faq-whats-a-reproducible-example-reprex-and-how-do-i-do-one/5219}{several
   resources available} to help you create a successful \texttt{reprex}.
 \item
@@ -1244,7 +1247,7 @@ get another binding to the existing object:
 
 You might have noticed the value \texttt{1:3} has a label:
 \texttt{0x74b}. While the vector doesn't have a name, I'll occasionally
-need to refer to objects independently of their bindings. To make that
+need to refer to objects independent of their bindings. To make that
 possible, I'll label values with a unique identifier. These unique
 identifers have a special form that looks like the object's memory
 ``address'', i.e.~the location in memory in which the object is stored.
@@ -1528,7 +1531,7 @@ unchanged, and R creates a modified copy. This is a \textbf{shallow}
 copy: the list object and its bindings are copied, but the values
 pointed to by the bindings are not. The oppposite of a shallow copy is a
 deep copy, where the contents of every reference are also copied. Prior
-to R 3.1.0, copies were always deep copies, .
+to R 3.1.0, copies were always deep copies.
 
 You can use \texttt{lobstr::ref()} to see values that are shared across
 lists. \texttt{ref()} prints the memory address of each object, along
@@ -1626,7 +1629,7 @@ You can request that \texttt{ref()} show these references:
 \end{Shaded}
 
 This has a profound impact on the amount of memory a character vector
-takes but, but is otherwise not generally important, so elsewhere in the
+takes, but is otherwise not generally important, so elsewhere in the
 book I'll draw character vectors as if the strings live inside the
 vector.
 
@@ -2119,7 +2122,7 @@ operating system for three reasons:
 \end{Highlighting}
 \end{Shaded}
 \item
-  It occupies about 4 MB.
+  It occupies about 8 MB.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2172,7 +2175,7 @@ The \textbf{class} attribute powers the S3 object system. You'll learn
 how to use S3 in Chapter \ref{s3}, but here, you'll learn about a
 handful of the most important S3 vectors: factors, date/times, data
 frames, and tibbles. Matrices and data frames are not necessarily what
-you think of a vectors, so you'll learn why these 2d structures are
+you think of as vectors, so you'll learn why these 2d structures are
 considered to be vectors in R.
 
 \hypertarget{quiz-1}{%
@@ -2317,8 +2320,8 @@ vector is a character, double, integer, or logical. Beware
 they don't test if you have a vector, atomic vector, or numeric vector!
 We'll come back to what they actually do in Section \ref{is-functions}.
 
-The type is a propety of the entire atomic vector, so all elements of an
-atomic must be the same type. When you attempt to combine different
+The type is a property of the entire atomic vector, so all elements of
+an atomic must be the same type. When you attempt to combine different
 types they will be \textbf{coerced} to the most flexible one (character
 \textgreater{}\textgreater{} double \textgreater{}\textgreater{} integer
 \textgreater{}\textgreater{} logical). For example, combining a
@@ -2333,8 +2336,8 @@ character and an integer yields a character:
 
 Coercion often happens automatically. Most mathematical functions
 (\texttt{+}, \texttt{log}, \texttt{abs}, etc.) will coerce to numeric.
-This particularly useful for logical vectors because \texttt{TRUE}
-becomes 1 and \texttt{FALSE} becomes 0.
+This coercion is particularly useful for logical vectors because
+\texttt{TRUE} becomes 1 and \texttt{FALSE} becomes 0.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2354,7 +2357,7 @@ becomes 1 and \texttt{FALSE} becomes 0.
 
 Vectorised logical operations (\texttt{\&}, \texttt{\textbar{}},
 \texttt{any}, etc) will coerce to a logical, but since this might lose
-information, it's always accompanied a warning.
+information, it's always accompanied by a warning.
 
 Generally, you can deliberately coerce by using an \texttt{as.}
 function, like \texttt{as.character()}, \texttt{as.double()},
@@ -2474,7 +2477,7 @@ There are only two attributes that are routinely preserved:
 \item
   \textbf{names}, a character vector giving each element a name.
 \item
-  \textbf{dims}, short for dimensions, an integer vector, used to turn
+  \textbf{dim}, short for dimensions, an integer vector, used to turn
   vectors into matrices and arrays.
 \end{itemize}
 
@@ -2502,9 +2505,9 @@ You can name a vector in three ways:
 \end{Highlighting}
 \end{Shaded}
 
-Avoid using \texttt{attr(x,\ "names")} as it more typing and less
-readable than \texttt{names(x)}. You can remove names from a vector by
-using \texttt{unname(x)} or \texttt{names(x)\ \textless{}-\ NULL}.
+Avoid using \texttt{attr(x,\ "names")} as it requires more typing and is
+less readable than \texttt{names(x)}. You can remove names from a vector
+by using \texttt{unname(x)} or \texttt{names(x)\ \textless{}-\ NULL}.
 
 To be technically correct, when drawing the named vector \texttt{x}, I
 should draw it like so:
@@ -2532,7 +2535,7 @@ Adding a \texttt{dim} attribute to a vector allows it to behave like a
 2-dimensional \textbf{matrix} or multi-dimensional \textbf{array}.
 Matrices and arrays are primarily a mathematical/statistical tool, not a
 programming tool, so will be used infrequently in this book, and only
-covered briefly. Their most important feature of is multidimensional
+covered briefly. Their most important feature is multidimensional
 subsetting, which is covered in Section \ref{matrix-subsetting}.
 
 You can create matrices and arrays with \texttt{matrix()} and
@@ -2669,12 +2672,11 @@ R:
 \begin{itemize}
 \item
   Categorical data, where values can only come from a fixed set of
-  levels,\\
-  are recorded in \textbf{factor} vectors.
+  levels, are recorded in \textbf{factor} vectors.
 \item
-  Dates (with day resolution) are recorded are \textbf{Date} vectors.
+  Dates (with day resolution) are recorded in \textbf{Date} vectors.
 \item
-  Date-times (with second or sub-second) resolution are stored in
+  Date-times (with second or sub-second resolution) are stored in
   \textbf{POSIXct} vectors.
 \end{itemize}
 
@@ -2731,7 +2733,7 @@ this means that tabulating a factor can yield counts of 0:
 \end{Highlighting}
 \end{Shaded}
 
-A minor variation or factors is \textbf{ordered} factors, which
+A minor variation of factors is \textbf{ordered} factors, which
 generally behave similarly, but declare that the order of the levels is
 meaningful (a fact which is used automatically in some models and
 visualisations).
@@ -2748,7 +2750,7 @@ visualisations).
 With base R\footnote{The tidyverse never automatically coerce characters
   to factor, and provides the forcats (Wickham
   \protect\hyperlink{ref-forcats}{2018}) package specifically for
-  working with factors.} you tend to encouter factors very frequently,
+  working with factors.} you tend to encounter factors very frequently,
 because many base R functions (like \texttt{read.csv()} and
 \texttt{data.frame()}) automatically convert character vectors to
 factors. This is suboptimal, because there's no way for those functions
@@ -2804,7 +2806,10 @@ represents the number of days since 1970-01-01:
 \hypertarget{date-times}{%
 \subsection{Date-times}\label{date-times}}
 
-Base R{[}\^{}tidyverse-datetimes{]} provides two ways of storing
+Base R\footnote{The tidyverse provides the lubridate (Grolemund and
+  Wickham \protect\hyperlink{ref-lubridate}{2011}) package for working
+  with date-times. It provides a number of convenient helpers all which
+  work with the base POSIXct type.} provides two ways of storing
 date-time information, POSIXct, and POSIXlt. These are admittedly odd
 names: ``POSIX'' is short for Portable Operating System Interface which
 is a family of cross-platform standards. ``ct'' standards for calendar
@@ -2848,11 +2853,6 @@ not printed if it is midnight.
 \CommentTok{#> [1] "2018-08-02 CEST"}
 \end{Highlighting}
 \end{Shaded}
-
-{[}\^{}tidyverse-datetimes{]} The tidyverse provides the lubridate
-(Grolemund and Wickham \protect\hyperlink{ref-lubridate}{2011}) package
-for working with date-times. It provides a number of convenient helpers
-all which work with the base POSIXct type.
 
 \hypertarget{exercises-6}{%
 \subsection{Exercises}\label{exercises-6}}
@@ -3047,7 +3047,7 @@ preserve the grid structure by storing the models in a 3d array.
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  List all the ways that a list differs from an atomic vector?
+  List all the ways that a list differs from an atomic vector.
 \item
   Why do you need to use \texttt{unlist()} to convert a list to an
   atomic vector? Why doesn't \texttt{as.vector()} work?
@@ -3067,10 +3067,10 @@ frames and tibbles.
 \begin{center}\includegraphics[width=1.67in]{diagrams/vectors/summary-tree-s3-2} \end{center}
 
 A data frame is the most common way of storing data in R, and is crucial
-for effective data analysis. A data frames is a named list of
+for effective data analysis. A data frame is a named list of
 equal-length vectors. It has attributes providing the (column)
 \texttt{names}, \texttt{row.names}\footnote{Row names are one of the
-  most suprisingly complex data structures in R, because they've been
+  most suprisingly complex data structures in R, because they've been a
   persistent performance issue over many years. The most straightforward
   representations are character or integer vectors, with one element for
   each row. There's also a compact representation for ``automatic'' row
@@ -3266,7 +3266,7 @@ vectors of length 1.
 \end{Highlighting}
 \end{Shaded}
 
-There is one final difference: \texttt{tibbles()} allow you to refer to
+There is one final difference: \texttt{tibble()} allows you to refer to
 newly created variables:
 
 \begin{Shaded}
@@ -3330,7 +3330,7 @@ are interchangeable, and transposing a matrix gives you another matrix
 frames, however, the rows and columns are not interchangeable, and the
 transpose of a data frame is not a data frame.
 
-There are three reasons that row names are them suboptimal:
+There are three reasons that row names are suboptimal:
 
 \begin{itemize}
 \item
@@ -3361,7 +3361,7 @@ There are three reasons that row names are them suboptimal:
 \end{Shaded}
 \end{itemize}
 
-For these reasons, tibbles do not support row names. Instead tibble
+For these reasons, tibbles do not support row names. Instead the tibble
 package provides tools to easily convert row names into a regular column
 with either \texttt{rownames\_to\_column()}, or the \texttt{rownames}
 argument to \texttt{as\_tibble()}:
@@ -3382,7 +3382,7 @@ argument to \texttt{as\_tibble()}:
 \subsection{Printing}\label{printing}}
 
 One of the most obvious differences between tibbles and data frames is
-how they are printed. I assume that youu're already familiar with how
+how they are printed. I assume that you're already familiar with how
 data frames are printed, so here I'll highlight some of the biggest
 differences using an example dataset included in the dplyr package:
 
@@ -3518,12 +3518,12 @@ or to as tibble with \texttt{as\_tibble()}.
 \index{data frames!list-column} \indexc{I()}
 
 Since a data frame is a list of vectors, it is possible for a data frame
-to have a column that is a list. This very useful because a list can
+to have a column that is a list. This is very useful because a list can
 contain any other object, which means that you can put any object in a
 data frame. This allows you to keep related objects together in a row,
 no matter how complex the individual objects are. You can see an
 application of this in the ``Many Models'' chapter of ``R for Data
-Sicence'', \url{http://r4ds.had.co.nz/many-models.html}.
+Science'', \url{http://r4ds.had.co.nz/many-models.html}.
 
 List-columns are allowed in data frames but you have to do a little
 extra work, either adding the list-column after creation, or wrapping
@@ -3573,7 +3573,7 @@ columns}\label{matrix-and-data-frame-columns}}
 
 It's also possible to have a column of a data frame that's a matrix or
 array, as long as the number of rows matches the data frame. (This
-requires a slight extention to our definition of a data frame: it's not
+requires a slight extension to our definition of a data frame: it's not
 the \texttt{length()} of each column that must be equal; but the
 \texttt{NROW()}.) Like with list-columns, you must either add after
 creation, or wrap in \texttt{I()}.
@@ -5069,7 +5069,7 @@ more advanced topics discussed later in the book.
 \addcontentsline{toc}{subsection}{Quiz}
 
 Answer the following questions to see if you can safely skip this
-chapter. You can find the answers in \ref{function-answer}.
+chapter. You can find the answers in Section \ref{function-answers}.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5135,12 +5135,20 @@ chapter. You can find the answers in \ref{function-answer}.
   to many function rules: primitive functions (which are implemented in
   C, not R).
 \item
+  Section \ref{function-composition} discusses the strengths and
+  weaknesses of the three forms of function composition commonly used in
+  R code.
+\item
   Section \ref{lexical-scoping} shows you how R finds the value
   associated with a given name, i.e.~the rules of lexical scoping.
 \item
   Section \ref{lazy-evaluation} is devoted to an important property of
   function arguments: they are only evaluated when used for the first
   time.
+\item
+  Section \ref{fun-dot-dot-dot} discusses the special \texttt{...}
+  argument, which allows you to pass on extra arguments to another
+  function.
 \item
   Section \ref{exiting-a-function} discusses the two primary ways that a
   function can exit, and how to define an exit handler, code that is run
@@ -5407,6 +5415,106 @@ unless there is no other option.
   in?
 \end{enumerate}
 
+\hypertarget{function-composition}{%
+\section{Function composition}\label{function-composition}}
+
+Base R provides two ways to compose multiple function calls. For
+example, imagine you want to compute the population standard deviation
+using \texttt{sqrt()} and \texttt{mean()} as building blocks:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{square <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) x}\OperatorTok{^}\DecValTok{2}
+\NormalTok{deviation <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) x }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+You either nest the function calls:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+
+\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{mean}\NormalTok{(}\KeywordTok{square}\NormalTok{(}\KeywordTok{deviation}\NormalTok{(x))))}
+\CommentTok{#> [1] 0.274}
+\end{Highlighting}
+\end{Shaded}
+
+Or you save the intermediate results as variables:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{deviation}\NormalTok{(x)}
+\NormalTok{out <-}\StringTok{ }\KeywordTok{square}\NormalTok{(out)}
+\NormalTok{out <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(out)}
+\NormalTok{out <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(out)}
+\NormalTok{out}
+\CommentTok{#> [1] 0.274}
+\end{Highlighting}
+\end{Shaded}
+
+The magrittr package (Bache and Wickham
+\protect\hyperlink{ref-magrittr}{2014}) provides a third option: the
+binary operator \texttt{\%\textgreater{}\%}, which is called the pipe
+and is pronounced as ``and then''.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(magrittr)}
+
+\NormalTok{x }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{deviation}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{square}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mean}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{sqrt}\NormalTok{()}
+\CommentTok{#> [1] 0.274}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{x\ \%\textgreater{}\%\ f()} is equivalent to \texttt{f(x)};
+\texttt{x\ \%\textgreater{}\%\ f(y)} is equivalent to \texttt{f(x,\ y)}.
+The pipe is related to \textbf{tacit} or \textbf{point-free
+programming}\footnote{Point-free programming is related to point-free
+  topology. It's just a coincidence that many forms of point-free
+  programming use \texttt{.} extensively. Point-free programming is
+  sometimes humorously called pointless programming.}. In this style of
+programming, you don't explicitly refer to variables. Instead, you focus
+on the high-level composition of functions rather than the low-level
+flow of data; the focus is on what's being done (the verbs), rather that
+on what's being modified (the nouns). This style is common in Haskell
+and F\#, the main inspiration for magrittr, and is the default style in
+stack based programming languages like Forth and Factor.
+\index{point-free programming} \index{tacit programming}
+
+Each of the three options has its own strengths and weaknesses:
+
+\begin{itemize}
+\item
+  Nesting, \texttt{f(g(x))}, is concise, and well suited for short
+  sequences. But longer sequences are hard to read because they are read
+  inside out and right to left. As a result, arguments can get spread
+  out over long distances creating the
+  ``\href{https://en.wikipedia.org/wiki/Dagwood_sandwich}{Dagwood
+  sandwich}'' problem.
+\item
+  Intermediate objects, \texttt{y\ \textless{}-\ f(x);\ g(y)}, requires
+  you to name intermediate objects. This is a strength when objects are
+  important, but a weakness when values are truly intermediate.
+\item
+  Piping, \texttt{x\ \%\textgreater{}\%\ f()\ \%\textgreater{}\%\ g()},
+  allows you to read code in straightforward left-to-right fashion and
+  doesn't require you to name intermediate objects. But you can only use
+  it with linear sequences of transformations of a single object. It
+  also requires an additional third party package and assumes that the
+  reader understands piping.
+\end{itemize}
+
+Most code will use a combination of all three styles. Piping is more
+common in data analysis code, as much of an analysis consists of a
+sequence of transformations of an object (like a data frame or plot). I
+tend to use piping infrequently in packages; not because it is a bad
+idea, but because it's often a less natural fit.
+
 \hypertarget{lexical-scoping}{%
 \section{Lexical scoping}\label{lexical-scoping}}
 
@@ -5469,9 +5577,9 @@ R's lexical scoping follows four primary rules:
 \hypertarget{name-masking}{%
 \subsection{Name masking}\label{name-masking}}
 
-The following example illustrates the most basic principle of lexical
-scoping: names defined inside a function mask those defined outside of
-it.
+The basic principle of lexical scoping is that names defined inside a
+function mask names defined outside a function. This is illustrated in
+the following example.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5487,7 +5595,7 @@ it.
 \end{Highlighting}
 \end{Shaded}
 
-If a name isn't defined inside a function, R will look one level up.
+If a name isn't defined inside a function, R looks one level up.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5501,13 +5609,13 @@ If a name isn't defined inside a function, R will look one level up.
 \end{Highlighting}
 \end{Shaded}
 
-The same rules apply if a function is defined inside another function:
-look inside the current function, then where that function was defined,
-and so on, all the way up to the global environment, and then on to
-other loaded packages.
+The same rules apply if a function is defined inside another function.
+First, R looks inside the current function. Then, it looks where that
+function was defined (and so on, all the way up to the global
+environment). Finally, it looks in other loaded packages.
 
-Run the following code in your head, then confirm the output by running
-the R code.\footnote{\texttt{g04()} returns \texttt{c(1,\ 2,\ 3)}.}
+Run the following code in your head, then confirm the result by running
+the code.\footnote{\texttt{g04()} returns \texttt{c(1,\ 2,\ 3)}.}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5524,11 +5632,11 @@ the R code.\footnote{\texttt{g04()} returns \texttt{c(1,\ 2,\ 3)}.}
 \end{Highlighting}
 \end{Shaded}
 
-The same rules apply to functions created by other functions, which
+The same rules also apply to functions created by other functions, which
 we'll call \textbf{closures}. Closures will be described in more detail
-in {[}closures{]}; here we'll just look at how they interact with
-scoping. The following function, \texttt{g05()}, returns a function.
-What do you think this function will return when we call it?\footnote{\texttt{g06()}
+in \ref{closures}; here we'll focus on how they interact with scoping.
+The following function, \texttt{g05()}, returns a function. What do you
+think this function will return when it's called?\footnote{\texttt{g06()}
   returns \texttt{c(10,\ 2)}. \index{closures!scoping}}
 
 \begin{Shaded}
@@ -5548,11 +5656,10 @@ What do you think this function will return when we call it?\footnote{\texttt{g0
 \end{Shaded}
 
 This seems a little magical: how does R know what the value of
-\texttt{y} is after \texttt{j()} has returned? It works because
-\texttt{k} preserves the environment in which it was defined and because
-the environment includes the value of \texttt{y}. You'll learn more
-about how environments work in
-\protect\hyperlink{environments}{Environments}.
+\texttt{y} is after \texttt{g05()} is returned? R knows because
+\texttt{g06()} preserves the environment where it was defined and that
+environment includes the value of \texttt{y}. You'll learn more about
+how environments work in \ref{environments}).
 
 \hypertarget{functions-vs.variables}{%
 \subsection{Functions vs.~variables}\label{functions-vs.variables}}
@@ -5596,12 +5703,12 @@ code, and is best avoided!
 \hypertarget{fresh-start}{%
 \subsection{A fresh start}\label{fresh-start}}
 
-What happens to the values in between invocations of a function? What
-will happen the first time you run this function? What will happen the
-second time?\footnote{\texttt{g11()} returns \texttt{1} every time it is
-  called.} (If you haven't seen \texttt{exists()} before: it returns
-\texttt{TRUE} if there's a variable of that name, otherwise it returns
-\texttt{FALSE}.)
+What happens to values between invocations of a function? Consider the
+example below. What will happen the first time you run this function?
+What will happen the second time?\footnote{\texttt{g11()} returns
+  \texttt{1} every time it's called.} (If you haven't seen
+\texttt{exists()} before, it returns \texttt{TRUE} if there's a variable
+with that name and returns \texttt{FALSE} if not.)
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5620,11 +5727,11 @@ second time?\footnote{\texttt{g11()} returns \texttt{1} every time it is
 \end{Shaded}
 
 You might be surprised that \texttt{g11()} always returns the same
-value. That happens because a new environment is created to host its
-execution every time a function is called. That means a function has no
-way to tell what happened the last time it was run; each invocation is
-completely independent. (We'll see some ways to get around this in
-Section \ref{stateful-funs}.)
+value. This happens because every time a function is called a new
+environment is created to host its execution. This means that a function
+has no way to tell what happened the last time it was run; each
+invocation is completely independent. (We'll see some ways to get around
+this in Section \ref{stateful-funs})
 
 \hypertarget{dynamic-lookup}{%
 \subsection{Dynamic lookup}\label{dynamic-lookup}}
@@ -5762,12 +5869,12 @@ To \textbf{compel} the evaluation of an argument, use \texttt{force()}:
 \end{Highlighting}
 \end{Shaded}
 
-It is usually not necessary to force evaluation. It's needed primarily
-for certain functional programming techniques which we'll cover in
-detail in \protect\hyperlink{function-operators}{function operators}.
-Here, I want to show you the basic issue.
+It's usually not necessary to force evaluation. However, it is important
+for certain functional programming techniques, like the one we'll cover
+in detail in \protect\hyperlink{function-operators}{function operators}.
+Here, I'm just going to show you what the basic issue is.
 
-Take this small but surprisingly tricky function. It takes a single
+Consider this small but surprisingly tricky function. It takes a single
 argument \texttt{x}, and returns a function that returns \texttt{x} when
 called.
 
@@ -5781,9 +5888,9 @@ called.
 \end{Highlighting}
 \end{Shaded}
 
-There's a subtle issue with this function: the value of \texttt{x} will
-be captured not when you call \texttt{capture()}, but when you call the
-function that \texttt{capture()} returns:
+The subtlety here is that the value of \texttt{x} will be captured not
+when you call \texttt{capture1()}, but when you call the function that
+\texttt{capture1()} returns:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5872,7 +5979,7 @@ that \texttt{runif(1)} is only evaluated once:
 \NormalTok{\}}
 
 \KeywordTok{h06}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{))}
-\CommentTok{#> [1] 0.0808 0.0808 0.0808}
+\CommentTok{#> [1] 0.806 0.806 0.806}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5883,9 +5990,9 @@ You can also create promises ``by hand'' using \texttt{delayedAssign()}:
 \KeywordTok{delayedAssign}\NormalTok{(}\StringTok{"x"}\NormalTok{, \{}\KeywordTok{print}\NormalTok{(}\StringTok{"Executing code"}\NormalTok{); }\KeywordTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{)\})}
 \NormalTok{x}
 \CommentTok{#> [1] "Executing code"}
-\CommentTok{#> [1] 0.834}
+\CommentTok{#> [1] 0.814}
 \NormalTok{x}
-\CommentTok{#> [1] 0.834}
+\CommentTok{#> [1] 0.814}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6072,7 +6179,7 @@ evaluated if the LHS is null.
 \NormalTok{force}
 \CommentTok{#> function (x) }
 \CommentTok{#> x}
-\CommentTok{#> <bytecode: 0x12abc48>}
+\CommentTok{#> <bytecode: 0x870cc8>}
 \CommentTok{#> <environment: namespace:base>}
 \end{Highlighting}
 \end{Shaded}
@@ -6129,7 +6236,7 @@ evaluated if the LHS is null.
   \KeywordTok{print}\NormalTok{(x)}
 \NormalTok{\}}
 \KeywordTok{show_time}\NormalTok{()}
-\CommentTok{#> [1] "2018-09-04 01:42:10 UTC"}
+\CommentTok{#> [1] "2018-09-22 05:51:06 UTC"}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -6152,7 +6259,7 @@ argument is often called a varargs, or the function is said to be
 variadic.
 
 Inside a function, you can use \texttt{...} to pass those additional
-arguments on to another function:
+arguments on to another function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6301,7 +6408,7 @@ Using \texttt{...} comes with two downsides:
 \end{Highlighting}
 \end{Shaded}
 
-  \begin{center}\includegraphics[width=0.7\linewidth]{Functions_files/figure-latex/unnamed-chunk-59-1} \end{center}
+  \begin{center}\includegraphics[width=0.7\linewidth]{Functions_files/figure-latex/unnamed-chunk-63-1} \end{center}
 \item
   Why does \texttt{plot(1:10,\ col\ =\ "red")} only colour the points,
   not the axes or labels? Read the source code of
@@ -6342,10 +6449,10 @@ There are two ways that a function can return a value:
     \DecValTok{10}
 \NormalTok{  \}}
 \NormalTok{\}}
-\KeywordTok{f}\NormalTok{(}\DecValTok{5}\NormalTok{)}
-\CommentTok{#> [1] 52}
-\KeywordTok{f}\NormalTok{(}\DecValTok{15}\NormalTok{)}
-\CommentTok{#> [1] 452}
+\KeywordTok{j01}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\CommentTok{#> [1] 0}
+\KeywordTok{j01}\NormalTok{(}\DecValTok{15}\NormalTok{)}
+\CommentTok{#> [1] 10}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -6496,11 +6603,16 @@ it to exit:
 \NormalTok{  \}}
 \NormalTok{\}}
 
-\KeywordTok{f}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)}
-\CommentTok{#> [1] 4}
+\KeywordTok{j06}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)}
+\CommentTok{#> Hello}
+\CommentTok{#> Goodbye!}
+\CommentTok{#> [1] 10}
 
-\KeywordTok{f}\NormalTok{(}\OtherTok{FALSE}\NormalTok{)}
-\CommentTok{#> [1] 2}
+\KeywordTok{j06}\NormalTok{(}\OtherTok{FALSE}\NormalTok{)}
+\CommentTok{#> Hello}
+\CommentTok{#> Error in j06(FALSE):}
+\CommentTok{#>   Error}
+\CommentTok{#> Goodbye!}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6517,7 +6629,7 @@ actions next to actions with their cleanup operations.
 \begin{Highlighting}[]
 \NormalTok{cleanup <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(dir, code) \{}
 \NormalTok{  old_dir <-}\StringTok{ }\KeywordTok{setwd}\NormalTok{(dir)}
-  \KeywordTok{on.exit}\NormalTok{(}\KeywordTok{setwd}\NormalTok{(old), }\DataTypeTok{add =} \OtherTok{TRUE}\NormalTok{)}
+  \KeywordTok{on.exit}\NormalTok{(}\KeywordTok{setwd}\NormalTok{(old_dir), }\DataTypeTok{add =} \OtherTok{TRUE}\NormalTok{)}
   
 \NormalTok{  old_opt <-}\StringTok{ }\KeywordTok{options}\NormalTok{(}\DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
   \KeywordTok{on.exit}\NormalTok{(}\KeywordTok{options}\NormalTok{(old_opt), }\DataTypeTok{add =} \OtherTok{TRUE}\NormalTok{)}
@@ -6712,17 +6824,17 @@ numeric calculation inside of parentheses.
 \NormalTok{  \}}
 \NormalTok{\}}
 \KeywordTok{replicate}\NormalTok{(}\DecValTok{50}\NormalTok{, (}\DecValTok{1} \OperatorTok{+}\StringTok{ }\DecValTok{2}\NormalTok{))}
-\CommentTok{#>  [1] 3 3 4 3 3 3 3 3 3 3 4 3 3 3 3 4 3 3 3 3 3 3 3 3 4 3 3 3 4 3 3 3}
-\CommentTok{#> [33] 3 3 3 3 3 3 3 3 3 3 4 3 3 3 3 3 3 3}
+\CommentTok{#>  [1] 3 3 3 3 3 3 3 3 3 3 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3}
+\CommentTok{#> [33] 3 3 3 3 4 3 4 3 3 3 3 4 3 3 3 3 3 3}
 \KeywordTok{rm}\NormalTok{(}\StringTok{"("}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 Of course, overriding built-in functions like this is a bad idea, but,
-as you'll learn about in {[}metaprogramming{]}, it's possible to apply
-it only to selected code blocks. This provides a clean and elegant
-approach to writing domain specific languages and translators to other
-languages.
+as you'll learn about in \protect\hyperlink{meta}{metaprogramming}, it's
+possible to apply it only to selected code blocks. This provides a clean
+and elegant approach to writing domain specific languages and
+translators to other languages.
 
 A more useful technique is to use this knowledge when using functional
 programming tools. For example, you could use \texttt{sapply()} to add 3
@@ -6750,8 +6862,8 @@ existing \texttt{+} function:
 We'll explore this idea in detail in
 \protect\hyperlink{functionals}{functionals}.
 
-\hypertarget{prefix-form-prefix-form}{%
-\subsection{Prefix form \{prefix-form\}}\label{prefix-form-prefix-form}}
+\hypertarget{prefix-form}{%
+\subsection{Prefix form}\label{prefix-form}}
 
 \index{functions!arguments}
 
@@ -7797,12 +7909,12 @@ the following code and diagram:
 
 \begin{itemize}
 \item
-  \texttt{where(a,\ e4a)} will find \texttt{a} in \texttt{e4a}.
+  \texttt{where("a",\ e4b)} will find \texttt{a} in \texttt{e4b}.
 \item
-  \texttt{where("b",\ e4a)} doesn't find \texttt{b} in \texttt{e4a}, so
-  it looks in its parent, \texttt{e4b}, and finds it there.
+  \texttt{where("b",\ e4b)} doesn't find \texttt{b} in \texttt{e4b}, so
+  it looks in its parent, \texttt{e4a}, and finds it there.
 \item
-  \texttt{where("c",\ e4a)} looks in \texttt{e4a}, then \texttt{e4b},
+  \texttt{where("c",\ e4b)} looks in \texttt{e4b}, then \texttt{e4a},
   then hits the empty environment and throws an error.
 \end{itemize}
 
@@ -9179,8 +9291,8 @@ the handler.
 \index{conditions!objects}
 
 So far we've just signalled conditions, and not looked at the objects
-that are created behind the The easiest way to see a condition object is
-to catch one from a signalled condition. That's the job of
+that are created behind the scenes. The easiest way to see a condition
+object is to catch one from a signalled condition. That's the job of
 \texttt{rlang::catch\_cnd()}:
 
 \begin{Shaded}
@@ -9213,7 +9325,7 @@ Custom conditions may contain other components, which we'll discuss in
 Conditions also have a \texttt{class} attribute, which makes them S3
 objects. We won't disucss S3 until \protect\hyperlink{s3}{S3}, but
 fortunately, even if you don't know about S3, condition objects are
-quite simple. The most important thing to know know is that the
+quite simple. The most important thing to know is that the
 \texttt{class} attribute is a character vector, and it determines which
 handlers will match the condition.
 
@@ -9370,7 +9482,7 @@ in an infinite loop:
 conditions that could be captured by another handler: you'll need to
 think through the order carefully.)
 
-The return value of an calling handler is ignored because the code
+The return value of a calling handler is ignored because the code
 continues to execute after the handler completes; where would the return
 value go? That means that calling handlers are only useful for their
 side-effects.
@@ -9875,9 +9987,8 @@ more like what you'd see if \texttt{tryCatch()} wasn't used.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{success-and-failure-values}{%
-\subsection{Success and failure
-values}\label{success-and-failure-values}}
+\hypertarget{try-success-failure}{%
+\subsection{Success and failure values}\label{try-success-failure}}
 
 We can extend this pattern to returns one value if the code evaluates
 successfully (\texttt{success\_val}), and another if it fails
@@ -9943,7 +10054,7 @@ list with two components \texttt{result} and \texttt{error}.
 \NormalTok{safety <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(expr) \{}
   \KeywordTok{tryCatch}\NormalTok{(}
     \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(cnd) \{}
-      \KeywordTok{list}\NormalTok{(}\DataTypeTok{result =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{error =}\NormalTok{ c)}
+      \KeywordTok{list}\NormalTok{(}\DataTypeTok{result =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{error =}\NormalTok{ cnd)}
 \NormalTok{    \},}
     \KeywordTok{list}\NormalTok{(}\DataTypeTok{result =}\NormalTok{ expr, }\DataTypeTok{error =} \OtherTok{NULL}\NormalTok{)}
 \NormalTok{  )}
@@ -9956,11 +10067,85 @@ list with two components \texttt{result} and \texttt{error}.
 \KeywordTok{str}\NormalTok{(}\KeywordTok{safety}\NormalTok{(}\KeywordTok{abort}\NormalTok{(}\StringTok{"Error!"}\NormalTok{)))}
 \CommentTok{#> List of 2}
 \CommentTok{#>  $ result: NULL}
-\CommentTok{#>  $ error :function (...)}
+\CommentTok{#>  $ error :List of 4}
+\CommentTok{#>   ..$ message: chr "Error!"}
+\CommentTok{#>   ..$ call   : NULL}
+\CommentTok{#>   ..$ trace  :List of 3}
+\CommentTok{#>   .. ..$ calls  :List of 31}
+\CommentTok{#>   .. .. ..$ : language local(\{     args = commandArgs(TRUE) ...}
+\CommentTok{#>   .. .. ..$ : language eval.parent(substitute(eval(quote(expr), env..}
+\CommentTok{#>   .. .. ..$ : language eval(expr, p)}
+\CommentTok{#>   .. .. ..$ : language eval(expr, p)}
+\CommentTok{#>   .. .. ..$ : language eval(quote(\{     args = commandArgs(TRUE) ...}
+\CommentTok{#>   .. .. ..$ : language eval(quote(\{     args = commandArgs(TRUE) ...}
+\CommentTok{#>   .. .. ..$ : language do.call(rmarkdown::render, c(args[1], readR"..}
+\CommentTok{#>   .. .. ..$ : language (function (input, output_format = NULL, outp..}
+\CommentTok{#>   .. .. ..$ : language knitr::knit(knit_input, knit_output, envir =..}
+\CommentTok{#>   .. .. ..$ : language process_file(text, output)}
+\CommentTok{#>   .. .. ..$ : language withCallingHandlers(if (tangle) process_tang..}
+\CommentTok{#>   .. .. ..$ : language process_group(group)}
+\CommentTok{#>   .. .. ..$ : language process_group.block(group)}
+\CommentTok{#>   .. .. ..$ : language call_block(x)}
+\CommentTok{#>   .. .. ..$ : language block_exec(params)}
+\CommentTok{#>   .. .. ..$ : language in_dir(input_dir(), evaluate(code, envir = e..}
+\CommentTok{#>   .. .. ..$ : language evaluate(code, envir = env, new_device = FAL..}
+\CommentTok{#>   .. .. ..$ : language evaluate::evaluate(...)}
+\CommentTok{#>   .. .. ..$ : language evaluate_call(expr, parsed$src[[i]], envir =..}
+\CommentTok{#>   .. .. ..$ : language timing_fn(handle(ev <- withCallingHandlers(w..}
+\CommentTok{#>   .. .. ..$ : language handle(ev <- withCallingHandlers(withVisible..}
+\CommentTok{#>   .. .. ..$ : language withCallingHandlers(withVisible(eval(expr, e..}
+\CommentTok{#>   .. .. ..$ : language withVisible(eval(expr, envir, enclos))}
+\CommentTok{#>   .. .. ..$ : language eval(expr, envir, enclos)}
+\CommentTok{#>   .. .. ..$ : language eval(expr, envir, enclos)}
+\CommentTok{#>   .. .. ..$ : language str(safety(abort("Error!")))}
+\CommentTok{#>   .. .. ..$ : language safety(abort("Error!"))}
+\CommentTok{#>   .. .. ..$ : language tryCatch(error = function(cnd) \{     list(re..}
+\CommentTok{#>   .. .. .. ..- attr(*, "srcref")= 'srcref' int [1:8] 2 3 7 3 3 3 2 7}
+\CommentTok{#>   .. .. .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfil..}
+\CommentTok{#>   .. .. ..$ : language tryCatchList(expr, classes, parentenv, handl..}
+\CommentTok{#>   .. .. ..$ : language tryCatchOne(expr, names, parentenv, handlers..}
+\CommentTok{#>   .. .. ..$ : language doTryCatch(return(expr), name, parentenv, ha..}
+\CommentTok{#>   .. ..$ parents: int [1:31] 0 1 2 3 0 5 6 6 8 9 ...}
+\CommentTok{#>   .. ..$ envs   :List of 31}
+\CommentTok{#>   .. .. ..$ : chr "0x36b77c0"}
+\CommentTok{#>   .. .. ..$ : chr "0x36b7670"}
+\CommentTok{#>   .. .. ..$ : chr "0x36bb158"}
+\CommentTok{#>   .. .. ..$ : chr "global"}
+\CommentTok{#>   .. .. ..$ : chr "0x36baac8"}
+\CommentTok{#>   .. .. ..$ : chr "0x36ba630"}
+\CommentTok{#>   .. .. ..$ : chr "0x36bc860"}
+\CommentTok{#>   .. .. ..$ : chr "0x3827f70"}
+\CommentTok{#>   .. .. ..$ : chr "0x2547c68"}
+\CommentTok{#>   .. .. ..$ : chr "0x2389e58"}
+\CommentTok{#>   .. .. ..$ : chr "0x2ab5fb0"}
+\CommentTok{#>   .. .. ..$ : chr "0x2ab5aa8"}
+\CommentTok{#>   .. .. ..$ : chr "0x2ab5808"}
+\CommentTok{#>   .. .. ..$ : chr "0x2ab5728"}
+\CommentTok{#>   .. .. ..$ : chr "0x1b4b120"}
+\CommentTok{#>   .. .. ..$ : chr "0x1aefb60"}
+\CommentTok{#>   .. .. ..$ : chr "0x1aee998"}
+\CommentTok{#>   .. .. ..$ : chr "0x1aed0d0"}
+\CommentTok{#>   .. .. ..$ : chr "0x2985d00"}
+\CommentTok{#>   .. .. ..$ : chr "0x24a5e18"}
+\CommentTok{#>   .. .. ..$ : chr "0x24a5d00"}
+\CommentTok{#>   .. .. ..$ : chr "0x24a58a0"}
+\CommentTok{#>   .. .. ..$ : chr "0x24a5280"}
+\CommentTok{#>   .. .. ..$ : chr "0x24a8e10"}
+\CommentTok{#>   .. .. ..$ : chr "global"}
+\CommentTok{#>   .. .. ..$ : chr "0x24a8a90"}
+\CommentTok{#>   .. .. ..$ : chr "0x24a8908"}
+\CommentTok{#>   .. .. ..$ : chr "0x1abc248"}
+\CommentTok{#>   .. .. ..$ : chr "0x1abc980"}
+\CommentTok{#>   .. .. ..$ : chr "0x1abcd00"}
+\CommentTok{#>   .. .. ..$ : chr "0x1abd080"}
+\CommentTok{#>   .. ..- attr(*, "class")= chr "rlang_trace"}
+\CommentTok{#>   ..$ parent : NULL}
+\CommentTok{#>   ..- attr(*, "class")= chr [1:3] "rlang_error" "error" "condition"}
 \end{Highlighting}
 \end{Shaded}
 
-(This is closely related to \texttt{purrr::safely()}, an adverb.)
+(This is closely related to \texttt{purrr::safely()}, a function
+operator, which we'll come back to in Section \ref{safely}.)
 
 \hypertarget{resignal}{%
 \subsection{Resignal}\label{resignal}}
@@ -10344,64 +10529,110 @@ programming}\label{part-functional-programming}}
 
 \index{functional programming}
 
-R, at its heart, is a functional programming (FP) language. This means
-that it provides many tools for the creation and manipulation of
-functions.
+R, at its heart, is a \textbf{functional} language. This means that it
+has certain technical properties, but more importantly that it lends
+itself to a style of problem solving centered on functions. Below I'll
+give a brief overview of the technical definition of a functional
+\emph{language}, but in this book I will primarily focus on the
+functional \emph{style} of programming, because I think it is an
+extremely good fit to the types of problem you commonly encounter when
+doing data analysis.
 
-FP is a technical term that defines certain properties of a programming
-language. But it's also a programming style.
+Recently, functional techniques have experienced a surge in interest
+because they can produce efficient and elegant solutions to many modern
+problems. A functional style tends to create functions that can easily
+be analysed in isolation (i.e.~using only local information), and hence
+is often much easier to automatically optimise or parallelise. The
+traditional weaknesses of function languages, poorer performance and
+sometimes unpredictable memory usage, have been much reduced in recent
+years. Functional programming is complementary to object oriented
+programming, which has been the dominant programming paradigm for the
+last several decades.
 
-In R, the tools for working with functions, the tools of functional
-programming, are more important than the tools for working with objects
-or classes, the tools of object oriented programming.
+\hypertarget{functional-programming-languages}{%
+\section*{Functional programming
+languages}\label{functional-programming-languages}}
+\addcontentsline{toc}{section}{Functional programming languages}
 
-R has what's known as first class functions. You can do anything with
-functions that you can do with vectors: you can assign them to
-variables, store them in lists, pass them as arguments to other
-functions, create them inside functions, and even return them as the
-result of a function. A higher-order function is a function that takes a
-function as an input or returns a function as output. This part of the
-book is broken down by the three types of higher-order functions:
+Every programming language has functions, so what makes a programming
+language functional? There are many defintions for precisely what makes
+a language ``functional'', but there are two common threads.
+
+Firstly, functional languages have \textbf{first class functions},
+functions that behave like any other data structure. In R, this means
+that you can do anything with a function that you can do with a vector:
+you can assign them to variables, store them in lists, pass them as
+arguments to other functions, create them inside functions, and even
+return them as the result of a function.
+
+Secondly, many functional languages require functions to be
+\textbf{pure}. A function is pure if it satisfies two properties:
 
 \begin{itemize}
 \item
-  \textbf{Functionals}, Chapter \ref{functionals} where functions are
-  the input. Functionals are by far and away the most immediately useful
-  application of FP ideas, and you'll use them all the time in data
-  analyses.
+  The output only depends on the inputs, i.e.~if you call it again with
+  the same inputs, you get the same outputs. This excludes functions
+  like \texttt{runif()}, \texttt{read.csv()}, or \texttt{Sys.time()}
+  that can return different values.
 \item
-  \textbf{Function factories}, Chapter \ref{function-factories},
-  functions as output. You can almost always avoid function factories in
-  favour of a different technique, but they are occassionally useful.
-\item
-  \textbf{Function operators}, Chapter \ref{function-operators},
-  discusses function as input and output. These are like adverbs,
-  because they typically modify the operation of a function.
+  The function has no side-effects, like changing the value of a
+  variable, writing to disk, or displaying to the screen. This excludes
+  functions like \texttt{print()}, \texttt{write.csv()} and
+  \texttt{\textless{}-}.
 \end{itemize}
 
-\hypertarget{other-languages}{%
-\subsubsection{Other languages}\label{other-languages}}
+Pure functions are much easier to reason about, but obviously have
+significant downsides: imagine doing a data analysis where you couldn't
+generate random numbers or read files from disk.
 
-While FP techniques form the core of languages like Haskell, OCaml and
-F\#, those techniques can also be found in other languages. They are
-well supported in multi-paradigm systems like Lisp, Scheme, Clojure and
-Scala. Also, while they tend not to be the dominant technique used by
-programmers, they can be used in modern scripting languages like Python,
-Ruby and JavaScript. In contrast, C, Java and C\# provide few functional
-tools, and while it's possible to do FP in those languages, it tends to
-be an awkward fit. In sum, if you Google for it you're likely to find a
-tutorial on functional programming in any language. But doing so can
-often be syntactically awkward or used so rarely that other programmers
-won't understand your code.
+Strictly speaking, R isn't a functional programming \emph{language}
+because it doesn't require that you write pure functions. However, you
+can certainly adopt a functional style in parts of your code: you don't
+\emph{have} to write pure functions, but you often \emph{should}. In my
+experience, partitioning code into functions that are either extremely
+pure and or extremely impure tends to lead to code that is easier to
+understand and extend to new situations.
 
-Recently FP has experienced a surge in interest because it provides a
-complementary set of techniques to object oriented programming, the
-dominant style for the last several decades. Since FP functions tend to
-not modify their inputs, they make for programs that are easier to
-reason about using only local information, and are often easier to
-parallelise. The traditional weaknesses of FP languages, poorer
-performance and sometimes unpredictable memory usage, have been largely
-eliminated in recent years.
+\hypertarget{functional-style}{%
+\section*{Functional style}\label{functional-style}}
+\addcontentsline{toc}{section}{Functional style}
+
+It's hard to describe exactly what a functional \emph{style} is, but
+generally I think it means decomposing a big problem into smaller pieces
+then solving each piece with a function or combination of functions.
+When using a functional style you strive to decompose components of the
+problem into isolated functions that operate independently. Each
+function taken by itself is simple and straightforward to understand;
+complexity is handled by composing fuctions in various ways.
+
+The following three chapters discuss the three key functional techniques
+that help you to decompose problems into smaller pieces:
+
+\begin{itemize}
+\item
+  Chapter \ref{functionals} shows you how to replace many for loops with
+  \textbf{functionals} which are functions (like \texttt{lapply()}) that
+  take another function as an argument. Functionals allow you to take a
+  function that solves the problem for a single input, and generalise it
+  to handle any number of inputs. Functionals are by far and away the
+  most important technique, and you'll use them all the time in data
+  analysis.
+\item
+  Chapter \ref{function-factories} introduces \textbf{function
+  factories}, functions that create functions. Function factories are
+  less useful than funcitonals, but often allow you elegantly partition
+  work between different parts of your code.
+\item
+  Chapter \ref{function-operators} shows you how to create
+  \textbf{function operators}, functions that take functions as input
+  and produce functions as output. They are like adverbs, because they
+  typically modify the operation of a function.
+\end{itemize}
+
+Collectively, these types of function are caled \textbf{higher-order
+functions}, and fill out a two-by-two table:
+
+\begin{center}\includegraphics[width=2.95in]{diagrams/fp} \end{center}
 
 \hypertarget{functionals}{%
 \chapter{Functionals}\label{functionals}}
@@ -11034,6 +11265,97 @@ You'll see one more approach to this problem that in Section \ref{pmap}.
 \end{Shaded}
 \end{enumerate}
 
+\hypertarget{purrr-style}{%
+\section{Purrr style}\label{purrr-style}}
+
+Before we go on to take to explore more map variants, lets take a quick
+look at how you tend to use multiple purrr functions to solve a
+moderately realistic problem: fitting a model to each subgroups and
+extracting a coefficient of the model.
+
+For this toy example, I'm going to break the \texttt{mtcars} data set
+down into groups defined by the number of cylinders, using the base
+\texttt{split} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{by_cyl <-}\StringTok{ }\KeywordTok{split}\NormalTok{(mtcars, mtcars}\OperatorTok{$}\NormalTok{cyl)}
+\end{Highlighting}
+\end{Shaded}
+
+Now imagine we want to fit a linear model, then extract the second
+coefficient (i.e.~the intern). The following code shows how you might do
+that with purrr:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{by_cyl }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{map}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt, }\DataTypeTok{data =}\NormalTok{ .x)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{map}\NormalTok{(coef) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{map_dbl}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\CommentTok{#>     4     6     8 }
+\CommentTok{#> -5.65 -2.78 -2.19}
+\end{Highlighting}
+\end{Shaded}
+
+(If you haven't seen \texttt{\%\textgreater{}\%}, the pipe, before, it's
+described in Section \ref{function-composition}.)
+
+I think this code is easy to read because each line encapsulates a
+single step, you can easily distinguish the functional from what it
+does, and the purrr helpers allow us to very concisely describe what to
+do in each step.
+
+How would you attack this problem with base R? You certainly
+\emph{could} replace each purrr function with the equivalent base
+function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{by_cyl }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{lapply}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(data) }\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt, }\DataTypeTok{data =}\NormalTok{ data)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{lapply}\NormalTok{(coef) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{vapply}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) x[[}\DecValTok{2}\NormalTok{]], }\KeywordTok{double}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\CommentTok{#>     4     6     8 }
+\CommentTok{#> -5.65 -2.78 -2.19}
+\end{Highlighting}
+\end{Shaded}
+
+But this isn't really base R since we're using the pipe. To tackle
+purely in base I think you'd use an intermediate variable, and do more
+in each step:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{models <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(by_cyl, }\ControlFlowTok{function}\NormalTok{(data) }\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt, }\DataTypeTok{data =}\NormalTok{ data))}
+\KeywordTok{vapply}\NormalTok{(models, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{coef}\NormalTok{(x)[[}\DecValTok{2}\NormalTok{]], }\KeywordTok{double}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\CommentTok{#>     4     6     8 }
+\CommentTok{#> -5.65 -2.78 -2.19}
+\end{Highlighting}
+\end{Shaded}
+
+Or, of course, you could you use a for loop:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{intercepts <-}\StringTok{ }\KeywordTok{double}\NormalTok{(}\KeywordTok{length}\NormalTok{(by_cyl))}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_along}\NormalTok{(by_cyl)) \{}
+\NormalTok{  model <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt, }\DataTypeTok{data =}\NormalTok{ by_cyl[[i]])}
+\NormalTok{  intercepts[[i]] <-}\StringTok{ }\KeywordTok{coef}\NormalTok{(model)[[}\DecValTok{2}\NormalTok{]]}
+\NormalTok{\}}
+\NormalTok{intercepts}
+\CommentTok{#> [1] -5.65 -2.78 -2.19}
+\end{Highlighting}
+\end{Shaded}
+
+It's interesting to note that as you move from purrr to base apply
+functions to for loops you tend to do more and more in each iteration.
+In purrr we iterate 3 times (\texttt{map()}, \texttt{map()},
+\texttt{map\_dbl()}), with apply functions we iterate twice
+(\texttt{lapply()}, \texttt{vapply()}), and with a for loop we iterate
+once. The advantage of breaking the problem into smaller steps is that
+it's easier to understand and later modify as needs change.
+
 \hypertarget{functionals-loop}{%
 \section{Map variants}\label{functionals-loop}}
 
@@ -11576,9 +11898,11 @@ There are two base equivalents to the \texttt{pmap()} family:
 \hypertarget{reduce}{%
 \section{Reduce}\label{reduce}}
 
-There are three other particularly families of functionals provided by
-purrr. You will use them less regularly than the map family and its
-variants, but they are handy to have in your backpocket.
+After the map family, the next most important family of functions is the
+reduce family. This family is much smaller, with only two main variants,
+and used less commonly, but it's a powerful idea, gives us the
+opportunity to discuss some useful algebra, and powers the map-reduce
+framework frequently used when working with large data.
 
 \hypertarget{basics-2}{%
 \subsection{Basics}\label{basics-2}}
@@ -11587,13 +11911,69 @@ variants, but they are handy to have in your backpocket.
 
 \index{fold}
 
-\texttt{reduce()} reduces a vector, \texttt{x}, to a single value by
-iteratively calling a function, \texttt{f}, two arguments at a time.
-\texttt{reduce(1:3,\ f)} is equivalent to \texttt{f(f(1,\ 2),\ 3)}.
-
-It's a little harder to capture reduce in a diagram:
+\texttt{reduce()} takes a vector of length n, and produces a vector of
+length one, by calling a function with a pair of values at a time. In
+other words, \texttt{reduce(1:4,\ f)} is equivalent to
+\texttt{f(f(f(1,\ 2),\ 3),\ 4)}.
 
 \begin{center}\includegraphics[width=3.25in]{diagrams/functionals/reduce} \end{center}
+
+\texttt{reduce()} is a useful way to generalise a function that works
+with two inputs (a \textbf{binary} function) to work with any number of
+inputs. Imagine you have a list of numeric vectors, and you want to find
+the values that occur in every element:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l <-}\StringTok{ }\KeywordTok{map}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{, }\OperatorTok{~}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DataTypeTok{replace =}\NormalTok{ T))}
+\KeywordTok{str}\NormalTok{(l)}
+\CommentTok{#> List of 4}
+\CommentTok{#>  $ : int [1:15] 7 5 9 7 9 9 5 10 5 5 ...}
+\CommentTok{#>  $ : int [1:15] 6 3 6 10 3 4 4 2 9 9 ...}
+\CommentTok{#>  $ : int [1:15] 5 3 4 6 1 1 9 9 6 8 ...}
+\CommentTok{#>  $ : int [1:15] 4 2 6 6 8 5 10 6 7 1 ...}
+\end{Highlighting}
+\end{Shaded}
+
+To solve this challenge we need to use \texttt{intersect()} repeatedly:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\NormalTok{l[[}\DecValTok{1}\NormalTok{]]}
+\NormalTok{out <-}\StringTok{ }\KeywordTok{intersect}\NormalTok{(out, l[[}\DecValTok{2}\NormalTok{]])}
+\NormalTok{out <-}\StringTok{ }\KeywordTok{intersect}\NormalTok{(out, l[[}\DecValTok{3}\NormalTok{]])}
+\NormalTok{out <-}\StringTok{ }\KeywordTok{intersect}\NormalTok{(out, l[[}\DecValTok{4}\NormalTok{]])}
+\NormalTok{out}
+\CommentTok{#> [1] 5 1}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{reduce()} automates this solution for us, so we can write:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{reduce}\NormalTok{(l, intersect)}
+\CommentTok{#> [1] 5 1}
+\end{Highlighting}
+\end{Shaded}
+
+We could apply the same idea if we wanted to list all the elements that
+appear in at least one entry. All we have to do is switch from
+\texttt{intersect()} to \texttt{union()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{reduce}\NormalTok{(l, union)}
+\CommentTok{#>  [1]  7  5  9 10  1  6  3  4  2  8}
+\end{Highlighting}
+\end{Shaded}
+
+Like the map family, you can also pass additional arguments.
+\texttt{intersect()} and \texttt{union()} don't take an extra arguments
+so I can't demonstrate them here, but the principle is straight forward
+and I drew you a picture.
+
+\begin{center}\includegraphics[width=4.03in]{diagrams/functionals/reduce-arg} \end{center}
 
 As usual, the essence of \texttt{reduce()} can reduced to a simple
 wrapper around a for loop:
@@ -11610,108 +11990,16 @@ wrapper around a for loop:
 \end{Highlighting}
 \end{Shaded}
 
-\texttt{reduce()} is a useful way to generalise a function that works
-with two inputs (a \textbf{binary} function) to work with any number of
-inputs. Imagine you have a list of numeric vectors, and you want to find
-the values that occur in every element:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{l <-}\StringTok{ }\KeywordTok{map}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{, }\OperatorTok{~}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DataTypeTok{replace =}\NormalTok{ T))}
-\KeywordTok{str}\NormalTok{(l)}
-\CommentTok{#> List of 5}
-\CommentTok{#>  $ : int [1:15] 7 5 9 7 9 9 5 10 5 5 ...}
-\CommentTok{#>  $ : int [1:15] 6 3 6 10 3 4 4 2 9 9 ...}
-\CommentTok{#>  $ : int [1:15] 5 3 4 6 1 1 9 9 6 8 ...}
-\CommentTok{#>  $ : int [1:15] 4 2 6 6 8 5 10 6 7 1 ...}
-\CommentTok{#>  $ : int [1:15] 3 10 5 8 7 6 8 5 8 7 ...}
-\end{Highlighting}
-\end{Shaded}
-
-You could do that by intersecting each element in turn:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{intersect}\NormalTok{(}
-  \KeywordTok{intersect}\NormalTok{(}
-    \KeywordTok{intersect}\NormalTok{(}
-      \KeywordTok{intersect}\NormalTok{(}
-\NormalTok{        l[[}\DecValTok{1}\NormalTok{]], }
-\NormalTok{        l[[}\DecValTok{2}\NormalTok{]]}
-\NormalTok{      ),}
-\NormalTok{      l[[}\DecValTok{3}\NormalTok{]]}
-\NormalTok{    ), }
-\NormalTok{    l[[}\DecValTok{4}\NormalTok{]]}
-\NormalTok{  ), }
-\NormalTok{  l[[}\DecValTok{5}\NormalTok{]]}
-\NormalTok{)}
-\CommentTok{#> [1] 5}
-\end{Highlighting}
-\end{Shaded}
-
-But that's hard to read, and doesn't generalise well if the list grows
-in size. But the problem is easy to solve with \texttt{reduce()}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{reduce}\NormalTok{(l, intersect)}
-\CommentTok{#> [1] 5}
-\end{Highlighting}
-\end{Shaded}
-
-The base equivalent is \texttt{Reduce()}. It takes the function as the
-first argument and the vector as second; there is no way to supply
-additional constant arguments.
-
-\begin{center}\includegraphics[width=4.03in]{diagrams/functionals/reduce-arg} \end{center}
-
-\hypertarget{algebra}{%
-\subsection{Algebra}\label{algebra}}
-
-Associative, commutative, identity element.
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{x\ *\ y}: 1
-\item
-  \texttt{x\ +\ y}: 0
-\item
-  \texttt{min(x,\ y)}: Inf
-\item
-  \texttt{max(x,\ y)}: -Inf
-\item
-  \texttt{c()}, \texttt{union(x,\ y)}: NULL
-\item
-  \texttt{intersect(x,\ y)}: no way to express
-\end{itemize}
-
-\texttt{mean()} -\textgreater{} \texttt{sum()} + \texttt{length()}
-\texttt{sd()} -\textgreater{} \texttt{sum(x\ \^{}2)} + \texttt{sum(x)} +
-\texttt{length()} \texttt{median()} -\textgreater{} not possible
-(although can approximate)
-
-Linear models.
-
-\hypertarget{initialise}{%
-\subsection{Initialise}\label{initialise}}
-
-What happens if \texttt{reduce()} is called with zero arguments or one
-arguments?
-
-\begin{center}\includegraphics[width=3.25in]{diagrams/functionals/reduce-init} \end{center}
-
-\hypertarget{reduce2}{%
-\subsection{reduce2}\label{reduce2}}
-
-\begin{center}\includegraphics[width=4.18in]{diagrams/functionals/reduce2} \end{center}
+The base equivalent is \texttt{Reduce()}. Note that the argument order
+is different: the function comes first, followed by the vector; there is
+no way to supply additional arguments.
 
 \hypertarget{accumulate}{%
 \subsection{Accumulate}\label{accumulate}}
 
-To see how \texttt{reduce()} works, it's useful to use a variant:
-\texttt{accumulate()}. As well as returning the final result,
-\texttt{accumulate()} also returns all intermediate results.
+The first \texttt{reduce()} variant, \texttt{accumulate()}, is useful
+for understand how reduce works, because instead of return just the
+final result, it returns all the intermediate results as well:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11727,11 +12015,127 @@ To see how \texttt{reduce()} works, it's useful to use a variant:
 \CommentTok{#> }
 \CommentTok{#> [[4]]}
 \CommentTok{#> [1] 5 1}
-\CommentTok{#> }
-\CommentTok{#> [[5]]}
-\CommentTok{#> [1] 5}
 \end{Highlighting}
 \end{Shaded}
+
+Another useful way to understand reduce is to think about
+\texttt{sum()}: \texttt{sum(x)} is equivalent to
+\texttt{x{[}{[}1{]}{]}\ +\ x{[}{[}2{]}{]}\ +\ x{[}{[}3{]}{]}\ +\ ...}.
+And then \texttt{accumulate()} gives you the cumulative sum:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\KeywordTok{reduce}\NormalTok{(x, }\StringTok{`}\DataTypeTok{+}\StringTok{`}\NormalTok{)}
+\CommentTok{#> [1] 17}
+
+\KeywordTok{accumulate}\NormalTok{(x, }\StringTok{`}\DataTypeTok{+}\StringTok{`}\NormalTok{)}
+\CommentTok{#> [1]  4  7 17}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{output-types}{%
+\subsection{Output types}\label{output-types}}
+
+In the above example using \texttt{+}, what should \texttt{reduce()}
+return when \texttt{x} is short, i.e.~length 1 or 0? When \texttt{x} is
+length 1, reduce just returns it without applying the reduce function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{reduce}\NormalTok{(}\DecValTok{1}\NormalTok{, }\StringTok{`}\DataTypeTok{+}\StringTok{`}\NormalTok{)}
+\CommentTok{#> [1] 1}
+\end{Highlighting}
+\end{Shaded}
+
+This means that \texttt{reduce()} has no way to check that the input is
+valid:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{reduce}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{`}\DataTypeTok{+}\StringTok{`}\NormalTok{)}
+\CommentTok{#> [1] "a"}
+\end{Highlighting}
+\end{Shaded}
+
+What if it's length 0? We get an error that suggest we need to use the
+\texttt{.init} argument:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{reduce}\NormalTok{(}\KeywordTok{integer}\NormalTok{(), }\StringTok{`}\DataTypeTok{+}\StringTok{`}\NormalTok{)}
+\CommentTok{#> Error: `.x` is empty, and no `.init` supplied}
+\end{Highlighting}
+\end{Shaded}
+
+What should \texttt{.init} be here? To figure that out, we need to see
+what happens when \texttt{.init} supplied:
+
+\begin{center}\includegraphics[width=4.23in]{diagrams/functionals/reduce-init} \end{center}
+
+So if we call \texttt{reduce(1,}+\texttt{,\ init)} the result will be
+\texttt{1\ +\ init}. Now we know that the result should be just
+\texttt{1} one, so that suggests that \texttt{.init} should be 0:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{reduce}\NormalTok{(}\KeywordTok{integer}\NormalTok{(), }\StringTok{`}\DataTypeTok{+}\StringTok{`}\NormalTok{, }\DataTypeTok{.init =} \DecValTok{0}\NormalTok{)}
+\CommentTok{#> [1] 0}
+\end{Highlighting}
+\end{Shaded}
+
+This also ensures that \texttt{reduce()} checks that length 1 inputs are
+valid for the function that you're calling:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{reduce}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{`}\DataTypeTok{+}\StringTok{`}\NormalTok{, }\DataTypeTok{.init =} \DecValTok{0}\NormalTok{)}
+\CommentTok{#> Error in .x + .y:}
+\CommentTok{#>   non-numeric argument to binary operator}
+\end{Highlighting}
+\end{Shaded}
+
+If you want to get algebraic about it, 0 is called the \textbf{identity}
+of the numbers under the operation of addition: if you add a 0 to any
+number, you get the same number back. R applies the same principle to
+determine what a summary function with a zero length input should
+return:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{integer}\NormalTok{())  }\CommentTok{# x + 0 = x}
+\CommentTok{#> [1] 0}
+\KeywordTok{prod}\NormalTok{(}\KeywordTok{integer}\NormalTok{()) }\CommentTok{# x * 1 = x}
+\CommentTok{#> [1] 1}
+\KeywordTok{min}\NormalTok{(}\KeywordTok{integer}\NormalTok{())  }\CommentTok{# min(x, Inf) = x}
+\CommentTok{#> [1] Inf}
+\KeywordTok{max}\NormalTok{(}\KeywordTok{integer}\NormalTok{())  }\CommentTok{# max(x, -Inf) = x}
+\CommentTok{#> [1] -Inf}
+\end{Highlighting}
+\end{Shaded}
+
+If you're using \texttt{reduce()} in a function, you should always
+supply \texttt{.init}. Think carefully about what you function should
+return when passed a vector of length zero or one, and make sure to test
+your implementation.
+
+\hypertarget{multiple-inputs}{%
+\subsection{Multiple inputs}\label{multiple-inputs}}
+
+Very occassionally you need to two arguments to the function that you're
+reducing. For example, you might have a list of data frames that you
+want to join together, and the variables that you are joining by vary
+from element to element. This is a very specialised scenario, so I don't
+want to spend much time on it, except to know that it exists.
+
+Note that the length of the second argument varies based on whether or
+not \texttt{.init} is supplied: if you have four elements of \texttt{x},
+\texttt{f} will only be called three times. If you supply init,
+\texttt{f} will be called four times.
+
+\begin{center}\includegraphics[width=5.41in]{diagrams/functionals/reduce2} \end{center}
+
+\begin{center}\includegraphics[width=5.41in]{diagrams/functionals/reduce2-init} \end{center}
 
 \hypertarget{map-reduce}{%
 \subsection{Map-reduce}\label{map-reduce}}
@@ -11815,14 +12219,14 @@ predicate functions, transforming only the elements of \texttt{.x} with
 \CommentTok{#>  $ Sepal.Width : num 3.06}
 \CommentTok{#>  $ Petal.Length: num 3.76}
 \CommentTok{#>  $ Petal.Width : num 1.2}
-\CommentTok{#>  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...}
+\CommentTok{#>  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1..}
 \KeywordTok{str}\NormalTok{(}\KeywordTok{modify_if}\NormalTok{(iris, is.numeric, mean))}
 \CommentTok{#> 'data.frame':    150 obs. of  5 variables:}
 \CommentTok{#>  $ Sepal.Length: num  5.84 5.84 5.84 5.84 5.84 ...}
 \CommentTok{#>  $ Sepal.Width : num  3.06 3.06 3.06 3.06 3.06 ...}
 \CommentTok{#>  $ Petal.Length: num  3.76 3.76 3.76 3.76 3.76 ...}
 \CommentTok{#>  $ Petal.Width : num  1.2 1.2 1.2 1.2 1.2 ...}
-\CommentTok{#>  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...}
+\CommentTok{#>  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1..}
 \KeywordTok{str}\NormalTok{(}\KeywordTok{map}\NormalTok{(}\KeywordTok{keep}\NormalTok{(iris, is.numeric), mean))}
 \CommentTok{#> List of 4}
 \CommentTok{#>  $ Sepal.Length: num 5.84}
@@ -11891,31 +12295,34 @@ predicate functions, transforming only the elements of \texttt{.x} with
 \hypertarget{functionals-math}{%
 \section{Base functionals}\label{functionals-math}}
 
-Base R functionals have more of a mathematical/statistical flavour.
+To finish up the chapter, here I provide a survey of important base
+functions that are not members of the map, reduce, or predicate
+families, and hence have no equivalent in purrr. This is not to say that
+they're not important, but they have more of a mathematical/statistical
+flavour, so they are generally less useful in data analyses.
 
-\hypertarget{matrices-and-array-operations}{%
-\subsection{Matrices and array
-operations}\label{matrices-and-array-operations}}
+\hypertarget{matrices-and-arrays}{%
+\subsection{Matrices and arrays}\label{matrices-and-arrays}}
 
-So far, all the functionals we've seen work with 1d input structures.
-The three functionals in this section provide useful tools for working
-with higher-dimensional data structures. \texttt{apply()} is a variant
-of \texttt{sapply()} that works with matrices and arrays. You can think
-of it as an operation that summarises a matrix or array by collapsing
-each row or column to a single number. It has four arguments:
 \indexc{apply()}
+
+\texttt{map()} and friends are specialised to work with 1d vectors.
+\texttt{base::apply()} is specialised to work with 2d and higher
+vectors, i.e.~matrices and arrays. You can think of \texttt{apply()} as
+an operation that summarises a matrix or array by collapsing each row or
+column to a single value. It has four arguments:
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{X}, the matrix or array to summarise
+  \texttt{X}, the matrix or array to summarise.
 \item
   \texttt{MARGIN}, an integer vector giving the dimensions to summarise
   over, 1 = rows, 2 = columns, etc.
 \item
-  \texttt{FUN}, a summary function
+  \texttt{FUN}, a summary function.
 \item
-  \texttt{...} other arguments passed on to \texttt{FUN}
+  \texttt{...} other arguments passed on to \texttt{FUN}.
 \end{itemize}
 
 A typical example of \texttt{apply()} looks like this
@@ -11930,13 +12337,34 @@ A typical example of \texttt{apply()} looks like this
 \end{Highlighting}
 \end{Shaded}
 
-There are a few caveats to using \texttt{apply()}. It doesn't have a
-simplify argument, so you can never be completely sure what type of
-output you'll get. This means that \texttt{apply()} is not safe to use
-inside a function unless you carefully check the inputs.
-\texttt{apply()} is also not idempotent in the sense that if the summary
-function is the identity operator, the output is not always the same as
-the input:
+You can specify multiple dimensions to \texttt{MARGINS}, which is useful
+for high-d arrays:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{24}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\KeywordTok{apply}\NormalTok{(a, }\DecValTok{1}\NormalTok{, mean)}
+\CommentTok{#> [1] 12 13}
+\KeywordTok{apply}\NormalTok{(a, }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), mean)}
+\CommentTok{#>      [,1] [,2] [,3]}
+\CommentTok{#> [1,]   10   12   14}
+\CommentTok{#> [2,]   11   13   15}
+\end{Highlighting}
+\end{Shaded}
+
+There are a two caveats to using \texttt{apply()}:
+
+\begin{itemize}
+\item
+  Like \texttt{base::sapply()}, you have no control over the output
+  type; it will automatically be simplified to a list, matrix, or
+  vector. However, generally, you used \texttt{apply()} with a numeric
+  arrays and numeric summary function so you are less likely to
+  encounter a problem that with \texttt{sapply()}.
+\item
+  \texttt{apply()} is also not idempotent in the sense that if the
+  summary function is the identity operator, the output is not always
+  the same as the input.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11944,75 +12372,45 @@ the input:
 \KeywordTok{identical}\NormalTok{(a, a1)}
 \CommentTok{#> [1] FALSE}
 \KeywordTok{identical}\NormalTok{(a, }\KeywordTok{t}\NormalTok{(a1))}
-\CommentTok{#> [1] TRUE}
+\CommentTok{#> [1] FALSE}
+
 \NormalTok{a2 <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(a, }\DecValTok{2}\NormalTok{, identity)}
 \KeywordTok{identical}\NormalTok{(a, a2)}
-\CommentTok{#> [1] TRUE}
+\CommentTok{#> [1] FALSE}
 \end{Highlighting}
 \end{Shaded}
-
-(You can put high-dimensional arrays back in the right order using
-\texttt{aperm()}, or use \texttt{plyr::aaply()}, which is idempotent.)
-
-\texttt{sweep()} allows you to ``sweep'' out the values of a summary
-statistic. It is often used with \texttt{apply()} to standardise arrays.
-The following example scales the rows of a matrix so that all values lie
-between 0 and 1. \indexc{sweep()}
+\item
+  Never use \texttt{apply()} with a data frame. It always coerces
+  \texttt{X} to a matrix, which will lead to undesirable results if your
+  data frame contains anything other than numbers.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{), }\DataTypeTok{nrow =} \DecValTok{4}\NormalTok{)}
-\NormalTok{x1 <-}\StringTok{ }\KeywordTok{sweep}\NormalTok{(x, }\DecValTok{1}\NormalTok{, }\KeywordTok{apply}\NormalTok{(x, }\DecValTok{1}\NormalTok{, min), }\StringTok{`}\DataTypeTok{-}\StringTok{`}\NormalTok{)}
-\NormalTok{x2 <-}\StringTok{ }\KeywordTok{sweep}\NormalTok{(x1, }\DecValTok{1}\NormalTok{, }\KeywordTok{apply}\NormalTok{(x1, }\DecValTok{1}\NormalTok{, max), }\StringTok{`}\DataTypeTok{/}\StringTok{`}\NormalTok{)}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{, }\DataTypeTok{y =} \KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{))}
+\KeywordTok{apply}\NormalTok{(df, }\DecValTok{2}\NormalTok{, mean)}
+\CommentTok{#> Warning in mean.default(newX[, i], ...): argument is not numeric or}
+\CommentTok{#> logical: returning NA}
+
+\CommentTok{#> Warning in mean.default(newX[, i], ...): argument is not numeric or}
+\CommentTok{#> logical: returning NA}
+\CommentTok{#>  x  y }
+\CommentTok{#> NA NA}
 \end{Highlighting}
 \end{Shaded}
-
-The final matrix functional is \texttt{outer()}. It's a little different
-in that it takes multiple vector inputs and creates a matrix or array
-output where the input function is run over every combination of the
-inputs: \indexc{outer()}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# Create a times table}
-\KeywordTok{outer}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\StringTok{"*"}\NormalTok{)}
-\CommentTok{#>      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]}
-\CommentTok{#> [1,]    1    2    3    4    5    6    7    8    9    10}
-\CommentTok{#> [2,]    2    4    6    8   10   12   14   16   18    20}
-\CommentTok{#> [3,]    3    6    9   12   15   18   21   24   27    30}
-\end{Highlighting}
-\end{Shaded}
-
-Good places to learn more about \texttt{apply()} and friends are:
-
-\begin{itemize}
-\item
-  \href{http://petewerner.blogspot.com/2012/12/using-apply-sapply-lapply-in-r.html}{``Using
-  apply, sapply, lapply in R''} by Peter Werner.
-\item
-  \href{http://rforpublichealth.blogspot.no/2012/09/the-infamous-apply-function.html}{``The
-  infamous apply function''} by Slawa Rokicki.
-\item
-  \href{http://forgetfulfunctor.blogspot.com/2011/07/r-apply-function-tutorial-with-examples.html}{``The
-  R apply function - a tutorial with examples''} by axiomOfChoice.
-\item
-  The stackoverflow question
-  \href{http://stackoverflow.com/questions/3505701}{``R Grouping
-  functions: \texttt{sapply} vs. \texttt{lapply} vs. \texttt{apply} vs.
-  \texttt{tapply} vs. \texttt{by} vs. \texttt{aggregate}''}.
 \end{itemize}
 
-\hypertarget{tapply}{%
-\subsection{\texorpdfstring{\texttt{tapply()}}{tapply()}}\label{tapply}}
+\hypertarget{ragged-arrays}{%
+\subsection{``Ragged'' arrays}\label{ragged-arrays}}
 
 \indexc{split()}
+\indexc{tapply()}
 
 You can think about \texttt{tapply()} as a generalisation to
 \texttt{apply()} that allows for ``ragged'' arrays, arrays where each
 row can have a different number of columns. This is often needed when
 you're trying to summarise a data set. For example, imagine you've
 collected pulse rate data from a medical trial, and you want to compare
-the two groups: \indexc{tapply()}
+the two groups:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -12024,52 +12422,37 @@ the two groups: \indexc{tapply()}
 \CommentTok{#> 10 12}
 \KeywordTok{tapply}\NormalTok{(pulse, group, mean)}
 \CommentTok{#>    A    B }
-\CommentTok{#> 71.1 75.1}
+\CommentTok{#> 70.8 74.2}
 \end{Highlighting}
 \end{Shaded}
 
 \texttt{tapply()} works by creating a ``ragged'' data structure from a
 set of inputs, and then applying a function to the individual elements
-of that structure. The first task is actually what the \texttt{split()}
-function does. It takes two inputs and returns a list which groups
-elements together from the first vector according to elements, or
-categories, from the second vector:
+of that structure. The first task is actually performed by
+\texttt{split()} function does. It takes two inputs and returns a list
+which groups elements together from the first vector according to
+elements, or categories, from the second vector:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{split}\NormalTok{(pulse, group)}
 \CommentTok{#> $A}
-\CommentTok{#>  [1] 67 71 70 73 74 69 70 71 77 69}
+\CommentTok{#>  [1] 68 70 71 72 72 70 73 70 70 72}
 \CommentTok{#> }
 \CommentTok{#> $B}
-\CommentTok{#>  [1] 78 72 77 72 71 80 77 72 71 80 80 71}
+\CommentTok{#>  [1] 76 74 75 74 75 73 73 73 70 64 78 85}
 \end{Highlighting}
 \end{Shaded}
 
 Then \texttt{tapply()} is just the combination of \texttt{split()} and
-\texttt{sapply()}:
+\texttt{sapply()}.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{tapply2 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, group, f, ..., }\DataTypeTok{simplify =} \OtherTok{TRUE}\NormalTok{) \{}
-\NormalTok{  pieces <-}\StringTok{ }\KeywordTok{split}\NormalTok{(x, group)}
-  \KeywordTok{sapply}\NormalTok{(pieces, f, }\DataTypeTok{simplify =}\NormalTok{ simplify)}
-\NormalTok{\}}
-\KeywordTok{tapply2}\NormalTok{(pulse, group, length)}
-\CommentTok{#>  A  B }
-\CommentTok{#> 10 12}
-\KeywordTok{tapply2}\NormalTok{(pulse, group, mean)}
-\CommentTok{#>    A    B }
-\CommentTok{#> 71.1 75.1}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{mathematical}{%
+\subsection{Mathematical}\label{mathematical}}
 
-Being able to rewrite \texttt{tapply()} as a combination of
-\texttt{split()} and \texttt{sapply()} is a good indication that we've
-identified some useful building blocks.
-
-\hypertarget{mathmatical}{%
-\subsection{Mathmatical}\label{mathmatical}}
+\indexc{integrate()} 
+\indexc{uniroot()} 
+\indexc{optimise()}
 
 Functionals are very common in mathematics. The limit, the maximum, the
 roots (the set of points where \texttt{f(x)\ =\ 0}), and the definite
@@ -12079,10 +12462,7 @@ seem to fit in with the theme of eliminating loops, but if you dig
 deeper you'll find out that they are all implemented using an algorithm
 that involves iteration.
 
-In this section we'll use some of R's built-in mathematical functionals.
-There are three functionals that work with functions to return single
-numeric values: \indexc{integrate()} \indexc{uniroot()}
-\indexc{optimise()}
+Base R provides a useful set:
 
 \begin{itemize}
 \tightlist
@@ -12096,7 +12476,8 @@ numeric values: \indexc{integrate()} \indexc{uniroot()}
   \texttt{f()}
 \end{itemize}
 
-Let's explore how these are used with a simple function, \texttt{sin()}:
+The following example shows how they might be used with a simple
+function, \texttt{sin()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -12454,8 +12835,8 @@ Stateful functions are best used in moderation. As soon as your function
 starts managing the state of multiple variables, it's better to switch
 to R6, the topic of Chapter \ref{R6}.
 
-\hypertarget{potential-pitfalls}{%
-\subsection{Potential pitfalls}\label{potential-pitfalls}}
+\hypertarget{factory-pitfalls}{%
+\subsection{Potential pitfalls}\label{factory-pitfalls}}
 
 There are two potential pitfalls to be aware of when creating your own
 function factories: forgetting to evaluate all inputs and accidentally
@@ -13368,23 +13749,21 @@ environment of \texttt{power3()}.
 \hypertarget{introduction-9}{%
 \section{Introduction}\label{introduction-9}}
 
+\index{function operators}
+
 In this chapter, you'll learn about function operators (FOs). A function
 operator is a function that takes one (or more) functions as input and
-returns a function as output. In some ways, function operators are
-similar to functionals: there's nothing you can't do without them, but
-they can make your code more readable and expressive, and they can help
-you write code faster. The main difference is that functionals extract
-common patterns of loop use, where function operators extract common
-patterns of anonymous function use. \index{function operators}
-
-The following code shows a simple function operator, \texttt{chatty()}.
-It wraps a function, making a new function that prints out its first
-argument. It's useful because it gives you a window to see how
-functionals, like \texttt{vapply()}, work.
+returns a function as output. The following code shows a simple function
+operator, \texttt{chatty()}. It wraps a function, making a new function
+that prints out its first argument. You might create a function like
+this because it gives you a window to see how functionals, like
+\texttt{map\_int()}, work.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{chatty <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f) \{}
+  \KeywordTok{force}\NormalTok{(f)}
+  
   \ControlFlowTok{function}\NormalTok{(x, ...) \{}
 \NormalTok{    res <-}\StringTok{ }\KeywordTok{f}\NormalTok{(x, ...)}
     \KeywordTok{cat}\NormalTok{(}\StringTok{"Processing "}\NormalTok{, x, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\DataTypeTok{sep =} \StringTok{""}\NormalTok{)}
@@ -13393,11 +13772,8 @@ functionals, like \texttt{vapply()}, work.
 \NormalTok{\}}
 \NormalTok{f <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) x }\OperatorTok{^}\StringTok{ }\DecValTok{2}
 \NormalTok{s <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{)}
-\KeywordTok{chatty}\NormalTok{(f)(}\DecValTok{1}\NormalTok{)}
-\CommentTok{#> Processing 1}
-\CommentTok{#> [1] 1}
 
-\KeywordTok{vapply}\NormalTok{(s, }\KeywordTok{chatty}\NormalTok{(f), }\KeywordTok{numeric}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map_dbl}\NormalTok{(s, }\KeywordTok{chatty}\NormalTok{(f))}
 \CommentTok{#> Processing 3}
 \CommentTok{#> Processing 2}
 \CommentTok{#> Processing 1}
@@ -13405,45 +13781,17 @@ functionals, like \texttt{vapply()}, work.
 \end{Highlighting}
 \end{Shaded}
 
-In the last chapter, we saw that many built-in functionals, like
-\texttt{Reduce()}, \texttt{Filter()}, and \texttt{Map()}, have very few
-arguments, so we had to use anonymous functions to modify how they
-worked. In this chapter, we'll build specialised substitutes for common
-anonymous functions that allow us to communicate our intent more
-clearly. For example, in \protect\hyperlink{map}{multiple inputs} we
-used an anonymous function with \texttt{Map()} to supply fixed
-arguments:
+Function operators are closely related to function factories; indeed
+they're just a function factory that takes a function as a input. As
+well a being built from the same building blocks, there's nothing you
+can't do without them, but they often allow you to factor out complexity
+in order to make your code more readable and resuable. Function
+operators are typically paired with functionals. If you're using a
+for-loop, there's rarely a reason to use a FO, as it will make your code
+more complex for little gain.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{Map}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x, y) }\KeywordTok{f}\NormalTok{(x, y, zs), xs, ys)}
-\end{Highlighting}
-\end{Shaded}
-
-Later in this chapter, we'll learn about partial application using the
-\texttt{partial()} function. Partial application encapsulates the use of
-an anonymous function to supply default arguments, and allows us to
-write succinct code:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{Map}\NormalTok{(}\KeywordTok{partial}\NormalTok{(f, }\DataTypeTok{zs =}\NormalTok{ zs), xs, yz)}
-\end{Highlighting}
-\end{Shaded}
-
-This is an important use of FOs: by transforming the input function, you
-eliminate parameters from a functional. In fact, as long as the inputs
-and outputs of the function remain the same, this approach allows your
-functionals to be more extensible, often in ways you haven't thought of.
-
-The chapter covers four important types of FO: behaviour, input, output,
-and combining. For each type, I'll show you some useful FOs, and how you
-can use as another to decompose problems: as combinations of multiple
-functions instead of combinations of arguments. The goal is not to
-exhaustively list every possible FO, but to show a selection that
-demonstrate how they work together with other FP techniques. For your
-own work, you'll need to think about and experiment with how function
-operators can help you solve recurring problems.
+If you're familiar with Python, decorators are just another name for
+function operators.
 
 \hypertarget{outline-7}{%
 \subsection*{Outline}\label{outline-7}}
@@ -13451,219 +13799,291 @@ operators can help you solve recurring problems.
 
 \begin{itemize}
 \item
-  \protect\hyperlink{behavioural-fos}{Behavioural FOs} introduces you to
-  FOs that change the behaviour of a function like automatically logging
-  usage to disk or ensuring that a function is run only once.
+  Section \ref{existing-fos} introduces you to two useful extremely
+  existing FOs, and show you how use them to solve real problems.
 \item
-  \protect\hyperlink{output-fos}{Output FOs} shows you how to write FOs
-  that manipulate the output of a function. These can do simple things
-  like capturing errors, or fundamentally change what the function does.
-\item
-  \protect\hyperlink{input-fos}{Input FOs} describes how to modify the
-  inputs to a function using a FO like \texttt{Vectorize()} or
-  \texttt{partial()}.
-\item
-  \protect\hyperlink{combining-fos}{Combining FOs} shows the power of
-  FOs that combine multiple functions with function composition and
-  logical operations.
+  Section \ref{fo-case-study} works through a case study where work
+  through a problem amenable to function operators: downloading many web
+  pages.
 \end{itemize}
 
 \hypertarget{prerequisites-5}{%
 \subsection*{Prerequisites}\label{prerequisites-5}}
 \addcontentsline{toc}{subsection}{Prerequisites}
 
-As well as writing FOs from scratch, this chapter uses function
-operators from the memoise, plyr, and pryr packages. Install them by
-running \texttt{install.packages(c("memoise",\ "plyr",\ "pryr"))}.
+Function operators are a type of function factory, so make sure you're
+familiar with Section \ref{function-fundamentals} before you go on.
 
-\hypertarget{behavioural-fos}{%
-\section{Behavioural FOs}\label{behavioural-fos}}
-
-Behavioural FOs leave the inputs and outputs of a function unchanged,
-but add some extra behaviour. In this section, we'll look at functions
-which implement three useful behaviours:
-
-\begin{itemize}
-\tightlist
-\item
-  Add a delay to avoid swamping a server with requests.
-\item
-  Print to console every n invocations to check on a long running
-  process.
-\item
-  Cache previous computations to improve performance.
-\end{itemize}
-
-To motivate these behaviours, imagine we want to download a long vector
-of URLs. That's pretty simple with \texttt{lapply()} and
-\texttt{download\_file()}:
+We'll use a couple of functionals from purrr that you learned about in
+Chapter \ref{functionals}, as well as some function operators that
+you'll learn about below. We'll use the memoise package for a useful FO.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{download_file <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(url, ...) \{}
-  \KeywordTok{download.file}\NormalTok{(url, }\KeywordTok{basename}\NormalTok{(url), ...)}
-\NormalTok{\}}
-\KeywordTok{lapply}\NormalTok{(urls, download_file)}
-\end{Highlighting}
-\end{Shaded}
-
-(\texttt{download\_file()} is a simple wrapper around
-\texttt{utils::download.file()} which provides a reasonable default for
-the file name.)
-
-There are a number of useful behaviours we might want to add to this
-function. If the list was long, we might want to print a \texttt{.}
-every ten URLs so we know that the function's still working. If we're
-downloading files over the internet, we might want to add a small delay
-between each request to avoid hammering the server. Implementing these
-behaviours in a for loop is rather complicated. We can no longer use
-\texttt{lapply()} because we need an external counter:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{i <-}\StringTok{ }\DecValTok{1}
-\ControlFlowTok{for}\NormalTok{(url }\ControlFlowTok{in}\NormalTok{ urls) \{}
-\NormalTok{  i <-}\StringTok{ }\NormalTok{i }\OperatorTok{+}\StringTok{ }\DecValTok{1}
-  \ControlFlowTok{if}\NormalTok{ (i }\OperatorTok{%%}\StringTok{ }\DecValTok{10} \OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) }\KeywordTok{cat}\NormalTok{(}\StringTok{"."}\NormalTok{)}
-  \KeywordTok{Sys.sleep}\NormalTok{(}\DecValTok{1}\NormalTok{)}
-  \KeywordTok{download_file}\NormalTok{(url)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-Understanding this code is hard because different concerns (iteration,
-printing, and downloading) are interleaved. In the remainder of this
-section we'll create FOs that encapsulate each behaviour and allow us to
-write code like this:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{lapply}\NormalTok{(urls, }\KeywordTok{dot_every}\NormalTok{(}\DecValTok{10}\NormalTok{, }\KeywordTok{delay_by}\NormalTok{(}\DecValTok{1}\NormalTok{, download_file)))}
-\end{Highlighting}
-\end{Shaded}
-
-Implementing \texttt{delay\_by()} is straightforward, and follows the
-same basic template that we'll see for the majority of FOs in this
-chapter: \indexc{delay\_by()}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{delay_by <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(delay, f) \{}
-  \ControlFlowTok{function}\NormalTok{(...) \{}
-    \KeywordTok{Sys.sleep}\NormalTok{(delay)}
-    \KeywordTok{f}\NormalTok{(...)}
-\NormalTok{  \}}
-\NormalTok{\}}
-\KeywordTok{system.time}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{100}\NormalTok{))}
-\CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.000   0.000   0.001}
-\KeywordTok{system.time}\NormalTok{(}\KeywordTok{delay_by}\NormalTok{(}\FloatTok{0.1}\NormalTok{, runif)(}\DecValTok{100}\NormalTok{))}
-\CommentTok{#>    user  system elapsed }
-\CommentTok{#>     0.0     0.0     0.1}
-\end{Highlighting}
-\end{Shaded}
-
-\texttt{dot\_every()} is a little bit more complicated because it needs
-to manage a counter. Fortunately, we saw how to do that in
-\protect\hyperlink{mutable-state}{mutable state}. \indexc{dot\_every()}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{dot_every <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(n, f) \{}
-\NormalTok{  i <-}\StringTok{ }\DecValTok{1}
-  \ControlFlowTok{function}\NormalTok{(...) \{}
-    \ControlFlowTok{if}\NormalTok{ (i }\OperatorTok{%%}\StringTok{ }\NormalTok{n }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) }\KeywordTok{cat}\NormalTok{(}\StringTok{"."}\NormalTok{)}
-\NormalTok{    i <<-}\StringTok{ }\NormalTok{i }\OperatorTok{+}\StringTok{ }\DecValTok{1}
-    \KeywordTok{f}\NormalTok{(...)}
-\NormalTok{  \}}
-\NormalTok{\}}
-\NormalTok{x <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{, runif)}
-\NormalTok{x <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{, }\KeywordTok{dot_every}\NormalTok{(}\DecValTok{10}\NormalTok{, runif))}
-\CommentTok{#> ..........}
-\end{Highlighting}
-\end{Shaded}
-
-Notice that I've made the function the last argument in each FO. This
-makes it easier to read when we compose multiple function operators. If
-the function were the first argument, then instead of:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{download <-}\StringTok{ }\KeywordTok{dot_every}\NormalTok{(}\DecValTok{10}\NormalTok{, }\KeywordTok{delay_by}\NormalTok{(}\DecValTok{1}\NormalTok{, download_file))}
-\end{Highlighting}
-\end{Shaded}
-
-we'd have
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{download <-}\StringTok{ }\KeywordTok{dot_every}\NormalTok{(}\KeywordTok{delay_by}\NormalTok{(download_file, }\DecValTok{1}\NormalTok{), }\DecValTok{10}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-That's harder to follow because (e.g.) the argument of
-\texttt{dot\_every()} is far away from its call. This is sometimes
-called the \href{http://en.wikipedia.org/wiki/Dagwood_sandwich}{Dagwood
-sandwich} problem: you have too much filling (too many long arguments)
-between your slices of bread (parentheses).
-\index{Dagwood sandwich problem}
-
-I've also tried to give the FOs descriptive names: delay by 1 (second),
-(print a) dot every 10 (invocations). The more clearly the function
-names used in your code express your intent, the easier it will be for
-others (including future you) to read and understand the code.
-
-\hypertarget{memoisation}{%
-\subsection{Memoisation}\label{memoisation}}
-
-Another thing you might worry about when downloading multiple files is
-accidentally downloading the same file multiple times. You could avoid
-this by calling \texttt{unique()} on the list of input URLs, or manually
-managing a data structure that mapped the URL to the result. An
-alternative approach is to use memoisation: modify a function to
-automatically cache its results. \index{memoisation}
-
-\begin{Shaded}
-\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(purrr)}
+\CommentTok{#> }
+\CommentTok{#> Attaching package: 'purrr'}
+\CommentTok{#> The following objects are masked from 'package:pryr':}
+\CommentTok{#> }
+\CommentTok{#>     compose, partial}
 \KeywordTok{library}\NormalTok{(memoise)}
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{existing-fos}{%
+\section{Existing FOs}\label{existing-fos}}
+
+There are two extremely useful function operators that will both help
+you solve common recurring problems, and give you a sense for what FOs
+can do: \texttt{purrr::safely()} and \texttt{memoise::memoise()}.
+
+\hypertarget{safely}{%
+\subsection{\texorpdfstring{Capturing errors with
+\texttt{purrr::safely()}}{Capturing errors with purrr::safely()}}\label{safely}}
+
+\indexc{safely()}
+
+One advantage of a for-loops is that if one of the iterations fails in a
+for-loop you can still access all the previous results:
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{slow_function <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
-  \KeywordTok{Sys.sleep}\NormalTok{(}\DecValTok{1}\NormalTok{)}
-  \DecValTok{10}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}
+  \KeywordTok{c}\NormalTok{(}\FloatTok{0.512}\NormalTok{, }\FloatTok{0.165}\NormalTok{, }\FloatTok{0.717}\NormalTok{),}
+  \KeywordTok{c}\NormalTok{(}\FloatTok{0.064}\NormalTok{, }\FloatTok{0.781}\NormalTok{, }\FloatTok{0.427}\NormalTok{),}
+  \KeywordTok{c}\NormalTok{(}\FloatTok{0.890}\NormalTok{, }\FloatTok{0.785}\NormalTok{, }\FloatTok{0.495}\NormalTok{),}
+  \StringTok{"oops"}
+\NormalTok{)}
+
+\NormalTok{out <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OtherTok{NA_real_}\NormalTok{, }\KeywordTok{length}\NormalTok{(x))}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_along}\NormalTok{(x)) \{}
+\NormalTok{  out[[i]] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(x[[i]])}
 \NormalTok{\}}
-\KeywordTok{system.time}\NormalTok{(}\KeywordTok{slow_function}\NormalTok{())}
-\CommentTok{#>    user  system elapsed }
-\CommentTok{#>       0       0       1}
-\KeywordTok{system.time}\NormalTok{(}\KeywordTok{slow_function}\NormalTok{())}
-\CommentTok{#>    user  system elapsed }
-\CommentTok{#>       0       0       1}
-\NormalTok{fast_function <-}\StringTok{ }\KeywordTok{memoise}\NormalTok{(slow_function)}
-\KeywordTok{system.time}\NormalTok{(}\KeywordTok{fast_function}\NormalTok{())}
-\CommentTok{#>    user  system elapsed }
-\CommentTok{#>       0       0       1}
-\KeywordTok{system.time}\NormalTok{(}\KeywordTok{fast_function}\NormalTok{())}
-\CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.020   0.000   0.018}
+\CommentTok{#> Error in sum(x[[i]]):}
+\CommentTok{#>   invalid 'type' (character) of argument}
+\NormalTok{out}
+\CommentTok{#> [1] 1.39 1.27 2.17   NA}
 \end{Highlighting}
 \end{Shaded}
 
-Memoisation is an example of the classic computer science tradeoff of
-memory versus speed. A memoised function can run much faster because it
-stores all of the previous inputs and outputs, using more memory.
+If you run the same code with a functional, you get no output and it can
+be hard to figure out where the problem lies:
 
-A realistic use of memoisation is computing the Fibonacci series. The
-Fibonacci series is defined recursively: the first two values are 1 and
-1, then f(n) = f(n - 1) + f(n - 2). A naive version implemented in R
-would be very slow because, for example, \texttt{fib(10)} computes
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{map_dbl}\NormalTok{(x, sum)}
+\CommentTok{#> Error in sum(..., na.rm = na.rm):}
+\CommentTok{#>   invalid 'type' (character) of argument}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{purrr::safely()} provides a tool to help with this problem.
+\texttt{safely()} is a function operator that transforms a function to
+turn errors into data. (You can learn the basic idea that makes it work
+in Section \ref{try-success-failure}). Let's start by taking a look at
+it outside of \texttt{map\_dbl()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{safe_sum <-}\StringTok{ }\KeywordTok{safely}\NormalTok{(sum)}
+\KeywordTok{str}\NormalTok{(}\KeywordTok{safe_sum}\NormalTok{(x[[}\DecValTok{1}\NormalTok{]]))}
+\CommentTok{#> List of 2}
+\CommentTok{#>  $ result: num 1.39}
+\CommentTok{#>  $ error : NULL}
+\KeywordTok{str}\NormalTok{(}\KeywordTok{safe_sum}\NormalTok{(x[[}\DecValTok{4}\NormalTok{]]))}
+\CommentTok{#> List of 2}
+\CommentTok{#>  $ result: NULL}
+\CommentTok{#>  $ error :List of 2}
+\CommentTok{#>   ..$ message: chr "invalid 'type' (character) of argument"}
+\CommentTok{#>   ..$ call   : language sum(..., na.rm = na.rm)}
+\CommentTok{#>   ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"}
+\end{Highlighting}
+\end{Shaded}
+
+A function transformed by \texttt{safely()} always returns a list with
+two elements, \texttt{result} and \texttt{error}. If the function runs
+successfully, \texttt{error} is \texttt{NULL} and \texttt{result}
+contains the result; if the function fails, \texttt{result} is
+\texttt{NULL} and \texttt{error} contains the error.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{map}\NormalTok{(x, }\KeywordTok{safely}\NormalTok{(sum))}
+\KeywordTok{str}\NormalTok{(out)}
+\CommentTok{#> List of 4}
+\CommentTok{#>  $ :List of 2}
+\CommentTok{#>   ..$ result: num 1.39}
+\CommentTok{#>   ..$ error : NULL}
+\CommentTok{#>  $ :List of 2}
+\CommentTok{#>   ..$ result: num 1.27}
+\CommentTok{#>   ..$ error : NULL}
+\CommentTok{#>  $ :List of 2}
+\CommentTok{#>   ..$ result: num 2.17}
+\CommentTok{#>   ..$ error : NULL}
+\CommentTok{#>  $ :List of 2}
+\CommentTok{#>   ..$ result: NULL}
+\CommentTok{#>   ..$ error :List of 2}
+\CommentTok{#>   .. ..$ message: chr "invalid 'type' (character) of argument"}
+\CommentTok{#>   .. ..$ call   : language sum(..., na.rm = na.rm)}
+\CommentTok{#>   .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condit"..}
+\end{Highlighting}
+\end{Shaded}
+
+The output is in a slightly inconveient form, since we have four lists
+each containing a list containing the result and the error. We can make
+it more convenient by using \texttt{purrr::transpose()} to turn it
+``inside-out'' so that we get a list of result and a list of errors:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{transpose}\NormalTok{(}\KeywordTok{map}\NormalTok{(x, }\KeywordTok{safely}\NormalTok{(sum)))}
+\KeywordTok{str}\NormalTok{(out)}
+\CommentTok{#> List of 2}
+\CommentTok{#>  $ result:List of 4}
+\CommentTok{#>   ..$ : num 1.39}
+\CommentTok{#>   ..$ : num 1.27}
+\CommentTok{#>   ..$ : num 2.17}
+\CommentTok{#>   ..$ : NULL}
+\CommentTok{#>  $ error :List of 4}
+\CommentTok{#>   ..$ : NULL}
+\CommentTok{#>   ..$ : NULL}
+\CommentTok{#>   ..$ : NULL}
+\CommentTok{#>   ..$ :List of 2}
+\CommentTok{#>   .. ..$ message: chr "invalid 'type' (character) of argument"}
+\CommentTok{#>   .. ..$ call   : language sum(..., na.rm = na.rm)}
+\CommentTok{#>   .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condit"..}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can easily find the results the worked, or the inputs that
+failed:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ok <-}\StringTok{ }\KeywordTok{map_lgl}\NormalTok{(out}\OperatorTok{$}\NormalTok{error, is.null)}
+\NormalTok{ok}
+\CommentTok{#> [1]  TRUE  TRUE  TRUE FALSE}
+
+\NormalTok{x[}\OperatorTok{!}\NormalTok{ok]}
+\CommentTok{#> [[1]]}
+\CommentTok{#> [1] "oops"}
+
+\NormalTok{out}\OperatorTok{$}\NormalTok{result[ok]}
+\CommentTok{#> [[1]]}
+\CommentTok{#> [1] 1.39}
+\CommentTok{#> }
+\CommentTok{#> [[2]]}
+\CommentTok{#> [1] 1.27}
+\CommentTok{#> }
+\CommentTok{#> [[3]]}
+\CommentTok{#> [1] 2.17}
+\end{Highlighting}
+\end{Shaded}
+
+You can use this same technique in many different situtations. For
+example, imagine you're fitting a set of generalised linear models
+(GLMs) to a list of data frames. While GLMs can sometimes fail because
+of optimisation problems, you'd still want to be able to try to fit all
+the models, and later look back at those that failed:
+\index{fitting many models}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit_model <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(df) \{}
+  \KeywordTok{glm}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\NormalTok{x1 }\OperatorTok{+}\StringTok{ }\NormalTok{x2 }\OperatorTok{*}\StringTok{ }\NormalTok{x3, }\DataTypeTok{data =}\NormalTok{ df)}
+\NormalTok{\}}
+
+\NormalTok{models <-}\StringTok{ }\KeywordTok{transpose}\NormalTok{(}\KeywordTok{map}\NormalTok{(datasets, }\KeywordTok{safely}\NormalTok{(fit_model)))}
+\NormalTok{ok <-}\StringTok{ }\KeywordTok{map_lgl}\NormalTok{(models}\OperatorTok{$}\NormalTok{error, is.null)}
+
+\CommentTok{# which data failed to converge?}
+\NormalTok{datasets[}\OperatorTok{!}\NormalTok{ok]}
+
+\CommentTok{# which models were successful?}
+\NormalTok{models[ok]}
+\end{Highlighting}
+\end{Shaded}
+
+I think this is a great example of the power of combining functionals
+and function operators: it lets you succinctly express what you need to
+solve a common data analysis problem.
+
+purrr comes with three other function operators in a similar vein:
+
+\begin{itemize}
+\item
+  \texttt{possibly()}: returns a default value when there's an error.
+\item
+  \texttt{quietly()}: turns output, messages, and warning side-effects
+  in to \texttt{output}, \texttt{message}, and \texttt{warning}
+  components of the output.
+\item
+  \texttt{auto\_browser()}: automatically executes \texttt{browser()}
+  inside the function when there's an error.
+\end{itemize}
+
+See their documentation for more details.
+
+\hypertarget{memoise}{%
+\subsection{\texorpdfstring{Caching computations with
+\texttt{memoise::memoise()}}{Caching computations with memoise::memoise()}}\label{memoise}}
+
+\index{memoisation} \indexc{memoise()} \index{Fibonacci series}
+
+An extremely handy FO is \texttt{memoise::memoise()}. It
+\textbf{memoises} a function, meaning that the function will remember
+previous inputs and return a cache results. Memoisation is an example of
+the classic computer science tradeoff of memory versus speed. A memoised
+function can run much faster because it stores all of the previous
+inputs and outputs, using more memory.
+
+Let's explore this idea with a toy function that simulates an expensive
+operation:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{slow_function <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+  \KeywordTok{Sys.sleep}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{  x }\OperatorTok{*}\StringTok{ }\DecValTok{10} \OperatorTok{*}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{\}}
+\KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(}\KeywordTok{slow_function}\NormalTok{(}\DecValTok{1}\NormalTok{)))}
+\CommentTok{#> [1] 0.808}
+\CommentTok{#>    user  system elapsed }
+\CommentTok{#>       0       0       1}
+
+\KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(}\KeywordTok{slow_function}\NormalTok{(}\DecValTok{1}\NormalTok{)))}
+\CommentTok{#> [1] 8.34}
+\CommentTok{#>    user  system elapsed }
+\CommentTok{#>   0.004   0.000   1.003}
+\end{Highlighting}
+\end{Shaded}
+
+When we memoise this function, it's slow when we call it with new
+arguments. But when we call it with arguments that it's seen before it's
+instanteous: it retrieves the previous value of the computation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fast_function <-}\StringTok{ }\NormalTok{memoise}\OperatorTok{::}\KeywordTok{memoise}\NormalTok{(slow_function)}
+\KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(}\KeywordTok{fast_function}\NormalTok{(}\DecValTok{1}\NormalTok{)))}
+\CommentTok{#> [1] 6.01}
+\CommentTok{#>    user  system elapsed }
+\CommentTok{#>       0       0       1}
+
+\KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(}\KeywordTok{fast_function}\NormalTok{(}\DecValTok{1}\NormalTok{)))}
+\CommentTok{#> [1] 6.01}
+\CommentTok{#>    user  system elapsed }
+\CommentTok{#>   0.016   0.000   0.016}
+\end{Highlighting}
+\end{Shaded}
+
+A relatively realistic use of memoisation is computing the Fibonacci
+series. The Fibonacci series is defined recursively: the first two
+values are defined by convention, \(f(0) = 0\), \(f(n) = 1\), and then
+\(f(n) = f(n - 1) + f(n - 2)\) (for any positive integer). A naive
+version is slow because, for example, \texttt{fib(10)} computes
 \texttt{fib(9)} and \texttt{fib(8)}, and \texttt{fib(9)} computes
-\texttt{fib(8)} and \texttt{fib(7)}, and so on. As a result, the value
-for each value in the series gets computed many, many times. Memoising
-\texttt{fib()} makes the implementation much faster because each value
-is computed only once. \index{Fibonacci series}
+\texttt{fib(8)} and \texttt{fib(7)}, and so on.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -13673,510 +14093,208 @@ is computed only once. \index{Fibonacci series}
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib}\NormalTok{(}\DecValTok{23}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.040   0.008   0.046}
+\CommentTok{#>    0.04    0.00    0.04}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib}\NormalTok{(}\DecValTok{24}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.064   0.004   0.067}
+\CommentTok{#>   0.064   0.000   0.064}
+\end{Highlighting}
+\end{Shaded}
 
-\NormalTok{fib2 <-}\StringTok{ }\KeywordTok{memoise}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(n) \{}
+Memoising \texttt{fib()} makes the implementation much faster because
+each value is computed only once:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fib2 <-}\StringTok{ }\NormalTok{memoise}\OperatorTok{::}\KeywordTok{memoise}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(n) \{}
   \ControlFlowTok{if}\NormalTok{ (n }\OperatorTok{<}\StringTok{ }\DecValTok{2}\NormalTok{) }\KeywordTok{return}\NormalTok{(}\DecValTok{1}\NormalTok{)}
   \KeywordTok{fib2}\NormalTok{(n }\OperatorTok{-}\StringTok{ }\DecValTok{2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{fib2}\NormalTok{(n }\OperatorTok{-}\StringTok{ }\DecValTok{1}\NormalTok{)}
 \NormalTok{\})}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib2}\NormalTok{(}\DecValTok{23}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.028   0.000   0.030}
+\CommentTok{#>   0.028   0.000   0.026}
+\end{Highlighting}
+\end{Shaded}
+
+And future calls can rely on previous computations:
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib2}\NormalTok{(}\DecValTok{24}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.000   0.000   0.001}
+\CommentTok{#>   0.004   0.000   0.000}
 \end{Highlighting}
 \end{Shaded}
 
-It doesn't make sense to memoise all functions. For example, a memoised
-random number generator is no longer random:
+This is an example of \textbf{dynamic programming}, where a complex
+problem can be broken down into many overlapping subproblems, and
+remembering the results of a subproblem considerably improves
+performance.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{runifm <-}\StringTok{ }\KeywordTok{memoise}\NormalTok{(runif)}
-\KeywordTok{runifm}\NormalTok{(}\DecValTok{5}\NormalTok{)}
-\CommentTok{#> [1] 0.883 0.678 0.073 0.920 0.988}
-\KeywordTok{runifm}\NormalTok{(}\DecValTok{5}\NormalTok{)}
-\CommentTok{#> [1] 0.883 0.678 0.073 0.920 0.988}
-\end{Highlighting}
-\end{Shaded}
-
-Once we understand \texttt{memoise()}, it's straightforward to apply to
-our problem:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{download <-}\StringTok{ }\KeywordTok{dot_every}\NormalTok{(}\DecValTok{10}\NormalTok{, }\KeywordTok{memoise}\NormalTok{(}\KeywordTok{delay_by}\NormalTok{(}\DecValTok{1}\NormalTok{, download_file)))}
-\end{Highlighting}
-\end{Shaded}
-
-This gives a function that we can easily use with \texttt{lapply()}.
-However, if something goes wrong with the loop inside \texttt{lapply()},
-it can be difficult to tell what's going on. The next section will show
-how we can use FOs to pull back the curtain and look inside.
-
-\hypertarget{tee}{%
-\subsection{Capturing function invocations}\label{tee}}
-
-One challenge with functionals is that it can be hard to see what's
-going on inside of them. It's not easy to pry open their internals like
-it is with a for loop. Fortunately we can use FOs to peer behind the
-curtain with \texttt{tee()}. \indexc{tee()}
-
-\texttt{tee()}, defined below, has three arguments, all functions:
-\texttt{f}, the function to modify; \texttt{on\_input}, a function
-that's called with the inputs to \texttt{f}; and \texttt{on\_output}, a
-function that's called with the output from \texttt{f}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{ignore <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(...) }\OtherTok{NULL}
-\NormalTok{tee <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f, }\DataTypeTok{on_input =}\NormalTok{ ignore, }\DataTypeTok{on_output =}\NormalTok{ ignore) \{}
-  \ControlFlowTok{function}\NormalTok{(...) \{}
-    \KeywordTok{on_input}\NormalTok{(...)}
-\NormalTok{    output <-}\StringTok{ }\KeywordTok{f}\NormalTok{(...)}
-    \KeywordTok{on_output}\NormalTok{(output)}
-\NormalTok{    output}
-\NormalTok{  \}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-(The function is inspired by the unix shell command \texttt{tee}, which
-is used to split up streams of file operations so that you can both
-display what's happening and save intermediate results to a file.)
-
-We can use \texttt{tee()} to look inside the \texttt{uniroot()}
-functional, and see how it iterates its way to a solution. The following
-example finds where \texttt{x} and \texttt{cos(x)} intersect:
-\indexc{uniroot()}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{g <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{cos}\NormalTok{(x) }\OperatorTok{-}\StringTok{ }\NormalTok{x}
-\NormalTok{zero <-}\StringTok{ }\KeywordTok{uniroot}\NormalTok{(g, }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{))}
-\NormalTok{show_x <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, ...) }\KeywordTok{cat}\NormalTok{(}\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%+.08f"}\NormalTok{, x), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-
-\CommentTok{# The location where the function is evaluated:}
-\NormalTok{zero <-}\StringTok{ }\KeywordTok{uniroot}\NormalTok{(}\KeywordTok{tee}\NormalTok{(g, }\DataTypeTok{on_input =}\NormalTok{ show_x), }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{))}
-\CommentTok{#> -5.00000000 }
-\CommentTok{#> +5.00000000 }
-\CommentTok{#> +0.28366219 }
-\CommentTok{#> +0.87520341 }
-\CommentTok{#> +0.72298040 }
-\CommentTok{#> +0.73863091 }
-\CommentTok{#> +0.73908529 }
-\CommentTok{#> +0.73902425 }
-\CommentTok{#> +0.73908529}
-\CommentTok{# The value of the function:}
-\NormalTok{zero <-}\StringTok{ }\KeywordTok{uniroot}\NormalTok{(}\KeywordTok{tee}\NormalTok{(g, }\DataTypeTok{on_output =}\NormalTok{ show_x), }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{))}
-\CommentTok{#> +5.28366219 }
-\CommentTok{#> -4.71633781 }
-\CommentTok{#> +0.67637474 }
-\CommentTok{#> -0.23436269 }
-\CommentTok{#> +0.02685676 }
-\CommentTok{#> +0.00076012 }
-\CommentTok{#> -0.00000026 }
-\CommentTok{#> +0.00010189 }
-\CommentTok{#> -0.00000026}
-\end{Highlighting}
-\end{Shaded}
-
-\texttt{cat()} allows us to see what's happening as the function runs,
-but it doesn't give us a way to work with the values after the function
-as completed. To do that, we could capture the sequence of calls by
-creating a function, \texttt{remember()}, that records every argument
-called and retrieves them when coerced into a list. The small amount of
-S3 code needed is explained in \protect\hyperlink{s3}{S3}.
-\indexc{remember()}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{remember <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
-\NormalTok{  memory <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
-\NormalTok{  f <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(...) \{}
-    \CommentTok{# This is inefficient!}
-\NormalTok{    memory <<-}\StringTok{ }\KeywordTok{append}\NormalTok{(memory, }\KeywordTok{list}\NormalTok{(...))}
-    \KeywordTok{invisible}\NormalTok{()}
-\NormalTok{  \}}
-
-  \KeywordTok{structure}\NormalTok{(f, }\DataTypeTok{class =} \StringTok{"remember"}\NormalTok{)}
-\NormalTok{\}}
-\NormalTok{as.list.remember <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, ...) \{}
-  \KeywordTok{environment}\NormalTok{(x)}\OperatorTok{$}\NormalTok{memory}
-\NormalTok{\}}
-\NormalTok{print.remember <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, ...) \{}
-  \KeywordTok{cat}\NormalTok{(}\StringTok{"Remembering...}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-  \KeywordTok{str}\NormalTok{(}\KeywordTok{as.list}\NormalTok{(x))}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-Now we can draw a picture showing how uniroot zeroes in on the final
-answer:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{locs <-}\StringTok{ }\KeywordTok{remember}\NormalTok{()}
-\NormalTok{vals <-}\StringTok{ }\KeywordTok{remember}\NormalTok{()}
-\NormalTok{zero <-}\StringTok{ }\KeywordTok{uniroot}\NormalTok{(}\KeywordTok{tee}\NormalTok{(g, locs, vals), }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{))}
-\NormalTok{x <-}\StringTok{ }\KeywordTok{unlist}\NormalTok{(}\KeywordTok{as.list}\NormalTok{(locs))}
-\NormalTok{error <-}\StringTok{ }\KeywordTok{unlist}\NormalTok{(}\KeywordTok{as.list}\NormalTok{(vals))}
-\KeywordTok{plot}\NormalTok{(x, }\DataTypeTok{type =} \StringTok{"b"}\NormalTok{); }\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h =} \FloatTok{0.739}\NormalTok{, }\DataTypeTok{col =} \StringTok{"grey50"}\NormalTok{)}
-\KeywordTok{plot}\NormalTok{(error, }\DataTypeTok{type =} \StringTok{"b"}\NormalTok{); }\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h =} \DecValTok{0}\NormalTok{, }\DataTypeTok{col =} \StringTok{"grey50"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Function-operators_files/figure-latex/uniroot-explore-1} \includegraphics[width=0.7\linewidth]{Function-operators_files/figure-latex/uniroot-explore-2} \end{center}
-
-\hypertarget{laziness}{%
-\subsection{Laziness}\label{laziness}}
-
-The function operators we've seen so far follow a common pattern:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{funop <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f, otherargs) \{}
-  \ControlFlowTok{function}\NormalTok{(...) \{}
-    \CommentTok{# maybe do something}
-\NormalTok{    res <-}\StringTok{ }\KeywordTok{f}\NormalTok{(...)}
-    \CommentTok{# maybe do something else}
-\NormalTok{    res}
-\NormalTok{  \}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-Unfortunately there's a problem with this implementation because
-function arguments are lazily evaluated: \texttt{f()} may have changed
-between applying the FO and evaluating the function. This is a
-particular problem if you're using a for loop to create multiple
-function operators. In the following example, we take a list of
-functions and delay each one. But when we try to evaluate the mean, we
-get the sum instead. \index{lazy evaluation}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{funs <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{mean =}\NormalTok{ mean, }\DataTypeTok{sum =}\NormalTok{ sum)}
-
-\NormalTok{funs_m <-}\StringTok{ }\KeywordTok{vector}\NormalTok{(}\StringTok{"list"}\NormalTok{, }\KeywordTok{length}\NormalTok{(funs))}
-\KeywordTok{names}\NormalTok{(funs_m) <-}\StringTok{ }\KeywordTok{names}\NormalTok{(funs)}
-
-\ControlFlowTok{for}\NormalTok{ (fun }\ControlFlowTok{in} \KeywordTok{names}\NormalTok{(funs)) \{}
-\NormalTok{  funs_m[[fun]] <-}\StringTok{ }\KeywordTok{delay_by}\NormalTok{(funs[[fun]], }\DataTypeTok{delay =} \FloatTok{0.1}\NormalTok{)}
-\NormalTok{\}}
-\NormalTok{funs_m}\OperatorTok{$}\KeywordTok{mean}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
-\CommentTok{#> [1] 55}
-\end{Highlighting}
-\end{Shaded}
-
-We can avoid that problem by explicitly forcing the evaluation of
-\texttt{f()}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{delay_by <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(delay, f) \{}
-  \KeywordTok{force}\NormalTok{(f)}
-  \ControlFlowTok{function}\NormalTok{(...) \{}
-    \KeywordTok{Sys.sleep}\NormalTok{(delay)}
-    \KeywordTok{f}\NormalTok{(...)}
-\NormalTok{  \}}
-\NormalTok{\}}
-
-\NormalTok{funs_m <-}\StringTok{ }\KeywordTok{vector}\NormalTok{(}\StringTok{"list"}\NormalTok{, }\KeywordTok{length}\NormalTok{(funs))}
-\KeywordTok{names}\NormalTok{(funs_m) <-}\StringTok{ }\KeywordTok{names}\NormalTok{(funs)}
-
-\ControlFlowTok{for}\NormalTok{ (fun }\ControlFlowTok{in} \KeywordTok{names}\NormalTok{(funs)) \{}
-\NormalTok{  funs_m[[fun]] <-}\StringTok{ }\KeywordTok{delay_by}\NormalTok{(funs[[fun]], }\DataTypeTok{delay =} \FloatTok{0.1}\NormalTok{)}
-\NormalTok{\}}
-\NormalTok{funs_m}\OperatorTok{$}\KeywordTok{mean}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
-\CommentTok{#> [1] 5.5}
-\end{Highlighting}
-\end{Shaded}
-
-Note that \texttt{lapply()} and friends have special ``non-lazy''
-behaviour so you don't see this problem:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{delay_by <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(delay, f) \{}
-  \ControlFlowTok{function}\NormalTok{(...) \{}
-    \KeywordTok{Sys.sleep}\NormalTok{(delay)}
-    \KeywordTok{f}\NormalTok{(...)}
-\NormalTok{  \}}
-\NormalTok{\}}
-
-\NormalTok{funs_m <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(funs, delay_by, }\DataTypeTok{delay =} \FloatTok{0.1}\NormalTok{)}
-\NormalTok{funs_m}\OperatorTok{$}\KeywordTok{mean}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
-\CommentTok{#> [1] 5.5}
-\end{Highlighting}
-\end{Shaded}
+Think carefully before memoising a function. If the function is not
+\textbf{pure}, i.e.~the output does not depend only on the input, you
+will get misleading and confusing results. I created a subtle bug in
+devtools because I memoised the results of \texttt{available.package()},
+which is rather slow because it has to download a large file from CRAN.
+The available packages don't change that frequently, but if you have an
+R process that's been running for a few days, the changes can become
+important, and because the problem only arose in long-running R process,
+the bug was very painful to find.
 
 \hypertarget{exercises-35}{%
 \subsection{Exercises}\label{exercises-35}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
-  Write a FO that logs a time stamp and message to a file every time a
-  function is run.
-\item
-  What does the following function do? What would be a good name for it?
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{f <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(g) \{}
-  \KeywordTok{force}\NormalTok{(g)}
-\NormalTok{  result <-}\StringTok{ }\OtherTok{NULL}
-  \ControlFlowTok{function}\NormalTok{(...) \{}
-    \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{is.null}\NormalTok{(result)) \{}
-\NormalTok{      result <<-}\StringTok{ }\KeywordTok{g}\NormalTok{(...)}
-\NormalTok{    \}}
-\NormalTok{    result}
-\NormalTok{  \}}
-\NormalTok{\}}
-\NormalTok{runif2 <-}\StringTok{ }\KeywordTok{f}\NormalTok{(runif)}
-\KeywordTok{runif2}\NormalTok{(}\DecValTok{5}\NormalTok{)}
-\CommentTok{#> [1] 0.128 0.756 0.459 0.877 0.618}
-\KeywordTok{runif2}\NormalTok{(}\DecValTok{10}\NormalTok{)}
-\CommentTok{#> [1] 0.128 0.756 0.459 0.877 0.618}
-\end{Highlighting}
-\end{Shaded}
-\item
-  Modify \texttt{delay\_by()} so that instead of delaying by a fixed
-  amount of time, it ensures that a certain amount of time has elapsed
-  since the function was last called. That is, if you called
-  \texttt{g\ \textless{}-\ delay\_by(1,\ f);\ g();\ Sys.sleep(2);\ g()}
-  there shouldn't be an extra delay.
-\item
-  Write \texttt{wait\_until()} which delays execution until a specific
-  time.
-\item
-  There are three places we could have added a memoise call: why did we
-  choose the one we did?
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{download <-}\StringTok{ }\KeywordTok{memoise}\NormalTok{(}\KeywordTok{dot_every}\NormalTok{(}\DecValTok{10}\NormalTok{, }\KeywordTok{delay_by}\NormalTok{(}\DecValTok{1}\NormalTok{, download_file)))}
-\NormalTok{download <-}\StringTok{ }\KeywordTok{dot_every}\NormalTok{(}\DecValTok{10}\NormalTok{, }\KeywordTok{memoise}\NormalTok{(}\KeywordTok{delay_by}\NormalTok{(}\DecValTok{1}\NormalTok{, download_file)))}
-\NormalTok{download <-}\StringTok{ }\KeywordTok{dot_every}\NormalTok{(}\DecValTok{10}\NormalTok{, }\KeywordTok{delay_by}\NormalTok{(}\DecValTok{1}\NormalTok{, }\KeywordTok{memoise}\NormalTok{(download_file)))}
-\end{Highlighting}
-\end{Shaded}
-\item
-  Why is the \texttt{remember()} function inefficient? How could you
-  implement it in more efficient way?
-\item
-  Why does the following code, from
-  \href{http://stackoverflow.com/questions/8440675}{stackoverflow}, not
-  do what you expect?
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# return a linear function with slope a and intercept b.}
-\NormalTok{f <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(a, b) }\ControlFlowTok{function}\NormalTok{(x) a }\OperatorTok{*}\StringTok{ }\NormalTok{x }\OperatorTok{+}\StringTok{ }\NormalTok{b}
-
-\CommentTok{# create a list of functions with different parameters.}
-\NormalTok{fs <-}\StringTok{ }\KeywordTok{Map}\NormalTok{(f, }\DataTypeTok{a =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{b =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{))}
-
-\NormalTok{fs[[}\DecValTok{1}\NormalTok{]](}\DecValTok{3}\NormalTok{)}
-\CommentTok{#> [1] 0}
-\CommentTok{# should return 0 * 3 + 0 = 0}
-\end{Highlighting}
-\end{Shaded}
-
-  How can you modify \texttt{f} so that it works correctly?
+  Base R provides a function operator in the form of
+  \texttt{Vectorize()}. What does it do? When might you use it?
 \end{enumerate}
 
-\hypertarget{output-fos}{%
-\section{Output FOs}\label{output-fos}}
+\hypertarget{fo-case-study}{%
+\section{Case study: creating your own FOs}\label{fo-case-study}}
 
-The next step up in complexity is to modify the output of a function.
-This could be quite simple, or it could fundamentally change the
-operation of the function by returning something completely different to
-its usual output. In this section you'll learn about two simple
-modifications, \texttt{Negate()} and \texttt{failwith()}, and two
-fundamental modifications, \texttt{capture\_it()} and
-\texttt{time\_it()}.
+\indexc{delay\_by()}
+\indexc{dot\_every()}
 
-\hypertarget{minor-modifications}{%
-\subsection{Minor modifications}\label{minor-modifications}}
-
-\texttt{base::Negate()} and \texttt{plyr::failwith()} offer two minor,
-but useful, modifications of a function that are particularly handy in
-conjunction with functionals. \indexc{Negate()} \indexc{failwith()}
-
-\texttt{Negate()} takes a function that returns a logical vector (a
-predicate function), and returns the negation of that function. This can
-be a useful shortcut when a function returns the opposite of what you
-need. The essence of \texttt{Negate()} is very simple:
+Imagine you have named vector of URLs and you'd like to download each
+one to disk. That's pretty simple with \texttt{walk2()} and
+\texttt{file.download()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Negate <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f) \{}
-  \KeywordTok{force}\NormalTok{(f)}
-  \ControlFlowTok{function}\NormalTok{(...) }\OperatorTok{!}\KeywordTok{f}\NormalTok{(...)}
-\NormalTok{\}}
-\NormalTok{(}\KeywordTok{Negate}\NormalTok{(is.null))(}\OtherTok{NULL}\NormalTok{)}
-\CommentTok{#> [1] FALSE}
+\NormalTok{urls <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}
+  \StringTok{"adv-r"}\NormalTok{ =}\StringTok{ "https://adv-r.hadley.nz"}\NormalTok{, }
+  \StringTok{"r4ds"}\NormalTok{ =}\StringTok{ "http://r4ds.had.co.nz/"}
+  \CommentTok{# and many many more}
+\NormalTok{)}
+\NormalTok{path <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(}\KeywordTok{tempdir}\NormalTok{(), }\KeywordTok{names}\NormalTok{(urls), }\StringTok{".html"}\NormalTok{)}
+
+\KeywordTok{walk2}\NormalTok{(urls, path, download.file, }\DataTypeTok{quiet =} \OtherTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-I often use this idea to make a function, \texttt{compact()}, that
-removes all null elements from a list: \indexc{compact()}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{compact <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{Filter}\NormalTok{(}\KeywordTok{Negate}\NormalTok{(is.null), x)}
-\end{Highlighting}
-\end{Shaded}
-
-\texttt{plyr::failwith()} turns a function that throws an error into a
-function that returns a default value when there's an error. Again, the
-essence of \texttt{failwith()} is simple; it's just a wrapper around
-\texttt{try()}, the function that captures errors and allows execution
-to continue. \indexc{try()}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{failwith <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{default =} \OtherTok{NULL}\NormalTok{, f, }\DataTypeTok{quiet =} \OtherTok{FALSE}\NormalTok{) \{}
-  \KeywordTok{force}\NormalTok{(f)}
-  \ControlFlowTok{function}\NormalTok{(...) \{}
-\NormalTok{    out <-}\StringTok{ }\NormalTok{default}
-    \KeywordTok{try}\NormalTok{(out <-}\StringTok{ }\KeywordTok{f}\NormalTok{(...), }\DataTypeTok{silent =}\NormalTok{ quiet)}
-\NormalTok{    out}
-\NormalTok{  \}}
-\NormalTok{\}}
-\KeywordTok{log}\NormalTok{(}\StringTok{"a"}\NormalTok{)}
-\CommentTok{#> Error in log("a"):}
-\CommentTok{#>   non-numeric argument to mathematical function}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{failwith}\NormalTok{(}\OtherTok{NA}\NormalTok{, log)(}\StringTok{"a"}\NormalTok{)}
-\CommentTok{#> Error in f(...) : non-numeric argument to mathematical function}
-\CommentTok{#> NA}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{failwith}\NormalTok{(}\OtherTok{NA}\NormalTok{, log, }\DataTypeTok{quiet =} \OtherTok{TRUE}\NormalTok{)(}\StringTok{"a"}\NormalTok{)}
-\CommentTok{#> [1] NA}
-\end{Highlighting}
-\end{Shaded}
-
-(If you haven't seen \texttt{try()} before, it's discussed in more
-detail in \protect\hyperlink{try}{exceptions and debugging}.)
-
-\texttt{failwith()} is very useful in conjunction with functionals:
-instead of the failure propagating and terminating the higher-level
-loop, you can complete the iteration and then find out what went wrong.
-For example, imagine you're fitting a set of generalised linear models
-(GLMs) to a list of data frames. While GLMs can sometimes fail because
-of optimisation problems, you'd still want to be able to try to fit all
-the models, and later look back at those that failed:
-\index{fitting many models}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# If any model fails, all models fail to fit:}
-\NormalTok{models <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(datasets, glm, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x1 }\OperatorTok{+}\StringTok{ }\NormalTok{x2 }\OperatorTok{*}\StringTok{ }\NormalTok{x3)}
-\CommentTok{# If a model fails, it will get a NULL value}
-\NormalTok{models <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(datasets, }\KeywordTok{failwith}\NormalTok{(}\OtherTok{NULL}\NormalTok{, glm),}
-  \DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x1 }\OperatorTok{+}\StringTok{ }\NormalTok{x2 }\OperatorTok{*}\StringTok{ }\NormalTok{x3)}
-
-\CommentTok{# remove failed models (NULLs) with compact}
-\NormalTok{ok_models <-}\StringTok{ }\KeywordTok{compact}\NormalTok{(models)}
-\CommentTok{# extract the datasets corresponding to failed models}
-\NormalTok{failed_data <-}\StringTok{ }\NormalTok{datasets[}\KeywordTok{vapply}\NormalTok{(models, is.null, }\KeywordTok{logical}\NormalTok{(}\DecValTok{1}\NormalTok{))]}
-\end{Highlighting}
-\end{Shaded}
-
-I think this is a great example of the power of combining functionals
-and function operators: it lets you succinctly express what you need to
-solve a common data analysis problem.
-
-\hypertarget{changing-what-a-function-does}{%
-\subsection{Changing what a function
-does}\label{changing-what-a-function-does}}
-
-Other output function operators can have a more profound effect on the
-operation of the function. Instead of returning the original return
-value, we can return some other effect of the function evaluation. Here
-are two examples:
+This approach is fine for a handful of URLs, but as the vector gets
+longer, it'd be nice to add a couple more features:
 
 \begin{itemize}
 \item
-  Return text that the function \texttt{print()}ed:
-  \indexc{capture\_it()}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{capture_it <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f) \{}
-  \KeywordTok{force}\NormalTok{(f)}
-  \ControlFlowTok{function}\NormalTok{(...) \{}
-    \KeywordTok{capture.output}\NormalTok{(}\KeywordTok{f}\NormalTok{(...))}
-\NormalTok{  \}}
-\NormalTok{\}}
-\NormalTok{str_out <-}\StringTok{ }\KeywordTok{capture_it}\NormalTok{(str)}
-\KeywordTok{str}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
-\CommentTok{#>  int [1:10] 1 2 3 4 5 6 7 8 9 10}
-\KeywordTok{str_out}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
-\CommentTok{#> [1] " int [1:10] 1 2 3 4 5 6 7 8 9 10"}
-\end{Highlighting}
-\end{Shaded}
+  Add a small delay between each request to avoid hammering the server.
 \item
-  Return how long a function took to run: \indexc{time\_it()}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{time_it <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f) \{}
-  \KeywordTok{force}\NormalTok{(f)}
-  \ControlFlowTok{function}\NormalTok{(...) \{}
-    \KeywordTok{system.time}\NormalTok{(}\KeywordTok{f}\NormalTok{(...))}
-\NormalTok{  \}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
+  Display a \texttt{.} every few URLs so that we know that the function
+  is still working.
 \end{itemize}
 
-\texttt{time\_it()} allows us to rewrite some of the code from the
-functionals chapter:
+It's relatively easy to add these extra features if we're using a for
+loop:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{compute_mean <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}
-  \DataTypeTok{base =} \ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{mean}\NormalTok{(x),}
-  \DataTypeTok{sum =} \ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{sum}\NormalTok{(x) }\OperatorTok{/}\StringTok{ }\KeywordTok{length}\NormalTok{(x)}
-\NormalTok{)}
-\NormalTok{x <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\FloatTok{1e6}\NormalTok{)}
-
-\CommentTok{# Previously we used an anonymous function to time execution:}
-\CommentTok{# lapply(compute_mean, function(f) system.time(f(x)))}
-
-\CommentTok{# Now we can compose function operators:}
-\NormalTok{call_fun <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f, ...) }\KeywordTok{f}\NormalTok{(...)}
-\KeywordTok{lapply}\NormalTok{(compute_mean, }\KeywordTok{time_it}\NormalTok{(call_fun), x)}
-\CommentTok{#> $base}
-\CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.000   0.004   0.003 }
-\CommentTok{#> }
-\CommentTok{#> $sum}
-\CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.004   0.000   0.003}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \KeywordTok{seq_along}\NormalTok{(urls)) \{}
+  \KeywordTok{Sys.sleep}\NormalTok{(}\FloatTok{0.1}\NormalTok{)}
+  \ControlFlowTok{if}\NormalTok{ (i }\OperatorTok{%%}\StringTok{ }\DecValTok{10} \OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) }\KeywordTok{cat}\NormalTok{(}\StringTok{"."}\NormalTok{)}
+  \KeywordTok{download.file}\NormalTok{(urls[[i]], paths[[i]])}
+\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
-In this example, there's not a huge benefit to using function operators,
-because the composition is simple and we're applying the same operator
-to each function. Generally, using function operators is most effective
-when you are using multiple operators or if the gap between creating
-them and using them is large.
+But I think this for loop is suboptimal because it interleaves different
+concerns (iteration, printing, and downloading). This makes the code
+harder to read, and it makes the harder to components reuse in new
+situations. Instead, let's see if we can use function operators to
+extract out the two ideas and make them reusable.
+
+First, lets write make an FO that adds a small delay. I'm going to call
+it \texttt{delay\_by()} for reasons that will be clear more shortly, and
+it has two arguments: the function to wrap, and the amount of delay to
+add. The actual implementation is quite simple. The main trick is
+forcing evaluation of all arguments as described in Section
+\ref{factory-pitfalls}, because function operators are a special type of
+function factory:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{delay_by <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f, amount) \{}
+  \KeywordTok{force}\NormalTok{(f)}
+  \KeywordTok{force}\NormalTok{(amount)}
+  
+  \ControlFlowTok{function}\NormalTok{(...) \{}
+    \KeywordTok{Sys.sleep}\NormalTok{(amount)}
+    \KeywordTok{f}\NormalTok{(...)}
+\NormalTok{  \}}
+\NormalTok{\}}
+\KeywordTok{system.time}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{100}\NormalTok{))}
+\CommentTok{#>    user  system elapsed }
+\CommentTok{#>       0       0       0}
+\KeywordTok{system.time}\NormalTok{(}\KeywordTok{delay_by}\NormalTok{(runif, }\FloatTok{0.1}\NormalTok{)(}\DecValTok{100}\NormalTok{))}
+\CommentTok{#>    user  system elapsed }
+\CommentTok{#>     0.0     0.0     0.1}
+\end{Highlighting}
+\end{Shaded}
+
+And we can use it with the original \texttt{walk2()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{walk2}\NormalTok{(urls, path, }\KeywordTok{delay_by}\NormalTok{(download.file, }\FloatTok{0.1}\NormalTok{), }\DataTypeTok{quiet =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Creating a function to display the occassional dot is a little harder,
+because we can no longer rely on the index from the loop. We could pass
+the index along as another argument, but that breaks encapsulation: now
+a concern of the progress function becomes a problem that the higher
+level wrapper needs to deal instead. Instead, we'll use another function
+factory trick (from Section \ref{stateful-funs}), so that the progress
+wrapper can manage its own internal counter:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dot_every <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f, n) \{}
+  \KeywordTok{force}\NormalTok{(f)}
+  \KeywordTok{force}\NormalTok{(n)}
+  
+\NormalTok{  i <-}\StringTok{ }\DecValTok{1}
+  \ControlFlowTok{function}\NormalTok{(...) \{}
+    \ControlFlowTok{if}\NormalTok{ (i }\OperatorTok{%%}\StringTok{ }\NormalTok{n }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) }\KeywordTok{cat}\NormalTok{(}\StringTok{"."}\NormalTok{)}
+\NormalTok{    i <<-}\StringTok{ }\NormalTok{i }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+    \KeywordTok{f}\NormalTok{(...)}
+\NormalTok{  \}}
+\NormalTok{\}}
+\KeywordTok{walk}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{, runif)}
+\KeywordTok{walk}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{, }\KeywordTok{dot_every}\NormalTok{(runif, }\DecValTok{10}\NormalTok{))}
+\CommentTok{#> ..........}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can express our original goal as:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{walk2}\NormalTok{(urls, path, }\KeywordTok{dot_every}\NormalTok{(}\KeywordTok{delay_by}\NormalTok{(download.file, }\FloatTok{0.1}\NormalTok{), }\DecValTok{10}\NormalTok{), }\DataTypeTok{quiet =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+This is starting to get a little hard to read because we are composing
+many function calls, and the arguments are getting spread out. One way
+to resolve that is to use the pipe:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{walk2}\NormalTok{(}
+\NormalTok{  urls, path, }
+\NormalTok{  download.file }\OperatorTok{%>%}\StringTok{ }\KeywordTok{dot_every}\NormalTok{(}\DecValTok{10}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{delay_by}\NormalTok{(}\FloatTok{0.1}\NormalTok{), }
+  \DataTypeTok{quiet =} \OtherTok{TRUE}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The pipe works well here because I've carefully chosen the function
+names to yield an (almost) readable sentence: take
+\texttt{download.file} then (add) a dot every 10 iterations, then delay
+by 0.1s. The more clearly you can express the intent of your code
+through function names, the more easily others (including future you!)
+can read and understand the code.
 
 \hypertarget{exercises-36}{%
 \subsection{Exercises}\label{exercises-36}}
@@ -14184,476 +14302,55 @@ them and using them is large.
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Create a \texttt{negative()} FO that flips the sign of the output of
-  the function to which it is applied.
-\item
-  The \texttt{evaluate} package makes it easy to capture all the outputs
-  (results, text, messages, warnings, errors, and plots) from an
-  expression. Create a function like \texttt{capture\_it()} that also
-  captures the warnings and errors generated by a function.
-\item
-  Create a FO that tracks files created or deleted in the working
-  directory (Hint: use \texttt{dir()} and \texttt{setdiff()}.) What
-  other global effects of functions might you want to track?
-\end{enumerate}
-
-\hypertarget{input-fos}{%
-\section{Input FOs}\label{input-fos}}
-
-The next step up in complexity is to modify the inputs of a function.
-Again, you can modify how a function works in a minor way (e.g., setting
-default argument values), or in a major way (e.g., converting inputs
-from scalars to vectors, or vectors to matrices).
-
-\hypertarget{prefilling-function-arguments-partial-function-application}{%
-\subsection{Prefilling function arguments: partial function
-application}\label{prefilling-function-arguments-partial-function-application}}
-
-A common use of anonymous functions is to make a variant of a function
-that has certain arguments ``filled in'' already. This is called
-``partial function application'', and is implemented by
-\texttt{pryr::partial()}. Once you have read
-\protect\hyperlink{metaprogramming}{metaprogramming}, I encourage you to
-read the source code for \texttt{partial()} and figure out how it works
---- it's only 5 lines of code! \index{partial application}
-\index{currying} \indexc{partial()}
-
-\texttt{partial()} allows us to replace code like
+  Compare and contrast the for loop and \texttt{walk2()} approaches to
+  downloading many urls. Which makes it easier to see the core objects
+  and functions? Which requires more background knowledge? What are the
+  advantages and disadvantages in factoring out components of the
+  problem into independent functions?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{f <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(a) }\KeywordTok{g}\NormalTok{(a, }\DataTypeTok{b =} \DecValTok{1}\NormalTok{)}
-\NormalTok{compact <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{Filter}\NormalTok{(}\KeywordTok{Negate}\NormalTok{(is.null), x)}
-\KeywordTok{Map}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x, y) }\KeywordTok{f}\NormalTok{(x, y, zs), xs, ys)}
-\end{Highlighting}
-\end{Shaded}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_along}\NormalTok{(urls)) \{}
+  \KeywordTok{Sys.sleep}\NormalTok{(}\FloatTok{0.1}\NormalTok{)}
+  \ControlFlowTok{if}\NormalTok{ (i }\OperatorTok{%%}\StringTok{ }\DecValTok{10} \OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) }\KeywordTok{cat}\NormalTok{(}\StringTok{"."}\NormalTok{)}
+  \KeywordTok{download.file}\NormalTok{(urls[[i]], paths[[i]])}
+\NormalTok{\}}
 
-with
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{f <-}\StringTok{ }\KeywordTok{partial}\NormalTok{(g, }\DataTypeTok{b =} \DecValTok{1}\NormalTok{)}
-\NormalTok{compact <-}\StringTok{ }\KeywordTok{partial}\NormalTok{(Filter, }\KeywordTok{Negate}\NormalTok{(is.null))}
-\KeywordTok{Map}\NormalTok{(}\KeywordTok{partial}\NormalTok{(f, }\DataTypeTok{zs =}\NormalTok{ zs), xs, ys)}
-\end{Highlighting}
-\end{Shaded}
-
-We can use this idea to simplify the code used when working with lists
-of functions. Instead of:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{funs2 <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}
-  \DataTypeTok{sum =} \ControlFlowTok{function}\NormalTok{(...) }\KeywordTok{sum}\NormalTok{(..., }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
-  \DataTypeTok{mean =} \ControlFlowTok{function}\NormalTok{(...) }\KeywordTok{mean}\NormalTok{(..., }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
-  \DataTypeTok{median =} \ControlFlowTok{function}\NormalTok{(...) }\KeywordTok{median}\NormalTok{(..., }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{walk2}\NormalTok{(}
+\NormalTok{  urls, path, }
+\NormalTok{  download.file }\OperatorTok{%>%}\StringTok{ }\KeywordTok{dot_every}\NormalTok{(}\DecValTok{10}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{delay_by}\NormalTok{(}\FloatTok{0.1}\NormalTok{), }
+  \DataTypeTok{quiet =} \OtherTok{TRUE}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-we can write:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(pryr)}
-\NormalTok{funs2 <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}
-  \DataTypeTok{sum =} \KeywordTok{partial}\NormalTok{(sum, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
-  \DataTypeTok{mean =} \KeywordTok{partial}\NormalTok{(mean, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
-  \DataTypeTok{median =} \KeywordTok{partial}\NormalTok{(median, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-Using partial function application is a straightforward task in many
-functional programming languages, but it's not entirely clear how it
-should interact with R's lazy evaluation rules. The approach
-\texttt{pryr::partial()} takes is to create a function that is as
-similar as possible to the anonymous function that you'd create by hand.
-Peter Meilstrup takes a different approach in his
-\href{https://github.com/crowding/ptools/}{ptools package}. If you're
-interested in the topic, you might want to read about the binary
-operators he created: \texttt{\%()\%},
-\texttt{\%\textgreater{}\textgreater{}\%}, and
-\texttt{\%\textless{}\textless{}\%}.
-
-\hypertarget{changing-input-types}{%
-\subsection{Changing input types}\label{changing-input-types}}
-
-It's also possible to make a major change to a function's input, making
-a function work with fundamentally different types of data. There are a
-few existing functions that work along these lines:
-
-\begin{itemize}
 \item
-  \texttt{base::Vectorize()} converts a scalar function to a vector
-  function. It takes a non-vectorised function and vectorises it with
-  respect to the arguments specified in the \texttt{vectorize.args}
-  argument. This doesn't give you any magical performance improvements,
-  but it's useful if you want a quick and dirty way of making a
-  vectorised function. \indexc{Vectorize()}
-
-  A mildly useful extension to \texttt{sample()} would be to vectorize
-  it with respect to size. Doing so would allow you to generate multiple
-  samples in one call. \indexc{sample()}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{sample2 <-}\StringTok{ }\KeywordTok{Vectorize}\NormalTok{(sample, }\StringTok{"size"}\NormalTok{, }\DataTypeTok{SIMPLIFY =} \OtherTok{FALSE}\NormalTok{)}
-\KeywordTok{str}\NormalTok{(}\KeywordTok{sample2}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{)))}
-\CommentTok{#> List of 3}
-\CommentTok{#>  $ : int 2}
-\CommentTok{#>  $ : int 1}
-\CommentTok{#>  $ : int [1:3] 2 1 5}
-\KeywordTok{str}\NormalTok{(}\KeywordTok{sample2}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{5}\OperatorTok{:}\DecValTok{3}\NormalTok{))}
-\CommentTok{#> List of 3}
-\CommentTok{#>  $ : int [1:5] 5 1 2 3 4}
-\CommentTok{#>  $ : int [1:4] 2 3 5 1}
-\CommentTok{#>  $ : int [1:3] 5 4 2}
-\end{Highlighting}
-\end{Shaded}
-
-  In this example we have used \texttt{SIMPLIFY\ =\ FALSE} to ensure
-  that our newly vectorised function always returns a list. This is
-  usually what you want.
+  Create a FO that reports whenever a file is created or deleted in the
+  working directory, using \texttt{dir()} and \texttt{setdiff()}. What
+  other global function effects might you want to track?
 \item
-  \texttt{splat()} converts a function that takes multiple arguments to
-  a function that takes a single list of arguments. \indexc{splat()}
-  \indexc{do.call()}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{splat <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (f) \{}
-  \KeywordTok{force}\NormalTok{(f)}
-  \ControlFlowTok{function}\NormalTok{(args) \{}
-    \KeywordTok{do.call}\NormalTok{(f, args)}
-\NormalTok{  \}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-  This is useful if you want to invoke a function with varying
-  arguments:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\KeywordTok{runif}\NormalTok{(}\DecValTok{100}\NormalTok{), }\DecValTok{1000}\NormalTok{)}
-\NormalTok{args <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}
-  \KeywordTok{list}\NormalTok{(x),}
-  \KeywordTok{list}\NormalTok{(x, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
-  \KeywordTok{list}\NormalTok{(x, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{trim =} \FloatTok{0.1}\NormalTok{)}
-\NormalTok{)}
-\KeywordTok{lapply}\NormalTok{(args, }\KeywordTok{splat}\NormalTok{(mean))}
-\CommentTok{#> [[1]]}
-\CommentTok{#> [1] NA}
-\CommentTok{#> }
-\CommentTok{#> [[2]]}
-\CommentTok{#> [1] 10.4}
-\CommentTok{#> }
-\CommentTok{#> [[3]]}
-\CommentTok{#> [1] 0.478}
-\end{Highlighting}
-\end{Shaded}
+  Write a FO that logs a time stamp and message to a file every time a
+  function is run.
 \item
-  \texttt{plyr::colwise()} converts a vector function to one that works
-  with data frames: \indexc{colwise()}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{median}\NormalTok{(mtcars)}
-\CommentTok{#> Error in median.default(mtcars):}
-\CommentTok{#>   need numeric data}
-\KeywordTok{median}\NormalTok{(mtcars}\OperatorTok{$}\NormalTok{mpg)}
-\CommentTok{#> [1] 19.2}
-\NormalTok{plyr}\OperatorTok{::}\KeywordTok{colwise}\NormalTok{(median)(mtcars)}
-\CommentTok{#>    mpg cyl disp  hp drat   wt qsec vs am gear carb}
-\CommentTok{#> 1 19.2   6  196 123  3.7 3.33 17.7  0  0    4    2}
-\end{Highlighting}
-\end{Shaded}
-\end{itemize}
-
-\hypertarget{exercises-37}{%
-\subsection{Exercises}\label{exercises-37}}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Our previous \texttt{download()} function only downloads a single
-  file. How can you use \texttt{partial()} and \texttt{lapply()} to
-  create a function that downloads multiple files at once? What are the
-  pros and cons of using \texttt{partial()} vs. writing a function by
-  hand?
-\item
-  Read the source code for \texttt{plyr::colwise()}. How does the code
-  work? What are \texttt{colwise()}'s three main tasks? How could you
-  make \texttt{colwise()} simpler by implementing each task as a
-  function operator? (Hint: think about \texttt{partial()}.)
-\item
-  Write FOs that convert a function to return a matrix instead of a data
-  frame, or a data frame instead of a matrix. If you understand S3, call
-  them \texttt{as.data.frame.function()} and
-  \texttt{as.matrix.function()}.
-\item
-  You've seen five functions that modify a function to change its output
-  from one form to another. What are they? Draw a table of the various
-  combinations of types of outputs: what should go in the rows and what
-  should go in the columns? What function operators might you want to
-  write to fill in the missing cells? Come up with example use cases.
-\item
-  Look at all the examples of using an anonymous function to partially
-  apply a function in this and the previous chapter. Replace the
-  anonymous function with \texttt{partial()}. What do you think of the
-  result? Is it easier or harder to read?
-\end{enumerate}
-
-\hypertarget{combining-fos}{%
-\section{Combining FOs}\label{combining-fos}}
-
-Besides just operating on single functions, function operators can take
-multiple functions as input. One simple example of this is
-\texttt{plyr::each()}. It takes a list of vectorised functions and
-combines them into a single function. \indexc{each()}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{summaries <-}\StringTok{ }\NormalTok{plyr}\OperatorTok{::}\KeywordTok{each}\NormalTok{(mean, sd, median)}
-\KeywordTok{summaries}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
-\CommentTok{#>   mean     sd median }
-\CommentTok{#>   5.50   3.03   5.50}
-\end{Highlighting}
-\end{Shaded}
-
-Two more complicated examples are combining functions through
-composition, or through boolean algebra. These capabilities are the glue
-that allow us to join multiple functions together.
-
-\hypertarget{function-composition}{%
-\subsection{Function composition}\label{function-composition}}
-
-An important way of combining functions is through composition:
-\texttt{f(g(x))}. Composition takes a list of functions and applies them
-sequentially to the input. It's a replacement for the common pattern of
-anonymous function that chains multiple functions together to get the
-result you want: \index{functions!composition of} \index{composition}
-\indexc{compose()}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{sapply}\NormalTok{(mtcars, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{length}\NormalTok{(}\KeywordTok{unique}\NormalTok{(x)))}
-\CommentTok{#>  mpg  cyl disp   hp drat   wt qsec   vs   am gear carb }
-\CommentTok{#>   25    3   27   22   22   29   30    2    2    3    6}
-\end{Highlighting}
-\end{Shaded}
-
-A simple version of compose looks like this:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{compose <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f, g) \{}
-  \ControlFlowTok{function}\NormalTok{(...) }\KeywordTok{f}\NormalTok{(}\KeywordTok{g}\NormalTok{(...))}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-(\texttt{pryr::compose()} provides a more full-featured alternative that
-can accept multiple functions and is used for the rest of the examples.)
-
-This allows us to write:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{sapply}\NormalTok{(mtcars, }\KeywordTok{compose}\NormalTok{(length, unique))}
-\CommentTok{#>  mpg  cyl disp   hp drat   wt qsec   vs   am gear carb }
-\CommentTok{#>   25    3   27   22   22   29   30    2    2    3    6}
-\end{Highlighting}
-\end{Shaded}
-
-Mathematically, function composition is often denoted with the infix
-operator, o, \texttt{(f\ o\ g)(x)}. Haskell, a popular functional
-programming language, uses \texttt{.} to the same end. In R, we can
-create our own infix composition function: \indexc{\%o\%}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\StringTok{"%o%"}\NormalTok{ <-}\StringTok{ }\NormalTok{compose}
-\KeywordTok{sapply}\NormalTok{(mtcars, length }\OperatorTok{%o%}\StringTok{ }\NormalTok{unique)}
-\CommentTok{#>  mpg  cyl disp   hp drat   wt qsec   vs   am gear carb }
-\CommentTok{#>   25    3   27   22   22   29   30    2    2    3    6}
-
-\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{+}\StringTok{ }\DecValTok{8}\NormalTok{)}
-\CommentTok{#> [1] 3}
-\KeywordTok{compose}\NormalTok{(sqrt, }\StringTok{`}\DataTypeTok{+}\StringTok{`}\NormalTok{)(}\DecValTok{1}\NormalTok{, }\DecValTok{8}\NormalTok{)}
-\CommentTok{#> [1] 3}
-\NormalTok{(sqrt }\OperatorTok{%o%}\StringTok{ `}\DataTypeTok{+}\StringTok{`}\NormalTok{)(}\DecValTok{1}\NormalTok{, }\DecValTok{8}\NormalTok{)}
-\CommentTok{#> [1] 3}
-\end{Highlighting}
-\end{Shaded}
-
-Compose also allows for a very succinct implementation of
-\texttt{Negate}, which is just a partially evaluated version of
-\texttt{compose()}. \indexc{Negate()}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{Negate <-}\StringTok{ }\KeywordTok{partial}\NormalTok{(compose, }\StringTok{`}\DataTypeTok{!}\StringTok{`}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-We could implement the population standard deviation with function
-composition:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{square <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) x}\OperatorTok{^}\DecValTok{2}
-\NormalTok{deviation <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) x }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(x)}
-
-\NormalTok{sd2 <-}\StringTok{ }\NormalTok{sqrt }\OperatorTok{%o%}\StringTok{ }\NormalTok{mean }\OperatorTok{%o%}\StringTok{ }\NormalTok{square }\OperatorTok{%o%}\StringTok{ }\NormalTok{deviation}
-\KeywordTok{sd2}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
-\CommentTok{#> [1] 2.87}
-\end{Highlighting}
-\end{Shaded}
-
-This type of programming is called tacit or point-free programming. (The
-term point-free comes from the use of ``point'' to refer to values in
-topology; this style is also derogatorily known as pointless). In this
-style of programming, you don't explicitly refer to variables. Instead,
-you focus on the high-level composition of functions rather than the
-low-level flow of data. The focus is on what's being done, not on
-objects it's being done to. Since we're using only functions and not
-parameters, we use verbs and not nouns. This style is common in Haskell,
-and is the typical style in stack based programming languages like Forth
-and Factor. It's not a terribly natural or elegant style in R, but it is
-fun to play with. \index{point-free programming}
-\index{tacit programming}
-
-\texttt{compose()} is particularly useful in conjunction with
-\texttt{partial()}, because \texttt{partial()} allows you to supply
-additional arguments to the functions being composed. One nice side
-effect of this style of programming is that it keeps a function's
-arguments near its name. This is important because as the size of the
-chunk of code you have to hold in your head grows code becomes harder to
-understand.
-
-Below I take the example from the first section of the chapter and
-modify it to use the two styles of function composition described above.
-Both results are longer than the original code, but they may be easier
-to understand because the function and its arguments are closer
-together. Note that we still have to read them from right to left
-(bottom to top): the first function called is the last one written. We
-could define \texttt{compose()} to work in the opposite direction, but
-in the long run, this is likely to lead to confusion since we'd create a
-small part of the language that reads differently from every other part.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{download <-}\StringTok{ }\KeywordTok{dot_every}\NormalTok{(}\DecValTok{10}\NormalTok{, }\KeywordTok{memoise}\NormalTok{(}\KeywordTok{delay_by}\NormalTok{(}\DecValTok{1}\NormalTok{, download_file)))}
-
-\NormalTok{download <-}\StringTok{ }\NormalTok{pryr}\OperatorTok{::}\KeywordTok{compose}\NormalTok{(}
-  \KeywordTok{partial}\NormalTok{(dot_every, }\DecValTok{10}\NormalTok{),}
-\NormalTok{  memoise,}
-  \KeywordTok{partial}\NormalTok{(delay_by, }\DecValTok{1}\NormalTok{)}
-\NormalTok{)(download_file)}
-
-\NormalTok{download <-}\StringTok{ }\NormalTok{(}\KeywordTok{partial}\NormalTok{(dot_every, }\DecValTok{10}\NormalTok{) }\OperatorTok{%o%}
-\StringTok{  }\NormalTok{memoise }\OperatorTok{%o%}
-\StringTok{  }\KeywordTok{partial}\NormalTok{(delay_by, }\DecValTok{1}\NormalTok{))(download_file)}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{logical-predicates-and-boolean-algebra}{%
-\subsection{Logical predicates and boolean
-algebra}\label{logical-predicates-and-boolean-algebra}}
-
-When I use \texttt{Filter()} and other functionals that work with
-logical predicates, I often find myself using anonymous functions to
-combine multiple conditions: \index{predicate functions}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{Filter}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{is.character}\NormalTok{(x) }\OperatorTok{||}\StringTok{ }\KeywordTok{is.factor}\NormalTok{(x), iris)}
-\end{Highlighting}
-\end{Shaded}
-
-As an alternative, we could define function operators that combine
-logical predicates:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{and <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f1, f2) \{}
-  \KeywordTok{force}\NormalTok{(f1); }\KeywordTok{force}\NormalTok{(f2)}
-  \ControlFlowTok{function}\NormalTok{(...) \{}
-    \KeywordTok{f1}\NormalTok{(...) }\OperatorTok{&&}\StringTok{ }\KeywordTok{f2}\NormalTok{(...)}
-\NormalTok{  \}}
-\NormalTok{\}}
-
-\NormalTok{or <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f1, f2) \{}
-  \KeywordTok{force}\NormalTok{(f1); }\KeywordTok{force}\NormalTok{(f2)}
-  \ControlFlowTok{function}\NormalTok{(...) \{}
-    \KeywordTok{f1}\NormalTok{(...) }\OperatorTok{||}\StringTok{ }\KeywordTok{f2}\NormalTok{(...)}
-\NormalTok{  \}}
-\NormalTok{\}}
-
-\NormalTok{not <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f) \{}
-  \KeywordTok{force}\NormalTok{(f)}
-  \ControlFlowTok{function}\NormalTok{(...) \{}
-    \OperatorTok{!}\KeywordTok{f}\NormalTok{(...)}
-\NormalTok{  \}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-This would allow us to write:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{Filter}\NormalTok{(}\KeywordTok{or}\NormalTok{(is.character, is.factor), iris)}
-\KeywordTok{Filter}\NormalTok{(}\KeywordTok{not}\NormalTok{(is.numeric), iris)}
-\end{Highlighting}
-\end{Shaded}
-
-And we now have a boolean algebra on functions, not on the results of
-functions. \index{Boolean algebra}
-
-\hypertarget{exercises-38}{%
-\subsection{Exercises}\label{exercises-38}}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Implement your own version of \texttt{compose()} using \texttt{Reduce}
-  and \texttt{\%o\%}. For bonus points, do it without calling
-  \texttt{function}.
-\item
-  Extend \texttt{and()} and \texttt{or()} to deal with any number of
-  input functions. Can you do it with \texttt{Reduce()}? Can you keep
-  them lazy (e.g., for \texttt{and()}, the function returns once it sees
-  the first \texttt{FALSE})?
-\item
-  Implement the \texttt{xor()} binary operator. Implement it using the
-  existing \texttt{xor()} function. Implement it as a combination of
-  \texttt{and()} and \texttt{or()}. What are the advantages and
-  disadvantages of each approach? Also think about what you'll call the
-  resulting function to avoid a clash with the existing \texttt{xor()}
-  function, and how you might change the names of \texttt{and()},
-  \texttt{not()}, and \texttt{or()} to keep them consistent.
-\item
-  Above, we implemented boolean algebra for functions that return a
-  logical function. Implement elementary algebra (\texttt{plus()},
-  \texttt{minus()}, \texttt{multiply()}, \texttt{divide()},
-  \texttt{exponentiate()}, \texttt{log()}) for functions that return
-  numeric vectors.
+  Modify \texttt{delay\_by()} so that instead of delaying by a fixed
+  amount of time, it ensures that a certain amount of time has elapsed
+  since the function was last called. That is, if you called
+  \texttt{g\ \textless{}-\ delay\_by(1,\ f);\ g();\ Sys.sleep(2);\ g()}
+  there shouldn't be an extra delay.
 \end{enumerate}
 
 \hypertarget{part-object-oriented-programming}{%
 \part{Object oriented
 programming}\label{part-object-oriented-programming}}
 
+\index{object-oriented programming}
+
 \hypertarget{oo}{%
 \chapter*{Introduction}\label{oo}}
 \addcontentsline{toc}{chapter}{Introduction}
 
 In the following five chapters you'll learn about \textbf{object
-oriented programming} (OOP) in R. \index{object-oriented programming}
-OOP in R is a little more challenging than in other languages, because:
+oriented programming} (OOP) in R. OOP in R is a little more challenging
+than in other languages, because:
 
 \begin{itemize}
 \item
@@ -15278,8 +14975,8 @@ the method lives:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exercises-39}{%
-\subsection{Exercises}\label{exercises-39}}
+\hypertarget{exercises-37}{%
+\subsection{Exercises}\label{exercises-37}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -15767,8 +15464,8 @@ implementing a full range of convenient vectorised methods is usually a
 lot of work. It's typically obvious when you need to use a
 data-frame-style.
 
-\hypertarget{exercises-40}{%
-\subsection{Exercises}\label{exercises-40}}
+\hypertarget{exercises-38}{%
+\subsection{Exercises}\label{exercises-38}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -15976,8 +15673,8 @@ you don't know what additional arguments that a method for someone
 else's class might need. The downside of using \texttt{...}, however, is
 that any misspelled arguments will be silently swallowed.
 
-\hypertarget{exercises-41}{%
-\subsection{Exercises}\label{exercises-41}}
+\hypertarget{exercises-39}{%
+\subsection{Exercises}\label{exercises-39}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -16138,8 +15835,8 @@ Generally, you call \texttt{NextMethod()} without any arguments.
 However, if you do give arguments, they are passed on to the next
 method, as if they'd been supplied to the generic.
 
-\hypertarget{exercises-42}{%
-\subsection{Exercises}\label{exercises-42}}
+\hypertarget{exercises-40}{%
+\subsection{Exercises}\label{exercises-40}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -16262,7 +15959,7 @@ the types of the new fields, then calls the parent constructor.
 \begin{Highlighting}[]
 \NormalTok{new_subclass <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, y, z) \{}
   \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{is.character}\NormalTok{(z))}
-  \KeywordTok{new_my_class}\NormalTok{(x, y, z, }\DataTypeTok{subclass =} \StringTok{"subclass"}\NormalTok{)}
+  \KeywordTok{new_my_class}\NormalTok{(x, y, }\DataTypeTok{z =}\NormalTok{ z, }\DataTypeTok{subclass =} \StringTok{"subclass"}\NormalTok{)}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -16275,7 +15972,7 @@ to include \texttt{...} and \texttt{subclass} arguments:
 \NormalTok{new_subclass <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, y, z, ..., }\DataTypeTok{subclass =} \OtherTok{NULL}\NormalTok{) \{}
   \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{is.character}\NormalTok{(z))}
   
-  \KeywordTok{new_my_class}\NormalTok{(x, y, z, ..., }\DataTypeTok{subclass =} \KeywordTok{c}\NormalTok{(subclass, }\StringTok{"subclass"}\NormalTok{))}
+  \KeywordTok{new_my_class}\NormalTok{(x, y, }\DataTypeTok{z =}\NormalTok{ z, ..., }\DataTypeTok{subclass =} \KeywordTok{c}\NormalTok{(subclass, }\StringTok{"subclass"}\NormalTok{))}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -16415,8 +16112,8 @@ call \texttt{reconstruct()} to ensure that it also works for subclasses.
 That way implementors of a subclass will only need to provide methods
 when the computation is actually different.
 
-\hypertarget{exercises-43}{%
-\subsection{Exercises}\label{exercises-43}}
+\hypertarget{exercises-41}{%
+\subsection{Exercises}\label{exercises-41}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -16719,8 +16416,8 @@ There are three possible outcomes of this lookup:
 \item
   The methods are the same, so it doesn't matter which method is used.
 \item
-  The methods are different, and R calls the first method with a
-  warning.
+  The methods are different, and R falls back to the internal method
+  with a warning.
 \item
   One method is internal, in which case R calls the other method.
 \end{itemize}
@@ -16804,8 +16501,8 @@ common \texttt{-.POSIXt} method is found and called.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exercises-44}{%
-\subsection{Exercises}\label{exercises-44}}
+\hypertarget{exercises-42}{%
+\subsection{Exercises}\label{exercises-42}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -17205,8 +16902,8 @@ argument of \texttt{is()}:
 If you are using a class provided by a package you can get help on it
 with \texttt{class?Person}.
 
-\hypertarget{exercises-45}{%
-\subsection{Exercises}\label{exercises-45}}
+\hypertarget{exercises-43}{%
+\subsection{Exercises}\label{exercises-43}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -17491,8 +17188,8 @@ file you need:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exercises-46}{%
-\subsection{Exercises}\label{exercises-46}}
+\hypertarget{exercises-44}{%
+\subsection{Exercises}\label{exercises-44}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -17697,8 +17394,8 @@ combination of the two. There are some techniques (like mixins) that
 allow you to tame this complexity, but I am not aware of a detailed
 treatment as applied to S4.
 
-\hypertarget{exercises-47}{%
-\subsection{Exercises}\label{exercises-47}}
+\hypertarget{exercises-45}{%
+\subsection{Exercises}\label{exercises-45}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -17804,8 +17501,8 @@ it is ok to convert an existing S3 generic to S4, but you should avoid
 converting regular functions because it makes code harder to use (and
 requires coordination if done by multiple packages).
 
-\hypertarget{exercises-48}{%
-\subsection{Exercises}\label{exercises-48}}
+\hypertarget{exercises-46}{%
+\subsection{Exercises}\label{exercises-46}}
 
 \hypertarget{R6}{%
 \chapter{R6}\label{R6}}
@@ -18013,7 +17710,7 @@ This technique is called \textbf{method chaining} and is commonly used
 in encapsulated OO languages (like Python and JavaScript) to create
 fluent interfaces. Method chaining is deeply related to the pipe, and
 we'll discuss the pros and cons of each approach in
-\protect\hyperlink{tradeoffs-pipe}{pipe vs message-chaining tradeoffs}.
+\protect\hyperlink{tradeoffs-pipe}{pipe vs method-chaining tradeoffs}.
 
 \hypertarget{important-methods}{%
 \subsection{Important methods}\label{important-methods}}
@@ -18257,8 +17954,8 @@ There's one method that we haven't defined: \texttt{\$clone()}. It's
 provided by R6 and we'll come back to it in
 \protect\hyperlink{reference-semantics}{reference semantics}.
 
-\hypertarget{exercises-49}{%
-\subsection{Exercises}\label{exercises-49}}
+\hypertarget{exercises-47}{%
+\subsection{Exercises}\label{exercises-47}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -18332,8 +18029,9 @@ The distinction between public and private fields is important when you
 create complex networks of classes, and you want to make it as clear as
 possible what it's ok for others to access. Anything that's private can
 be more easily refactored because you know others aren't relying on it.
-Private methods tend to be more important in other programming languages
-compared to R because the object hierarchies in R tend to be simpler.
+Private methods tend to be less important in R compared to other
+programming languages because the object hierarchies in R tend to be
+simpler.
 
 \hypertarget{active-fields}{%
 \subsection{Active fields}\label{active-fields}}
@@ -18450,8 +18148,8 @@ a length 1 character vector.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exercises-50}{%
-\subsection{Exercises}\label{exercises-50}}
+\hypertarget{exercises-48}{%
+\subsection{Exercises}\label{exercises-48}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -18678,8 +18376,8 @@ You can fix this by creating the object in \texttt{\$initialize()}:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exercises-51}{%
-\subsection{Exercises}\label{exercises-51}}
+\hypertarget{exercises-49}{%
+\subsection{Exercises}\label{exercises-49}}
 
 \hypertarget{oo-tradeoffs}{%
 \chapter{Trade-offs}\label{oo-tradeoffs}}
@@ -19533,8 +19231,8 @@ don't change the parsing rules, but just add some additional metadata:
 
 (Note the appearance of another infix function: \texttt{\$})
 
-\hypertarget{exercises-52}{%
-\subsection{Exercises}\label{exercises-52}}
+\hypertarget{exercises-50}{%
+\subsection{Exercises}\label{exercises-50}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -19704,8 +19402,8 @@ code. There's one major exception:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exercises-53}{%
-\subsection{Exercises}\label{exercises-53}}
+\hypertarget{exercises-51}{%
+\subsection{Exercises}\label{exercises-51}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -20143,8 +19841,8 @@ evaluates each individual expression. We don't believe this advantage
 merits introducing a new data structure, so instead of expression
 objects we always use regular lists of expressions.
 
-\hypertarget{exercises-54}{%
-\subsection{Exercises}\label{exercises-54}}
+\hypertarget{exercises-52}{%
+\subsection{Exercises}\label{exercises-52}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -20299,8 +19997,8 @@ returns a character vector with one element for each line. Whenever you
 use it, remember that the length of the output might be greater than
 one, and plan accordingly.
 
-\hypertarget{exercises-55}{%
-\subsection{Exercises}\label{exercises-55}}
+\hypertarget{exercises-53}{%
+\subsection{Exercises}\label{exercises-53}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -20721,8 +20419,8 @@ While the complete version of this function is quite complicated, it's
 important to remember we wrote it by working our way up by writing
 simple component parts.
 
-\hypertarget{exercises-56}{%
-\subsection{Exercises}\label{exercises-56}}
+\hypertarget{exercises-54}{%
+\subsection{Exercises}\label{exercises-54}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -20971,8 +20669,8 @@ explicitly when needed. This makes these languages less ambiguous
 but is less appropriate for R because quasiquotation is such an
 important part of DSLs for data analysis.
 
-\hypertarget{exercises-57}{%
-\subsection{Exercises}\label{exercises-57}}
+\hypertarget{exercises-55}{%
+\subsection{Exercises}\label{exercises-55}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -21215,8 +20913,8 @@ elsewhere:
   topic of the next chapter, and is discussed in {[}formulas{]}.
 \end{itemize}
 
-\hypertarget{exercises-58}{%
-\subsection{Exercises}\label{exercises-58}}
+\hypertarget{exercises-56}{%
+\subsection{Exercises}\label{exercises-56}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -21672,8 +21370,8 @@ You can either wrap in a list and use unquote-splice, or use the
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exercises-59}{%
-\subsection{Exercises}\label{exercises-59}}
+\hypertarget{exercises-57}{%
+\subsection{Exercises}\label{exercises-57}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -22050,8 +21748,8 @@ Note that this is often useful if the higher order function have
 arguments that are expressions: inlining more complex objects into the
 AST can yield confusing source code.
 
-\hypertarget{exercises-60}{%
-\subsection{Exercises}\label{exercises-60}}
+\hypertarget{exercises-58}{%
+\subsection{Exercises}\label{exercises-58}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -22413,8 +22111,8 @@ solves more problems, more elegantly, by using the ideas from tidy eval.
 The tidyverse is slowly migrating to \texttt{list2()} style for all
 functions that take \texttt{...}.
 
-\hypertarget{exercises-61}{%
-\subsection{Exercises}\label{exercises-61}}
+\hypertarget{exercises-59}{%
+\subsection{Exercises}\label{exercises-59}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -22789,8 +22487,8 @@ expression objects, and overall we don't believe this one benefit
 outweighs the cost of introducing a new data structure. That's why this
 book has renegated expression objects to a secondary role.
 
-\hypertarget{exercises-62}{%
-\subsection{Exercises}\label{exercises-62}}
+\hypertarget{exercises-60}{%
+\subsection{Exercises}\label{exercises-60}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -23206,8 +22904,8 @@ not important. This tends to happen in three main cases:
   (Assuming that \texttt{x} will be supplied in some other way)
 \end{itemize}
 
-\hypertarget{exercises-63}{%
-\subsection{Exercises}\label{exercises-63}}
+\hypertarget{exercises-61}{%
+\subsection{Exercises}\label{exercises-61}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -23744,8 +23442,8 @@ across calls.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exercises-64}{%
-\subsection{Exercises}\label{exercises-64}}
+\hypertarget{exercises-62}{%
+\subsection{Exercises}\label{exercises-62}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -24218,8 +23916,8 @@ variable with a set of predictors.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exercises-65}{%
-\subsection{Exercises}\label{exercises-65}}
+\hypertarget{exercises-63}{%
+\subsection{Exercises}\label{exercises-63}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -24769,8 +24467,8 @@ If you want to access the R function overridden by an HTML tag with the
 same name inside \texttt{with\_html()}, you can use the full
 \texttt{package::function} specification.
 
-\hypertarget{exercises-66}{%
-\subsection{Exercises}\label{exercises-66}}
+\hypertarget{exercises-64}{%
+\subsection{Exercises}\label{exercises-64}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -25267,8 +24965,8 @@ And again we update \texttt{latex\_env()}:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exercises-67}{%
-\subsection{Exercises}\label{exercises-67}}
+\hypertarget{exercises-65}{%
+\subsection{Exercises}\label{exercises-65}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -25911,9 +25609,9 @@ root.
 \NormalTok{  x }\OperatorTok{^}\StringTok{ }\FloatTok{0.5}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
-\CommentTok{#>     expr   min    lq  mean median    uq    max neval}
-\CommentTok{#>  sqrt(x)   871 1,150  1344  1,260 1,450  5,350   100}
-\CommentTok{#>    x^0.5 9,200 9,500 10248  9,780 9,920 45,600   100}
+\CommentTok{#>     expr   min    lq  mean median     uq    max neval}
+\CommentTok{#>  sqrt(x)   930 1,180  1452  1,330  1,500  8,940   100}
+\CommentTok{#>    x^0.5 9,300 9,620 10624  9,920 10,800 49,400   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -25948,8 +25646,8 @@ the square root of 100 numbers. That means if you repeated the operation
 a million times, it would take 1 s. So changing the way you compute the
 square root is unlikely to significantly affect real code.
 
-\hypertarget{exercises-68}{%
-\subsection{Exercises}\label{exercises-68}}
+\hypertarget{exercises-66}{%
+\subsection{Exercises}\label{exercises-66}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -26097,15 +25795,15 @@ comparison. \index{methods!cost of dispatch}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>  expr    min     lq  mean median     uq       max neval}
-\CommentTok{#>   fun    180    200   387    223    234    14,700   100}
-\CommentTok{#>    S3    987  1,130 10789  1,220  1,360   925,000   100}
-\CommentTok{#>    S4 11,900 12,600 28142 12,900 13,800   951,000   100}
-\CommentTok{#>    RC  8,250  8,520 40643  8,740  9,150 3,130,000   100}
+\CommentTok{#>   fun    181    204   399    227    237    15,200   100}
+\CommentTok{#>    S3    985  1,100 10375  1,200  1,270   885,000   100}
+\CommentTok{#>    S4 12,000 12,400 28281 12,900 14,400   912,000   100}
+\CommentTok{#>    RC  8,200  8,500 41241  8,700  9,130 3,210,000   100}
 \end{Highlighting}
 \end{Shaded}
 
 The bare function takes about 200 ns. S3 method dispatch takes an
-additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 9,000 ns.
+additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 8,000 ns.
 S3 and S4 method dispatch are expensive because R must search for the
 right method every time the generic is called; it might have changed
 between this call and the last. R could do better by caching methods
@@ -26258,8 +25956,8 @@ extra arguments. Many compiled languages will even warn you if arguments
 are never used (like in the above example), and automatically remove
 them from the function.
 
-\hypertarget{exercises-69}{%
-\subsection{Exercises}\label{exercises-69}}
+\hypertarget{exercises-67}{%
+\subsection{Exercises}\label{exercises-67}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -26384,10 +26082,10 @@ subassignment. \indexc{ifelse()} \indexc{pmin()} \indexc{pmax()}
   \DataTypeTok{unit =} \StringTok{"us"}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
-\CommentTok{#>             expr   min    lq mean median    uq   max neval}
-\CommentTok{#>       squish_ife 20.10 22.60 53.8  27.40 33.10 2,370   100}
-\CommentTok{#>         squish_p 12.30 13.10 37.0  13.70 15.50 1,560   100}
-\CommentTok{#>  squish_in_place  2.92  3.27 32.3   3.53  4.54 2,830   100}
+\CommentTok{#>             expr  min    lq mean median    uq   max neval}
+\CommentTok{#>       squish_ife 19.7 22.40 53.6  28.50 33.30 2,380   100}
+\CommentTok{#>         squish_p 12.3 12.90 37.4  13.30 15.30 1,560   100}
+\CommentTok{#>  squish_in_place  2.9  3.17 33.8   3.72  4.58 2,960   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26438,16 +26136,16 @@ value is less than \texttt{a} and/or greater than \texttt{b}.
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
 \CommentTok{#>             expr  min   lq  mean median   uq     max neval}
-\CommentTok{#>  squish_in_place 3.49 4.32  5.43   4.76 5.45    35.1   100}
-\CommentTok{#>       squish_cpp 2.45 2.83 18.15   3.08 3.36 1,470.0   100}
+\CommentTok{#>  squish_in_place 3.60 4.26  5.07   4.72 5.11    29.2   100}
+\CommentTok{#>       squish_cpp 2.63 2.97 17.50   3.20 3.57 1,370.0   100}
 \end{Highlighting}
 \end{Shaded}
 
-The C++ implementation is around 2x faster than the best pure R
+The C++ implementation is around 1x faster than the best pure R
 implementation.
 
-\hypertarget{exercises-70}{%
-\subsection{Exercises}\label{exercises-70}}
+\hypertarget{exercises-68}{%
+\subsection{Exercises}\label{exercises-68}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -26594,9 +26292,9 @@ seen:
   \DataTypeTok{unit =} \StringTok{"ms"}
 \NormalTok{)}
 \CommentTok{#> Unit: milliseconds}
-\CommentTok{#>          expr   min    lq  mean median    uq    max neval}
-\CommentTok{#>  cond_sum_cpp  5.19  5.21  5.26   5.23  5.25   6.61   100}
-\CommentTok{#>    cond_sum_r 12.30 13.40 15.53  14.10 14.90 145.00   100}
+\CommentTok{#>          expr   min    lq  mean median    uq   max neval}
+\CommentTok{#>  cond_sum_cpp  5.21  5.24  5.28   5.25  5.29   6.7   100}
+\CommentTok{#>    cond_sum_r 12.30 13.70 15.47  14.20 14.50 146.0   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -27018,8 +26716,8 @@ because memory is freed as soon as possible, and R runs 10--100x slower.
 This effectively makes the resolution of the timer greater, so that you
 can see smaller allocations and exactly when memory is no longer needed.
 
-\hypertarget{exercises-71}{%
-\subsection{Exercises}\label{exercises-71}}
+\hypertarget{exercises-69}{%
+\subsection{Exercises}\label{exercises-69}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -27244,8 +26942,8 @@ approaches. If you've found a solution that's fast enough,
 congratulations! If appropriate, you may want to share your solution
 with the R community. Otherwise, read on.
 
-\hypertarget{exercises-72}{%
-\subsection{Exercises}\label{exercises-72}}
+\hypertarget{exercises-70}{%
+\subsection{Exercises}\label{exercises-70}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -27586,8 +27284,8 @@ example shows that working with vectors is about twice as fast.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exercises-73}{%
-\subsection{Exercises}\label{exercises-73}}
+\hypertarget{exercises-71}{%
+\subsection{Exercises}\label{exercises-71}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -27767,8 +27465,8 @@ existing algorithm into one that uses a vectorised approach, you're
 often better off writing your own vectorised function in C++. You'll
 learn how to do so in \protect\hyperlink{rcpp}{Rcpp}.
 
-\hypertarget{exercises-74}{%
-\subsection{Exercises}\label{exercises-74}}
+\hypertarget{exercises-72}{%
+\subsection{Exercises}\label{exercises-72}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -28725,8 +28423,8 @@ rather than wrapped in a call to \texttt{cppFunction}. If you want to
 try compiling and/or modifying the examples you should paste them into a
 C++ source file that includes the elements described above.
 
-\hypertarget{exercises-75}{%
-\subsection{Exercises}\label{exercises-75}}
+\hypertarget{exercises-73}{%
+\subsection{Exercises}\label{exercises-73}}
 
 With the basics of C++ in hand, it's now a great time to practice by
 reading and writing some simple C++ functions. For each of the following
@@ -29195,8 +28893,8 @@ a vector and returns a logical vector.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exercises-76}{%
-\subsection{Exercises}\label{exercises-76}}
+\hypertarget{exercises-74}{%
+\subsection{Exercises}\label{exercises-74}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -29731,8 +29429,8 @@ implement \texttt{table()} for numeric vectors: \index{maps}
 Note that unordered maps are only available in C++ 11, so to use them,
 you'll again need \texttt{{[}{[}Rcpp::plugins(cpp11){]}{]}}.
 
-\hypertarget{exercises-77}{%
-\subsection{Exercises}\label{exercises-77}}
+\hypertarget{exercises-75}{%
+\subsection{Exercises}\label{exercises-75}}
 
 To practice using the STL algorithms and data structures, implement the
 following using R functions in C++, using the hints provided:
@@ -30144,6 +29842,10 @@ answered many of my dumb questions along the way.
 \addcontentsline{toc}{chapter}{References}
 
 \hypertarget{refs}{}
+\leavevmode\hypertarget{ref-magrittr}{}%
+Bache, Stefan Milton, and Hadley Wickham. 2014. \emph{Magrittr: A
+Forward-Pipe Operator for R}. \url{http://magrittr.tidyverse.org/}.
+
 \leavevmode\hypertarget{ref-bawden-1999}{}%
 Bawden, Alan. 1999. ``Quasiquotation in Lisp.'' In \emph{PEPM '99},
 4--12.

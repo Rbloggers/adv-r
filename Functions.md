@@ -9,7 +9,7 @@ If you're reading this book, you've probably already created many R functions an
 
 ### Quiz {-}
 
-Answer the following questions to see if you can safely skip this chapter. You can find the answers in \@ref(function-answer).
+Answer the following questions to see if you can safely skip this chapter. You can find the answers in Section \@ref(function-answers).
 
 1.  What are the three components of a function?
 
@@ -63,11 +63,17 @@ Answer the following questions to see if you can safely skip this chapter. You c
   to many function rules: primitive functions (which are implemented in C, not 
   R).
 
+* Section \@ref(function-composition) discusses the strengths and weaknesses
+  of the three forms of function composition commonly used in R code.
+
 * Section \@ref(lexical-scoping) shows you how R finds the value associated
   with a given name, i.e. the rules of lexical scoping.
 
 * Section \@ref(lazy-evaluation) is devoted to an important property of 
   function arguments: they are only evaluated when used for the first time.
+
+* Section \@ref(fun-dot-dot-dot) discusses the special `...` argument, which
+  allows you to pass on extra arguments to another function.
 
 * Section \@ref(exiting-a-function) discusses the two primary ways that a
   function can exit, and how to define an exit handler, code that is run on
@@ -271,6 +277,76 @@ Primitive functions are only found in the base package. While they have certain 
 1. What are the three important components of a function?
 
 1. When does printing a function not show the environment it was created in?
+  
+## Function composition {#function-composition}
+
+Base R provides two ways to compose multiple function calls. For example, imagine you want to compute the population standard deviation using `sqrt()` and `mean()` as building blocks:
+
+
+```r
+square <- function(x) x^2
+deviation <- function(x) x - mean(x)
+```
+
+You either nest the function calls:
+
+
+```r
+x <- runif(100)
+
+sqrt(mean(square(deviation(x))))
+#> [1] 0.274
+```
+
+Or you save the intermediate results as variables:
+
+
+```r
+out <- deviation(x)
+out <- square(out)
+out <- mean(out)
+out <- sqrt(out)
+out
+#> [1] 0.274
+```
+
+The magrittr package [@magrittr] provides a third option: the binary operator `%>%`, which is called the pipe and is pronounced as "and then".
+
+
+```r
+library(magrittr)
+
+x %>%
+  deviation() %>%
+  square() %>%
+  mean() %>%
+  sqrt()
+#> [1] 0.274
+```
+
+`x %>% f()` is equivalent to `f(x)`; `x %>% f(y)` is equivalent to `f(x, y)`. The pipe is related to __tacit__ or __point-free programming__[^point-free]. In this style of programming, you don't explicitly refer to variables. Instead, you focus on the high-level composition of functions rather than the low-level flow of data; the focus is on what's being done (the verbs), rather that on what's being modified (the nouns). This style is common in Haskell and F#, the main inspiration for magrittr, and is the default style in stack based programming languages like Forth and Factor. \index{point-free programming} \index{tacit programming}
+
+[^point-free]: Point-free programming is related to point-free topology. It's just a coincidence that many forms of point-free programming use `.` extensively. Point-free programming is sometimes humorously called pointless programming.
+
+Each of the three options has its own strengths and weaknesses:
+
+* Nesting, `f(g(x))`, is concise, and well suited for short sequences. But
+  longer sequences are hard to read because they are read inside out and
+  right to left. As a result, arguments can get spread out over long distances
+  creating the "[Dagwood
+  sandwich](https://en.wikipedia.org/wiki/Dagwood_sandwich)" problem.
+
+* Intermediate objects, `y <- f(x); g(y)`, requires you to name intermediate
+  objects. This is a strength when objects are important, but a weakness when
+  values are truly intermediate.
+
+* Piping, `x %>% f() %>% g()`, allows you to read code in straightforward
+  left-to-right fashion and doesn't require you to name intermediate objects.
+  But you can only use it with linear sequences of transformations of a single
+  object. It also requires an additional third party package and assumes that
+  the reader understands piping.
+
+Most code will use a combination of all three styles. Piping is more common in data analysis code, as much of an analysis consists of a sequence of transformations of an object (like a data frame or plot). I tend to use piping infrequently in packages; not because it is a bad idea, but because it's often a less natural fit.
 
 ## Lexical scoping {#lexical-scoping}
  \index{scoping!lexical|see{lexical scoping}} \index{lexical scoping}
@@ -307,7 +383,7 @@ R's lexical scoping follows four primary rules:
 
 ### Name masking
 
-The following example illustrates the most basic principle of lexical scoping: names defined inside a function mask those defined outside of it.
+The basic principle of lexical scoping is that names defined inside a function mask names defined outside a function. This is illustrated in the following example.
 
 
 ```r
@@ -322,7 +398,7 @@ g02()
 #> [1] 1 2
 ```
 
-If a name isn't defined inside a function, R will look one level up.
+If a name isn't defined inside a function, R looks one level up.
 
 
 ```r
@@ -335,9 +411,9 @@ g03()
 #> [1] 2 1
 ```
 
-The same rules apply if a function is defined inside another function: look inside the current function, then where that function was defined, and so on, all the way up to the global environment, and then on to other loaded packages. 
+The same rules apply if a function is defined inside another function. First, R looks inside the current function. Then, it looks where that function was defined (and so on, all the way up to the global environment). Finally, it looks in other loaded packages. 
 
-Run the following code in your head, then confirm the output by running the R code.[^answer2]
+Run the following code in your head, then confirm the result by running the code.[^answer2]
 
 [^answer2]: `g04()` returns `c(1, 2, 3)`.
 
@@ -355,7 +431,7 @@ g04 <- function() {
 g04()
 ```
 
-The same rules apply to functions created by other functions, which we'll call __closures__. Closures will be described in more detail in [closures]; here we'll just look at how they interact with scoping. The following function, `g05()`, returns a function.  What do you think this function will return when we call it?[^answer3]
+The same rules also apply to functions created by other functions, which we'll call __closures__. Closures will be described in more detail in \@ref(closures); here we'll focus on how they interact with scoping. The following function, `g05()`, returns a function. What do you think this function will return when it's called?[^answer3]
 
 [^answer3]: `g06()` returns `c(10, 2)`.
 \index{closures!scoping}
@@ -375,7 +451,7 @@ g06 <- g05()
 g06()
 ```
 
-This seems a little magical: how does R know what the value of `y` is after `j()` has returned? It works because `k` preserves the environment in which it was defined and because the environment includes the value of `y`. You'll learn more about how environments work in [Environments](#environments).
+This seems a little magical: how does R know what the value of `y` is after `g05()` is returned? R knows because `g06()` preserves the environment where it was defined and that environment includes the value of `y`. You'll learn more about how environments work in \@ref(environments)).
 
 ### Functions vs. variables
 
@@ -409,9 +485,9 @@ But using the same name for two different things will make for confusing code, a
 
 ### A fresh start {#fresh-start}
 
-What happens to the values in between invocations of a function? What will happen the first time you run this function? What will happen the second time?[^answer4] (If you haven't seen `exists()` before: it returns `TRUE` if there's a variable of that name, otherwise it returns `FALSE`.)
+What happens to values between invocations of a function? Consider the example below. What will happen the first time you run this function? What will happen the second time?[^answer4] (If you haven't seen `exists()` before, it returns `TRUE` if there's a variable with that name and returns `FALSE` if not.)
 
-[^answer4]: `g11()` returns `1` every time it is called.
+[^answer4]: `g11()` returns `1` every time it's called.
 
 
 ```r
@@ -428,7 +504,7 @@ g11()
 g11()
 ```
 
-You might be surprised that `g11()` always returns the same value. That happens because a new environment is created to host its execution every time a function is called. That means a function has no way to tell what happened the last time it was run; each invocation is completely independent. (We'll see some ways to get around this in Section \@ref(stateful-funs).)
+You might be surprised that `g11()` always returns the same value. This happens because every time a function is called a new environment is created to host its execution. This means that a function has no way to tell what happened the last time it was run; each invocation is completely independent. (We'll see some ways to get around this in Section \@ref(stateful-funs))
 
 ### Dynamic lookup
 
@@ -532,9 +608,9 @@ h02(stop("This is an error!"))
 #>   This is an error!
 ```
 
-It is usually not necessary to force evaluation. It's needed primarily for certain functional programming techniques which we'll cover in detail in [function operators]. Here, I want to show you the basic issue.
+It's usually not necessary to force evaluation. However, it is important for certain functional programming techniques, like the one we'll cover in detail in [function operators]. Here, I'm just going to show you what the basic issue is.
 
-Take this small but surprisingly tricky function. It takes a single argument `x`, and returns a function that returns `x` when called.
+Consider this small but surprisingly tricky function. It takes a single argument `x`, and returns a function that returns `x` when called.
 
 
 ```r
@@ -545,7 +621,7 @@ capture1 <- function(x) {
 }
 ```
 
-There's a subtle issue with this function: the value of `x` will be captured not when you call `capture()`, but when you call the function that `capture()` returns:
+The subtlety here is that the value of `x` will be captured not when you call `capture1()`, but when you call the function that `capture1()` returns:
 
 
 ```r
@@ -616,7 +692,7 @@ h06 <- function(x) {
 }
 
 h06(runif(1))
-#> [1] 0.0808 0.0808 0.0808
+#> [1] 0.806 0.806 0.806
 ```
 
 You can also create promises "by hand" using `delayedAssign()`:
@@ -626,9 +702,9 @@ You can also create promises "by hand" using `delayedAssign()`:
 delayedAssign("x", {print("Executing code"); runif(1)})
 x
 #> [1] "Executing code"
-#> [1] 0.834
+#> [1] 0.814
 x
-#> [1] 0.834
+#> [1] 0.814
 ```
 
 You'll see this idea again in [advanced bindings].
@@ -776,7 +852,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
     force
     #> function (x) 
     #> x
-    #> <bytecode: 0x12abc48>
+    #> <bytecode: 0x870cc8>
     #> <environment: namespace:base>
     ```
     
@@ -825,7 +901,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
       print(x)
     }
     show_time()
-    #> [1] "2018-09-04 01:42:10 UTC"
+    #> [1] "2018-09-22 05:51:06 UTC"
     ```
 
 1.  How many arguments are required when calling `library()`?
@@ -839,7 +915,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
 
 Functions can have a special argument `...` (pronounced dot-dot-dot). If a function has this argument, it can take any number of additional arguments. In other programming languages, this type of argument is often called a varargs, or the function is said to be variadic. 
 
-Inside a function, you can use `...` to pass those additional arguments on to another function:
+Inside a function, you can use `...` to pass those additional arguments on to another function.
 
 
 ```r
@@ -962,7 +1038,7 @@ Using `...` comes with two downsides:
     
     
     
-    \begin{center}\includegraphics[width=0.7\linewidth]{Functions_files/figure-latex/unnamed-chunk-59-1} \end{center}
+    \begin{center}\includegraphics[width=0.7\linewidth]{Functions_files/figure-latex/unnamed-chunk-63-1} \end{center}
     
 1.  Why does `plot(1:10, col = "red")` only colour the points, not the axes 
     or labels? Read the source code of `plot.default()` to find out.
@@ -991,10 +1067,10 @@ There are two ways that a function can return a value:
         10
       }
     }
-    f(5)
-    #> [1] 52
-    f(15)
-    #> [1] 452
+    j01(5)
+    #> [1] 0
+    j01(15)
+    #> [1] 10
     ```
 
 *   Explicitly, by calling `return()`:
@@ -1109,11 +1185,16 @@ j06 <- function(x) {
   }
 }
 
-f(TRUE)
-#> [1] 4
+j06(TRUE)
+#> Hello
+#> Goodbye!
+#> [1] 10
 
-f(FALSE)
-#> [1] 2
+j06(FALSE)
+#> Hello
+#> Error in j06(FALSE):
+#>   Error
+#> Goodbye!
 ```
 
 ::: sidebar
@@ -1126,7 +1207,7 @@ Always set `add = TRUE` when using `on.exit()`. If you don't, each call to `on.e
 ```r
 cleanup <- function(dir, code) {
   old_dir <- setwd(dir)
-  on.exit(setwd(old), add = TRUE)
+  on.exit(setwd(old_dir), add = TRUE)
   
   old_opt <- options(stringsAsFactors = FALSE)
   on.exit(options(old_opt), add = TRUE)
@@ -1271,12 +1352,12 @@ Knowing the function name of a non-prefix function allows you to override its be
   }
 }
 replicate(50, (1 + 2))
-#>  [1] 3 3 4 3 3 3 3 3 3 3 4 3 3 3 3 4 3 3 3 3 3 3 3 3 4 3 3 3 4 3 3 3
-#> [33] 3 3 3 3 3 3 3 3 3 3 4 3 3 3 3 3 3 3
+#>  [1] 3 3 3 3 3 3 3 3 3 3 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+#> [33] 3 3 3 3 4 3 4 3 3 3 3 4 3 3 3 3 3 3
 rm("(")
 ```
 
-Of course, overriding built-in functions like this is a bad idea, but, as you'll learn about in [metaprogramming], it's possible to apply it only to selected code blocks. This provides a clean and elegant approach to writing domain specific languages and translators to other languages.
+Of course, overriding built-in functions like this is a bad idea, but, as you'll learn about in [metaprogramming](#meta), it's possible to apply it only to selected code blocks. This provides a clean and elegant approach to writing domain specific languages and translators to other languages.
 
 A more useful technique is to use this knowledge when using functional programming tools. For example, you could use `sapply()` to add 3 to every element of a list by first defining a function `add()`, like this: \indexc{sapply()}
 
@@ -1297,7 +1378,7 @@ sapply(1:5, `+`, 3)
 
 We'll explore this idea in detail in [functionals].
 
-### Prefix form {prefix-form}
+### Prefix form {#prefix-form}
 \index{functions!arguments}
 
 The prefix form is the most common form in R code, and indeed in the majority of programming languages. Prefix calls in R are a little special because you can specify arguments in three ways:

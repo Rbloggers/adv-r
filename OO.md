@@ -1,10 +1,11 @@
 # (PART) Object oriented programming {-}
+\index{object-oriented programming}
 
 
 
 # Introduction {#oo .unnumbered}
 
-In the following five chapters you'll learn about __object oriented programming__ (OOP) in R. \index{object-oriented programming} OOP in R is a little more challenging than in other languages, because:
+In the following five chapters you'll learn about __object oriented programming__ (OOP) in R. OOP in R is a little more challenging than in other languages, because:
 
 * There are multiple OOP systems to choose from. In this book, I'll focus 
   on the three that I believe are most important: S3, S4, and R6.

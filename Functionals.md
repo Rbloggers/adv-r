@@ -478,6 +478,70 @@ You'll see one more approach to this problem that in Section \@ref(pmap).
     bootstraps <- map(1:10, ~ bootstrap(mtcars))
     ```
 
+## Purrr style
+
+Before we go on to take to explore more map variants, lets take a quick look at how you tend to use multiple purrr functions to solve a moderately realistic problem: fitting a model to each subgroups and extracting a coefficient of the model. 
+
+For this toy example, I'm going to break the `mtcars` data set down into groups defined by the number of cylinders, using the base `split` function:
+
+
+```r
+by_cyl <- split(mtcars, mtcars$cyl)
+```
+
+Now imagine we want to fit a linear model, then extract the second coefficient (i.e. the intern). The following code shows how you might do that with purrr:
+
+
+```r
+by_cyl %>% 
+  map(~ lm(mpg ~ wt, data = .x)) %>% 
+  map(coef) %>% 
+  map_dbl(2)
+#>     4     6     8 
+#> -5.65 -2.78 -2.19
+```
+
+(If you haven't seen `%>%`, the pipe, before, it's described in Section \@ref(function-composition).)
+
+I think this code is easy to read because each line encapsulates a single step, you can easily distinguish the functional from what it does, and the purrr helpers allow us to very concisely describe what to do in each step.
+
+How would you attack this problem with base R? You certainly _could_ replace each purrr function with the equivalent base function:
+
+
+```r
+by_cyl %>% 
+  lapply(function(data) lm(mpg ~ wt, data = data)) %>% 
+  lapply(coef) %>% 
+  vapply(function(x) x[[2]], double(1))
+#>     4     6     8 
+#> -5.65 -2.78 -2.19
+```
+
+But this isn't really base R since we're using the pipe. To tackle purely in base I think you'd use an intermediate variable, and do more in each step:
+
+
+```r
+models <- lapply(by_cyl, function(data) lm(mpg ~ wt, data = data))
+vapply(models, function(x) coef(x)[[2]], double(1))
+#>     4     6     8 
+#> -5.65 -2.78 -2.19
+```
+
+Or, of course, you could you use a for loop:
+
+
+```r
+intercepts <- double(length(by_cyl))
+for (i in seq_along(by_cyl)) {
+  model <- lm(mpg ~ wt, data = by_cyl[[i]])
+  intercepts[[i]] <- coef(model)[[2]]
+}
+intercepts
+#> [1] -5.65 -2.78 -2.19
+```
+
+It's interesting to note that as you move from purrr to base apply functions to for loops you tend to do more and more in each iteration. In purrr we iterate 3 times (`map()`, `map()`, `map_dbl()`), with apply functions we iterate twice (`lapply()`, `vapply()`), and with a for loop we iterate once. The advantage of breaking the problem into smaller steps is that it's easier to understand and later modify as needs change.
+
 ## Map variants {#functionals-loop}
 
 There are 23 primary variants of `map()`. So far, you've learned about five (`map()`, `map_lgl()`, `map_int()`, `map_dbl()` and `map_chr()`). That means that you've got 18 (!!) more to learn. That sounds like a lot, but fortunately the design of purrr means that you only need to learn five new ideas:
@@ -862,18 +926,62 @@ There are two base equivalents to the `pmap()` family: `Map()` and `mapply()`. B
 
 ## Reduce
 
-There are three other particularly families of functionals provided by purrr. You will use them less regularly than the map family and its variants, but they are handy to have in your backpocket.
+After the map family, the next most important family of functions is the reduce family. This family is much smaller, with only two main variants, and used less commonly, but it's a powerful idea, gives us the opportunity to discuss some useful algebra, and powers the map-reduce framework frequently used when working with large data.
 
 ### Basics
 \indexc{reduce()} 
 \index{fold}
 
-`reduce()` reduces a vector, `x`, to a single value by iteratively calling a function, `f`, two arguments at a time. `reduce(1:3, f)` is equivalent to `f(f(1, 2), 3)`. 
-
-It's a little harder to capture reduce in a diagram:
+`reduce()` takes a vector of length n, and produces a vector of length one, by calling a function with a pair of values at a time. In other words, `reduce(1:4, f)` is equivalent to `f(f(f(1, 2), 3), 4)`. 
 
 
 \begin{center}\includegraphics[width=3.25in]{diagrams/functionals/reduce} \end{center}
+
+`reduce()` is a useful way to generalise a function that works with two inputs (a __binary__ function) to work with any number of inputs. Imagine you have a list of numeric vectors, and you want to find the values that occur in every element:
+
+
+```r
+l <- map(1:4, ~ sample(1:10, 15, replace = T))
+str(l)
+#> List of 4
+#>  $ : int [1:15] 7 5 9 7 9 9 5 10 5 5 ...
+#>  $ : int [1:15] 6 3 6 10 3 4 4 2 9 9 ...
+#>  $ : int [1:15] 5 3 4 6 1 1 9 9 6 8 ...
+#>  $ : int [1:15] 4 2 6 6 8 5 10 6 7 1 ...
+```
+
+To solve this challenge we need to use `intersect()` repeatedly:
+
+
+```r
+out <- l[[1]]
+out <- intersect(out, l[[2]])
+out <- intersect(out, l[[3]])
+out <- intersect(out, l[[4]])
+out
+#> [1] 5 1
+```
+
+`reduce()` automates this solution for us, so we can write:
+
+
+```r
+reduce(l, intersect)
+#> [1] 5 1
+```
+
+We could apply the same idea if we wanted to list all the elements that appear in at least one entry. All we have to do is switch from `intersect()` to `union()`:
+
+
+```r
+reduce(l, union)
+#>  [1]  7  5  9 10  1  6  3  4  2  8
+```
+
+Like the map family, you can also pass additional arguments. `intersect()` and `union()` don't take an extra arguments so I can't demonstrate them here, but the principle is straight forward and I drew you a picture.
+
+
+\begin{center}\includegraphics[width=4.03in]{diagrams/functionals/reduce-arg} \end{center}
 
 As usual, the essence of `reduce()` can reduced to a simple wrapper around a for loop:
 
@@ -888,91 +996,13 @@ simple_reduce <- function(x, f) {
 }
 ```
 
-`reduce()` is a useful way to generalise a function that works with two inputs (a __binary__ function) to work with any number of inputs. Imagine you have a list of numeric vectors, and you want to find the values that occur in every element:
-
-
-```r
-l <- map(1:5, ~ sample(1:10, 15, replace = T))
-str(l)
-#> List of 5
-#>  $ : int [1:15] 7 5 9 7 9 9 5 10 5 5 ...
-#>  $ : int [1:15] 6 3 6 10 3 4 4 2 9 9 ...
-#>  $ : int [1:15] 5 3 4 6 1 1 9 9 6 8 ...
-#>  $ : int [1:15] 4 2 6 6 8 5 10 6 7 1 ...
-#>  $ : int [1:15] 3 10 5 8 7 6 8 5 8 7 ...
-```
-
-You could do that by intersecting each element in turn:
-
-
-```r
-intersect(
-  intersect(
-    intersect(
-      intersect(
-        l[[1]], 
-        l[[2]]
-      ),
-      l[[3]]
-    ), 
-    l[[4]]
-  ), 
-  l[[5]]
-)
-#> [1] 5
-```
-
-But that's hard to read, and doesn't generalise well if the list grows in size. But the problem is easy to solve with `reduce()`:
-
-
-```r
-reduce(l, intersect)
-#> [1] 5
-```
-
 ::: base 
-
-The base equivalent is `Reduce()`. It takes the function as the first argument and the vector as second; there is no way to supply additional constant arguments.
-
+The base equivalent is `Reduce()`. Note that the argument order is different: the function comes first, followed by the vector; there is no way to supply additional arguments.
 :::
-
-
-
-\begin{center}\includegraphics[width=4.03in]{diagrams/functionals/reduce-arg} \end{center}
-
-### Algebra
-
-Associative, commutative, identity element.
-
-* `x * y`: 1
-* `x + y`: 0
-* `min(x, y)`: Inf
-* `max(x, y)`: -Inf
-* `c()`, `union(x, y)`: NULL
-* `intersect(x, y)`: no way to express
-
-`mean()` -> `sum()` + `length()`
-`sd()` -> `sum(x ^2)` + `sum(x)` + `length()`
-`median()` -> not possible (although can approximate)
-
-Linear models. 
-
-### Initialise
-
-What happens if `reduce()` is called with zero arguments or one arguments?
-
-
-\begin{center}\includegraphics[width=3.25in]{diagrams/functionals/reduce-init} \end{center}
-
-### reduce2
-
-
-\begin{center}\includegraphics[width=4.18in]{diagrams/functionals/reduce2} \end{center}
-
 
 ### Accumulate
 
-To see how `reduce()` works, it's useful to use a variant: `accumulate()`. As well as returning the final result, `accumulate()` also returns all intermediate results. 
+The first `reduce()` variant, `accumulate()`, is useful for understand how reduce works, because instead of return just the final result, it returns all the intermediate results as well:
 
 
 ```r
@@ -988,10 +1018,94 @@ accumulate(l, intersect)
 #> 
 #> [[4]]
 #> [1] 5 1
-#> 
-#> [[5]]
-#> [1] 5
 ```
+
+Another useful way to understand reduce is to think about `sum()`: `sum(x)` is equivalent to `x[[1]] + x[[2]] + x[[3]] + ...`.  And then `accumulate()` gives you the cumulative sum:
+
+
+```r
+x <- c(4, 3, 10)
+reduce(x, `+`)
+#> [1] 17
+
+accumulate(x, `+`)
+#> [1]  4  7 17
+```
+
+### Output types
+
+In the above example using `+`, what should `reduce()` return when `x` is short, i.e. length 1 or 0? When `x` is length 1, reduce just returns it without applying the reduce function:
+
+
+```r
+reduce(1, `+`)
+#> [1] 1
+```
+
+This means that `reduce()` has no way to check that the input is valid:
+
+
+```r
+reduce("a", `+`)
+#> [1] "a"
+```
+
+What if it's length 0? We get an error that suggest we need to use the `.init` argument:
+
+
+```r
+reduce(integer(), `+`)
+#> Error: `.x` is empty, and no `.init` supplied
+```
+
+What should `.init` be here? To figure that out, we need to see what happens when `.init` supplied:
+
+
+\begin{center}\includegraphics[width=4.23in]{diagrams/functionals/reduce-init} \end{center}
+
+So if we call `reduce(1, `+`, init)` the result will be `1 + init`. Now we know that the result should be just `1` one, so that suggests that `.init` should be 0:
+
+
+```r
+reduce(integer(), `+`, .init = 0)
+#> [1] 0
+```
+
+This also ensures that `reduce()` checks that length 1 inputs are valid for the function that you're calling:
+
+
+```r
+reduce("a", `+`, .init = 0)
+#> Error in .x + .y:
+#>   non-numeric argument to binary operator
+```
+
+If you want to get algebraic about it, 0 is called the __identity__ of the numbers under the operation of addition: if you add a 0 to any number, you get the same number back. R applies the same principle to determine what a summary function with a zero length input should return:
+
+
+```r
+sum(integer())  # x + 0 = x
+#> [1] 0
+prod(integer()) # x * 1 = x
+#> [1] 1
+min(integer())  # min(x, Inf) = x
+#> [1] Inf
+max(integer())  # max(x, -Inf) = x
+#> [1] -Inf
+```
+
+If you're using `reduce()` in a function, you should always supply `.init`. Think carefully about what you function should return when passed a vector of length zero or one, and make sure to test your implementation.
+
+### Multiple inputs
+
+Very occassionally you need to two arguments to the function that you're reducing. For example, you might have a list of data frames that you want to join together, and the variables that you are joining by vary from element to element. This is a very specialised scenario, so I don't want to spend much time on it, except to know that it exists.
+
+Note that the length of the second argument varies based on whether or not `.init` is supplied: if you have four elements of `x`, `f` will only be called three times. If you supply init, `f` will be called four times.
+
+
+\begin{center}\includegraphics[width=5.41in]{diagrams/functionals/reduce2} \end{center}
+
+\begin{center}\includegraphics[width=5.41in]{diagrams/functionals/reduce2-init} \end{center}
 
 ### Map-reduce
 
@@ -1049,14 +1163,14 @@ str(map_if(iris, is.numeric, mean))
 #>  $ Sepal.Width : num 3.06
 #>  $ Petal.Length: num 3.76
 #>  $ Petal.Width : num 1.2
-#>  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+#>  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1..
 str(modify_if(iris, is.numeric, mean))
 #> 'data.frame':	150 obs. of  5 variables:
 #>  $ Sepal.Length: num  5.84 5.84 5.84 5.84 5.84 ...
 #>  $ Sepal.Width : num  3.06 3.06 3.06 3.06 3.06 ...
 #>  $ Petal.Length: num  3.76 3.76 3.76 3.76 3.76 ...
 #>  $ Petal.Width : num  1.2 1.2 1.2 1.2 1.2 ...
-#>  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+#>  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1..
 str(map(keep(iris, is.numeric), mean))
 #> List of 4
 #>  $ Sepal.Length: num 5.84
@@ -1064,7 +1178,6 @@ str(map(keep(iris, is.numeric), mean))
 #>  $ Petal.Length: num 3.76
 #>  $ Petal.Width : num 1.2
 ```
-
 
 ### Exercises
 
@@ -1113,17 +1226,18 @@ str(map(keep(iris, is.numeric), mean))
 
 ## Base functionals {#functionals-math}
 
-Base R functionals have more of a mathematical/statistical flavour.
+To finish up the chapter, here I provide a survey of important base functions that are not members of the map, reduce, or predicate families, and hence have no equivalent in purrr. This is not to say that they're not important, but they have more of a mathematical/statistical flavour, so they are generally less useful in data analyses.
 
-### Matrices and array operations
+### Matrices and arrays
+\indexc{apply()}
 
-So far, all the functionals we've seen work with 1d input structures. The three functionals in this section provide useful tools for working with higher-dimensional data structures. `apply()` is a variant of `sapply()` that works with matrices and arrays. You can think of it as an operation that summarises a matrix or array by collapsing each row or column to a single number. It has four arguments: \indexc{apply()}
+`map()` and friends are specialised to work with 1d vectors. `base::apply()` is specialised to work with 2d and higher vectors, i.e. matrices and arrays. You can think of `apply()` as an operation that summarises a matrix or array by collapsing each row or column to a single value. It has four arguments: 
 
-* `X`, the matrix or array to summarise
+* `X`, the matrix or array to summarise.
 * `MARGIN`, an integer vector giving the dimensions to summarise over, 
   1 = rows, 2 = columns, etc.
-* `FUN`, a summary function
-* `...` other arguments passed on to `FUN`
+* `FUN`, a summary function.
+* `...` other arguments passed on to `FUN`.
 
 A typical example of `apply()` looks like this
 
@@ -1136,57 +1250,66 @@ apply(a, 2, mean)
 #> [1]  3  8 13 18
 ```
 
-There are a few caveats to using `apply()`. It doesn't have a simplify argument, so you can never be completely sure what type of output you'll get. This  means that `apply()` is not safe to use inside a function unless you carefully check the inputs. `apply()` is also not idempotent in the sense that if the summary function is the identity operator, the output is not always the same as the input:
+You can specify multiple dimensions to `MARGINS`, which is useful for high-d arrays:
 
 
 ```r
-a1 <- apply(a, 1, identity)
-identical(a, a1)
-#> [1] FALSE
-identical(a, t(a1))
-#> [1] TRUE
-a2 <- apply(a, 2, identity)
-identical(a, a2)
-#> [1] TRUE
+a <- array(1:24, c(2, 3, 4))
+apply(a, 1, mean)
+#> [1] 12 13
+apply(a, c(1, 2), mean)
+#>      [,1] [,2] [,3]
+#> [1,]   10   12   14
+#> [2,]   11   13   15
 ```
 
-(You can put high-dimensional arrays back in the right order using `aperm()`, or use `plyr::aaply()`, which is idempotent.)
+There are a two caveats to using `apply()`: 
 
-`sweep()` allows you to "sweep" out the values of a summary statistic. It is often used with `apply()` to standardise arrays. The following example scales the rows of a matrix so that all values lie between 0 and 1. \indexc{sweep()}
+*    Like `base::sapply()`, you have no control over the output type; it 
+     will automatically be simplified to a list, matrix, or vector. However, 
+     generally, you used `apply()` with a numeric arrays and numeric summary
+     function so you are less likely to encounter a problem that with 
+     `sapply()`.
 
+*   `apply()` is also not idempotent in the sense that if the summary 
+    function is the identity operator, the output is not always the same as 
+    the input. 
 
-```r
-x <- matrix(rnorm(20, 0, 10), nrow = 4)
-x1 <- sweep(x, 1, apply(x, 1, min), `-`)
-x2 <- sweep(x1, 1, apply(x1, 1, max), `/`)
-```
+    
+    ```r
+    a1 <- apply(a, 1, identity)
+    identical(a, a1)
+    #> [1] FALSE
+    identical(a, t(a1))
+    #> [1] FALSE
+    
+    a2 <- apply(a, 2, identity)
+    identical(a, a2)
+    #> [1] FALSE
+    ```
 
-The final matrix functional is `outer()`. It's a little different in that it takes multiple vector inputs and creates a matrix or array output where the input function is run over every combination of the inputs: \indexc{outer()}
+*   Never use `apply()` with a data frame. It always coerces `X` to a matrix,
+    which will lead to undesirable results if your data frame contains anything
+    other than numbers.
+    
+    
+    ```r
+    df <- data.frame(x = 1:3, y = c("a", "b", "c"))
+    apply(df, 2, mean)
+    #> Warning in mean.default(newX[, i], ...): argument is not numeric or
+    #> logical: returning NA
+    
+    #> Warning in mean.default(newX[, i], ...): argument is not numeric or
+    #> logical: returning NA
+    #>  x  y 
+    #> NA NA
+    ```
 
-
-```r
-# Create a times table
-outer(1:3, 1:10, "*")
-#>      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-#> [1,]    1    2    3    4    5    6    7    8    9    10
-#> [2,]    2    4    6    8   10   12   14   16   18    20
-#> [3,]    3    6    9   12   15   18   21   24   27    30
-```
-
-Good places to learn more about `apply()` and friends are:
-
-* ["Using apply, sapply, lapply in R"](http://petewerner.blogspot.com/2012/12/using-apply-sapply-lapply-in-r.html) by Peter Werner.
-
-* ["The infamous apply function"](http://rforpublichealth.blogspot.no/2012/09/the-infamous-apply-function.html) by Slawa Rokicki.
-
-* ["The R apply function - a tutorial with examples"](http://forgetfulfunctor.blogspot.com/2011/07/r-apply-function-tutorial-with-examples.html) by axiomOfChoice.
-
-* The stackoverflow question ["R Grouping functions: `sapply` vs. `lapply` vs. `apply` vs. `tapply` vs. `by` vs. `aggregate`"](http://stackoverflow.com/questions/3505701).
-
-### `tapply()`
+### "Ragged" arrays 
 \indexc{split()}
+\indexc{tapply()}
 
-You can think about `tapply()` as a generalisation to `apply()` that allows for "ragged" arrays, arrays where each row can have a different number of columns. This is often needed when you're trying to summarise a data set. For example, imagine you've collected pulse rate data from a medical trial, and you want to compare the two groups: \indexc{tapply()}
+You can think about `tapply()` as a generalisation to `apply()` that allows for "ragged" arrays, arrays where each row can have a different number of columns. This is often needed when you're trying to summarise a data set. For example, imagine you've collected pulse rate data from a medical trial, and you want to compare the two groups: 
 
 
 ```r
@@ -1198,50 +1321,37 @@ tapply(pulse, group, length)
 #> 10 12
 tapply(pulse, group, mean)
 #>    A    B 
-#> 71.1 75.1
+#> 70.8 74.2
 ```
 
-`tapply()` works by creating a "ragged" data structure from a set of inputs, and then applying a function to the individual elements of that structure. The first task is actually what the `split()` function does. It takes two inputs and returns a list which groups elements together from the first vector according to elements, or categories, from the second vector:
+`tapply()` works by creating a "ragged" data structure from a set of inputs, and then applying a function to the individual elements of that structure. The first task is actually performed by `split()` function does. It takes two inputs and returns a list which groups elements together from the first vector according to elements, or categories, from the second vector:
 
 
 ```r
 split(pulse, group)
 #> $A
-#>  [1] 67 71 70 73 74 69 70 71 77 69
+#>  [1] 68 70 71 72 72 70 73 70 70 72
 #> 
 #> $B
-#>  [1] 78 72 77 72 71 80 77 72 71 80 80 71
+#>  [1] 76 74 75 74 75 73 73 73 70 64 78 85
 ```
 
-Then `tapply()` is just the combination of `split()` and `sapply()`:
+Then `tapply()` is just the combination of `split()` and `sapply()`.
 
-
-```r
-tapply2 <- function(x, group, f, ..., simplify = TRUE) {
-  pieces <- split(x, group)
-  sapply(pieces, f, simplify = simplify)
-}
-tapply2(pulse, group, length)
-#>  A  B 
-#> 10 12
-tapply2(pulse, group, mean)
-#>    A    B 
-#> 71.1 75.1
-```
-
-Being able to rewrite `tapply()` as a combination of `split()` and `sapply()` is a good indication that we've identified some useful building blocks. 
-
-### Mathmatical
+### Mathematical
+\indexc{integrate()} 
+\indexc{uniroot()} 
+\indexc{optimise()}
 
 Functionals are very common in mathematics. The limit, the maximum, the roots (the set of points where `f(x) = 0`), and the definite integral are all functionals: given a function, they return a single number (or vector of numbers). At first glance, these functions don't seem to fit in with the theme of eliminating loops, but if you dig deeper you'll find out that they are all implemented using an algorithm that involves iteration.
 
-In this section we'll use some of R's built-in mathematical functionals. There are three functionals that work with functions to return single numeric values: \indexc{integrate()} \indexc{uniroot()} \indexc{optimise()}
+Base R provides a useful set:
 
 * `integrate()` finds the area under the curve defined by `f()`
 * `uniroot()` finds where `f()` hits zero
 * `optimise()` finds the location of lowest (or highest) value of `f()`
 
-Let's explore how these are used with a simple function, `sin()`:
+The following example shows how they might be used with a simple function, `sin()`:
 
 
 ```r

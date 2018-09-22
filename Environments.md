@@ -471,12 +471,12 @@ e4b <- env(e4a, x = 10, a = 11)
 
 \begin{center}\includegraphics[width=3.69in]{diagrams/environments/where-ex} \end{center}
 
-* `where(a, e4a)` will find `a` in `e4a`.
+* `where("a", e4b)` will find `a` in `e4b`.
 
-* `where("b", e4a)` doesn't find `b` in `e4a`, so it looks in its parent, `e4b`,
+* `where("b", e4b)` doesn't find `b` in `e4b`, so it looks in its parent, `e4a`,
   and finds it there.
 
-* `where("c", e4a)` looks in `e4a`, then `e4b`, then hits the empty environment
+* `where("c", e4b)` looks in `e4b`, then `e4a`, then hits the empty environment
   and throws an error.
 
 It's natural to work with environments recursively, so `where()` provides a useful template. Removing the specifics of `where()` shows the structure more clearly:

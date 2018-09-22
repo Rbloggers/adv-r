@@ -113,7 +113,7 @@ y <- x
 
 \begin{center}\includegraphics[width=1.77in]{diagrams/name-value/binding-2} \end{center}
 
-You might have noticed the value `1:3` has a label: `0x74b`. While the vector doesn't have a name, I'll occasionally need to refer to objects independently of their bindings. To make that possible, I'll label values with a unique identifier. These unique identifers have a special form that looks like the object's memory "address", i.e. the location in memory in which the object is stored. It doesn't make sense to use the actual memory address because that changes every time the code is run.
+You might have noticed the value `1:3` has a label: `0x74b`. While the vector doesn't have a name, I'll occasionally need to refer to objects independent of their bindings. To make that possible, I'll label values with a unique identifier. These unique identifers have a special form that looks like the object's memory "address", i.e. the location in memory in which the object is stored. It doesn't make sense to use the actual memory address because that changes every time the code is run.
 
 You can access the address of an object with `lobstr::obj_addr()`. This allows us to see that `x` and `y` both point to the same location in memory:
 
@@ -320,7 +320,7 @@ l2[[3]] <- 4
 
 \begin{center}\includegraphics[width=2.31in]{diagrams/name-value/l-modify-2} \end{center}
 
-Like vectors, lists are copied-on-modify; the original list is left unchanged, and R creates a modified copy. This is a __shallow__ copy: the list object and its bindings are copied, but the values pointed to by the bindings are not. The oppposite of a shallow copy is a deep copy, where the contents of every reference are also copied. Prior to R 3.1.0, copies were always deep copies, .
+Like vectors, lists are copied-on-modify; the original list is left unchanged, and R creates a modified copy. This is a __shallow__ copy: the list object and its bindings are copied, but the values pointed to by the bindings are not. The oppposite of a shallow copy is a deep copy, where the contents of every reference are also copied. Prior to R 3.1.0, copies were always deep copies.
 
 You can use `lobstr::ref()` to see values that are shared across lists. `ref()` prints the memory address of each object, along with a local id so that you can easily cross-reference shared components.
 
@@ -398,7 +398,7 @@ ref(x, character = TRUE)
 #> └─[4:0x1955a58] <string: "d">
 ```
 
-This has a profound impact on the amount of memory a character vector takes but, but is otherwise not generally important, so elsewhere in the book I'll draw character vectors as if the strings live inside the vector.
+This has a profound impact on the amount of memory a character vector takes, but is otherwise not generally important, so elsewhere in the book I'll draw character vectors as if the strings live inside the vector.
 
 ### Exercises
 
@@ -774,7 +774,7 @@ This number won't agree with the amount of memory reported by your operating sys
     ```
 
 
-1.  It occupies about 4 MB.
+1.  It occupies about 8 MB.
    
     
     ```r

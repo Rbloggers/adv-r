@@ -23,7 +23,7 @@ If you are new to R, you might wonder what makes learning such a quirky language
   like missing values, data frames, and subsetting.
 
 * A fantastic community. It is easy to get help from experts on the
-  [R-help mailing list](https://stat.ethz.ch/mailman/listinfo/r-help),
+  [R-help mailing list][r-help],
   [stackoverflow](http://stackoverflow.com/questions/tagged/r), [RStudio Community](https://community.rstudio.com/),
   or subject-specific mailing lists like
   [R-SIG-mixed-models](https://stat.ethz.ch/mailman/listinfo/r-sig-mixed-models)
@@ -35,7 +35,7 @@ If you are new to R, you might wonder what makes learning such a quirky language
   [user groups](https://jumpingrivers.github.io/meetingsR/).
 
 * Powerful tools for communicating your results. R packages make it easy to
-  produce html or pdf [reports](http://yihui.name/knitr/), or create
+  produce HTML or PDF [reports](http://yihui.name/knitr/), or create
   [interactive websites](http://www.rstudio.com/shiny/).
 
 * A strong foundation in functional programming. The ideas of functional
@@ -90,7 +90,7 @@ This book is aimed at two complementary audiences:
 
 To get the most out of this book, you'll need to have written a decent amount of code in R or another programming language. You might not know all the details, but you should be familiar with how functions work in R and although you may currently struggle to use them effectively, you should be familiar with the apply family (like `apply()` and `lapply()`).
 
-This books works the narrow line between being a reference book (primarily used for lookup), and being linearly readable. This involves some tradeoffs, because it's difficult to linearise material while still keeping related materials together, whereas some concepts are much easier to explain if you're already familiar with specific technically vocabulary. I've tried to use footnotes and cross-references to make sure you can still make sense even if you just dip your toes in the occassional chapter.  
+This book works the narrow line between being a reference book (primarily used for lookup), and being linearly readable. This involves some tradeoffs, because it's difficult to linearise material while still keeping related materials together, whereas some concepts are much easier to explain if you're already familiar with specific technically vocabulary. I've tried to use footnotes and cross-references to make sure you can still make sense even if you just dip your toes in the occasional chapter.  
 
 ## Related work
 
@@ -148,7 +148,7 @@ If you want to learn to be a better programmer, there's no place better to turn 
 
 ## Getting help {#getting-help}
 
-Currently, there are three main venues to get help when you're stuck and can't figure out what's causing the problem: [RStudio Community](https://community.rstudio.com/), [stackoverflow](http://stackoverflow.com) and the R-help mailing list. You can get fantastic help in each venue, but they do have their own cultures and expectations. It's usually a good idea to spend a little time lurking, learning about community expectations, before you put up your first post. \index{help}
+Currently, there are three main venues to get help when you're stuck and can't figure out what's causing the problem: [RStudio Community](https://community.rstudio.com/), [stackoverflow](http://stackoverflow.com) and the [R-help mailing list][r-help]. You can get fantastic help in each venue, but they do have their own cultures and expectations. It's usually a good idea to spend a little time lurking, learning about community expectations, before you put up your first post. \index{help}
 
 Some good general advice:
 
@@ -161,7 +161,7 @@ Some good general advice:
   is often a useful process in its own right, because in the course of making
   the problem reproducible you often figure out what's causing the problem. 
   The [`reprex`](https://reprex.tidyverse.org/) package can help you create a 
-  **repr**oducible **ex**ample that will can easily be run by people trying to help you. 
+  **repr**oducible **ex**ample that can easily be run by people trying to help you. 
   There are [several resources available](https://community.rstudio.com/t/faq-whats-a-reproducible-example-reprex-and-how-do-i-do-one/5219) to help you create a successful `reprex`.
 
 * Look for related problems before posting. If someone has already asked
@@ -426,3 +426,5 @@ ruler()
 #> ----+----1----+----2----+----3----+----4----+----5----+----6----+----
 #> 123456789012345678901234567890123456789012345678901234567890123456789
 ```
+
+[r-help]: https://stat.ethz.ch/mailman/listinfo/r-help

@@ -406,7 +406,7 @@ But before we can learn about and use these handlers, we need to talk a little b
 ### Condition objects
 \index{conditions!objects}
 
-So far we've just signalled conditions, and not looked at the objects that are created behind the The easiest way to see a condition object is to catch one from a signalled condition. That's the job of `rlang::catch_cnd()`:
+So far we've just signalled conditions, and not looked at the objects that are created behind the scenes. The easiest way to see a condition object is to catch one from a signalled condition. That's the job of `rlang::catch_cnd()`:
 
 
 ```r
@@ -429,7 +429,7 @@ Built-in conditions are lists with two elements:
 
 Custom conditions may contain other components, which we'll discuss in [custom conditions].
 
-Conditions also have a `class` attribute, which makes them S3 objects. We won't disucss S3 until [S3], but fortunately, even if you don't know about S3, condition objects are quite simple. The most important thing to know know is that the `class` attribute is a character vector, and it determines which handlers will match the condition.
+Conditions also have a `class` attribute, which makes them S3 objects. We won't disucss S3 until [S3], but fortunately, even if you don't know about S3, condition objects are quite simple. The most important thing to know is that the `class` attribute is a character vector, and it determines which handlers will match the condition.
 
 ### Exiting handlers
 \indexc{tryCatch()} \index{handlers!exiting}
@@ -546,7 +546,7 @@ withCallingHandlers(
 
 (But beware if you have multiple handlers, and some handlers signal conditions that could be captured by another handler: you'll need to think through the order carefully.)
 
-The return value of an calling handler is ignored because the code continues to execute after the handler completes; where would the return value go? That means that calling handlers are only useful for their side-effects. 
+The return value of a calling handler is ignored because the code continues to execute after the handler completes; where would the return value go? That means that calling handlers are only useful for their side-effects. 
 
 One important side-effect unique to calling handlers is the ability to __muffle__ the signal. By default, a condition will continue to propogate to parent handlers, all the way up to the default handler (or an exiting handler, if provided):
 
@@ -945,7 +945,7 @@ try2(stop("Hi"), silent = TRUE)
 #> [1] "try-error"
 ```
 
-### Success and failure values
+### Success and failure values {#try-success-failure}
 
 We can extend this pattern to returns one value if the code evaluates successfully (`success_val`), and another if it fails (`error_val`). This pattern just requires one small trick: evaluating the user supplied code, then `success_val`. If the code throws an error, we'll never get to `success_val` and will instead return `error_val`.
 
@@ -999,7 +999,7 @@ We can also use this pattern to create a `try()` variant. One challenge with `tr
 safety <- function(expr) {
   tryCatch(
     error = function(cnd) {
-      list(result = NULL, error = c)
+      list(result = NULL, error = cnd)
     },
     list(result = expr, error = NULL)
   )
@@ -1012,10 +1012,83 @@ str(safety(1 + 10))
 str(safety(abort("Error!")))
 #> List of 2
 #>  $ result: NULL
-#>  $ error :function (...)
+#>  $ error :List of 4
+#>   ..$ message: chr "Error!"
+#>   ..$ call   : NULL
+#>   ..$ trace  :List of 3
+#>   .. ..$ calls  :List of 31
+#>   .. .. ..$ : language local({     args = commandArgs(TRUE) ...
+#>   .. .. ..$ : language eval.parent(substitute(eval(quote(expr), env..
+#>   .. .. ..$ : language eval(expr, p)
+#>   .. .. ..$ : language eval(expr, p)
+#>   .. .. ..$ : language eval(quote({     args = commandArgs(TRUE) ...
+#>   .. .. ..$ : language eval(quote({     args = commandArgs(TRUE) ...
+#>   .. .. ..$ : language do.call(rmarkdown::render, c(args[1], readR"..
+#>   .. .. ..$ : language (function (input, output_format = NULL, outp..
+#>   .. .. ..$ : language knitr::knit(knit_input, knit_output, envir =..
+#>   .. .. ..$ : language process_file(text, output)
+#>   .. .. ..$ : language withCallingHandlers(if (tangle) process_tang..
+#>   .. .. ..$ : language process_group(group)
+#>   .. .. ..$ : language process_group.block(group)
+#>   .. .. ..$ : language call_block(x)
+#>   .. .. ..$ : language block_exec(params)
+#>   .. .. ..$ : language in_dir(input_dir(), evaluate(code, envir = e..
+#>   .. .. ..$ : language evaluate(code, envir = env, new_device = FAL..
+#>   .. .. ..$ : language evaluate::evaluate(...)
+#>   .. .. ..$ : language evaluate_call(expr, parsed$src[[i]], envir =..
+#>   .. .. ..$ : language timing_fn(handle(ev <- withCallingHandlers(w..
+#>   .. .. ..$ : language handle(ev <- withCallingHandlers(withVisible..
+#>   .. .. ..$ : language withCallingHandlers(withVisible(eval(expr, e..
+#>   .. .. ..$ : language withVisible(eval(expr, envir, enclos))
+#>   .. .. ..$ : language eval(expr, envir, enclos)
+#>   .. .. ..$ : language eval(expr, envir, enclos)
+#>   .. .. ..$ : language str(safety(abort("Error!")))
+#>   .. .. ..$ : language safety(abort("Error!"))
+#>   .. .. ..$ : language tryCatch(error = function(cnd) {     list(re..
+#>   .. .. .. ..- attr(*, "srcref")= 'srcref' int [1:8] 2 3 7 3 3 3 2 7
+#>   .. .. .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfil..
+#>   .. .. ..$ : language tryCatchList(expr, classes, parentenv, handl..
+#>   .. .. ..$ : language tryCatchOne(expr, names, parentenv, handlers..
+#>   .. .. ..$ : language doTryCatch(return(expr), name, parentenv, ha..
+#>   .. ..$ parents: int [1:31] 0 1 2 3 0 5 6 6 8 9 ...
+#>   .. ..$ envs   :List of 31
+#>   .. .. ..$ : chr "0x36b77c0"
+#>   .. .. ..$ : chr "0x36b7670"
+#>   .. .. ..$ : chr "0x36bb158"
+#>   .. .. ..$ : chr "global"
+#>   .. .. ..$ : chr "0x36baac8"
+#>   .. .. ..$ : chr "0x36ba630"
+#>   .. .. ..$ : chr "0x36bc860"
+#>   .. .. ..$ : chr "0x3827f70"
+#>   .. .. ..$ : chr "0x2547c68"
+#>   .. .. ..$ : chr "0x2389e58"
+#>   .. .. ..$ : chr "0x2ab5fb0"
+#>   .. .. ..$ : chr "0x2ab5aa8"
+#>   .. .. ..$ : chr "0x2ab5808"
+#>   .. .. ..$ : chr "0x2ab5728"
+#>   .. .. ..$ : chr "0x1b4b120"
+#>   .. .. ..$ : chr "0x1aefb60"
+#>   .. .. ..$ : chr "0x1aee998"
+#>   .. .. ..$ : chr "0x1aed0d0"
+#>   .. .. ..$ : chr "0x2985d00"
+#>   .. .. ..$ : chr "0x24a5e18"
+#>   .. .. ..$ : chr "0x24a5d00"
+#>   .. .. ..$ : chr "0x24a58a0"
+#>   .. .. ..$ : chr "0x24a5280"
+#>   .. .. ..$ : chr "0x24a8e10"
+#>   .. .. ..$ : chr "global"
+#>   .. .. ..$ : chr "0x24a8a90"
+#>   .. .. ..$ : chr "0x24a8908"
+#>   .. .. ..$ : chr "0x1abc248"
+#>   .. .. ..$ : chr "0x1abc980"
+#>   .. .. ..$ : chr "0x1abcd00"
+#>   .. .. ..$ : chr "0x1abd080"
+#>   .. ..- attr(*, "class")= chr "rlang_trace"
+#>   ..$ parent : NULL
+#>   ..- attr(*, "class")= chr [1:3] "rlang_error" "error" "condition"
 ```
 
-(This is closely related to `purrr::safely()`, an adverb.)
+(This is closely related to `purrr::safely()`, a function operator, which we'll come back to in Section \@ref(safely).)
 
 ### Resignal
 
