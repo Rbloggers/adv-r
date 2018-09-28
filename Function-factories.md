@@ -34,7 +34,7 @@ cube(3)
 You have already learned about the individual components that make function factories possible:
 
 * In Section \@ref(first-class-functions), you learned about R's "first class" 
-  functions. In R, you bind a function to name in the same way as you bind
+  functions. In R, you bind a function to a name in the same way as you bind
   any object to a name: with `<-`.
 
 * In Section \@ref(the-function-environment), you learned that a function
@@ -104,28 +104,28 @@ square
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <environment: 0x4f79eb0>
+#> <environment: 0x12bd9d8>
 
 cube
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x5326690>
-#> <environment: 0x4fd1280>
+#> <bytecode: 0x186b7e0>
+#> <environment: 0x1cf1e00>
 ```
 
-Printing manufactured functions is not revealing because the bodies are identical; its the contents of the enclosing environment that's important. We can get a little more insight by using `rlang::env_print()`. That shows us that we have two different environments (each of which was originally an execution environment of `power()`). The environments have the same parent, which is the enclosing environment of `power1()`, the global environment.
+Printing manufactured functions is not revealing because the bodies are identical; it's the contents of the enclosing environment that's important. We can get a little more insight by using `rlang::env_print()`. That shows us that we have two different environments (each of which was originally an execution environment of `power1()`). The environments have the same parent, which is the enclosing environment of `power1()`, the global environment.
 
 
 ```r
 env_print(square)
-#> <environment: 0x4f79eb0>
+#> <environment: 0x12bd9d8>
 #>   parent: <environment: global>
 #>   bindings:
 #>    * exp: <dbl>
 
 env_print(cube)
-#> <environment: 0x4fd1280>
+#> <environment: 0x1cf1e00>
 #>   parent: <environment: global>
 #>   bindings:
 #>    * exp: <dbl>
@@ -136,6 +136,9 @@ env_print(cube)
 
 ```r
 env_get(square, "exp")
+#> Warning: Passing an environment wrapper like a function is deprecated.
+#> Please retrieve the environment before calling `env_get()`
+#> This warning is displayed once per session.
 #> [1] 2
 
 env_get(cube, "exp")
@@ -265,7 +268,7 @@ f1 <- function(n) {
 
 g1 <- f1(1e6)
 lobstr::obj_size(g1)
-#> 8,013,720 B
+#> 8,013,656 B
 
 f2 <- function(n) {
   x <- runif(n)
@@ -276,7 +279,7 @@ f2 <- function(n) {
 
 g2 <- f2(1e6)
 lobstr::obj_size(g2)
-#> 13,560 B
+#> 13,496 B
 ```
 
 ### Exercises
@@ -313,7 +316,7 @@ lobstr::obj_size(g2)
     stopifnot(all.equal(m2(x), var(x) * 99 / 100))
     ```
 
-1.  What happens if you don't use a closure? Make predictions then, verify with 
+1.  What happens if you don't use a closure? Make predictions, then verify with 
     the code below.
 
     
@@ -493,12 +496,12 @@ plot_dev <- function(ext, dpi = 96) {
 
 plot_dev("pdf")
 #> function(filename, ...) grDevices::pdf(file = filename, ...)
-#> <bytecode: 0x43725e8>
-#> <environment: 0x3e38250>
+#> <bytecode: 0x4f98f30>
+#> <environment: 0x49b9148>
 plot_dev("png")
 #> function(...) grDevices::png(..., res = dpi, units = "in")
-#> <bytecode: 0x457c3f0>
-#> <environment: 0x49f6768>
+#> <bytecode: 0x529d8e0>
+#> <environment: 0x572ade0>
 ```
 
 ### Exercises
@@ -519,7 +522,7 @@ All of these examples can be tackled without function factories, but I think fun
 ### Box-Cox transformation
 \index{Box-Cox transformation}
 
-The Box-Cox transformation is a flexible transformation often used to transform  data towards normality. It has a single parameter, $\lambda$ which controls the strength of the transformation. We could express the transformation as a simple two argument function:
+The Box-Cox transformation is a flexible transformation often used to transform  data towards normality. It has a single parameter, $\lambda$, which controls the strength of the transformation. We could express the transformation as a simple two argument function:
 
 
 ```r
@@ -772,7 +775,7 @@ These advantages get bigger in more complex MLE problems, where you have multipl
 1.  Why don't you need to worry that `boot_permute()` stores a copy of the 
     data inside the function that it generates?
 
-1.  How much time does `ll_poisson2()` save compared to `ll_poisson1()`.
+1.  How much time does `ll_poisson2()` save compared to `ll_poisson1()`?
     Use `bench::mark()` to see how much faster the optimisation occurs.
     How does changing the length of `x` change the results?
 
@@ -797,13 +800,13 @@ funs$root
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x5326690>
-#> <environment: 0x2f682f8>
+#> <bytecode: 0x186b7e0>
+#> <environment: 0x5b516a0>
 ```
 
 This idea extends in a straightforward way if your function factory takes two (replace `map()` with `map2()`) or more (replace with `pmap()`) arguments.
 
-### Moving a lists to the global environment
+### Moving a list to the global environment
 \indexc{with()}
 \indexc{attach()}
 \indexc{env\_bind()}
@@ -837,7 +840,7 @@ One downside of the current construction is that you have to prefix every functi
     
     You've probably been told to avoid using `attach()`, and that's generally
     good advice. However, the situation is a little different to the usual
-    because we're attaching a list functions, not a data frame. It's less 
+    because we're attaching a list of functions, not a data frame. It's less 
     likely that you'll modify a function than a column in a data frame, so the
     some of the worst problems with `attach()` don't apply.
 
@@ -882,7 +885,7 @@ funs$root
 #> {
 #>     x^0.5
 #> }
-#> <environment: 0x3500300>
+#> <environment: 0x5acf868>
 ```
 
 As well as `0.5` appearing directly in the body, note that the environment of the function is the global environment, not an execution environment of `power3()`.

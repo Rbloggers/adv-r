@@ -78,7 +78,7 @@ This chapter will focus on functionals provided by the purrr package. These func
 library(purrr)
 ```
 
-Many R users feel guilty about using for loops instead of apply functions. It's natural to blame yourself for failing to understand and internalise the apply family of functions. However, I think this is like blaming yourself when embarass yourself by failing to pull open a door when it's supposed to be pushed open[^norman-door]. It's not actually your fault, because many people suffer the same problem; it's a failing of design. Similarly, I think the reason why the apply functions are so hard for so many people is because their design is suboptimal.
+Many R users feel guilty about using for loops instead of apply functions. It's natural to blame yourself for failing to understand and internalise the apply family of functions. However, I think this is like blaming yourself when you embarass yourself by failing to pull open a door when it's supposed to be pushed open[^norman-door]. It's not actually your fault, because many people suffer the same problem; it's a failing of design. Similarly, I think the reason why the apply functions are so hard for so many people is because their design is suboptimal.
 
 [^norman-door]: These are sometimes called Norman doors after Don Norman who described them in his book, "The Design of Everyday Things". There's a nice video about them at <https://99percentinvisible.org/article/norman-doors/>.
 
@@ -108,7 +108,7 @@ Or, graphically:
 \begin{center}\includegraphics[width=2.7in]{diagrams/functionals/map} \end{center}
 
 ::: sidebar
-You might wonder why this function is called `map()`. What does it have to do with depicting physical features of land or sea 🗺? In fact, the meaning comes from mathematics where map refers to "an operation that associates each element of a given set with one or more elements of a second set". This makes sense here because `map()` defines a mapping from one vector to another. ("Map" also has the nice property of being short, which useful for such a fundamental building block.)
+You might wonder why this function is called `map()`. What does it have to do with depicting physical features of land or sea 🗺? In fact, the meaning comes from mathematics where map refers to "an operation that associates each element of a given set with one or more elements of a second set". This makes sense here because `map()` defines a mapping from one vector to another. ("Map" also has the nice property of being short, which is useful for such a fundamental building block.)
 :::
 
 [^Map]: Not to be confused with `base::Map()`, which is considerably more complex, and we'll come back to in Section \@ref(pmap).
@@ -202,9 +202,9 @@ simple_map_dbl <- function(x, f, ...) {
 ::: base
 Base R has two similar functions: `sapply()` and `vapply()`. 
 
-`sapply()` tries to simplify the result to an atomic vector, whereever possible. But this simplifiation depends on the input, so sometimes you'll get a list, sometimes a vector, and sometimes a matrix. This makes it difficult to program with. 
+`sapply()` tries to simplify the result to an atomic vector, wherever possible. But this simplification depends on the input, so sometimes you'll get a list, sometimes a vector, and sometimes a matrix. This makes it difficult to program with. 
 
-`vapply()` allows you to provide a template that describes the output shape. If you want to stick to with base R code you should always use `vapply()` in your functions, not `sapply()`. The primary downside of `vapply()` is its vebosity: the equivalent to `map_dbl(x, mean, na.rm = TRUE)` is `vapply(x, mean, na.rm = TRUE, FUN.VALUE = double())`.
+`vapply()` allows you to provide a template that describes the output shape. If you want to stick with base R code you should always use `vapply()` in your functions, not `sapply()`. The primary downside of `vapply()` is its vebosity: the equivalent to `map_dbl(x, mean, na.rm = TRUE)` is `vapply(x, mean, na.rm = TRUE, FUN.VALUE = double())`.
 :::
 
 ### Anonymous functions and helpers
@@ -239,7 +239,7 @@ str(x)
 #>  $ : num [1:2] 0.0275 0.8249
 ```
 
-Reserve this syntax for short and simple functions. A good rule of thumb is that if your function involves spans lines or uses `{}`, it's time to name your function.
+Reserve this syntax for short and simple functions. A good rule of thumb is that if your function spans lines or uses `{}`, it's time to name your function.
 
 Inside all purrr functions you can create an anonymous function using a `~` (the usual formula operator, pronouned "twiddle"). You can see what happens by calling `as_mapper()`: the map functions normally do that for you, but it's useful to do it "by hand" to see what's going on:
 
@@ -288,7 +288,7 @@ In base R functions, like `lapply()`, you can provide the name of the function a
 
 ### Passing arguments with `...` {#passing-arguments}
 
-It's often convenient to pass on along additional arguments to the function that you're calling. For example, you might want to pass `na.rm = TRUE` along to `mean()`. One way to do that is with an anonymous function:
+It's often convenient to pass along additional arguments to the function that you're calling. For example, you might want to pass `na.rm = TRUE` along to `mean()`. One way to do that is with an anonymous function:
 
 
 ```r
@@ -315,7 +315,7 @@ It's important to note that these arguments are not decomposed; or said another 
 
 \begin{center}\includegraphics[width=3.59in]{diagrams/functionals/map-arg-recycle} \end{center}
 
-Note there's a subtle difference between placing extra arguments inside an anonymous function compared with passing them to `map()`. Putting them in anonymous function means that they will be evaluated every time `f()` is executed, not just once when you call `map()`. This is easiest to see if we make the additional argument random:
+Note there's a subtle difference between placing extra arguments inside an anonymous function compared with passing them to `map()`. Putting them in an anonymous function means that they will be evaluated every time `f()` is executed, not just once when you call `map()`. This is easiest to see if we make the additional argument random:
 
 
 ```r
@@ -334,7 +334,7 @@ In the diagrams, I've omitted argument names to focus on the overall structure. 
 
 [^future-you]: Who is highly likely to be future you!
 
-This is the reason why the arguments to `map()` are a little odd: instead of being `x` and `f`, they are `.x` and `.f`. It's easiest to the problem that leads to these names using `simple_map()` defined above. `simple_map()` has arguments `x` and `f` so you'll have problems whenever the function you are calling has arguments `x` or `f`:
+This is the reason why the arguments to `map()` are a little odd: instead of being `x` and `f`, they are `.x` and `.f`. It's easiest to demonstrate the problem that leads to these names using `simple_map()` defined above. `simple_map()` has arguments `x` and `f` so you'll have problems whenever the function you are calling has arguments `x` or `f`:
 
 
 ```r
@@ -354,14 +354,14 @@ purrr functions reduce the likelihood of such a clash by using `.f` and `.x` ins
 ::: base
 Base functions that pass along `...` use a variety of naming conventions to prevent undesired argument matching:
 
-* The apply family mostly uses capital letters (e.g `X` and `FUN`). 
+* The apply family mostly uses capital letters (e.g. `X` and `FUN`). 
 
-* `transform()` uses more exotic prefix `_`: this makes the name non-syntactic 
+* `transform()` uses the more exotic prefix `_`: this makes the name non-syntactic 
   so it must always be surrounded in `` ` ``, as described in 
   Section \@ref(non-syntactic). This makes undesired matches extremely 
   unlikely.
   
-* Other functional like `uniroot()` and `optim()` make no effort to avoid 
+* Other functionals like `uniroot()` and `optim()` make no effort to avoid 
   clashes; but they tend to be used with specially created funtions so
   clashes are less likely.
 :::
@@ -373,7 +373,7 @@ So far the first argument to `map()` has always become the first argument to the
 
 \begin{center}\includegraphics[width=3.74in]{diagrams/functionals/map-arg-flipped} \end{center}
 
-It turns out that there's no way to do it directly, but there are two tricks you can use. To illustrate them, imagine I have a vector that contains a few unusual values, and I want to explore the effective of different amounts of trimming when computing the mean. In this case, the first argument to `mean()` will be constant, and I want to vary the second argument, `trim`.
+It turns out that there's no way to do it directly, but there are two tricks you can use. To illustrate them, imagine I have a vector that contains a few unusual values, and I want to explore the effect of different amounts of trimming when computing the mean. In this case, the first argument to `mean()` will be constant, and I want to vary the second argument, `trim`.
 
 
 ```r
@@ -406,7 +406,7 @@ x <- rcauchy(1000)
     being very familiar with both the argument order to `.f`, and R's 
     argument matching rules.
 
-You'll see one more approach to this problem that in Section \@ref(pmap).
+You'll see one more approach to this problem in Section \@ref(pmap).
 
 ### Exercises
 
@@ -425,7 +425,7 @@ You'll see one more approach to this problem that in Section \@ref(pmap).
     a) Compute the standard deviation of every numeric column in a mixed data
        frame. (Hint: you'll need to do it in two steps.)
        
-    a) Compute the number of levels for in every factor in a data frame.
+    a) Compute the number of levels for every factor in a data frame.
 
 1.  The following code simulates the performance of a t-test for non-normal 
     data. Extract the p-value from each test, then visualise.
@@ -480,7 +480,7 @@ You'll see one more approach to this problem that in Section \@ref(pmap).
 
 ## Purrr style
 
-Before we go on to take to explore more map variants, lets take a quick look at how you tend to use multiple purrr functions to solve a moderately realistic problem: fitting a model to each subgroups and extracting a coefficient of the model. 
+Before we go on to explore more map variants, let's take a quick look at how you tend to use multiple purrr functions to solve a moderately realistic problem: fitting a model to each subgroup and extracting a coefficient of the model. 
 
 For this toy example, I'm going to break the `mtcars` data set down into groups defined by the number of cylinders, using the base `split` function:
 
@@ -489,7 +489,7 @@ For this toy example, I'm going to break the `mtcars` data set down into groups 
 by_cyl <- split(mtcars, mtcars$cyl)
 ```
 
-Now imagine we want to fit a linear model, then extract the second coefficient (i.e. the intern). The following code shows how you might do that with purrr:
+Now imagine we want to fit a linear model, then extract the second coefficient (i.e. the intercept). The following code shows how you might do that with purrr:
 
 
 ```r
@@ -527,7 +527,7 @@ vapply(models, function(x) coef(x)[[2]], double(1))
 #> -5.65 -2.78 -2.19
 ```
 
-Or, of course, you could you use a for loop:
+Or, of course, you could use a for loop:
 
 
 ```r
@@ -552,7 +552,7 @@ There are 23 primary variants of `map()`. So far, you've learned about five (`ma
 * Return nothing with `walk()`.
 * Iterate over any number of inputs with `pmap()`.
 
-The map family of functions has orthogonal input and outputs, meaning that we can organise all the family into a matrix, with inputs in the rows and outputs in the columns. Once you've mastered the idea in a row, you can combine it with any column; once you've mastered the idea in column, you can combine it with any row. 
+The map family of functions has orthogonal input and outputs, meaning that we can organise all the family into a matrix, with inputs in the rows and outputs in the columns. Once you've mastered the idea in a row, you can combine it with any column; once you've mastered the idea in a column, you can combine it with any row. 
 
 |                       | List     | Atomic            | Same type   | Nothing   |
 |-----------------------|----------|-------------------|-------------|-----------|
@@ -685,14 +685,14 @@ One of the big differences between `map2()` and the simple function above is tha
 In other words, `map2(x, y, f)` will automatically behave like `map(x, f, y)` when needed. This is helpful when writing functions; in scripts you'd generally just use the simpler form directly.
 
 ::: base 
-The closest no base equivalent to `map2()` is `Map()`, which is discussed in Section \@ref(pmap).
+The closest base equivalent to `map2()` is `Map()`, which is discussed in Section \@ref(pmap).
 :::
 
 ### No outputs: `walk()` and friends
 \indexc{walk()}
 \indexc{walk2()}
 
-Most functions are called for value that they return, so it makes sense to capture and store it with a `map()` function. But some functions are called primarily for their side-effects (e.g. `cat()`, `write.csv()`, or `ggsave()`) and it doesn't make sense to capture their results. Take this simple example that displays a welcome message using `cat()`. `cat()` returns `NULL`, so while map works (in the sense that it generates the desired welcomes), it also returns `list(NULL, NULL)`. 
+Most functions are called for the value that they return, so it makes sense to capture and store it with a `map()` function. But some functions are called primarily for their side-effects (e.g. `cat()`, `write.csv()`, or `ggsave()`) and it doesn't make sense to capture their results. Take this simple example that displays a welcome message using `cat()`. `cat()` returns `NULL`, so while map works (in the sense that it generates the desired welcomes), it also returns `list(NULL, NULL)`. 
 
 
 ```r
@@ -722,7 +722,7 @@ walk(names, welcome)
 #> Welcome Jenny!
 ```
 
-My visual depiction of walk attempts to capture the importance different from `map()`: the outputs are ephemeral, and the input is returned invisibly.
+My visual depiction of walk attempts to capture the important difference from `map()`: the outputs are ephemeral, and the input is returned invisibly.
 
 
 \begin{center}\includegraphics[width=2.46in]{diagrams/functionals/walk} \end{center}
@@ -800,14 +800,14 @@ imap_chr(x, ~ paste0("The highest value at position ", .y, " is ", max(.x)))
 #> [6] "The highest value at position 6 is 671"
 ```
 
-`imap()` is a useful helper if you want to work the values in a vector along with their positions.
+`imap()` is a useful helper if you want to work with the values in a vector along with their positions.
 
 ### Any number of inputs: `pmap()` and friends {#pmap}
 \indexc{pmap()}
 \indexc{Map()}
 \indexc{mapply()}
 
-Since we have `map()` and `map2()`, you might expect `map3()`, `map4()`, `map5()`, and so on. But where would you stop? Instead of generalisating to an arbitrary number of arguments, purrr takes a slightly different tack with `pmap()`: you supply it a single list, which contains any number of arguments. In most cases, that will be a list of equal-length vectors, i.e. something very similar to a data frame. In diagrams, I'll emphasise that relationship by drawing the input similar to a data frame.
+Since we have `map()` and `map2()`, you might expect `map3()`, `map4()`, `map5()`, and so on. But where would you stop? Instead of generalising to an arbitrary number of arguments, purrr takes a slightly different tack with `pmap()`: you supply it a single list, which contains any number of arguments. In most cases, that will be a list of equal-length vectors, i.e. something very similar to a data frame. In diagrams, I'll emphasise that relationship by drawing the input similar to a data frame.
 
 
 \begin{center}\includegraphics[width=3.64in]{diagrams/functionals/pmap} \end{center}
@@ -820,7 +820,7 @@ pmap_dbl(list(xs, ws), weighted.mean)
 #> [1]    NA 0.451 0.603 0.452 0.563 0.510 0.342 0.464
 ```
 
-As before, the varying arguments come before `.f` (although now they must be wrapped in a list), and and the constant arguments come afterwards.
+As before, the varying arguments come before `.f` (although now they must be wrapped in a list), and the constant arguments come afterwards.
 
 
 ```r
@@ -830,7 +830,7 @@ pmap_dbl(list(xs, ws), weighted.mean, na.rm = TRUE)
 
 \begin{center}\includegraphics[width=4.77in]{diagrams/functionals/pmap-arg} \end{center}
 
-A big difference between `pmap()` and the other map functions is that `pmap()` gives you much finer control over argument matching because you can name the components of the list. Returning to our example from Section \@ref(varying-argument), where we wanted to vary the `trim` argument to `x`, we could instead use `pmap()`:
+A big difference between `pmap()` and the other map functions is that `pmap()` gives you much finer control over argument matching because you can name the components of the list. Returning to our example from Section \@ref(change-argument), where we wanted to vary the `trim` argument to `x`, we could instead use `pmap()`:
 
 
 ```r
@@ -843,7 +843,7 @@ pmap_dbl(list(trim = trims), mean, x = x)
 
 I think it's good practice to name the list to make it very clear how the function will be called. 
 
-It's often convenient to call `pmap()` with a data frame. A handy way to create that data frame is with `tibble::tribble()`, which allows you to describe a data frame row-by-row (rather than column-by-column, as usual): thinking about the parameters to a function as a data, is a very powerful pattern. The following example shows how you might draw random uniform numbers with varying parameters:
+It's often convenient to call `pmap()` with a data frame. A handy way to create that data frame is with `tibble::tribble()`, which allows you to describe a data frame row-by-row (rather than column-by-column, as usual): thinking about the parameters to a function as a data frame is a very powerful pattern. The following example shows how you might draw random uniform numbers with varying parameters:
 
 
 ```r
@@ -875,10 +875,10 @@ Here, the column names are critical: I've carefully chosen to match them to the 
 
 There are two base equivalents to the `pmap()` family: `Map()` and `mapply()`. Both have significant drawbacks:
 
-* `Map()` vectorises over all arguments so you can not supply arguments that
-  do not very.
+* `Map()` vectorises over all arguments so you cannot supply arguments that
+  do not vary.
 
-* `mapply()` is the multidimensional version of `sapply()`; concetually it 
+* `mapply()` is the multidimensional version of `sapply()`; conceptually it 
   takes the output of `Map()` and simplifies it if possible. This gives it
   similar issues to `sapply()`, and there's no multi-input equivalent of 
   `vapply()`. 
@@ -978,12 +978,12 @@ reduce(l, union)
 #>  [1]  7  5  9 10  1  6  3  4  2  8
 ```
 
-Like the map family, you can also pass additional arguments. `intersect()` and `union()` don't take an extra arguments so I can't demonstrate them here, but the principle is straight forward and I drew you a picture.
+Like the map family, you can also pass additional arguments. `intersect()` and `union()` don't take extra arguments so I can't demonstrate them here, but the principle is straightforward and I drew you a picture.
 
 
 \begin{center}\includegraphics[width=4.03in]{diagrams/functionals/reduce-arg} \end{center}
 
-As usual, the essence of `reduce()` can reduced to a simple wrapper around a for loop:
+As usual, the essence of `reduce()` can be reduced to a simple wrapper around a for loop:
 
 
 ```r
@@ -1002,7 +1002,7 @@ The base equivalent is `Reduce()`. Note that the argument order is different: th
 
 ### Accumulate
 
-The first `reduce()` variant, `accumulate()`, is useful for understand how reduce works, because instead of return just the final result, it returns all the intermediate results as well:
+The first `reduce()` variant, `accumulate()`, is useful for understanding how reduce works, because instead of returning just the final result, it returns all the intermediate results as well:
 
 
 ```r
@@ -1050,7 +1050,7 @@ reduce("a", `+`)
 #> [1] "a"
 ```
 
-What if it's length 0? We get an error that suggest we need to use the `.init` argument:
+What if it's length 0? We get an error that suggests we need to use the `.init` argument:
 
 
 ```r
@@ -1058,12 +1058,12 @@ reduce(integer(), `+`)
 #> Error: `.x` is empty, and no `.init` supplied
 ```
 
-What should `.init` be here? To figure that out, we need to see what happens when `.init` supplied:
+What should `.init` be here? To figure that out, we need to see what happens when `.init` is supplied:
 
 
 \begin{center}\includegraphics[width=4.23in]{diagrams/functionals/reduce-init} \end{center}
 
-So if we call `reduce(1, `+`, init)` the result will be `1 + init`. Now we know that the result should be just `1` one, so that suggests that `.init` should be 0:
+So if we call ``reduce(1, `+`, init)`` the result will be `1 + init`. Now we know that the result should be just `1`, so that suggests that `.init` should be 0:
 
 
 ```r
@@ -1094,11 +1094,11 @@ max(integer())  # max(x, -Inf) = x
 #> [1] -Inf
 ```
 
-If you're using `reduce()` in a function, you should always supply `.init`. Think carefully about what you function should return when passed a vector of length zero or one, and make sure to test your implementation.
+If you're using `reduce()` in a function, you should always supply `.init`. Think carefully about what your function should return when passed a vector of length zero or one, and make sure to test your implementation.
 
 ### Multiple inputs
 
-Very occassionally you need to two arguments to the function that you're reducing. For example, you might have a list of data frames that you want to join together, and the variables that you are joining by vary from element to element. This is a very specialised scenario, so I don't want to spend much time on it, except to know that it exists.
+Very occassionally you need to pass two arguments to the function that you're reducing. For example, you might have a list of data frames that you want to join together, and the variables that you are joining by vary from element to element. This is a very specialised scenario, so I don't want to spend much time on it, except to know that it exists.
 
 Note that the length of the second argument varies based on whether or not `.init` is supplied: if you have four elements of `x`, `f` will only be called three times. If you supply init, `f` will be called four times.
 
@@ -1226,7 +1226,7 @@ str(map(keep(iris, is.numeric), mean))
 
 ## Base functionals {#functionals-math}
 
-To finish up the chapter, here I provide a survey of important base functions that are not members of the map, reduce, or predicate families, and hence have no equivalent in purrr. This is not to say that they're not important, but they have more of a mathematical/statistical flavour, so they are generally less useful in data analyses.
+To finish up the chapter, here I provide a survey of important base functionals that are not members of the map, reduce, or predicate families, and hence have no equivalent in purrr. This is not to say that they're not important, but they have more of a mathematical/statistical flavour, so they are generally less useful in data analyses.
 
 ### Matrices and arrays
 \indexc{apply()}
@@ -1267,8 +1267,8 @@ There are a two caveats to using `apply()`:
 
 *    Like `base::sapply()`, you have no control over the output type; it 
      will automatically be simplified to a list, matrix, or vector. However, 
-     generally, you used `apply()` with a numeric arrays and numeric summary
-     function so you are less likely to encounter a problem that with 
+     generally, you use `apply()` with numeric arrays and a numeric summary
+     function so you are less likely to encounter a problem than with 
      `sapply()`.
 
 *   `apply()` is also not idempotent in the sense that if the summary 
@@ -1349,7 +1349,7 @@ Base R provides a useful set:
 
 * `integrate()` finds the area under the curve defined by `f()`
 * `uniroot()` finds where `f()` hits zero
-* `optimise()` finds the location of lowest (or highest) value of `f()`
+* `optimise()` finds the location of the lowest (or highest) value of `f()`
 
 The following example shows how they might be used with a simple function, `sin()`:
 

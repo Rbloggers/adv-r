@@ -468,7 +468,7 @@ g08()
 #> [1] 110
 ```
 
-The rule gets a little more complicated when a name is bound to a function and a non-function in different environments. When you use a name in function call, R will ignore non-function objects while looking for that value. For example, here `g9` takes on two different values:
+The rule gets a little more complicated when a name is bound to a function and a non-function in different environments. When you use a name in a function call, R will ignore non-function objects while looking for that value. For example, here `g09` takes on two different values:
 
 
 ```r
@@ -813,7 +813,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
 
 ### Exercises
 
-1.  What important property of `&&` make `x_ok()` work?
+1.  What important property of `&&` makes `x_ok()` work?
 
     
     ```r
@@ -852,7 +852,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
     force
     #> function (x) 
     #> x
-    #> <bytecode: 0x870cc8>
+    #> <bytecode: 0x1a65cd8>
     #> <environment: namespace:base>
     ```
     
@@ -901,7 +901,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
       print(x)
     }
     show_time()
-    #> [1] "2018-09-22 05:51:06 UTC"
+    #> [1] "2018-09-28 10:19:00 UTC"
     ```
 
 1.  How many arguments are required when calling `library()`?
@@ -997,7 +997,7 @@ Using `...` comes with two downsides:
 
 *   When you use it to pass arguments on to another function, you have to 
     carefully explain to the user where those arguments go. This makes it
-    hard to understand the what you can do with functions like `lapply()` and 
+    hard to understand what you can do with functions like `lapply()` and 
     `plot()`.
     
 *   Any misspelled arguments will not raise an error.  This makes it easy for 
@@ -1149,7 +1149,7 @@ In general, any function called primarily for its side effects (like `<-`, `prin
 
 ### Errors
 
-If a function can not complete its assigned task, it should throw an error with `stop()`, which immediately terminates the execution of the function.
+If a function cannot complete its assigned task, it should throw an error with `stop()`, which immediately terminates the execution of the function.
 
 
 ```r
@@ -1653,7 +1653,7 @@ mean(1:10, na.rm = TRUE)
     ```
 
 1. Create a list of all the replacement functions found in the base package. 
-   Which ones are primitive functions? (Hint use `apropros()`)
+   Which ones are primitive functions? (Hint: use `apropros()`)
 
 1. What are valid names for user-created infix functions?
 

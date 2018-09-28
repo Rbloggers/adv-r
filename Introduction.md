@@ -199,7 +199,7 @@ Code in the printed book is set in [inconsolata](http://levien.com/type/myfonts/
 \hline
 setting & value\\
 \hline
-version & R version 3.5.0 (2017-01-27)\\
+version & R version 3.5.1 (2017-01-27)\\
 \hline
 os & Ubuntu 14.04.5 LTS\\
 \hline
@@ -211,9 +211,11 @@ language & (EN)\\
 \hline
 collate & en\_US.UTF-8\\
 \hline
+ctype & en\_US.UTF-8\\
+\hline
 tz & UTC\\
 \hline
-date & 2018-09-04\\
+date & 2018-09-28\\
 \hline
 \end{tabular}
 
@@ -222,199 +224,197 @@ date & 2018-09-04\\
 \hline
 package & version & source\\
 \hline
-assertthat & 0.2.0 & cran (\textbackslash{}@0.2.0)\\
+assertthat & 0.2.0 & CRAN (R 3.5.1)\\
 \hline
-backports & 1.1.2 & cran (\textbackslash{}@1.1.2)\\
+backports & 1.1.2 & CRAN (R 3.5.1)\\
 \hline
-base64enc & 0.1-3 & cran (\textbackslash{}@0.1-3)\\
+base64enc & 0.1-3 & CRAN (R 3.5.1)\\
 \hline
-BH & 1.66.0-1 & cran (\textbackslash{}@1.66.0-)\\
+BH & 1.66.0-1 & CRAN (R 3.5.1)\\
 \hline
-bindr & 0.1.1 & cran (\textbackslash{}@0.1.1)\\
+bindr & 0.1.1 & CRAN (R 3.5.1)\\
 \hline
-bindrcpp & 0.2.2 & cran (\textbackslash{}@0.2.2)\\
+bindrcpp & 0.2.2 & CRAN (R 3.5.1)\\
 \hline
-bit & 1.1-14 & cran (\textbackslash{}@1.1-14)\\
+bit & 1.1-14 & CRAN (R 3.5.1)\\
 \hline
-bit64 & 0.9-7 & cran (\textbackslash{}@0.9-7)\\
+bit64 & 0.9-7 & CRAN (R 3.5.1)\\
 \hline
-blob & 1.1.1 & cran (\textbackslash{}@1.1.1)\\
+blob & 1.1.1 & CRAN (R 3.5.1)\\
 \hline
-bookdown & 0.7 & cran (\textbackslash{}@0.7)\\
+bookdown & 0.7 & CRAN (R 3.5.1)\\
 \hline
-cli & 1.0.0 & cran (\textbackslash{}@1.0.0)\\
+cli & 1.0.1 & CRAN (R 3.5.1)\\
 \hline
-clisymbols & 1.2.0 & cran (\textbackslash{}@1.2.0)\\
+codetools & 0.2-15 & CRAN (R 3.5.1)\\
 \hline
-codetools & 0.2-15 & CRAN (R 3.5.0)\\
+colorspace & 1.3-2 & CRAN (R 3.5.1)\\
 \hline
-colorspace & 1.3-2 & cran (\textbackslash{}@1.3-2)\\
+crayon & 1.3.4 & CRAN (R 3.5.1)\\
 \hline
-crayon & 1.3.4 & cran (\textbackslash{}@1.3.4)\\
+curl & 3.2 & CRAN (R 3.5.1)\\
 \hline
-curl & 3.2 & CRAN (R 3.5.0)\\
+DBI & 1.0.0 & CRAN (R 3.5.1)\\
 \hline
-DBI & 1.0.0 & cran (\textbackslash{}@1.0.0)\\
+dbplyr & 1.2.2 & CRAN (R 3.5.1)\\
 \hline
-dbplyr & 1.2.2 & cran (\textbackslash{}@1.2.2)\\
+devtools & 1.13.6 & CRAN (R 3.5.1)\\
 \hline
-devtools & 1.13.6 & CRAN (R 3.5.0)\\
+digest & 0.6.17 & CRAN (R 3.5.1)\\
 \hline
-digest & 0.6.16 & CRAN (R 3.5.0)\\
-\hline
-dplyr & 0.7.6 & cran (\textbackslash{}@0.7.6)\\
+dplyr & 0.7.6 & CRAN (R 3.5.1)\\
 \hline
 emo & 0.0.0.9000 & Github (hadley/emo\textbackslash{}@02a5206)\\
 \hline
-evaluate & 0.11 & cran (\textbackslash{}@0.11)\\
+evaluate & 0.11 & CRAN (R 3.5.1)\\
 \hline
-fansi & 0.3.0 & cran (\textbackslash{}@0.3.0)\\
+fansi & 0.3.0 & CRAN (R 3.5.1)\\
 \hline
-furrr & 0.1.0 & cran (\textbackslash{}@0.1.0)\\
+furrr & 0.1.0 & CRAN (R 3.5.1)\\
 \hline
-future & 1.9.0 & cran (\textbackslash{}@1.9.0)\\
+future & 1.9.0 & CRAN (R 3.5.1)\\
 \hline
-ggplot2 & 3.0.0 & cran (\textbackslash{}@3.0.0)\\
+ggplot2 & 3.0.0 & CRAN (R 3.5.1)\\
 \hline
-git2r & 0.23.0 & CRAN (R 3.5.0)\\
+git2r & 0.23.0 & CRAN (R 3.5.1)\\
 \hline
-globals & 0.12.2 & cran (\textbackslash{}@0.12.2)\\
+globals & 0.12.3 & CRAN (R 3.5.1)\\
 \hline
 glue & 1.3.0 & Github (tidyverse/glue\textbackslash{}@4e74901)\\
 \hline
-gtable & 0.2.0 & cran (\textbackslash{}@0.2.0)\\
+gtable & 0.2.0 & CRAN (R 3.5.1)\\
 \hline
-highr & 0.7 & cran (\textbackslash{}@0.7)\\
+highr & 0.7 & CRAN (R 3.5.1)\\
 \hline
-hms & 0.4.2 & cran (\textbackslash{}@0.4.2)\\
+hms & 0.4.2 & CRAN (R 3.5.1)\\
 \hline
-htmltools & 0.3.6 & cran (\textbackslash{}@0.3.6)\\
+htmltools & 0.3.6 & CRAN (R 3.5.1)\\
 \hline
-httpuv & 1.4.5 & cran (\textbackslash{}@1.4.5)\\
+httpuv & 1.4.5 & CRAN (R 3.5.1)\\
 \hline
-httr & 1.3.1 & CRAN (R 3.5.0)\\
+httr & 1.3.1 & CRAN (R 3.5.1)\\
 \hline
-inline & 0.3.15 & cran (\textbackslash{}@0.3.15)\\
+inline & 0.3.15 & CRAN (R 3.5.1)\\
 \hline
-jsonlite & 1.5 & CRAN (R 3.5.0)\\
+jsonlite & 1.5 & CRAN (R 3.5.1)\\
 \hline
-knitr & 1.20 & cran (\textbackslash{}@1.20)\\
+knitr & 1.20 & CRAN (R 3.5.1)\\
 \hline
-labeling & 0.3 & cran (\textbackslash{}@0.3)\\
+labeling & 0.3 & CRAN (R 3.5.1)\\
 \hline
-later & 0.7.4 & cran (\textbackslash{}@0.7.4)\\
+later & 0.7.5 & CRAN (R 3.5.1)\\
 \hline
-lattice & 0.20-35 & CRAN (R 3.5.0)\\
+lattice & 0.20-35 & CRAN (R 3.5.1)\\
 \hline
-lazyeval & 0.2.1 & cran (\textbackslash{}@0.2.1)\\
+lazyeval & 0.2.1 & CRAN (R 3.5.1)\\
 \hline
 lineprof & 0.1.9001 & Github (hadley/lineprof\textbackslash{}@972e71d)\\
 \hline
-listenv & 0.7.0 & cran (\textbackslash{}@0.7.0)\\
+listenv & 0.7.0 & CRAN (R 3.5.1)\\
 \hline
 lobstr & 0.0.0.9000 & Github (hadley/lobstr\textbackslash{}@530db70)\\
 \hline
-lubridate & 1.7.4 & cran (\textbackslash{}@1.7.4)\\
+lubridate & 1.7.4 & CRAN (R 3.5.1)\\
 \hline
-magrittr & 1.5 & cran (\textbackslash{}@1.5)\\
+magrittr & 1.5 & CRAN (R 3.5.1)\\
 \hline
-markdown & 0.8 & cran (\textbackslash{}@0.8)\\
+markdown & 0.8 & CRAN (R 3.5.1)\\
 \hline
-MASS & 7.3-49 & CRAN (R 3.5.0)\\
+MASS & 7.3-50 & CRAN (R 3.5.1)\\
 \hline
-Matrix & 1.2-14 & CRAN (R 3.5.0)\\
+Matrix & 1.2-14 & CRAN (R 3.5.1)\\
 \hline
-memoise & 1.1.0 & CRAN (R 3.5.0)\\
+memoise & 1.1.0 & CRAN (R 3.5.1)\\
 \hline
-mgcv & 1.8-23 & CRAN (R 3.5.0)\\
+mgcv & 1.8-24 & CRAN (R 3.5.1)\\
 \hline
-microbenchmark & 1.4-4 & cran (\textbackslash{}@1.4-4)\\
+microbenchmark & 1.4-4 & CRAN (R 3.5.1)\\
 \hline
-mime & 0.5 & CRAN (R 3.5.0)\\
+mime & 0.5 & CRAN (R 3.5.1)\\
 \hline
-munsell & 0.5.0 & cran (\textbackslash{}@0.5.0)\\
+munsell & 0.5.0 & CRAN (R 3.5.1)\\
 \hline
-nlme & 3.1-137 & CRAN (R 3.5.0)\\
+nlme & 3.1-137 & CRAN (R 3.5.1)\\
 \hline
-openssl & 1.0.2 & CRAN (R 3.5.0)\\
+openssl & 1.0.2 & CRAN (R 3.5.1)\\
 \hline
-pillar & 1.3.0 & cran (\textbackslash{}@1.3.0)\\
+pillar & 1.3.0 & CRAN (R 3.5.1)\\
 \hline
-pkgconfig & 2.0.2 & cran (\textbackslash{}@2.0.2)\\
+pkgconfig & 2.0.2 & CRAN (R 3.5.1)\\
 \hline
-plogr & 0.2.0 & cran (\textbackslash{}@0.2.0)\\
+plogr & 0.2.0 & CRAN (R 3.5.1)\\
 \hline
-plyr & 1.8.4 & cran (\textbackslash{}@1.8.4)\\
+plyr & 1.8.4 & CRAN (R 3.5.1)\\
 \hline
-png & 0.1-7 & cran (\textbackslash{}@0.1-7)\\
+png & 0.1-7 & CRAN (R 3.5.1)\\
 \hline
-praise & 1.0.0 & cran (\textbackslash{}@1.0.0)\\
+praise & 1.0.0 & CRAN (R 3.5.1)\\
 \hline
-prettyunits & 1.0.2 & cran (\textbackslash{}@1.0.2)\\
+prettyunits & 1.0.2 & CRAN (R 3.5.1)\\
 \hline
-promises & 1.0.1 & cran (\textbackslash{}@1.0.1)\\
+promises & 1.0.1 & CRAN (R 3.5.1)\\
 \hline
-pryr & 0.1.4 & cran (\textbackslash{}@0.1.4)\\
+pryr & 0.1.4 & CRAN (R 3.5.1)\\
 \hline
-purrr & 0.2.5 & cran (\textbackslash{}@0.2.5)\\
+purrr & 0.2.5 & CRAN (R 3.5.1)\\
 \hline
-R6 & 2.2.2 & CRAN (R 3.5.0)\\
+R6 & 2.2.2 & CRAN (R 3.5.1)\\
 \hline
-RColorBrewer & 1.1-2 & cran (\textbackslash{}@1.1-2)\\
+RColorBrewer & 1.1-2 & CRAN (R 3.5.1)\\
 \hline
-Rcpp & 0.12.18 & cran (\textbackslash{}@0.12.18)\\
+Rcpp & 0.12.18 & CRAN (R 3.5.1)\\
 \hline
-readr & 1.1.1 & cran (\textbackslash{}@1.1.1)\\
+readr & 1.1.1 & CRAN (R 3.5.1)\\
 \hline
-reshape2 & 1.4.3 & cran (\textbackslash{}@1.4.3)\\
+reshape2 & 1.4.3 & CRAN (R 3.5.1)\\
 \hline
-rlang & 0.2.2.9000 & Github (r-lib/rlang\textbackslash{}@9a1fc75)\\
+rlang & 0.2.2.9001 & Github (r-lib/rlang\textbackslash{}@40d93e3)\\
 \hline
-rmarkdown & 1.10 & cran (\textbackslash{}@1.10)\\
+rmarkdown & 1.10 & CRAN (R 3.5.1)\\
 \hline
-rprojroot & 1.3-2 & cran (\textbackslash{}@1.3-2)\\
+rprojroot & 1.3-2 & CRAN (R 3.5.1)\\
 \hline
-RSQLite & 2.1.1 & cran (\textbackslash{}@2.1.1)\\
+RSQLite & 2.1.1 & CRAN (R 3.5.1)\\
 \hline
-rstudioapi & 0.7 & CRAN (R 3.5.0)\\
+rstudioapi & 0.7 & CRAN (R 3.5.1)\\
 \hline
-scales & 1.0.0 & cran (\textbackslash{}@1.0.0)\\
+scales & 1.0.0 & CRAN (R 3.5.1)\\
 \hline
-sessioninfo & 1.0.0 & cran (\textbackslash{}@1.0.0)\\
+sessioninfo & 1.1.0 & CRAN (R 3.5.1)\\
 \hline
-shiny & 1.1.0 & cran (\textbackslash{}@1.1.0)\\
+shiny & 1.1.0 & CRAN (R 3.5.1)\\
 \hline
-sloop & 0.0.0.9000 & Github (hadley/sloop\textbackslash{}@ece21d8)\\
+sloop & 0.0.0.9000 & Github (hadley/sloop\textbackslash{}@1388239)\\
 \hline
-sourcetools & 0.1.7 & cran (\textbackslash{}@0.1.7)\\
+sourcetools & 0.1.7 & CRAN (R 3.5.1)\\
 \hline
-stringi & 1.2.4 & cran (\textbackslash{}@1.2.4)\\
+stringi & 1.2.4 & CRAN (R 3.5.1)\\
 \hline
-stringr & 1.3.1 & cran (\textbackslash{}@1.3.1)\\
+stringr & 1.3.1 & CRAN (R 3.5.1)\\
 \hline
-testthat & 2.0.0 & cran (\textbackslash{}@2.0.0)\\
+testthat & 2.0.0 & CRAN (R 3.5.1)\\
 \hline
-tibble & 1.4.2 & cran (\textbackslash{}@1.4.2)\\
+tibble & 1.4.2 & CRAN (R 3.5.1)\\
 \hline
-tidyselect & 0.2.4 & cran (\textbackslash{}@0.2.4)\\
+tidyselect & 0.2.4 & CRAN (R 3.5.1)\\
 \hline
-tinytex & 0.8 & CRAN (R 3.5.0)\\
+tinytex & 0.8 & CRAN (R 3.5.1)\\
 \hline
-utf8 & 1.1.4 & cran (\textbackslash{}@1.1.4)\\
+utf8 & 1.1.4 & CRAN (R 3.5.1)\\
 \hline
-viridisLite & 0.3.0 & cran (\textbackslash{}@0.3.0)\\
+viridisLite & 0.3.0 & CRAN (R 3.5.1)\\
 \hline
-whisker & 0.3-2 & CRAN (R 3.5.0)\\
+whisker & 0.3-2 & CRAN (R 3.5.1)\\
 \hline
-withr & 2.1.2 & CRAN (R 3.5.0)\\
+withr & 2.1.2 & CRAN (R 3.5.1)\\
 \hline
-xfun & 0.3 & cran (\textbackslash{}@0.3)\\
+xfun & 0.3 & CRAN (R 3.5.1)\\
 \hline
-xtable & 1.8-3 & cran (\textbackslash{}@1.8-3)\\
+xtable & 1.8-3 & CRAN (R 3.5.1)\\
 \hline
-yaml & 2.2.0 & cran (\textbackslash{}@2.2.0)\\
+yaml & 2.2.0 & CRAN (R 3.5.1)\\
 \hline
-zeallot & 0.1.0 & cran (\textbackslash{}@0.1.0)\\
+zeallot & 0.1.0 & CRAN (R 3.5.1)\\
 \hline
 \end{tabular}
 

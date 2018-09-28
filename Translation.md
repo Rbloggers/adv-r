@@ -31,6 +31,13 @@ This chapter together pulls together many techniques discussed elsewhere in the 
 ```r
 library(rlang)
 library(purrr)
+#> 
+#> Attaching package: 'purrr'
+#> The following objects are masked from 'package:rlang':
+#> 
+#>     %@%, %||%, as_function, flatten, flatten_chr,
+#>     flatten_dbl, flatten_int, flatten_lgl, invoke,
+#>     list_along, modify, prepend, rep_along, splice
 ```
 
 ## HTML {#html}
@@ -503,6 +510,8 @@ greek <- c(
   "Upsilon", "Omega", "Theta", "Pi", "Phi")
 greek_list <- set_names(paste0("\\", greek), greek)
 greek_env <- as_env(greek_list)
+#> Warning: `as_env()` is soft-deprecated as of rlang 0.2.0.
+#> This warning is displayed once per session.
 ```
 
 We can then check it:
@@ -725,7 +734,7 @@ unknown_op("foo")
 #>     contents <- paste(..., collapse = ", ")
 #>     paste0("\\mathrm{foo}(", contents, ")")
 #> }
-#> <environment: 0x2c80db0>
+#> <environment: 0x105ee60>
 ```
 
 And again we update `latex_env()`:

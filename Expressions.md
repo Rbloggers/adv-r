@@ -4,7 +4,7 @@
 
 ## Introduction
 
-To compute on the language, we first need to understand its structure. That requires some new vocabulary, some new tools, and some new ways of thinking about R code. The first thing you'll need to understand is the distinction between an operation and its result. Take this code, which takes a variable `x` multiplies it by 10 and saves the result to a new variable called `y`. It doesn't work because we haven't defined a variable called `x`:
+To compute on the language, we first need to understand its structure. That requires some new vocabulary, some new tools, and some new ways of thinking about R code. The first thing you'll need to understand is the distinction between an operation and its result. Take this code, which takes a variable `x`, multiplies it by 10, and saves the result to a new variable called `y`. It doesn't work because we haven't defined a variable called `x`:
 
 
 ```r
@@ -48,7 +48,7 @@ devtools::install_github("hadley/lobstr")
 
 ## Abstract syntax trees
 
-Quoted expressions are also called abstract syntax trees (AST) because the structure of code is hierarchical and can be naturally represented as a tree. To make that more obvious we're going to introduce some graphical conventions, illustrated with the very simple call `f(x, "y", 1)`. \index{abstract syntax tree}
+Quoted expressions are also called abstract syntax trees (ASTs) because the structure of code is hierarchical and can be naturally represented as a tree. To make that more obvious we're going to introduce some graphical conventions, illustrated with the very simple call `f(x, "y", 1)`. \index{abstract syntax tree}
 
 
 \begin{center}\includegraphics[width=2.36in]{diagrams/expressions/simple} \end{center}
@@ -244,7 +244,7 @@ If this is your first reading of the metaprogramming chapters, now is a good tim
 
 ### Operator precedence
 
-Infix functions introduce ambiguity in a way that prefix functions do not. The parser has to resolve two sources of ambiguity when parsing infix operators[^ambig]. First, what does `1 + 2 * 3` yield? Do you get 9 (i.e. `(1 + 2) * 3`), or 7 (i.e. `1 + (2 * 3)`).  Which of the two possible parse trees below does R use?
+Infix functions introduce ambiguity in a way that prefix functions do not. The parser has to resolve two sources of ambiguity when parsing infix operators[^ambig]. First, what does `1 + 2 * 3` yield? Do you get 9 (i.e. `(1 + 2) * 3`), or 7 (i.e. `1 + (2 * 3)`)?  Which of the two possible parse trees below does R use?
 
 [^ambig]: These two sources of ambiguity do not exist without infix operators, which can be considered an advantage of purely prefix and postfix languages. It's interesting to compare a simple arithmetic operation in Lisp (prefix) and Forth (postfix). In Lisp you'd write `(+ (+ 1 2) 3))`; this avoids ambiguity by requiring parentheses everywhere. In Forth, you'd write `1 2 + 3 +`; this doesn't require any parentheses, but does require more thought when reading.
 
@@ -568,6 +568,9 @@ You can construct a call from its children by using `rlang::lang()`. The first a
 
 ```r
 lang("mean", x = expr(x), na.rm = TRUE)
+#> Warning: `lang()` is soft-deprecated as of rlang 0.2.0.
+#> Please use `call2()` instead
+#> This warning is displayed once per session.
 #> mean(x = x, na.rm = TRUE)
 lang(expr(mean), x = expr(x), na.rm = TRUE)
 #> mean(x = x, na.rm = TRUE)
@@ -598,7 +601,7 @@ pl$x
 #> [1] 1
 ```
 
-However, behind the scenes pairlists are implemented using a different data structure, a linked list instead of a vector. That means that subsetting is slower with pairlists, and gets slower the further along the pairlist you index. This has limited practical impacts, but it's a useful fact to know.
+However, behind the scenes pairlists are implemented using a different data structure, a linked list instead of a vector. That means that subsetting is slower with pairlists, and gets slower the further along the pairlist you index. This has limited practical impact, but it's a useful fact to know.
 
 
 ```r
@@ -613,10 +616,10 @@ microbenchmark::microbenchmark(
 )
 #> Unit: nanoseconds
 #>       expr  min   lq mean median   uq   max neval
-#>    l1[[1]]  142  155  293    163  184 11201   100
-#>  l1[[100]]  146  160  196    166  222   437   100
-#>    l2[[1]] 1392 1677 1868   1810 2012  2887   100
-#>  l2[[100]] 1519 1841 2224   2008 2164 11465   100
+#>    l1[[1]]  138  153  283    161  170 11222   100
+#>  l1[[100]]  140  155  191    166  217   574   100
+#>    l2[[1]] 1332 1638 1835   1777 2042  2640   100
+#>  l2[[100]] 1533 1764 1997   1896 2081  8104   100
 ```
 
 ### Expression objects
@@ -686,7 +689,7 @@ Conceptually, an expression object is just a list of expressions. The only diffe
     ```
 
 1.  Construct the expression `if(x > 1) "a" else "b"` using multiple calls to 
-    `lang()`. How does the structure code reflect the structure of the AST?
+    `lang()`. How does the code structure reflect the structure of the AST?
 
 ## Parsing and deparsing 
 
@@ -754,7 +757,7 @@ cat(expr_text(expr({
 #> }
 ```
 
-There are few other cases where parsing and deparsing is not symmetric. We'll encounter one in the next chapter:
+There are a few other cases where parsing and deparsing is not symmetric. We'll encounter one in the next chapter:
 
 
 ```r
@@ -962,9 +965,9 @@ ast(x <- 10)
 #> └─10
 ```
 
-Assignment is a call where the first element is the symbol `<-`, the second is name of variable, and the third is the value to be assigned.
+Assignment is a call where the first element is the symbol `<-`, the second is the name of variable, and the third is the value to be assigned.
 
-Next, we need to decide what data structure we're going to use for the results. Here I think it will be easiest it we return a character vector. If we return symbols, we'll need to use a `list()` and that makes things a little more complicated.
+Next, we need to decide what data structure we're going to use for the results. Here I think it will be easiest if we return a character vector. If we return symbols, we'll need to use a `list()` and that makes things a little more complicated.
 
 With that in hand we can start by implementing the base cases and providing a helpful wrapper around the recursive function. The base cases here are really simple!
 
@@ -1019,6 +1022,9 @@ find_assign_rec <- function(x) {
 }
 
 find_assign(a <- 1)
+#> Warning: `is_lang()` is soft-deprecated as of rlang 0.2.0.
+#> Please use `is_call()` instead
+#> This warning is displayed once per session.
 #> [1] "a"
 find_assign({
   a <- 1
@@ -1053,7 +1059,7 @@ find_assign({
 #> [1] "a"
 ```
 
-What happens if we have nested calls to `<-`  Currently we only return the first. That's because when `<-` occurs we immediately terminate recursion. 
+What happens if we have nested calls to `<-`? Currently we only return the first. That's because when `<-` occurs we immediately terminate recursion. 
 
 
 ```r

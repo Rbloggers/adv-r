@@ -86,7 +86,7 @@ e1 <- env(
 ```
 
 ::: base
-Use `new.env()` to creates a new environment. Ignore the `hash` and `size` parameters; they are not needed. Note that you can not simultaneously create and define values; use `$<-`, as shown below.
+Use `new.env()` to create a new environment. Ignore the `hash` and `size` parameters; they are not needed. Note that you cannot simultaneously create and define values; use `$<-`, as shown below.
 :::
 
 The job of an environment is to associate, or __bind__, a set of names to a set of values. You can think of an environment as a bag of names, with no implied order (i.e. it doesn't make sense to ask which is the first element in an environment). For that reason, we'll draw the environment as so:
@@ -104,12 +104,12 @@ e1$d <- e1
 
 \begin{center}\includegraphics[width=3.05in]{diagrams/environments/loop} \end{center}
 
-Printing an evironment just displays its memory address, which is not terribly useful:
+Printing an environment just displays its memory address, which is not terribly useful:
 
 
 ```r
 e1
-#> <environment: 0x16b5408>
+#> <environment: 0x28a7be8>
 ```
 
 Instead, we'll use `env_print()` which gives us a little more information:
@@ -117,7 +117,7 @@ Instead, we'll use `env_print()` which gives us a little more information:
 
 ```r
 env_print(e1)
-#> <environment: 0x16b5408>
+#> <environment: 0x28a7be8>
 #>   parent: <environment: global>
 #>   bindings:
 #>    * a: <lgl>
@@ -179,7 +179,7 @@ You can find the parent of an environment with `env_parent()`:
 
 ```r
 env_parent(e2b)
-#> <environment: 0x4bb0348>
+#> <environment: 0x5406938>
 env_parent(e2a)
 #> <environment: R_GlobalEnv>
 ```
@@ -201,6 +201,7 @@ You'll get an error if you try to find the parent of the empty environment:
 ```r
 env_parent(empty_env())
 #> Error: The empty environment has no parent
+#> Call `rlang::last_error()` to see a backtrace
 ```
 
 You can list all ancestors of an environment with `env_parents()`:
@@ -208,11 +209,11 @@ You can list all ancestors of an environment with `env_parents()`:
 
 ```r
 env_parents(e2b)
-#> [[1]]   <env: 0x4bb0348>
+#> [[1]]   <env: 0x5406938>
 #> [[2]] $ <env: global>
 
 env_parents(e2d)
-#> [[1]]   <env: 0x560cb58>
+#> [[1]]   <env: 0x5e88690>
 #> [[2]] $ <env: empty>
 ```
 
@@ -340,11 +341,14 @@ There are two more exotic variants of `env_bind()`:
     
     ```r
     env_bind_exprs(current_env(), b = {Sys.sleep(1); 1})
+    #> Warning: `env_bind_exprs()` is soft-deprecated as of rlang 0.3.0.
+    #> Please use `env_bind_promise()` instead.
+    #> This warning is displayed once per session.
     
     system.time(print(b))
     #> [1] 1
     #>    user  system elapsed 
-    #>       0       0       1
+    #>   0.004   0.000   1.002
     system.time(print(b))
     #> [1] 1
     #>    user  system elapsed 
@@ -361,6 +365,9 @@ There are two more exotic variants of `env_bind()`:
     
     ```r
     env_bind_fns(current_env(), z1 = function(val) runif(1))
+    #> Warning: `env_bind_fns()` is soft-deprecated as of rlang 0.3.0.
+    #> Please use `env_bind_active()` instead.
+    #> This warning is displayed once per session.
     
     z1
     #> [1] 0.0808
@@ -578,7 +585,7 @@ search_envs()
 #>  [[7]] $ <env: package:datasets>
 #>  [[8]] $ <env: package:methods>
 #>  [[9]] $ <env: Autoloads>
-#> [[10]] $ <env: base>
+#> [[10]] $ <env: package:base>
 ```
 
 :::base 
@@ -654,7 +661,7 @@ sd
 #> function (x, na.rm = FALSE) 
 #> sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), 
 #>     na.rm = na.rm))
-#> <bytecode: 0x64c5af8>
+#> <bytecode: 0x4d80b28>
 #> <environment: namespace:stats>
 ```
 
@@ -682,7 +689,7 @@ Every namespace environment has the same set of ancestors:
 
 * Explicitly importing every base function would be tiresome, so the parent
   of the imports environment is the base __namespace__. The base namespace 
-  contains the same bindings as the base environment, but it has different
+  contains the same bindings as the base environment, but it has a different
   parent.
   
 * The parent of the base namespace is the global environment. This means that 
@@ -759,7 +766,7 @@ h2 <- function(x) {
 
 e <- h2(x = 10)
 env_print(e)
-#> <environment: 0x5651058>
+#> <environment: 0x43a6840>
 #>   parent: <environment: global>
 #>   bindings:
 #>    * a: <dbl>
@@ -782,7 +789,7 @@ plus <- function(x) {
 plus_one <- plus(1)
 plus_one
 #> function(y) x + y
-#> <environment: 0x593e550>
+#> <environment: 0x4c76fa8>
 ```
 
 

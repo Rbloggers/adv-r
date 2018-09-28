@@ -442,7 +442,7 @@ x <- new_quosure(expr(x + y), env(x = 1, y = 10))
 x
 #> <quosure>
 #>   expr: ^x + y
-#>   env:  0x5bb1f20
+#>   env:  0x4f1a878
 ```
 
 
@@ -480,7 +480,7 @@ And you can extract its components with the `quo_get_` helpers:
 
 ```r
 quo_get_env(x)
-#> <environment: 0x64d3a90>
+#> <environment: 0x573c628>
 quo_get_expr(x)
 #> x + y
 ```
@@ -577,19 +577,19 @@ Almost all quoting functions should capture quosures rather than expressions, an
     q1
     #> <quosure>
     #>   expr: ^x
-    #>   env:  0x5508638
+    #>   env:  0x34b8738
     
     q2 <- new_quosure(expr(x + !!q1), env(x = 10))
     q2
     #> <quosure>
     #>   expr: ^x + (^x)
-    #>   env:  0x5745ce8
+    #>   env:  0x2511b80
     
     q3 <- new_quosure(expr(x + !!q2), env(x = 100))
     q3
     #> <quosure>
     #>   expr: ^x + (^x + (^x))
-    #>   env:  0x5b08e88
+    #>   env:  0x49f9118
     ```
 
 1.  Write a function `enenv()` that captures the environment associated
@@ -768,6 +768,7 @@ threshold_x <- function(df, val) {
 x <- 10
 threshold_x(no_x, 2)
 #> Error: Column `x` not found in `.data`
+#> Call `rlang::last_error()` to see a backtrace
 threshold_x(has_val, 2)
 #>   x val
 #> 2 2  10
@@ -937,10 +938,10 @@ microbenchmark::microbenchmark(
 )
 #> Unit: microseconds
 #>                   expr  min   lq mean median   uq   max neval
-#>               runif(n) 36.8 37.7 41.5   38.4 39.2  79.8   100
-#>      eval_bare(x1, e1) 37.5 38.7 42.7   39.1 40.1 107.2   100
-#>          eval_tidy(q1) 40.2 41.5 44.2   42.4 43.6  82.6   100
-#>  eval_tidy(q1, mtcars) 42.6 44.9 57.1   46.0 50.3 581.2   100
+#>               runif(n) 37.3 38.2 40.6   38.8 40.1  85.4   100
+#>      eval_bare(x1, e1) 38.1 39.0 41.4   39.5 40.9  87.2   100
+#>          eval_tidy(q1) 39.2 40.4 43.9   41.3 44.4  96.7   100
+#>  eval_tidy(q1, mtcars) 41.9 43.9 52.7   44.9 48.6 567.4   100
 ```
 
 However, most of the overhead is due to setting up the data mask so if you need to evaluate code repeatedly, it's a good idea to define the data mask once then reuse it. This considerably reduces the overhead, with a small change in behaviour: if the code being evaluated creates objects in the "current" environment, those objects will persist across calls.
@@ -955,10 +956,10 @@ microbenchmark::microbenchmark(
   eval_tidy(q1, d_mtcars)
 )
 #> Unit: microseconds
-#>                     expr  min   lq mean median    uq  max neval
-#>     as_data_mask(mtcars)  4.8  5.6  7.2   6.19  7.43 61.9   100
-#>    eval_tidy(q1, mtcars) 42.7 44.1 49.8  45.37 47.27 90.7   100
-#>  eval_tidy(q1, d_mtcars) 38.4 39.2 43.3  39.63 40.52 96.6   100
+#>                     expr  min    lq  mean median    uq  max neval
+#>     as_data_mask(mtcars)  4.0  4.52  5.62   4.88  5.52 56.5   100
+#>    eval_tidy(q1, mtcars) 41.7 43.06 44.95  43.64 44.85 69.6   100
+#>  eval_tidy(q1, d_mtcars) 38.7 39.71 41.09  40.30 41.07 52.5   100
 ```
 
 ### Exercises

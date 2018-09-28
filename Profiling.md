@@ -348,8 +348,8 @@ microbenchmark(
 )
 #> Unit: nanoseconds
 #>      expr   min    lq  mean median    uq       max neval
-#>  mean1(x) 3,060 3,210 14608  3,390 3,870 1,090,000   100
-#>  mean2(x)   657   738 24602    810   962 2,350,000   100
+#>  mean1(x) 3,130 3,200 14535  3,310 3,540 1,100,000   100
+#>  mean2(x)   647   722 24850    823   902 2,400,000   100
 ```
 
 (You might be surprised by the results: `mean(x)` is considerably slower than `sum(x) / length(x)`. This is because, among other reasons, `mean(x)` makes two passes over the vector to be more numerically accurate.)
@@ -448,9 +448,9 @@ microbenchmark(
   mean.default(x)
 )
 #> Unit: microseconds
-#>             expr  min   lq mean median   uq  max neval
-#>          mean(x) 2.76 2.86 3.49   2.95 3.18 43.8   100
-#>  mean.default(x) 1.22 1.29 1.44   1.34 1.40  5.2   100
+#>             expr  min   lq mean median   uq   max neval
+#>          mean(x) 2.78 2.85 3.63   2.94 3.24 51.90   100
+#>  mean.default(x) 1.21 1.27 1.45   1.32 1.42  5.52   100
 ```
 
 This optimisation is a little risky. While `mean.default()` is almost twice as fast, it'll fail in surprising ways if `x` is not a numeric vector. You should only use it if you know for sure what `x` is.
@@ -473,9 +473,9 @@ microbenchmark(
   as.data.frame = as.data.frame(l)
 )
 #> Unit: microseconds
-#>           expr      min       lq   mean median      uq   max neval
-#>       quick_df     6.51     9.45   49.6     16    22.1 3,300   100
-#>  as.data.frame 1,050.00 1,100.00 1231.1  1,140 1,190.0 5,600   100
+#>           expr     min       lq   mean  median      uq   max neval
+#>       quick_df     6.7     9.36   51.2    17.5    22.9 3,310   100
+#>  as.data.frame 1,060.0 1,100.00 1275.1 1,140.0 1,190.0 5,480   100
 ```
 
 Again, note the trade-off. This method is fast because it's dangerous. If you give it bad inputs, you'll get a corrupt data frame:
@@ -595,11 +595,11 @@ microbenchmark(
   diff4(x)
 )
 #> Unit: microseconds
-#>      expr  min   lq  mean median   uq      max neval
-#>  diff1(x) 3.83 4.38 205.5   4.86 6.19 20,000.0   100
-#>  diff2(x) 3.13 3.68   5.0   4.09 5.27     46.3   100
-#>  diff3(x) 2.64 3.22  87.4   3.59 4.18  8,330.0   100
-#>  diff4(x) 2.03 2.49  40.0   2.76 3.23  3,700.0   100
+#>      expr  min   lq   mean median   uq      max neval
+#>  diff1(x) 3.75 4.35 200.39   4.74 5.50 19,500.0   100
+#>  diff2(x) 3.26 3.69   4.87   4.04 4.68     48.4   100
+#>  diff3(x) 2.68 3.25  86.04   3.63 4.09  8,200.0   100
+#>  diff4(x) 2.04 2.48  39.24   2.81 3.27  3,590.0   100
 ```
 
 You'll be able to make `diff()` even faster for this special case once you've read [Rcpp](#rcpp).
@@ -630,8 +630,8 @@ microbenchmark(
 )
 #> Unit: microseconds
 #>               expr  min   lq mean median    uq   max neval
-#>  boot_cor1(df, 10) 85.0 90.0  133   95.9 105.0 2,820   100
-#>  boot_cor2(df, 10) 55.7 58.8  111   62.0  71.9 2,860   100
+#>  boot_cor1(df, 10) 84.6 90.8  136   97.5 110.0 2,740   100
+#>  boot_cor2(df, 10) 56.3 58.6  109   60.1  65.2 2,750   100
 ```
 
 ### Exercises
@@ -659,7 +659,7 @@ microbenchmark(
     )
     system.time(rowSums(df))
     #>    user  system elapsed 
-    #>   0.056   0.008   0.064
+    #>   0.060   0.016   0.076
     system.time(rowSums2(df))
     #>    user  system elapsed 
     #>   0.032   0.000   0.032
@@ -753,9 +753,9 @@ microbenchmark(
 )
 #> Unit: nanoseconds
 #>          expr   min    lq mean median    uq    max neval
-#>    lookup[x1]   531   570  781    672   915  2,080   100
-#>   lookup[x10] 1,350 1,430 1930  1,540 1,830 23,900   100
-#>  lookup[x100] 5,060 6,180 6777  6,650 7,150 16,900   100
+#>    lookup[x1]   540   585  827    712   954  3,490   100
+#>   lookup[x10] 1,380 1,450 1918  1,590 1,840 26,100   100
+#>  lookup[x100] 5,100 6,100 7086  6,640 7,340 23,300   100
 ```
 
 Vectorisation won't solve every problem, and rather than torturing an existing algorithm into one that uses a vectorised approach, you're often better off writing your own vectorised function in C++. You'll learn how to do so in [Rcpp](#rcpp). 
@@ -800,11 +800,11 @@ microbenchmark(
   vec100  = paste(strings100, collapse = "")
 )
 #> Unit: microseconds
-#>     expr    min     lq   mean median     uq     max neval
-#>   loop10  20.50  21.10  22.78  22.00  23.50    34.3   100
-#>  loop100 803.00 816.00 859.76 820.00 831.00 4,030.0   100
-#>    vec10   5.12   5.31   6.43   5.64   6.05    60.8   100
-#>   vec100  40.80  41.30  43.33  41.70  43.60    59.6   100
+#>     expr   min     lq  mean median     uq     max neval
+#>   loop10  20.1  21.50  23.3  22.60  24.50    35.7   100
+#>  loop100 808.0 824.00 863.5 829.00 843.00 3,670.0   100
+#>    vec10   4.9   5.15   6.2   5.57   6.14    44.7   100
+#>   vec100  39.9  41.10  44.1  41.70  44.10   144.0   100
 ```
 
 Modifying an object in a loop, e.g., `x[i] <- y`, can also create a copy, depending on the class of `x`. [Modification in place](#modification) discusses this issue in more depth and gives you some tools to determine when you're making copies.
@@ -833,9 +833,9 @@ microbenchmark(
 )
 #> Unit: microseconds
 #>                   expr  min   lq  mean median   uq      max neval
-#>    lapply2(x, is.null) 1.80 1.86 43.29   1.99 2.28 4,100.00   100
-#>  lapply2_c(x, is.null) 1.80 1.84  2.15   1.94 2.28     7.12   100
-#>     lapply(x, is.null) 2.22 2.33  2.71   2.50 2.87     7.14   100
+#>    lapply2(x, is.null) 1.82 1.86 42.13   1.94 2.21 3,970.00   100
+#>  lapply2_c(x, is.null) 1.81 1.86  2.19   1.99 2.37     6.74   100
+#>     lapply(x, is.null) 2.27 2.40  2.90   2.58 2.90    13.40   100
 ```
 
 Byte code compilation really helps here, but in most cases you're more likely to get a 5-10% improvement. All base R functions are byte code compiled by default. 
@@ -860,12 +860,12 @@ For data in this form, there are two ways to use `t.test()`. We can either use t
 ```r
 system.time(for(i in 1:m) t.test(X[i, ] ~ grp)$statistic)
 #>    user  system elapsed 
-#>   0.908   0.000   0.908
+#>   0.884   0.000   0.884
 system.time(
   for(i in 1:m) t.test(X[i, grp == 1], X[i, grp == 2])$statistic
 )
 #>    user  system elapsed 
-#>   0.204   0.000   0.201
+#>   0.200   0.000   0.198
 ```
 
 Of course, a for loop computes, but doesn't save the values. We'll use `apply()` to do that. This adds a little overhead:
@@ -877,7 +877,7 @@ compT <- function(x, grp){
 }
 system.time(t1 <- apply(X, 1, compT, grp = grp))
 #>    user  system elapsed 
-#>   0.212   0.000   0.212
+#>   0.208   0.000   0.208
 ```
 
 How can we make this faster? First, we could try doing less work. If you look at the source code of `stats:::t.test.default()`, you'll see that it does a lot more than just compute the t-statistic. It also computes the p-value and formats the output for printing. We can try to make our code faster by stripping out those pieces.
@@ -901,7 +901,7 @@ my_t <- function(x, grp) {
 }
 system.time(t2 <- apply(X, 1, my_t, grp = grp))
 #>    user  system elapsed 
-#>   0.024   0.000   0.026
+#>   0.028   0.000   0.026
 stopifnot(all.equal(t1, t2))
 ```
 
@@ -946,9 +946,9 @@ microbenchmark(
   unit = "ms"
 )
 #> Unit: milliseconds
-#>                 expr   min    lq  mean median    uq   max neval
-#>     rowtstat(X, grp) 0.514 0.543 0.708  0.821 0.837 0.911   100
-#>  rowtstat_bc(X, grp) 0.511 0.531 0.695  0.554 0.829 4.320   100
+#>                 expr   min    lq  mean median    uq  max neval
+#>     rowtstat(X, grp) 0.575 0.596 0.786  0.876 0.918 1.06   100
+#>  rowtstat_bc(X, grp) 0.573 0.594 0.759  0.623 0.887 4.48   100
 ```
 
 In this example, byte code compilation doesn't help at all.
@@ -984,7 +984,7 @@ system.time(lapply(1:10, pause(0.25)))
 #>     0.0     0.0     2.5
 system.time(mclapply(1:10, pause(0.25), mc.cores = cores))
 #>    user  system elapsed 
-#>   0.000   0.012   1.263
+#>   0.008   0.020   1.275
 ```
 
 Life is a bit harder in Windows. You need to first set up a local cluster and then use `parLapply()`: \indexc{mclapply()} \indexc{parLapply()}
@@ -994,7 +994,7 @@ Life is a bit harder in Windows. You need to first set up a local cluster and th
 cluster <- makePSOCKcluster(cores)
 system.time(parLapply(cluster, 1:10, function(i) Sys.sleep(i)))
 #>    user  system elapsed 
-#>   0.004   0.000  40.063
+#>   0.004   0.000  40.064
 ```
 
 The main difference between `mclapply()` and `makePSOCKcluster()` is that the individual processes generated by `mclapply()` inherit from the current process, while those generated by `makePSOCKcluster()` start with a fresh session. This means that most real code will need some setup. Use `clusterEvalQ()` to run arbitrary code on each cluster and load needed packages, and `clusterExport()` to copy objects in the current session to the remote sessions.

@@ -827,6 +827,12 @@ partition_cols <- function(.data, ...) {
 
 df <- data.frame(x1 = 1, x2 = 3, y = "a", z = "b")
 partition_cols(df, starts_with("x"))
+#> Warning: `lang()` is soft-deprecated as of rlang 0.2.0.
+#> Please use `call2()` instead
+#> This warning is displayed once per session.
+#> Warning: `new_overscope()` is soft-deprecated as of rlang 0.2.0.
+#> Please use `new_data_mask()` instead
+#> This warning is displayed once per session.
 #> $incl
 #>   x1 x2
 #> 1  1  3
@@ -935,7 +941,7 @@ negate1 <- function(f) {
 }
 negate1(is.null)
 #> function(...) !f(...)
-#> <environment: 0x612d248>
+#> <environment: 0x39645b0>
 
 negate2 <- function(f) {
   f <- enexpr(f)
@@ -1078,6 +1084,9 @@ The tidyverse solves these problems in a different way to base R, by drawing par
     
     ```r
     tibble::tibble(!!var := val)
+    #> Warning: `list_len()` is soft-deprecated as of rlang 0.2.0.
+    #> Please use `new_list()` instead
+    #> This warning is displayed once per session.
     #> # A tibble: 3 x 1
     #>       x
     #>   <dbl>

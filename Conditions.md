@@ -6,7 +6,7 @@
 
 The __condition__ system provides a paired set of tools that allow the author of a function to indicate that something unusual is happening, and the user of that function to deal with it. The function author __signals__ conditions with functions like `stop()` (for errors), `warning()` (for warnings), and `message()` (for messages), then the function user can handle them with functions like `tryCatch()` and `withCallingHandlers()`. Understanding the condition system is important because you'll often need to play both roles: signalling conditions from the functions you create, and handle conditions signalled by the functions you call.
 
-R offers a very powerful condition system based on ideas from Common Lisp. Like R's approach to object oriented programming, it is rather different to currently popular programming languages so it is easy to misunderstand, and there has been relatively little written about how to use it effectively. Historically, this has lead to few people (including me!) taking full advantage of its power. The goal of this chapter is to remedy that situation. Here you will learn about the big ideas of R's conditional system, as well as learning a bunch of practical tools that will make your code stronger.
+R offers a very powerful condition system based on ideas from Common Lisp. Like R's approach to object oriented programming, it is rather different to currently popular programming languages so it is easy to misunderstand, and there has been relatively little written about how to use it effectively. Historically, this has lead to few people (including me!) taking full advantage of its power. The goal of this chapter is to remedy that situation. Here you will learn about the big ideas of R's condition system, as well as learning a bunch of practical tools that will make your code stronger.
 
 I found two resources particularly useful when writing this chapter. You may also want to read them if you want to learn more about the inspirations and motivations for the system:
 
@@ -130,6 +130,7 @@ The rlang equivalent to `stop()`, `rlang::abort()`, does this automatically. We'
 h <- function() abort("This is an error!")
 f()
 #> Error: This is an error!
+#> Call `rlang::last_error()` to see a backtrace
 ```
 
 (Note that `stop()` pastes together multiple inputs, while `abort()` does not. To create complex error messages with abort, I recommend using `glue::glue()`. This allows us to use other arguments to `abort()` for useful features that you'll learn about in [custom conditions].)
@@ -257,7 +258,7 @@ Good places to use a message are:
   your package is loaded (i.e. in `.onAttach()`); here you must use 
   `packageStartupMessage()`.
 
-Generally any function that produces a message should have some way to suppress it, like a `quiet = TRUE` argument. It is possible to suppress all messages with `suppressMessages()`, as you'll learn shortly, but it is nice to also give finer grain control.
+Generally any function that produces a message should have some way to suppress it, like a `quiet = TRUE` argument. It is possible to suppress all messages with `suppressMessages()`, as you'll learn shortly, but it is nice to also give finer grained control.
 
 It's important to compare `message()` to the closely related `cat()`. In terms of usage and result, they appear quite similar[^cat]:
 
@@ -272,7 +273,7 @@ message("Hi!")
 #> Hi!
 ```
 
-However, the _purposes_ of `cat()` and `message()` are different. Use `cat()` when the primary role of the function is to print to the console, like `print()` or `str()` methods. Use `message()` as a side-channel to print to the console when the primary purpose of the function is something else.  In other words, `cat()` is for when the user _asks_ for something to be printed and `message()` is for when developer _elects_ to print something.
+However, the _purposes_ of `cat()` and `message()` are different. Use `cat()` when the primary role of the function is to print to the console, like `print()` or `str()` methods. Use `message()` as a side-channel to print to the console when the primary purpose of the function is something else.  In other words, `cat()` is for when the user _asks_ for something to be printed and `message()` is for when the developer _elects_ to print something.
 
 ### Exercises
 
@@ -337,7 +338,7 @@ default <- NULL
 try(default <- read.csv("possibly-bad-input.csv"), silent = TRUE)
 ```
 
-`suppressWarnings()` and `suppressMessages()` suppress all warnings and messages. Unlike errors, messages and warnings don't terminate execution, so there maybe multiple signalled in a single block.
+`suppressWarnings()` and `suppressMessages()` suppress all warnings and messages. Unlike errors, messages and warnings don't terminate execution, so there may be multiple signalled in a single block.
 
 
 ```r
@@ -384,7 +385,7 @@ withCallingHandlers(
     # code to run when warning is signalled
   },
   message = function(cnd) {
-    # code to run when warning is signalled
+    # code to run when message is signalled
   },
   code_to_run_while_handlers_are_active
 )
@@ -412,15 +413,83 @@ So far we've just signalled conditions, and not looked at the objects that are c
 ```r
 cnd <- catch_cnd(abort("An error"))
 str(cnd)
-#> List of 2
+#> List of 4
 #>  $ message: chr "An error"
 #>  $ call   : NULL
+#>  $ trace  :List of 3
+#>   ..$ calls  :List of 31
+#>   .. ..$ : language local({     args = commandArgs(TRUE) ...
+#>   .. ..$ : language eval.parent(substitute(eval(quote(expr), envir)))
+#>   .. ..$ : language eval(expr, p)
+#>   .. ..$ : language eval(expr, p)
+#>   .. ..$ : language eval(quote({     args = commandArgs(TRUE) ...
+#>   .. ..$ : language eval(quote({     args = commandArgs(TRUE) ...
+#>   .. ..$ : language do.call(rmarkdown::render, c(args[1], readRDS("..
+#>   .. ..$ : language (function (input, output_format = NULL, output_..
+#>   .. ..$ : language knitr::knit(knit_input, knit_output, envir = en..
+#>   .. ..$ : language process_file(text, output)
+#>   .. ..$ : language withCallingHandlers(if (tangle) process_tangle(..
+#>   .. ..$ : language process_group(group)
+#>   .. ..$ : language process_group.block(group)
+#>   .. ..$ : language call_block(x)
+#>   .. ..$ : language block_exec(params)
+#>   .. ..$ : language in_dir(input_dir(), evaluate(code, envir = env,..
+#>   .. ..$ : language evaluate(code, envir = env, new_device = FALSE,..
+#>   .. ..$ : language evaluate::evaluate(...)
+#>   .. ..$ : language evaluate_call(expr, parsed$src[[i]], envir = en..
+#>   .. ..$ : language timing_fn(handle(ev <- withCallingHandlers(with..
+#>   .. ..$ : language handle(ev <- withCallingHandlers(withVisible(ev..
+#>   .. ..$ : language withCallingHandlers(withVisible(eval(expr, envi..
+#>   .. ..$ : language withVisible(eval(expr, envir, enclos))
+#>   .. ..$ : language eval(expr, envir, enclos)
+#>   .. ..$ : language eval(expr, envir, enclos)
+#>   .. ..$ : language catch_cnd(abort("An error"))
+#>   .. ..$ : language tryCatch(condition = identity, {     force(expr..
+#>   .. ..$ : language tryCatchList(expr, classes, parentenv, handlers)
+#>   .. ..$ : language tryCatchOne(expr, names, parentenv, handlers[[1..
+#>   .. ..$ : language doTryCatch(return(expr), name, parentenv, handl..
+#>   .. ..$ : language force(expr)
+#>   ..$ parents: int [1:31] 0 1 2 3 0 5 6 6 8 9 ...
+#>   ..$ envs   :List of 31
+#>   .. ..$ : chr "0x3e725e0"
+#>   .. ..$ : chr "0x3e72490"
+#>   .. ..$ : chr "0x3e72148"
+#>   .. ..$ : chr "global"
+#>   .. ..$ : chr "0x3e71ab8"
+#>   .. ..$ : chr "0x3e71620"
+#>   .. ..$ : chr "0x3e73818"
+#>   .. ..$ : chr "0x3fdf588"
+#>   .. ..$ : chr "0x2cf9638"
+#>   .. ..$ : chr "0x2b3b390"
+#>   .. ..$ : chr "0x786e328"
+#>   .. ..$ : chr "0x786de20"
+#>   .. ..$ : chr "0x786db80"
+#>   .. ..$ : chr "0x786daa0"
+#>   .. ..$ : chr "0x7855608"
+#>   .. ..$ : chr "0x78d0828"
+#>   .. ..$ : chr "0x78d3190"
+#>   .. ..$ : chr "0x78d57b0"
+#>   .. ..$ : chr "0x7964180"
+#>   .. ..$ : chr "0x79845a8"
+#>   .. ..$ : chr "0x79844c8"
+#>   .. ..$ : chr "0x79841b8"
+#>   .. ..$ : chr "0x7983c08"
+#>   .. ..$ : chr "0x79839d8"
+#>   .. ..$ : chr "global"
+#>   .. ..$ : chr "0x79875a8"
+#>   .. ..$ : chr "0x79873b0"
+#>   .. ..$ : chr "0x7986d20"
+#>   .. ..$ : chr "0x79869d8"
+#>   .. ..$ : chr "0x7986690"
+#>   .. ..$ : chr "0x7986348"
+#>   ..- attr(*, "class")= chr "rlang_trace"
+#>  $ parent : NULL
 #>  - attr(*, "class")= chr [1:3] "rlang_error" "error" "condition"
 ```
 
 Built-in conditions are lists with two elements: 
 
-* `message`, a length-1 character vector containing the text display to a user.
+* `message`, a length-1 character vector containing the text to display to a user.
   To extract the message, use `conditionMessage(cnd)`.
 
 * `call`, the call which triggered the condition. As described above, we don't
@@ -722,6 +791,7 @@ abort(
   path = "blah.csv"
 )
 #> Error: Path `blah.csv` not found
+#> Call `rlang::last_error()` to see a backtrace
 ```
 
 Custom conditions work just like regular conditions when used interactively, but allow handlers to do much more.
@@ -762,8 +832,10 @@ This gives us:
 ```r
 my_log(letters)
 #> Error: `x` must be a numeric vector; not character.
+#> Call `rlang::last_error()` to see a backtrace
 my_log(1:10, base = letters)
 #> Error: `base` must be a numeric vector; not character.
+#> Call `rlang::last_error()` to see a backtrace
 ```
 
 This is an improvement for interactive usage as the error messages are more likely to guide the user towards a correct fix. However, they're no better if you want to programmatically handle the errors: all the useful metadata about the error is jammed into a single string.
@@ -837,8 +909,10 @@ my_log <- function(x, base = exp(1)) {
 ```r
 my_log(letters)
 #> Error: `x` must be numeric; not character.
+#> Call `rlang::last_error()` to see a backtrace
 my_log(1:10, base = letters)
 #> Error: `base` must be numeric; not character.
+#> Call `rlang::last_error()` to see a backtrace
 ```
 
 ### Handling
@@ -848,6 +922,11 @@ These structured condition objects are much easier to program with. The first pl
 
 ```r
 library(testthat)
+#> 
+#> Attaching package: 'testthat'
+#> The following objects are masked from 'package:rlang':
+#> 
+#>     is_false, is_null, is_true
 
 err <- catch_cnd(my_log("a"))
 expect_s3_class(err, "error_bad_argument")
@@ -915,7 +994,7 @@ fail_with(log("x"), NA_real_)
 #> [1] NA
 ```
 
-A more sophisticated application is `base::try()`. Below, `try2()` extracts the essense of `base::try()`; the real function is more complicated in order to make the error message look more like what you'd see if `tryCatch()` wasn't used. 
+A more sophisticated application is `base::try()`. Below, `try2()` extracts the essence of `base::try()`; the real function is more complicated in order to make the error message look more like what you'd see if `tryCatch()` wasn't used. 
 
 
 ```r
@@ -1052,37 +1131,37 @@ str(safety(abort("Error!")))
 #>   .. .. ..$ : language doTryCatch(return(expr), name, parentenv, ha..
 #>   .. ..$ parents: int [1:31] 0 1 2 3 0 5 6 6 8 9 ...
 #>   .. ..$ envs   :List of 31
-#>   .. .. ..$ : chr "0x36b77c0"
-#>   .. .. ..$ : chr "0x36b7670"
-#>   .. .. ..$ : chr "0x36bb158"
+#>   .. .. ..$ : chr "0x3e725e0"
+#>   .. .. ..$ : chr "0x3e72490"
+#>   .. .. ..$ : chr "0x3e72148"
 #>   .. .. ..$ : chr "global"
-#>   .. .. ..$ : chr "0x36baac8"
-#>   .. .. ..$ : chr "0x36ba630"
-#>   .. .. ..$ : chr "0x36bc860"
-#>   .. .. ..$ : chr "0x3827f70"
-#>   .. .. ..$ : chr "0x2547c68"
-#>   .. .. ..$ : chr "0x2389e58"
-#>   .. .. ..$ : chr "0x2ab5fb0"
-#>   .. .. ..$ : chr "0x2ab5aa8"
-#>   .. .. ..$ : chr "0x2ab5808"
-#>   .. .. ..$ : chr "0x2ab5728"
-#>   .. .. ..$ : chr "0x1b4b120"
-#>   .. .. ..$ : chr "0x1aefb60"
-#>   .. .. ..$ : chr "0x1aee998"
-#>   .. .. ..$ : chr "0x1aed0d0"
-#>   .. .. ..$ : chr "0x2985d00"
-#>   .. .. ..$ : chr "0x24a5e18"
-#>   .. .. ..$ : chr "0x24a5d00"
-#>   .. .. ..$ : chr "0x24a58a0"
-#>   .. .. ..$ : chr "0x24a5280"
-#>   .. .. ..$ : chr "0x24a8e10"
+#>   .. .. ..$ : chr "0x3e71ab8"
+#>   .. .. ..$ : chr "0x3e71620"
+#>   .. .. ..$ : chr "0x3e73818"
+#>   .. .. ..$ : chr "0x3fdf588"
+#>   .. .. ..$ : chr "0x2cf9638"
+#>   .. .. ..$ : chr "0x2b3b390"
+#>   .. .. ..$ : chr "0x5c91870"
+#>   .. .. ..$ : chr "0x5c91368"
+#>   .. .. ..$ : chr "0x5c910c8"
+#>   .. .. ..$ : chr "0x5c90fe8"
+#>   .. .. ..$ : chr "0x5cd6960"
+#>   .. .. ..$ : chr "0x5d24278"
+#>   .. .. ..$ : chr "0x5d26be0"
+#>   .. .. ..$ : chr "0x5d29200"
+#>   .. .. ..$ : chr "0x5f66c20"
+#>   .. .. ..$ : chr "0x5f815d0"
+#>   .. .. ..$ : chr "0x5f814f0"
+#>   .. .. ..$ : chr "0x5f811e0"
+#>   .. .. ..$ : chr "0x5f80c30"
+#>   .. .. ..$ : chr "0x5f80a00"
 #>   .. .. ..$ : chr "global"
-#>   .. .. ..$ : chr "0x24a8a90"
-#>   .. .. ..$ : chr "0x24a8908"
-#>   .. .. ..$ : chr "0x1abc248"
-#>   .. .. ..$ : chr "0x1abc980"
-#>   .. .. ..$ : chr "0x1abcd00"
-#>   .. .. ..$ : chr "0x1abd080"
+#>   .. .. ..$ : chr "0x5f80808"
+#>   .. .. ..$ : chr "0x5f80680"
+#>   .. .. ..$ : chr "0x60d1460"
+#>   .. .. ..$ : chr "0x60d0d60"
+#>   .. .. ..$ : chr "0x60d0a18"
+#>   .. .. ..$ : chr "0x60d06d0"
 #>   .. ..- attr(*, "class")= chr "rlang_trace"
 #>   ..$ parent : NULL
 #>   ..- attr(*, "class")= chr [1:3] "rlang_error" "error" "condition"
@@ -1223,7 +1302,13 @@ catch_cnds({
 #> <warning: b>
 #> 
 #> [[3]]
-#> <rlang_error: C>
+#> <error>
+#> * Message: "C"
+#> * Class: `rlang_error`
+#> * Backtrace:
+#>  -local(...)
+#>  -catch_cnds(...)
+#>  -withCallingHandlers(message = add_cond, warning = add_cond, expr)
 ```
 
 This is the key idea underlying the [evaluate](https://github.com/r-lib/evaluate) package which powers knitr: it captures every output into a special data structure so that it can be later replayed. As a whole, the evaluate package is quite a lot more complicated than the code here because it also needs to handle plots and text output.
@@ -1316,7 +1401,7 @@ Restarts are currently beyond the scope of the book, but I suspect will be inclu
     }
     ```
     
-1.  How would you modify the `catch_cnds()` defined if you wanted to recreate
+1.  How would you modify the `catch_cnds()` definition if you wanted to recreate
     the original intermingling of warnings and messages?
 
 1.  Why is catching interrupts dangerous? Run this code to find out.
