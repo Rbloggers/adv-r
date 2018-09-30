@@ -25,7 +25,7 @@ Let's get started by learning more about why R is slow.
 
 To understand R's performance, it helps to think about R as both a language and as an implementation of that language. The R-language is abstract: it defines what R code means and how it should work. The implementation is concrete: it reads R code and computes a result. The most popular implementation is the one from [r-project.org](http://r-project.org). I'll call that implementation GNU-R to distinguish it from R-language, and from the other implementations I'll discuss later in the chapter. \index{language definition}
 
-The distinction between R-language and GNU-R is a bit murky because the R-language is not formally defined. While there is the [R language definition](http://cran.r-project.org/doc/manuals/R-lang.html), it is informal and incomplete. The R-language is mostly defined in terms of how GNU-R works. This is in contrast to other languages, like [C++](http://isocpp.org/std/the-standard) and [javascript](http://www.ecma-international.org/publications/standards/Ecma-262.htm), that make a clear distinction between language and implementation by laying out formal specifications that describe in minute detail how every aspect of the language should work. Nevertheless, the distinction between R-language and GNU-R is still useful: poor performance due to the language is hard to fix without breaking existing code; fixing poor performance due to the implementation is easier.
+The distinction between R-language and GNU-R is a bit murky because the R-language is not formally defined. While there is the [R language definition](http://cran.r-project.org/doc/manuals/R-lang.html), it is informal and incomplete. The R-language is mostly defined in terms of how GNU-R works. This is in contrast to other languages, like [C++](http://isocpp.org/std/the-standard) and [JavaScript](http://www.ecma-international.org/publications/standards/Ecma-262.htm), that make a clear distinction between language and implementation by laying out formal specifications that describe in minute detail how every aspect of the language should work. Nevertheless, the distinction between R-language and GNU-R is still useful: poor performance due to the language is hard to fix without breaking existing code; fixing poor performance due to the implementation is easier.
 
 In [Language performance](#language-performance), I discuss some of the ways in which the design of the R-language imposes fundamental constraints on R's speed. In [Implementation performance](#implementation-performance), I discuss why GNU-R is currently far from the theoretical maximum, and why improvements in performance happen so slowly. While it's hard to know exactly how much faster a better implementation could be, a >10x improvement in speed seems achievable. In [alternative implementations](#faster-r), I discuss some of the promising new implementations of R, and describe one important technique they use to make R code run faster.
 
@@ -50,8 +50,8 @@ microbenchmark(
 )
 #> Unit: nanoseconds
 #>     expr   min    lq  mean median     uq    max neval
-#>  sqrt(x)   963 1,250  1844  1,440  2,130  8,380   100
-#>    x^0.5 9,300 9,780 15939 10,000 28,100 94,700   100
+#>  sqrt(x)   851 1,160  1397  1,300  1,530  4,450   100
+#>    x^0.5 9,280 9,620 10486  9,790 10,100 51,200   100
 ```
 
 
@@ -157,16 +157,16 @@ microbenchmark(
   RC = b$rc()
 )
 #> Unit: nanoseconds
-#>  expr    min     lq  mean median     uq     max neval
-#>   fun    175    195   239    215    226   1,770   100
-#>    S3    960  1,080  9953  1,130  1,330 862,000   100
-#>    S4 12,000 12,700 25039 13,000 13,500 989,000   100
-#>    RC  7,340  7,630 12787  7,830  8,170 447,000   100
+#>  expr    min     lq  mean median     uq       max neval
+#>   fun    190    217   444    246    255    17,400   100
+#>    S3    990  1,120 10157  1,170  1,320   862,000   100
+#>    S4 12,000 12,500 28698 12,800 14,000   945,000   100
+#>    RC  8,190  8,420 41586  8,610  9,030 3,250,000   100
 ```
 
 
 
-The bare function takes about 200 ns. S3 method dispatch takes an additional 900 ns; S4 dispatch, 10,000 ns; and RC dispatch, 8,000 ns. S3 and S4 method dispatch are expensive because R must search for the right method every time the generic is called; it might have changed between this call and the last. R could do better by caching methods between calls, but caching is hard to do correctly and a notorious source of bugs.
+The bare function takes about 200 ns. S3 method dispatch takes an additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 8,000 ns. S3 and S4 method dispatch are expensive because R must search for the right method every time the generic is called; it might have changed between this call and the last. R could do better by caching methods between calls, but caching is hard to do correctly and a notorious source of bugs.
 
 ### Name lookup with mutable environments
 
@@ -340,9 +340,9 @@ microbenchmark(
 )
 #> Unit: microseconds
 #>             expr   min    lq mean median    uq   max neval
-#>       squish_ife 20.70 22.20 52.5  24.00 29.20 2,530   100
-#>         squish_p 12.30 13.10 36.8  13.40 14.20 1,690   100
-#>  squish_in_place  2.81  3.17 33.3   3.49  3.95 2,950   100
+#>       squish_ife 20.60 22.80 53.1  28.20 32.90 2,360   100
+#>         squish_p 12.30 12.90 36.4  13.40 14.70 1,540   100
+#>  squish_in_place  2.79  3.17 31.5   3.65  4.46 2,740   100
 ```
 
 Using `pmin()` and `pmax()` is about 2x faster than `ifelse()`, and using subsetting directly is about 4x as fast again. We can often do even better by using C++. The following example compares the best R implementation to a relatively simple, if verbose, implementation in C++. Even if you've never used C++, you should still be able to follow the basic strategy: loop over every element in the vector and perform a different action depending on whether or not the value is less than `a` and/or greater than `b`. 
@@ -383,8 +383,8 @@ microbenchmark(
 )
 #> Unit: microseconds
 #>             expr  min   lq  mean median   uq     max neval
-#>  squish_in_place 3.51 4.28  5.05   4.74 5.24    27.2   100
-#>       squish_cpp 2.57 3.15 17.62   3.33 3.53 1,380.0   100
+#>  squish_in_place 3.52 4.41  5.12   4.74 5.28    30.8   100
+#>       squish_cpp 2.70 3.04 16.83   3.26 3.57 1,300.0   100
 ```
 
 The C++ implementation is around 1x faster than the best pure R implementation.
@@ -486,9 +486,9 @@ microbenchmark(
   unit = "ms"
 )
 #> Unit: milliseconds
-#>          expr   min    lq  mean median    uq   max neval
-#>  cond_sum_cpp  5.23  5.26  5.34   5.28  5.31  8.01   100
-#>    cond_sum_r 13.70 15.20 16.32  16.40 17.50 18.60   100
+#>          expr   min    lq  mean median    uq    max neval
+#>  cond_sum_cpp  5.18  5.23  5.28   5.25  5.27   6.53   100
+#>    cond_sum_r 12.40 13.90 15.64  14.40 14.60 148.00   100
 ```
 
 On my computer, this approach is about 3x faster than the vectorised R equivalent, which is already pretty fast.

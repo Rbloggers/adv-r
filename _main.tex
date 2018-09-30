@@ -446,9 +446,10 @@ occasional chapter.
 \hypertarget{related-work}{%
 \section{Related work}\label{related-work}}
 
-Tidyverse + R4DS
+\href{https://www.tidyverse.org/}{Tidyverse} +
+\href{http://r4ds.had.co.nz/}{R4DS}
 
-R packages
+\href{http://r-pkgs.had.co.nz/}{R packages}
 
 \hypertarget{what-you-will-get}{%
 \section{What you will get out of this book}\label{what-you-will-get}}
@@ -20676,7 +20677,7 @@ is automatically quoted:
 We need some way to explicitly \textbf{unquote} the input, to tell
 \texttt{cement()} to remove the automatic quote marks. Here we need
 \texttt{time} and \texttt{name} to be treated differently to
-\texttt{Good}. Quasiquotation give us a standard tool to do so:
+\texttt{Good}. Quasiquotation gives us a standard tool to do so:
 \texttt{!!}, called ``unquote'', and pronounced bang-bang. \texttt{!!}
 tells a quoting function to drop the implicit quotes:
 
@@ -20712,7 +20713,7 @@ The distinction between quoted and evaluated arguments is important:
   unusual will happen.
 \end{itemize}
 
-If you're even unsure about whether an argument is quoted or evaluated,
+If you're ever unsure about whether an argument is quoted or evaluated,
 try executing the code outside of the function. If it doesn't work, then
 that argument is quoted. For example, you can use this technique to
 determine that the first argument to \texttt{library()} is quoted:
@@ -20870,7 +20871,7 @@ object that powers lazy evaluation.
 \end{Highlighting}
 \end{Shaded}
 
-(Occasionaly you just want to capture symbols, and throw an error for
+(Occasionally you just want to capture symbols, and throw an error for
 other types of input. In that case you can use \texttt{ensym()}. In the
 next chapter, you'll learn about \texttt{enquo()} which also captures
 the environment and is needed for tidy evaluation.)
@@ -20942,7 +20943,7 @@ The base equivalent of \texttt{expr()} is \texttt{quote()}:
 \end{Highlighting}
 \end{Shaded}
 
-It is identical to \texttt{expr()} except that does not support
+It is identical to \texttt{expr()} except that it does not support
 unquoting, so it is a quoting function, not a quasiquoting function.
 
 The base function closest to \texttt{enexpr()} is \texttt{substitute()}:
@@ -21082,7 +21083,7 @@ Evaluation is a rich topic, so we'll cover it in depth in the next
 chapter. Here I'll just illustrate the most important ideas.
 
 The most important base R function is \texttt{base::eval()}. Its first
-argument is the expression to evalute:
+argument is the expression to evaluate:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -21310,8 +21311,8 @@ forms seen in base R:
 \item
   An argument that controls whether a different argument is quoting or
   non-quoting. For example, in \texttt{library()}, the
-  \texttt{character.only} argument controls the quoting behaviour of of
-  the first argument, \texttt{package}:
+  \texttt{character.only} argument controls the quoting behaviour of the
+  first argument, \texttt{package}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -21354,7 +21355,7 @@ are seen as wrappers around \texttt{{[}} and \texttt{{[}\textless{}-}
 that are only suitable for interactive use.
 
 Another important class of quoting functions are the base modelling and
-plotting functions, which quote some of their arguments, and follow that
+plotting functions, which quote some of their arguments, and follow the
 so-called standard non-standard evaluation rules:
 \url{http://developer.r-project.org/nonstandard-eval.pdf}. For example,
 \texttt{lm()} quotes the \texttt{weight} and \texttt{subset} arguments,
@@ -21606,7 +21607,7 @@ doesn't involve a multiplication. We can just add it to the start of the
 \end{Highlighting}
 \end{Shaded}
 
-Finally, we need to reduce the individual terms in to a single sum by
+Finally, we need to reduce the individual terms into a single sum by
 adding the pieces together:
 
 \begin{Shaded}
@@ -21646,8 +21647,8 @@ data frames: one with the variables you selected, and one with the
 variables that remain. (This problem was inspired by
 \url{https://stackoverflow.com/questions/46828296/}.) There are plenty
 of ways to attack this problem, but one way is to take advantage of
-\texttt{select()\textquotesingle{}s} ability to negate column selection
-expression in order to remove those columns.
+\texttt{select()\textquotesingle{}s} ability to negate a column
+selection expression in order to remove those columns.
 
 We can capture the inputs with quasiquotation, then invert each
 selection call by negating it. We start by practicing interactively with
@@ -21717,8 +21718,8 @@ example, we'd like to write \texttt{slice(x,\ 2,\ 1)} to extract the
 first slice along the second dimension, which you can write as
 \texttt{x{[},\ 1,\ {]}}.
 
-We'll need to generated a call will multiple missing arguments.
-Fortunately is easy with \texttt{rep()} and \texttt{missing\_arg()}.
+We'll need to generate a call with multiple missing arguments.
+Fortunately that's easy with \texttt{rep()} and \texttt{missing\_arg()}.
 Once we have those arguments, we can unquote-splice them into a call:
 
 \begin{Shaded}
@@ -21847,7 +21848,7 @@ the generated functions have readable source code:
 \end{Highlighting}
 \end{Shaded}
 
-Note that this is often useful if the higher order function have
+Note that this is often useful if the higher order functions have
 arguments that are expressions: inlining more complex objects into the
 AST can yield confusing source code.
 
@@ -22013,7 +22014,7 @@ drawing parallel to quasiquotation:
   Python, which are sometimes called argument unpacking.
 \item
   The second problem is like unquoting on the LHS of \texttt{=}: rather
-  than interpreting \texttt{var} literaly, we want to use the value
+  than interpreting \texttt{var} literally, we want to use the value
   stored in the variable called \texttt{var}:
 
 \begin{Shaded}
@@ -22204,7 +22205,7 @@ these functions take either a list or \texttt{...}, but not both, they
 are slightly less flexible than functions powered by \texttt{list2()}.
 
 Another related technique is used in the \texttt{RCurl::getURL()}
-function written by Duncan Temple Lang. \texttt{getURL()} take both
+function written by Duncan Temple Lang. \texttt{getURL()} takes both
 \texttt{...} and \texttt{.opts} which are concatenated together. This is
 useful when writing functions to call web APIs because you often have
 some options that need to be passed to every request. You put these in a
@@ -22292,7 +22293,7 @@ functions.
 \subsection*{Prerequisites}\label{prerequisites-10}}
 \addcontentsline{toc}{subsection}{Prerequisites}
 
-Environments play a very important big role in evaluation, so make sure
+Environments play a very important role in evaluation, so make sure
 you're familiar with the basics in
 \protect\hyperlink{environments-1}{Environments}.
 
@@ -22308,7 +22309,7 @@ you're familiar with the basics in
 In the previous chapter, we briefly mentioned \texttt{eval()}. Here,
 however, we're going to start with \texttt{rlang::eval\_bare()} which is
 the purest evocation of the idea of evaluation. The first argument,
-\texttt{expr} is an expression to evaluate. This will usually be either
+\texttt{expr}, is an expression to evaluate. This will usually be either
 a symbol or expression:
 
 \begin{Shaded}
@@ -22377,8 +22378,8 @@ Now that you've seen the basics, let's explore some applications. We'll
 focus primarily on base R functions that you might have used before; now
 you can learn how they work. To focus on the underlying principles,
 we'll extract out their essence, and rewrite to use rlang functions.
-Once you've seen some applications, we'll circle back and talk about
-more about \texttt{base::eval()}.
+Once you've seen some applications, we'll circle back and talk more
+about \texttt{base::eval()}.
 
 \hypertarget{application-local}{%
 \subsection{\texorpdfstring{Application:
@@ -22557,7 +22558,7 @@ two-argument form of \texttt{eval()}: \texttt{eval(expr,\ envir)}:
 \end{Highlighting}
 \end{Shaded}
 
-The final argument, \texttt{enclos} provides support for data masks,
+The final argument, \texttt{enclos}, provides support for data masks,
 which you'll learn about in \protect\hyperlink{tidy-evaluation-1}{tidy
 evaluation}.
 
@@ -22568,7 +22569,7 @@ evaluation}.
   \texttt{evalq(x,\ env)} quotes its first argument, and is hence a
   shortcut for \texttt{eval(quote(x),\ env)}.
 \item
-  \texttt{eval.parent(expr,\ n)} is shortcut for
+  \texttt{eval.parent(expr,\ n)} is a shortcut for
   \texttt{eval(expr,\ env\ =\ parent.frame(n))}.
 \end{itemize}
 
@@ -22591,7 +22592,7 @@ While \texttt{source3()} is considerably more concise than
 \texttt{source2()}, this one use case is the strongest argument for
 expression objects, and overall we don't believe this one benefit
 outweighs the cost of introducing a new data structure. That's why this
-book has renegated expression objects to a secondary role.
+book has relegated expression objects to a secondary role.
 
 \hypertarget{exercises-60}{%
 \subsection{Exercises}\label{exercises-60}}
@@ -22848,7 +22849,7 @@ its components: an expression and an environment.
 If you need to turn a quosure into text for output to the console you
 can use \texttt{quo\_name()}, \texttt{quo\_label()}, or
 \texttt{quo\_text()}. \texttt{quo\_name()} and \texttt{quo\_label()} are
-guaranteed to be short; \texttt{quo\_expr()} may span multiple lines.
+guaranteed to be short; \texttt{quo\_text()} may span multiple lines.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -22982,8 +22983,8 @@ not important. This tends to happen in three main cases:
   In code generation, such as you saw in
   \protect\hyperlink{slicing-an-array}{Slicing an array}.
 \item
-  When you are wrapping a NSE function that doesn't use quosures. We'll
-  disucss this in detail in the case study at the end of the chapter.
+  When you are wrapping an NSE function that doesn't use quosures. We'll
+  discuss this in detail in the case study at the end of the chapter.
 \item
   When you have carefully created a self-contained expression using
   unquoting. For example, instead of this quosure:
@@ -23094,7 +23095,7 @@ environment and variables from a data frame:
 
 The data mask is the key idea that powers base functions like
 \texttt{with()}, \texttt{subset()} and \texttt{transform()}, and that is
-used throughout tidyverse, in packages like dplyr.
+used throughout the tidyverse, in packages like dplyr.
 
 How does this work? Unlike environments, data frames don't have parents,
 so we can effectively turn it into an environment using the environment
@@ -23125,9 +23126,9 @@ the 3rd argument:
 \subsection{\texorpdfstring{Application:
 \texttt{subset()}}{Application: subset()}}\label{subset}}
 
-To see why the data mask is so useful, lets implement our own version of
-\texttt{subset()}. If you haven't used it before, \texttt{subset()}
-(like \texttt{dplyr::filter()}), provides a convenient way of selecting
+To see why the data mask is so useful, let's implement our own version
+of \texttt{subset()}. If you haven't used it before, \texttt{subset()},
+like \texttt{dplyr::filter()}, provides a convenient way of selecting
 rows of a data frame using an expression that is evaluated in the
 context of the data frame. It allows you to subset without repeatedly
 referring to the name of the data frame:
@@ -23356,7 +23357,7 @@ data, and even if you could, you wouldn't want to because the data does
 not include any functions. For this function, it's the user's
 responsibility to avoid ambiguity. As a function author it's your
 responsibility to avoid ambiguity with any expressions that you create;
-it's the users responsibility to avoid ambiguity in expressions that
+it's the user's responsibility to avoid ambiguity in expressions that
 they create.
 
 Now that you've seen data masks and pronouns in action, we'll return to
@@ -23376,7 +23377,7 @@ programming it is better to use the standard subsetting functions like
 \end{quote}
 
 Why is \texttt{subset()} dangerous for programming and how does tidy
-evaluation help us avoid those dangers? First, lets implement the key
+evaluation help us avoid those dangers? First, let's implement the key
 parts of \texttt{subset()} using base R, following the same structure as
 \texttt{subset2()}. We convert \texttt{enquo()} to \texttt{substitute()}
 and \texttt{eval\_tidy()} to \texttt{eval()}. We also need to supply a
@@ -23479,7 +23480,7 @@ You might wonder if all this rigamorale is worth it when you can just
 use \texttt{{[}}. Firstly, it seems unappealing to have functions that
 can only be used safely in an interactive context. That would mean that
 every interactive function needs to be paired with function suitable for
-programing. Secondly, even the simple \texttt{subset()} function
+programming. Secondly, even the simple \texttt{subset()} function
 provides two useful features compared to \texttt{{[}}:
 
 \begin{itemize}
@@ -23567,7 +23568,7 @@ across calls.
     logical vector.
   \item
     What happens if \texttt{subset} yields a vector that's not the same
-    as the number rows in \texttt{data}? What do you think should
+    as the number of rows in \texttt{data}? What do you think should
     happen?
   \end{itemize}
 \item
@@ -23924,9 +23925,9 @@ There are two basic ways to overcome this challenge:
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Unquote the data frame into the call. This means that no look up has
-  to occur, but has all the problems of inlining expressions. For
-  modelling functions this means that captured call is suboptimal:
+  Unquote the data frame into the call. This means that no lookup has to
+  occur, but has all the problems of inlining expressions. For modelling
+  functions this means that the captured call is suboptimal:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -24051,7 +24052,7 @@ variable with a set of predictors.
   in the data argument. Implement that approach. What are the
   advantages? What are the disadvantages?
 \item
-  To make these functions some what more robust, instead of always using
+  To make these functions somewhat more robust, instead of always using
   the \texttt{caller\_env()} we could capture a quosure, and then use
   its environment. However, if there are multiple arguments, they might
   be associated with different environments. Write a function that takes
@@ -24074,10 +24075,10 @@ variable with a set of predictors.
 \section{Introduction}\label{introduction-18}}
 
 The combination of first class environments, lexical scoping, and
-metaprogramming gives us a powerful toolkit for translating R code in to
+metaprogramming gives us a powerful toolkit for translating R code into
 other languages. One fully-fledged example of this idea is dbplyr.
-dbplyr powers the database backends for dplyr, allowing to express data
-maniplation in R and automatically translating it in to SQL. An
+dbplyr powers the database backends for dplyr, allowing us to express
+data maniplation in R and automatically translating it into SQL. An
 important part of dbplyr is \texttt{translate\_sql()} which turns vector
 R code in to the equivalent SQL:
 
@@ -24110,7 +24111,8 @@ LaTeX.
 This chapter together pulls together many techniques discussed elsewhere
 in the book. In particular, you'll need to understand environments,
 metaprogramming, and a little functional programming and S3. We'll use
-rlang for its metaprogramming tools, and purrr for its mapping functions
+rlang for its metaprogramming tools, and purrr for its mapping
+functions.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -24172,8 +24174,9 @@ and \texttt{class}. These are used in conjunction with CSS (cascading
 style sheets) in order to control the visual appearance of the page.
 
 \textbf{Void tags}, like \texttt{\textless{}img\textgreater{}}, don't
-have any content, are written \texttt{\textless{}img\ /\textgreater{}},
-not \texttt{\textless{}img\textgreater{}\textless{}/img\textgreater{}}.
+have any content, and are written
+\texttt{\textless{}img\ /\textgreater{}}, not
+\texttt{\textless{}img\textgreater{}\textless{}/img\textgreater{}}.
 Since they have no content, attributes are more important, and
 \texttt{img} has three that are used with almost every image:
 \texttt{src} (where the image lives), \texttt{width}, and
@@ -24263,7 +24266,7 @@ between regular text (that needs escaping) and HTML (that doesn't).
 \end{Highlighting}
 \end{Shaded}
 
-We then write an escape method. It has two important methods:
+We then write an escape generic. It has two important methods:
 
 \begin{itemize}
 \item
@@ -24316,7 +24319,7 @@ if they know the content is already escaped.
 \subsection{Basic tag functions}\label{basic-tag-functions}}
 
 Next, we'll write a few simple tag functions then figure out how to
-generalise this function to cover all possible tags.
+generalise these functions to cover all possible tags.
 
 Let's start with \texttt{\textless{}p\textgreater{}}. HTML tags can have
 both attributes (e.g., id or class) and children (like
@@ -24369,10 +24372,10 @@ unnamed components separately:
 
 We can now create our \texttt{p()} function. Notice that there's one new
 function here: \texttt{html\_attributes()}. It takes a named list and
-returns the HTML attibute specification as a string. It's a little
+returns the HTML attribute specification as a string. It's a little
 complicated (in part, because it deals with some idiosyncracies of HTML
 that I haven't mentioned.), but it's not that important and doesn't
-introduce any programming new ideas, so I won't discuss it here (you can
+introduce any new programming ideas, so I won't discuss it here (you can
 find the
 \href{https://github.com/hadley/adv-r/blob/master/dsl-html-attributes.r}{source
 online}).
@@ -24618,7 +24621,7 @@ same name inside \texttt{with\_html()}, you can use the full
   formatting?
 \item
   Reason about the following code that calls \texttt{with\_html()}
-  referening objects from the environment. Will it work or fail? Why?
+  referencing objects from the environment. Will it work or fail? Why?
   Run the code to verify your predictions.
 
 \begin{Shaded}
@@ -24639,8 +24642,8 @@ The next DSL will convert R expressions into their LaTeX math
 equivalents. (This is a bit like \texttt{?plotmath}, but for text
 instead of plots.) LaTeX is the lingua franca of mathematicians and
 statisticians: it's common to use LaTeX notation whenever you want to
-expression an equation in text (e.g., in an email). Since many reports
-are produced using both R and LaTeX, it might be useful to be able to
+express an equation in text (e.g., in an email). Since many reports are
+produced using both R and LaTeX, it might be useful to be able to
 automatically convert mathematical expressions from one language to the
 other. \index{LaTeX}
 
@@ -24650,16 +24653,16 @@ create a ``default'' conversion, so that functions we don't know about
 get a standard conversion. Like the HTML DSL, we'll also use
 metaprogramming to make it easier to generate the translators.
 
-Can no longer just use eval: we also need to walk the tree. Ideally this
-would not be necessary. ObjectTables (see objectable package) almost
-make it possible to eliminate the tree walking but:
+We can no longer just use eval: we also need to walk the tree. Ideally
+this would not be necessary. ObjectTables (see objectable package)
+almost make it possible to eliminate the tree walking but:
 
 \begin{itemize}
 \item
-  They have currently have a big performance penalty
+  They currently have a big performance penalty
 \item
-  There's no way to distinguish symbols used in for function calls
-  vs.~other symbols.
+  There's no way to distinguish symbols used in function calls vs.~other
+  symbols.
 \end{itemize}
 
 Before we begin, let's quickly cover how formulas are expressed in
@@ -24741,9 +24744,9 @@ in a special environment. Two main differences:
 
 \begin{itemize}
 \item
-  Environment is no longer constant It will vary depending on the
-  expression. We do this in order to be specially handle unknown symbols
-  and functions
+  Environment is no longer constant, it will vary depending on the
+  expression. We do this in order to specially handle unknown symbols
+  and functions.
 \item
   Don't use quosure.
 \end{itemize}
@@ -25660,7 +25663,7 @@ R-language is not formally defined. While there is the
 definition}, it is informal and incomplete. The R-language is mostly
 defined in terms of how GNU-R works. This is in contrast to other
 languages, like \href{http://isocpp.org/std/the-standard}{C++} and
-\href{http://www.ecma-international.org/publications/standards/Ecma-262.htm}{javascript},
+\href{http://www.ecma-international.org/publications/standards/Ecma-262.htm}{JavaScript},
 that make a clear distinction between language and implementation by
 laying out formal specifications that describe in minute detail how
 every aspect of the language should work. Nevertheless, the distinction
@@ -25726,8 +25729,8 @@ root.
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>     expr   min    lq  mean median     uq    max neval}
-\CommentTok{#>  sqrt(x)   963 1,250  1844  1,440  2,130  8,380   100}
-\CommentTok{#>    x^0.5 9,300 9,780 15939 10,000 28,100 94,700   100}
+\CommentTok{#>  sqrt(x)   851 1,160  1397  1,300  1,530  4,450   100}
+\CommentTok{#>    x^0.5 9,280 9,620 10486  9,790 10,100 51,200   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -25910,21 +25913,21 @@ comparison. \index{methods!cost of dispatch}
   \DataTypeTok{RC =}\NormalTok{ b}\OperatorTok{$}\KeywordTok{rc}\NormalTok{()}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
-\CommentTok{#>  expr    min     lq  mean median     uq     max neval}
-\CommentTok{#>   fun    175    195   239    215    226   1,770   100}
-\CommentTok{#>    S3    960  1,080  9953  1,130  1,330 862,000   100}
-\CommentTok{#>    S4 12,000 12,700 25039 13,000 13,500 989,000   100}
-\CommentTok{#>    RC  7,340  7,630 12787  7,830  8,170 447,000   100}
+\CommentTok{#>  expr    min     lq  mean median     uq       max neval}
+\CommentTok{#>   fun    190    217   444    246    255    17,400   100}
+\CommentTok{#>    S3    990  1,120 10157  1,170  1,320   862,000   100}
+\CommentTok{#>    S4 12,000 12,500 28698 12,800 14,000   945,000   100}
+\CommentTok{#>    RC  8,190  8,420 41586  8,610  9,030 3,250,000   100}
 \end{Highlighting}
 \end{Shaded}
 
 The bare function takes about 200 ns. S3 method dispatch takes an
-additional 900 ns; S4 dispatch, 10,000 ns; and RC dispatch, 8,000 ns. S3
-and S4 method dispatch are expensive because R must search for the right
-method every time the generic is called; it might have changed between
-this call and the last. R could do better by caching methods between
-calls, but caching is hard to do correctly and a notorious source of
-bugs.
+additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 8,000 ns.
+S3 and S4 method dispatch are expensive because R must search for the
+right method every time the generic is called; it might have changed
+between this call and the last. R could do better by caching methods
+between calls, but caching is hard to do correctly and a notorious
+source of bugs.
 
 \hypertarget{name-lookup-with-mutable-environments}{%
 \subsection{Name lookup with mutable
@@ -26199,9 +26202,9 @@ subassignment. \indexc{ifelse()} \indexc{pmin()} \indexc{pmax()}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
 \CommentTok{#>             expr   min    lq mean median    uq   max neval}
-\CommentTok{#>       squish_ife 20.70 22.20 52.5  24.00 29.20 2,530   100}
-\CommentTok{#>         squish_p 12.30 13.10 36.8  13.40 14.20 1,690   100}
-\CommentTok{#>  squish_in_place  2.81  3.17 33.3   3.49  3.95 2,950   100}
+\CommentTok{#>       squish_ife 20.60 22.80 53.1  28.20 32.90 2,360   100}
+\CommentTok{#>         squish_p 12.30 12.90 36.4  13.40 14.70 1,540   100}
+\CommentTok{#>  squish_in_place  2.79  3.17 31.5   3.65  4.46 2,740   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26252,8 +26255,8 @@ value is less than \texttt{a} and/or greater than \texttt{b}.
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
 \CommentTok{#>             expr  min   lq  mean median   uq     max neval}
-\CommentTok{#>  squish_in_place 3.51 4.28  5.05   4.74 5.24    27.2   100}
-\CommentTok{#>       squish_cpp 2.57 3.15 17.62   3.33 3.53 1,380.0   100}
+\CommentTok{#>  squish_in_place 3.52 4.41  5.12   4.74 5.28    30.8   100}
+\CommentTok{#>       squish_cpp 2.70 3.04 16.83   3.26 3.57 1,300.0   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26408,9 +26411,9 @@ seen:
   \DataTypeTok{unit =} \StringTok{"ms"}
 \NormalTok{)}
 \CommentTok{#> Unit: milliseconds}
-\CommentTok{#>          expr   min    lq  mean median    uq   max neval}
-\CommentTok{#>  cond_sum_cpp  5.23  5.26  5.34   5.28  5.31  8.01   100}
-\CommentTok{#>    cond_sum_r 13.70 15.20 16.32  16.40 17.50 18.60   100}
+\CommentTok{#>          expr   min    lq  mean median    uq    max neval}
+\CommentTok{#>  cond_sum_cpp  5.18  5.23  5.28   5.25  5.27   6.53   100}
+\CommentTok{#>    cond_sum_r 12.40 13.90 15.64  14.40 14.60 148.00   100}
 \end{Highlighting}
 \end{Shaded}
 
