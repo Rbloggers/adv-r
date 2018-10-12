@@ -1,7 +1,5 @@
 library(methods)
-
 set.seed(1014)
-options(digits = 3, str = strOptions(strict.width = "cut"))
 
 knitr::opts_chunk$set(
   comment = "#>",
@@ -16,9 +14,15 @@ knitr::opts_chunk$set(
   fig.show = "hold"
 )
 
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut")
+)
+
 if (knitr::is_latex_output()) {
   knitr::opts_chunk$set(width = 69)
   options(width = 69)
+  options(crayon.enabled = FALSE)
 }
 
 knitr::knit_hooks$set(
@@ -35,10 +39,15 @@ registerS3method("wrap", "error", envir = asNamespace("knitr"),
     call <- conditionCall(x)
     message <- conditionMessage(x)
 
+    width <- getOption("width")
+    if (nchar(message) > width && !grepl("\n", message)) {
+      message <- paste(strwrap(x, width = width, exdent = 2), collapse = "\n")
+    }
+
     if (is.null(call)) {
       msg <- paste0("Error: ", message)
     } else {
-      msg <- paste0("Error in ", deparse(call), ":\n  ", message)
+      msg <- paste0("Error in ", deparse(call)[[1]], ":\n  ", message)
     }
 
     knitr:::msg_wrap(msg, "error", options)

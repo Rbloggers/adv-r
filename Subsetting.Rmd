@@ -196,7 +196,7 @@ vals
 vals[c(4, 15)]
 ```
 
-You can also subset higher-dimensional data structures with an integer matrix (or, if named, a character matrix). Each row in the matrix specifies the location of one value, where each column corresponds to a dimension in the array being subsetted. This means that you use a 2 column matrix to subset a matrix, a 3 column matrix to subset a 3d array, and so on. The result is a vector of values:
+You can also subset higher-dimensional data structures with an integer matrix (or, if named, a character matrix). Each row in the matrix specifies the location of one value, and each column corresponds to a dimension in the array being subsetted. This means that you can use a 2 column matrix to subset a matrix, a 3 column matrix to subset a 3d array, and so on. The result is a vector of values:
 
 ```{r}
 select <- rbind(
@@ -246,7 +246,7 @@ str(df[, "x"])
 \index{subsetting!simplifying} 
 \index{subsetting!preserving}
 
-By default, any subsetting 2d data structures with a single number, single name, or a logical vector containing a single `TRUE` will simplify the returned output, i.e. it will return an object with lower dimensionality. To preserve the original dimensionality, you must use `drop = FALSE`
+By default, subsetting a 2d data structures with a single number, single name, or a logical vector containing a single `TRUE` will simplify the returned output, i.e. it will return an object with lower dimensionality. To preserve the original dimensionality, you must use `drop = FALSE`
 
 *   For matrices and arrays, any dimensions with length 1 will be dropped:
     
@@ -418,29 +418,7 @@ x$a
 \index{subsetting!with NA \& NULL} 
 \index{subsetting!out of bounds}
 
-It's useful to understand what happens with `[` and `[[` when you use an "invalid" index. The following tables summarise what happens when you subset a logical vector, list, and `NULL` with an out-of-bounds value (OOB), a missing value (e.g. `NA_integer_`), and a zero-length object (like `NULL` or `logical()`) with `[` and `[[`. Each cell shows the result of subsetting the data structure named in the row by the type of index described in the column. I've only shown the results for logical vectors, but other atomic vectors behave similarly, returning elements of the same type.
-
-| `row[col]`| Zero-length  |  OOB         | Missing       |
-|-----------|--------------|--------------|---------------|
-| `NULL`    | `NULL`       | `NULL`       | `NULL`        |
-| Logical   | `logical(0)` | `NA`         | `NA`          |
-| List      | `list()`     | `list(NULL)` | `list(NULL)`  |
-
-```{r, eval = FALSE, echo = FALSE}
-logical()[1]
-logical()[NA_real_]
-logical()[NULL]
-
-list()[1]
-list()[NA_real_]
-list()[NULL]
-
-NULL[1]
-NULL[NA_real_]
-NULL[NULL]
-```
-
-With `[`, it doesn't matter whether the OOB index is a position or a name, but it does for `[[`:
+It's useful to understand what happens with `[[` when you use an "invalid" index. The following tables summarise what happens when you subset a logical vector, list, and `NULL` with an out-of-bounds value (OOB), a missing value (e.g. `NA_integer_`), and a zero-length object (like `NULL` or `logical()`) with `[[` . Each cell shows the result of subsetting the data structure named in the row by the type of index described in the column. I've only shown the results for logical vectors, but other atomic vectors behave similarly, returning elements of the same type.
 
 | `row[[col]]` | Zero-length | OOB (int)  | OOB (chr) | Missing  |
 |--------------|-------------|------------|-----------|----------|
@@ -517,53 +495,42 @@ There are also two additional subsetting operators that are needed for S4 object
 \index{subsetting!subassignment} 
 \index{assignment!subassignment}
 
-All subsetting operators can be combined with assignment to modify selected values of the input vector. 
+All subsetting operators can be combined with assignment to modify selected values of the input vector, so called subassignment. The basic form is `x[i] <- value`:
 
-```{r, error = TRUE}
+```{r}
 x <- 1:5
-x[c(1, 2)] <- 2:3
+x[c(1, 2)] <- c(101, 102)
 x
-
-# The length of the LHS needs to match the RHS
-x[-1] <- 4:1
-x
-
-# Duplicated indices go unchecked and may be problematic
-x[c(1, 1)] <- 2:3
-x
-
-# You can't combine integer indices with NA
-x[c(1, NA)] <- c(1, 2)
-
-# But you can combine logical indices with NA
-# (where they're treated as false).
-x[c(T, F, NA)] <- 1
-x
-
-# This is mostly useful when conditionally modifying vectors
-df <- data.frame(a = c(1, 10, NA))
-df$a[df$a < 5] <- 0
-df$a
 ```
 
-Subsetting with nothing can be useful in conjunction with assignment because it will preserve the structure of the original object. Compare the following two expressions. In the first, `mtcars` will remain as a data frame. In the second, `mtcars` will become a list.
+I recommend ensuring that `length(value)` and `length(x[i])` are equal, and that `i` is unique. R does recycle if needed, but the rules are complex (particularly if `i` contains missing or duplicated values).
 
-```{r, eval = FALSE}
-mtcars[] <- lapply(mtcars, as.integer)
-mtcars <- lapply(mtcars, as.integer)
-```
-
-With lists, you can use `[[` + assignment + `NULL` to remove components from a list. To add a literal `NULL` to a list, use `[` and `list(NULL)`: \index{lists!removing an element}
+With lists, you can use `x[[i]] <- NULL` to remove a component. To add a literal `NULL`, use `x[i] <- list(NULL)`: \index{lists!removing an element}
 
 ```{r}
 x <- list(a = 1, b = 2)
 x[["b"]] <- NULL
 str(x)
 
-y <- list(a = 1)
+y <- list(a = 1, b = 2)
 y["b"] <- list(NULL)
 str(y)
 ```
+
+Subsetting with nothing can be useful in conjunction with assignment because it will preserve the structure of the original object. Compare the following two expressions. In the first, `mtcars` will remain as a data frame. In the second, `mtcars` will become a list.
+
+```{r}
+mtcars[] <- lapply(mtcars, as.integer)
+is.data.frame(mtcars)
+
+mtcars <- lapply(mtcars, as.integer)
+is.data.frame(mtcars)
+```
+
+```{r, include = FALSE}
+rm(mtcars)
+```
+
 
 ## Applications {#applications}
 
@@ -684,7 +651,7 @@ df <- data.frame(x = 1:3, y = 3:1, z = letters[1:3])
 df[c("x", "y")]
 ```
 
-If you only know the columns you don't want, use set operations to work out which colums to keep:
+If you only know the columns you don't want, use set operations to work out which columns to keep:
 
 ```{r}
 df[setdiff(names(df), "z")]

@@ -95,7 +95,7 @@ The job of an environment is to associate, or __bind__, a set of names to a set 
 knitr::include_graphics("diagrams/environments/bindings.png")
 ```
 
-As discussed in [names and values](#env-modify), environments have reference semantics: unlike most R objects, when you modify them, you modify them in place, and don't create a copy. One important implication is that environments can contain themselves. This means that environments go one step further in their level of recursion than lists: an enviroment can contain any object, including itself!
+As discussed in [names and values](#env-modify), environments have reference semantics: unlike most R objects, when you modify them, you modify them in place, and don't create a copy. One important implication is that environments can contain themselves. This means that environments go one step further in their level of recursion than lists: an environment can contain any object, including itself!
 
 ```{r}
 e1$d <- e1
@@ -146,7 +146,6 @@ Access the global environment with `globalenv()` and the current environment wit
 ### Parents
 
 Every environment has a __parent__, another environment. In diagrams, the parent is shown as a small pale blue circle and arrow that points to another environment. The parent is what's used to implement lexical scoping: if a name is not found in an environment, then R will look in its parent (and so on). 
-
 You can set the parent environment by supplying an unnamed argument to `env()`. If you don't supply it, it defaults to the current environment.
 
 ```{r}
@@ -196,6 +195,21 @@ By default, `env_parents()` continues until it hits either the global environmen
 ::: base 
 Use `parent.env()` to find the parent of an environment. No base function returns all ancestors.
 :::
+
+### Super assigment, `<<-`
+
+The ancestors of an environment have an important relationship to `<<-`. Regular assignment, `<-`, always creates a variable in the current environment. Super assignment, `<<-`, never creates a variable in the current environment, but instead modifies an existing variable found by in a parent environment. 
+
+```{r}
+x <- 0
+f <- function() {
+  x <<- 1
+}
+f()
+x
+```
+
+If `<<-` doesn't find an existing variable, it will create one in the global environment. This is usually undesirable, because global variables introduce non-obvious dependencies between functions. `<<-` is most often used in conjunction with a function factory, as described in Section \@ref(stateful-funs).
 
 ### Getting and setting
 
@@ -349,6 +363,25 @@ See  `?delayedAssign()` and `?makeActiveBinding()`.
 1.  Create a version of `env_poke()` that will only bind new names, never 
     re-bind old names. Some programming languages only do this, and are known 
     as [single assignment languages][single assignment].
+
+1.  What does this function do? How does it differ from `<<-` and why
+    might you prefer it?
+    
+    ```{r, error = TRUE}
+    rebind <- function(name, value, env = caller_env()) {
+      if (identical(env, empty_env())) {
+        stop("Can't find `", name, "`", call. = FALSE)
+      } else if (env_has(env, name)) {
+        env_poke(env, name, value)
+      } else {
+        rebind(name, value, env_parent(env))
+      }
+    }
+    rebind("a", 10)
+    a <- 5
+    rebind("a", 10)
+    a
+    ```
 
 ## Recursing over environments {#env-recursion}
 \index{recursion!over environments}
@@ -714,7 +747,7 @@ You'll learn more about function factories in [functional programming](#function
     about functions. Show where the function was found and what environment 
     it was defined in.
 
-## The call stack
+## The call stack {#call-stack}
 \index{environments!calling}
 \index{scoping!dynamic} 
 \index{dynamic scoping}
@@ -745,7 +778,7 @@ h <- function(x) {
 }
 ```
 
-The way you most commonly see a call stack in R is by looking at the `traceback()` after an error has occured:
+The way you most commonly see a call stack in R is by looking at the `traceback()` after an error has occurred:
 
 ```{r, eval = FALSE}
 f(x = 1)
@@ -771,7 +804,7 @@ f(x = 1)
 #>       └─lobstr::cst()
 ```
 
-This shows us that `cst()` was called from `h()`, which was called from `g()`, which was called from `f()`. Note that the order is the opposite from `traceback()`. As the call stacks get more compliated, I think it's easier to understand the sequence of calls if you start from the beginning, rather than the end (i.e. `f()` calls `g()`; rather than `g()` was called by `f()`).
+This shows us that `cst()` was called from `h()`, which was called from `g()`, which was called from `f()`. Note that the order is the opposite from `traceback()`. As the call stacks get more complicated, I think it's easier to understand the sequence of calls if you start from the beginning, rather than the end (i.e. `f()` calls `g()`; rather than `g()` was called by `f()`).
 
 ### Lazy evaluation
 
@@ -868,42 +901,6 @@ As well as powering scoping, environments are also useful data structures in the
     behaviour by default, so can be used to simulate a hashmap. See the 
     CRAN package hash for a complete development of this idea. 
     \index{hashmaps} \index{dictionaries}
-
-## `<<-`
-
-The ancestors of an environment have an important relationship to `<<-`. The regular assignment arrow, `<-`, always creates a variable in the current environment. The deep assignment arrow, `<<-`, never creates a variable in the current environment, but instead modifies an existing variable found by walking up the parent environments. 
-
-```{r}
-x <- 0
-f <- function() {
-  x <<- 1
-}
-f()
-x
-```
-
-If `<<-` doesn't find an existing variable, it will create one in the global environment. This is usually undesirable, because global variables introduce non-obvious dependencies between functions. `<<-` is most often used in conjunction with a closure, as described in [Closures](#closures).
-
-### Exercises
-
-1.  What does this function do? How does it differ from `<<-` and why
-    might you prefer it?
-    
-    ```{r, error = TRUE}
-    rebind <- function(name, value, env = caller_env()) {
-      if (identical(env, empty_env())) {
-        stop("Can't find `", name, "`", call. = FALSE)
-      } else if (env_has(env, name)) {
-        env_poke(env, name, value)
-      } else {
-        rebind(name, value, env_parent(env))
-      }
-    }
-    rebind("a", 10)
-    a <- 5
-    rebind("a", 10)
-    a
-    ```
 
 
 ## Quiz answers {#env-answers}

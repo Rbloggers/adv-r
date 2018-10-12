@@ -1,4 +1,5 @@
 new_session: yes
+delete_merged_file: yes
 
 rmd_files:
   [
@@ -14,7 +15,7 @@ rmd_files:
     "Functions.Rmd",
     "Environments.Rmd",
     "Conditions.Rmd",
-    "Connections.Rmd",
+#    "Connections.Rmd",
 
     "FP.Rmd",
     "Functionals.Rmd",
@@ -24,8 +25,8 @@ rmd_files:
     "OO.Rmd",
     "base-types.Rmd",
     "S3.Rmd",
-    "S4.Rmd",
     "R6.Rmd",
+    "S4.Rmd",
     "OO-tradeoffs.Rmd",
 
     "Meta.Rmd",

@@ -10,6 +10,7 @@ Depends:
 Imports: 
     bookdown,
     dbplyr,
+    desc,
     emo,
     furrr,
     ggplot2,
@@ -31,10 +32,12 @@ Imports:
     sloop,
     stringr,
     testthat,
+    vctrs,
     zeallot
 Remotes: 
     hadley/emo,
     hadley/lineprof,
-    hadley/lobstr,
-    hadley/sloop,
-    r-lib/rlang
+    r-lib/lobstr,
+    r-lib/sloop,
+    r-lib/rlang,
+    r-lib/vctrs
