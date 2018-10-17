@@ -140,6 +140,8 @@ typeof(f01)
 #> [1] "closure"
 ```
 
+<!-- GVW: move this mention of closures down to the discussion of environments? Feels dangling here -->
+
 ### Function components
 \index{functions!body} 
 \indexc{body()} 
@@ -238,6 +240,8 @@ Primitive functions are only found in the base package. While they have certain 
 1. Given a function, like `"mean"`, `match.fun()` lets you find a function. 
    Given a function, can you find its name? Why doesn't that make sense in R?
 
+<!-- GVW: should the first sentence be, "Given a **name**"? -->
+
 1.  It's possible (although typically not useful) to call an anonymous function.
     Which of the two approaches below is correct? Why?
 
@@ -326,6 +330,8 @@ x %>%
 
 `x %>% f()` is equivalent to `f(x)`; `x %>% f(y)` is equivalent to `f(x, y)`. The pipe is related to __tacit__ or __point-free programming__[^point-free]. In this style of programming, you don't explicitly refer to variables. Instead, you focus on the high-level composition of functions rather than the low-level flow of data; the focus is on what's being done (the verbs), rather that on what's being modified (the nouns). This style is common in Haskell and F#, the main inspiration for magrittr, and is the default style in stack based programming languages like Forth and Factor. \index{point-free programming} \index{tacit programming}
 
+<!-- GVW: if the terminology "tacit" and "point-free" isn't used anywhere else, I wouldn't introduce it here. -->
+
 [^point-free]: Point-free programming is related to point-free topology. It's just a coincidence that many forms of point-free programming use `.` extensively. Point-free programming is sometimes humorously called pointless programming.
 
 Each of the three options has its own strengths and weaknesses:
@@ -379,6 +385,8 @@ R's lexical scoping follows four primary rules:
 * A fresh start
 * Dynamic lookup
 
+<!-- GVW: what does "NSE" stand for? -->
+
 [^dyn-scope]: Functions that automatically quote one or more arguments (sometimes called NSE functions) can override the default scoping rules to implement other varieties of scoping. You'll learn more about that in [metaprogramming](#meta).
 
 ### Name masking
@@ -411,6 +419,18 @@ g03()
 #> [1] 2 1
 ```
 
+<!-- GVW: I frequently use an example like this to clarify that names are only overriden when the new name appears (i.e., definitions aren't hosted to top of scope):
+
+    x <- 1
+    greg <- function() {
+      y <- x
+      x <- 2
+      c(x, y)
+    }
+    greg()
+
+-->
+
 The same rules apply if a function is defined inside another function. First, R looks inside the current function. Then, it looks where that function was defined (and so on, all the way up to the global environment). Finally, it looks in other loaded packages. 
 
 Run the following code in your head, then confirm the result by running the code.[^answer2]
@@ -431,7 +451,7 @@ g04 <- function() {
 g04()
 ```
 
-The same rules also apply to functions created by other functions, which we'll call __closures__. Closures will be described in more detail in \@ref(closures); here we'll focus on how they interact with scoping. The following function, `g05()`, returns a function. What do you think this function will return when it's called?[^answer3]
+The same rules also apply to functions created by other functions, which I call manufactured functions, and are the topic of Chapter \@ref(function-factories). Here I'll focus on how they interact with scoping. The following function, `g05()`, returns a function. What do you think this function will return when it's called?[^answer3]
 
 [^answer3]: `g06()` returns `c(10, 2)`.
 \index{closures!scoping}
@@ -451,11 +471,13 @@ g06 <- g05()
 g06()
 ```
 
-This seems a little magical: how does R know what the value of `y` is after `g05()` is returned? R knows because `g06()` preserves the environment where it was defined and that environment includes the value of `y`. You'll learn more about how environments work in \@ref(environments)).
+This seems a little magical: how does R know what the value of `y` is after `g05()` is returned? R knows because `g06()` preserves the environment where it was defined and that environment includes the value of `y`. You'll learn more about how environments work in Chapter \@ref(environments).
+
+<!-- GVW: in which case I'd defer this discussion until environments have been introduced, even if it means doubling back to scope... -->
 
 ### Functions vs. variables
 
-In R, functions are ordinary objects. This means the same scoping principles that apply to other objects also apply to functions:
+In R, functions are ordinary objects. This means the scoping rules described above also apply to functions:
 
 
 ```r
@@ -468,7 +490,7 @@ g08()
 #> [1] 110
 ```
 
-The rule gets a little more complicated when a name is bound to a function and a non-function in different environments. When you use a name in a function call, R will ignore non-function objects while looking for that value. For example, here `g09` takes on two different values:
+However, when a function and a non-function share the same name (they must, of course, reside in different environments), applying these rules gets a little more complicated. When you use a name in a function call, R ignores non-function objects when looking for that value. For example, in the code below, `g09` takes on two different values:
 
 
 ```r
@@ -481,7 +503,9 @@ g10()
 #> [1] 110
 ```
 
-But using the same name for two different things will make for confusing code, and is best avoided!
+Note that for the record, using the same name for two different things makes for confusing code, and is something best avoided!
+
+<!-- GVW: no kidding.  I had no idea R ignored non-funcs when looking up names like this... :-( -->
 
 ### A fresh start {#fresh-start}
 
@@ -508,7 +532,7 @@ You might be surprised that `g11()` always returns the same value. This happens 
 
 ### Dynamic lookup
 
-Lexical scoping determines where to look for values, not when to look for them. R looks for values when the function is run, not when it's created. This means that the output of a function can differ depending on objects outside its environment: 
+Lexical scoping determines where, but not when to look for values. R looks for values when the function is run, not when the function is created. Together, these two properties tell us that the output of a function can differ depending on the objects outside the function's environment:
 
 
 ```r
@@ -522,10 +546,10 @@ g12()
 #> [1] 21
 ```
 
-This behaviour can be quite annoying. If you make a spelling mistake in your code, you won't get an error when you create the function, and you might not even get one when you run the function, depending on what variables are defined in the global environment. 
+This behaviour can be quite annoying. If you make a spelling mistake in your code, you won't get an error message when you create the function. And depending on the variables defined in the global environment, you might not even get an error message when you run the function. 
 
 \indexc{findGlobals()}
-One way to detect this problem is to use `codetools::findGlobals()`. This function lists all the external dependencies (unbound symbols) within a function: 
+To detect this problem, use `codetools::findGlobals()`. This function lists all the external dependencies (unbound symbols) within a function:
 
 
 ```r
@@ -533,7 +557,7 @@ codetools::findGlobals(g12)
 #> [1] "+" "x"
 ```
 
-Another way to solve the problem would be to manually change the environment of the function to the `emptyenv()`, an environment which contains nothing:
+To solve this problem, you can manually change the function's environment to the `emptyenv()`, an environment which contains nothing:
 
 
 ```r
@@ -543,7 +567,7 @@ g12()
 #>   could not find function "+"
 ```
 
-Both of these approaches reveal why this undesirable behaviour exists: R relies on lexical scoping to find _everything_, even the `+` operator. This provides a rather beautiful simplicity to R's scoping rules.
+The problem and its solution reveal why this seemingly undesirable behaviour exists: R relies on lexical scoping to find _everything_, from the obvious, like `mean()`, to the less obvious, like `+` or even `{`. This gives R's scoping rules a rather beautiful simplicity.
 
 ### Exercises
 
@@ -612,6 +636,8 @@ It's usually not necessary to force evaluation. However, it is important for cer
 
 Consider this small but surprisingly tricky function. It takes a single argument `x`, and returns a function that returns `x` when called.
 
+<!-- GVW: at this point I'm finding names like `g10` and `capture1` and the like pretty hard to keep track of... -->
+
 
 ```r
 capture1 <- function(x) {
@@ -672,7 +698,7 @@ h05()
 \index{promises}
 \index{thunks|see{promises}}
 
-Lazy evaluation is powered by a data structure called a __promise__, or (less commonly) a thunk. We'll come back to this data structure in [metaprogramming](#meta) because it's one of the features of R that makes it most interesting as a programming language.
+Lazy evaluation is powered by a data structure called a __promise__, or (less commonly) a thunk. It's one of the features that makes R such an interesting programming language (we'll return to promises again in [metaprogramming](#meta)).
 
 A promise has three components: 
 
@@ -680,10 +706,10 @@ A promise has three components:
 
 * The environment where the expression should be evaluated.
 
-* The value, which is computed and cached when the promise is first accessed
-  by evaluating the expression in the specified environment.
+* The value, which is computed and cached the first time a promise is accessed
+  when the expression is evaluated in the specified environment.
 
-The value cache ensures that accessing the promise multiple times always returns the same value. For example, you can see in the following code that `runif(1)` is only evaluated once:
+The value cache ensures that the promise always returns the same value, even when it's accessed multiple times. For example, you can see in the following code that `runif(1)` is only evaluated once:
 
 
 ```r
@@ -694,6 +720,23 @@ h06 <- function(x) {
 h06(runif(1))
 #> [1] 0.806 0.806 0.806
 ```
+
+<!-- GVW: in order to make sure I understood this I wrote the following:
+
+> e <- function() {
++   message("in e")
++   1
++ }
+> greg <- function(x){
++   message("top of greg")
++   c(x, x)
++ }
+> greg(e())
+top of greg
+in e
+[1] 1 1
+
+-->
 
 You can also create promises "by hand" using `delayedAssign()`:
 
@@ -712,7 +755,7 @@ You'll see this idea again in [advanced bindings].
 ### Default arguments
 \index{functions!default values}
 
-Thanks to lazy evaluation, default value can be defined in terms of other arguments, or even in terms of variables defined later in the function:
+Thanks to lazy evaluation, default values can be defined in terms of other arguments, or even in terms of variables defined later in the function:
 
 
 ```r
@@ -727,7 +770,7 @@ h07()
 #> [1]   1   2 110
 ```
 
-Many base R functions use this technique, but I don't recommend it. It makes code harder to understand because it requires that you know exactly _when_ default arguments are evaluated in order to predict _what_ they will evaluate to.
+Many base R functions use this technique, but I don't recommend it. It makes the code harder to understand: to predict _what_ will be returned, you need to know the exact order in which default arguments are evaluated.
 
 The evaluation environment is slightly different for default and user supplied arguments, as default arguments are evaluated inside the function. This means that seemingly identical calls can yield different results. It's easiest to see this with an extreme example:
 
@@ -750,7 +793,7 @@ h08(ls())
 ### Missing arguments
 \indexc{missing()}
 
-If an argument has a default, you can determine if the value comes from the user or the default with `missing()`:
+To determine if an argument's value comes from the user or from a default, you can use `missing()`:
 
 
 ```r
@@ -767,7 +810,7 @@ str(h09(10))
 #>  $ : num 10
 ```
 
-`missing()` is best used sparingly. Take `sample()`, for example. How many arguments are required?
+`missing()` is best used sparingly, however. Take `sample()`, for example. How many arguments are required?
 
 
 ```r
@@ -776,9 +819,7 @@ args(sample)
 #> NULL
 ```
  
-It looks like both `x` and `size` are required, but in fact `sample()` uses `missing()` to provide a default for `size` if it's not supplied. If I was to rewrite sample myself[^sample], I'd use an explicit `NULL` to indicate that `size` can be supplied, but it's not required:
-
-[^sample]: Note that this only implements one way of calling `sample()`: you can also call it with a single integer, like `sample(10)`. This unfortunately makes `sample()` prone to silent errors in situations like `sample(x[i])`.
+It looks like both `x` and `size` are required, but in fact if it's not supplied, `sample()` uses `missing()` to provide a default for `size`. If I were to rewrite sample, I'd use an explicit `NULL` to indicate that `size` is not required but can be supplied:
 
 
 ```r
@@ -791,7 +832,9 @@ sample <- function(x, size = NULL, replace = FALSE, prob = NULL) {
 }
 ```
 
-You can make that pattern even simpler with a small helper. The infix `%||%` function uses the LHS if it's not null, otherwise it uses the RHS:
+With the binary pattern created by the `%||%` infix function, which uses the LHS if it's not `NULL` and the RHS otherwise, we can further simplify `sample()`:
+
+<!-- GVW: "left side" and "right side" rather than "LHS" and "RHS" (jargon) -->
 
 
 ```r
@@ -809,7 +852,7 @@ sample <- function(x, size = NULL, replace = FALSE, prob = NULL) {
 }
 ```
 
-Because of lazy evaluation, you don't need to worry about unnecessary computation: the RHS of `%||%` will only be evaluated if the LHS is null.
+Because of lazy evaluation, you don't need to worry about unnecessary computation: the RHS of `%||%` will only be evaluated if the LHS is `NULL`.
 
 ### Exercises
 
@@ -913,9 +956,9 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
 \index{ellipsis}
 \index{dot-dot-dot}
 
-Functions can have a special argument `...` (pronounced dot-dot-dot). If a function has this argument, it can take any number of additional arguments. In other programming languages, this type of argument is often called a varargs, or the function is said to be variadic. 
+Functions can have a special argument `...` (pronounced dot-dot-dot). With it, a function can take any number of additional arguments. In other programming languages, this type of argument is often called a varargs, and a function that uses it is said to be variadic. 
 
-Inside a function, you can use `...` to pass those additional arguments on to another function.
+You can also use `...` to pass those additional arguments on to another function.
 
 
 ```r
@@ -933,7 +976,9 @@ str(i02(x = 1, y = 2, z = 3))
 #>  $ z: num 3
 ```
 
-It's possible (but rarely useful) to refer to elements of `...` by their position, using a special form:
+Using a special syntax, it's possible (but rarely useful) to refer to elements of `...` by position:
+
+<!-- GVW: "using a special form `..N`" -->
 
 
 ```r
@@ -946,7 +991,7 @@ str(i03(1, 2, 3))
 #>  $ third: num 3
 ```
 
-More often useful is `list(...)`, which evaluates the arguments and stores them in a list:
+More useful is `list(...)`, which evaluates the arguments and stores them in a list:
 
 
 ```r
@@ -959,12 +1004,12 @@ str(i04(a = 1, b = 2))
 #>  $ b: num 2
 ```
 
-(See also `rlang::list2()` to support splicing and to silently ignore trailing commas, and `rlang::enquos()` to capture the unevaluated arguments, the topic of [quasiquotation].)
+(See also `rlang::list2()` to support splicing and to silently ignore trailing commas, and `rlang::enquos()` to capture unevaluated arguments, the topic of [quasiquotation].)
 
 There are two primary uses of `...`, both of which we'll come back to later in the book:
 
 *   If your function takes a function as an argument, you want some way to 
-    pass on additional arguments to that function. In this example, `lapply()`
+    pass additional arguments to that function. In this example, `lapply()`
     uses `...` to pass `na.rm` on to `mean()`:
     
     
@@ -976,13 +1021,13 @@ There are two primary uses of `...`, both of which we'll come back to later in t
     #>  $ : num 5
     ```
     
-    We'll come back to this technique in Section \@ref(functional-arguments).
+    We'll come back to this technique in Section \@ref(passing-arguments).
     
 *   If your function is an S3 generic, you need some way to allow methods to 
-    take arbitrary extra arguments. For example, take the `print()` function.
-    There are different options for printing types of object, so there's no
-    way for the print generic to prespecify every possible argument. Instead,
-    it uses `...` to allow individual methods to have different arguments:
+    take arbitrary extra arguments. For example, take the `print()` function. 
+    Because there are different options for printing depending on the type of 
+    object, there's no way to pre-specify every possible argument. `...` is 
+    what allow individual methods to have different arguments:
 
     
     ```r
@@ -995,12 +1040,12 @@ There are two primary uses of `...`, both of which we'll come back to later in t
 
 Using `...` comes with two downsides:
 
-*   When you use it to pass arguments on to another function, you have to 
+*   When you use it to pass arguments to another function, you have to 
     carefully explain to the user where those arguments go. This makes it
     hard to understand what you can do with functions like `lapply()` and 
     `plot()`.
     
-*   Any misspelled arguments will not raise an error.  This makes it easy for 
+*   A misspelled argument will not raise an error. This makes it easy for 
     typos to go unnoticed:
 
     
@@ -1008,6 +1053,8 @@ Using `...` comes with two downsides:
     sum(1, 2, NA, na_rm = TRUE)
     #> [1] NA
     ```
+
+<!-- GVW: I think the line below is redundant given discussion above. -->
 
 `...` is a powerful tool, but be aware of the downsides.
 
@@ -1162,11 +1209,17 @@ j05()
 #>   I'm an error
 ```
 
+<!-- GVW: I would write "Go" and "Rust" -->
+
 Errors indicate that something has gone wrong, and force the user to handle them. Some languages (like C, go, and rust) rely on special return values to indicate problems, but in R you should always throw an error. You'll learn more about errors, and how to handle them, in [Conditions].
 
 ### Exit handlers {#on-exit}
 \indexc{on.exit()}
 \index{handler!exit}
+
+<!-- GVW: you call it "exit handler" in the section title but "exiting handler" below -->
+
+<!-- GVW: switching from singular to plural in the first sentence below: "a temporary change" -> "these changes" -->
 
 Sometimes a function needs to make a temporary change to global state and you want to ensure those changes are restored when the function completes. It's painful to make sure you cleanup before any explicit return, and what happens if there's an error? Instead, you can set up an __exiting handler__ that is called when the function terminates, regardless of whether it returns a value or throws an error.
 
@@ -1201,7 +1254,11 @@ j06(FALSE)
 Always set `add = TRUE` when using `on.exit()`. If you don't, each call to `on.exit()` will overwrite the previous exiting handler. Even when only registering a single handler, it's good practice to  set `add = TRUE` so that you don't get an unpleasant surprise if you later add more exit handlers
 :::
 
+<!-- GVW: need full stop after "more exit handlers" above -->
+
 `on.exit()` is important because it allows you to place clean-up actions next to actions with their cleanup operations. 
+
+<!-- GVW: previous sentence is confusing "clean-up actions next to actions" -->
 
 
 ```r
@@ -1340,6 +1397,8 @@ for(i in 1:10) print(i)
 `for`(i, 1:10, print(i))
 ```
 
+<!-- GVW: `for` is a function?? -->
+
 Knowing the function name of a non-prefix function allows you to override its behaviour. For example, if you're ever feeling particularly evil, run the following code while a friend is away from their computer. It will introduce a fun bug: 10% of the time, 1 will be added to any numeric calculation inside of parentheses.
 
 
@@ -1356,6 +1415,8 @@ replicate(50, (1 + 2))
 #> [33] 3 3 3 3 4 3 4 3 3 3 3 4 3 3 3 3 3 3
 rm("(")
 ```
+
+<!-- GVW: `(` is a *function*?? -->
 
 Of course, overriding built-in functions like this is a bad idea, but, as you'll learn about in [metaprogramming](#meta), it's possible to apply it only to selected code blocks. This provides a clean and elegant approach to writing domain specific languages and translators to other languages.
 
@@ -1384,7 +1445,7 @@ We'll explore this idea in detail in [functionals].
 The prefix form is the most common form in R code, and indeed in the majority of programming languages. Prefix calls in R are a little special because you can specify arguments in three ways:
 
 * By position, like `help(mean)`.
-* Using partial matching, like `help(to = mean)`.
+* Using partial matching, like `help(to = mean)`. <!-- GVW: took me a moment to realize this is the same as `topic = mean` -->
 * By name, like `help(topic = mean)`.
 
 As illustrated by the following chunk, arguments are matched by exact name, then with unique prefixes, and finally by position.
@@ -1419,6 +1480,8 @@ str(k01(1, 3, b = 1))
 ```
 
 Generally, only use positional matching for the first one or two arguments; they will be the most commonly used, and most readers will know what they are. Avoid using positional matching for less commonly used arguments, and never use partial matching. See the tidyverse style guide, <http://style.tidyverse.org/syntax.html#argument-names>, for more advice.
+
+<!-- GVW: is there any way to turn off partial matching? -->
 
 ### Infix functions
 \index{functions!infix} 
@@ -1482,6 +1545,8 @@ Replacement functions act like they modify their arguments in place, and have th
 }
 ```
 
+<!-- GVW: "left side" rather than "LHS" -->
+
 Replacement functions are used by placing the function call on the LHS of `<-`: 
 
 
@@ -1505,7 +1570,9 @@ second(x) <- 6L
 #> tracemem[0x7ffae61b5480 -> 0x7ffae73f0408]: second<- 
 ```
 
-If you want to supply additional arguments, they go inbetween `x` and `value`:
+If you want to supply additional arguments, they go in between `x` and `value`:
+
+<!-- GVW: "...and appear inside the parentheses on the left." -->
 
 
 ```r
@@ -1584,6 +1651,8 @@ Note that all special forms are implemented as primitive functions (i.e. in C); 
 `for`
 #> .Primitive("for")
 ```
+
+<!-- GVW: question: does this mean I can change the behavior of `(` and the like for my own classes via S3? If so, maybe a forward ref? -->
 
 ## Invoking a function
 \indexc{do.call()}

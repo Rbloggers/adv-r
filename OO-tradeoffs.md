@@ -24,7 +24,7 @@ S4 is also a good fit when you have a complicated system of interrelated objects
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{diagrams/s4-matrix-dsparseMatrix} 
+{\centering \includegraphics[width=0.8\linewidth]{diagrams/s4/Matrix} 
 
 }
 
@@ -188,6 +188,8 @@ s$push(20)
 s$pop()
 #> [1] 20
 ```
+
+I encounted a real-life example of threading state in ggplot2 scales. Scales are complex because they need to combine data across every facet and every layer. I originally used S3 classes, but it required passing scale data to and from many functions. Switching to R6 made the code substantially simpler. However, it also introduced some subtle bugs because I forgot to call to `$clone()` when modifying a plot; accidentally allowing independent plots to share the same scale data. 
 
 ### Method chaining {#tradeoffs-pipe}
 

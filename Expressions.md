@@ -43,7 +43,7 @@ Make sure you've installed rlang and lobstr from GitHub:
 
 ```r
 devtools::install_github("r-lib/rlang")
-devtools::install_github("hadley/lobstr")
+devtools::install_github("r-lib/lobstr")
 ```
 
 ## Abstract syntax trees
@@ -251,7 +251,7 @@ Infix functions introduce ambiguity in a way that prefix functions do not. The p
 
 \begin{center}\includegraphics[width=4.33in]{diagrams/expressions/ambig-order} \end{center}
 
-Programming langauges use conventions called __operator precedence__ to resolve this ambiguity. We can use `ast()` to see what R does: 
+Programming languages use conventions called __operator precedence__ to resolve this ambiguity. We can use `ast()` to see what R does: 
 
 
 ```r
@@ -534,7 +534,7 @@ rlang::call_standardise(x)
 
 (Note that if the function uses `...` it's not possible to standardise all arguments.)
 
-You can use `[` to extract multiple components, but if you drop the the first element, you're going to end up with a weird call:
+You can use `[` to extract multiple components, but if you drop the first element, you're going to end up with a weird call:
 
 
 ```r
@@ -563,16 +563,13 @@ x
 #> read.table("important.csv", row = FALSE, header = TRUE)
 ```
 
-You can construct a call from its children by using `rlang::lang()`. The first argument should be the function to be called (supplied either as a string or a symbol), and the subsequent arguments are the call to that function:
+You can construct a call from its children by using `rlang::call2()`. The first argument should be the function to be called (supplied either as a string or a symbol), and the subsequent arguments are the call to that function:
 
 
 ```r
-lang("mean", x = expr(x), na.rm = TRUE)
-#> Warning: `lang()` is soft-deprecated as of rlang 0.2.0.
-#> Please use `call2()` instead
-#> This warning is displayed once per session.
+call2("mean", x = expr(x), na.rm = TRUE)
 #> mean(x = x, na.rm = TRUE)
-lang(expr(mean), x = expr(x), na.rm = TRUE)
+call2(expr(mean), x = expr(x), na.rm = TRUE)
 #> mean(x = x, na.rm = TRUE)
 ```
 
@@ -689,7 +686,7 @@ Conceptually, an expression object is just a list of expressions. The only diffe
     ```
 
 1.  Construct the expression `if(x > 1) "a" else "b"` using multiple calls to 
-    `lang()`. How does the code structure reflect the structure of the AST?
+    `call2()`. How does the code structure reflect the structure of the AST?
 
 ## Parsing and deparsing 
 

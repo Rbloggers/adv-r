@@ -5,103 +5,148 @@
 
 # Introduction {#oo .unnumbered}
 
-In the following five chapters you'll learn about __object oriented programming__ (OOP) in R. OOP in R is a little more challenging than in other languages, because:
+In the following five chapters you'll learn about __object oriented programming__ (OOP) in R. OOP is a little more challenging in R than in some other languages because:
 
 * There are multiple OOP systems to choose from. In this book, I'll focus 
-  on the three that I believe are most important: S3, S4, and R6.
+  on the three that I believe are most important: __S3__,  __R6__, and __S4__. 
+  S3 and S4 are provided by base R. R6 is provided by the R6 package, and is 
+  similar to the "Reference Classes", or __RC__ for short, from base R.
 
-* S3 and S4 come from a very different heritage than the OOP found in most
-  other popular languages. This means your existing OOP skills are unlikely
-  to be of much help.
+* S3 and S4 use "generic function OOP" which is rather different from the 
+  "encapsulated OOP" used by most languages popular today[^julia]. We'll come 
+  back to preisely what those terms mean shortly, but basically, while the 
+  underlying ideas of OOP are the same, their expression is rather different. 
+  This means that you can't immediately transfer your OOP skills from other
+  languages.
 
-Indeed, in day-to-day use FP is much more important than OOP in R.
-Nevertheless, there are three main reasons to learn OOP:
+* There is disagreement about the relative importance of the three systems. 
+  I think S3 is most important, followed by R6, then S4. Others believe that 
+  S4 is most important, followed by RC, and that S3 should be avoided. This 
+  means that different R communities use different systems.
 
-* S3 allows your functions to return richer results that are displayed 
-  in a user friendly way and that have programmer friendly internals. 
-  It also conforms to syntactic standards that apply across multiple 
-  packages. This is why S3 is used throughout base R.
+[^julia]: The exception is Julia, which uses a very similar style of OOP (if much more rigorous and performant) to R.
 
-* S4 can be helpful for building up large systems that will evolve
-  over time and will be written by many programmers. This is why the
-  Bioconductor project uses S4 as its fundamental infrastructure.
-  
-* R6 gives you a standardized way to escape R's copy-on-modify semantics. 
+Generally in R, functional programming is much more important than object oriented programming, because you typically solve complex problems by decomposing them into simple functions, not simple objects. Nevertheless, there are important reasons to learn each of the three systems:
+
+* S3 allows your functions to return richer results with user-friendly display
+  and programmer-friendly internals. S3 is used throughout base R, so it's 
+  important to master if you want to extend base R functions to work with new 
+  types of input.
+
+* R6 gives you a standardised way to escape R's from copy-on-modify semantics. 
   This is particularly important if you want to model real-world objects 
-  that change over time.
-  
-This chapter will give you a rough lay of the land, and a field guide to help you identify OOP systems in the wild. The following four chapters (Base types, S3, S4, and R6) will dive into the details, starting with R's base types. These are not technically an OOP system, but they're important to understand because they're the fundamental building block of the true OOP systems.
+  that can be simultaneously changed through multiple interfaces. Today,
+  a common need for R6 is to model data that comes from a web API, and where
+  changes may be instantiated from inside or outside of R.
 
-## OOP Systems
+* S4 is a rigorous system that forces you to think carefully about program 
+  design. It's particuarly well-suited for building large systems that evolve 
+  over time  and will receive contributions from many programmers. This is
+  why it is used by the Bioconductor project, so if you want to contribute to
+  Bioconductor, you'll need to know something about S4.
 
-We'll begin with an info dump of vocabulary and terminology. Don't worry if it doesn't stick. We'll come back to these ideas multiple times in the subsequent chapters.
+The goal of this brief introdutory chapter is to give you some important vocabulary and some tools to identify OOP systems in the wild. The following four chapters (Base types, S3, R6, and S4) then dive into the details of R's OOP systems. 
 
-Central to any OOP system are the concepts of class and method. A __class__ defines the behaviour of a set of __objects__, or instances, by describing their attributes and their relationship to other classes. The class is also used when selecting __methods__, functions that behave differently depending on the class of their input. A class defines what something _is_ and methods describe what something can _do_.
+The following chapters need a caveat because they focus on the mechanics of OOP, not its effective use, and if you have never done object oriented programming before, you will gain few practical skills. You might wonder why I deliberately chose not to provide coverage that is more immediately useful. I have focussed on mechanics because they need to be well described somewhere (writing these chapters required a considerable amount of reading, exploration, and synthesis on my behalf), and using OOP effectively is sufficiently complex to require book-length treatment; there's simply not enough room in Advanced R to cover it in the depth that is required.
 
-Classes are usually organised in a hierarchy: if a method does not exist for a child, then the parent's method is used instead. This means that a child class will __inherit__ behaviour from the parent class. Inheritance is one of the most important parts of OOP because it allows you to reduce the amount of code you have to write.
+## OOP systems {-}
 
-Following the notation of _Extending R_, there are two main styles of OOP:
+Different people use OOP terms in different ways, so this section provides a quick overview of important vocabulary. The explanations are necessarily compressed, but we will come back to these ideas multiple times
 
-*   In __encapsulated__ OOP, methods belong to objects or classes. This is 
-    the most common paradigm in modern programming languages, and method calls
-    typically look like `object.method`. This is called encapsulated because
-    the object encapsulates all its metadata.
+The main reason to use OOP is is __polymorphism__ (literally: many shapes). Polymorphism means that a developer can consider a function's interface separately from its implementation, making it possible to use the same function for many types of input. This is closely related to the idea of __encapsulation__: the user doesn't need to worry about details of an object because they are encapsulated behind a standard interface. Polymorphism is what allows `summary()` to produce different outputs for numeric and factor variables:
+
+
+```r
+diamonds <- ggplot2::diamonds
+
+summary(diamonds$carat)
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#>    0.20    0.40    0.70    0.80    1.04    5.01
+
+summary(diamonds$cut)
+#>      Fair      Good Very Good   Premium     Ideal 
+#>      1610      4906     12082     13791     21551
+```
+
+You could imagine `summary()` implementing this with a series of if-else statements, but that would mean only the original author could add new implementations. An OOP system makes it possible for any developer to extend the implementation for new types of input. 
+
+So far I've informally talked about the "type" of a "thing". OOP systems use a common vocabularly: we talk about the __class__ of an __object__. The class defines the __fields__, which are the data that every instance of that class possesses.  A class also defines how it is related to other classes, so that (for example) a sparse matrix can be a specialized kind of matrix.
+
+A __method__ defines how object behaves; it's like a function that behaves differently depending on the class of its input. In other words, a class defines what an object _is_ and methods describe what that object can _do_. Classes are usually organised in a hierarchy: if a method does not exist for a child, then the parent's method is used instead, and the child is said to __inherit__ behaviour from the parent. 
+
+The two main paradigms of object-oriented programming differ in how methods are related to classes. In this book, we'll borrow the terminology of _Extending R_ [@extending-R] and call these paradigms encapsulated and functional:
+
+*   In __encapsulated__ OOP, methods belong to objects or classes, and method 
+    calls typically look like `object.method(arg1, arg2)`. This is called 
+    encapsulated because the object encapsulates both data (through fields) and 
+    behaviour (with methods), and is most common paradigm in today's popular 
+    languages.
     
-*   In __functional__ OOP, methods belong to functions called __generics__.
-    Method calls look like ordinary function calls: `generic(object)`. This
-    is called functional because from the outside it just looks like function 
-    calls.
-    
-## OOP in R
+*   In __functional__ OOP, methods belong to __generic__ functions, and method 
+    calls look like ordinary function calls: `generic(object, arg2, arg3)`. 
+    This is called functional because it looks like a regular function call
+    from the outside, and internally the components are all regular functions.
+
+In either object system, it's the process of __method dispatch__ that goes from a high-level function call (whether it's `obj.meth()` or `meth(obj)`) to find a specific implementation.
+
+## OOP in R {-}
 
 Base R provides three OOP systems: S3, S4, and reference classes (RC):
 
 *   __S3__ is R's first OOP system, and is described in _Statistical Models 
-    in S_ (1991). It informally implements the functional style.
-    It provides no ironclad guarantees but instead relies on a set of 
-    conventions. This makes it easy to get started with, and a low cost way 
-    of solving many simple problems.
+    in S_ [@white-book]. S3 is an informal implementation of the functional 
+    style which relies on common conventions rather than ironclad guarantees. 
+    This makes it easy to get started with, and makes it a low cost way of 
+    solving many simple problems, but it isn't sturdy enough to handle all
+    of the complexities of very large or very complex software designs.
 
-*   __S4__ is similar to S3, but much more formal. It was introduced in 
-    _Programming with Data_ (1998). It requires more upfront work and in 
-    return provides greater consistency. S4 is implemented
-    in the __methods__ package, which is attached by default. The only
-    package in base R to make use of S4 is stats4.
+*   __S4__ is similar to S3, but much more formal, and was introduced in 
+    _Programming with Data_ [@programming-with-data]. It requires more upfront 
+    work than S3, but in return provides greater rigor and encapsulation. S4 is 
+    implemented in the __methods__ package, which is attached by 
+    default[^Rscript]. The only base package that uses S4 is the little known 
+    stats4 package.
     
     (You might wonder if S1 and S2 exist. They don't: S3 and S4 were named 
-    according to the versions of S that they accompanied.)
+    according to the versions of S that they accompanied. The first two 
+    versions of S didn't have any OOP framework.)
 
-*   __RC__ implements encapsulated OO. RC objects are also mutable: they don't
-    use R's usual copy-on-modify semantics, but are modified in place. This 
-    makes them harder to reason about, but allows them to solve problems that 
-    are difficult to solve with S3 or S4.
+*   __RC__ implements encapsulated OO. RC objects are a special type of S4 
+    objects that are also __mutable__, i.e., instead of using R's usual copy-on-modify 
+    semantics, they can be modified in place. This makes them harder to reason 
+    about, but allows them to solve problems that are difficult to solve in
+    the functional OOP of S3 and S4.
 
-There are a number of other OOP systems provided by packages. Three of the most popular are:
+[^Rscript]: Unless you are running `Rscript`, in which case you'll need to load explicitly with `library(methods)`. This is a historical inconsistency introduced because the methods package used to take a long time to load and `Rscript` is optimised for fast command line usage. 
 
-*   __R6__ implements encapsulated OOP like RC, but resolves some important 
-    issues. You'll learn R6 instead of RC in this book. More on why later.
+A number of other OOP systems are provided by packages, including:
+
+*   __R6__ [@R6] implements encapsulated OOP like RC, but resolves some 
+    important issues. In this book, you'll learn about R6 instead of RC, for
+    reasons described in Chapter \@ref(r6).
     
-*   __R.oo__ provides some formalism on top of S3, and makes it possible to
+*   __R.oo__ [@R.oo] provides some formalism on top of S3, and makes it possible to
     have mutable S3 objects.
 
-*   __proto__ implements another style of OOP, called prototype based. It
-    blurs the distinctions between classes and instances of classes (objects).
-    There is some more information about prototype based programming in
-    <http://vita.had.co.nz/papers/mutatr.html>.
+*   __proto__ [@proto] implements another style of OOP based on the idea of 
+    __prototypes__, which blur the distinctions between classes and instances 
+    of classes (objects). I was briefly enamored with prototype based 
+    programming [@mutatr] and used in ggplot2, but now think it's better to
+    stick to the standard forms.
 
-Most OO systems in external packages are primarily of academic interest: they will help you understand the spectrum of OOP better, and can make it easier to solve certain classes of problems. However, they come with a big drawback: few R users know and understand them, so it is hard for others to read and contribute to your code.
+Apart from R6, which is widely used, these systems are primarily of theoretical interest. They do have their strengths, but few R users know and understand them, so it is hard for others to read and contribute to your code. I therefore recommend that you stick with S3, S4, and R6.
 
-## Field guide 
+## Sloop {-}
 
-Before we go on to discuss base types, S3, S4, and R6 in more detail I want to introduce the sloop package:
+Before we go on I want to introduce the sloop package:
 
 
 ```r
-# install_github("hadley/sloop")
+# install_github("r-lib/sloop")
 library(sloop)
 ```
 
-The sloop package (think sail the seas of OOP in R) provides a number of helpers to fill in missing pieces in base R. The first helper to know about is `sloop::otype()`. It makes it easy to figure out what OOP system an object found in the wild uses: 
+The sloop package (think "sail the seas of OOP") provides a number of helpers that fill in missing pieces in base R. The first of these is `sloop::otype()`. It makes it easy to figure out the OOP system used by a wild-caught object: 
 
 
 ```r
@@ -116,13 +161,4 @@ otype(mle_obj)
 #> [1] "S4"
 ```
 
-Without `otype()`, you need to work your way through the base functions:
-
-* `is.object()` distinguishes between base types (`FALSE`) and 
-  everything else (`TRUE`).
-  
-* `isS4()` distinguishes between S3 and S4.
-
-* `inherits()` lets you figure out if you have an R6 object (an S3 object
-   that inherits from "R6") or an RC object (an S4 object that inherits from
-   "refClass").
+Use this function if you want to tactically read only the chapter that applies to a current problem.

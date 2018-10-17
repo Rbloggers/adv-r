@@ -33,7 +33,7 @@ cube(3)
 
 You have already learned about the individual components that make function factories possible:
 
-* In Section \@ref(first-class-functions), you learned about R's "first class" 
+* In Section \@ref(first-class-functions), you learned about R's "first-class" 
   functions. In R, you bind a function to a name in the same way as you bind
   any object to a name: with `<-`.
 
@@ -70,7 +70,7 @@ Of the three main functional programming tools (functionals, function factories,
 
 ### Prerequisites {-}
 
-Make sure you're familiar with the contents of Sections \@ref(first-class-functions) (first class functions), \@ref(the-function-environment) (function environments), and \@ref(execution-environments) (execution environments) mentioned above.
+Make sure you're familiar with the contents of Sections \@ref(first-class-functions) (first-class functions), \@ref(the-function-environment) (function environments), and \@ref(execution-environments) (execution environments) mentioned above.
 
 Function factories only need base R. We'll use a little rlang to peek inside of them more easily, and we'll use ggplot2 and scales to explore the use of function factories in visualisation.
 
@@ -230,7 +230,7 @@ counter_two()
 
 \begin{center}\includegraphics[width=3.69in]{diagrams/function-factories/counter-2} \end{center}
 
-Stateful functions are best used in moderation. As soon as your function starts managing the state of multiple variables, it's better to switch to R6, the topic of Chapter \@ref(R6).
+Stateful functions are best used in moderation. As soon as your function starts managing the state of multiple variables, it's better to switch to R6, the topic of Chapter \@ref(r6).
 
 ### Potential pitfalls {#factory-pitfalls}
 
@@ -676,7 +676,7 @@ lprob_poisson(30, x1)
 
 So far we’ve been thinking of `lambda` as fixed and known and the function told us the probability of getting different values of `x`. But in real-life, we observe `x` and it is `lambda` that is unknown. The likelihood is the probability function seen through this lens: we want to find the `lambda` that makes the observed `x` the “most likely”. That is, given `x`, what value of `lambda` gives us the highest value of `lprob_poisson`()?
 
-In statistics, we highlight this change in perspective by writing $f_\mathbf{x}(\lambda)$ instead of $f(\lambda, \mathbf{x})$. In R, we can use a function factory. We provide `x` and generate a function with a single parameter, `lambda`:
+In statistics, we highlight this change in perspective by writing $f_{\mathbf{x}}(\lambda)$ instead of $f(\lambda, \mathbf{x})$. In R, we can use a function factory. We provide `x` and generate a function with a single parameter, `lambda`:
 
 
 ```r

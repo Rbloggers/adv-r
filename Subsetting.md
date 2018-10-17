@@ -38,6 +38,8 @@ Take this short quiz to determine if you need to read this chapter. If the answe
 
 ### Outline {-}
 
+<!-- GVW: this more or less repeats the paragraph above starting "This chapter helps you master..." -->
+
 * Section \@ref(subset-multiple) starts by teaching you about `[`. You'll start
   by learning the six types of data that you can use to subset atomic vectors.
   You'll then learn how those six data types act when used to subset lists,
@@ -58,6 +60,8 @@ Take this short quiz to determine if you need to read this chapter. If the answe
 ## Selecting multiple elements {#subset-multiple}
 
 It's easiest to learn how subsetting works for atomic vectors, and then how it generalises to higher dimensions and other more complicated objects. We'll start with `[`, the most commonly used operator which allows you to extract any number of elements. Section \@ref(subset-single) will cover `[[` and `$`, used to extract a single element from a data structure.
+
+<!-- GVW: the second sentence in the para above seems redundant given that you've just outlined the structure of the chapter -->
 
 ### Atomic vectors
 \index{subsetting!atomic vectors} 
@@ -127,6 +131,8 @@ There are six things that you can use to subset a vector:
 
     If the logical vector is shorter than the vector being subsetted, it 
     will be silently __recycled__ to be the same length.
+
+    <!-- GVW: the logical recycled even if its length isn't a divisor of the longer vector's length, which is more forgiving than how columns of unequal length are handled when creating data frames. -->
 
     
     ```r
@@ -224,6 +230,8 @@ a[0, -2]
 
 By default, `[` will simplify the results to the lowest possible dimensionality. You'll learn how to avoid this in Section \@ref(simplify-preserve).
 
+<!-- GVW: I think this is worth an example for people coming from other languages. Using the matrix `a` from above, it throws me that `a[1,1]` is a vector of length 1, while `a[1,]` is *also* a vector, though of length 3 - to a Python programmer, the dimensions of the two objects should be different. -->
+
 Because matrices and arrays are just vectors with special attributes, you can subset them with a single vector, as if they were a 1d vector. Arrays in R are stored in column-major order:
 
 
@@ -241,7 +249,9 @@ vals[c(4, 15)]
 #> [1] "4,1" "5,3"
 ```
 
-You can also subset higher-dimensional data structures with an integer matrix (or, if named, a character matrix). Each row in the matrix specifies the location of one value, where each column corresponds to a dimension in the array being subsetted. This means that you use a 2 column matrix to subset a matrix, a 3 column matrix to subset a 3d array, and so on. The result is a vector of values:
+You can also subset higher-dimensional data structures with an integer matrix (or, if named, a character matrix). Each row in the matrix specifies the location of one value, and each column corresponds to a dimension in the array being subsetted. This means that you can use a 2 column matrix to subset a matrix, a 3 column matrix to subset a 3d array, and so on. The result is a vector of values:
+
+<!-- GVW: I believe this is the first use of `rbind`, so it may need explaining. -->
 
 
 ```r
@@ -259,6 +269,8 @@ vals[select]
 \index{data frames!subsetting}
 
 Data frames possess the characteristics of both lists and matrices: if you subset with a single vector, they behave like lists; if you subset with two vectors, they behave like matrices. 
+
+<!-- GVW: or in other words, subsetting with a single vector selects columns (not rows), and that `df[1:2]` selects columns, but in `df[2:3, 1:2]`, the first index selects rows, while the second selects columns (which I still get wrong every time: I don't expect the addition of a second subscript to "bump" the first one into second place). -->
 
 
 ```r
@@ -315,7 +327,7 @@ str(df[, "x"])
 \index{subsetting!simplifying} 
 \index{subsetting!preserving}
 
-By default, any subsetting 2d data structures with a single number, single name, or a logical vector containing a single `TRUE` will simplify the returned output, i.e. it will return an object with lower dimensionality. To preserve the original dimensionality, you must use `drop = FALSE`
+By default, subsetting a 2d data structures with a single number, single name, or a logical vector containing a single `TRUE` will simplify the returned output, i.e. it will return an object with lower dimensionality. To preserve the original dimensionality, you must use `drop = FALSE`
 
 *   For matrices and arrays, any dimensions with length 1 will be dropped:
     
@@ -415,6 +427,8 @@ There are two other subsetting operators: `[[` and `$`. `[[` is used for extract
 >
 > --- \@RLangTip, <https://twitter.com/RLangTip/status/268375867468681216>
 
+<!-- GVW: I would find a comparison of `x[[5]]` (object in car) to `x[5]` (train with one car) more insightful, since I *expect* that indexing with a vector will give me a vector result. -->
+
 Let's make a simple list and draw it as a train:
 
 
@@ -435,6 +449,8 @@ When extracting multiple elements (or zero!), you have to make a smaller train:
 \begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train-multiple} \end{center}
 
 Because it can return only a single item, you must use `[[` with either a single positive integer or a string. If you use a vector with `[[`, it will subset recursively:
+
+<!-- GVW: what?? OK, I did _not_ see this coming - I think the nested list below deserves a diagram, and the sentence above should point out in a dry tone that this may be unexpected if the reader is coming from other languages... -->
 
 
 ```r
@@ -488,6 +504,8 @@ mtcars[[var]]
 
 There's one important difference between `$` and `[[`. `$` does partial matching:
 
+<!-- GVW: partial matching is always left to right, i.e., `a$b` will *not* match a column called `"zb"`. -->
+
 
 ```r
 x <- list(abc = 1)
@@ -513,17 +531,7 @@ x$a
 \index{subsetting!with NA \& NULL} 
 \index{subsetting!out of bounds}
 
-It's useful to understand what happens with `[` and `[[` when you use an "invalid" index. The following tables summarise what happens when you subset a logical vector, list, and `NULL` with an out-of-bounds value (OOB), a missing value (e.g. `NA_integer_`), and a zero-length object (like `NULL` or `logical()`) with `[` and `[[`. Each cell shows the result of subsetting the data structure named in the row by the type of index described in the column. I've only shown the results for logical vectors, but other atomic vectors behave similarly, returning elements of the same type.
-
-| `row[col]`| Zero-length  |  OOB         | Missing       |
-|-----------|--------------|--------------|---------------|
-| `NULL`    | `NULL`       | `NULL`       | `NULL`        |
-| Logical   | `logical(0)` | `NA`         | `NA`          |
-| List      | `list()`     | `list(NULL)` | `list(NULL)`  |
-
-
-
-With `[`, it doesn't matter whether the OOB index is a position or a name, but it does for `[[`:
+It's useful to understand what happens with `[[` when you use an "invalid" index. The following tables summarise what happens when you subset a logical vector, list, and `NULL` with an out-of-bounds value (OOB), a missing value (e.g. `NA_integer_`), and a zero-length object (like `NULL` or `logical()`) with `[[` . Each cell shows the result of subsetting the data structure named in the row by the type of index described in the column. I've only shown the results for logical vectors, but other atomic vectors behave similarly, returning elements of the same type.
 
 | `row[[col]]` | Zero-length | OOB (int)  | OOB (chr) | Missing  |
 |--------------|-------------|------------|-----------|----------|
@@ -532,6 +540,8 @@ With `[`, it doesn't matter whether the OOB index is a position or a name, but i
 | List         | Error       | Error      | `NULL`    | `NULL`   |
 
 
+
+<!-- GVW: by "input vector" below, do you mean "the vector being indexed"? -->
 
 If the input vector is named, then the names of OOB, missing, or `NULL` components will be `"<NA>"`.
 
@@ -568,6 +578,8 @@ purrr::pluck(x, "c", 1, .default = NA)
 #> [1] NA
 ```
 
+<!-- GVW: question: does subsetting of tibbles always behave as if pluck and chuck were being used? -->
+
 ### `@` and `slot()`
 \index{subsetting!S4} 
 \index{S4!subsetting}
@@ -589,52 +601,19 @@ There are also two additional subsetting operators that are needed for S4 object
 \index{subsetting!subassignment} 
 \index{assignment!subassignment}
 
-All subsetting operators can be combined with assignment to modify selected values of the input vector. 
+All subsetting operators can be combined with assignment to modify selected values of the input vector, so called subassignment. The basic form is `x[i] <- value`:
 
 
 ```r
 x <- 1:5
-x[c(1, 2)] <- 2:3
+x[c(1, 2)] <- c(101, 102)
 x
-#> [1] 2 3 3 4 5
-
-# The length of the LHS needs to match the RHS
-x[-1] <- 4:1
-x
-#> [1] 2 4 3 2 1
-
-# Duplicated indices go unchecked and may be problematic
-x[c(1, 1)] <- 2:3
-x
-#> [1] 3 4 3 2 1
-
-# You can't combine integer indices with NA
-x[c(1, NA)] <- c(1, 2)
-#> Error in x[c(1, NA)] <- c(1, 2):
-#>   NAs are not allowed in subscripted assignments
-
-# But you can combine logical indices with NA
-# (where they're treated as false).
-x[c(T, F, NA)] <- 1
-x
-#> [1] 1 4 3 1 1
-
-# This is mostly useful when conditionally modifying vectors
-df <- data.frame(a = c(1, 10, NA))
-df$a[df$a < 5] <- 0
-df$a
-#> [1]  0 10 NA
+#> [1] 101 102   3   4   5
 ```
 
-Subsetting with nothing can be useful in conjunction with assignment because it will preserve the structure of the original object. Compare the following two expressions. In the first, `mtcars` will remain as a data frame. In the second, `mtcars` will become a list.
+I recommend ensuring that `length(value)` and `length(x[i])` are equal, and that `i` is unique. R does recycle if needed, but the rules are complex (particularly if `i` contains missing or duplicated values).
 
-
-```r
-mtcars[] <- lapply(mtcars, as.integer)
-mtcars <- lapply(mtcars, as.integer)
-```
-
-With lists, you can use `[[` + assignment + `NULL` to remove components from a list. To add a literal `NULL` to a list, use `[` and `list(NULL)`: \index{lists!removing an element}
+With lists, you can use `x[[i]] <- NULL` to remove a component. To add a literal `NULL`, use `x[i] <- list(NULL)`: \index{lists!removing an element}
 
 
 ```r
@@ -644,13 +623,31 @@ str(x)
 #> List of 1
 #>  $ a: num 1
 
-y <- list(a = 1)
+y <- list(a = 1, b = 2)
 y["b"] <- list(NULL)
 str(y)
 #> List of 2
 #>  $ a: num 1
 #>  $ b: NULL
 ```
+
+Subsetting with nothing can be useful in conjunction with assignment because it will preserve the structure of the original object. Compare the following two expressions. In the first, `mtcars` will remain as a data frame. In the second, `mtcars` will become a list.
+
+<!-- GVW: why does this work? Is it a side effect of something already explained (in which case I'm missing it) or is it just another ad hoc convention? -->
+
+
+```r
+mtcars[] <- lapply(mtcars, as.integer)
+is.data.frame(mtcars)
+#> [1] TRUE
+
+mtcars <- lapply(mtcars, as.integer)
+is.data.frame(mtcars)
+#> [1] FALSE
+```
+
+
+
 
 ## Applications {#applications}
 
@@ -675,6 +672,8 @@ unname(lookup[x])
 
 If you don't want names in the result, use `unname()` to remove them.
 
+<!-- GVW: I'd finish the example with `lookup[x]` and move the one line `unname(lookup[x])` to come after the sentence above. -->
+
 ### Matching and merging by hand (integer subsetting) {#matching-merging}
 \index{matching \& merging}
 \indexc{match()}
@@ -692,7 +691,9 @@ info <- data.frame(
 )
 ```
 
-We want to duplicate the info table so that we have a row for each value in `grades`. An elegant way to do this is by combining `match()` and integer subsetting: 
+We want to duplicate the `info` table so that we have a row for each value in `grades`. An elegant way to do this is by combining `match()` and integer subsetting: 
+
+<!-- GVW: I think this is the first use of `match()`, so it needs some explanation. -->
 
 
 ```r
@@ -714,6 +715,8 @@ If you have multiple columns to match on, you'll need to first collapse them to 
 \index{bootstrapping}
 
 You can use integer indices to perform random sampling or bootstrapping of a vector or data frame. `sample()` generates a vector of indices, then subsetting accesses the values: 
+
+<!-- GVW: took me a moment and a `?sample` to figure out that `sample(N)` generates a permutation of 1:N -->
 
 
 ```r
@@ -752,6 +755,8 @@ The arguments of `sample()` control the number of samples to extract, and whethe
 
 `order()` takes a vector as input and returns an integer vector describing how the subsetted vector should be ordered: \indexc{order()} \index{sorting}
 
+<!-- GVW: note that these are 'pull' indices: `order(x)[i]` is the index in `x` of the element that belongs at location `i`, not the index in the result to which `x[i]` should be sent. -->
+
 
 ```r
 x <- c("b", "c", "a")
@@ -762,6 +767,8 @@ x[order(x)]
 ```
 
 To break ties, you can supply additional variables to `order()`, and you can change from ascending to descending order using `decreasing = TRUE`.  By default, any missing values will be put at the end of the vector; however, you can remove them with `na.last = NA` or put at the front with `na.last = FALSE`.
+
+<!-- GVW: not `na.rm`? -->
 
 For two or more dimensions, `order()` and integer subsetting makes it easy to order either the rows or columns of an object:
 
@@ -798,6 +805,8 @@ You can sort vectors directly with `sort()`, or use `dplyr::arrange()` or simila
 ### Expanding aggregated counts (integer subsetting)
 
 Sometimes you get a data frame where identical rows have been collapsed into one and a count column has been added. `rep()` and integer subsetting make it easy to uncollapse the data by subsetting with a repeated row index:
+
+<!-- GVW: I had to play around to figure out that `rep(vec1, vec2)` repeats each element of `vec1` exactly `vec2` times, after which this made sense.  Will most readers already know this?  (The only behavior I'd seen before of `rep` was to repeat a vector a scalar number of times.) -->
 
 
 ```r
@@ -841,7 +850,7 @@ df[c("x", "y")]
 #> 3 3 1
 ```
 
-If you only know the columns you don't want, use set operations to work out which colums to keep:
+If you only know the columns you don't want, use set operations to work out which columns to keep:
 
 
 ```r
@@ -856,7 +865,7 @@ df[setdiff(names(df), "z")]
 \index{subsetting!with logical vectors}
 \indexc{subset()}
  
-Because it allows you to easily combine conditions from multiple columns, logical subsetting is probably the most commonly used technique for extracting rows out of a data frame. 
+Because logical subsetting allows you to easily combine conditions from multiple columns, it is probably the most commonly used technique for extracting rows out of a data frame. 
 
 
 ```r
@@ -953,6 +962,8 @@ When first learning subsetting, a common mistake is to use `x[which(y)]` instead
 * When the logical vector contains `NA`, logical subsetting replaces these 
   values by `NA` while `which()` drops these values. It's not uncommon to use
   `which()` for this side-effect, but that's 
+
+<!-- GVW: incomplete sentence above -->
   
 * `x[-which(y)]` is __not__ equivalent to `x[!y]`: if `y` is all FALSE, 
   `which(y)` will be `integer(0)` and `-integer(0)` is still `integer(0)`, so
