@@ -6323,16 +6323,16 @@ Using \texttt{...} comes with two downsides:
 
 Most functions exit in one of two ways\footnote{Functions can exit in
   other more esoteric ways like signalling a condition that is caught by
-  an exiting handler, invoking a restart, or pressing ``Q'' in an
-  interactive browser.}: either returning a value, indicating successful
-completion, or throwing an error, indicating failure. This section
-describes return values (implicit vs.~explicit; visible vs.~invisible),
-briefly discusses errors, and introduces exit handlers, which allow you
-to run code when a function exits, regardless of how it exits.
+  an exit handler, invoking a restart, or pressing ``Q'' in an
+  interactive browser.}: they either return a value, indicating success,
+or they throw an error, indicating failure. This section describes
+return values (implicit vs.~explicit; visible vs.~invisible), briefly
+discusses errors, and introduces exit handlers, which allow you to run
+code when a function exits.
 
-\hypertarget{implicit-vs.explict-returns}{%
-\subsection{Implicit vs.~explict
-returns}\label{implicit-vs.explict-returns}}
+\hypertarget{implicit-vs.explicit-returns}{%
+\subsection{Implicit vs.~explicit
+returns}\label{implicit-vs.explicit-returns}}
 
 \index{functions!return value} \indexc{return()}
 
@@ -6340,8 +6340,7 @@ There are two ways that a function can return a value:
 
 \begin{itemize}
 \item
-  Implicitly, where the last evaluated expression becomes the return
-  value:
+  Implicitly, where the last evaluated expression is the return value:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6382,7 +6381,7 @@ There are two ways that a function can return a value:
 \index{functions!invisible results}
 
 Most functions return visibly: calling the function in an interactive
-context causes the result to be automatically printed.
+context prints the result.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6392,8 +6391,8 @@ context causes the result to be automatically printed.
 \end{Highlighting}
 \end{Shaded}
 
-However, it's also possible to return an \texttt{invisible()} value,
-which is not automatically printed.
+However, you can prevent automatic printing by applying
+\texttt{invisible()} to the last value:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6402,8 +6401,8 @@ which is not automatically printed.
 \end{Highlighting}
 \end{Shaded}
 
-You can verify that the value exists either by explicitly printing it or
-by wrapping in parentheses:
+To verify that this value does indeed exist, you can explicitly print it
+or wrap it in parentheses:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6415,8 +6414,8 @@ by wrapping in parentheses:
 \end{Highlighting}
 \end{Shaded}
 
-Alternatively, use \texttt{withVisible()} to return the value and a
-visibility flag:
+Alternatively, you can use \texttt{withVisible()} to return the value
+and a visibility flag:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6438,7 +6437,7 @@ visibility flag:
 \end{Highlighting}
 \end{Shaded}
 
-And this is what makes it possible to chain assignment:
+This is what makes it possible to chain assignments:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6446,7 +6445,7 @@ And this is what makes it possible to chain assignment:
 \end{Highlighting}
 \end{Shaded}
 
-In general, any function called primarily for its side effects (like
+In general, any function called primarily for a side effect (like
 \texttt{\textless{}-}, \texttt{print()}, or \texttt{plot()}) should
 return an invisible value (typically the value of the first argument).
 
@@ -6469,11 +6468,11 @@ of the function.
 \end{Highlighting}
 \end{Shaded}
 
-Errors indicate that something has gone wrong, and force the user to
-handle them. Some languages (like C, go, and rust) rely on special
-return values to indicate problems, but in R you should always throw an
-error. You'll learn more about errors, and how to handle them, in
-\protect\hyperlink{conditions}{Conditions}.
+An error indicates that something has gone wrong, and forces the user to
+deal with the problem. Some languages (like C, Go, and Rust) rely on
+special return values to indicate problems, but in R you should always
+throw an error. You'll learn more about errors, and how to handle them,
+in \protect\hyperlink{conditions}{Conditions}.
 
 \hypertarget{on-exit}{%
 \subsection{Exit handlers}\label{on-exit}}
@@ -6482,16 +6481,15 @@ error. You'll learn more about errors, and how to handle them, in
 
 \index{handler!exit}
 
-Sometimes a function needs to make a temporary change to global state
-and you want to ensure those changes are restored when the function
-completes. It's painful to make sure you cleanup before any explicit
-return, and what happens if there's an error? Instead, you can set up an
-\textbf{exiting handler} that is called when the function terminates,
-regardless of whether it returns a value or throws an error.
+Sometimes a function needs to make temporary changes to the global
+state. But having to cleanup those changes can be painful (what happens
+if there's an error?). To ensure that your changes are undone and that
+the global state is restored when the function completes, set up an
+\textbf{exit handler} . You do so by calling \texttt{on.exit()} with the
+code to be run. When the function exits, this code executes regardless
+of whether the function returns a value or throws an error.
 
-To setup an exiting handler, call \texttt{on.exit()} with the code to be
-run. It will execute when the function exits, regardless of what causes
-it to exit:
+To setup an exit handler:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6520,13 +6518,13 @@ it to exit:
 \end{Shaded}
 
 Always set \texttt{add\ =\ TRUE} when using \texttt{on.exit()}. If you
-don't, each call to \texttt{on.exit()} will overwrite the previous
-exiting handler. Even when only registering a single handler, it's good
-practice to set \texttt{add\ =\ TRUE} so that you don't get an
-unpleasant surprise if you later add more exit handlers
+don't, each call to \texttt{on.exit()} will overwrite the previous exit
+handler. Even when only registering a single handler, it's good practice
+to set \texttt{add\ =\ TRUE} so that you won't get any unpleasant
+surprises if you later add more exit handlers
 
 \texttt{on.exit()} is important because it allows you to place clean-up
-actions next to actions with their cleanup operations.
+actions next to other actions.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6540,8 +6538,8 @@ actions next to actions with their cleanup operations.
 \end{Highlighting}
 \end{Shaded}
 
-When coupled with lazy evaluation, this leads to a very useful pattern
-for running a block of code in an altered environment:
+Coupled with lazy evaluation, this creates a very useful pattern for
+running a block of code in an altered environment:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6562,8 +6560,8 @@ for running a block of code in an altered environment:
 See the \href{http://withr.r-lib.org}{withr package} for a collection of
 functions of this nature.
 
-In R 3.4 and prior, \texttt{on.exit()} expressions are always run in the
-order in which they are created:
+In R 3.4 and earlier, \texttt{on.exit()} expressions are always run in
+order of creation:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6606,11 +6604,11 @@ be run first. In R 3.5 and later, you can control this by setting
   What does \texttt{write.table()} return? What would be more useful?
 \item
   How does the \texttt{chdir} parameter of \texttt{source()} compare to
-  \texttt{in\_dir()}? Why might you prefer one approach to the other?
+  \texttt{in\_dir()}? Why might you prefer one to the other?
 \item
   Write a function that opens a graphics device, runs the supplied code,
   and closes the graphics device (always, regardless of whether or not
-  the plotting code worked).
+  the plotting code works).
 \item
   We can use \texttt{on.exit()} to implement a simple version of
   \texttt{capture.output()}.
@@ -6634,8 +6632,8 @@ be run first. In R 3.5 and later, you can control this by setting
 
   Compare \texttt{capture.output()} to \texttt{capture.output2()}. How
   do the functions differ? What features have I removed to make the key
-  ideas easier to see? How have I rewritten the key ideas to be easier
-  to understand?
+  ideas easier to see? How have I rewritten the key ideas so they're
+  easier to understand?
 \end{enumerate}
 
 \hypertarget{function-forms}{%
@@ -10474,11 +10472,16 @@ Secondly, many functional languages require functions to be
 \textbf{pure}. A function is pure if it satisfies two properties:
 
 \begin{itemize}
+\tightlist
 \item
   The output only depends on the inputs, i.e.~if you call it again with
   the same inputs, you get the same outputs. This excludes functions
   like \texttt{runif()}, \texttt{read.csv()}, or \texttt{Sys.time()}
   that can return different values.
+\end{itemize}
+
+\begin{itemize}
+\tightlist
 \item
   The function has no side-effects, like changing the value of a
   variable, writing to disk, or displaying to the screen. This excludes
@@ -10793,7 +10796,7 @@ what the problematic output is.
 Base R has two similar functions: \texttt{sapply()} and
 \texttt{vapply()}.
 
-\texttt{sapply()} tries to simplify the result to an atomic vector,
+\texttt{sapply()} tries to simplify the result to an atomic vector
 wherever possible. But this simplification depends on the input, so
 sometimes you'll get a list, sometimes a vector, and sometimes a matrix.
 This makes it difficult to program with.
@@ -11064,6 +11067,9 @@ the second argument, \texttt{trim}.
 \CommentTok{#> [1] -0.3500  0.0434  0.0354  0.0502}
 \end{Highlighting}
 \end{Shaded}
+\end{itemize}
+
+\begin{itemize}
 \item
   Sometimes, if you want to be (too) clever, you can take advantage of
   R's flexible argument matching rules (as described in Section
@@ -11545,7 +11551,7 @@ and the path that you want to save it to.
 \begin{center}\includegraphics[width=3.3in]{diagrams/functionals/walk2} \end{center}
 
 For example, imagine you have a list of data frames (which I've created
-here using split), and you'd like to save each one to a separate csv
+here using split), and you'd like to save each one to a separate CSV
 file. That's easy with \texttt{walk2()}:
 
 \begin{Shaded}
@@ -12071,14 +12077,23 @@ A \textbf{predicate functional} applies a predicate to each element of a
 vector. purrr proivdes six useful functions which come in three pairs:
 
 \begin{itemize}
+\tightlist
 \item
   \texttt{some(.x,\ .p)} returns \texttt{TRUE} if \emph{any} element
   matches; \texttt{every(.x,,\ .p)} returns \texttt{TRUE} if \emph{all}
   elements match.
+\end{itemize}
+
+\begin{itemize}
+\tightlist
 \item
   \texttt{detect(.x,\ .p)} returns the \emph{value} of the first match;
   \texttt{detect\_index(.x,\ .p)} returns the \emph{location} of the
   first match.
+\end{itemize}
+
+\begin{itemize}
+\tightlist
 \item
   \texttt{keep(.x,\ .p)} \emph{keeps} all matching elements;
   \texttt{discard(.x,\ .p)} \emph{drops} all matching elements.
@@ -12224,7 +12239,7 @@ column to a single value. It has four arguments:
   \texttt{X}, the matrix or array to summarise.
 \item
   \texttt{MARGIN}, an integer vector giving the dimensions to summarise
-  over, 1 = rows, 2 = columns, etc.
+  over, 1 = rows, 2 = columns, etc. 
 \item
   \texttt{FUN}, a summary function.
 \item
@@ -13547,25 +13562,24 @@ eliminate this additional syntax:
 \item
   Finally, you could copy the functions to the global environment with
   \texttt{env\_bind()}. This is mostly permanent:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{rlang}\OperatorTok{::}\KeywordTok{env_bind}\NormalTok{(}\KeywordTok{globalenv}\NormalTok{(), }\OperatorTok{!!!}\NormalTok{funs)}
-\KeywordTok{root}\NormalTok{(}\DecValTok{100}\NormalTok{)}
-\CommentTok{#> [1] 10}
-\end{Highlighting}
-\end{Shaded}
-
-  You can later unbind those same names, but there's no guarantee that
-  they haven't been rebound in the meantime, and you might be deleting
-  an object that someone else created.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{rlang}\OperatorTok{::}\KeywordTok{env_unbind}\NormalTok{(}\KeywordTok{globalenv}\NormalTok{(), }\KeywordTok{names}\NormalTok{(funs))}
-\end{Highlighting}
-\end{Shaded}
 \end{itemize}
+
+\begin{verbatim}
+```r
+rlang::env_bind(globalenv(), !!!funs)
+root(100)
+#> [1] 10
+```
+
+You can later unbind those same names, but there's no guarantee that 
+they haven't been rebound in the meantime, and you might be deleting an
+object that someone else created.
+
+
+```r
+rlang::env_unbind(globalenv(), names(funs))
+```
+\end{verbatim}
 
 \hypertarget{another-approach}{%
 \subsection{Another approach}\label{another-approach}}
@@ -13916,7 +13930,7 @@ purrr comes with three other function operators in a similar vein:
 
 \begin{itemize}
 \item
-  \texttt{possibly()}: returns a default value when there's an error.
+  \texttt{possibly()}: returns a default value when there's an error. 
 \item
   \texttt{quietly()}: turns output, messages, and warning side-effects
   into \texttt{output}, \texttt{message}, and \texttt{warning}
@@ -25614,8 +25628,8 @@ root.
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>     expr   min    lq  mean median     uq    max neval}
-\CommentTok{#>  sqrt(x) 1,010 1,250  2303  1,430  1,790 36,400   100}
-\CommentTok{#>    x^0.5 9,350 9,690 11034  9,970 10,400 59,700   100}
+\CommentTok{#>  sqrt(x)   841 1,080  1621  1,300  1,820  6,360   100}
+\CommentTok{#>    x^0.5 9,230 9,560 14505  9,740 15,000 58,800   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -25799,15 +25813,15 @@ comparison. \index{methods!cost of dispatch}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>  expr    min     lq  mean median     uq       max neval}
-\CommentTok{#>   fun    191    222   485    244    268    18,700   100}
-\CommentTok{#>    S3  1,080  1,230 11535  1,290  1,590   979,000   100}
-\CommentTok{#>    S4 12,200 12,700 31703 13,200 14,900 1,090,000   100}
-\CommentTok{#>    RC  8,290  8,560 47339  8,900  9,540 3,670,000   100}
+\CommentTok{#>   fun    178    212   445    228    254    18,200   100}
+\CommentTok{#>    S3    984  1,150  9769  1,220  1,380   818,000   100}
+\CommentTok{#>    S4 12,000 12,500 28365 12,900 15,100   909,000   100}
+\CommentTok{#>    RC  8,070  8,350 41084  8,520  8,940 3,200,000   100}
 \end{Highlighting}
 \end{Shaded}
 
 The bare function takes about 200 ns. S3 method dispatch takes an
-additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 9,000 ns.
+additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 8,000 ns.
 S3 and S4 method dispatch are expensive because R must search for the
 right method every time the generic is called; it might have changed
 between this call and the last. R could do better by caching methods
@@ -26086,10 +26100,10 @@ subassignment. \indexc{ifelse()} \indexc{pmin()} \indexc{pmax()}
   \DataTypeTok{unit =} \StringTok{"us"}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
-\CommentTok{#>             expr   min    lq mean median    uq   max neval}
-\CommentTok{#>       squish_ife 20.70 23.50 58.9  29.70 34.80 2,670   100}
-\CommentTok{#>         squish_p 12.40 13.20 40.0  14.00 15.10 1,830   100}
-\CommentTok{#>  squish_in_place  2.93  3.37 34.4   3.86  4.82 2,970   100}
+\CommentTok{#>             expr  min    lq mean median   uq   max neval}
+\CommentTok{#>       squish_ife 20.2 22.10 53.9  28.90 32.1 2,490   100}
+\CommentTok{#>         squish_p 12.3 13.00 34.8  13.40 14.5 1,520   100}
+\CommentTok{#>  squish_in_place  2.8  3.14 31.0   3.45  4.4 2,690   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26139,9 +26153,9 @@ value is less than \texttt{a} and/or greater than \texttt{b}.
   \DataTypeTok{unit =} \StringTok{"us"}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
-\CommentTok{#>             expr  min   lq  mean median   uq     max neval}
-\CommentTok{#>  squish_in_place 3.79 4.42  5.34   4.84 5.37    35.4   100}
-\CommentTok{#>       squish_cpp 2.59 3.08 18.54   3.43 3.75 1,450.0   100}
+\CommentTok{#>             expr  min   lq mean median   uq     max neval}
+\CommentTok{#>  squish_in_place 3.35 4.17  5.0   4.61 5.03    22.7   100}
+\CommentTok{#>       squish_cpp 2.55 2.91 15.9   3.15 3.38 1,260.0   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26297,8 +26311,8 @@ seen:
 \NormalTok{)}
 \CommentTok{#> Unit: milliseconds}
 \CommentTok{#>          expr   min    lq mean median    uq    max neval}
-\CommentTok{#>  cond_sum_cpp  5.37  5.43  5.5   5.47  5.51   7.02   100}
-\CommentTok{#>    cond_sum_r 13.30 14.90 16.8  15.40 15.70 157.00   100}
+\CommentTok{#>  cond_sum_cpp  5.18  5.23  5.3   5.28  5.34   6.52   100}
+\CommentTok{#>    cond_sum_r 11.90 13.60 15.5  14.20 14.80 147.00   100}
 \end{Highlighting}
 \end{Shaded}
 
