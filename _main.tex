@@ -6373,8 +6373,8 @@ There are two ways that a function can return a value:
 \end{Shaded}
 \end{itemize}
 
-\hypertarget{invisible-values}{%
-\subsection{Invisible values}\label{invisible-values}}
+\hypertarget{invisible}{%
+\subsection{Invisible values}\label{invisible}}
 
 \indexc{invisible()}
 
@@ -6658,25 +6658,26 @@ all calls look the same. Function calls come in four varieties:
 
 \begin{itemize}
 \item
-  In \textbf{prefix} form, the function name comes before its arguments,
-  like \texttt{foofy(a,\ b,\ c)}. These constitute of the majority of
+  \textbf{prefix}: the function name comes before its arguments, like
+  \texttt{foofy(a,\ b,\ c)}. These constitute of the majority of
   function calls in R.
 \item
-  In \textbf{infix} form, the function name comes inbetween its
-  arguments, like \texttt{x\ +\ y}. Infix forms are used for many
-  mathematical operators, as well as user-defined functions that begin
-  and end with \texttt{\%}.
+  \textbf{infix}: the function name comes in between its arguments, like
+  \texttt{x\ +\ y}. Infix forms are used for many mathematical
+  operators, and for user-defined functions that begin and end with
+  \texttt{\%}.
 \item
-  A \textbf{replacement} function assigns into what looks like a prefix
-  function, like \texttt{names(df)\ \textless{}-\ c("a",\ "b",\ "c")}.
+  \textbf{replacement}: functions that replace values by assignment,
+  like \texttt{names(df)\ \textless{}-\ c("a",\ "b",\ "c")}. They
+  actually look like prefix functions.
 \item
-  \textbf{Special forms} like \texttt{{[}{[}}, \texttt{if}, and
-  \texttt{for}, don't have a consistent structure and provide some of
-  the most important syntax in R.
+  \textbf{special}: functions like \texttt{{[}{[}}, \texttt{if}, and
+  \texttt{for}. While they don't have a consistent structure, they play
+  important roles in R's syntax.
 \end{itemize}
 
-While four forms exist, you only need to use one, because any call can
-be written in prefix form. I'll demonstrate this property, and then
+While there are four forms, you actually only need one because any call
+can be written in prefix form. I'll demonstrate this property, and then
 you'll learn about each of the forms in turn.
 
 \hypertarget{rewriting-to-prefix-form}{%
@@ -14267,8 +14268,8 @@ programming}\label{part-object-oriented-programming}}
 \addcontentsline{toc}{chapter}{Introduction}
 
 In the following five chapters you'll learn about \textbf{object
-oriented programming} (OOP) in R. OOP is a little more challenging in R
-than in some other languages because:
+oriented programming} (OOP). OOP is a little more challenging in R than
+in other languages because:
 
 \begin{itemize}
 \item
@@ -14278,20 +14279,21 @@ than in some other languages because:
   provided by the R6 package, and is similar to the ``Reference
   Classes'', or \textbf{RC} for short, from base R.
 \item
-  S3 and S4 use ``generic function OOP'' which is rather different from
-  the ``encapsulated OOP'' used by most languages popular
-  today\footnote{The exception is Julia, which uses a very similar style
-    of OOP (if much more rigorous and performant) to R.}. We'll come
-  back to preisely what those terms mean shortly, but basically, while
-  the underlying ideas of OOP are the same, their expression is rather
-  different. This means that you can't immediately transfer your OOP
-  skills from other languages.
-\item
-  There is disagreement about the relative importance of the three
+  There is disagreement about the relative importance of the OOP
   systems. I think S3 is most important, followed by R6, then S4. Others
   believe that S4 is most important, followed by RC, and that S3 should
   be avoided. This means that different R communities use different
   systems.
+\item
+  S3 and S4 use ``generic function OOP'' which is rather different from
+  the ``encapsulated OOP'' used by most languages popular
+  today\footnote{The exception is Julia, which also uses generic
+    function OOP. Compared to R, Julia's implementation is fully
+    developed and extremely performant.}. We'll come back to preisely
+  what those terms mean shortly, but basically, while the underlying
+  ideas of OOP are the same across languages, their expressions are
+  rather different. This means that you can't immediately transfer your
+  existing OOP skills to R.
 \end{itemize}
 
 Generally in R, functional programming is much more important than
@@ -14302,24 +14304,22 @@ systems:
 
 \begin{itemize}
 \item
-  S3 allows your functions to return richer results with user-friendly
+  S3 allows your functions to return rich results with user-friendly
   display and programmer-friendly internals. S3 is used throughout base
   R, so it's important to master if you want to extend base R functions
   to work with new types of input.
 \item
-  R6 gives you a standardised way to escape R's from copy-on-modify
-  semantics. This is particularly important if you want to model
-  real-world objects that can be simultaneously changed through multiple
-  interfaces. Today, a common need for R6 is to model data that comes
-  from a web API, and where changes may be instantiated from inside or
+  R6 provides a standardised way to escape R's from copy-on-modify
+  semantics. This is particularly important if you want to model objects
+  that exist independently of R. Today, a common need for R6 is to model
+  data that comes from a web API, and where changes come from inside or
   outside of R.
 \item
   S4 is a rigorous system that forces you to think carefully about
   program design. It's particuarly well-suited for building large
   systems that evolve over time and will receive contributions from many
-  programmers. This is why it is used by the Bioconductor project, so if
-  you want to contribute to Bioconductor, you'll need to know something
-  about S4.
+  programmers. This is why it is used by the Bioconductor project, so
+  another reason to learn S4 is in order to contribute to that project.
 \end{itemize}
 
 The goal of this brief introdutory chapter is to give you some important
@@ -14327,16 +14327,15 @@ vocabulary and some tools to identify OOP systems in the wild. The
 following four chapters (Base types, S3, R6, and S4) then dive into the
 details of R's OOP systems.
 
-The following chapters need a caveat because they focus on the mechanics
-of OOP, not its effective use, and if you have never done object
-oriented programming before, you will gain few practical skills. You
-might wonder why I deliberately chose not to provide coverage that is
-more immediately useful. I have focussed on mechanics because they need
-to be well described somewhere (writing these chapters required a
-considerable amount of reading, exploration, and synthesis on my
-behalf), and using OOP effectively is sufficiently complex to require
-book-length treatment; there's simply not enough room in Advanced R to
-cover it in the depth that is required.
+Note that this book focusses on the mechanics of OOP, not its effective
+use, and it may be challenging to fully understand if you have done
+object oriented programming before. You might wonder why I chose not to
+provide more immediately useful coverage. I have focussed on mechanics
+here because they need to be well described somewhere (writing these
+chapters required a considerable amount of reading, exploration, and
+synthesis on my behalf), and using OOP effectively is sufficiently
+complex to require book-length treatment; there's simply not enough room
+in Advanced R to cover it in the depth required.
 
 \hypertarget{oop-systems}{%
 \section*{OOP systems}\label{oop-systems}}
@@ -14345,16 +14344,18 @@ cover it in the depth that is required.
 Different people use OOP terms in different ways, so this section
 provides a quick overview of important vocabulary. The explanations are
 necessarily compressed, but we will come back to these ideas multiple
-times
+times.
 
-The main reason to use OOP is is \textbf{polymorphism} (literally: many
+The main reason to use OOP is \textbf{polymorphism} (literally: many
 shapes). Polymorphism means that a developer can consider a function's
 interface separately from its implementation, making it possible to use
-the same function for many types of input. This is closely related to
-the idea of \textbf{encapsulation}: the user doesn't need to worry about
-details of an object because they are encapsulated behind a standard
-interface. Polymorphism is what allows \texttt{summary()} to produce
-different outputs for numeric and factor variables:
+the same function form for different types of input. This is closely
+related to the idea of \textbf{encapsulation}: the user doesn't need to
+worry about details of an object because they are encapsulated behind a
+standard interface.
+
+To be concrete, polymorphism is what allows \texttt{summary()} to
+produce different outputs for numeric and factor variables:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14370,28 +14371,25 @@ different outputs for numeric and factor variables:
 \end{Highlighting}
 \end{Shaded}
 
-You could imagine \texttt{summary()} implementing this with a series of
-if-else statements, but that would mean only the original author could
-add new implementations. An OOP system makes it possible for any
-developer to extend the implementation for new types of input.
+You could imagine \texttt{summary()} containing a series of if-else
+statements, but that would mean only the original author could add new
+implementations. An OOP system makes it possible for any developer to
+extend the interface with implementations for new types of input.
 
-So far I've informally talked about the ``type'' of a ``thing''. OOP
-systems use a common vocabularly: we talk about the \textbf{class} of an
-\textbf{object}. The class defines the \textbf{fields}, which are the
-data that every instance of that class possesses. A class also defines
-how it is related to other classes, so that (for example) a sparse
-matrix can be a specialized kind of matrix.
+To be more precise, OO systems call the ``type'' of an object its
+\textbf{class}, and an implementation for a specific class is called a
+\textbf{method}. Roughly speaking, a class defines what an object
+\emph{is} and methods describe what that object can \emph{do}. The class
+defines the \textbf{fields}, the data possessed by every instance of
+that class. Classes are organised in a hierarchy so that if a method
+does not exist for one class, its parent's method is used, and the child
+is said to \textbf{inherit} behaviour. For example, in R, an ordered
+factor inherits from a regular factor, and an generalised linear model
+inherits from a linear model. The process of finding the correct method
+given a class is called \textbf{method dispatch}.
 
-A \textbf{method} defines how object behaves; it's like a function that
-behaves differently depending on the class of its input. In other words,
-a class defines what an object \emph{is} and methods describe what that
-object can \emph{do}. Classes are usually organised in a hierarchy: if a
-method does not exist for a child, then the parent's method is used
-instead, and the child is said to \textbf{inherit} behaviour from the
-parent.
-
-The two main paradigms of object-oriented programming differ in how
-methods are related to classes. In this book, we'll borrow the
+There are two main paradigms of object-oriented programming which differ
+in how methods and classes are related. In this book, we'll borrow the
 terminology of \emph{Extending R} (Chambers
 \protect\hyperlink{ref-extending-R}{2016}) and call these paradigms
 encapsulated and functional:
@@ -14401,21 +14399,18 @@ encapsulated and functional:
   In \textbf{encapsulated} OOP, methods belong to objects or classes,
   and method calls typically look like
   \texttt{object.method(arg1,\ arg2)}. This is called encapsulated
-  because the object encapsulates both data (through fields) and
-  behaviour (with methods), and is most common paradigm in today's
-  popular languages.
+  because the object encapsulates both data (with fields) and behaviour
+  (with methods), and is the paradigm found in most popular languages.
 \item
   In \textbf{functional} OOP, methods belong to \textbf{generic}
   functions, and method calls look like ordinary function calls:
   \texttt{generic(object,\ arg2,\ arg3)}. This is called functional
-  because it looks like a regular function call from the outside, and
-  internally the components are all regular functions.
+  because from the outside it looks like a regular function call, and
+  internally the components are also functions.
 \end{itemize}
 
-In either object system, it's the process of \textbf{method dispatch}
-that goes from a high-level function call (whether it's
-\texttt{obj.meth()} or \texttt{meth(obj)}) to find a specific
-implementation.
+With this terminology in hand, we can now talk precisely about the
+different OO systems available in R.
 
 \hypertarget{oop-in-r}{%
 \section*{OOP in R}\label{oop-in-r}}
@@ -14428,23 +14423,16 @@ Base R provides three OOP systems: S3, S4, and reference classes (RC):
   \textbf{S3} is R's first OOP system, and is described in
   \emph{Statistical Models in S} (Chambers and Hastie
   \protect\hyperlink{ref-white-book}{1992}). S3 is an informal
-  implementation of the functional style which relies on common
-  conventions rather than ironclad guarantees. This makes it easy to get
-  started with, and makes it a low cost way of solving many simple
-  problems, but it isn't sturdy enough to handle all of the complexities
-  of very large or very complex software designs.
+  implementation of functional OOP and relies on common conventions
+  rather than ironclad guarantees. This makes it easy to get started
+  with, providing a low cost way of solving many simple problems.
 \item
-  \textbf{S4} is similar to S3, but much more formal, and was introduced
+  \textbf{S4} is a formal and rigorous rewrite of S3, and was introduced
   in \emph{Programming with Data} (Chambers
   \protect\hyperlink{ref-programming-with-data}{1998}). It requires more
-  upfront work than S3, but in return provides greater rigor and
-  encapsulation. S4 is implemented in the \textbf{methods} package,
-  which is attached by default\footnote{Unless you are running
-    \texttt{Rscript}, in which case you'll need to load explicitly with
-    \texttt{library(methods)}. This is a historical inconsistency
-    introduced because the methods package used to take a long time to
-    load and \texttt{Rscript} is optimised for fast command line usage.}.
-  The only base package that uses S4 is the little known stats4 package.
+  upfront work than S3, but in return provides more guaranetees and
+  greater encapsulation. S4 is implemented in the base \textbf{methods}
+  package, which is always installed with R.
 
   (You might wonder if S1 and S2 exist. They don't: S3 and S4 were named
   according to the versions of S that they accompanied. The first two
@@ -14454,18 +14442,18 @@ Base R provides three OOP systems: S3, S4, and reference classes (RC):
   of S4 objects that are also \textbf{mutable}, i.e., instead of using
   R's usual copy-on-modify semantics, they can be modified in place.
   This makes them harder to reason about, but allows them to solve
-  problems that are difficult to solve in the functional OOP of S3 and
-  S4.
+  problems that are difficult to solve in the functional OOP style of S3
+  and S4.
 \end{itemize}
 
-A number of other OOP systems are provided by packages, including:
+A number of other OOP systems are provided by CRAN packages:
 
 \begin{itemize}
 \item
   \textbf{R6} (Chang \protect\hyperlink{ref-R6}{2017}) implements
   encapsulated OOP like RC, but resolves some important issues. In this
   book, you'll learn about R6 instead of RC, for reasons described in
-  Chapter \ref{r6}.
+  Section \ref{why-r6}.
 \item
   \textbf{R.oo} (Bengtsson \protect\hyperlink{ref-R.oo}{2003}) provides
   some formalism on top of S3, and makes it possible to have mutable S3
@@ -14476,18 +14464,18 @@ A number of other OOP systems are provided by packages, including:
   based on the idea of \textbf{prototypes}, which blur the distinctions
   between classes and instances of classes (objects). I was briefly
   enamored with prototype based programming (Wickham
-  \protect\hyperlink{ref-mutatr}{2011}) and used in ggplot2, but now
-  think it's better to stick to the standard forms.
+  \protect\hyperlink{ref-mutatr}{2011}) and used it in ggplot2, but now
+  think it's better to stick with the standard forms.
 \end{itemize}
 
 Apart from R6, which is widely used, these systems are primarily of
 theoretical interest. They do have their strengths, but few R users know
 and understand them, so it is hard for others to read and contribute to
-your code. I therefore recommend that you stick with S3, S4, and R6.
+your code.
 
 \hypertarget{sloop}{%
-\section*{Sloop}\label{sloop}}
-\addcontentsline{toc}{section}{Sloop}
+\section*{sloop}\label{sloop}}
+\addcontentsline{toc}{section}{sloop}
 
 Before we go on I want to introduce the sloop package:
 
@@ -14517,8 +14505,8 @@ used by a wild-caught object:
 \end{Highlighting}
 \end{Shaded}
 
-Use this function if you want to tactically read only the chapter that
-applies to a current problem.
+Use this function to figure out which chapter to read to understand how
+to work with an existing object.
 
 \hypertarget{base-types}{%
 \chapter{Base types}\label{base-types}}
@@ -14532,8 +14520,8 @@ this book, we've used the word in the general sense captured by John
 Chambers' pithy quote: ``Everything that exists in R is an object''.
 However, while everything \emph{is} an object, not everything is
 ``object-oriented''. This confusion arises because the base objects come
-from S, and were developed before anyone was thinking that S might need
-an OOP system. The tools and nomenclature evolved organically over many
+from S, and were developed before anyone thought that S might need an
+OOP system. The tools and nomenclature evolved organically over many
 years without a single guiding principle.
 
 Most of the time, the distinction between objects and object-oriented
@@ -14633,14 +14621,14 @@ While only OO objects have a class attribute, every object has a
 \end{Shaded}
 
 Base types do not form an OOP system because functions that behave
-differently for different base types are primarily written in C, where
-method dispatch is handled with switch statements. This means that only
-R-core can create new types, and creating a new type is a lot of work
-because every switch statement needs to be modified to handle a new
-case. As a consequence, new base types are rarely added. The most recent
-change, in 2011, added two exotic types that you never see in R itself,
-but are needed for diagnosing memory problems. Prior to that, the last
-type added was a special base type for S4 objects added in 2005.
+differently for different base types are primarily written in C code
+that uses switch statements. This means that only R-core can create new
+types, and creating a new type is a lot of work because every switch
+statement needs to be modified to handle a new case. As a consequence,
+new base types are rarely added. The most recent change, in 2011, added
+two exotic types that you never see in R itself, but are needed for
+diagnosing memory problems. Prior to that, the last type added was a
+special base type for S4 objects added in 2005.
 
 In total, there are 25 different base types. They are listed below,
 loosely grouped according to where they're discussed in this book. These
@@ -14696,6 +14684,17 @@ their C type names. I've included those in parentheses.
 \end{Highlighting}
 \end{Shaded}
 \item
+  The \texttt{S4} type (\texttt{S4SXP}), Chapter \ref{s4}, is used for
+  S4 classes that don't inherit from an existing base type.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mle_obj <-}\StringTok{ }\NormalTok{stats4}\OperatorTok{::}\KeywordTok{mle}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{) (x }\OperatorTok{-}\StringTok{ }\DecValTok{2}\NormalTok{) }\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{)}
+\KeywordTok{typeof}\NormalTok{(mle_obj)}
+\CommentTok{#> [1] "S4"}
+\end{Highlighting}
+\end{Shaded}
+\item
   Language components, Chapter \ref{expressions}, include
   \texttt{symbol} (aka name, \texttt{SYMSXP}), \texttt{language}
   (usually called calls, \texttt{LANGSXP}), and \texttt{pairlist} (used
@@ -14716,17 +14715,6 @@ their C type names. I've included those in parentheses.
   that's only returned by \texttt{parse()} and \texttt{expression()}.
   Expressions are generally not needed in user code.
 \item
-  The \texttt{S4} type (\texttt{S4SXP}), Chapter \ref{s4}, is used for
-  S4 classes that don't inherit from an existing base type.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{mle_obj <-}\StringTok{ }\NormalTok{stats4}\OperatorTok{::}\KeywordTok{mle}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{) (x }\OperatorTok{-}\StringTok{ }\DecValTok{2}\NormalTok{) }\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{)}
-\KeywordTok{typeof}\NormalTok{(mle_obj)}
-\CommentTok{#> [1] "S4"}
-\end{Highlighting}
-\end{Shaded}
-\item
   The remaining types are esoteric and rarely seen in R. They are
   important primarily for C code: \texttt{externalptr}
   (\texttt{EXTPTRSXP}), \texttt{weakref} (\texttt{WEAKREFSXP}),
@@ -14735,10 +14723,9 @@ their C type names. I've included those in parentheses.
   (\texttt{ANYSXP}).
 \end{itemize}
 
-You may have heard of \texttt{mode()} and \texttt{storage.mode()}. I
-recommend avoiding these functions because their purpose is to provide
-compatibility with S. Read their source code if you want to understand
-exactly what they do.
+You may have heard of \texttt{mode()} and \texttt{storage.mode()}. Do
+not use these functions: they exist only to provide type names that
+compatible with S.
 
 \hypertarget{numeric-type}{%
 \subsection{Numeric type}\label{numeric-type}}
@@ -14770,10 +14757,9 @@ Be careful when talking about the ``numeric'' type, because R uses
 \end{Highlighting}
 \end{Shaded}
 \item
-  In \texttt{is.numeric()}, it means an object that behaves like a
-  number. For example, factors are have type ``integer'', so they built
-  using integers, but don't behave like numbers (i.e.~it doesn't make
-  sense to take the mean of factor).
+  \texttt{is.numeric()} tests for objects that \emph{behave} like
+  numbers. For example, factors have type ``integer'' but don't behave
+  like numbers (i.e.~it doesn't make sense to take the mean of factor).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14785,7 +14771,7 @@ Be careful when talking about the ``numeric'' type, because R uses
 \end{Shaded}
 \end{enumerate}
 
-In this book, I consistently use numeric to mean an object that has type
+In this book, I consistently use numeric to mean an object of type
 integer or double.
 
 \hypertarget{s3}{%
@@ -14817,10 +14803,8 @@ to.
 
 The goal of this chapter is to show you how the S3 system works, not how
 to use it effectively to create new classes and generics. I'd recommend
-coupling the theoretical knoweledge from this chapter with the practical
-knowledge encoded in the \href{https://vctrs.r-lib.org}{vctrs} package.
-The vctrs package makes it easier to create new classes by providing
-thoughtfully organised default methods.
+coupling the theoretical knowledge from this chapter with the practical
+knowledge encoded in the \href{https://vctrs.r-lib.org}{vctrs package}.
 
 \hypertarget{outline-9}{%
 \subsection*{Outline}\label{outline-9}}
@@ -14830,7 +14814,7 @@ thoughtfully organised default methods.
 \item
   Section \ref{s3-basics} gives a rapid overview of all the main
   components of S3: classes, generics, and methods. You'll also learn
-  about \texttt{sloop::s3\_dispatch()} which we'll use throughout the
+  about \texttt{sloop::s3\_dispatch()}, which we'll use throughout the
   chapter to explore how S3 works.
 \item
   Section \ref{s3-classes} goes into the details of creating a new S3
@@ -14855,9 +14839,11 @@ thoughtfully organised default methods.
 \subsection*{Prerequisites}\label{prerequisites-6}}
 \addcontentsline{toc}{subsection}{Prerequisites}
 
-We'll use existing base S3 vectors for examples and explanation, so make
-sure that you're familiar with factors, Dates, POSIXct, and POSIXlt, as
-described in Section \ref{s3-atomic-vectors}.
+S3 classes are implemented using attributes, so make sure you're
+familiar with the details described in Section \ref{attributes}. We'll
+use existing base S3 vectors for examples and exploration, so make sure
+that you're familiar with the factor, Date, difftime, POSIXct, and
+POSIXlt classes described in Section \ref{s3-atomic-vectors}.
 
 We'll use the sloop package for interactive helpers, and the vctrs
 package for some niceties for creating new S3 classes.
@@ -14895,7 +14881,7 @@ factor. Its base type is the integer vector, it has a class attribute of
 \end{Shaded}
 
 You can get the ``underlying'' base type by \texttt{unclass()}ing it,
-which strips the class attribute, causing it lose also special
+which strips the class attribute, causing it to lose its special
 behaviour:
 
 \begin{Shaded}
@@ -14909,8 +14895,8 @@ behaviour:
 
 An S3 object behaves differently from its underlying base type whenever
 it's passed to a \textbf{generic} (short for generic function). The
-easiest way to tell if a function is to use \texttt{sloop::ftype()} and
-look for ``generic'' in the output:
+easiest way to tell if a function is generic is to use
+\texttt{sloop::ftype()} and look for ``generic'' in the output:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14923,9 +14909,10 @@ look for ``generic'' in the output:
 \end{Highlighting}
 \end{Shaded}
 
-A generic executes different code depending on the class of one of its
-arguments, almost always the first. Many base R functions are generic,
-including the important \texttt{print()}:
+A generic function defines an interface, which uses a different
+implementation depending on the class of an argument (almost always the
+first argument). Many base R functions are generic, including the
+important \texttt{print()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14967,33 +14954,33 @@ list, a fact which is hidden by its \texttt{str()} method:
 \end{Highlighting}
 \end{Shaded}
 
-The differences in behaviour are implemented by \textbf{methods}, which
-are functions that are called for specific classes on input. The generic
-is a middleman: its role is to find the right method for the job, which
-is called \textbf{method dispatch}. The method then implements the
-desired behaviour for a specific class. You can use
-\texttt{sloop::s3\_dispatch()} to see which method gets picked for a
-given call:
+The generic is a middleman: its job is to define the interface (i.e.~the
+arguments) then find the right implementation for the job. The
+implementation for a specific class is called a \textbf{method}, and the
+generic finds that method by performing \textbf{method dispatch}.
+
+You can use \texttt{sloop::s3\_dispatch()} to see the process of method
+dispatch:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{s3_dispatch}\NormalTok{(}\KeywordTok{str}\NormalTok{(time))}
-\CommentTok{#>    str.POSIXlt}
-\CommentTok{#> => str.POSIXt}
-\CommentTok{#>  * str.default}
+\KeywordTok{s3_dispatch}\NormalTok{(}\KeywordTok{print}\NormalTok{(f))}
+\CommentTok{#> => print.factor}
+\CommentTok{#>  * print.default}
 \end{Highlighting}
 \end{Shaded}
 
-We'll come to the details of dispatch in Section \ref{method-dispatch},
-for now note that S3 methods are functions with a special naming scheme,
-\texttt{generic.class()}. For example, the Date method for the
-\texttt{mean()} generic is called \texttt{mean.Date()}, and the factor
-method for \texttt{print()} is called \texttt{print.factor()}.
+We'll come back to the details of dispatch in Section
+\ref{method-dispatch}, for now note that S3 methods are functions with a
+special naming scheme, \texttt{generic.class()}. For example, the
+\texttt{factor} method for the \texttt{print()} generic is called
+\texttt{print.factor()}. You should never call the method directly, but
+instead rely on the generic to find it for you.
 
 Generally, you can identify a method by the presence of \texttt{.} in
 the function name, but there are a number of important functions in base
-R that were written before S3, and use \texttt{.} to join words. Again,
-you can always check with \texttt{sloop::ftype()}:
+R that were written before S3, and hence use \texttt{.} to join words.
+If you're unsure, check with \texttt{sloop::ftype()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15004,7 +14991,7 @@ you can always check with \texttt{sloop::ftype()}:
 \end{Highlighting}
 \end{Shaded}
 
-Unlike most functions, you can't find the source code for most S3
+Unlike most functions, you can't see the source code for most S3
 methods\footnote{The exceptions are methods found in the base package,
   like \texttt{t.data.frame}, and methods that you've created.} just by
 typing their names. That's because S3 methods are not usually exported:
@@ -15032,13 +15019,14 @@ which will work regardless of where the method lives:
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  The most important S3 objects in base R are factors, data frames,
-  difftimes, and date/times (Dates, POSIXct, POSIXlt). You've already
-  seen the attributes and base type that factors are built on. What base
-  types and attributes are the others built on?
-\item
   Describe the difference between \texttt{t.test()} and
-  \texttt{t.data.frame()}?
+  \texttt{t.data.frame()}? When is each function called?
+\item
+  Make a list of commonly used base R functions that contain \texttt{.}
+  in their name but are not S3 methods.
+\item
+  What does the \texttt{as.data.frame.data.frame()} method do? Why is it
+  confusing? How could you avoid this confusion in your own code?
 \item
   Describe the difference in behaviour in these two calls.
 
@@ -15054,11 +15042,8 @@ which will work regardless of where the method lives:
 \end{Highlighting}
 \end{Shaded}
 \item
-  What does the \texttt{as.data.frame.data.frame()} method do? Why is it
-  confusing? How should you avoid this confusion in your own code?
-\item
-  What does the following code return? What base type is it built on?
-  What attributes does it use?
+  What class of object does the following code return? What base type is
+  it built on? What attributes does it use?
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15067,6 +15052,19 @@ which will work regardless of where the method lives:
 \CommentTok{#> Empirical CDF }
 \CommentTok{#> Call: ecdf(rpois(100, 10))}
 \CommentTok{#>  x[1:18] =  2,  3,  4,  ..., 2e+01, 2e+01}
+\end{Highlighting}
+\end{Shaded}
+\item
+  What class of object does the following code return? What base type is
+  it built on? What attributes does it use?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{table}\NormalTok{(}\KeywordTok{rpois}\NormalTok{(}\DecValTok{100}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+\NormalTok{x}
+\CommentTok{#> }
+\CommentTok{#>  1  2  3  4  5  6  7  8  9 10 }
+\CommentTok{#>  8  5 18 14 12 19 12  3  5  4}
 \end{Highlighting}
 \end{Shaded}
 \end{enumerate}
@@ -15134,15 +15132,13 @@ existing objects:
 \CommentTok{#> (Intercept)    log(disp)  }
 \CommentTok{#>       5.381       -0.459}
 
-\CommentTok{# Turn it into a data frame (?!)}
-\KeywordTok{class}\NormalTok{(mod) <-}\StringTok{ "data.frame"}
+\CommentTok{# Turn it into a date (?!)}
+\KeywordTok{class}\NormalTok{(mod) <-}\StringTok{ "Date"}
 
 \CommentTok{# Unsurprisingly this doesn't work very well}
 \KeywordTok{print}\NormalTok{(mod)}
-\CommentTok{#>  [1] coefficients  residuals     effects       rank         }
-\CommentTok{#>  [5] fitted.values assign        qr            df.residual  }
-\CommentTok{#>  [9] xlevels       call          terms         model        }
-\CommentTok{#> <0 rows> (or 0-length row.names)}
+\CommentTok{#> Error in as.POSIXlt.Date(x):}
+\CommentTok{#>   (list) object cannot be coerced to type 'double'}
 \end{Highlighting}
 \end{Shaded}
 
@@ -15167,8 +15163,8 @@ recommend that you usually provide three functions:
 \end{itemize}
 
 You don't need a validator for very simple classes, and you can skip the
-helper if the class is for internal use only, but a constructor is
-always a good idea.
+helper if the class is for internal use only, but you should always
+provide a constructor.
 
 \hypertarget{s3-constrcutor}{%
 \subsection{Constructors}\label{s3-constrcutor}}
@@ -15176,21 +15172,19 @@ always a good idea.
 S3 doesn't provide a formal definition of a class, so it has no built-in
 way to ensure that all objects of a given class have the same structure
 (i.e.~the same base type and the same attributes with the same types).
-Instead, you should enforce a consistent structure yourself by using a
+Instead, you must enforce a consistent structure yourself by using a
 \textbf{constructor}.
 
-The job of a constructor is to enforce a consistent structure, and it
-should three principles:
+The constructor should three principles:
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+\begin{itemize}
 \item
   Be called \texttt{new\_myclass()}.
 \item
   Have one argument for the base object, and one for each attribute.
 \item
-  Check the types of the base object and each attribute.
-\end{enumerate}
+  Check the type of the base object and the types of each attribute.
+\end{itemize}
 
 I'll illustrate these ideas by creating constructors for base
 classes\footnote{Recent versions of R have \texttt{.Date()},
@@ -15254,7 +15248,7 @@ time-consuming checks in the constructor.
 \subsection{Validators}\label{validators}}
 
 More complicated classes require more complicated checks for validity.
-Take factors, for example. A constructor would only check that types are
+Take factors, for example. A constructor only checks that types are
 correct, making it possible to create malformed factors:
 
 \begin{Shaded}
@@ -15280,7 +15274,7 @@ correct, making it possible to create malformed factors:
 \end{Shaded}
 
 Rather than encumbering the constructor with complicated checks, it's
-better to put them in a separate function. Doing this allows you to
+better to put them in a separate function. Doing so allows you to
 cheaply create new objects when you know that the values are correct,
 and easily re-use the checks in other places.
 
@@ -15316,9 +15310,8 @@ and easily re-use the checks in other places.
 
 This function is called primarily for its side-effects (throwing an
 error if the object is invalid) so you'd expect it to invisibly return
-its primary input. However, unlike most functions called for their side
-effects, it's useful for validation methods to return visibly, as we'll
-see next.
+its primary input (as described in Section \ref(invisible)). However,
+it's useful for validation methods to return visibly, as we'll see next.
 
 \hypertarget{helpers}{%
 \subsection{Helpers}\label{helpers}}
@@ -15331,18 +15324,16 @@ helper should always:
 \item
   Have the same name as the class, e.g. \texttt{myclass()}.
 \item
-  Have a thoughtfully crafted user interface with carefully chosen
-  default values and useful conversions.
+  Finish by calling the constructor, and the validator, if it exists.
 \item
   Create carefully crafted error messages tailored towards an end-user.
 \item
-  Finish by calling the constructor, and the validator, if it exists.
+  Have a thoughtfully crafted user interface with carefully chosen
+  default values and useful conversions.
 \end{itemize}
 
-The last bullet is the trickiest, and it's not possible to give
-completely general advice. You should think about the easiest way for a
-user to describe the object using existing base types. There are three
-common patterns:
+The last bullet is the trickiest, and it's hard to give general advice.
+However, there are three common patterns:
 
 \begin{itemize}
 \item
@@ -15437,20 +15428,21 @@ patterns to make life as easy as possible for your users.
   a data frame built on? What attributes does it use? What are the
   restrictions placed on the individual elements? What about the names?
 \item
-  Enhance our \texttt{factor()} helper to have better behaviour when one
+  Enhance my \texttt{factor()} helper to have better behaviour when one
   or more \texttt{values} is not found in \texttt{levels}. What does
   \texttt{base::factor()} do in this situation?
 \item
   Carefully read the source code of \texttt{factor()}. What does it do
-  that our constructor does not?
+  that my constructor does not?
 \item
   Factors have an optional ``contrasts'' attribute. Read the help for
-  \texttt{C()}, briefly describe it's purpose. Rewrite our
-  \texttt{new\_factor()} constructor to include this attribute.
+  \texttt{C()}, and briefly describe the purpose of the attribute. What
+  type should it have? Rewrite the \texttt{new\_factor()} constructor to
+  include this attribute.
 \item
   Read the documentation for \texttt{utils::as.roman()}. How would you
-  write a constructor? Does it need a validator? What would a helper
-  look like?
+  write a constructor for this class? Does it need a validator? What
+  might a helper do?
 \end{enumerate}
 
 \hypertarget{s3-methods}{%
@@ -15462,11 +15454,13 @@ patterns to make life as easy as possible for your users.
 
 The job of an S3 generic is to perform method dispatch, i.e.~find the
 specific implementation for a class. Method dispatch is performed by
-\texttt{UseMethod()}, which every generic calls. \texttt{UseMethod()}
-takes two arguments: the name of the generic function (required), and
-the argument to use for method dispatch (optional). If you omit the
-second argument it will dispatch based on the first argument, which is
-almost always what is desired.
+\texttt{UseMethod()}, which every generic calls\footnote{The exception
+  is internal generics, which are implemented in C, and are the topic of
+  Section \ref{internal-generics}.}. \texttt{UseMethod()} takes two
+arguments: the name of the generic function (required), and the argument
+to use for method dispatch (optional). If you omit the second argument
+it will dispatch based on the first argument, which is almost always
+what is desired.
 
 Most generics are very simple, and consist of only a call to
 \texttt{UseMethod()}. Take \texttt{mean()} for example:
@@ -15476,7 +15470,7 @@ Most generics are very simple, and consist of only a call to
 \NormalTok{mean}
 \CommentTok{#> function (x, ...) }
 \CommentTok{#> UseMethod("mean")}
-\CommentTok{#> <bytecode: 0x2b62bd8>}
+\CommentTok{#> <bytecode: 0x3d152c0>}
 \CommentTok{#> <environment: namespace:base>}
 \end{Highlighting}
 \end{Shaded}
@@ -15496,10 +15490,10 @@ think back to Section \ref{first-class-functions}.)
 
 Note that you don't pass any of the arguments of the generic to
 \texttt{UseMethod()}; it uses deep magic to pass to the method
-automatically. This makes the precise semantics complicated, so you
-should avoid doing any computation in a generic. To learn the full
-details, carefully read the ``technical details'' section
-``?UseMethod''.
+automatically. The precise process is complicated and frequently
+surprising, so you should avoid doing any computation in a generic. To
+learn the full details, carefully read the ``technical details'' section
+in \texttt{?UseMethod}.
 
 \hypertarget{method-dispatch}{%
 \subsection{Method dispatch}\label{method-dispatch}}
@@ -15509,12 +15503,8 @@ method names,
 \texttt{paste0("generic",\ ".",\ c(class(x),\ "default"))}, and then
 looks for each potential method in turn. We can see this in action with
 \texttt{sloop::s3\_dispatch()}. You give it a call to an S3 generic, and
-it lists all the possible methods. It shows a \texttt{=\textgreater{}}
-next to the method that is called (the first method that exists), and a
-\texttt{*} next to all other method that exist.
-
-For example, what method is called when you print a \texttt{Date}
-object?
+it lists all the possible methods. For example, what method is called
+when you print a \texttt{Date} object?
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15525,14 +15515,28 @@ object?
 \end{Highlighting}
 \end{Shaded}
 
-Note the presence of the ``default'': this provides a standard fallback
-whenever a class specific method is not available.
+The output here is simple:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{=\textgreater{}} indicates the method that is called, here
+  \texttt{print.Date()}
+\item
+  \texttt{*} indicates a method that is defined, but not called, here
+  \texttt{print.default()}.
+\end{itemize}
+
+The ``default'' class is a special \textbf{pseudo-class}. This is not a
+real class, but is included to make it possible to define a standard
+fallback that is found whenever a class specific method is not
+available.
 
 The essence of method dispatch is quite simple, but as the chapter
 proceeds you'll see it get progressively more complicated to encompass
 inheritance, base types, internal generics, and group generics. The code
-below shows a couple of more complicated examples which we'll come back
-to in Sections \ref{inheritance} and \ref{dispatch-details}.
+below shows a couple of more complicated cases which we'll come back to
+in Sections \ref{inheritance} and \ref{s3-dispatch}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15561,7 +15565,7 @@ to in Sections \ref{inheritance} and \ref{dispatch-details}.
 for a single call. What if you want to find all methods defined for a
 generic or associated with a class? That's the job of
 \texttt{sloop::s3\_methods\_generic()} and
-\texttt{s3\_methods\_class("ordered")}:
+\texttt{sloop::s3\_methods\_class()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15596,8 +15600,8 @@ There are two wrinkles to be aware of when you create a new method:
 \item
   First, you should only every write a method if you own the generic or
   the class. R will allow you to define a method even if you don't, but
-  it is bad idea. Instead, work with the author of either the generic or
-  the class to add the method in their code.
+  it is exceedingly bad manners. Instead, work with the author of either
+  the generic or the class to add the method in their code.
 \item
   A method must have the same arguments as its generic. This is enforced
   in packages by \texttt{R\ CMD\ check}, but it's good practice even if
@@ -15629,25 +15633,14 @@ There are two wrinkles to be aware of when you create a new method:
 \begin{Highlighting}[]
 \NormalTok{x <-}\StringTok{ }\KeywordTok{structure}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{class =} \StringTok{"test"}\NormalTok{)}
 \KeywordTok{t}\NormalTok{(x)}
-\CommentTok{#> }
-\CommentTok{#>  One Sample t-test}
-\CommentTok{#> }
-\CommentTok{#> data:  x}
-\CommentTok{#> t = 6, df = 9, p-value = 3e-04}
-\CommentTok{#> alternative hypothesis: true mean is not equal to 0}
-\CommentTok{#> 95 percent confidence interval:}
-\CommentTok{#>  3.33 7.67}
-\CommentTok{#> sample estimates:}
-\CommentTok{#> mean of x }
-\CommentTok{#>       5.5}
 \end{Highlighting}
 \end{Shaded}
 \item
-  Which base generic has the greatest number of defined methods?
+  What generics does the \texttt{table} class have methods for?
 \item
-  The \texttt{table()} function produces output with class ``table''.
-  What attributes does this class possess? What generics does it have
-  methods for?
+  What generics does the \texttt{ecdf} class have methods for?
+\item
+  Which base generic has the greatest number of defined methods?
 \item
   Carefully read the documentation for \texttt{UseMethod()} and explain
   why the following code returns the results that it does. What two
@@ -15679,20 +15672,21 @@ There are two wrinkles to be aware of when you create a new method:
 
 So far I've focussed on ``vector style'' classes like \texttt{Date} and
 \texttt{factor}. These have the key property that \texttt{length(x)}
-represents the number of ``observations'' in the vector. There are three
-variations that do not have this property:
+represents the number of observations in the vector. There are three
+variants that do not have this property:
 
 \begin{itemize}
 \item
   ``Record style'' objects use a list of equal-length vectors to
   represent individual components of the object. The best example of
-  this is \texttt{POSIXlt}, which uses a list of nine date-time
-  components like year, month, and day. Record style classes override
-  \texttt{length()} and subsetting methods.
+  this is \texttt{POSIXlt}, which underneath the hood is a list of 11
+  date-time components like year, month, and day. Record style classes
+  override \texttt{length()} and subsetting methods to conceal this
+  implementation detail.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x <-}\StringTok{ }\KeywordTok{as.POSIXlt}\NormalTok{(}\KeywordTok{ISOdatetime}\NormalTok{(}\DecValTok{2020}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{) }\OperatorTok{+}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{)}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{as.POSIXlt}\NormalTok{(}\KeywordTok{ISOdatetime}\NormalTok{(}\DecValTok{2020}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{))}
 \NormalTok{x}
 \CommentTok{#> [1] "2020-01-01 00:00:01 UTC" "2020-01-01 00:00:02 UTC"}
 \CommentTok{#> [3] "2020-01-01 00:00:03 UTC"}
@@ -15710,9 +15704,10 @@ variations that do not have this property:
 \end{Shaded}
 \item
   Data frames are similar to record style objects in that both use lists
-  of equal length vectors. However, data frames are conceptually 2d, and
-  the individual components are readly exposed to the user. The number
-  of observations is the number of rows, not the length:
+  of equal length vectors. However, data frames are conceptually two
+  dimensional, and the individual components are readly exposed to the
+  user. The number of observations is the number of rows, not the
+  length:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15726,7 +15721,7 @@ variations that do not have this property:
 \item
   Scalar objects typically use a list to represent a single ``thing''.
   For example, an \texttt{lm} object is a list of length 12 but it
-  represents one model (i.e.~there's only one observation).
+  represents one model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15737,24 +15732,18 @@ variations that do not have this property:
 \end{Shaded}
 
   Scalar objects can also be built on top of functions, calls, and
-  environments.\footnote{The reality is a little more complicated:
-    attributes are actually stored in pairlists. Pairlists are
-    functionally indistinguishable from lists, but are profoundly
-    different under the hood, and you'll learn more about them in
-    Section \ref{pairlists}.} This is less generally useful, but you can
-  see applications in \texttt{stats::ecdf()}, \texttt{rlang::quo()}
-  (Chapter \ref{quasiquotation}), and R6 (Chapter \ref{r6}).
+  environments\footnote{You can also build an object on top of a
+    pairlist, but I have yet to find a good reason to do so.}. This is
+  less generally useful, but you can see applications in
+  \texttt{stats::ecdf()}, R6 (Chapter \ref{r6}), and
+  \texttt{rlang::quo()} (Chapter \ref{quasiquotation}).
 \end{itemize}
-
-{[}\^{}pairlists{]} You can also build an object on top of a pairlist,
-but I have yet to find a good reason to do so.
 
 Unfortunately, describing the appropriate use of each of these object
 styles is beyond the scope of this book. However, you can learn more
 from the documentation of the vctrs package
 (\url{https://vctrs.r-lib.org}); the package also provides constructors
-and helper that make implementation of the different styles quite
-simple.
+and helper that make implementation of the different styles easiser.
 
 \hypertarget{exercises-39}{%
 \subsection{Exercises}\label{exercises-39}}
@@ -15764,8 +15753,8 @@ simple.
 \item
   Categorise the objects returned by \texttt{lm()}, \texttt{factor()},
   \texttt{table()}, \texttt{as.Date()}, \texttt{as.POSIXct()}
-  \texttt{ecdf()}, \texttt{ordered()}, \texttt{I()} into ``vector'',
-  ``record'', ``data frame'', ``scalar'', and ``other''.
+  \texttt{ecdf()}, \texttt{ordered()}, \texttt{I()} into the styles
+  described above.
 \item
   What would a constructor function for \texttt{lm} objects,
   \texttt{new\_lm()}, look like? Why is a constructor function less
@@ -15847,29 +15836,24 @@ subclass:
 \item
   The base type of the subclass should be that same as the superclass.
 \item
-  The attributes of the subclass should contain the attributes of the
-  superclass, and they should have the same restrictions.
+  The attributes of the subclass should be a superset of the attributes
+  of the superclass.
 \end{itemize}
 
 Note that \texttt{POSIXt} does not adhere to these principles becase
 \texttt{POSIXct} has type double, and \texttt{POSIXlt} has type list.
-It's quite possible to use the S3 inheritance system to implement other
-styles of code sharing (here \texttt{POSIXt} plays a role more like an
-interface), but you'll need to figure out safe conventions yourself.
+This illustrates that it's quite possible to use the S3 inheritance
+system to implement other styles of code sharing (here \texttt{POSIXt}
+plays a role more like an interface), but you'll need to figure out safe
+conventions yourself.
 
 \hypertarget{nextmethod}{%
 \subsection{\texorpdfstring{\texttt{NextMethod()}}{NextMethod()}}\label{nextmethod}}
 
 \texttt{NextMethod()} is the hardest part of inheritance to understand
 so we'll start with a concrete example for the most common use case:
-\texttt{{[}}. Here \texttt{NextMethod()} allows you to implement a
-subsetting method for your own class without using \texttt{{[}}, which
-would get you stuck in an infinite loop. \texttt{NextMethod()} solves
-the problem by allowing you to delegate most of the work to the
-underlying C code.
-
-Let's demonstrate with a simple toy class: a \texttt{secret} class that
-hides its output when printed:
+\texttt{{[}}. We'll start by creating a simple toy class: a
+\texttt{secret} class that hides its output when printed:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15903,24 +15887,63 @@ class:
 \end{Highlighting}
 \end{Shaded}
 
-To fix this, we need to provide a \texttt{{[}.secret} method. This uses
-\texttt{NextMethod()} to delegate work to the internal \texttt{{[}} C
-code, then wraps the results back into the secret class:
+To fix this, we need to provide a \texttt{{[}.secret} method. How could
+we implement this method? The naive approach won't work because we'll
+get stuck in an infinite loop:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\StringTok{`}\DataTypeTok{[.secret}\StringTok{`}\NormalTok{ <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, ...) \{}
-  \KeywordTok{new_secret}\NormalTok{(}\KeywordTok{NextMethod}\NormalTok{())}
+\StringTok{`}\DataTypeTok{[.secret}\StringTok{`}\NormalTok{ <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, i) \{}
+  \KeywordTok{new_secret}\NormalTok{(x[i])}
 \NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
-\KeywordTok{s3_dispatch}\NormalTok{(x[}\DecValTok{1}\NormalTok{])}
-\CommentTok{#> => [.secret}
-\CommentTok{#>    [.default}
-\CommentTok{#> -> [ (internal)}
+Instead, we need some way to call the the underlying \texttt{{[}} code,
+i.e.~the implementation that would get called if we didn't have a
+\texttt{{[}.secret} method. One appraoch would be to \texttt{unclass()}
+the object:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{`}\DataTypeTok{[.secret}\StringTok{`}\NormalTok{ <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, i) \{}
+\NormalTok{  x <-}\StringTok{ }\KeywordTok{unclass}\NormalTok{(x)}
+  \KeywordTok{new_secret}\NormalTok{(x[i])}
+\NormalTok{\}}
 \NormalTok{x[}\DecValTok{1}\NormalTok{]}
 \CommentTok{#> [1] "xx"}
 \end{Highlighting}
 \end{Shaded}
+
+This works, but is inefficient because it creates a copy of \texttt{x}.
+A better approach is to use \texttt{NextMethod()}, which concisely
+solves the problem delegating to the method that would've have been
+called if \texttt{{[}.secret} didn't exist:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{`}\DataTypeTok{[.secret}\StringTok{`}\NormalTok{ <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, i) \{}
+  \KeywordTok{new_secret}\NormalTok{(}\KeywordTok{NextMethod}\NormalTok{())}
+\NormalTok{\}}
+\NormalTok{x[}\DecValTok{1}\NormalTok{]}
+\CommentTok{#> [1] "xx"}
+\end{Highlighting}
+\end{Shaded}
+
+We can see what's going on with \texttt{sloop::s3\_dispatch()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{s3_dispatch}\NormalTok{(x[}\DecValTok{1}\NormalTok{])}
+\CommentTok{#> => [.secret}
+\CommentTok{#>    [.default}
+\CommentTok{#> -> [ (internal)}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{=\textgreater{}} indicates that \texttt{{[}.secret} is
+called, but that \texttt{NextMethod()} delegates work to the underlying
+internal \texttt{{[}} method, as shown by the \texttt{-\textgreater{}}.
 
 As with \texttt{UseMethod()}, the precise semantics of
 \texttt{NextMethod()} are complex. In particular, it tracks the list of
@@ -15928,8 +15951,8 @@ potential next methods with a special variable, which means that
 modifying the object that's being dispatched upon will have no impact on
 which method gets called next.
 
-\hypertarget{allowing-subclassing}{%
-\subsection{Allowing subclassing}\label{allowing-subclassing}}
+\hypertarget{s3-subclassing}{%
+\subsection{Allowing subclassing}\label{s3-subclassing}}
 
 When you create a class, you need to decide if you want to allow
 subclasses, because it requires some changes to the constructor and
@@ -15976,10 +15999,10 @@ characters:
 
 To allow inheritance, you also need to think carefully about your
 methods, as you can no longer use the constructor. If you do, the method
-will allows return the same class, regardless of the input. The forces
+will always return the same class, regardless of the input. The forces
 whoever makes a subclass do a lot of extra work.
 
-Concretely, that means we need to revise the \texttt{{[}.secret} method.
+Concretely, this means we need to revise the \texttt{{[}.secret} method.
 Currently it always returns a \texttt{secret()}, even when given a
 supersecret:
 
@@ -16012,6 +16035,9 @@ call the constructor with appropriate arguments:
 \end{Highlighting}
 \end{Shaded}
 
+(If your class has attributes, you'll need to pass them from \texttt{to}
+into the constructor.)
+
 Now we can use \texttt{vec\_restore()} in the \texttt{{[}.secret}
 method:
 
@@ -16027,37 +16053,20 @@ method:
 
 (I only fully understood this issue quite recently, so at time of
 writing it is not used in the tidyverse. Hopefully by the time you're
-reading this, it will have rolled more widely, making it much easier to
-create subclasses of tibble and other objects.)
+reading this, it will have rolled put, making it much easier to (e.g.)
+subclass tibbles.)
 
-If you build your class using \texttt{vctrs::new\_vctr()}, you'll
-automatically get a \texttt{{[}} method with this behaviour. You'll only
-need to provide your own \texttt{{[}} method if you want to do something
-special, or you have objects attributes that depend on the data
-component.
+If you build your class using the tools provided by the vctrs package,
+\texttt{{[}} will gain this behaviour automatically. You will only need
+to provide your own \texttt{{[}} method if you attributes that depend on
+the data or want non-standard subsetting behaviour. See
+\texttt{?vctrs::new\_vctr} for details.
 
 \hypertarget{exercises-40}{%
 \subsection{Exercises}\label{exercises-40}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\item
-  The \texttt{ordered} class is a subclass of \texttt{factor}, but it's
-  implemented in an ad hoc way in base R. Implement it in a principled
-  way by building a constructor and providing \texttt{vec\_restore()}
-  method.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{f1 <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{))}
-\KeywordTok{as.factor}\NormalTok{(f1)}
-\CommentTok{#> [1] a}
-\CommentTok{#> Levels: a b}
-\KeywordTok{as.ordered}\NormalTok{(f1) }\CommentTok{# loses levels}
-\CommentTok{#> [1] a}
-\CommentTok{#> Levels: a}
-\end{Highlighting}
-\end{Shaded}
 \item
   How does \texttt{{[}.Date} support subclasses? How does it fail to
   support subclasses?
@@ -16172,7 +16181,7 @@ Some base functions, like \texttt{{[}}, \texttt{sum()}, and
 don't call \texttt{UseMethod()} but instead call the C functions
 \texttt{DispatchGroup()} or \texttt{DispatchOrEval()}.
 \texttt{s3\_dispatch()} shows internal generics by including the name of
-the generic at the bottom of the method class:
+the generic followed by \texttt{(internal)}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -16185,27 +16194,9 @@ the generic at the bottom of the method class:
 \end{Shaded}
 
 For performance reasons, internal generics do not dispatch to methods
-unless the class attribute has been set (i.e., unless
-\texttt{is.object()} is true). This means that internal generics do not
-use the implicit class. Again, if you're confused, rely on
-\texttt{s3\_dispatch()}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{10}\NormalTok{)}
-\KeywordTok{class}\NormalTok{(x)}
-\CommentTok{#> [1] "integer"}
-\KeywordTok{s3_dispatch}\NormalTok{(x[}\DecValTok{1}\NormalTok{])}
-\CommentTok{#> => [ (internal)}
-
-\KeywordTok{class}\NormalTok{(mtcars) }
-\CommentTok{#> [1] "data.frame"}
-\KeywordTok{s3_dispatch}\NormalTok{(mtcars[}\DecValTok{1}\NormalTok{])}
-\CommentTok{#> => [.data.frame}
-\CommentTok{#>    [.default}
-\CommentTok{#> -> [ (internal)}
-\end{Highlighting}
-\end{Shaded}
+unless the class attribute has been set, which means that internal
+generics do not use the implicit class. Again, if you're ever confused
+about method dispatch, you can rely on \texttt{s3\_dispatch()}.
 
 \hypertarget{group-generics}{%
 \subsection{Group generics}\label{group-generics}}
@@ -16284,7 +16275,9 @@ generic defined.
 \end{Shaded}
 
 It dispatches to the next method, here the internal default, to perform
-the actual computation, then copies back over the class and attributes.
+the actual computation, then restore the class and attributes. (To
+better support subclasses of \texttt{difftime} this would need to call
+\texttt{vec\_restore()}, as described in Section \ref{s3-subclassing}.)
 
 Note that inside a group generic function a special variable
 \texttt{.Generic} provides the actual generic function called. This can
@@ -16330,8 +16323,9 @@ There are three possible outcomes of this lookup:
   One method is internal, in which case R calls the other method.
 \end{itemize}
 
-This approach is error prone so if you want to implement double dispatch
-for algebraic operators, I recommend using \texttt{vctrs::vec\_arith()}.
+This approach is error prone so if you want to implement robust double
+dispatch for algebraic operators, I recommend using the vctrs package.
+See \texttt{?vctrs::vec\_arith} for details.
 
 \hypertarget{exercises-41}{%
 \subsection{Exercises}\label{exercises-41}}
@@ -16343,19 +16337,24 @@ for algebraic operators, I recommend using \texttt{vctrs::vec\_arith()}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{length.integer <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) }\DecValTok{10}
+
 \NormalTok{x1 <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{5}
 \KeywordTok{class}\NormalTok{(x1)}
 \CommentTok{#> [1] "integer"}
-\KeywordTok{s3_dispatch}\NormalTok{(x1[}\DecValTok{1}\NormalTok{])}
-\CommentTok{#> => [ (internal)}
+\KeywordTok{s3_dispatch}\NormalTok{(}\KeywordTok{length}\NormalTok{(x1))}
+\CommentTok{#>  * length.integer}
+\CommentTok{#>    length.numeric}
+\CommentTok{#>    length.default}
+\CommentTok{#> => length (internal)}
 
 \NormalTok{x2 <-}\StringTok{ }\KeywordTok{structure}\NormalTok{(x1, }\DataTypeTok{class =} \StringTok{"integer"}\NormalTok{)}
 \KeywordTok{class}\NormalTok{(x2)}
 \CommentTok{#> [1] "integer"}
-\KeywordTok{s3_dispatch}\NormalTok{(x2[}\DecValTok{1}\NormalTok{])}
-\CommentTok{#>    [.integer}
-\CommentTok{#>    [.default}
-\CommentTok{#> => [ (internal)}
+\KeywordTok{s3_dispatch}\NormalTok{(}\KeywordTok{length}\NormalTok{(x2))}
+\CommentTok{#> => length.integer}
+\CommentTok{#>    length.default}
+\CommentTok{#>  * length (internal)}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -16371,16 +16370,21 @@ for algebraic operators, I recommend using \texttt{vctrs::vec\_arith()}.
 \hypertarget{introduction-12}{%
 \section{Introduction}\label{introduction-12}}
 
-This chapter describes the R6 object system, which is built on top of
-environments and S3. R6 is an encapsulated OOP system which means that
-methods belong to objects, not generics, and you call them like
-\texttt{object\$method()}. R6 objects are also \textbf{mutable}, which
-means that they are modified in place, and hence have reference
-semantics.
+This chapter describes the R6 OOP system. R6 has two special properties:
+
+\begin{itemize}
+\item
+  It uses the encapsulated OOP paradigm, which means that methods belong
+  to objects, not generics, and you call them like
+  \texttt{object\$method()}.
+\item
+  R6 objects are \textbf{mutable}, which means that they are modified in
+  place, and hence have reference semantics.
+\end{itemize}
 
 If you've learned OOP in another programming language, it's likely that
 R6 will feel very natural, and you'll be inclined to prefer it over S3.
-Resist the temptation to follow the path of least resistance: as in most
+Resist the temptation to follow the path of least resistance: in most
 cases R6 will lead you to non-idiomatic R code. We'll come back to this
 theme in Section \ref{s3-r6}.
 
@@ -16397,8 +16401,8 @@ Section \ref{why-r6}.
   Section \ref{r6-classes} introduces \texttt{R6::R6class()}, the one
   function that you need to know to create R6 classes. You'll learn
   about the constructor method, \texttt{\$new()}, which allows you to
-  create R6 objects, and important R6 methods \texttt{\$initialize()}
-  and \texttt{\$print()}.
+  create R6 objects, as well as other important methods like
+  \texttt{\$initialize()} and \texttt{\$print()}.
 \item
   Section \ref{r6-access} discusses the access mechanisms of R6: private
   and active fields. Together, these allow you to hide data from the
@@ -16428,8 +16432,8 @@ R6 package to use it:
 \end{Shaded}
 
 R6 objects have reference semantics which means that they are modified
-in-place, not copied-on-modify. Make sure you're familiar with these
-distinctions as described in Section \ref{modify-in-place}.
+in-place, not copied-on-modify. If you're not familiar with these terms,
+brush up your vocab by reading Section \ref{modify-in-place}.
 
 \hypertarget{r6-classes}{%
 \section{Classes and methods}\label{r6-classes}}
@@ -16442,22 +16446,22 @@ package that you'll ever use!\footnote{That means if you're creating R6
   import the package into the \texttt{NAMESPACE}.}
 
 The following example shows the two most important arguments to
-`R6Class():
+\texttt{R6Class()}:
 
 \begin{itemize}
 \item
   The first argument is the \texttt{classname}. It's not strictly
   needed, but it improves error messages and makes it possible to use R6
   objects with S3 generics. By convention, R6 classes have
-  UpperCamelCase names.
+  \texttt{UpperCamelCase} names.
 \item
   The second argument, \texttt{public}, supplies a list of methods
   (functions) and fields (anything else) that make up the public
   interface of the object. By convention, methods and fields use
-  snake\_case. Methods can access the methods and fields of the current
-  object via \texttt{self\$}.\footnote{Unlike in \texttt{this} in
-    python, the \texttt{self} variable is automatically provided by R6,
-    and does not form part of the method signature.}
+  \texttt{snake\_case}. Methods can access the methods and fields of the
+  current object via \texttt{self\$}.\footnote{Unlike in \texttt{this}
+    in python, the \texttt{self} variable is automatically provided by
+    R6, and does not form part of the method signature.}
 \end{itemize}
 
 \begin{Shaded}
@@ -16570,7 +16574,7 @@ approach in Section \ref{tradeoffs-pipe}.
 \hypertarget{important-methods}{%
 \subsection{Important methods}\label{important-methods}}
 
-There are two important methods that will be defined for most classes:
+There are two important methods that should be defined for most classes:
 \texttt{\$initialize()} and \texttt{\$print()}. They're not required,
 but providing them will make your class easier to use.
 
@@ -16578,7 +16582,7 @@ but providing them will make your class easier to use.
 \texttt{\$new()}. For example, the following code defines an Person
 class with fields \texttt{\$name} and \texttt{\$age}. To ensure that
 that \texttt{\$name} is always a single string, and \texttt{\$age} is
-always a single number, I added checks in \texttt{\$initialize()}.
+always a single number, I placed checks in \texttt{\$initialize()}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -16658,8 +16662,8 @@ From the perspective of R6, there is no relationship between
 same class name. This doesn't cause problems when using already
 developed R6 problems but can make interactive experimentation
 confusing. If you're changing the code and can't figure out why the
-results of method calls aren't changed, make sure you've re-constructed
-R6 objects with the new class.
+results of method calls aren't any different, make sure you've
+re-constructed R6 objects with the new class.
 
 \hypertarget{adding-methods-after-creation}{%
 \subsection{Adding methods after
@@ -16714,9 +16718,8 @@ the \texttt{inherit} argument:
 Note that \texttt{\$add()} overrides the implementation in the
 superclass, but we can delegate to the superclass implementation through
 \texttt{super\$}. (This is analagous to \texttt{NextMethod()} in S3, as
-discussed in Section \ref{s3-inheritance}.) Any methods which are
-overridden will automatically call the implementation in the parent
-class.
+discussed in Section \ref{s3-inheritance}.) Any methods which are not
+overridden will use the implementation in the parent class.
 
 \hypertarget{introspection}{%
 \subsection{Introspection}\label{introspection}}
@@ -16749,7 +16752,7 @@ You can list all methods and fields with \texttt{names()}:
 We defined \texttt{\$name}, \texttt{\$age}, \texttt{\$print}, and
 \texttt{\$initialize}. As suggested by the name
 \texttt{.\_\_enclos\_env\_\_} is an internal implementation detail that
-you shouldn't touch; we'll come to \texttt{\$clone()} in Section
+you shouldn't touch; we'll come back to \texttt{\$clone()} in Section
 \ref{r6-semantics}.
 
 \hypertarget{exercises-42}{%
@@ -16792,6 +16795,9 @@ you shouldn't touch; we'll come to \texttt{\$clone()} in Section
 \item
   Why can't you model the time zone or current working directory with an
   S3 class?
+\item
+  What base type are R6 objects built on top of? What attributes do they
+  have?
 \end{enumerate}
 
 \hypertarget{r6-access}{%
@@ -16817,8 +16823,8 @@ These are described in the following sections.
 With R6 you can define \textbf{private} fields and methods, elements
 that can only be accessed from within the class, not from the
 outside\footnote{Because R is such a flexible language, it's technically
-  still possible to access private values, but you have to try much
-  harder and spelunk in to the details of R6's implementation.}. There
+  still possible to access private values, but you'll have to try much
+  harder, spelunking in to the details of R6's implementation.}. There
 are two things that you need to know to take advantage of private
 elements:
 
@@ -16860,6 +16866,10 @@ of the class.
 \NormalTok{)}
 
 \NormalTok{hadley3 <-}\StringTok{ }\NormalTok{Person}\OperatorTok{$}\KeywordTok{new}\NormalTok{(}\StringTok{"Hadley"}\NormalTok{)}
+\NormalTok{hadley3}
+\CommentTok{#> Person: }
+\CommentTok{#>   Name: Hadley}
+\CommentTok{#>   Age:  NA}
 \NormalTok{hadley3}\OperatorTok{$}\NormalTok{name}
 \CommentTok{#> NULL}
 \end{Highlighting}
@@ -16879,10 +16889,10 @@ simpler.
 Active fields allow you to define components that look like fields from
 the outside, but are defined with functions, like methods. Active fields
 are implemented using \textbf{active bindings} (see Section
-\ref{advanced-bindings} for details). Each active binding must be a
-function that takes a single argument: \texttt{value}. If the argument
-is \texttt{missing()}, the value is being retrieved; otherwise it's
-being modified.
+\ref{advanced-bindings} for details). Each active binding is a function
+that takes a single argument: \texttt{value}. If the argument is
+\texttt{missing()}, the value is being retrieved; otherwise it's being
+modified.
 
 For example, you could make an active field \texttt{random} that returns
 a different value every time you access it:
@@ -16964,8 +16974,9 @@ we can use then make a read-only \texttt{age} field, and to ensure that
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Create a bank account class that you can withdraw from and deposit to,
-  but prevents you from directly setting the account balance.
+  Create a bank account class that prevents you from directly setting
+  the account balance, but you can still withdraw from and deposit to.
+  Throw an error if you attempt to go into overdraft.
 \item
   Create an class with a write-only \texttt{\$password} field. It should
   have \texttt{\$check\_password(password)} method that returns
@@ -16984,18 +16995,8 @@ we can use then make a read-only \texttt{age} field, and to ensure that
 \section{Reference semantics}\label{r6-semantics}}
 
 One of the big differences between R6 and most other objects is that
-they have reference semantics. They inherit this behaviour from
-environments, the base type that they are built from:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{typeof}\NormalTok{(x2)}
-\CommentTok{#> [1] "environment"}
-\end{Highlighting}
-\end{Shaded}
-
-The main consequence of reference semantics is that objects are not
-copied when modified:
+they have reference semantics. The primary consequence of reference
+semantics is that objects are not copied when modified:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -17026,9 +17027,7 @@ Instead, if you want a copy, you'll need to explicitly
 
 (Note that \texttt{\$clone()} does not recursively clone nested R6
 objects. If you want that, you'll need to use
-\texttt{\$clone(deep\ =\ TRUE)}. This this only clones R6 objects:
-you'll need to provide your own \texttt{\$clone()} if your class
-contains environments.)
+\texttt{\$clone(deep\ =\ TRUE)}.)
 
 There are three other less obvious consequences:
 
@@ -17081,15 +17080,9 @@ The final line is much harder to reason about: if \texttt{f()} calls
 methods of \texttt{x} or \texttt{y}, it might modify them as well as
 \texttt{z}. This is the biggest potential downside of R6 and you should
 take care to avoid it by writing functions that either return a value,
-or modify their R6 inputs, but not both.
-
-That said, modifying R6 inputs can lead to substantially simpler code in
-some cases. One challenge of working with immutable data is known as
-\textbf{threading state}: if you want to return a modified value from a
-deeply nested function, you need to return the modified value up through
-every function. This can complicate code, particularly if you need to
-modify multiple values. We'll come back to this problem in Section
-\ref{threading-state}.
+or modify their R6 inputs, but not both. That said, doing both can lead
+to substantially simpler code in some cases, and we'll discuss further
+in Section \ref{threading-state}.
 
 \hypertarget{finalizer}{%
 \subsection{Finalizer}\label{finalizer}}
@@ -17098,9 +17091,9 @@ One useful property of reference semantics is that it makes sense to
 think about when an R6 object is \textbf{finalized}, i.e.~when it's
 deleted. This doesn't make sense for most objects because copy-on-modify
 semantics mean that there may be many transient versions of an object,
-as eluded to in Section \ref{gc}. For example, the following creates two
-two factor objects: the second is created when the levels are modified,
-leaving the first to be destroyed by the garbage collector.
+as alluded to in Section \ref{gc}. For example, the following creates
+two two factor objects: the second is created when the levels are
+modified, leaving the first to be destroyed by the garbage collector.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -17129,13 +17122,11 @@ class is finalized.
     \KeywordTok{unlink}\NormalTok{(self}\OperatorTok{$}\NormalTok{path)}
 \NormalTok{  \}}
 \NormalTok{))}
-
-\NormalTok{tf <-}\StringTok{ }\NormalTok{TemporaryFile}\OperatorTok{$}\KeywordTok{new}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 The finalize method will be run when the object is deleted (or more
-precisely, by by the first garbage collection after the object has been
+precisely, by the first garbage collection after the object has been
 unbound from all names) or when R exits. This means that the finalizer
 can called effectively anywhere in your R code, and therefore it's
 almost impossible to reason about finalizer code that touches shared
@@ -17144,22 +17135,21 @@ finalizer to clean up private resources allocated by initializer.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{tf <-}\StringTok{ }\NormalTok{TemporaryFile}\OperatorTok{$}\KeywordTok{new}\NormalTok{()}
 \KeywordTok{rm}\NormalTok{(tf)}
-\KeywordTok{invisible}\NormalTok{(}\KeywordTok{gc}\NormalTok{())}
+\CommentTok{#> Cleaning up /tmp/Rtmpk73JdI/file155f31d8424bd}
 \end{Highlighting}
 \end{Shaded}
-
-I forcing garbage collection here to ensure that the message printed by
-the finaliser message appears in this code block.
 
 \hypertarget{r6-fields}{%
 \subsection{R6 fields}\label{r6-fields}}
 
 A final consequence of reference semantics can crop up where you don't
-expect it: never use a R6 class as the default value of a field. It will
-be shared across all instances of the object because it's is only
-initialized once, when you define the class, not each time you call
-\texttt{\$new()}.
+expect it. If you use a R6 class as the default value of a field, it
+will be shared across all instances of the object! Take the following
+code: we want to create a temporary database every time we call
+\texttt{TemporaryDatabase\$new()}, but the current code always uses the
+same path.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -17185,7 +17175,11 @@ initialized once, when you define the class, not each time you call
 (If you're familiar with Python, this is very similar to the ``mutable
 default argument'' problem.)
 
-You can fix this by creating the object in \texttt{\$initialize()}:
+The problem arises because \texttt{TemporaryFile\$new()} is called only
+once when the \texttt{TemporaryDatabase} class is defined. To fix the
+problem, we need to make sure it's called every time that
+\texttt{TemporaryDatabase\$new()} is called, i.e.~we need to put it in
+\texttt{\$initialize()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -17226,7 +17220,7 @@ You can fix this by creating the object in \texttt{\$initialize()}:
 \section{Why R6?}\label{why-r6}}
 
 R6 is very similar to a built-in OO system called \textbf{reference
-classes}, or RC for short. I prefer R6 over RC for a few reasons:
+classes}, or RC for short. I prefer R6 to RC because:
 
 \begin{itemize}
 \item
@@ -17248,23 +17242,22 @@ classes}, or RC for short. I prefer R6 over RC for a few reasons:
   values. R6 puts fields in a separate environment so you get
   (\texttt{self\$field}) and set
   (\texttt{self\$field\ \textless{}-\ value}) with a prefix. The R6
-  approach is more verbose but I like it because I think it makes the
-  code easier to read.
+  approach is more verbose but I like it because it is more explicit.
 \item
   R6 is much faster than RC. Generally, the speed of method dispatch is
-  not important outside of microbenchmarks, but R6 is substantially more
-  performant. Switching from RC to R6 yielded substantial performance
-  improvements in shiny. \texttt{vignette("Performance",\ "R6")}
-  provides more details.
+  not important outside of microbenchmarks. However, RC is quite slow,
+  and switching from RC to R6 had a substantial performance improvements
+  in the shiny package. For more details, see
+  \texttt{vignette("Performance",\ "R6")}.
 \item
-  RC is tied to R version. That means if any bugs are fixed, you can
-  only take advantage of the fixes by requiring a newer version of R.
-  This makes it difficult for packages (like those in the tidyverse)
-  that need to work across many R versions.
+  RC is tied to R. That means if any bugs are fixed, you can only take
+  advantage of the fixes by requiring a newer version of R. This makes
+  it difficult for packages (like those in the tidyverse) that need to
+  work across many R versions.
 \item
-  Because the ideas that underlie R6 and RC are similar, it will only
-  require a small amount of additional effort to learn RC if you need
-  to.
+  Finally, because the ideas that underlie R6 and RC are similar, it
+  will only require a small amount of additional effort to learn RC if
+  you need to.
 \end{itemize}
 
 \hypertarget{s4}{%
@@ -17365,10 +17358,12 @@ to start are:
 
 All functions related to S4 live in the methods package. This package is
 always available when you're running R interactively, but may not be
-available when running R in batch mode (i.e.~from \texttt{Rrcript}). For
-this reason, it's a good idea to call \texttt{library(methods)} whenever
-you use S4. This also signals to the reader that you'll be using the S4
-object system.
+available when running R in batch mode, from \texttt{Rscript}\footnote{This
+  is a historical oddity introduced because the methods package used to
+  take a long time to load and \texttt{Rscript} is optimised for fast
+  command line invocation.}. For this reason, it's a good idea to call
+\texttt{library(methods)} whenever you use S4. This also signals to the
+reader that you'll be using the S4 object system.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -18375,11 +18370,11 @@ underlie them, we can start to compare and contrast the systems in order
 to understand their strengths and weaknesses. This will help you pick
 the system that is most likely to solve new problems.
 
-When picking an OO system, I recommend that you default to S3. S3 is
-simple, and widely used throughout base R and CRAN. While it's far from
-perfect, its idiosyncracies are well understood and there are known
+Overall, when picking an OO system, I recommend that you default to S3.
+S3 is simple, and widely used throughout base R and CRAN. While it's far
+from perfect, its idiosyncracies are well understood and there are known
 approaches to overcome most shortcomings. If you have an existing
-background in programming you are likely to lean towards R6 because it
+background in programming you are likely to lean towards R6, because it
 will feel familiar. I think you should resist this tendency for two
 reasons. Firstly, if you use R6 it's very easy to create a non-idiomatic
 API that will feel very odd to native R users, and will have surprising
@@ -18402,14 +18397,14 @@ need to consider.
 \hypertarget{s3-s4}{%
 \section{S4 vs S3}\label{s3-s4}}
 
-Once you've mastered S3, S4 is relatively easy to pick up: the
+Once you've mastered S3, S4 is not too difficult to pick up: the
 underlying ideas are the same, S4 is just more formal, more strict, and
 more verbose. The strictness and formality of S4 make it well suited for
 large teams. Since more structure is provided by the system itself,
 there is less need for convention, and new contributors don't need as
 much training. S4 tends to require more upfront design than S3, and this
-investment tends to be more likely to pay off on larger projects because
-greater resources are available.
+investment is more likely to pay off on larger projects where greater
+resources are available.
 
 One large team effort where S4 is used to good effect is Bioconductor.
 Bioconductor is similar to CRAN: it's a way of sharing packages amongst
@@ -18421,14 +18416,15 @@ Bioconductor packages are not required to use S4, but most will because
 the key data structures (e.g.~SummarizedExperiment, IRanges,
 DNAStringSet) are built using S4.
 
-S4 is also a good fit when you have a complicated system of interrelated
-objects, and it's possible to minimise code duplication through careful
-implementation of methods. The best example of this use of S4 is the
-Matrix package by Douglas Bates and Martin Mächler. It is designed to
-efficiently store and compute with many different types of sparse and
-dense matrices. As of version 1.2.14, it defines 102 classes, 21 generic
-functions, and 1993 methods. To give you some idea of the complexity, a
-small subset of the class graph is shown in Figure
+S4 is also a good fit for complex systems of interrelated objects, and
+it's possible to minimise code duplication through careful
+implementation of methods. The best example of such a system is the
+Matrix package (Bates and Maechler
+\protect\hyperlink{ref-Matrix}{2018}). It is designed to efficiently
+store and compute with many different types of sparse and dense
+matrices. As of version 1.2.14, it defines 102 classes, 21 generic
+functions, and 1993 methods, and to give you some idea of the
+complexity, a small subset of the class graph is shown in Figure
 \ref{fig:matrix-classes}.
 
 \begin{figure}
@@ -18441,12 +18437,11 @@ small subset of the class graph is shown in Figure
 \end{figure}
 
 This domain is a good fit for S4 because there are often computational
-shortcuts for specific types of sparse matrix. S4 makes it easy to
-provide a general method that works for all inputs, and then provide
-more specialised methods where the pair of data structures allow for a
-more efficient implementation. This requires careful planning to avoid
-method dispatch ambiguity, but the planning pays off for complicated
-systems.
+shortcuts for specific combinations of sparse matrices. S4 makes it easy
+to provide a general method that works for all inputs, and then provide
+more specialised methods where the inputs allow a more efficient
+implementation. This requires careful planning to avoid method dispatch
+ambiguity, but the planning pays off with higher performance.
 
 The biggest challenge to using S4 is the combination of increased
 complexity and absence of a single source of documentation. S4 is a
@@ -18463,7 +18458,7 @@ R6 is a profoundly different OO system from S3 and S4 because it is
 built on encapsulated objects, rather than generic functions.
 Additionally R6 objects have reference semantics, which means that they
 can be modified in place. These two big differences have a number of
-non-obvious consequences which we'll explore in this chapter:
+non-obvious consequences which we'll explore here:
 
 \begin{itemize}
 \item
@@ -18472,7 +18467,7 @@ non-obvious consequences which we'll explore in this chapter:
   influences how we think about naming.
 \item
   R6's reference semantics allow methods to simultaneously return a
-  value and update the object. This solves a painful problem called
+  value and modify an object. This solves a painful problem called
   ``threading state''.
 \item
   You invoke an R6 method using \texttt{\$}, which is an infix operator.
@@ -18480,10 +18475,8 @@ non-obvious consequences which we'll explore in this chapter:
   calls as an alternative to the pipe.
 \end{itemize}
 
-(All these trade-offs apply in general to immutable functional OOP vs
-mutable encapsulated OOP so also serve as a discussion of the tradeoffs
-between S3 and reference classes, and S3 and OOP in languages like
-Python.)
+These are general trade-offs between functional and encapsulated OOP, so
+they also serve as a discussion of system design in R vs Python.
 
 \hypertarget{namespacing}{%
 \subsection{Namespacing}\label{namespacing}}
@@ -18500,14 +18493,14 @@ methods are found:
 \end{itemize}
 
 The advantage of a global namespace is that multiple packages can use
-exactly the same verbs for working with different types of objects.
-Generic functions provide a uniform API that makes it easier to perform
-typical actions with a new object because there are strong naming
-conventions. This works well for data analysis because you often want to
-do the same thing to different types of objects. In particular, this is
-one reason that R's modelling system is so useful: regardless of where
-the model has been implemented you always work with it using the same
-set of tools (\texttt{summary()}, \texttt{predict()}, \ldots{}).
+the same verbs for working with different types of objects. Generic
+functions provide a uniform API that makes it easier to perform typical
+actions with a new object because there are strong naming conventions.
+This works well for data analysis because you often want to do the same
+thing to different types of objects. In particular, this is one reason
+that R's modelling system is so useful: regardless of where the model
+has been implemented you always work with it using the same set of tools
+(\texttt{summary()}, \texttt{predict()}, \ldots{}).
 
 The disadvantage of a global namespace is that it forces you to think
 more deeply about naming. You want to avoid multiple generics with the
@@ -18525,11 +18518,12 @@ usually English verbs, and verbs often have multiple meanings. Take
 \end{Highlighting}
 \end{Shaded}
 
-Generally, you should avoid defining methods like this. Don't use
-homonyms of the original generic, but instead define a new generic. This
-problem doesn't occur with R6 methods because they are scoped to the
-object. The following code is fine, because there is no implication that
-the plot method of two different R6 objects has the same meaning:
+Generally, you should avoid methods that are homonyms of the original
+generic, and instead define a new generic.
+
+This problem doesn't occur with R6 methods because they are scoped to
+the object. The following code is fine, because there is no implication
+that the plot method of two different R6 objects has the same meaning:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -18542,11 +18536,11 @@ the plot method of two different R6 objects has the same meaning:
 
 These considerations also apply to the arguments to the generic. S3
 generics must have the same core arguments, which mean they generally
-have to have non-specific names like \texttt{x} or \texttt{.data}. S3
-generics generally need \texttt{...} to pass on additional arguments to
-methods, but this has the downside that mispelled argument names will
-not create an error. In comparison, R6 methods can vary more widely and
-use more specific and evocative argument names.
+have non-specific names like \texttt{x} or \texttt{.data}. S3 generics
+generally need \texttt{...} to pass on additional arguments to methods,
+but this has the downside that mispelled argument names will not create
+an error. In comparison, R6 methods can vary more widely and use more
+specific and evocative argument names.
 
 A secondary advantage of local namespacing is that creating an R6 method
 is very cheap. Most encapsulated OO languages encourage you to create
@@ -18564,8 +18558,10 @@ not methods.
 One challenge of programming with S3 is when you want to both return a
 value and modify the object. This violates our guideline that a function
 should either be called for its return value or for its side effects,
-but is necessary in a handful of cases. For example, imagine you want to
-create a \textbf{stack} of objects. A stack has two main methods:
+but is necessary in a handful of cases.
+
+For example, imagine you want to create a \textbf{stack} of objects. A
+stack has two main methods:
 
 \begin{itemize}
 \tightlist
@@ -18641,15 +18637,15 @@ This leads to rather awkward usage:
 
 This problem is known as \textbf{threading state} or \textbf{accumulator
 programming}, because no matter how deeply the \texttt{pop()} is called,
-you have to feed the modified stack object all the way back to where the
-stack lives.
+you have to thread the modified stack object all the way back to where
+it lives.
 
 One way that other FP languages deal with this challenge is to provide a
-``multiple assign'' (or destructuring bind) operator that allows you to
-assign multiple values in a single step. The zeallot R package, by
-Nathan and Paul Teetor, provides multi-assign for R with
-\texttt{\%\textless{}-\%}. This makes the code more elegant, but doesn't
-solve the key problem:
+\textbf{multiple assign} (or destructuring bind) operator that allows
+you to assign multiple values in a single step. The zeallot package
+(Teetor \protect\hyperlink{ref-zeallot}{2018}) provides multi-assign for
+R with \texttt{\%\textless{}-\%}. This makes the code more elegant, but
+doesn't solve the key problem:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -18700,9 +18696,10 @@ I encounted a real-life example of threading state in ggplot2 scales.
 Scales are complex because they need to combine data across every facet
 and every layer. I originally used S3 classes, but it required passing
 scale data to and from many functions. Switching to R6 made the code
-substantially simpler. However, it also introduced some subtle bugs
-because I forgot to call to \texttt{\$clone()} when modifying a plot;
-accidentally allowing independent plots to share the same scale data.
+substantially simpler. However, it also introduced some problems because
+I forgot to call to \texttt{\$clone()} when modifying a plot. This
+allowed independent plots to share the same scale data, creating a
+subtle bug that was hard to track down.
 
 \hypertarget{tradeoffs-pipe}{%
 \subsection{Method chaining}\label{tradeoffs-pipe}}
@@ -18741,26 +18738,20 @@ class can add new methods (and there's no way to use multiple dispatch).
 \chapter*{Introduction}\label{meta}}
 \addcontentsline{toc}{chapter}{Introduction}
 
-\begin{quote}
-``Flexibility in syntax, if it does not lead to ambiguity, would seem a
-reasonable thing to ask of an interactive programming language.''
+\index{non-standard evaluation}
 
---- Kent Pitman
-\end{quote}
-
-One of the most surprising things about R is its capability for
-metaprogramming: the ability of code to inspect and modify other code.
-In R, functions that use metaprogramming are commonly said to use
-\textbf{non-standard evalution}, or NSE for short.
-\index{non-standard evaluation} That's because they evaluate one (or
-more) of their arguments in a non-standard way. As you might guess,
-defining these tools by what they are not (standard evaluation) is
-challenging, so you'll learn more precise vocabulary as you work through
-these chapters.
+One of the most intriguing things about R is its capability for
+\textbf{metaprogramming}: the ability of code to inspect and modify
+other code. In R, functions that use metaprogramming are commonly said
+to use \textbf{non-standard evalution}, or NSE for short. That's because
+they evaluate one (or more) of their arguments in a non-standard way. As
+you might guess, defining these tools by what they are not (standard
+evaluation) is challenging, so you'll learn more precise vocabulary as
+you work through these chapters.
 
 Additionally, implementation of the underlying ideas has occurred
 piecemeal over the last twenty years. These two forces tend to make base
-R metaprogramming code harder to understand than it could be: the key
+R metaprogramming code harder to understand than it could be as the key
 ideas are obscured by unimportant details. To focus on the main ideas,
 the following chapters will start with functions from the \textbf{rlang}
 package, which have been developed more recently with an eye for
@@ -18779,8 +18770,8 @@ metaprogramming that you have probably already seen:
   interactive data exploration faster at the cost of introducing some
   ambiguity.
 \item
-  It makes it possible build \textbf{domain specific languages} (DSLs)
-  that tailor R's semantics to specific problem domains like
+  It makes it possible to build \textbf{domain specific languages}
+  (DSLs) that tailor R's semantics to specific problem domains like
   visualisation or data manipulation.
 \end{itemize}
 
@@ -18792,12 +18783,13 @@ details of how they work in the subsequent chapters.
 concision}\label{trading-precision-for-concision}}
 \addcontentsline{toc}{subsection}{Trading precision for concision}
 
-A common use of metaprogramming is to allow you to use names of
-variables in a dataframe as if they were objects in the environment.
-This makes interactive exploration more fluid at the cost of introducing
-some minor ambiguity. For example, take \texttt{base::subset()}. It
-allows you to pick rows from a dataframe based on the values of their
-observations:
+A common use of metaprogramming is to allow you to use names data frame
+variables as if they were objects in the environment. This makes
+interactive exploration more fluid at the cost of introducing some minor
+ambiguity. For example, take \texttt{base::subset()}\footnote{Base R
+  functions like \texttt{subset()} and \texttt{transform()} inspired the
+  development of dplyr.}. It allows you to pick rows from a dataframe
+based on the values of their observations:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -18816,9 +18808,6 @@ observations:
 \end{Highlighting}
 \end{Shaded}
 
-(Base R functions like \texttt{subset()} and \texttt{transform()}
-inspired the development of dplyr.)
-
 \texttt{subset()} is considerably shorter than the equivalent code using
 \texttt{{[}} and \texttt{\$} because you only need to provide the name
 of the data frame once:
@@ -18828,6 +18817,10 @@ of the data frame once:
 \NormalTok{diamonds[diamonds}\OperatorTok{$}\NormalTok{x }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{diamonds}\OperatorTok{$}\NormalTok{y }\OperatorTok{==}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{diamonds}\OperatorTok{$}\NormalTok{z }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{, ]}
 \end{Highlighting}
 \end{Shaded}
+
+The cost of concision is ambiguity when reading the code: to understand
+the \texttt{subset()} call, you need to know which variables are in the
+data frame.
 
 \hypertarget{domain-specific-languages}{%
 \section*{Domain specific languages}\label{domain-specific-languages}}
@@ -18868,10 +18861,9 @@ between R and SQL.
 ggplot2 and dplyr are known as \textbf{embedded} DSLs, because they take
 advantage of R's parsing and execution framework, but tailor R's
 semantics for specific tasks. If you're interested in learning more, I
-highly recommend
-\href{http://amzn.com/0321712943?tag=devtools-20}{\emph{Domain Specific
-Languages}} by Martin Fowler. It discusses many options for creating a
-DSL and provides many examples of different languages.
+highly recommend \emph{Domain Specific Languages} (Fowler
+\protect\hyperlink{ref-dsls}{2010}). It discusses many options for
+creating a DSL and provides many examples of different languages.
 
 \hypertarget{overview-1}{%
 \section*{Overview}\label{overview-1}}
@@ -18882,31 +18874,29 @@ underpin metaprogramming:
 
 \begin{itemize}
 \item
-  In \textbf{Expressions}, \protect\hyperlink{expressions}{Expressions},
-  you'll learn that all R code forms a tree. You'll learn how to
-  visualise that tree, how the rules of R's grammar convert linear
-  sequences of characters into a tree, and how to use recursive
-  functions to work with code trees.
+  In \textbf{Expressions}, Chapter \ref{expressions}, you'll learn that
+  all R code forms a tree. You'll learn how to visualise that tree, how
+  the rules of R's grammar convert linear sequences of characters into a
+  tree, and how to use recursive functions to work with code trees.
 \item
-  In \textbf{Quasiquotation},
-  \protect\hyperlink{quasiquotation}{Quasiquotation}, you'll learn to
-  use tools from rlang to capture (``quote'') unevaluated function
+  In \textbf{Quasiquotation}, Chapter \ref{quasiquotation}, you'll learn
+  to use tools from rlang to capture (``quote'') unevaluated function
   arguments. You'll also learn about quasiquotation, which provides a
   set of techniques for ``unquoting'' input that makes it possible to
   easily generate new trees from code fragments.
 \item
-  In \textbf{Evaluation}, \protect\hyperlink{evaluation}{Evaluation},
-  you'll learn about the inverse of quotation: evaluation. Here you'll
-  learn about an important data structure, the quosure, which ensures
-  correct evaluation by capturing both the code to evaluate, and the
-  environment in which to evaluate it. This chapter will show you how to
-  put all the pieces together to understand how NSE in base R works, and
-  how to write your own functions that work like \texttt{subset()}.
+  In \textbf{Evaluation}, Chapter \ref{evaluation}, you'll learn about
+  the inverse of quotation: evaluation. Here you'll learn about an
+  important data structure, the \textbf{quosure}, which ensures correct
+  evaluation by capturing both the code to evaluate, and the environment
+  in which to evaluate it. This chapter will show you how to put all the
+  pieces together to understand how NSE in base R works, and how to
+  write your own functions that work like \texttt{subset()}.
 \item
-  Finally, in \textbf{Translating R code},
-  \protect\hyperlink{translation}{Translation}, you'll see how to
-  combine first-class environments, lexical scoping, and metaprogramming
-  to translate R code into other languages, namely HTML and LaTeX.
+  Finally, in \textbf{Translating R code}, Chapter \ref{translation},
+  you'll see how to combine first-class environments, lexical scoping,
+  and metaprogramming to translate R code into other languages, namely
+  HTML and LaTeX.
 \end{itemize}
 
 Each chapter follows the same basic structure. You'll get the lay of the
@@ -25628,8 +25618,8 @@ root.
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>     expr   min    lq  mean median     uq    max neval}
-\CommentTok{#>  sqrt(x)   841 1,080  1621  1,300  1,820  6,360   100}
-\CommentTok{#>    x^0.5 9,230 9,560 14505  9,740 15,000 58,800   100}
+\CommentTok{#>  sqrt(x)   823 1,170  1468  1,350  1,560  7,260   100}
+\CommentTok{#>    x^0.5 9,200 9,650 10304  9,830 10,000 41,700   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -25813,10 +25803,10 @@ comparison. \index{methods!cost of dispatch}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>  expr    min     lq  mean median     uq       max neval}
-\CommentTok{#>   fun    178    212   445    228    254    18,200   100}
-\CommentTok{#>    S3    984  1,150  9769  1,220  1,380   818,000   100}
-\CommentTok{#>    S4 12,000 12,500 28365 12,900 15,100   909,000   100}
-\CommentTok{#>    RC  8,070  8,350 41084  8,520  8,940 3,200,000   100}
+\CommentTok{#>   fun    182    206   402    227    238    15,000   100}
+\CommentTok{#>    S3    986  1,140 10628  1,190  1,330   894,000   100}
+\CommentTok{#>    S4 12,000 12,500 28562 12,900 13,500   937,000   100}
+\CommentTok{#>    RC  8,220  8,500 41784  8,660  9,030 3,270,000   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26100,10 +26090,10 @@ subassignment. \indexc{ifelse()} \indexc{pmin()} \indexc{pmax()}
   \DataTypeTok{unit =} \StringTok{"us"}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
-\CommentTok{#>             expr  min    lq mean median   uq   max neval}
-\CommentTok{#>       squish_ife 20.2 22.10 53.9  28.90 32.1 2,490   100}
-\CommentTok{#>         squish_p 12.3 13.00 34.8  13.40 14.5 1,520   100}
-\CommentTok{#>  squish_in_place  2.8  3.14 31.0   3.45  4.4 2,690   100}
+\CommentTok{#>             expr   min    lq mean median    uq   max neval}
+\CommentTok{#>       squish_ife 19.80 23.10 57.9  29.70 33.40 2,790   100}
+\CommentTok{#>         squish_p 12.40 13.10 36.4  13.50 15.00 1,630   100}
+\CommentTok{#>  squish_in_place  2.79  3.23 31.8   3.82  4.76 2,750   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26153,9 +26143,9 @@ value is less than \texttt{a} and/or greater than \texttt{b}.
   \DataTypeTok{unit =} \StringTok{"us"}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
-\CommentTok{#>             expr  min   lq mean median   uq     max neval}
-\CommentTok{#>  squish_in_place 3.35 4.17  5.0   4.61 5.03    22.7   100}
-\CommentTok{#>       squish_cpp 2.55 2.91 15.9   3.15 3.38 1,260.0   100}
+\CommentTok{#>             expr  min   lq  mean median   uq     max neval}
+\CommentTok{#>  squish_in_place 3.41 4.32  5.44   4.78 5.45    36.1   100}
+\CommentTok{#>       squish_cpp 2.62 3.09 17.07   3.30 3.54 1,330.0   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26310,9 +26300,9 @@ seen:
   \DataTypeTok{unit =} \StringTok{"ms"}
 \NormalTok{)}
 \CommentTok{#> Unit: milliseconds}
-\CommentTok{#>          expr   min    lq mean median    uq    max neval}
-\CommentTok{#>  cond_sum_cpp  5.18  5.23  5.3   5.28  5.34   6.52   100}
-\CommentTok{#>    cond_sum_r 11.90 13.60 15.5  14.20 14.80 147.00   100}
+\CommentTok{#>          expr   min    lq  mean median    uq   max neval}
+\CommentTok{#>  cond_sum_cpp  5.24  5.39  5.47   5.44  5.51   6.8   100}
+\CommentTok{#>    cond_sum_r 12.70 18.10 19.13  18.40 18.60 150.0   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -29868,6 +29858,11 @@ Abelson, Harold, Gerald Jay Sussman, and Julie Sussman. 1996.
 Bache, Stefan Milton, and Hadley Wickham. 2014. \emph{Magrittr: A
 Forward-Pipe Operator for R}. \url{http://magrittr.tidyverse.org/}.
 
+\leavevmode\hypertarget{ref-Matrix}{}%
+Bates, Douglas, and Martin Maechler. 2018. ``Matrix: Sparse and Dense
+Matrix Classes and Methods.''
+\url{https://CRAN.R-project.org/package=Matrix}.
+
 \leavevmode\hypertarget{ref-bawden-1999}{}%
 Bawden, Alan. 1999. ``Quasiquotation in Lisp.'' In \emph{PEPM '99},
 4--12.
@@ -29907,6 +29902,10 @@ S}. Wadsworth \& Brooks/Cole Advanced Books \& Software.
 Chang, Winston. 2017. \emph{R6: Classes with Reference Semantics}.
 \url{https://CRAN.R-project.org/package=R6}.
 
+\leavevmode\hypertarget{ref-dsls}{}%
+Fowler, Martin. 2010. \emph{Domain-Specific Languages}. Pearson
+Education. \url{http://amzn.com/0321712943}.
+
 \leavevmode\hypertarget{ref-lubridate}{}%
 Grolemund, Garrett, and Hadley Wickham. 2011. ``Dates and Times Made
 Easy with lubridate.'' \emph{Journal of Statistical Software} 40
@@ -29943,6 +29942,11 @@ Computing}.
 ---------. 2018b. ``Writing R Extensions.'' \emph{R Foundation for
 Statistical Computing}.
 \url{https://cran.r-project.org/doc/manuals/r-devel/R-ints.html}.
+
+\leavevmode\hypertarget{ref-zeallot}{}%
+Teetor, Nathan. 2018. \emph{Zeallot: Multiple, Unpacking, and
+Destructuring Assignment}.
+\url{https://CRAN.R-project.org/package=zeallot}.
 
 \leavevmode\hypertarget{ref-ctmcp}{}%
 Van-Roy, Peter, and Seif Haridi. 2004. \emph{Concepts, Techniques, and
