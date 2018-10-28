@@ -36,6 +36,7 @@ script:
 - cd -
 
 deploy:
+<<<<<<< HEAD
   provider: pages
   skip-cleanup: true
   github-token: $GH_TOKEN  # Set in travis-ci.org dashboard, marked secure
