@@ -236,7 +236,7 @@ Use `parent.env()` to find the parent of an environment. No base function return
 
 <!-- GVW: "found by in" below... -->
 
-The ancestors of an environment have an important relationship to `<<-`. Regular assignment, `<-`, always creates a variable in the current environment. Super assignment, `<<-`, never creates a variable in the current environment, but instead modifies an existing variable found by in a parent environment. 
+The ancestors of an environment have an important relationship to `<<-`. Regular assignment, `<-`, always creates a variable in the current environment. Super assignment, `<<-`, never creates a variable in the current environment, but instead modifies an existing variable found in a parent environment. 
 
 
 ```r
@@ -910,8 +910,6 @@ There is one last environment we need to explain, the __caller__ environment, ac
 ::: 
 
 To fully understand the caller environment we need to discuss two related concepts: the __call stack__, which is made up of __frames__. Executing a function creates two types of context. You've learned about one already: the execution environment is a child of the function environment, which is determined by where the function was created. There's another type of context created by where the function was called: this is called the call stack.
-
-There are also a couple of small wrinkles when it comes to custom evaluation. See [environments vs. frames](#eval-frame) for more details.
 
 ### Simple call stacks
 

@@ -50,8 +50,8 @@ microbenchmark(
 )
 #> Unit: nanoseconds
 #>     expr   min    lq  mean median     uq    max neval
-#>  sqrt(x)   823 1,170  1468  1,350  1,560  7,260   100
-#>    x^0.5 9,200 9,650 10304  9,830 10,000 41,700   100
+#>  sqrt(x)   881 1,180  1484  1,320  1,580  7,520   100
+#>    x^0.5 9,430 9,700 10975  9,900 10,200 53,500   100
 ```
 
 
@@ -158,10 +158,10 @@ microbenchmark(
 )
 #> Unit: nanoseconds
 #>  expr    min     lq  mean median     uq       max neval
-#>   fun    182    206   402    227    238    15,000   100
-#>    S3    986  1,140 10628  1,190  1,330   894,000   100
-#>    S4 12,000 12,500 28562 12,900 13,500   937,000   100
-#>    RC  8,220  8,500 41784  8,660  9,030 3,270,000   100
+#>   fun    176    198   430    222    235    18,900   100
+#>    S3    977  1,120 11703  1,210  1,340   997,000   100
+#>    S4 12,100 12,700 30947 13,100 14,900 1,090,000   100
+#>    RC  8,240  8,510 43451  8,690  8,940 3,440,000   100
 ```
 
 
@@ -339,10 +339,10 @@ microbenchmark(
   unit = "us"
 )
 #> Unit: microseconds
-#>             expr   min    lq mean median    uq   max neval
-#>       squish_ife 19.80 23.10 57.9  29.70 33.40 2,790   100
-#>         squish_p 12.40 13.10 36.4  13.50 15.00 1,630   100
-#>  squish_in_place  2.79  3.23 31.8   3.82  4.76 2,750   100
+#>             expr   min   lq mean median    uq   max neval
+#>       squish_ife 20.20 23.0 54.3   29.2 33.20 2,450   100
+#>         squish_p 12.40 13.0 36.0   13.6 14.80 1,550   100
+#>  squish_in_place  2.89  3.2 33.3    3.5  4.37 2,940   100
 ```
 
 Using `pmin()` and `pmax()` is about 2x faster than `ifelse()`, and using subsetting directly is about 4x as fast again. We can often do even better by using C++. The following example compares the best R implementation to a relatively simple, if verbose, implementation in C++. Even if you've never used C++, you should still be able to follow the basic strategy: loop over every element in the vector and perform a different action depending on whether or not the value is less than `a` and/or greater than `b`. 
@@ -383,8 +383,8 @@ microbenchmark(
 )
 #> Unit: microseconds
 #>             expr  min   lq  mean median   uq     max neval
-#>  squish_in_place 3.41 4.32  5.44   4.78 5.45    36.1   100
-#>       squish_cpp 2.62 3.09 17.07   3.30 3.54 1,330.0   100
+#>  squish_in_place 3.34 4.43  5.35   4.79 5.36    33.7   100
+#>       squish_cpp 2.67 3.13 17.41   3.28 3.62 1,380.0   100
 ```
 
 The C++ implementation is around 1x faster than the best pure R implementation.
@@ -486,9 +486,9 @@ microbenchmark(
   unit = "ms"
 )
 #> Unit: milliseconds
-#>          expr   min    lq  mean median    uq   max neval
-#>  cond_sum_cpp  5.24  5.39  5.47   5.44  5.51   6.8   100
-#>    cond_sum_r 12.70 18.10 19.13  18.40 18.60 150.0   100
+#>          expr   min    lq  mean median    uq    max neval
+#>  cond_sum_cpp  5.21  5.24  5.29   5.26  5.29   6.56   100
+#>    cond_sum_r 12.80 13.80 15.72  14.30 14.60 152.00   100
 ```
 
 On my computer, this approach is about 3x faster than the vectorised R equivalent, which is already pretty fast.

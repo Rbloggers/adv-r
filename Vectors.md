@@ -5,7 +5,7 @@
 
 This chapter discusses the most important family of data types in base R: the vector types[^node]. You've probably used many (if not all) of the vectors before, but you may not have thought deeply about how they are interrelated. In this chapter, I won't cover individual vectors types in too much depth. Instead, I'll show you how they fit together as a whole. If you need more details, you can find them in R's documentation.
 
-[^node]: Collectively, all other data types are known as the "node" data types, and includes things like functions and environments. This is a highly technical term used in only a few places. The place where you're most likely to encounter it is the output of `gc()`: the "N" in `Ncells` stands for nodes, and the "V" in `Vcells` stands for vectors.
+[^node]: Collectively, all other data types are known as the "node" data types, and include things like functions and environments. This is a highly technical term used in only a few places. The place where you're most likely to encounter it is the output of `gc()`: the "N" in `Ncells` stands for nodes, and the "V" in `Vcells` stands for vectors.
 
 <!-- GVW: at this point (after reading previous chapter), my mental model is that a list is a vector of references, and that there's no other significant difference between it and other vector types - if that's so, maybe emphasize the similarities rather than the differences? -->
 
@@ -102,7 +102,7 @@ Each of the four primary atomic vectors has special syntax to create an individu
 ### Making longer vectors with `c()` {#atomic-constructing}
 \indexc{typeof()}
 
-To greater longer vectors from shorter vectors, use `c()`:
+To create longer vectors from shorter ones, use `c()`:
 
 
 ```r
@@ -537,7 +537,7 @@ structure(now_ct, tzone = "Europe/Paris")
 #> [1] "2018-08-02 CEST"
 ```
 
-[^tidyverse-datetimes]: The tidyverse provides the lubridate [@lubridate] package for working with date-times. It provides a number of convenient helpers all which work with the base POSIXct type.
+[^tidyverse-datetimes]: The tidyverse provides the lubridate [@lubridate] package for working with date-times. It provides a number of convenient helpers which work with the base POSIXct type.
 
 ### Exercises
 
@@ -714,7 +714,7 @@ A data frame is the most common way of storing data in R, and is crucial for eff
 
 
 ```r
-df1 <- data.frame(x = 1:2, y = 2:1)
+df1 <- data.frame(x = 1:3, y = letters[1:3])
 typeof(df1)
 #> [1] "list"
 
@@ -726,7 +726,7 @@ attributes(df1)
 #> [1] "data.frame"
 #> 
 #> $row.names
-#> [1] 1 2
+#> [1] 1 2 3
 ```
 
 [^rownames]: Row names are one of the most surprisingly complex data structures in R, because they've been a persistent performance issue over many years. The most straightforward representations are character or integer vectors, with one element for each row. There's also a compact representation for "automatic" row names (consecutive integers), created by `.set_row_names()`. R 3.5 has a special way of deferring integer to character conversions specifically to speed up `lm()`; see <https://svn.r-project.org/R/branches/ALTREP/ALTREP.html#deferred_string_conversions> for details.
@@ -747,13 +747,13 @@ Data frames are one of the biggest and most important ideas in R, and one of the
 
 This frustration lead to the creation of the tibble [@tibble], a modern reimagining of the data frame. Tibbles are designed to be (as much as possible) drop-in replacements for data frames, while still fixing the greatest frustrations. A concise, and fun, way to summarise the main differences is that tibbles are lazy and surly: they tend to do less and complain more. You'll see what that means as you work through this section.
 
-Tibbles are provided by the tibble package and share the the same structure as a data frame. The only difference is that the class vector is longer, and includes `tbl_df`. This allows tibbles to behave differently in the key ways which we'll discuss below.
+Tibbles are provided by the tibble package and share the same structure as data frames. The only difference is that the class vector is longer, and includes `tbl_df`. This allows tibbles to behave differently in the key ways which we'll discuss below.
 
 
 ```r
 library(tibble)
 
-df2 <- tibble(x = 1:2, y = 2:1)
+df2 <- tibble(x = 1:3, y = letters[1:3])
 typeof(df2)
 #> [1] "list"
 
@@ -762,21 +762,11 @@ attributes(df2)
 #> [1] "x" "y"
 #> 
 #> $row.names
-#> [1] 1 2
+#> [1] 1 2 3
 #> 
 #> $class
 #> [1] "tbl_df"     "tbl"        "data.frame"
 ```
-
-When drawing data frames and tibbles, rather than focussing on the implementation details, i.e. the attributes:
-
-
-\begin{center}\includegraphics[width=2.65in]{diagrams/vectors/data-frame-1} \end{center}
-
-I'll draw them in the same way as a named list, but arranged to emphasised their columnar structure.
-
-
-\begin{center}\includegraphics[width=1.08in]{diagrams/vectors/data-frame-2} \end{center}
 
 ### Creating {#df-create}
 \indexc{stringsAsFactors}
@@ -861,7 +851,6 @@ tibble(x = 1:4, y = 1)
 #> 4     4     1
 tibble(x = 1:4, y = 1:2)
 #> Error: Column `y` must be length 1 or 4, not 2
-#> Call `rlang::last_error()` to see a backtrace
 ```
 
 There is one final difference: `tibble()` allows you to refer to newly created variables:
@@ -882,6 +871,15 @@ tibble(
 #> 3     3     6
 ```
 
+When drawing data frames and tibbles, rather than focussing on the implementation details, i.e. the attributes:
+
+
+\begin{center}\includegraphics[width=2.65in]{diagrams/vectors/data-frame-1} \end{center}
+
+I'll draw them in the same way as a named list, but arranged to emphasise their columnar structure.
+
+
+\begin{center}\includegraphics[width=1.08in]{diagrams/vectors/data-frame-2} \end{center}
 
 ### Row names {#rownames}
 
@@ -1201,7 +1199,7 @@ There are two common uses of `NULL`:
 
 <!-- GVW: I don't think the footnote above adds anything to the discussion. -->
 
-If you're familiar with SQL, you know about relational `NULL` and might expect it to be the same as Rs. However, the database `NULL` is actually equivalent to `NA`.
+If you're familiar with SQL, you know about relational `NULL` and might expect it to be the same as R's. However, the database `NULL` is actually equivalent to `NA`.
 
 ## Answers {#data-structure-answers}
 

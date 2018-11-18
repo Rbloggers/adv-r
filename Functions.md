@@ -752,6 +752,8 @@ x
 
 You'll see this idea again in [advanced bindings].
 
+You cannot manipulate promises with R code. Promises are like a quantum state: any attempt to inspect them with R code will force an immediate evaluation, making the promise disappear. Later, in Section \@ref(quosures), you'll learn about quosures, which reify promises into an R object where you can easily inspect the expression and the environment.
+
 ### Default arguments
 \index{functions!default values}
 
@@ -1376,11 +1378,11 @@ While everything that happens in R is a result of a function call, not all calls
 
 While there are four forms, you actually only need one because any call can be written in prefix form. I'll demonstrate this property, and then you'll learn about each of the forms in turn.
 
-### Rewriting to prefix form
+### Rewriting to prefix form {#prefix-transform}
 \indexc{`} 
 \index{backticks|see{\texttt{`}}}
 
-An interesting property of R is every infix, replacement, or special form can be rewritten in prefix form. Rewriting in prefix form is useful because it helps you better understand the structure of the language, and it gives you the real name of every function. Knowing the real name of non-prefix functions is useful because it allows you to modify them for fun and profit.
+An interesting property of R is that every infix, replacement, or special form can be rewritten in prefix form. Doing so is useful because it helps you better understand the structure of the language, it gives you the real name of every function, and it allows you to modify those functions for fun and profit.
 
 The following example shows three pairs of equivalent calls, rewriting an infix form, replacement form, and a special form into prefix form.
 
@@ -1398,7 +1400,7 @@ for(i in 1:10) print(i)
 
 <!-- GVW: `for` is a function?? -->
 
-Knowing the function name of a non-prefix function allows you to override its behaviour. For example, if you're ever feeling particularly evil, run the following code while a friend is away from their computer. It will introduce a fun bug: 10% of the time, 1 will be added to any numeric calculation inside of parentheses.
+Knowing the function name of a non-prefix function allows you to override its behaviour. For example, if you're ever feeling particularly evil, run the following code while a friend is away from their computer. It will introduce a fun bug: 10% of the time, it will add 1 to any numeric calculation inside the parentheses.
 
 
 ```r
@@ -1417,9 +1419,9 @@ rm("(")
 
 <!-- GVW: `(` is a *function*?? -->
 
-Of course, overriding built-in functions like this is a bad idea, but, as you'll learn about in [metaprogramming](#meta), it's possible to apply it only to selected code blocks. This provides a clean and elegant approach to writing domain specific languages and translators to other languages.
+Of course, overriding built-in functions like this is a bad idea, but, as you'll learn in [metaprogramming](#meta), it's possible to apply it only to selected code blocks. This provides a clean and elegant approach to writing domain specific languages and translators to other languages.
 
-A more useful technique is to use this knowledge when using functional programming tools. For example, you could use `sapply()` to add 3 to every element of a list by first defining a function `add()`, like this: \indexc{sapply()}
+A more useful application comes up when using functional programming tools. For example, you could use `sapply()` to add 3 to every element of a list by first defining a function `add()`: \indexc{sapply()}
 
 
 ```r
@@ -1428,7 +1430,7 @@ sapply(1:10, add, 3)
 #>  [1]  4  5  6  7  8  9 10 11 12 13
 ```
 
-But we can also get the same effect more simply by relying on the existing `+` function:
+But we can also get the same result simply by relying on the existing `+` function:
 
 
 ```r
