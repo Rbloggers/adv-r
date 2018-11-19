@@ -122,9 +122,9 @@ You can access an object's identifier with `lobstr::obj_addr()`. Doing so allows
 
 ```r
 obj_addr(x)
-#> [1] "0x43f7f68"
+#> [1] "0x4411748"
 obj_addr(y)
-#> [1] "0x43f7f68"
+#> [1] "0x4411748"
 ```
 
 These identifiers are long, and change every time you restart R.
@@ -278,7 +278,7 @@ f <- function(a) {
 
 x <- c(1, 2, 3)
 cat(tracemem(x), "\n")
-#> <0x38bae48>
+#> <0x465a7f8>
 
 z <- f(x)
 # there's no copy here!
@@ -343,15 +343,15 @@ To see values that are shared across lists, use `lobstr::ref()`. `ref()` prints 
 
 ```r
 ref(l1, l2)
-#> █ [1:0x6ec3878] <list> 
-#> ├─[2:0x6d21298] <dbl> 
-#> ├─[3:0x6d21260] <dbl> 
-#> └─[4:0x6d21228] <dbl> 
+#> █ [1:0x6ee2bb8] <list> 
+#> ├─[2:0x6d42838] <dbl> 
+#> ├─[3:0x6d42800] <dbl> 
+#> └─[4:0x6d427c8] <dbl> 
 #>  
-#> █ [5:0x7914778] <list> 
-#> ├─[2:0x6d21298] 
-#> ├─[3:0x6d21260] 
-#> └─[6:0x781c148] <dbl>
+#> █ [5:0x792fc78] <list> 
+#> ├─[2:0x6d42838] 
+#> ├─[3:0x6d42800] 
+#> └─[6:0x783d5c8] <dbl>
 ```
 
 ### Data frames {#df-modify}
@@ -411,11 +411,11 @@ You can request that `ref()` show these references by setting the `character` ar
 
 ```r
 ref(x, character = TRUE)
-#> █ [1:0x42963e8] <chr> 
-#> ├─[2:0x13d5788] <string: "a"> 
-#> ├─[2:0x13d5788] 
-#> ├─[3:0x29a91f0] <string: "abc"> 
-#> └─[4:0x188bb28] <string: "d">
+#> █ [1:0x4246ed8] <chr> 
+#> ├─[2:0x13ee788] <string: "a"> 
+#> ├─[2:0x13ee788] 
+#> ├─[3:0x1f0ed10] <string: "abc"> 
+#> └─[4:0x18a4b28] <string: "d">
 ```
 
 This has a profound impact on the amount of memory a character vector uses but is otherwise generally unimportant, so elsewhere in the book I'll draw character vectors as if the strings lived inside a vector.

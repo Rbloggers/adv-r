@@ -1,7 +1,7 @@
 \documentclass[]{book}
 \usepackage{lmodern}
 \usepackage{setspace}
-\setstretch{1.2}
+\setstretch{1.15}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
@@ -23,7 +23,7 @@
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage[b5paper]{geometry}
+\usepackage[b5paper, bottom=0.6in]{geometry}
 \usepackage{hyperref}
 \hypersetup{unicode=true,
             pdftitle={Advanced R},
@@ -1181,9 +1181,9 @@ the same identifier:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{obj_addr}\NormalTok{(x)}
-\CommentTok{#> [1] "0x43f7f68"}
+\CommentTok{#> [1] "0x4411748"}
 \KeywordTok{obj_addr}\NormalTok{(y)}
-\CommentTok{#> [1] "0x43f7f68"}
+\CommentTok{#> [1] "0x4411748"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1385,7 +1385,7 @@ The same rules for copying also apply to function calls. Take this code:
 
 \NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
 \KeywordTok{cat}\NormalTok{(}\KeywordTok{tracemem}\NormalTok{(x), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> <0x38bae48>}
+\CommentTok{#> <0x465a7f8>}
 
 \NormalTok{z <-}\StringTok{ }\KeywordTok{f}\NormalTok{(x)}
 \CommentTok{# there's no copy here!}
@@ -1459,15 +1459,15 @@ local ID so that you can easily cross-reference shared components.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ref}\NormalTok{(l1, l2)}
-\CommentTok{#> █ [1:0x6ec3878] <list> }
-\CommentTok{#> ├─[2:0x6d21298] <dbl> }
-\CommentTok{#> ├─[3:0x6d21260] <dbl> }
-\CommentTok{#> └─[4:0x6d21228] <dbl> }
+\CommentTok{#> █ [1:0x6ee2bb8] <list> }
+\CommentTok{#> ├─[2:0x6d42838] <dbl> }
+\CommentTok{#> ├─[3:0x6d42800] <dbl> }
+\CommentTok{#> └─[4:0x6d427c8] <dbl> }
 \CommentTok{#>  }
-\CommentTok{#> █ [5:0x7914778] <list> }
-\CommentTok{#> ├─[2:0x6d21298] }
-\CommentTok{#> ├─[3:0x6d21260] }
-\CommentTok{#> └─[6:0x781c148] <dbl>}
+\CommentTok{#> █ [5:0x792fc78] <list> }
+\CommentTok{#> ├─[2:0x6d42838] }
+\CommentTok{#> ├─[3:0x6d42800] }
+\CommentTok{#> └─[6:0x783d5c8] <dbl>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1539,11 +1539,11 @@ You can request that \texttt{ref()} show these references by setting the
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ref}\NormalTok{(x, }\DataTypeTok{character =} \OtherTok{TRUE}\NormalTok{)}
-\CommentTok{#> █ [1:0x42963e8] <chr> }
-\CommentTok{#> ├─[2:0x13d5788] <string: "a"> }
-\CommentTok{#> ├─[2:0x13d5788] }
-\CommentTok{#> ├─[3:0x29a91f0] <string: "abc"> }
-\CommentTok{#> └─[4:0x188bb28] <string: "d">}
+\CommentTok{#> █ [1:0x4246ed8] <chr> }
+\CommentTok{#> ├─[2:0x13ee788] <string: "a"> }
+\CommentTok{#> ├─[2:0x13ee788] }
+\CommentTok{#> ├─[3:0x1f0ed10] <string: "abc"> }
+\CommentTok{#> └─[4:0x18a4b28] <string: "d">}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26437,9 +26437,9 @@ root.
 \NormalTok{  x }\OperatorTok{^}\StringTok{ }\FloatTok{0.5}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
-\CommentTok{#>     expr   min    lq  mean median     uq    max neval}
-\CommentTok{#>  sqrt(x)   942 1,130  1448  1,310  1,530  9,440   100}
-\CommentTok{#>    x^0.5 9,210 9,590 10239  9,810 10,100 39,500   100}
+\CommentTok{#>     expr   min    lq  mean median    uq    max neval}
+\CommentTok{#>  sqrt(x)   899 1,050  1222  1,140 1,310  3,840   100}
+\CommentTok{#>    x^0.5 9,260 9,410 10013  9,580 9,760 35,100   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26623,15 +26623,15 @@ comparison. \index{methods!cost of dispatch}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>  expr    min     lq  mean median     uq       max neval}
-\CommentTok{#>   fun    182    216   432    238    256    16,900   100}
-\CommentTok{#>    S3  1,010  1,170 11164  1,230  1,500   952,000   100}
-\CommentTok{#>    S4 12,000 12,500 29372 12,900 14,400 1,040,000   100}
-\CommentTok{#>    RC  8,210  8,620 41290  8,780  9,270 3,180,000   100}
+\CommentTok{#>   fun    181    205   403    221    236    16,600   100}
+\CommentTok{#>    S3    968  1,120  9568  1,170  1,320   805,000   100}
+\CommentTok{#>    S4 12,300 12,800 27770 13,100 14,500   872,000   100}
+\CommentTok{#>    RC  8,270  8,470 39779  8,700  9,100 3,070,000   100}
 \end{Highlighting}
 \end{Shaded}
 
 The bare function takes about 200 ns. S3 method dispatch takes an
-additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 9,000 ns.
+additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 8,000 ns.
 S3 and S4 method dispatch are expensive because R must search for the
 right method every time the generic is called; it might have changed
 between this call and the last. R could do better by caching methods
@@ -26911,9 +26911,9 @@ subassignment. \indexc{ifelse()} \indexc{pmin()} \indexc{pmax()}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
 \CommentTok{#>             expr   min    lq mean median    uq   max neval}
-\CommentTok{#>       squish_ife 20.60 23.90 55.5  29.20 32.40 2,490   100}
-\CommentTok{#>         squish_p 12.40 13.20 37.9  13.80 15.50 1,670   100}
-\CommentTok{#>  squish_in_place  2.87  3.21 33.9   3.82  4.66 2,970   100}
+\CommentTok{#>       squish_ife 20.50 22.30 51.1  26.10 31.40 2,320   100}
+\CommentTok{#>         squish_p 12.40 13.00 35.2  13.50 14.80 1,520   100}
+\CommentTok{#>  squish_in_place  2.84  3.16 31.0   3.51  4.27 2,720   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26963,9 +26963,9 @@ value is less than \texttt{a} and/or greater than \texttt{b}.
   \DataTypeTok{unit =} \StringTok{"us"}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
-\CommentTok{#>             expr  min   lq  mean median   uq     max neval}
-\CommentTok{#>  squish_in_place 3.78 4.55  5.46   4.94 5.50    31.2   100}
-\CommentTok{#>       squish_cpp 2.45 3.10 17.54   3.33 3.63 1,390.0   100}
+\CommentTok{#>             expr  min   lq  mean median   uq   max neval}
+\CommentTok{#>  squish_in_place 3.43 4.06  5.01   4.45 4.89    24   100}
+\CommentTok{#>       squish_cpp 2.56 2.88 15.67   3.11 3.40 1,240   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -27120,9 +27120,9 @@ seen:
   \DataTypeTok{unit =} \StringTok{"ms"}
 \NormalTok{)}
 \CommentTok{#> Unit: milliseconds}
-\CommentTok{#>          expr   min    lq mean median    uq    max neval}
-\CommentTok{#>  cond_sum_cpp  5.29  5.32  5.4   5.35  5.41   7.01   100}
-\CommentTok{#>    cond_sum_r 13.70 15.10 16.7  15.30 15.50 152.00   100}
+\CommentTok{#>          expr   min    lq  mean median    uq    max neval}
+\CommentTok{#>  cond_sum_cpp  5.15  5.18  5.22   5.19  5.21   6.41   100}
+\CommentTok{#>    cond_sum_r 11.70 13.00 14.64  13.30 13.50 143.00   100}
 \end{Highlighting}
 \end{Shaded}
 
