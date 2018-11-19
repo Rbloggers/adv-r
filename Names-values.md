@@ -122,9 +122,9 @@ You can access an object's identifier with `lobstr::obj_addr()`. Doing so allows
 
 ```r
 obj_addr(x)
-#> [1] "0x747a348"
+#> [1] "0x43f7f68"
 obj_addr(y)
-#> [1] "0x747a348"
+#> [1] "0x43f7f68"
 ```
 
 These identifiers are long, and change every time you restart R.
@@ -278,7 +278,7 @@ f <- function(a) {
 
 x <- c(1, 2, 3)
 cat(tracemem(x), "\n")
-#> <0x4d0bd38>
+#> <0x38bae48>
 
 z <- f(x)
 # there's no copy here!
@@ -343,15 +343,15 @@ To see values that are shared across lists, use `lobstr::ref()`. `ref()` prints 
 
 ```r
 ref(l1, l2)
-#> █ [1:0x7cc3b28] <list> 
-#> ├─[2:0x7afc180] <dbl> 
-#> ├─[3:0x7afc148] <dbl> 
-#> └─[4:0x7afc110] <dbl> 
+#> █ [1:0x6ec3878] <list> 
+#> ├─[2:0x6d21298] <dbl> 
+#> ├─[3:0x6d21260] <dbl> 
+#> └─[4:0x6d21228] <dbl> 
 #>  
-#> █ [5:0x86733c8] <list> 
-#> ├─[2:0x7afc180] 
-#> ├─[3:0x7afc148] 
-#> └─[6:0x85cd5f8] <dbl>
+#> █ [5:0x7914778] <list> 
+#> ├─[2:0x6d21298] 
+#> ├─[3:0x6d21260] 
+#> └─[6:0x781c148] <dbl>
 ```
 
 ### Data frames {#df-modify}
@@ -411,11 +411,11 @@ You can request that `ref()` show these references by setting the `character` ar
 
 ```r
 ref(x, character = TRUE)
-#> █ [1:0x77dc4b8] <chr> 
-#> ├─[2:0x1b49778] <string: "a"> 
-#> ├─[2:0x1b49778] 
-#> ├─[3:0x77135e8] <string: "abc"> 
-#> └─[4:0x1fffb18] <string: "d">
+#> █ [1:0x42963e8] <chr> 
+#> ├─[2:0x13d5788] <string: "a"> 
+#> ├─[2:0x13d5788] 
+#> ├─[3:0x29a91f0] <string: "abc"> 
+#> └─[4:0x188bb28] <string: "d">
 ```
 
 This has a profound impact on the amount of memory a character vector uses but is otherwise generally unimportant, so elsewhere in the book I'll draw character vectors as if the strings lived inside a vector.
@@ -466,9 +466,9 @@ You can find out how much memory an object takes with `lobstr::obj_size()`[^obje
 
 ```r
 obj_size(letters)
-#> 1,792 B
+#> 1,712 B
 obj_size(ggplot2::diamonds)
-#> 3,457,048 B
+#> 3,456,344 B
 ```
 
 Since the elements of lists are references to values, the size of a list might be much smaller than you expect:
@@ -502,9 +502,9 @@ Similarly, because R uses a global string pool character vectors take up less me
 ```r
 banana <- "bananas bananas bananas"
 obj_size(banana)
-#> 272 B
+#> 136 B
 obj_size(rep(banana, 100))
-#> 1,064 B
+#> 928 B
 ```
 
 References also make it challenging to think about the size of individual objects. `obj_size(x) + obj_size(y)` will only equal `obj_size(x, y)` if there are no shared values. Here, the combined size of `x` and `y` is the same as the size of `y`:

@@ -11,6 +11,8 @@ site: bookdown::bookdown_site
 documentclass: book
 bibliography: book.bib
 link-citations: yes
+linestretch: 1.2
+geometry: b5paper
 ---
 
 <!-- 

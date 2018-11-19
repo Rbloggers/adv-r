@@ -206,102 +206,104 @@ This version of the book was built with the following version of R and packages.
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |UTC                          |
-|date     |2018-10-12                   |
+|date     |2018-11-19                   |
 
 
-|package        |version     |source                            |
-|:--------------|:-----------|:---------------------------------|
-|assertthat     |0.2.0       |CRAN (R 3.5.1)                    |
-|backports      |1.1.2       |CRAN (R 3.5.1)                    |
-|base64enc      |0.1-3       |CRAN (R 3.5.1)                    |
-|BH             |1.66.0-1    |CRAN (R 3.5.1)                    |
-|bindr          |0.1.1       |CRAN (R 3.5.1)                    |
-|bindrcpp       |0.2.2       |CRAN (R 3.5.1)                    |
-|bit            |1.1-14      |CRAN (R 3.5.1)                    |
-|bit64          |0.9-7       |CRAN (R 3.5.1)                    |
-|blob           |1.1.1       |CRAN (R 3.5.1)                    |
-|bookdown       |0.7         |CRAN (R 3.5.1)                    |
-|cli            |1.0.1       |CRAN (R 3.5.1)                    |
-|codetools      |0.2-15      |CRAN (R 3.5.1)                    |
-|colorspace     |1.3-2       |CRAN (R 3.5.1)                    |
-|crayon         |1.3.4       |CRAN (R 3.5.1)                    |
-|DBI            |1.0.0       |CRAN (R 3.5.1)                    |
-|dbplyr         |1.2.2       |CRAN (R 3.5.1)                    |
-|desc           |1.2.0       |CRAN (R 3.5.1)                    |
-|digest         |0.6.18      |CRAN (R 3.5.1)                    |
-|dplyr          |0.7.6       |CRAN (R 3.5.1)                    |
-|emo            |0.0.0.9000  |Github (hadley/emo\@02a5206)      |
-|evaluate       |0.11        |CRAN (R 3.5.1)                    |
-|fansi          |0.3.0       |CRAN (R 3.5.1)                    |
-|furrr          |0.1.0       |CRAN (R 3.5.1)                    |
-|future         |1.9.0       |CRAN (R 3.5.1)                    |
-|ggplot2        |3.0.0       |CRAN (R 3.5.1)                    |
-|globals        |0.12.3      |CRAN (R 3.5.1)                    |
-|glue           |1.3.0       |Github (tidyverse/glue\@4e74901)  |
-|gtable         |0.2.0       |CRAN (R 3.5.1)                    |
-|highr          |0.7         |CRAN (R 3.5.1)                    |
-|hms            |0.4.2       |CRAN (R 3.5.1)                    |
-|htmltools      |0.3.6       |CRAN (R 3.5.1)                    |
-|httpuv         |1.4.5       |CRAN (R 3.5.1)                    |
-|inline         |0.3.15      |CRAN (R 3.5.1)                    |
-|jsonlite       |1.5         |CRAN (R 3.5.1)                    |
-|knitr          |1.20        |CRAN (R 3.5.1)                    |
-|labeling       |0.3         |CRAN (R 3.5.1)                    |
-|later          |0.7.5       |CRAN (R 3.5.1)                    |
-|lattice        |0.20-35     |CRAN (R 3.5.1)                    |
-|lazyeval       |0.2.1       |CRAN (R 3.5.1)                    |
-|lineprof       |0.1.9001    |Github (hadley/lineprof\@972e71d) |
-|listenv        |0.7.0       |CRAN (R 3.5.1)                    |
-|lobstr         |0.0.0.9000  |Github (hadley/lobstr\@530db70)   |
-|lubridate      |1.7.4       |CRAN (R 3.5.1)                    |
-|magrittr       |1.5         |CRAN (R 3.5.1)                    |
-|markdown       |0.8         |CRAN (R 3.5.1)                    |
-|MASS           |7.3-50      |CRAN (R 3.5.1)                    |
-|Matrix         |1.2-14      |CRAN (R 3.5.1)                    |
-|memoise        |1.1.0       |CRAN (R 3.5.1)                    |
-|mgcv           |1.8-24      |CRAN (R 3.5.1)                    |
-|microbenchmark |1.4-5       |CRAN (R 3.5.1)                    |
-|mime           |0.5         |CRAN (R 3.5.1)                    |
-|munsell        |0.5.0       |CRAN (R 3.5.1)                    |
-|nlme           |3.1-137     |CRAN (R 3.5.1)                    |
-|pillar         |1.3.0       |CRAN (R 3.5.1)                    |
-|pkgconfig      |2.0.2       |CRAN (R 3.5.1)                    |
-|plogr          |0.2.0       |CRAN (R 3.5.1)                    |
-|plyr           |1.8.4       |CRAN (R 3.5.1)                    |
-|png            |0.1-7       |CRAN (R 3.5.1)                    |
-|praise         |1.0.0       |CRAN (R 3.5.1)                    |
-|prettyunits    |1.0.2       |CRAN (R 3.5.1)                    |
-|promises       |1.0.1       |CRAN (R 3.5.1)                    |
-|pryr           |0.1.4       |CRAN (R 3.5.1)                    |
-|purrr          |0.2.5       |CRAN (R 3.5.1)                    |
-|R6             |2.3.0       |CRAN (R 3.5.1)                    |
-|RColorBrewer   |1.1-2       |CRAN (R 3.5.1)                    |
-|Rcpp           |0.12.19     |CRAN (R 3.5.1)                    |
-|readr          |1.1.1       |CRAN (R 3.5.1)                    |
-|reshape2       |1.4.3       |CRAN (R 3.5.1)                    |
-|rlang          |0.2.99.0000 |Github (r-lib/rlang\@30d6671)     |
-|rmarkdown      |1.10        |CRAN (R 3.5.1)                    |
-|rprojroot      |1.3-2       |CRAN (R 3.5.1)                    |
-|RSQLite        |2.1.1       |CRAN (R 3.5.1)                    |
-|scales         |1.0.0       |CRAN (R 3.5.1)                    |
-|sessioninfo    |1.1.0       |CRAN (R 3.5.1)                    |
-|shiny          |1.1.0       |CRAN (R 3.5.1)                    |
-|sloop          |0.0.0.9000  |Github (r-lib/sloop\@536cf83)     |
-|sourcetools    |0.1.7       |CRAN (R 3.5.1)                    |
-|stringi        |1.2.4       |CRAN (R 3.5.1)                    |
-|stringr        |1.3.1       |CRAN (R 3.5.1)                    |
-|testthat       |2.0.0       |CRAN (R 3.5.1)                    |
-|tibble         |1.4.2       |CRAN (R 3.5.1)                    |
-|tidyselect     |0.2.4       |CRAN (R 3.5.1)                    |
-|tinytex        |0.8         |CRAN (R 3.5.1)                    |
-|utf8           |1.1.4       |CRAN (R 3.5.1)                    |
-|vctrs          |0.0.0.9000  |Github (r-lib/vctrs\@e7079d2)     |
-|viridisLite    |0.3.0       |CRAN (R 3.5.1)                    |
-|withr          |2.1.2       |CRAN (R 3.5.1)                    |
-|xfun           |0.3         |CRAN (R 3.5.1)                    |
-|xtable         |1.8-3       |CRAN (R 3.5.1)                    |
-|yaml           |2.2.0       |CRAN (R 3.5.1)                    |
-|zeallot        |0.1.0       |CRAN (R 3.5.1)                    |
+|package        |version    |source                            |
+|:--------------|:----------|:---------------------------------|
+|assertthat     |0.2.0      |CRAN (R 3.5.1)                    |
+|backports      |1.1.2      |CRAN (R 3.5.1)                    |
+|base64enc      |0.1-3      |CRAN (R 3.5.1)                    |
+|bench          |1.0.1      |CRAN (R 3.5.1)                    |
+|BH             |1.66.0-1   |CRAN (R 3.5.1)                    |
+|bindr          |0.1.1      |CRAN (R 3.5.1)                    |
+|bindrcpp       |0.2.2      |CRAN (R 3.5.1)                    |
+|bit            |1.1-14     |CRAN (R 3.5.1)                    |
+|bit64          |0.9-7      |CRAN (R 3.5.1)                    |
+|blob           |1.1.1      |CRAN (R 3.5.1)                    |
+|bookdown       |0.7        |CRAN (R 3.5.1)                    |
+|cli            |1.0.1      |CRAN (R 3.5.1)                    |
+|codetools      |0.2-15     |CRAN (R 3.5.1)                    |
+|colorspace     |1.3-2      |CRAN (R 3.5.1)                    |
+|crayon         |1.3.4      |CRAN (R 3.5.1)                    |
+|DBI            |1.0.0      |CRAN (R 3.5.1)                    |
+|dbplyr         |1.2.2      |CRAN (R 3.5.1)                    |
+|desc           |1.2.0      |CRAN (R 3.5.1)                    |
+|digest         |0.6.18     |CRAN (R 3.5.1)                    |
+|dplyr          |0.7.8      |CRAN (R 3.5.1)                    |
+|emo            |0.0.0.9000 |Github (hadley/emo\@02a5206)      |
+|evaluate       |0.12       |CRAN (R 3.5.1)                    |
+|fansi          |0.4.0      |CRAN (R 3.5.1)                    |
+|furrr          |0.1.0      |CRAN (R 3.5.1)                    |
+|future         |1.10.0     |CRAN (R 3.5.1)                    |
+|ggplot2        |3.1.0      |CRAN (R 3.5.1)                    |
+|globals        |0.12.4     |CRAN (R 3.5.1)                    |
+|glue           |1.3.0      |Github (tidyverse/glue\@35c61e9)  |
+|gtable         |0.2.0      |CRAN (R 3.5.1)                    |
+|highr          |0.7        |CRAN (R 3.5.1)                    |
+|hms            |0.4.2      |CRAN (R 3.5.1)                    |
+|htmltools      |0.3.6      |CRAN (R 3.5.1)                    |
+|httpuv         |1.4.5      |CRAN (R 3.5.1)                    |
+|inline         |0.3.15     |CRAN (R 3.5.1)                    |
+|jsonlite       |1.5        |CRAN (R 3.5.1)                    |
+|knitr          |1.20       |CRAN (R 3.5.1)                    |
+|labeling       |0.3        |CRAN (R 3.5.1)                    |
+|later          |0.7.5      |CRAN (R 3.5.1)                    |
+|lattice        |0.20-35    |CRAN (R 3.5.1)                    |
+|lazyeval       |0.2.1      |CRAN (R 3.5.1)                    |
+|lineprof       |0.1.9001   |Github (hadley/lineprof\@972e71d) |
+|listenv        |0.7.0      |CRAN (R 3.5.1)                    |
+|lobstr         |0.0.0.9000 |Github (r-lib/lobstr\@2ab73e8)    |
+|lubridate      |1.7.4      |CRAN (R 3.5.1)                    |
+|magrittr       |1.5        |CRAN (R 3.5.1)                    |
+|markdown       |0.8        |CRAN (R 3.5.1)                    |
+|MASS           |7.3-50     |CRAN (R 3.5.1)                    |
+|Matrix         |1.2-14     |CRAN (R 3.5.1)                    |
+|memoise        |1.1.0      |CRAN (R 3.5.1)                    |
+|mgcv           |1.8-24     |CRAN (R 3.5.1)                    |
+|microbenchmark |1.4-6      |CRAN (R 3.5.1)                    |
+|mime           |0.6        |CRAN (R 3.5.1)                    |
+|munsell        |0.5.0      |CRAN (R 3.5.1)                    |
+|nlme           |3.1-137    |CRAN (R 3.5.1)                    |
+|pillar         |1.3.0      |CRAN (R 3.5.1)                    |
+|pkgconfig      |2.0.2      |CRAN (R 3.5.1)                    |
+|plogr          |0.2.0      |CRAN (R 3.5.1)                    |
+|plyr           |1.8.4      |CRAN (R 3.5.1)                    |
+|png            |0.1-7      |CRAN (R 3.5.1)                    |
+|praise         |1.0.0      |CRAN (R 3.5.1)                    |
+|prettyunits    |1.0.2      |CRAN (R 3.5.1)                    |
+|profmem        |0.5.0      |CRAN (R 3.5.1)                    |
+|promises       |1.0.1      |CRAN (R 3.5.1)                    |
+|pryr           |0.1.4      |CRAN (R 3.5.1)                    |
+|purrr          |0.2.5      |CRAN (R 3.5.1)                    |
+|R6             |2.3.0      |CRAN (R 3.5.1)                    |
+|RColorBrewer   |1.1-2      |CRAN (R 3.5.1)                    |
+|Rcpp           |1.0.0      |CRAN (R 3.5.1)                    |
+|readr          |1.1.1      |CRAN (R 3.5.1)                    |
+|reshape2       |1.4.3      |CRAN (R 3.5.1)                    |
+|rlang          |0.3.0.1    |CRAN (R 3.5.1)                    |
+|rmarkdown      |1.10       |CRAN (R 3.5.1)                    |
+|rprojroot      |1.3-2      |CRAN (R 3.5.1)                    |
+|RSQLite        |2.1.1      |CRAN (R 3.5.1)                    |
+|scales         |1.0.0      |CRAN (R 3.5.1)                    |
+|sessioninfo    |1.1.1      |CRAN (R 3.5.1)                    |
+|shiny          |1.2.0      |CRAN (R 3.5.1)                    |
+|sloop          |1.0.0      |CRAN (R 3.5.1)                    |
+|sourcetools    |0.1.7      |CRAN (R 3.5.1)                    |
+|stringi        |1.2.4      |CRAN (R 3.5.1)                    |
+|stringr        |1.3.1      |CRAN (R 3.5.1)                    |
+|testthat       |2.0.1      |CRAN (R 3.5.1)                    |
+|tibble         |1.4.2      |CRAN (R 3.5.1)                    |
+|tidyselect     |0.2.5      |CRAN (R 3.5.1)                    |
+|tinytex        |0.9        |CRAN (R 3.5.1)                    |
+|utf8           |1.1.4      |CRAN (R 3.5.1)                    |
+|vctrs          |0.0.0.9000 |Github (r-lib/vctrs\@688707c)     |
+|viridisLite    |0.3.0      |CRAN (R 3.5.1)                    |
+|withr          |2.1.2      |CRAN (R 3.5.1)                    |
+|xfun           |0.4        |CRAN (R 3.5.1)                    |
+|xtable         |1.8-3      |CRAN (R 3.5.1)                    |
+|yaml           |2.2.0      |CRAN (R 3.5.1)                    |
+|zeallot        |0.1.0      |CRAN (R 3.5.1)                    |
 
 
 

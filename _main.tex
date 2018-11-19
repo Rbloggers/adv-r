@@ -1,5 +1,7 @@
 \documentclass[]{book}
 \usepackage{lmodern}
+\usepackage{setspace}
+\setstretch{1.2}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
@@ -21,7 +23,7 @@
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage[margin=1in]{geometry}
+\usepackage[b5paper]{geometry}
 \usepackage{hyperref}
 \hypersetup{unicode=true,
             pdftitle={Advanced R},
@@ -809,7 +811,7 @@ language & (EN)\tabularnewline
 collate & en\_US.UTF-8\tabularnewline
 ctype & en\_US.UTF-8\tabularnewline
 tz & UTC\tabularnewline
-date & 2018-10-12\tabularnewline
+date & 2018-11-19\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -821,6 +823,7 @@ package & version & source\tabularnewline
 assertthat & 0.2.0 & CRAN (R 3.5.1)\tabularnewline
 backports & 1.1.2 & CRAN (R 3.5.1)\tabularnewline
 base64enc & 0.1-3 & CRAN (R 3.5.1)\tabularnewline
+bench & 1.0.1 & CRAN (R 3.5.1)\tabularnewline
 BH & 1.66.0-1 & CRAN (R 3.5.1)\tabularnewline
 bindr & 0.1.1 & CRAN (R 3.5.1)\tabularnewline
 bindrcpp & 0.2.2 & CRAN (R 3.5.1)\tabularnewline
@@ -836,15 +839,15 @@ DBI & 1.0.0 & CRAN (R 3.5.1)\tabularnewline
 dbplyr & 1.2.2 & CRAN (R 3.5.1)\tabularnewline
 desc & 1.2.0 & CRAN (R 3.5.1)\tabularnewline
 digest & 0.6.18 & CRAN (R 3.5.1)\tabularnewline
-dplyr & 0.7.6 & CRAN (R 3.5.1)\tabularnewline
+dplyr & 0.7.8 & CRAN (R 3.5.1)\tabularnewline
 emo & 0.0.0.9000 & Github (hadley/emo@02a5206)\tabularnewline
-evaluate & 0.11 & CRAN (R 3.5.1)\tabularnewline
-fansi & 0.3.0 & CRAN (R 3.5.1)\tabularnewline
+evaluate & 0.12 & CRAN (R 3.5.1)\tabularnewline
+fansi & 0.4.0 & CRAN (R 3.5.1)\tabularnewline
 furrr & 0.1.0 & CRAN (R 3.5.1)\tabularnewline
-future & 1.9.0 & CRAN (R 3.5.1)\tabularnewline
-ggplot2 & 3.0.0 & CRAN (R 3.5.1)\tabularnewline
-globals & 0.12.3 & CRAN (R 3.5.1)\tabularnewline
-glue & 1.3.0 & Github (tidyverse/glue@4e74901)\tabularnewline
+future & 1.10.0 & CRAN (R 3.5.1)\tabularnewline
+ggplot2 & 3.1.0 & CRAN (R 3.5.1)\tabularnewline
+globals & 0.12.4 & CRAN (R 3.5.1)\tabularnewline
+glue & 1.3.0 & Github (tidyverse/glue@35c61e9)\tabularnewline
 gtable & 0.2.0 & CRAN (R 3.5.1)\tabularnewline
 highr & 0.7 & CRAN (R 3.5.1)\tabularnewline
 hms & 0.4.2 & CRAN (R 3.5.1)\tabularnewline
@@ -859,7 +862,7 @@ lattice & 0.20-35 & CRAN (R 3.5.1)\tabularnewline
 lazyeval & 0.2.1 & CRAN (R 3.5.1)\tabularnewline
 lineprof & 0.1.9001 & Github (hadley/lineprof@972e71d)\tabularnewline
 listenv & 0.7.0 & CRAN (R 3.5.1)\tabularnewline
-lobstr & 0.0.0.9000 & Github (hadley/lobstr@530db70)\tabularnewline
+lobstr & 0.0.0.9000 & Github (r-lib/lobstr@2ab73e8)\tabularnewline
 lubridate & 1.7.4 & CRAN (R 3.5.1)\tabularnewline
 magrittr & 1.5 & CRAN (R 3.5.1)\tabularnewline
 markdown & 0.8 & CRAN (R 3.5.1)\tabularnewline
@@ -867,8 +870,8 @@ MASS & 7.3-50 & CRAN (R 3.5.1)\tabularnewline
 Matrix & 1.2-14 & CRAN (R 3.5.1)\tabularnewline
 memoise & 1.1.0 & CRAN (R 3.5.1)\tabularnewline
 mgcv & 1.8-24 & CRAN (R 3.5.1)\tabularnewline
-microbenchmark & 1.4-5 & CRAN (R 3.5.1)\tabularnewline
-mime & 0.5 & CRAN (R 3.5.1)\tabularnewline
+microbenchmark & 1.4-6 & CRAN (R 3.5.1)\tabularnewline
+mime & 0.6 & CRAN (R 3.5.1)\tabularnewline
 munsell & 0.5.0 & CRAN (R 3.5.1)\tabularnewline
 nlme & 3.1-137 & CRAN (R 3.5.1)\tabularnewline
 pillar & 1.3.0 & CRAN (R 3.5.1)\tabularnewline
@@ -878,34 +881,35 @@ plyr & 1.8.4 & CRAN (R 3.5.1)\tabularnewline
 png & 0.1-7 & CRAN (R 3.5.1)\tabularnewline
 praise & 1.0.0 & CRAN (R 3.5.1)\tabularnewline
 prettyunits & 1.0.2 & CRAN (R 3.5.1)\tabularnewline
+profmem & 0.5.0 & CRAN (R 3.5.1)\tabularnewline
 promises & 1.0.1 & CRAN (R 3.5.1)\tabularnewline
 pryr & 0.1.4 & CRAN (R 3.5.1)\tabularnewline
 purrr & 0.2.5 & CRAN (R 3.5.1)\tabularnewline
 R6 & 2.3.0 & CRAN (R 3.5.1)\tabularnewline
 RColorBrewer & 1.1-2 & CRAN (R 3.5.1)\tabularnewline
-Rcpp & 0.12.19 & CRAN (R 3.5.1)\tabularnewline
+Rcpp & 1.0.0 & CRAN (R 3.5.1)\tabularnewline
 readr & 1.1.1 & CRAN (R 3.5.1)\tabularnewline
 reshape2 & 1.4.3 & CRAN (R 3.5.1)\tabularnewline
-rlang & 0.2.99.0000 & Github (r-lib/rlang@30d6671)\tabularnewline
+rlang & 0.3.0.1 & CRAN (R 3.5.1)\tabularnewline
 rmarkdown & 1.10 & CRAN (R 3.5.1)\tabularnewline
 rprojroot & 1.3-2 & CRAN (R 3.5.1)\tabularnewline
 RSQLite & 2.1.1 & CRAN (R 3.5.1)\tabularnewline
 scales & 1.0.0 & CRAN (R 3.5.1)\tabularnewline
-sessioninfo & 1.1.0 & CRAN (R 3.5.1)\tabularnewline
-shiny & 1.1.0 & CRAN (R 3.5.1)\tabularnewline
-sloop & 0.0.0.9000 & Github (r-lib/sloop@536cf83)\tabularnewline
+sessioninfo & 1.1.1 & CRAN (R 3.5.1)\tabularnewline
+shiny & 1.2.0 & CRAN (R 3.5.1)\tabularnewline
+sloop & 1.0.0 & CRAN (R 3.5.1)\tabularnewline
 sourcetools & 0.1.7 & CRAN (R 3.5.1)\tabularnewline
 stringi & 1.2.4 & CRAN (R 3.5.1)\tabularnewline
 stringr & 1.3.1 & CRAN (R 3.5.1)\tabularnewline
-testthat & 2.0.0 & CRAN (R 3.5.1)\tabularnewline
+testthat & 2.0.1 & CRAN (R 3.5.1)\tabularnewline
 tibble & 1.4.2 & CRAN (R 3.5.1)\tabularnewline
-tidyselect & 0.2.4 & CRAN (R 3.5.1)\tabularnewline
-tinytex & 0.8 & CRAN (R 3.5.1)\tabularnewline
+tidyselect & 0.2.5 & CRAN (R 3.5.1)\tabularnewline
+tinytex & 0.9 & CRAN (R 3.5.1)\tabularnewline
 utf8 & 1.1.4 & CRAN (R 3.5.1)\tabularnewline
-vctrs & 0.0.0.9000 & Github (r-lib/vctrs@e7079d2)\tabularnewline
+vctrs & 0.0.0.9000 & Github (r-lib/vctrs@688707c)\tabularnewline
 viridisLite & 0.3.0 & CRAN (R 3.5.1)\tabularnewline
 withr & 2.1.2 & CRAN (R 3.5.1)\tabularnewline
-xfun & 0.3 & CRAN (R 3.5.1)\tabularnewline
+xfun & 0.4 & CRAN (R 3.5.1)\tabularnewline
 xtable & 1.8-3 & CRAN (R 3.5.1)\tabularnewline
 yaml & 2.2.0 & CRAN (R 3.5.1)\tabularnewline
 zeallot & 0.1.0 & CRAN (R 3.5.1)\tabularnewline
@@ -1177,9 +1181,9 @@ the same identifier:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{obj_addr}\NormalTok{(x)}
-\CommentTok{#> [1] "0x747a348"}
+\CommentTok{#> [1] "0x43f7f68"}
 \KeywordTok{obj_addr}\NormalTok{(y)}
-\CommentTok{#> [1] "0x747a348"}
+\CommentTok{#> [1] "0x43f7f68"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1381,7 +1385,7 @@ The same rules for copying also apply to function calls. Take this code:
 
 \NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
 \KeywordTok{cat}\NormalTok{(}\KeywordTok{tracemem}\NormalTok{(x), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> <0x4d0bd38>}
+\CommentTok{#> <0x38bae48>}
 
 \NormalTok{z <-}\StringTok{ }\KeywordTok{f}\NormalTok{(x)}
 \CommentTok{# there's no copy here!}
@@ -1455,15 +1459,15 @@ local ID so that you can easily cross-reference shared components.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ref}\NormalTok{(l1, l2)}
-\CommentTok{#> █ [1:0x7cc3b28] <list> }
-\CommentTok{#> ├─[2:0x7afc180] <dbl> }
-\CommentTok{#> ├─[3:0x7afc148] <dbl> }
-\CommentTok{#> └─[4:0x7afc110] <dbl> }
+\CommentTok{#> █ [1:0x6ec3878] <list> }
+\CommentTok{#> ├─[2:0x6d21298] <dbl> }
+\CommentTok{#> ├─[3:0x6d21260] <dbl> }
+\CommentTok{#> └─[4:0x6d21228] <dbl> }
 \CommentTok{#>  }
-\CommentTok{#> █ [5:0x86733c8] <list> }
-\CommentTok{#> ├─[2:0x7afc180] }
-\CommentTok{#> ├─[3:0x7afc148] }
-\CommentTok{#> └─[6:0x85cd5f8] <dbl>}
+\CommentTok{#> █ [5:0x7914778] <list> }
+\CommentTok{#> ├─[2:0x6d21298] }
+\CommentTok{#> ├─[3:0x6d21260] }
+\CommentTok{#> └─[6:0x781c148] <dbl>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1535,11 +1539,11 @@ You can request that \texttt{ref()} show these references by setting the
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ref}\NormalTok{(x, }\DataTypeTok{character =} \OtherTok{TRUE}\NormalTok{)}
-\CommentTok{#> █ [1:0x77dc4b8] <chr> }
-\CommentTok{#> ├─[2:0x1b49778] <string: "a"> }
-\CommentTok{#> ├─[2:0x1b49778] }
-\CommentTok{#> ├─[3:0x77135e8] <string: "abc"> }
-\CommentTok{#> └─[4:0x1fffb18] <string: "d">}
+\CommentTok{#> █ [1:0x42963e8] <chr> }
+\CommentTok{#> ├─[2:0x13d5788] <string: "a"> }
+\CommentTok{#> ├─[2:0x13d5788] }
+\CommentTok{#> ├─[3:0x29a91f0] <string: "abc"> }
+\CommentTok{#> └─[4:0x188bb28] <string: "d">}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1604,9 +1608,9 @@ You can find out how much memory an object takes with
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{obj_size}\NormalTok{(letters)}
-\CommentTok{#> 1,792 B}
+\CommentTok{#> 1,712 B}
 \KeywordTok{obj_size}\NormalTok{(ggplot2}\OperatorTok{::}\NormalTok{diamonds)}
-\CommentTok{#> 3,457,048 B}
+\CommentTok{#> 3,456,344 B}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1644,9 +1648,9 @@ not make it take up 1000 times as much memory.
 \begin{Highlighting}[]
 \NormalTok{banana <-}\StringTok{ "bananas bananas bananas"}
 \KeywordTok{obj_size}\NormalTok{(banana)}
-\CommentTok{#> 272 B}
+\CommentTok{#> 136 B}
 \KeywordTok{obj_size}\NormalTok{(}\KeywordTok{rep}\NormalTok{(banana, }\DecValTok{100}\NormalTok{))}
-\CommentTok{#> 1,064 B}
+\CommentTok{#> 928 B}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4188,7 +4192,7 @@ this easier to understand we can use a metaphor:
 \texttt{x{[}{[}5{]}{]}} is the object in car 5; \texttt{x{[}4:6{]}} is a
 train of cars 4-6.''
 
---- @RLangTip,
+\hspace*{\fill} --- @RLangTip,
 \url{https://twitter.com/RLangTip/status/268375867468681216}
 \end{quote}
 
@@ -6651,7 +6655,7 @@ be run first. In R 3.5 and later, you can control this by setting
   Everything that happens is a function call."
 \end{itemize}
 
---- John Chambers
+\hspace*{\fill} --- John Chambers
 \end{quote}
 
 While everything that happens in R is a result of a function call, not
@@ -10553,7 +10557,7 @@ transparent. In particular, nested conditions and loops must be viewed
 with great suspicion. Complicated control flows confuse programmers.
 Messy code often hides bugs.''
 
---- Bjarne Stroustrup
+\hspace*{\fill} --- Bjarne Stroustrup
 \end{quote}
 
 A \textbf{functional} is a function that takes a function as an input
@@ -25864,7 +25868,7 @@ functions that can return different types of output.
 ``Finding your bug is a process of confirming the many things that you
 believe are true --- until you find one which is not true.''
 
----Norm Matloff
+\hspace*{\fill} ---Norm Matloff
 \end{quote}
 
 Debugging code is challenging. Many bugs are subtle and hard to find.
@@ -26434,8 +26438,8 @@ root.
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>     expr   min    lq  mean median     uq    max neval}
-\CommentTok{#>  sqrt(x)   881 1,180  1484  1,320  1,580  7,520   100}
-\CommentTok{#>    x^0.5 9,430 9,700 10975  9,900 10,200 53,500   100}
+\CommentTok{#>  sqrt(x)   942 1,130  1448  1,310  1,530  9,440   100}
+\CommentTok{#>    x^0.5 9,210 9,590 10239  9,810 10,100 39,500   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26619,15 +26623,15 @@ comparison. \index{methods!cost of dispatch}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>  expr    min     lq  mean median     uq       max neval}
-\CommentTok{#>   fun    176    198   430    222    235    18,900   100}
-\CommentTok{#>    S3    977  1,120 11703  1,210  1,340   997,000   100}
-\CommentTok{#>    S4 12,100 12,700 30947 13,100 14,900 1,090,000   100}
-\CommentTok{#>    RC  8,240  8,510 43451  8,690  8,940 3,440,000   100}
+\CommentTok{#>   fun    182    216   432    238    256    16,900   100}
+\CommentTok{#>    S3  1,010  1,170 11164  1,230  1,500   952,000   100}
+\CommentTok{#>    S4 12,000 12,500 29372 12,900 14,400 1,040,000   100}
+\CommentTok{#>    RC  8,210  8,620 41290  8,780  9,270 3,180,000   100}
 \end{Highlighting}
 \end{Shaded}
 
 The bare function takes about 200 ns. S3 method dispatch takes an
-additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 8,000 ns.
+additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 9,000 ns.
 S3 and S4 method dispatch are expensive because R must search for the
 right method every time the generic is called; it might have changed
 between this call and the last. R could do better by caching methods
@@ -26906,10 +26910,10 @@ subassignment. \indexc{ifelse()} \indexc{pmin()} \indexc{pmax()}
   \DataTypeTok{unit =} \StringTok{"us"}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
-\CommentTok{#>             expr   min   lq mean median    uq   max neval}
-\CommentTok{#>       squish_ife 20.20 23.0 54.3   29.2 33.20 2,450   100}
-\CommentTok{#>         squish_p 12.40 13.0 36.0   13.6 14.80 1,550   100}
-\CommentTok{#>  squish_in_place  2.89  3.2 33.3    3.5  4.37 2,940   100}
+\CommentTok{#>             expr   min    lq mean median    uq   max neval}
+\CommentTok{#>       squish_ife 20.60 23.90 55.5  29.20 32.40 2,490   100}
+\CommentTok{#>         squish_p 12.40 13.20 37.9  13.80 15.50 1,670   100}
+\CommentTok{#>  squish_in_place  2.87  3.21 33.9   3.82  4.66 2,970   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26960,8 +26964,8 @@ value is less than \texttt{a} and/or greater than \texttt{b}.
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
 \CommentTok{#>             expr  min   lq  mean median   uq     max neval}
-\CommentTok{#>  squish_in_place 3.34 4.43  5.35   4.79 5.36    33.7   100}
-\CommentTok{#>       squish_cpp 2.67 3.13 17.41   3.28 3.62 1,380.0   100}
+\CommentTok{#>  squish_in_place 3.78 4.55  5.46   4.94 5.50    31.2   100}
+\CommentTok{#>       squish_cpp 2.45 3.10 17.54   3.33 3.63 1,390.0   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -27116,9 +27120,9 @@ seen:
   \DataTypeTok{unit =} \StringTok{"ms"}
 \NormalTok{)}
 \CommentTok{#> Unit: milliseconds}
-\CommentTok{#>          expr   min    lq  mean median    uq    max neval}
-\CommentTok{#>  cond_sum_cpp  5.21  5.24  5.29   5.26  5.29   6.56   100}
-\CommentTok{#>    cond_sum_r 12.80 13.80 15.72  14.30 14.60 152.00   100}
+\CommentTok{#>          expr   min    lq mean median    uq    max neval}
+\CommentTok{#>  cond_sum_cpp  5.29  5.32  5.4   5.35  5.41   7.01   100}
+\CommentTok{#>    cond_sum_r 13.70 15.10 16.7  15.30 15.50 152.00   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -27151,7 +27155,7 @@ about, the speed of noncritical parts of their programs, and these
 attempts at efficiency actually have a strong negative impact when
 debugging and maintenance are considered.''
 
---- Donald Knuth.
+\hspace*{\fill} --- Donald Knuth.
 \end{quote}
 
 Optimising code to make it run faster is an iterative process:
@@ -27592,7 +27596,7 @@ lulled into complacency by such reasoning, he will be wise to look
 carefully at the critical code; but only after that code has been
 identified.''
 
---- Donald Knuth.
+\hspace*{\fill} --- Donald Knuth.
 \end{quote}
 
 Once you've used profiling to identify a bottleneck, you need to make it
