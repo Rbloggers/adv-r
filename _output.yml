@@ -19,7 +19,6 @@ bookdown::pdf_book:
   template: null
   toc_unnumbered: false
   number_sections: true
-  pandoc_args: "--top-level-division=chapter"
   quote_footer: ["\\hspace*{\\fill} ", ""]
 #  pandoc_args: ["--top-level-division=chapter", "--lua-filter=latex/sidebar.lua"]
 
