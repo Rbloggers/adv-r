@@ -1,4 +1,0 @@
-ip <- installed.packages()
-pkgs.to.remove <- ip[!(ip[,"Priority"] %in% c("base", "recommended")), 1]
-sapply(pkgs.to.remove, remove.packages)
-sapply(pkgs.to.remove, install.packages)
