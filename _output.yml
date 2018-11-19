@@ -16,10 +16,7 @@ bookdown::pdf_book:
   keep_tex: true
   citation_package: natbib
   includes:
-    in_header: latex/preamble.tex
-    before_body: latex/before_body.tex
-    after_body: latex/after_body.tex
-  pandoc_args: ["--top-level-division=chapter", "--lua-filter=latex/sidebar.lua"]
+    in_header: header.tex
   quote_footer: ["\\hspace*{\\fill} ", ""]
 
 

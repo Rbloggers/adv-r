@@ -8,11 +8,11 @@ github-repo: hadley/adv-r
 twitter-handle: hadley
 cover-image: cover.png
 site: bookdown::bookdown_site
-documentclass: krantz
+documentclass: book
 bibliography: book.bib
 link-citations: yes
-#linestretch: 1.15
-#geometry: b5paper, bottom=0.7in
+linestretch: 1.15
+geometry: b5paper, bottom=0.72in
 ---
 
 `r if (knitr::is_latex_output()) '<!--'` 
