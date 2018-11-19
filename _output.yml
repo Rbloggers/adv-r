@@ -16,7 +16,6 @@ bookdown::pdf_book:
   keep_tex: true
   includes:
     in_header: header.tex
-  citation_package: natbib
   template: null
   toc_unnumbered: false
   number_sections: true
