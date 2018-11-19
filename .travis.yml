@@ -28,7 +28,7 @@ before_install:
 #- Rscript -e "tinytex::tlmgr_install(c('lm-math', 'unicode-math', 'filehook'))"
 
 script:
-  - Rscript -e 'options(java.parameters = "-Xss2560k"); bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
+  - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
   - cd _book/
   - cp ../adv-r_cover.pdf .
   - pdftk _main.pdf cat 2-r1 output adv-r_ori.pdf
