@@ -31,8 +31,6 @@
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
-\usepackage{natbib}
-\bibliographystyle{plainnat}
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -559,26 +557,29 @@ To understand why R's object systems work the way they do, I found ``The
 Structure and Interpretation of Computer Programs''\footnote{You can
   read it online for free at
   \url{https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html}}
-\citep{SICP} (SICP) by Harold Abelson and Gerald Jay Sussman, to be
-particularly helpful. It's a concise but deep book, and after reading
-it, I felt for the first time that I could actually design my own
-object-oriented system. The book was my first introduction to the
-encapsulated paradigm of object oriented programming found in R, and it
-helped me understand the strengths and weaknesses of this system. SICP
-also teaches the functional mindset where you create functions that are
-simple individually, and which become powerful when composed together.
+(Abelson, Sussman, and Sussman \protect\hyperlink{ref-SICP}{1996})
+(SICP) by Harold Abelson and Gerald Jay Sussman, to be particularly
+helpful. It's a concise but deep book, and after reading it, I felt for
+the first time that I could actually design my own object-oriented
+system. The book was my first introduction to the encapsulated paradigm
+of object oriented programming found in R, and it helped me understand
+the strengths and weaknesses of this system. SICP also teaches the
+functional mindset where you create functions that are simple
+individually, and which become powerful when composed together.
 
 To understand the trade-offs that R has made compared to other
 programming languages, I found ``Concepts, Techniques and Models of
-Computer Programming'' \citep{ctmcp} extremely helpful. It helped me
+Computer Programming'' (Van-Roy and Haridi
+\protect\hyperlink{ref-ctmcp}{2004}) extremely helpful. It helped me
 understand that R's copy-on-modify semantics make it substantially
 easier to reason about code, and that while its current implementation
 is not particularly efficient, it is a solvable problem.
 
 If you want to learn to be a better programmer, there's no place better
-to turn than ``The Pragmatic Programmer'' \citep{pragprog} by Andrew
-Hunt and David Thomas. This book is language agnostic, and provides
-great advice for how to be a better programmer.
+to turn than ``The Pragmatic Programmer'' (Hunt and Thomas
+\protect\hyperlink{ref-pragprog}{1990}) by Andrew Hunt and David Thomas.
+This book is language agnostic, and provides great advice for how to be
+a better programmer.
 
 \hypertarget{getting-help}{%
 \section{Getting help}\label{getting-help}}
@@ -1103,11 +1104,15 @@ place. Much of the information in this chapter was gleaned from a close
 reading of the documentation (particularly \texttt{?Memory} and
 \texttt{?gc}), the
 \href{http://cran.r-project.org/doc/manuals/R-exts.html\#Profiling-R-code-for-memory-use}{memory
-profiling} section of ``Writing R extensions'' \citep{r-exts}, and the
+profiling} section of ``Writing R extensions'' (R Core Team
+\protect\hyperlink{ref-r-exts}{2018}\protect\hyperlink{ref-r-exts}{b}),
+and the
 \href{http://cran.r-project.org/doc/manuals/R-ints.html\#SEXPs}{SEXPs}
-section of ``R internals'' \citep{r-ints}. The rest I figured out by
-reading the C source code, performing small experiments, and asking
-questions on R-devel. Any mistakes are entirely mine.
+section of ``R internals'' (R Core Team
+\protect\hyperlink{ref-r-ints}{2018}\protect\hyperlink{ref-r-ints}{a}).
+The rest I figured out by reading the C source code, performing small
+experiments, and asking questions on R-devel. Any mistakes are entirely
+mine.
 
 \hypertarget{binding-basics}{%
 \section{Binding basics}\label{binding-basics}}
@@ -1915,8 +1920,9 @@ This is a unique property of environments!
 \def\labelenumi{\arabic{enumi}.}
 \item
   Wrap the two methods for subtracting medians into two functions, then
-  use the `bench' package \citep{bench} to carefully compare their
-  speeds. How does performance change as the number of columns increase?
+  use the `bench' package (Hester \protect\hyperlink{ref-bench}{2018})
+  to carefully compare their speeds. How does performance change as the
+  number of columns increase?
 \item
   What happens if you attempt to use \texttt{tracemem()} on an
   environment?
@@ -2671,10 +2677,11 @@ visualisations).
 \end{Shaded}
 
 With base R\footnote{The tidyverse never automatically coerce characters
-  to factor, and provides the forcats \citep{forcats} package
-  specifically for working with factors.} you tend to encounter factors
-very frequently, because many base R functions (like \texttt{read.csv()}
-and \texttt{data.frame()}) automatically convert character vectors to
+  to factor, and provides the forcats (Wickham
+  \protect\hyperlink{ref-forcats}{2018}) package specifically for
+  working with factors.} you tend to encounter factors very frequently,
+because many base R functions (like \texttt{read.csv()} and
+\texttt{data.frame()}) automatically convert character vectors to
 factors. This is suboptimal, because there's no way for those functions
 to know the set of all possible levels or their optimal order: the
 levels are a property of the experimental design, not the data. Instead,
@@ -2728,18 +2735,19 @@ represents the number of days since 1970-01-01:
 \hypertarget{date-times}{%
 \subsection{Date-times}\label{date-times}}
 
-Base R\footnote{The tidyverse provides the lubridate \citep{lubridate}
-  package for working with date-times. It provides a number of
-  convenient helpers which work with the base POSIXct type.} provides
-two ways of storing date-time information, POSIXct, and POSIXlt. These
-are admittedly odd names: ``POSIX'' is short for Portable Operating
-System Interface which is a family of cross-platform standards. ``ct''
-standards for calendar time (the \texttt{time\_t} type in C), and ``lt''
-for local time (the \texttt{struct\ tm} type in C). Here we'll focus on
-\texttt{POSIXct}, because it's the simplest, is built on top of an
-atomic vector, and is most appropriate for use in data frames. POSIXct
-vectors are built on top of double vectors, where the value represents
-the number of seconds since 1970-01-01.
+Base R\footnote{The tidyverse provides the lubridate (Grolemund and
+  Wickham \protect\hyperlink{ref-lubridate}{2011}) package for working
+  with date-times. It provides a number of convenient helpers which work
+  with the base POSIXct type.} provides two ways of storing date-time
+information, POSIXct, and POSIXlt. These are admittedly odd names:
+``POSIX'' is short for Portable Operating System Interface which is a
+family of cross-platform standards. ``ct'' standards for calendar time
+(the \texttt{time\_t} type in C), and ``lt'' for local time (the
+\texttt{struct\ tm} type in C). Here we'll focus on \texttt{POSIXct},
+because it's the simplest, is built on top of an atomic vector, and is
+most appropriate for use in data frames. POSIXct vectors are built on
+top of double vectors, where the value represents the number of seconds
+since 1970-01-01.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3039,13 +3047,13 @@ languages. However, in the over 20 years since their creation, the ways
 people use R have changed, and some of the design decisions that made
 sense at the time data frames were created now cause frustration.
 
-This frustration lead to the creation of the tibble \citep{tibble}, a
-modern reimagining of the data frame. Tibbles are designed to be (as
-much as possible) drop-in replacements for data frames, while still
-fixing the greatest frustrations. A concise, and fun, way to summarise
-the main differences is that tibbles are lazy and surly: they tend to do
-less and complain more. You'll see what that means as you work through
-this section.
+This frustration lead to the creation of the tibble (Müller and Wickham
+\protect\hyperlink{ref-tibble}{2018}), a modern reimagining of the data
+frame. Tibbles are designed to be (as much as possible) drop-in
+replacements for data frames, while still fixing the greatest
+frustrations. A concise, and fun, way to summarise the main differences
+is that tibbles are lazy and surly: they tend to do less and complain
+more. You'll see what that means as you work through this section.
 
 Tibbles are provided by the tibble package and share the same structure
 as data frames. The only difference is that the class vector is longer,
@@ -5349,7 +5357,8 @@ Or you save the intermediate results as variables:
 \end{Highlighting}
 \end{Shaded}
 
-The magrittr package \citep{magrittr} provides a third option: the
+The magrittr package (Bache and Wickham
+\protect\hyperlink{ref-magrittr}{2014}) provides a third option: the
 binary operator \texttt{\%\textgreater{}\%}, which is called the pipe
 and is pronounced as ``and then''.
 
@@ -14346,8 +14355,9 @@ given a class is called \textbf{method dispatch}.
 
 There are two main paradigms of object-oriented programming which differ
 in how methods and classes are related. In this book, we'll borrow the
-terminology of \emph{Extending R} \citep{extending-R} and call these
-paradigms encapsulated and functional:
+terminology of \emph{Extending R} (Chambers
+\protect\hyperlink{ref-extending-R}{2016}) and call these paradigms
+encapsulated and functional:
 
 \begin{itemize}
 \item
@@ -14376,16 +14386,18 @@ Base R provides three OOP systems: S3, S4, and reference classes (RC):
 \begin{itemize}
 \item
   \textbf{S3} is R's first OOP system, and is described in
-  \emph{Statistical Models in S} \citep{white-book}. S3 is an informal
+  \emph{Statistical Models in S} (Chambers and Hastie
+  \protect\hyperlink{ref-white-book}{1992}). S3 is an informal
   implementation of functional OOP and relies on common conventions
   rather than ironclad guarantees. This makes it easy to get started
   with, providing a low cost way of solving many simple problems.
 \item
   \textbf{S4} is a formal and rigorous rewrite of S3, and was introduced
-  in \emph{Programming with Data} \citep{programming-with-data}. It
-  requires more upfront work than S3, but in return provides more
-  guaranetees and greater encapsulation. S4 is implemented in the base
-  \textbf{methods} package, which is always installed with R.
+  in \emph{Programming with Data} (Chambers
+  \protect\hyperlink{ref-programming-with-data}{1998}). It requires more
+  upfront work than S3, but in return provides more guaranetees and
+  greater encapsulation. S4 is implemented in the base \textbf{methods}
+  package, which is always installed with R.
 
   (You might wonder if S1 and S2 exist. They don't: S3 and S4 were named
   according to the versions of S that they accompanied. The first two
@@ -14403,18 +14415,22 @@ A number of other OOP systems are provided by CRAN packages:
 
 \begin{itemize}
 \item
-  \textbf{R6} \citep{R6} implements encapsulated OOP like RC, but
-  resolves some important issues. In this book, you'll learn about R6
-  instead of RC, for reasons described in Section \ref{why-r6}.
+  \textbf{R6} (Chang \protect\hyperlink{ref-R6}{2017}) implements
+  encapsulated OOP like RC, but resolves some important issues. In this
+  book, you'll learn about R6 instead of RC, for reasons described in
+  Section \ref{why-r6}.
 \item
-  \textbf{R.oo} \citep{R.oo} provides some formalism on top of S3, and
-  makes it possible to have mutable S3 objects.
+  \textbf{R.oo} (Bengtsson \protect\hyperlink{ref-R.oo}{2003}) provides
+  some formalism on top of S3, and makes it possible to have mutable S3
+  objects.
 \item
-  \textbf{proto} \citep{proto} implements another style of OOP based on
-  the idea of \textbf{prototypes}, which blur the distinctions between
-  classes and instances of classes (objects). I was briefly enamored
-  with prototype based programming \citep{mutatr} and used it in
-  ggplot2, but now think it's better to stick with the standard forms.
+  \textbf{proto} (Grothendieck, Kates, and Petzoldt
+  \protect\hyperlink{ref-proto}{2016}) implements another style of OOP
+  based on the idea of \textbf{prototypes}, which blur the distinctions
+  between classes and instances of classes (objects). I was briefly
+  enamored with prototype based programming (Wickham
+  \protect\hyperlink{ref-mutatr}{2011}) and used it in ggplot2, but now
+  think it's better to stick with the standard forms.
 \end{itemize}
 
 Apart from R6, which is widely used, these systems are primarily of
@@ -17271,9 +17287,10 @@ recommendations:
   John Chambers is the author of the S4 system, and provides an
   overview\\
   of its motivation and historical context in ``Object-oriented
-  programming, functional programming and R'' \citep{chambers-2014}. For
-  a fuller exploration of S4, see his book ``Software for Data
-  Analysis'' \citep{s4da}.
+  programming, functional programming and R'' (Chambers
+  \protect\hyperlink{ref-chambers-2014}{2014}). For a fuller exploration
+  of S4, see his book ``Software for Data Analysis'' (Chambers
+  \protect\hyperlink{ref-s4da}{2008}).
 \end{itemize}
 
 \hypertarget{outline-11}{%
@@ -18310,11 +18327,13 @@ DNAStringSet) are built using S4.
 S4 is also a good fit for complex systems of interrelated objects, and
 it's possible to minimise code duplication through careful
 implementation of methods. The best example of such a system is the
-Matrix package \citep{Matrix}. It is designed to efficiently store and
-compute with many different types of sparse and dense matrices. As of
-version 1.2.14, it defines 102 classes, 21 generic functions, and 1993
-methods, and to give you some idea of the complexity, a small subset of
-the class graph is shown in Figure \ref{fig:matrix-classes}.
+Matrix package (Bates and Maechler
+\protect\hyperlink{ref-Matrix}{2018}). It is designed to efficiently
+store and compute with many different types of sparse and dense
+matrices. As of version 1.2.14, it defines 102 classes, 21 generic
+functions, and 1993 methods, and to give you some idea of the
+complexity, a small subset of the class graph is shown in Figure
+\ref{fig:matrix-classes}.
 
 \begin{figure}
 
@@ -18532,9 +18551,9 @@ it lives.
 One way that other FP languages deal with this challenge is to provide a
 \textbf{multiple assign} (or destructuring bind) operator that allows
 you to assign multiple values in a single step. The zeallot package
-\citep{zeallot} provides multi-assign for R with
-\texttt{\%\textless{}-\%}. This makes the code more elegant, but doesn't
-solve the key problem:
+(Teetor \protect\hyperlink{ref-zeallot}{2018}) provides multi-assign for
+R with \texttt{\%\textless{}-\%}. This makes the code more elegant, but
+doesn't solve the key problem:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -19189,9 +19208,9 @@ underpin metaprogramming:
 
 Each chapter follows the same basic structure. You'll get the lay of the
 land in introduction, then see a motivating example. Next you'll learn
-the big ideas using functions from the rlang package \citep{rlang}, and
-then we'll circle back to talk about how those ideas are expressed in
-base R.
+the big ideas using functions from the rlang package (Henry and Wickham
+\protect\hyperlink{ref-rlang}{2018}), and then we'll circle back to talk
+about how those ideas are expressed in base R.
 
 \hypertarget{expressions}{%
 \chapter{Expressions}\label{expressions}}
@@ -20903,12 +20922,13 @@ with purrr.
 
 Quoting functions have deep connections to Lisp \textbf{macros}. But
 macros are usually run at compile-time, which doesn't exist in R, and
-they always input and output ASTs. See \citet{lumley-2001} for one
-approach to implementing them in R. Quoting functions are more closely
-related to Lisp
-\href{http://en.wikipedia.org/wiki/Fexpr}{\textbf{fexprs}}, functions
-where all arguments are quoted by default. These terms are useful to
-know when looking for related techniques in other programming languages.
+they always input and output ASTs. See Lumley
+(\protect\hyperlink{ref-lumley-2001}{2001}) for one approach to
+implementing them in R. Quoting functions are more closely related to
+Lisp \href{http://en.wikipedia.org/wiki/Fexpr}{\textbf{fexprs}},
+functions where all arguments are quoted by default. These terms are
+useful to know when looking for related techniques in other programming
+languages.
 
 \hypertarget{quasi-motivation}{%
 \section{Motivation}\label{quasi-motivation}}
@@ -21060,10 +21080,10 @@ precisely delineating the use and mention of words, i.e.~between the
 object and the words we use to refer to that object.
 
 Quasiquotation was first used in a programming language, LISP, in the
-mid-1970s \citep{bawden-1999}. LISP has one quoting function
-\texttt{\textasciigrave{}}, and uses \texttt{,} for unquoting. Most
-languages with a LISP heritage behave similarly. For example, racket
-(\texttt{\textasciigrave{}} and \texttt{@}), clojure
+mid-1970s (Bawden \protect\hyperlink{ref-bawden-1999}{1999}). LISP has
+one quoting function \texttt{\textasciigrave{}}, and uses \texttt{,} for
+unquoting. Most languages with a LISP heritage behave similarly. For
+example, racket (\texttt{\textasciigrave{}} and \texttt{@}), clojure
 (\texttt{\textasciigrave{}} and \texttt{\textasciitilde{}}), and julia
 (\texttt{:} and \texttt{@}) all have quasiquotation tools that differ
 only slightly from LISP. These languages have a single quoting function
@@ -23102,7 +23122,8 @@ vs.~unquotation}\label{evaluation-vs.unquotation}}
 
 Evaluation provides an alternative to unquoting.
 
-Popularised by data.table \citep{data.table}
+Popularised by data.table (Dowle and Srinivasan
+\protect\hyperlink{ref-data.table}{2018})
 
 Notice the difference in timing; need to make sure the expression is
 stored in a variable with a different name to anything in the dataset.
@@ -24784,9 +24805,9 @@ HTML, and the other to turn mathematical expressions from R code into
 LaTeX.
 
 If you're interested in learning more about domain specific languages in
-general, I highly recommend \emph{Domain Specific Languages}
-\citep{dsls}. It discusses many options for creating a DSL and provides
-many examples of different languages.
+general, I highly recommend \emph{Domain Specific Languages} (Fowler
+\protect\hyperlink{ref-dsls}{2010}). It discusses many options for
+creating a DSL and provides many examples of different languages.
 
 \hypertarget{outline-16}{%
 \subsection*{Outline}\label{outline-16}}
@@ -26417,8 +26438,8 @@ root.
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>     expr   min    lq  mean median     uq    max neval}
-\CommentTok{#>  sqrt(x)   868 1,180  1398  1,320  1,520  4,370   100}
-\CommentTok{#>    x^0.5 9,260 9,660 10423  9,860 10,200 45,500   100}
+\CommentTok{#>  sqrt(x)   924 1,180  1385  1,320  1,480  4,430   100}
+\CommentTok{#>    x^0.5 9,310 9,740 11865 11,100 12,700 34,900   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26602,20 +26623,20 @@ comparison. \index{methods!cost of dispatch}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>  expr    min     lq  mean median     uq       max neval}
-\CommentTok{#>   fun    180    208   419    232    246    15,900   100}
-\CommentTok{#>    S3    982  1,160 13686  1,240  1,460 1,190,000   100}
-\CommentTok{#>    S4 12,100 12,800 29568 13,400 15,400   960,000   100}
-\CommentTok{#>    RC  8,150  8,430 43194  8,730  9,300 3,350,000   100}
+\CommentTok{#>   fun    179    199   379    228    237    14,300   100}
+\CommentTok{#>    S3    975  1,100 10230  1,150  1,260   875,000   100}
+\CommentTok{#>    S4 11,900 12,400 28175 12,800 14,200   899,000   100}
+\CommentTok{#>    RC  8,130  8,420 42714  8,610  9,060 3,360,000   100}
 \end{Highlighting}
 \end{Shaded}
 
 The bare function takes about 200 ns. S3 method dispatch takes an
-additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 9,000 ns.
-S3 and S4 method dispatch are expensive because R must search for the
-right method every time the generic is called; it might have changed
-between this call and the last. R could do better by caching methods
-between calls, but caching is hard to do correctly and a notorious
-source of bugs.
+additional 900 ns; S4 dispatch, 10,000 ns; and RC dispatch, 8,000 ns. S3
+and S4 method dispatch are expensive because R must search for the right
+method every time the generic is called; it might have changed between
+this call and the last. R could do better by caching methods between
+calls, but caching is hard to do correctly and a notorious source of
+bugs.
 
 \hypertarget{name-lookup-with-mutable-environments}{%
 \subsection{Name lookup with mutable
@@ -26890,9 +26911,9 @@ subassignment. \indexc{ifelse()} \indexc{pmin()} \indexc{pmax()}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
 \CommentTok{#>             expr   min    lq mean median    uq   max neval}
-\CommentTok{#>       squish_ife 20.80 23.20 55.1  28.80 34.30 2,490   100}
-\CommentTok{#>         squish_p 12.50 13.30 38.7  13.80 15.70 1,660   100}
-\CommentTok{#>  squish_in_place  2.78  3.27 33.6   3.91  4.68 2,940   100}
+\CommentTok{#>       squish_ife 20.10 22.30 51.9  28.70 31.60 2,250   100}
+\CommentTok{#>         squish_p 12.40 12.90 36.5  13.50 15.10 1,590   100}
+\CommentTok{#>  squish_in_place  2.79  3.11 31.2   3.48  4.33 2,700   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26943,8 +26964,8 @@ value is less than \texttt{a} and/or greater than \texttt{b}.
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
 \CommentTok{#>             expr  min   lq  mean median   uq     max neval}
-\CommentTok{#>  squish_in_place 3.57 4.30  5.23   4.81 5.56    35.5   100}
-\CommentTok{#>       squish_cpp 2.74 3.13 17.36   3.42 3.80 1,340.0   100}
+\CommentTok{#>  squish_in_place 3.45 4.07  4.96   4.37 4.75    41.3   100}
+\CommentTok{#>       squish_cpp 2.59 2.90 15.57   3.10 3.46 1,200.0   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -27100,8 +27121,8 @@ seen:
 \NormalTok{)}
 \CommentTok{#> Unit: milliseconds}
 \CommentTok{#>          expr   min    lq  mean median    uq    max neval}
-\CommentTok{#>  cond_sum_cpp  5.27  5.33  5.41   5.37  5.42   7.25   100}
-\CommentTok{#>    cond_sum_r 12.90 14.50 16.41  15.00 15.30 156.00   100}
+\CommentTok{#>  cond_sum_cpp  5.15  5.19  5.25   5.23  5.26   6.55   100}
+\CommentTok{#>    cond_sum_r 11.20 12.50 14.38  13.10 13.50 145.00   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -30644,7 +30665,130 @@ incredibly responsive at improving Rcpp. This chapter would not have
 been possible without JJ Allaire; he encouraged me to learn C++ and then
 answered many of my dumb questions along the way.
 
-\bibliography{book.bib}
+\hypertarget{references}{%
+\chapter*{References}\label{references}}
+\addcontentsline{toc}{chapter}{References}
+
+\hypertarget{refs}{}
+\leavevmode\hypertarget{ref-SICP}{}%
+Abelson, Harold, Gerald Jay Sussman, and Julie Sussman. 1996.
+\emph{Structure and Interpretation of Computer Programs}. MIT Press.
+
+\leavevmode\hypertarget{ref-magrittr}{}%
+Bache, Stefan Milton, and Hadley Wickham. 2014. \emph{Magrittr: A
+Forward-Pipe Operator for R}. \url{http://magrittr.tidyverse.org/}.
+
+\leavevmode\hypertarget{ref-Matrix}{}%
+Bates, Douglas, and Martin Maechler. 2018. ``Matrix: Sparse and Dense
+Matrix Classes and Methods.''
+\url{https://CRAN.R-project.org/package=Matrix}.
+
+\leavevmode\hypertarget{ref-bawden-1999}{}%
+Bawden, Alan. 1999. ``Quasiquotation in Lisp.'' In \emph{PEPM '99},
+4--12.
+\url{http://repository.readscheme.org/ftp/papers/pepm99/bawden.pdf}.
+
+\leavevmode\hypertarget{ref-R.oo}{}%
+Bengtsson, Henrik. 2003. ``The R.oo Package - Object-Oriented
+Programming with References Using Standard R Code.'' In
+\emph{Proceedings of the 3rd International Workshop on Distributed
+Statistical Computing (Dsc 2003)}, edited by Kurt Hornik, Friedrich
+Leisch, and Achim Zeileis. Vienna, Austria:
+https://www.r-project.org/conferences/DSC-2003/Proceedings/.
+\url{https://www.r-project.org/conferences/DSC-2003/Proceedings/Bengtsson.pdf}.
+
+\leavevmode\hypertarget{ref-programming-with-data}{}%
+Chambers, John M. 1998. \emph{Programming with Data: A Guide to the S
+Language}. Springer Science \& Business Media.
+
+\leavevmode\hypertarget{ref-s4da}{}%
+---------. 2008. \emph{Software for Data Analysis: Programming with R}.
+Springer.
+
+\leavevmode\hypertarget{ref-chambers-2014}{}%
+---------. 2014. ``Object-Oriented Programming, Functional Programming
+and R.'' \emph{Statistical Science} 29 (2). Institute of Mathematical
+Statistics:167--80.
+\url{https://projecteuclid.org/download/pdfview_1/euclid.ss/1408368569}.
+
+\leavevmode\hypertarget{ref-extending-R}{}%
+---------. 2016. \emph{Extending R}. CRC Press.
+
+\leavevmode\hypertarget{ref-white-book}{}%
+Chambers, John M, and Trevor J Hastie. 1992. \emph{Statistical Models in
+S}. Wadsworth \& Brooks/Cole Advanced Books \& Software.
+
+\leavevmode\hypertarget{ref-R6}{}%
+Chang, Winston. 2017. \emph{R6: Classes with Reference Semantics}.
+\url{https://CRAN.R-project.org/package=R6}.
+
+\leavevmode\hypertarget{ref-data.table}{}%
+Dowle, Matt, and Arun Srinivasan. 2018. \emph{Data.table: Extension of
+`Data.frame`}. \url{http://r-datatable.com}.
+
+\leavevmode\hypertarget{ref-dsls}{}%
+Fowler, Martin. 2010. \emph{Domain-Specific Languages}. Pearson
+Education. \url{http://amzn.com/0321712943}.
+
+\leavevmode\hypertarget{ref-lubridate}{}%
+Grolemund, Garrett, and Hadley Wickham. 2011. ``Dates and Times Made
+Easy with lubridate.'' \emph{Journal of Statistical Software} 40
+(3):1--25. \url{http://www.jstatsoft.org/v40/i03/}.
+
+\leavevmode\hypertarget{ref-proto}{}%
+Grothendieck, Gabor, Louis Kates, and Thomas Petzoldt. 2016.
+\emph{Proto: Prototype Object-Based Programming}.
+\url{https://CRAN.R-project.org/package=proto}.
+
+\leavevmode\hypertarget{ref-rlang}{}%
+Henry, Lionel, and Hadley Wickham. 2018. \emph{Rlang: Functions for Base
+Types and Core R and 'Tidyverse' Features}.
+\url{https://rlang.r-lib.org}.
+
+\leavevmode\hypertarget{ref-bench}{}%
+Hester, Jim. 2018. \emph{Bench: High Precision Timing of R Expressions}.
+\url{http://bench.r-lib.org/}.
+
+\leavevmode\hypertarget{ref-pragprog}{}%
+Hunt, Andrew, and David Thomas. 1990. \emph{The Pragmatic Programmer}.
+Addison Wesley.
+
+\leavevmode\hypertarget{ref-lumley-2001}{}%
+Lumley, Thomas. 2001. ``Programmer's Niche: Macros in R.'' \emph{R News}
+1 (3):11--13.
+\url{https://www.r-project.org/doc/Rnews/Rnews_2001-3.pdf}.
+
+\leavevmode\hypertarget{ref-tibble}{}%
+Müller, Kirill, and Hadley Wickham. 2018. \emph{Tibble: Simple Data
+Frames}. \url{https://CRAN.R-project.org/package=tibble}.
+
+\leavevmode\hypertarget{ref-r-ints}{}%
+R Core Team. 2018a. ``R Internals.'' \emph{R Foundation for Statistical
+Computing}.
+\url{https://cran.r-project.org/doc/manuals/r-devel/R-exts.html}.
+
+\leavevmode\hypertarget{ref-r-exts}{}%
+---------. 2018b. ``Writing R Extensions.'' \emph{R Foundation for
+Statistical Computing}.
+\url{https://cran.r-project.org/doc/manuals/r-devel/R-ints.html}.
+
+\leavevmode\hypertarget{ref-zeallot}{}%
+Teetor, Nathan. 2018. \emph{Zeallot: Multiple, Unpacking, and
+Destructuring Assignment}.
+\url{https://CRAN.R-project.org/package=zeallot}.
+
+\leavevmode\hypertarget{ref-ctmcp}{}%
+Van-Roy, Peter, and Seif Haridi. 2004. \emph{Concepts, Techniques, and
+Models of Computer Programming}. MIT press.
+
+\leavevmode\hypertarget{ref-mutatr}{}%
+Wickham, Hadley. 2011. ``Mutatr: Mutable Objects for R.''
+\emph{Computational Statistics} 26 (3):405--18.
+\url{https://doi.org/10.1007/s00180-011-0235-7}.
+
+\leavevmode\hypertarget{ref-forcats}{}%
+---------. 2018. \emph{Forcats: Tools for Working with Categorical
+Variables (Factors)}. \url{http://forcats.tidyverse.org}.
 
 
 \end{document}
