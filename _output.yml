@@ -14,10 +14,14 @@ bookdown::gitbook:
 bookdown::pdf_book:
   latex_engine: "xelatex"
   keep_tex: true
+  citation_package: natbib
   includes:
-    in_header: header.tex
+    in_header: latex/preamble.tex
+    before_body: latex/before_body.tex
+    after_body: latex/after_body.tex
+  pandoc_args: ["--top-level-division=chapter", "--lua-filter=latex/sidebar.lua"]
   quote_footer: ["\\hspace*{\\fill} ", ""]
-#  pandoc_args: ["--top-level-division=chapter", "--lua-filter=latex/sidebar.lua"]
+
 
 #bookdown::pdf_book:
 #  latex_engine: "xelatex"
