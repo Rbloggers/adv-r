@@ -18,6 +18,7 @@ before_install:
   - sudo apt-get install texlive-xetex
   - sudo apt-get install texlive-fonts-extra
   - sudo $(which tlmgr) install index
+  - sudo $(which tlmgr) install unicode-math
   - sudo apt-get install pdftk
   - sudo apt-get install fonts-inconsolata -y
   - sudo fc-cache -fv
@@ -27,7 +28,7 @@ before_install:
 #- Rscript -e "tinytex::tlmgr_install(c('lm-math', 'unicode-math', 'filehook'))"
 
 script:
-  - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
+  - sudo Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
   - cd _book/
   - cp ../adv-r_cover.pdf .
   - pdftk _main.pdf cat 2-r1 output adv-r_ori.pdf
