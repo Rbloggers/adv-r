@@ -1,5 +1,7 @@
-\documentclass[]{krantz}
+\documentclass[]{book}
 \usepackage{lmodern}
+\usepackage{setspace}
+\setstretch{1.15}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
@@ -21,7 +23,7 @@
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage[margin=1in]{geometry}
+\usepackage[b5paper, bottom=0.72in]{geometry}
 \usepackage{hyperref}
 \hypersetup{unicode=true,
             pdftitle={Advanced R},
@@ -126,81 +128,12 @@
     \date{}
     \predate{}\postdate{}
   
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage[bf,singlelinecheck=off]{caption}
-
-\usepackage{framed,color}
-\definecolor{shadecolor}{RGB}{253,253,253}
-
-\renewcommand{\textfraction}{0.05}
-\renewcommand{\topfraction}{0.8}
-\renewcommand{\bottomfraction}{0.8}
-\renewcommand{\floatpagefraction}{0.75}
-\raggedbottom
-
-\usepackage{fontspec}
-\usepackage{xltxtra,xunicode}
-\defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
-\setmonofont[Mapping=tex-ansi]{Inconsolata}
-
-% Place links inline
-\let\oldhref\href
-\renewcommand{\href}[2]{#2 (\url{#1})}
-
-\makeatletter
-\newenvironment{kframe}{%
-\medskip{}
-\setlength{\fboxsep}{.8em}
- \def\at@end@of@kframe{}%
- \ifinner\ifhmode%
-  \def\at@end@of@kframe{\end{minipage}}%
-  \begin{minipage}{\columnwidth}%
- \fi\fi%
- \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
- \colorbox{shadecolor}{##1}\hskip-\fboxsep
-     % There is no \\@totalrightmargin, so:
-     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
- \MakeFramed {\advance\hsize-\width
-   \@totalleftmargin\z@ \linewidth\hsize
-   \@setminipage}}%
- {\par\unskip\endMakeFramed%
- \at@end@of@kframe}
-\makeatother
-
-\renewenvironment{Shaded}{\begin{kframe}}{\end{kframe}}
-
-% % Colour
-\renewcommand{\KeywordTok} [1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
-\renewcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
-\renewcommand{\DecValTok}  [1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
-\renewcommand{\BaseNTok}   [1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
-\renewcommand{\FloatTok}   [1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
-\renewcommand{\CharTok}    [1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
-\renewcommand{\StringTok}  [1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
-\renewcommand{\CommentTok} [1]{\textcolor[rgb]{0.38,0.63,0.69}{{#1}}}
-\renewcommand{\OtherTok}   [1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
-\renewcommand{\AlertTok}   [1]{\textcolor[rgb]{1.00,0.00,0.00}{{#1}}}
-\renewcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
-\renewcommand{\ErrorTok}   [1]{\textcolor[rgb]{1.00,0.00,0.00}{{#1}}}
-\renewcommand{\NormalTok}  [1]{{#1}}
-
-
-\usepackage{makeidx}
+\usepackage{index}
 \newcommand{\indexc}[1]{\index{#1@\texttt{#1}}}
 \makeindex
 
-\urlstyle{tt}
-
-\usepackage{amsthm}
-\makeatletter
-\def\thm@space@setup{%
-  \thm@preskip=8pt plus 2pt minus 4pt
-  \thm@postskip=\thm@preskip
-}
-\makeatother
-
-\frontmatter
+% Place links inline
+\renewcommand{\href}[2]{#2 (\url{#1})}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -218,21 +151,6 @@
 \newtheorem*{solution}{Solution}
 \begin{document}
 \maketitle
-
-% you may need to leave a few empty pages before the dedication page
-
-%\cleardoublepage\newpage\thispagestyle{empty}\null
-%\cleardoublepage\newpage\thispagestyle{empty}\null
-%\cleardoublepage\newpage
-\thispagestyle{empty}
-
-\begin{center}
-To Jeff, who makes me happy,\\
-and who made sure I had a life outside this book.
-\end{center}
-
-\setlength{\abovedisplayskip}{-5pt}
-\setlength{\abovedisplayshortskip}{-5pt}
 
 {
 \setcounter{tocdepth}{1}
@@ -1319,16 +1237,12 @@ to understand how these crazy names work because you'll come across
 them, most commonly when you load data that has been created outside of
 R.
 
-\begin{kframe}
-
 You \emph{can} also create non-syntactic bindings using single or double
 quotes (e.g. \texttt{"\_abc"\ \textless{}-\ 1}) instead of backticks,
 but you shouldn't, because you'll have to use a different syntax to
 retrieve the values. The ability to use strings on the left hand side of
 the assignment arrow is an historical artefact, used before R supported
 backticks.
-
-\end{kframe}
 
 \hypertarget{exercises}{%
 \subsection{Exercises}\label{exercises}}
@@ -6599,15 +6513,11 @@ To setup an exit handler:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{kframe}
-
 Always set \texttt{add\ =\ TRUE} when using \texttt{on.exit()}. If you
 don't, each call to \texttt{on.exit()} will overwrite the previous exit
 handler. Even when only registering a single handler, it's good practice
 to set \texttt{add\ =\ TRUE} so that you won't get any unpleasant
 surprises if you later add more exit handlers
-
-\end{kframe}
 
 \texttt{on.exit()} is important because it allows you to place clean-up
 actions next to other actions.
@@ -7404,14 +7314,10 @@ To create an environment, use \texttt{rlang::env()}. It works like
 \end{Highlighting}
 \end{Shaded}
 
-\begin{kframe} \textbf{In Base R}
-
 Use \texttt{new.env()} to create a new environment. Ignore the
 \texttt{hash} and \texttt{size} parameters; they are not needed. Note
 that you cannot simultaneously create and define values; use
 \texttt{\$\textless{}-}, as shown below.
-
-\end{kframe}
 
 The job of an environment is to associate, or \textbf{bind}, a set of
 names to a set of values. You can think of an environment as a bag of
@@ -7472,14 +7378,10 @@ current bindings
 \end{Highlighting}
 \end{Shaded}
 
-\begin{kframe} \textbf{In Base R}
-
 In R 3.2.0 and greater, use \texttt{names()} to list the bindings in an
 environment. If your code needs to work with R 3.1.0 or earlier, use
 \texttt{ls()}, but note that the default value of \texttt{all.names} is
 \texttt{FALSE} so you don't see any bindings that start with \texttt{.}.
-
-\end{kframe}
 
 \hypertarget{important-environments}{%
 \subsection{Important environments}\label{important-environments}}
@@ -7507,13 +7409,9 @@ and not \texttt{==}:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{kframe} \textbf{In Base R}
-
 Access the global environment with \texttt{globalenv()} and the current
 environment with \texttt{environment()}. The global environment is
 printed as \texttt{Rf\_GlobalEnv} and \texttt{.GlobalEnv}.
-
-\end{kframe}
 
 \hypertarget{parents}{%
 \subsection{Parents}\label{parents}}
@@ -7597,12 +7495,8 @@ By default, \texttt{env\_parents()} continues until it hits either the
 global environment or the empty environment. You can control this
 behaviour with the \texttt{last} environment.
 
-\begin{kframe} \textbf{In Base R}
-
 Use \texttt{parent.env()} to find the parent of an environment. No base
 function returns all ancestors.
-
-\end{kframe}
 
 \hypertarget{super-assigment--}{%
 \subsection{\texorpdfstring{Super assigment,
@@ -7752,8 +7646,6 @@ garbage collector, which automatically removes objects with no names
 binding to them. This process is described in more detail in
 \protect\hyperlink{gc}{GC}.
 
-\begin{kframe} \textbf{In Base R}
-
 \indexc{rm()}\indexc{assign()}\indexc{get()}\indexc{exists()}
 
 See \texttt{get()}, \texttt{assign()}, \texttt{exists()}, and
@@ -7763,13 +7655,11 @@ beware the \texttt{inherits} argument: it defaults to \texttt{TRUE}
 meaning that the base equivalents will inspect the supplied environment
 and all its ancestors.
 
-\end{kframe}
-
 \hypertarget{finalisers}{%
 \subsection{Finalisers}\label{finalisers}}
 
-\textcolor{red}{\textbf{TODO: }{Add something once rlang has an API.
-Also mention in data structures below}}
+{Add something once rlang has an API. Also mention in data structures
+below}
 
 \hypertarget{advanced-bindings}{%
 \subsection{Advanced bindings}\label{advanced-bindings}}
@@ -7845,11 +7735,7 @@ There are two more exotic variants of \texttt{env\_bind()}:
 \end{Shaded}
 \end{itemize}
 
-\begin{kframe} \textbf{In Base R}
-
 See \texttt{?delayedAssign()} and \texttt{?makeActiveBinding()}.
-
-\end{kframe}
 
 \hypertarget{exercises-18}{%
 \subsection{Exercises}\label{exercises-18}}
@@ -8006,8 +7892,6 @@ shows the structure more clearly:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{kframe}
-
 \hypertarget{iteration-vs-recursion}{%
 \subsection*{Iteration vs recursion}\label{iteration-vs-recursion}}
 \addcontentsline{toc}{subsection}{Iteration vs recursion}
@@ -8033,8 +7917,6 @@ recursive functions.
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
-
-\end{kframe}
 
 \hypertarget{exercises-19}{%
 \subsection{Exercises}\label{exercises-19}}
@@ -8130,12 +8012,8 @@ top-level interactive workspace.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{kframe} \textbf{In Base R}
-
 You can access the names of the environments on the search path with
 \texttt{search()}
-
-\end{kframe}
 
 The last two environments on the search path are always the same:
 
@@ -8182,12 +8060,8 @@ You can get the function environment with \texttt{fn\_env()}:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{kframe} \textbf{In Base R}
-
 Use \texttt{environment(f)} to access the environment of function
 \texttt{f}.
-
-\end{kframe}
 
 In diagrams, I'll depict functions as rectangles with a rounded end that
 binds an environment.
@@ -8466,12 +8340,8 @@ based on how the function is called, not how the function was created.
 As we saw above this is a useful default whenever you write a function
 that takes an environment as an argument.
 
-\begin{kframe} \textbf{In Base R}
-
 \texttt{parent.frame()} is equivalent to \texttt{caller\_env()}; just
 note that it returns an environment, not a frame.
-
-\end{kframe}
 
 To fully understand the caller environment we need to discuss two
 related concepts: the \textbf{call stack}, which is made up of
@@ -9889,8 +9759,6 @@ developer.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{kframe} \textbf{In Base R}
-
 If you want to throw a custom error without adding a dependency on
 rlang, you can create a condition object ``by hand'' and then pass it to
 \texttt{stop()}:
@@ -9914,8 +9782,6 @@ rlang, you can create a condition object ``by hand'' and then pass it to
 \NormalTok{err}\OperatorTok{$}\NormalTok{x}
 \end{Highlighting}
 \end{Shaded}
-
-\end{kframe}
 
 We can now rewrite \texttt{my\_log()} to use this new helper:
 
@@ -10460,8 +10326,6 @@ selectively suppress some logging levels.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{kframe} \textbf{In Base R}
-
 If you create a condition object by hand, and signal it with
 \texttt{signalCondition()}, \texttt{cnd\_muffle()} will not work.
 Instead you need to call it with a muffle restart defined, like this:
@@ -10474,8 +10338,6 @@ Instead you need to call it with a muffle restart defined, like this:
 
 Restarts are currently beyond the scope of the book, but I suspect will
 be included in the 3rd edition.
-
-\end{kframe}
 
 \hypertarget{exercises-25}{%
 \subsection{Exercises}\label{exercises-25}}
@@ -10812,8 +10674,6 @@ Or, graphically:
 
 \begin{center}\includegraphics[width=2.7in]{diagrams/functionals/map} \end{center}
 
-\begin{kframe}
-
 You might wonder why this function is called \texttt{map()}. What does
 it have to do with depicting physical features of land or sea
 \raisebox{-.1\height}{\includegraphics[height=10pt]{emoji/1f5fa.png}}?
@@ -10823,8 +10683,6 @@ elements of a second set''. This makes sense here because \texttt{map()}
 defines a mapping from one vector to another. (``Map'' also has the nice
 property of being short, which is useful for such a fundamental building
 block.)
-
-\end{kframe}
 
 The implementation of \texttt{map()} is quite simple. We allocate a list
 the same length as the input, and then fill in the list with a for loop.
@@ -10847,15 +10705,11 @@ written in C to eke out every last iota of performance, preserves names,
 and supports a few shortcuts that you'll learn about in Section
 \ref{purrr-shortcuts}.
 
-\begin{kframe} \textbf{In Base R}
-
 The base equivalent to \texttt{map()} is \texttt{lapply()}. The only
 difference is that \texttt{lapply()} does not support the helpers that
 you'll learn about below, so if you're only using \texttt{map()} from
 purrr, you can skip the additional dependency and use \texttt{lapply()}
 directly.
-
-\end{kframe}
 
 \hypertarget{producing-atomic-vectors}{%
 \subsection{Producing atomic vectors}\label{producing-atomic-vectors}}
@@ -10931,8 +10785,6 @@ When debugging problems like this, it's often useful to switch back to
 \end{Highlighting}
 \end{Shaded}
 
-\begin{kframe} \textbf{In Base R}
-
 Base R has two apply functions that can return atomic vectors:
 \texttt{sapply()} and \texttt{vapply()}.
 
@@ -10948,8 +10800,6 @@ should always use \texttt{vapply()} in your functions, not
 \texttt{sapply()}. The primary downside of \texttt{vapply()} is its
 vebosity: the equivalent to \texttt{map\_dbl(x,\ mean,\ na.rm\ =\ TRUE)}
 is \texttt{vapply(x,\ mean,\ na.rm\ =\ TRUE,\ FUN.VALUE\ =\ double(1))}.
-
-\end{kframe}
 
 \hypertarget{purrr-shortcuts}{%
 \subsection{Anonymous functions and shortcuts}\label{purrr-shortcuts}}
@@ -11054,14 +10904,10 @@ working with JSON.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{kframe} \textbf{In Base R}
-
 In base R functions, like \texttt{lapply()}, you can provide the name of
 the function as a string. This isn't tremendously useful as
 \texttt{lapply(x,\ "f")} is almost always equivalent to
 \texttt{lapply(x,\ f)} and is more typing.
-
-\end{kframe}
 
 \hypertarget{passing-arguments}{%
 \subsection{\texorpdfstring{Passing arguments with
@@ -11168,8 +11014,6 @@ you are calling might still use \texttt{.f} and \texttt{.x}), but it
 avoids 99\% of issues. The remaining 1\% of the time, use an anonymous
 function.
 
-\begin{kframe} \textbf{In Base R}
-
 Base functions that pass along \texttt{...} use a variety of naming
 conventions to prevent undesired argument matching:
 
@@ -11187,8 +11031,6 @@ conventions to prevent undesired argument matching:
   effort to avoid clashes but they tend to be used with specially
   created functions so clashes are less likely.
 \end{itemize}
-
-\end{kframe}
 
 \hypertarget{change-argument}{%
 \subsection{Varying another argument}\label{change-argument}}
@@ -11636,12 +11478,8 @@ In other words, \texttt{map2(x,\ y,\ f)} will automatically behave like
 functions; in scripts you'd generally just use the simpler form
 directly.
 
-\begin{kframe} \textbf{In Base R}
-
 The closest base equivalent to \texttt{map2()} is \texttt{Map()}, which
 is discussed in Section \ref{pmap}.
-
-\end{kframe}
 
 \hypertarget{no-outputs-walk-and-friends}{%
 \subsection{\texorpdfstring{No outputs: \texttt{walk()} and
@@ -11734,13 +11572,9 @@ Here the \texttt{walk2()} is equivalent to
 \texttt{write.csv(cyls{[}{[}2{]}{]},\ paths{[}{[}2{]}{]})},
 \texttt{write.csv(cyls{[}{[}3{]}{]},\ paths{[}{[}3{]}{]})}.
 
-\begin{kframe} \textbf{In Base R}
-
 There is no base equivalent to \texttt{walk()}; either wrap the result
 of \texttt{lapply()} in \texttt{invisible()} or save it to a variable
 that is never used.
-
-\end{kframe}
 
 \hypertarget{iterating-over-values-and-indices}{%
 \subsection{Iterating over values and
@@ -11911,8 +11745,6 @@ to the arguments to \texttt{runif()}, so the
 data frame in hand, and the names don't match, use
 \texttt{dplyr::rename()} or similar.)
 
-\begin{kframe} \textbf{In Base R}
-
 There are two base equivalents to the \texttt{pmap()} family:
 \texttt{Map()} and \texttt{mapply()}. Both have significant drawbacks:
 
@@ -11927,8 +11759,6 @@ There are two base equivalents to the \texttt{pmap()} family:
   \texttt{sapply()}. There is no multi-input equivalent of
   \texttt{vapply()}.
 \end{itemize}
-
-\end{kframe}
 
 \hypertarget{exercises-27}{%
 \subsection{Exercises}\label{exercises-27}}
@@ -12072,13 +11902,9 @@ wrapper around a for loop:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{kframe} \textbf{In Base R}
-
 The base equivalent is \texttt{Reduce()}. Note that the argument order
 is different: the function comes first, followed by the vector, and
 there is no way to supply additional arguments.
-
-\end{kframe}
 
 \hypertarget{accumulate}{%
 \subsection{Accumulate}\label{accumulate}}
@@ -20301,8 +20127,6 @@ frequently, you should reconsider your process. Read the Chapter
 \ref{quasiquotation} and consider if you can instead more safely
 generate expressions using quasiquotation.
 
-\begin{kframe} \textbf{In Base R}
-
 The base equivalent to \texttt{parse\_exprs()} is \texttt{parse()}. It
 is a little harder to use because it's specialised for parsing R code
 stored in files. You need supply your string to the \texttt{text}
@@ -20316,8 +20140,6 @@ argument. It returns an expression vector, discussed in Section
 \CommentTok{#> y <- x + 10}
 \end{Highlighting}
 \end{Shaded}
-
-\end{kframe}
 
 The inverse of parsing is \textbf{deparsing}: given an expression, you
 want the string that would generate it. This happens automatically when
@@ -20348,14 +20170,10 @@ around ordinary names, comments, and whitespace:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{kframe} \textbf{In Base R}
-
 Be careful when using the base R equivalent, \texttt{deparse()}: it
 returns a character vector with one element for each line. Whenever you
 use it, remember that the length of the output might be greater than
 one, and plan accordingly.
-
-\end{kframe}
 
 \hypertarget{exercises-52}{%
 \subsection{Exercises}\label{exercises-52}}
@@ -21468,8 +21286,6 @@ The base function closest to \texttt{enexpr()} is \texttt{substitute()}:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{kframe}
-
 \textbf{Substitution}
 
 You'll most often see \texttt{substitute()} used to capture unevaluated
@@ -21498,8 +21314,6 @@ argument to make your goal clear:
 \CommentTok{#> 10 * (a + b) * z}
 \end{Highlighting}
 \end{Shaded}
-
-\end{kframe}
 
 The base equivalent to \texttt{exprs()} is \texttt{alist()}:
 
@@ -23324,8 +23138,6 @@ In most cases, there is no reason to prefer \texttt{rlang::eval\_bare()}
 over \texttt{eval()}; I just used it here because it's a more minimal
 interface.
 
-\begin{kframe}
-
 \textbf{Expression vectors}
 
 \texttt{base::eval()} has special behaviour for expression
@@ -23348,8 +23160,6 @@ While \texttt{source3()} is considerably more concise than
 expression objects, and overall we don't believe this one benefit
 outweighs the cost of introducing a new data structure. That's why this
 book has relegated expression vectors to a secondary role.
-
-\end{kframe}
 
 \hypertarget{exercises-59}{%
 \subsection{Exercises}\label{exercises-59}}
@@ -26607,8 +26417,8 @@ root.
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>     expr   min    lq  mean median     uq    max neval}
-\CommentTok{#>  sqrt(x)   901 1,150  1392  1,320  1,510  6,120   100}
-\CommentTok{#>    x^0.5 9,230 9,570 10529  9,750 10,000 51,200   100}
+\CommentTok{#>  sqrt(x)   868 1,180  1398  1,320  1,520  4,370   100}
+\CommentTok{#>    x^0.5 9,260 9,660 10423  9,860 10,200 45,500   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26792,15 +26602,15 @@ comparison. \index{methods!cost of dispatch}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>  expr    min     lq  mean median     uq       max neval}
-\CommentTok{#>   fun    180    204   495    230    248    25,100   100}
-\CommentTok{#>    S3    975  1,130 10907  1,190  1,350   922,000   100}
-\CommentTok{#>    S4 12,000 12,400 30731 12,900 14,200 1,060,000   100}
-\CommentTok{#>    RC  8,120  8,390 40779  8,610  9,040 3,180,000   100}
+\CommentTok{#>   fun    180    208   419    232    246    15,900   100}
+\CommentTok{#>    S3    982  1,160 13686  1,240  1,460 1,190,000   100}
+\CommentTok{#>    S4 12,100 12,800 29568 13,400 15,400   960,000   100}
+\CommentTok{#>    RC  8,150  8,430 43194  8,730  9,300 3,350,000   100}
 \end{Highlighting}
 \end{Shaded}
 
 The bare function takes about 200 ns. S3 method dispatch takes an
-additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 8,000 ns.
+additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 9,000 ns.
 S3 and S4 method dispatch are expensive because R must search for the
 right method every time the generic is called; it might have changed
 between this call and the last. R could do better by caching methods
@@ -27079,10 +26889,10 @@ subassignment. \indexc{ifelse()} \indexc{pmin()} \indexc{pmax()}
   \DataTypeTok{unit =} \StringTok{"us"}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
-\CommentTok{#>             expr   min   lq mean median    uq   max neval}
-\CommentTok{#>       squish_ife 20.80 22.9 53.8   27.8 32.30 2,490   100}
-\CommentTok{#>         squish_p 12.30 13.0 36.3   13.5 14.40 1,580   100}
-\CommentTok{#>  squish_in_place  2.88  3.2 31.8    3.6  4.35 2,770   100}
+\CommentTok{#>             expr   min    lq mean median    uq   max neval}
+\CommentTok{#>       squish_ife 20.80 23.20 55.1  28.80 34.30 2,490   100}
+\CommentTok{#>         squish_p 12.50 13.30 38.7  13.80 15.70 1,660   100}
+\CommentTok{#>  squish_in_place  2.78  3.27 33.6   3.91  4.68 2,940   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -27133,8 +26943,8 @@ value is less than \texttt{a} and/or greater than \texttt{b}.
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
 \CommentTok{#>             expr  min   lq  mean median   uq     max neval}
-\CommentTok{#>  squish_in_place 3.21 4.26  5.26   4.70 5.12    32.9   100}
-\CommentTok{#>       squish_cpp 2.49 2.98 16.61   3.26 3.54 1,310.0   100}
+\CommentTok{#>  squish_in_place 3.57 4.30  5.23   4.81 5.56    35.5   100}
+\CommentTok{#>       squish_cpp 2.74 3.13 17.36   3.42 3.80 1,340.0   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -27289,9 +27099,9 @@ seen:
   \DataTypeTok{unit =} \StringTok{"ms"}
 \NormalTok{)}
 \CommentTok{#> Unit: milliseconds}
-\CommentTok{#>          expr  min    lq  mean median    uq    max neval}
-\CommentTok{#>  cond_sum_cpp  5.2  5.26  5.36   5.28  5.33   9.47   100}
-\CommentTok{#>    cond_sum_r 11.7 13.50 15.50  14.20 14.60 147.00   100}
+\CommentTok{#>          expr   min    lq  mean median    uq    max neval}
+\CommentTok{#>  cond_sum_cpp  5.27  5.33  5.41   5.37  5.42   7.25   100}
+\CommentTok{#>    cond_sum_r 12.90 14.50 16.41  15.00 15.30 156.00   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -30834,14 +30644,7 @@ incredibly responsive at improving Rcpp. This chapter would not have
 been possible without JJ Allaire; he encouraged me to learn C++ and then
 answered many of my dumb questions along the way.
 
-\hypertarget{references}{%
-\chapter*{References}\label{references}}
-\addcontentsline{toc}{chapter}{References}
-
 \bibliography{book.bib}
-
-\backmatter
-\printindex
 
 
 \end{document}
