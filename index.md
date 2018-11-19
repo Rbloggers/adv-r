@@ -8,11 +8,11 @@ github-repo: hadley/adv-r
 twitter-handle: hadley
 cover-image: cover.png
 site: bookdown::bookdown_site
-documentclass: book  # krantz
+documentclass: krantz
 bibliography: book.bib
 link-citations: yes
-linestretch: 1.15
-geometry: b5paper, bottom=0.6in
+#linestretch: 1.15
+#geometry: b5paper, bottom=0.7in
 ---
 
 <!-- 

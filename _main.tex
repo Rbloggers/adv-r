@@ -1,7 +1,5 @@
-\documentclass[]{book}
+\documentclass[]{krantz}
 \usepackage{lmodern}
-\usepackage{setspace}
-\setstretch{1.15}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
@@ -23,7 +21,7 @@
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage[b5paper, bottom=0.6in]{geometry}
+\usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \hypersetup{unicode=true,
             pdftitle={Advanced R},
@@ -31,6 +29,8 @@
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
+\usepackage{natbib}
+\bibliographystyle{plainnat}
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -126,12 +126,81 @@
     \date{}
     \predate{}\postdate{}
   
-\usepackage{index}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[bf,singlelinecheck=off]{caption}
+
+\usepackage{framed,color}
+\definecolor{shadecolor}{RGB}{253,253,253}
+
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\topfraction}{0.8}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\floatpagefraction}{0.75}
+\raggedbottom
+
+\usepackage{fontspec}
+\usepackage{xltxtra,xunicode}
+\defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+\setmonofont[Mapping=tex-ansi]{Inconsolata}
+
+% Place links inline
+\let\oldhref\href
+\renewcommand{\href}[2]{#2 (\url{#1})}
+
+\makeatletter
+\newenvironment{kframe}{%
+\medskip{}
+\setlength{\fboxsep}{.8em}
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\renewenvironment{Shaded}{\begin{kframe}}{\end{kframe}}
+
+% % Colour
+\renewcommand{\KeywordTok} [1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+\renewcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+\renewcommand{\DecValTok}  [1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\renewcommand{\BaseNTok}   [1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\renewcommand{\FloatTok}   [1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\renewcommand{\CharTok}    [1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\renewcommand{\StringTok}  [1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\renewcommand{\CommentTok} [1]{\textcolor[rgb]{0.38,0.63,0.69}{{#1}}}
+\renewcommand{\OtherTok}   [1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+\renewcommand{\AlertTok}   [1]{\textcolor[rgb]{1.00,0.00,0.00}{{#1}}}
+\renewcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+\renewcommand{\ErrorTok}   [1]{\textcolor[rgb]{1.00,0.00,0.00}{{#1}}}
+\renewcommand{\NormalTok}  [1]{{#1}}
+
+
+\usepackage{makeidx}
 \newcommand{\indexc}[1]{\index{#1@\texttt{#1}}}
 \makeindex
 
-% Place links inline
-\renewcommand{\href}[2]{#2 (\url{#1})}
+\urlstyle{tt}
+
+\usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+
+\frontmatter
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -149,6 +218,21 @@
 \newtheorem*{solution}{Solution}
 \begin{document}
 \maketitle
+
+% you may need to leave a few empty pages before the dedication page
+
+%\cleardoublepage\newpage\thispagestyle{empty}\null
+%\cleardoublepage\newpage\thispagestyle{empty}\null
+%\cleardoublepage\newpage
+\thispagestyle{empty}
+
+\begin{center}
+To Jeff, who makes me happy,\\
+and who made sure I had a life outside this book.
+\end{center}
+
+\setlength{\abovedisplayskip}{-5pt}
+\setlength{\abovedisplayshortskip}{-5pt}
 
 {
 \setcounter{tocdepth}{1}
@@ -557,29 +641,26 @@ To understand why R's object systems work the way they do, I found ``The
 Structure and Interpretation of Computer Programs''\footnote{You can
   read it online for free at
   \url{https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html}}
-(Abelson, Sussman, and Sussman \protect\hyperlink{ref-SICP}{1996})
-(SICP) by Harold Abelson and Gerald Jay Sussman, to be particularly
-helpful. It's a concise but deep book, and after reading it, I felt for
-the first time that I could actually design my own object-oriented
-system. The book was my first introduction to the encapsulated paradigm
-of object oriented programming found in R, and it helped me understand
-the strengths and weaknesses of this system. SICP also teaches the
-functional mindset where you create functions that are simple
-individually, and which become powerful when composed together.
+\citep{SICP} (SICP) by Harold Abelson and Gerald Jay Sussman, to be
+particularly helpful. It's a concise but deep book, and after reading
+it, I felt for the first time that I could actually design my own
+object-oriented system. The book was my first introduction to the
+encapsulated paradigm of object oriented programming found in R, and it
+helped me understand the strengths and weaknesses of this system. SICP
+also teaches the functional mindset where you create functions that are
+simple individually, and which become powerful when composed together.
 
 To understand the trade-offs that R has made compared to other
 programming languages, I found ``Concepts, Techniques and Models of
-Computer Programming'' (Van-Roy and Haridi
-\protect\hyperlink{ref-ctmcp}{2004}) extremely helpful. It helped me
+Computer Programming'' \citep{ctmcp} extremely helpful. It helped me
 understand that R's copy-on-modify semantics make it substantially
 easier to reason about code, and that while its current implementation
 is not particularly efficient, it is a solvable problem.
 
 If you want to learn to be a better programmer, there's no place better
-to turn than ``The Pragmatic Programmer'' (Hunt and Thomas
-\protect\hyperlink{ref-pragprog}{1990}) by Andrew Hunt and David Thomas.
-This book is language agnostic, and provides great advice for how to be
-a better programmer.
+to turn than ``The Pragmatic Programmer'' \citep{pragprog} by Andrew
+Hunt and David Thomas. This book is language agnostic, and provides
+great advice for how to be a better programmer.
 
 \hypertarget{getting-help}{%
 \section{Getting help}\label{getting-help}}
@@ -1104,15 +1185,11 @@ place. Much of the information in this chapter was gleaned from a close
 reading of the documentation (particularly \texttt{?Memory} and
 \texttt{?gc}), the
 \href{http://cran.r-project.org/doc/manuals/R-exts.html\#Profiling-R-code-for-memory-use}{memory
-profiling} section of ``Writing R extensions'' (R Core Team
-\protect\hyperlink{ref-r-exts}{2018}\protect\hyperlink{ref-r-exts}{b}),
-and the
+profiling} section of ``Writing R extensions'' \citep{r-exts}, and the
 \href{http://cran.r-project.org/doc/manuals/R-ints.html\#SEXPs}{SEXPs}
-section of ``R internals'' (R Core Team
-\protect\hyperlink{ref-r-ints}{2018}\protect\hyperlink{ref-r-ints}{a}).
-The rest I figured out by reading the C source code, performing small
-experiments, and asking questions on R-devel. Any mistakes are entirely
-mine.
+section of ``R internals'' \citep{r-ints}. The rest I figured out by
+reading the C source code, performing small experiments, and asking
+questions on R-devel. Any mistakes are entirely mine.
 
 \hypertarget{binding-basics}{%
 \section{Binding basics}\label{binding-basics}}
@@ -1242,12 +1319,16 @@ to understand how these crazy names work because you'll come across
 them, most commonly when you load data that has been created outside of
 R.
 
+\begin{kframe}
+
 You \emph{can} also create non-syntactic bindings using single or double
 quotes (e.g. \texttt{"\_abc"\ \textless{}-\ 1}) instead of backticks,
 but you shouldn't, because you'll have to use a different syntax to
 retrieve the values. The ability to use strings on the left hand side of
 the assignment arrow is an historical artefact, used before R supported
 backticks.
+
+\end{kframe}
 
 \hypertarget{exercises}{%
 \subsection{Exercises}\label{exercises}}
@@ -1920,9 +2001,8 @@ This is a unique property of environments!
 \def\labelenumi{\arabic{enumi}.}
 \item
   Wrap the two methods for subtracting medians into two functions, then
-  use the `bench' package (Hester \protect\hyperlink{ref-bench}{2018})
-  to carefully compare their speeds. How does performance change as the
-  number of columns increase?
+  use the `bench' package \citep{bench} to carefully compare their
+  speeds. How does performance change as the number of columns increase?
 \item
   What happens if you attempt to use \texttt{tracemem()} on an
   environment?
@@ -2677,11 +2757,10 @@ visualisations).
 \end{Shaded}
 
 With base R\footnote{The tidyverse never automatically coerce characters
-  to factor, and provides the forcats (Wickham
-  \protect\hyperlink{ref-forcats}{2018}) package specifically for
-  working with factors.} you tend to encounter factors very frequently,
-because many base R functions (like \texttt{read.csv()} and
-\texttt{data.frame()}) automatically convert character vectors to
+  to factor, and provides the forcats \citep{forcats} package
+  specifically for working with factors.} you tend to encounter factors
+very frequently, because many base R functions (like \texttt{read.csv()}
+and \texttt{data.frame()}) automatically convert character vectors to
 factors. This is suboptimal, because there's no way for those functions
 to know the set of all possible levels or their optimal order: the
 levels are a property of the experimental design, not the data. Instead,
@@ -2735,19 +2814,18 @@ represents the number of days since 1970-01-01:
 \hypertarget{date-times}{%
 \subsection{Date-times}\label{date-times}}
 
-Base R\footnote{The tidyverse provides the lubridate (Grolemund and
-  Wickham \protect\hyperlink{ref-lubridate}{2011}) package for working
-  with date-times. It provides a number of convenient helpers which work
-  with the base POSIXct type.} provides two ways of storing date-time
-information, POSIXct, and POSIXlt. These are admittedly odd names:
-``POSIX'' is short for Portable Operating System Interface which is a
-family of cross-platform standards. ``ct'' standards for calendar time
-(the \texttt{time\_t} type in C), and ``lt'' for local time (the
-\texttt{struct\ tm} type in C). Here we'll focus on \texttt{POSIXct},
-because it's the simplest, is built on top of an atomic vector, and is
-most appropriate for use in data frames. POSIXct vectors are built on
-top of double vectors, where the value represents the number of seconds
-since 1970-01-01.
+Base R\footnote{The tidyverse provides the lubridate \citep{lubridate}
+  package for working with date-times. It provides a number of
+  convenient helpers which work with the base POSIXct type.} provides
+two ways of storing date-time information, POSIXct, and POSIXlt. These
+are admittedly odd names: ``POSIX'' is short for Portable Operating
+System Interface which is a family of cross-platform standards. ``ct''
+standards for calendar time (the \texttt{time\_t} type in C), and ``lt''
+for local time (the \texttt{struct\ tm} type in C). Here we'll focus on
+\texttt{POSIXct}, because it's the simplest, is built on top of an
+atomic vector, and is most appropriate for use in data frames. POSIXct
+vectors are built on top of double vectors, where the value represents
+the number of seconds since 1970-01-01.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3047,13 +3125,13 @@ languages. However, in the over 20 years since their creation, the ways
 people use R have changed, and some of the design decisions that made
 sense at the time data frames were created now cause frustration.
 
-This frustration lead to the creation of the tibble (Müller and Wickham
-\protect\hyperlink{ref-tibble}{2018}), a modern reimagining of the data
-frame. Tibbles are designed to be (as much as possible) drop-in
-replacements for data frames, while still fixing the greatest
-frustrations. A concise, and fun, way to summarise the main differences
-is that tibbles are lazy and surly: they tend to do less and complain
-more. You'll see what that means as you work through this section.
+This frustration lead to the creation of the tibble \citep{tibble}, a
+modern reimagining of the data frame. Tibbles are designed to be (as
+much as possible) drop-in replacements for data frames, while still
+fixing the greatest frustrations. A concise, and fun, way to summarise
+the main differences is that tibbles are lazy and surly: they tend to do
+less and complain more. You'll see what that means as you work through
+this section.
 
 Tibbles are provided by the tibble package and share the same structure
 as data frames. The only difference is that the class vector is longer,
@@ -5357,8 +5435,7 @@ Or you save the intermediate results as variables:
 \end{Highlighting}
 \end{Shaded}
 
-The magrittr package (Bache and Wickham
-\protect\hyperlink{ref-magrittr}{2014}) provides a third option: the
+The magrittr package \citep{magrittr} provides a third option: the
 binary operator \texttt{\%\textgreater{}\%}, which is called the pipe
 and is pronounced as ``and then''.
 
@@ -6522,11 +6599,15 @@ To setup an exit handler:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{kframe}
+
 Always set \texttt{add\ =\ TRUE} when using \texttt{on.exit()}. If you
 don't, each call to \texttt{on.exit()} will overwrite the previous exit
 handler. Even when only registering a single handler, it's good practice
 to set \texttt{add\ =\ TRUE} so that you won't get any unpleasant
 surprises if you later add more exit handlers
+
+\end{kframe}
 
 \texttt{on.exit()} is important because it allows you to place clean-up
 actions next to other actions.
@@ -7323,10 +7404,14 @@ To create an environment, use \texttt{rlang::env()}. It works like
 \end{Highlighting}
 \end{Shaded}
 
+\begin{kframe} \textbf{In Base R}
+
 Use \texttt{new.env()} to create a new environment. Ignore the
 \texttt{hash} and \texttt{size} parameters; they are not needed. Note
 that you cannot simultaneously create and define values; use
 \texttt{\$\textless{}-}, as shown below.
+
+\end{kframe}
 
 The job of an environment is to associate, or \textbf{bind}, a set of
 names to a set of values. You can think of an environment as a bag of
@@ -7387,10 +7472,14 @@ current bindings
 \end{Highlighting}
 \end{Shaded}
 
+\begin{kframe} \textbf{In Base R}
+
 In R 3.2.0 and greater, use \texttt{names()} to list the bindings in an
 environment. If your code needs to work with R 3.1.0 or earlier, use
 \texttt{ls()}, but note that the default value of \texttt{all.names} is
 \texttt{FALSE} so you don't see any bindings that start with \texttt{.}.
+
+\end{kframe}
 
 \hypertarget{important-environments}{%
 \subsection{Important environments}\label{important-environments}}
@@ -7418,9 +7507,13 @@ and not \texttt{==}:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{kframe} \textbf{In Base R}
+
 Access the global environment with \texttt{globalenv()} and the current
 environment with \texttt{environment()}. The global environment is
 printed as \texttt{Rf\_GlobalEnv} and \texttt{.GlobalEnv}.
+
+\end{kframe}
 
 \hypertarget{parents}{%
 \subsection{Parents}\label{parents}}
@@ -7504,8 +7597,12 @@ By default, \texttt{env\_parents()} continues until it hits either the
 global environment or the empty environment. You can control this
 behaviour with the \texttt{last} environment.
 
+\begin{kframe} \textbf{In Base R}
+
 Use \texttt{parent.env()} to find the parent of an environment. No base
 function returns all ancestors.
+
+\end{kframe}
 
 \hypertarget{super-assigment--}{%
 \subsection{\texorpdfstring{Super assigment,
@@ -7655,6 +7752,8 @@ garbage collector, which automatically removes objects with no names
 binding to them. This process is described in more detail in
 \protect\hyperlink{gc}{GC}.
 
+\begin{kframe} \textbf{In Base R}
+
 \indexc{rm()}\indexc{assign()}\indexc{get()}\indexc{exists()}
 
 See \texttt{get()}, \texttt{assign()}, \texttt{exists()}, and
@@ -7664,11 +7763,13 @@ beware the \texttt{inherits} argument: it defaults to \texttt{TRUE}
 meaning that the base equivalents will inspect the supplied environment
 and all its ancestors.
 
+\end{kframe}
+
 \hypertarget{finalisers}{%
 \subsection{Finalisers}\label{finalisers}}
 
-{Add something once rlang has an API. Also mention in data structures
-below}
+\textcolor{red}{\textbf{TODO: }{Add something once rlang has an API.
+Also mention in data structures below}}
 
 \hypertarget{advanced-bindings}{%
 \subsection{Advanced bindings}\label{advanced-bindings}}
@@ -7744,7 +7845,11 @@ There are two more exotic variants of \texttt{env\_bind()}:
 \end{Shaded}
 \end{itemize}
 
+\begin{kframe} \textbf{In Base R}
+
 See \texttt{?delayedAssign()} and \texttt{?makeActiveBinding()}.
+
+\end{kframe}
 
 \hypertarget{exercises-18}{%
 \subsection{Exercises}\label{exercises-18}}
@@ -7901,6 +8006,8 @@ shows the structure more clearly:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{kframe}
+
 \hypertarget{iteration-vs-recursion}{%
 \subsection*{Iteration vs recursion}\label{iteration-vs-recursion}}
 \addcontentsline{toc}{subsection}{Iteration vs recursion}
@@ -7926,6 +8033,8 @@ recursive functions.
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
+
+\end{kframe}
 
 \hypertarget{exercises-19}{%
 \subsection{Exercises}\label{exercises-19}}
@@ -8021,8 +8130,12 @@ top-level interactive workspace.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{kframe} \textbf{In Base R}
+
 You can access the names of the environments on the search path with
 \texttt{search()}
+
+\end{kframe}
 
 The last two environments on the search path are always the same:
 
@@ -8069,8 +8182,12 @@ You can get the function environment with \texttt{fn\_env()}:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{kframe} \textbf{In Base R}
+
 Use \texttt{environment(f)} to access the environment of function
 \texttt{f}.
+
+\end{kframe}
 
 In diagrams, I'll depict functions as rectangles with a rounded end that
 binds an environment.
@@ -8349,8 +8466,12 @@ based on how the function is called, not how the function was created.
 As we saw above this is a useful default whenever you write a function
 that takes an environment as an argument.
 
+\begin{kframe} \textbf{In Base R}
+
 \texttt{parent.frame()} is equivalent to \texttt{caller\_env()}; just
 note that it returns an environment, not a frame.
+
+\end{kframe}
 
 To fully understand the caller environment we need to discuss two
 related concepts: the \textbf{call stack}, which is made up of
@@ -9768,6 +9889,8 @@ developer.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{kframe} \textbf{In Base R}
+
 If you want to throw a custom error without adding a dependency on
 rlang, you can create a condition object ``by hand'' and then pass it to
 \texttt{stop()}:
@@ -9791,6 +9914,8 @@ rlang, you can create a condition object ``by hand'' and then pass it to
 \NormalTok{err}\OperatorTok{$}\NormalTok{x}
 \end{Highlighting}
 \end{Shaded}
+
+\end{kframe}
 
 We can now rewrite \texttt{my\_log()} to use this new helper:
 
@@ -10335,6 +10460,8 @@ selectively suppress some logging levels.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{kframe} \textbf{In Base R}
+
 If you create a condition object by hand, and signal it with
 \texttt{signalCondition()}, \texttt{cnd\_muffle()} will not work.
 Instead you need to call it with a muffle restart defined, like this:
@@ -10347,6 +10474,8 @@ Instead you need to call it with a muffle restart defined, like this:
 
 Restarts are currently beyond the scope of the book, but I suspect will
 be included in the 3rd edition.
+
+\end{kframe}
 
 \hypertarget{exercises-25}{%
 \subsection{Exercises}\label{exercises-25}}
@@ -10683,6 +10812,8 @@ Or, graphically:
 
 \begin{center}\includegraphics[width=2.7in]{diagrams/functionals/map} \end{center}
 
+\begin{kframe}
+
 You might wonder why this function is called \texttt{map()}. What does
 it have to do with depicting physical features of land or sea
 \raisebox{-.1\height}{\includegraphics[height=10pt]{emoji/1f5fa.png}}?
@@ -10692,6 +10823,8 @@ elements of a second set''. This makes sense here because \texttt{map()}
 defines a mapping from one vector to another. (``Map'' also has the nice
 property of being short, which is useful for such a fundamental building
 block.)
+
+\end{kframe}
 
 The implementation of \texttt{map()} is quite simple. We allocate a list
 the same length as the input, and then fill in the list with a for loop.
@@ -10714,11 +10847,15 @@ written in C to eke out every last iota of performance, preserves names,
 and supports a few shortcuts that you'll learn about in Section
 \ref{purrr-shortcuts}.
 
+\begin{kframe} \textbf{In Base R}
+
 The base equivalent to \texttt{map()} is \texttt{lapply()}. The only
 difference is that \texttt{lapply()} does not support the helpers that
 you'll learn about below, so if you're only using \texttt{map()} from
 purrr, you can skip the additional dependency and use \texttt{lapply()}
 directly.
+
+\end{kframe}
 
 \hypertarget{producing-atomic-vectors}{%
 \subsection{Producing atomic vectors}\label{producing-atomic-vectors}}
@@ -10794,6 +10931,8 @@ When debugging problems like this, it's often useful to switch back to
 \end{Highlighting}
 \end{Shaded}
 
+\begin{kframe} \textbf{In Base R}
+
 Base R has two apply functions that can return atomic vectors:
 \texttt{sapply()} and \texttt{vapply()}.
 
@@ -10809,6 +10948,8 @@ should always use \texttt{vapply()} in your functions, not
 \texttt{sapply()}. The primary downside of \texttt{vapply()} is its
 vebosity: the equivalent to \texttt{map\_dbl(x,\ mean,\ na.rm\ =\ TRUE)}
 is \texttt{vapply(x,\ mean,\ na.rm\ =\ TRUE,\ FUN.VALUE\ =\ double(1))}.
+
+\end{kframe}
 
 \hypertarget{purrr-shortcuts}{%
 \subsection{Anonymous functions and shortcuts}\label{purrr-shortcuts}}
@@ -10913,10 +11054,14 @@ working with JSON.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{kframe} \textbf{In Base R}
+
 In base R functions, like \texttt{lapply()}, you can provide the name of
 the function as a string. This isn't tremendously useful as
 \texttt{lapply(x,\ "f")} is almost always equivalent to
 \texttt{lapply(x,\ f)} and is more typing.
+
+\end{kframe}
 
 \hypertarget{passing-arguments}{%
 \subsection{\texorpdfstring{Passing arguments with
@@ -11023,6 +11168,8 @@ you are calling might still use \texttt{.f} and \texttt{.x}), but it
 avoids 99\% of issues. The remaining 1\% of the time, use an anonymous
 function.
 
+\begin{kframe} \textbf{In Base R}
+
 Base functions that pass along \texttt{...} use a variety of naming
 conventions to prevent undesired argument matching:
 
@@ -11040,6 +11187,8 @@ conventions to prevent undesired argument matching:
   effort to avoid clashes but they tend to be used with specially
   created functions so clashes are less likely.
 \end{itemize}
+
+\end{kframe}
 
 \hypertarget{change-argument}{%
 \subsection{Varying another argument}\label{change-argument}}
@@ -11487,8 +11636,12 @@ In other words, \texttt{map2(x,\ y,\ f)} will automatically behave like
 functions; in scripts you'd generally just use the simpler form
 directly.
 
+\begin{kframe} \textbf{In Base R}
+
 The closest base equivalent to \texttt{map2()} is \texttt{Map()}, which
 is discussed in Section \ref{pmap}.
+
+\end{kframe}
 
 \hypertarget{no-outputs-walk-and-friends}{%
 \subsection{\texorpdfstring{No outputs: \texttt{walk()} and
@@ -11581,9 +11734,13 @@ Here the \texttt{walk2()} is equivalent to
 \texttt{write.csv(cyls{[}{[}2{]}{]},\ paths{[}{[}2{]}{]})},
 \texttt{write.csv(cyls{[}{[}3{]}{]},\ paths{[}{[}3{]}{]})}.
 
+\begin{kframe} \textbf{In Base R}
+
 There is no base equivalent to \texttt{walk()}; either wrap the result
 of \texttt{lapply()} in \texttt{invisible()} or save it to a variable
 that is never used.
+
+\end{kframe}
 
 \hypertarget{iterating-over-values-and-indices}{%
 \subsection{Iterating over values and
@@ -11754,6 +11911,8 @@ to the arguments to \texttt{runif()}, so the
 data frame in hand, and the names don't match, use
 \texttt{dplyr::rename()} or similar.)
 
+\begin{kframe} \textbf{In Base R}
+
 There are two base equivalents to the \texttt{pmap()} family:
 \texttt{Map()} and \texttt{mapply()}. Both have significant drawbacks:
 
@@ -11768,6 +11927,8 @@ There are two base equivalents to the \texttt{pmap()} family:
   \texttt{sapply()}. There is no multi-input equivalent of
   \texttt{vapply()}.
 \end{itemize}
+
+\end{kframe}
 
 \hypertarget{exercises-27}{%
 \subsection{Exercises}\label{exercises-27}}
@@ -11911,9 +12072,13 @@ wrapper around a for loop:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{kframe} \textbf{In Base R}
+
 The base equivalent is \texttt{Reduce()}. Note that the argument order
 is different: the function comes first, followed by the vector, and
 there is no way to supply additional arguments.
+
+\end{kframe}
 
 \hypertarget{accumulate}{%
 \subsection{Accumulate}\label{accumulate}}
@@ -14355,9 +14520,8 @@ given a class is called \textbf{method dispatch}.
 
 There are two main paradigms of object-oriented programming which differ
 in how methods and classes are related. In this book, we'll borrow the
-terminology of \emph{Extending R} (Chambers
-\protect\hyperlink{ref-extending-R}{2016}) and call these paradigms
-encapsulated and functional:
+terminology of \emph{Extending R} \citep{extending-R} and call these
+paradigms encapsulated and functional:
 
 \begin{itemize}
 \item
@@ -14386,18 +14550,16 @@ Base R provides three OOP systems: S3, S4, and reference classes (RC):
 \begin{itemize}
 \item
   \textbf{S3} is R's first OOP system, and is described in
-  \emph{Statistical Models in S} (Chambers and Hastie
-  \protect\hyperlink{ref-white-book}{1992}). S3 is an informal
+  \emph{Statistical Models in S} \citep{white-book}. S3 is an informal
   implementation of functional OOP and relies on common conventions
   rather than ironclad guarantees. This makes it easy to get started
   with, providing a low cost way of solving many simple problems.
 \item
   \textbf{S4} is a formal and rigorous rewrite of S3, and was introduced
-  in \emph{Programming with Data} (Chambers
-  \protect\hyperlink{ref-programming-with-data}{1998}). It requires more
-  upfront work than S3, but in return provides more guaranetees and
-  greater encapsulation. S4 is implemented in the base \textbf{methods}
-  package, which is always installed with R.
+  in \emph{Programming with Data} \citep{programming-with-data}. It
+  requires more upfront work than S3, but in return provides more
+  guaranetees and greater encapsulation. S4 is implemented in the base
+  \textbf{methods} package, which is always installed with R.
 
   (You might wonder if S1 and S2 exist. They don't: S3 and S4 were named
   according to the versions of S that they accompanied. The first two
@@ -14415,22 +14577,18 @@ A number of other OOP systems are provided by CRAN packages:
 
 \begin{itemize}
 \item
-  \textbf{R6} (Chang \protect\hyperlink{ref-R6}{2017}) implements
-  encapsulated OOP like RC, but resolves some important issues. In this
-  book, you'll learn about R6 instead of RC, for reasons described in
-  Section \ref{why-r6}.
+  \textbf{R6} \citep{R6} implements encapsulated OOP like RC, but
+  resolves some important issues. In this book, you'll learn about R6
+  instead of RC, for reasons described in Section \ref{why-r6}.
 \item
-  \textbf{R.oo} (Bengtsson \protect\hyperlink{ref-R.oo}{2003}) provides
-  some formalism on top of S3, and makes it possible to have mutable S3
-  objects.
+  \textbf{R.oo} \citep{R.oo} provides some formalism on top of S3, and
+  makes it possible to have mutable S3 objects.
 \item
-  \textbf{proto} (Grothendieck, Kates, and Petzoldt
-  \protect\hyperlink{ref-proto}{2016}) implements another style of OOP
-  based on the idea of \textbf{prototypes}, which blur the distinctions
-  between classes and instances of classes (objects). I was briefly
-  enamored with prototype based programming (Wickham
-  \protect\hyperlink{ref-mutatr}{2011}) and used it in ggplot2, but now
-  think it's better to stick with the standard forms.
+  \textbf{proto} \citep{proto} implements another style of OOP based on
+  the idea of \textbf{prototypes}, which blur the distinctions between
+  classes and instances of classes (objects). I was briefly enamored
+  with prototype based programming \citep{mutatr} and used it in
+  ggplot2, but now think it's better to stick with the standard forms.
 \end{itemize}
 
 Apart from R6, which is widely used, these systems are primarily of
@@ -17287,10 +17445,9 @@ recommendations:
   John Chambers is the author of the S4 system, and provides an
   overview\\
   of its motivation and historical context in ``Object-oriented
-  programming, functional programming and R'' (Chambers
-  \protect\hyperlink{ref-chambers-2014}{2014}). For a fuller exploration
-  of S4, see his book ``Software for Data Analysis'' (Chambers
-  \protect\hyperlink{ref-s4da}{2008}).
+  programming, functional programming and R'' \citep{chambers-2014}. For
+  a fuller exploration of S4, see his book ``Software for Data
+  Analysis'' \citep{s4da}.
 \end{itemize}
 
 \hypertarget{outline-11}{%
@@ -18327,13 +18484,11 @@ DNAStringSet) are built using S4.
 S4 is also a good fit for complex systems of interrelated objects, and
 it's possible to minimise code duplication through careful
 implementation of methods. The best example of such a system is the
-Matrix package (Bates and Maechler
-\protect\hyperlink{ref-Matrix}{2018}). It is designed to efficiently
-store and compute with many different types of sparse and dense
-matrices. As of version 1.2.14, it defines 102 classes, 21 generic
-functions, and 1993 methods, and to give you some idea of the
-complexity, a small subset of the class graph is shown in Figure
-\ref{fig:matrix-classes}.
+Matrix package \citep{Matrix}. It is designed to efficiently store and
+compute with many different types of sparse and dense matrices. As of
+version 1.2.14, it defines 102 classes, 21 generic functions, and 1993
+methods, and to give you some idea of the complexity, a small subset of
+the class graph is shown in Figure \ref{fig:matrix-classes}.
 
 \begin{figure}
 
@@ -18551,9 +18706,9 @@ it lives.
 One way that other FP languages deal with this challenge is to provide a
 \textbf{multiple assign} (or destructuring bind) operator that allows
 you to assign multiple values in a single step. The zeallot package
-(Teetor \protect\hyperlink{ref-zeallot}{2018}) provides multi-assign for
-R with \texttt{\%\textless{}-\%}. This makes the code more elegant, but
-doesn't solve the key problem:
+\citep{zeallot} provides multi-assign for R with
+\texttt{\%\textless{}-\%}. This makes the code more elegant, but doesn't
+solve the key problem:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -19208,9 +19363,9 @@ underpin metaprogramming:
 
 Each chapter follows the same basic structure. You'll get the lay of the
 land in introduction, then see a motivating example. Next you'll learn
-the big ideas using functions from the rlang package (Henry and Wickham
-\protect\hyperlink{ref-rlang}{2018}), and then we'll circle back to talk
-about how those ideas are expressed in base R.
+the big ideas using functions from the rlang package \citep{rlang}, and
+then we'll circle back to talk about how those ideas are expressed in
+base R.
 
 \hypertarget{expressions}{%
 \chapter{Expressions}\label{expressions}}
@@ -20146,6 +20301,8 @@ frequently, you should reconsider your process. Read the Chapter
 \ref{quasiquotation} and consider if you can instead more safely
 generate expressions using quasiquotation.
 
+\begin{kframe} \textbf{In Base R}
+
 The base equivalent to \texttt{parse\_exprs()} is \texttt{parse()}. It
 is a little harder to use because it's specialised for parsing R code
 stored in files. You need supply your string to the \texttt{text}
@@ -20159,6 +20316,8 @@ argument. It returns an expression vector, discussed in Section
 \CommentTok{#> y <- x + 10}
 \end{Highlighting}
 \end{Shaded}
+
+\end{kframe}
 
 The inverse of parsing is \textbf{deparsing}: given an expression, you
 want the string that would generate it. This happens automatically when
@@ -20189,10 +20348,14 @@ around ordinary names, comments, and whitespace:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{kframe} \textbf{In Base R}
+
 Be careful when using the base R equivalent, \texttt{deparse()}: it
 returns a character vector with one element for each line. Whenever you
 use it, remember that the length of the output might be greater than
 one, and plan accordingly.
+
+\end{kframe}
 
 \hypertarget{exercises-52}{%
 \subsection{Exercises}\label{exercises-52}}
@@ -20922,13 +21085,12 @@ with purrr.
 
 Quoting functions have deep connections to Lisp \textbf{macros}. But
 macros are usually run at compile-time, which doesn't exist in R, and
-they always input and output ASTs. See Lumley
-(\protect\hyperlink{ref-lumley-2001}{2001}) for one approach to
-implementing them in R. Quoting functions are more closely related to
-Lisp \href{http://en.wikipedia.org/wiki/Fexpr}{\textbf{fexprs}},
-functions where all arguments are quoted by default. These terms are
-useful to know when looking for related techniques in other programming
-languages.
+they always input and output ASTs. See \citet{lumley-2001} for one
+approach to implementing them in R. Quoting functions are more closely
+related to Lisp
+\href{http://en.wikipedia.org/wiki/Fexpr}{\textbf{fexprs}}, functions
+where all arguments are quoted by default. These terms are useful to
+know when looking for related techniques in other programming languages.
 
 \hypertarget{quasi-motivation}{%
 \section{Motivation}\label{quasi-motivation}}
@@ -21080,10 +21242,10 @@ precisely delineating the use and mention of words, i.e.~between the
 object and the words we use to refer to that object.
 
 Quasiquotation was first used in a programming language, LISP, in the
-mid-1970s (Bawden \protect\hyperlink{ref-bawden-1999}{1999}). LISP has
-one quoting function \texttt{\textasciigrave{}}, and uses \texttt{,} for
-unquoting. Most languages with a LISP heritage behave similarly. For
-example, racket (\texttt{\textasciigrave{}} and \texttt{@}), clojure
+mid-1970s \citep{bawden-1999}. LISP has one quoting function
+\texttt{\textasciigrave{}}, and uses \texttt{,} for unquoting. Most
+languages with a LISP heritage behave similarly. For example, racket
+(\texttt{\textasciigrave{}} and \texttt{@}), clojure
 (\texttt{\textasciigrave{}} and \texttt{\textasciitilde{}}), and julia
 (\texttt{:} and \texttt{@}) all have quasiquotation tools that differ
 only slightly from LISP. These languages have a single quoting function
@@ -21306,6 +21468,8 @@ The base function closest to \texttt{enexpr()} is \texttt{substitute()}:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{kframe}
+
 \textbf{Substitution}
 
 You'll most often see \texttt{substitute()} used to capture unevaluated
@@ -21334,6 +21498,8 @@ argument to make your goal clear:
 \CommentTok{#> 10 * (a + b) * z}
 \end{Highlighting}
 \end{Shaded}
+
+\end{kframe}
 
 The base equivalent to \texttt{exprs()} is \texttt{alist()}:
 
@@ -23122,8 +23288,7 @@ vs.~unquotation}\label{evaluation-vs.unquotation}}
 
 Evaluation provides an alternative to unquoting.
 
-Popularised by data.table (Dowle and Srinivasan
-\protect\hyperlink{ref-data.table}{2018})
+Popularised by data.table \citep{data.table}
 
 Notice the difference in timing; need to make sure the expression is
 stored in a variable with a different name to anything in the dataset.
@@ -23159,6 +23324,8 @@ In most cases, there is no reason to prefer \texttt{rlang::eval\_bare()}
 over \texttt{eval()}; I just used it here because it's a more minimal
 interface.
 
+\begin{kframe}
+
 \textbf{Expression vectors}
 
 \texttt{base::eval()} has special behaviour for expression
@@ -23181,6 +23348,8 @@ While \texttt{source3()} is considerably more concise than
 expression objects, and overall we don't believe this one benefit
 outweighs the cost of introducing a new data structure. That's why this
 book has relegated expression vectors to a secondary role.
+
+\end{kframe}
 
 \hypertarget{exercises-59}{%
 \subsection{Exercises}\label{exercises-59}}
@@ -24805,9 +24974,9 @@ HTML, and the other to turn mathematical expressions from R code into
 LaTeX.
 
 If you're interested in learning more about domain specific languages in
-general, I highly recommend \emph{Domain Specific Languages} (Fowler
-\protect\hyperlink{ref-dsls}{2010}). It discusses many options for
-creating a DSL and provides many examples of different languages.
+general, I highly recommend \emph{Domain Specific Languages}
+\citep{dsls}. It discusses many options for creating a DSL and provides
+many examples of different languages.
 
 \hypertarget{outline-16}{%
 \subsection*{Outline}\label{outline-16}}
@@ -26437,9 +26606,9 @@ root.
 \NormalTok{  x }\OperatorTok{^}\StringTok{ }\FloatTok{0.5}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
-\CommentTok{#>     expr   min    lq  mean median    uq    max neval}
-\CommentTok{#>  sqrt(x)   899 1,050  1222  1,140 1,310  3,840   100}
-\CommentTok{#>    x^0.5 9,260 9,410 10013  9,580 9,760 35,100   100}
+\CommentTok{#>     expr   min    lq  mean median     uq    max neval}
+\CommentTok{#>  sqrt(x)   901 1,150  1392  1,320  1,510  6,120   100}
+\CommentTok{#>    x^0.5 9,230 9,570 10529  9,750 10,000 51,200   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26623,10 +26792,10 @@ comparison. \index{methods!cost of dispatch}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>  expr    min     lq  mean median     uq       max neval}
-\CommentTok{#>   fun    181    205   403    221    236    16,600   100}
-\CommentTok{#>    S3    968  1,120  9568  1,170  1,320   805,000   100}
-\CommentTok{#>    S4 12,300 12,800 27770 13,100 14,500   872,000   100}
-\CommentTok{#>    RC  8,270  8,470 39779  8,700  9,100 3,070,000   100}
+\CommentTok{#>   fun    180    204   495    230    248    25,100   100}
+\CommentTok{#>    S3    975  1,130 10907  1,190  1,350   922,000   100}
+\CommentTok{#>    S4 12,000 12,400 30731 12,900 14,200 1,060,000   100}
+\CommentTok{#>    RC  8,120  8,390 40779  8,610  9,040 3,180,000   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26910,10 +27079,10 @@ subassignment. \indexc{ifelse()} \indexc{pmin()} \indexc{pmax()}
   \DataTypeTok{unit =} \StringTok{"us"}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
-\CommentTok{#>             expr   min    lq mean median    uq   max neval}
-\CommentTok{#>       squish_ife 20.50 22.30 51.1  26.10 31.40 2,320   100}
-\CommentTok{#>         squish_p 12.40 13.00 35.2  13.50 14.80 1,520   100}
-\CommentTok{#>  squish_in_place  2.84  3.16 31.0   3.51  4.27 2,720   100}
+\CommentTok{#>             expr   min   lq mean median    uq   max neval}
+\CommentTok{#>       squish_ife 20.80 22.9 53.8   27.8 32.30 2,490   100}
+\CommentTok{#>         squish_p 12.30 13.0 36.3   13.5 14.40 1,580   100}
+\CommentTok{#>  squish_in_place  2.88  3.2 31.8    3.6  4.35 2,770   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26963,9 +27132,9 @@ value is less than \texttt{a} and/or greater than \texttt{b}.
   \DataTypeTok{unit =} \StringTok{"us"}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
-\CommentTok{#>             expr  min   lq  mean median   uq   max neval}
-\CommentTok{#>  squish_in_place 3.43 4.06  5.01   4.45 4.89    24   100}
-\CommentTok{#>       squish_cpp 2.56 2.88 15.67   3.11 3.40 1,240   100}
+\CommentTok{#>             expr  min   lq  mean median   uq     max neval}
+\CommentTok{#>  squish_in_place 3.21 4.26  5.26   4.70 5.12    32.9   100}
+\CommentTok{#>       squish_cpp 2.49 2.98 16.61   3.26 3.54 1,310.0   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -27120,9 +27289,9 @@ seen:
   \DataTypeTok{unit =} \StringTok{"ms"}
 \NormalTok{)}
 \CommentTok{#> Unit: milliseconds}
-\CommentTok{#>          expr   min    lq  mean median    uq    max neval}
-\CommentTok{#>  cond_sum_cpp  5.15  5.18  5.22   5.19  5.21   6.41   100}
-\CommentTok{#>    cond_sum_r 11.70 13.00 14.64  13.30 13.50 143.00   100}
+\CommentTok{#>          expr  min    lq  mean median    uq    max neval}
+\CommentTok{#>  cond_sum_cpp  5.2  5.26  5.36   5.28  5.33   9.47   100}
+\CommentTok{#>    cond_sum_r 11.7 13.50 15.50  14.20 14.60 147.00   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -30669,126 +30838,10 @@ answered many of my dumb questions along the way.
 \chapter*{References}\label{references}}
 \addcontentsline{toc}{chapter}{References}
 
-\hypertarget{refs}{}
-\leavevmode\hypertarget{ref-SICP}{}%
-Abelson, Harold, Gerald Jay Sussman, and Julie Sussman. 1996.
-\emph{Structure and Interpretation of Computer Programs}. MIT Press.
+\bibliography{book.bib}
 
-\leavevmode\hypertarget{ref-magrittr}{}%
-Bache, Stefan Milton, and Hadley Wickham. 2014. \emph{Magrittr: A
-Forward-Pipe Operator for R}. \url{http://magrittr.tidyverse.org/}.
-
-\leavevmode\hypertarget{ref-Matrix}{}%
-Bates, Douglas, and Martin Maechler. 2018. ``Matrix: Sparse and Dense
-Matrix Classes and Methods.''
-\url{https://CRAN.R-project.org/package=Matrix}.
-
-\leavevmode\hypertarget{ref-bawden-1999}{}%
-Bawden, Alan. 1999. ``Quasiquotation in Lisp.'' In \emph{PEPM '99},
-4--12.
-\url{http://repository.readscheme.org/ftp/papers/pepm99/bawden.pdf}.
-
-\leavevmode\hypertarget{ref-R.oo}{}%
-Bengtsson, Henrik. 2003. ``The R.oo Package - Object-Oriented
-Programming with References Using Standard R Code.'' In
-\emph{Proceedings of the 3rd International Workshop on Distributed
-Statistical Computing (Dsc 2003)}, edited by Kurt Hornik, Friedrich
-Leisch, and Achim Zeileis. Vienna, Austria:
-https://www.r-project.org/conferences/DSC-2003/Proceedings/.
-\url{https://www.r-project.org/conferences/DSC-2003/Proceedings/Bengtsson.pdf}.
-
-\leavevmode\hypertarget{ref-programming-with-data}{}%
-Chambers, John M. 1998. \emph{Programming with Data: A Guide to the S
-Language}. Springer Science \& Business Media.
-
-\leavevmode\hypertarget{ref-s4da}{}%
----------. 2008. \emph{Software for Data Analysis: Programming with R}.
-Springer.
-
-\leavevmode\hypertarget{ref-chambers-2014}{}%
----------. 2014. ``Object-Oriented Programming, Functional Programming
-and R.'' \emph{Statistical Science} 29 (2). Institute of Mathematical
-Statistics:167--80.
-\url{https://projecteuclid.org/download/pdfview_1/euclid.ss/1408368569}.
-
-\leavevmode\hypertarget{ref-extending-R}{}%
----------. 2016. \emph{Extending R}. CRC Press.
-
-\leavevmode\hypertarget{ref-white-book}{}%
-Chambers, John M, and Trevor J Hastie. 1992. \emph{Statistical Models in
-S}. Wadsworth \& Brooks/Cole Advanced Books \& Software.
-
-\leavevmode\hypertarget{ref-R6}{}%
-Chang, Winston. 2017. \emph{R6: Classes with Reference Semantics}.
-\url{https://CRAN.R-project.org/package=R6}.
-
-\leavevmode\hypertarget{ref-data.table}{}%
-Dowle, Matt, and Arun Srinivasan. 2018. \emph{Data.table: Extension of
-`Data.frame`}. \url{http://r-datatable.com}.
-
-\leavevmode\hypertarget{ref-dsls}{}%
-Fowler, Martin. 2010. \emph{Domain-Specific Languages}. Pearson
-Education. \url{http://amzn.com/0321712943}.
-
-\leavevmode\hypertarget{ref-lubridate}{}%
-Grolemund, Garrett, and Hadley Wickham. 2011. ``Dates and Times Made
-Easy with lubridate.'' \emph{Journal of Statistical Software} 40
-(3):1--25. \url{http://www.jstatsoft.org/v40/i03/}.
-
-\leavevmode\hypertarget{ref-proto}{}%
-Grothendieck, Gabor, Louis Kates, and Thomas Petzoldt. 2016.
-\emph{Proto: Prototype Object-Based Programming}.
-\url{https://CRAN.R-project.org/package=proto}.
-
-\leavevmode\hypertarget{ref-rlang}{}%
-Henry, Lionel, and Hadley Wickham. 2018. \emph{Rlang: Functions for Base
-Types and Core R and 'Tidyverse' Features}.
-\url{https://rlang.r-lib.org}.
-
-\leavevmode\hypertarget{ref-bench}{}%
-Hester, Jim. 2018. \emph{Bench: High Precision Timing of R Expressions}.
-\url{http://bench.r-lib.org/}.
-
-\leavevmode\hypertarget{ref-pragprog}{}%
-Hunt, Andrew, and David Thomas. 1990. \emph{The Pragmatic Programmer}.
-Addison Wesley.
-
-\leavevmode\hypertarget{ref-lumley-2001}{}%
-Lumley, Thomas. 2001. ``Programmer's Niche: Macros in R.'' \emph{R News}
-1 (3):11--13.
-\url{https://www.r-project.org/doc/Rnews/Rnews_2001-3.pdf}.
-
-\leavevmode\hypertarget{ref-tibble}{}%
-Müller, Kirill, and Hadley Wickham. 2018. \emph{Tibble: Simple Data
-Frames}. \url{https://CRAN.R-project.org/package=tibble}.
-
-\leavevmode\hypertarget{ref-r-ints}{}%
-R Core Team. 2018a. ``R Internals.'' \emph{R Foundation for Statistical
-Computing}.
-\url{https://cran.r-project.org/doc/manuals/r-devel/R-exts.html}.
-
-\leavevmode\hypertarget{ref-r-exts}{}%
----------. 2018b. ``Writing R Extensions.'' \emph{R Foundation for
-Statistical Computing}.
-\url{https://cran.r-project.org/doc/manuals/r-devel/R-ints.html}.
-
-\leavevmode\hypertarget{ref-zeallot}{}%
-Teetor, Nathan. 2018. \emph{Zeallot: Multiple, Unpacking, and
-Destructuring Assignment}.
-\url{https://CRAN.R-project.org/package=zeallot}.
-
-\leavevmode\hypertarget{ref-ctmcp}{}%
-Van-Roy, Peter, and Seif Haridi. 2004. \emph{Concepts, Techniques, and
-Models of Computer Programming}. MIT press.
-
-\leavevmode\hypertarget{ref-mutatr}{}%
-Wickham, Hadley. 2011. ``Mutatr: Mutable Objects for R.''
-\emph{Computational Statistics} 26 (3):405--18.
-\url{https://doi.org/10.1007/s00180-011-0235-7}.
-
-\leavevmode\hypertarget{ref-forcats}{}%
----------. 2018. \emph{Forcats: Tools for Working with Categorical
-Variables (Factors)}. \url{http://forcats.tidyverse.org}.
+\backmatter
+\printindex
 
 
 \end{document}
