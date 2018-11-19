@@ -16,9 +16,6 @@ bookdown::pdf_book:
   keep_tex: true
   includes:
     in_header: header.tex
-  template: null
-  toc_unnumbered: false
-  number_sections: true
   quote_footer: ["\\hspace*{\\fill} ", ""]
 #  pandoc_args: ["--top-level-division=chapter", "--lua-filter=latex/sidebar.lua"]
 
