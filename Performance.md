@@ -50,8 +50,8 @@ microbenchmark(
 )
 #> Unit: nanoseconds
 #>     expr   min    lq  mean median     uq    max neval
-#>  sqrt(x)   804 1,220  1434  1,340  1,560  5,160   100
-#>    x^0.5 9,490 9,690 10559  9,930 10,100 48,400   100
+#>  sqrt(x)   877 1,120  1365  1,280  1,510  5,340   100
+#>    x^0.5 9,420 9,700 11865  9,960 10,600 71,700   100
 ```
 
 
@@ -158,10 +158,10 @@ microbenchmark(
 )
 #> Unit: nanoseconds
 #>  expr    min     lq  mean median     uq       max neval
-#>   fun    180    203   423    223    238    18,000   100
-#>    S3    985  1,110 11551  1,160  1,300 1,000,000   100
-#>    S4 12,200 12,800 30895 13,100 14,100 1,110,000   100
-#>    RC  8,130  8,390 41370  8,610  9,160 3,220,000   100
+#>   fun    174    195   470    221    236    23,100   100
+#>    S3    974  1,120 10039  1,180  1,300   843,000   100
+#>    S4 12,200 12,700 27998 13,000 13,900   903,000   100
+#>    RC  8,150  8,460 41149  8,650  9,040 3,180,000   100
 ```
 
 
@@ -339,13 +339,13 @@ microbenchmark(
   unit = "us"
 )
 #> Unit: microseconds
-#>             expr   min    lq mean median   uq   max neval
-#>       squish_ife 20.90 23.10 54.5  29.40 33.2 2,430   100
-#>         squish_p 12.40 13.00 36.4  13.60 15.2 1,600   100
-#>  squish_in_place  2.86  3.33 32.9   3.97  4.8 2,880   100
+#>             expr   min    lq mean median    uq   max neval
+#>       squish_ife 20.10 22.60 52.7  27.30 32.40 2,300   100
+#>         squish_p 12.10 13.00 35.5  13.50 14.90 1,550   100
+#>  squish_in_place  2.78  3.15 31.4   3.63  4.55 2,740   100
 ```
 
-Using `pmin()` and `pmax()` is about 2x faster than `ifelse()`, and using subsetting directly is about 3x as fast again. We can often do even better by using C++. The following example compares the best R implementation to a relatively simple, if verbose, implementation in C++. Even if you've never used C++, you should still be able to follow the basic strategy: loop over every element in the vector and perform a different action depending on whether or not the value is less than `a` and/or greater than `b`. 
+Using `pmin()` and `pmax()` is about 2x faster than `ifelse()`, and using subsetting directly is about 4x as fast again. We can often do even better by using C++. The following example compares the best R implementation to a relatively simple, if verbose, implementation in C++. Even if you've never used C++, you should still be able to follow the basic strategy: loop over every element in the vector and perform a different action depending on whether or not the value is less than `a` and/or greater than `b`. 
 
 
 ```cpp
@@ -382,12 +382,12 @@ microbenchmark(
   unit = "us"
 )
 #> Unit: microseconds
-#>             expr  min   lq  mean median   uq   max neval
-#>  squish_in_place 3.57 4.62  5.49   5.12 5.48    33   100
-#>       squish_cpp 2.61 3.09 17.93   3.37 3.63 1,420   100
+#>             expr  min   lq  mean median   uq     max neval
+#>  squish_in_place 3.27 4.52  5.16   4.78 5.26    30.2   100
+#>       squish_cpp 2.69 2.96 17.40   3.21 3.47 1,370.0   100
 ```
 
-The C++ implementation is around 2x faster than the best pure R implementation.
+The C++ implementation is around 1x faster than the best pure R implementation.
 
 ### Exercises
 
@@ -487,8 +487,8 @@ microbenchmark(
 )
 #> Unit: milliseconds
 #>          expr   min    lq  mean median    uq    max neval
-#>  cond_sum_cpp  5.24  5.29  5.37   5.33  5.37   6.73   100
-#>    cond_sum_r 12.90 14.30 16.25  14.90 15.30 151.00   100
+#>  cond_sum_cpp  5.18  5.21  5.25   5.22  5.25   6.66   100
+#>    cond_sum_r 12.00 13.30 15.21  13.90 14.30 147.00   100
 ```
 
 On my computer, this approach is about 3x faster than the vectorised R equivalent, which is already pretty fast.
