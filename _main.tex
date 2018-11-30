@@ -26437,9 +26437,9 @@ root.
 \NormalTok{  x }\OperatorTok{^}\StringTok{ }\FloatTok{0.5}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
-\CommentTok{#>     expr   min    lq  mean median    uq    max neval}
-\CommentTok{#>  sqrt(x)   809 1,060  1265  1,180 1,380  4,110   100}
-\CommentTok{#>    x^0.5 9,190 9,570 10125  9,750 9,970 34,500   100}
+\CommentTok{#>     expr   min    lq  mean median     uq    max neval}
+\CommentTok{#>  sqrt(x)   804 1,220  1434  1,340  1,560  5,160   100}
+\CommentTok{#>    x^0.5 9,490 9,690 10559  9,930 10,100 48,400   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26623,10 +26623,10 @@ comparison. \index{methods!cost of dispatch}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>  expr    min     lq  mean median     uq       max neval}
-\CommentTok{#>   fun    182    206   454    228    243    14,700   100}
-\CommentTok{#>    S3    972  1,110  9909  1,170  1,290   840,000   100}
-\CommentTok{#>    S4 11,900 12,500 28191 13,000 14,600   904,000   100}
-\CommentTok{#>    RC  8,170  8,400 41435  8,580  8,940 3,240,000   100}
+\CommentTok{#>   fun    180    203   423    223    238    18,000   100}
+\CommentTok{#>    S3    985  1,110 11551  1,160  1,300 1,000,000   100}
+\CommentTok{#>    S4 12,200 12,800 30895 13,100 14,100 1,110,000   100}
+\CommentTok{#>    RC  8,130  8,390 41370  8,610  9,160 3,220,000   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26910,15 +26910,15 @@ subassignment. \indexc{ifelse()} \indexc{pmin()} \indexc{pmax()}
   \DataTypeTok{unit =} \StringTok{"us"}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
-\CommentTok{#>             expr   min   lq mean median    uq   max neval}
-\CommentTok{#>       squish_ife 20.10 22.3 53.0   26.9 32.70 2,340   100}
-\CommentTok{#>         squish_p 12.50 13.0 35.6   13.4 14.70 1,550   100}
-\CommentTok{#>  squish_in_place  2.78  3.1 31.4    3.6  4.33 2,740   100}
+\CommentTok{#>             expr   min    lq mean median   uq   max neval}
+\CommentTok{#>       squish_ife 20.90 23.10 54.5  29.40 33.2 2,430   100}
+\CommentTok{#>         squish_p 12.40 13.00 36.4  13.60 15.2 1,600   100}
+\CommentTok{#>  squish_in_place  2.86  3.33 32.9   3.97  4.8 2,880   100}
 \end{Highlighting}
 \end{Shaded}
 
 Using \texttt{pmin()} and \texttt{pmax()} is about 2x faster than
-\texttt{ifelse()}, and using subsetting directly is about 4x as fast
+\texttt{ifelse()}, and using subsetting directly is about 3x as fast
 again. We can often do even better by using C++. The following example
 compares the best R implementation to a relatively simple, if verbose,
 implementation in C++. Even if you've never used C++, you should still
@@ -26963,13 +26963,13 @@ value is less than \texttt{a} and/or greater than \texttt{b}.
   \DataTypeTok{unit =} \StringTok{"us"}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
-\CommentTok{#>             expr  min   lq  mean median   uq     max neval}
-\CommentTok{#>  squish_in_place 3.36 4.13  4.98   4.50 4.97    27.7   100}
-\CommentTok{#>       squish_cpp 2.55 2.95 16.20   3.16 3.41 1,280.0   100}
+\CommentTok{#>             expr  min   lq  mean median   uq   max neval}
+\CommentTok{#>  squish_in_place 3.57 4.62  5.49   5.12 5.48    33   100}
+\CommentTok{#>       squish_cpp 2.61 3.09 17.93   3.37 3.63 1,420   100}
 \end{Highlighting}
 \end{Shaded}
 
-The C++ implementation is around 1x faster than the best pure R
+The C++ implementation is around 2x faster than the best pure R
 implementation.
 
 \hypertarget{exercises-68}{%
@@ -27120,9 +27120,9 @@ seen:
   \DataTypeTok{unit =} \StringTok{"ms"}
 \NormalTok{)}
 \CommentTok{#> Unit: milliseconds}
-\CommentTok{#>          expr  min    lq  mean median    uq    max neval}
-\CommentTok{#>  cond_sum_cpp  5.2  5.24  5.28   5.25  5.28   6.72   100}
-\CommentTok{#>    cond_sum_r 12.6 13.90 15.60  14.20 14.50 150.00   100}
+\CommentTok{#>          expr   min    lq  mean median    uq    max neval}
+\CommentTok{#>  cond_sum_cpp  5.24  5.29  5.37   5.33  5.37   6.73   100}
+\CommentTok{#>    cond_sum_r 12.90 14.30 16.25  14.90 15.30 151.00   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -30789,6 +30789,9 @@ Wickham, Hadley. 2011. ``Mutatr: Mutable Objects for R.''
 \leavevmode\hypertarget{ref-forcats}{}%
 ---------. 2018. \emph{Forcats: Tools for Working with Categorical
 Variables (Factors)}. \url{http://forcats.tidyverse.org}.
+
+\backmatter
+\printindex
 
 
 \end{document}
