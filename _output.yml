@@ -16,6 +16,7 @@ bookdown::pdf_book:
   keep_tex: true
   includes:
     in_header: header.tex
+    after_body: latex/after_body.tex
   quote_footer: ["\\hspace*{\\fill} ", ""]
 
 
