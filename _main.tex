@@ -15563,7 +15563,7 @@ There are two wrinkles to be aware of when you create a new method:
 
 \begin{itemize}
 \item
-  First, you should only every write a method if you own the generic or
+  First, you should only ever write a method if you own the generic or
   the class. R will allow you to define a method even if you don't, but
   it is exceedingly bad manners. Instead, work with the author of either
   the generic or the class to add the method in their code.
@@ -16374,9 +16374,9 @@ Section \ref{why-r6}.
   and active fields. Together, these allow you to hide data from the
   user, or expose private data for reading but not writing.
 \item
-  Section \ref{r6-semantics} explores the consequnces of R6's reference
+  Section \ref{r6-semantics} explores the consequences of R6's reference
   semantics. You'll learn about the use of finalizers to automatically
-  clean up any operations performed in the intializer, and a common
+  clean up any operations performed in the initializer, and a common
   gotcha if you use an R6 object as a field in another R6 object.
 \item
   Section \ref{why-r6} describes why I cover R6, rather than the base RC
@@ -16626,10 +16626,10 @@ object does not get this new method:
 From the perspective of R6, there is no relationship between
 \texttt{hadley} and \texttt{hadley2}; they just coincidentally share the
 same class name. This doesn't cause problems when using already
-developed R6 problems but can make interactive experimentation
-confusing. If you're changing the code and can't figure out why the
-results of method calls aren't any different, make sure you've
-re-constructed R6 objects with the new class.
+developed R6 objects but can make interactive experimentation confusing.
+If you're changing the code and can't figure out why the results of
+method calls aren't any different, make sure you've re-constructed R6
+objects with the new class.
 
 \hypertarget{adding-methods-after-creation}{%
 \subsection{Adding methods after
@@ -17047,8 +17047,8 @@ methods of \texttt{x} or \texttt{y}, it might modify them as well as
 \texttt{z}. This is the biggest potential downside of R6 and you should
 take care to avoid it by writing functions that either return a value,
 or modify their R6 inputs, but not both. That said, doing both can lead
-to substantially simpler code in some cases, and we'll discuss further
-in Section \ref{threading-state}.
+to substantially simpler code in some cases, and we'll discuss this
+further in Section \ref{threading-state}.
 
 \hypertarget{finalizer}{%
 \subsection{Finalizer}\label{finalizer}}
@@ -17058,8 +17058,8 @@ think about when an R6 object is \textbf{finalized}, i.e.~when it's
 deleted. This doesn't make sense for most objects because copy-on-modify
 semantics mean that there may be many transient versions of an object,
 as alluded to in Section \ref{gc}. For example, the following creates
-two two factor objects: the second is created when the levels are
-modified, leaving the first to be destroyed by the garbage collector.
+two factor objects: the second is created when the levels are modified,
+leaving the first to be destroyed by the garbage collector.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -17197,9 +17197,9 @@ classes}, or RC for short. I prefer R6 to RC because:
   R6 has comprehensive online documentation at
   \url{https://r6.r-lib.org}.
 \item
-  R6 has a simpler mechnaism for cross-package subclassing, which just
-  works without you having to think about. For RC, read the details in
-  the ``External Methods; Inter-Package Superclasses'' section of
+  R6 has a simpler mechanism for cross-package subclassing, which just
+  works without you having to think about it. For RC, read the details
+  in the ``External Methods; Inter-Package Superclasses'' section of
   \texttt{?setRefClass}.
 \item
   RC mingles variables and fields in the same stack of environments so
@@ -26437,9 +26437,9 @@ root.
 \NormalTok{  x }\OperatorTok{^}\StringTok{ }\FloatTok{0.5}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
-\CommentTok{#>     expr   min    lq  mean median     uq    max neval}
-\CommentTok{#>  sqrt(x)   924 1,180  1385  1,320  1,480  4,430   100}
-\CommentTok{#>    x^0.5 9,310 9,740 11865 11,100 12,700 34,900   100}
+\CommentTok{#>     expr   min    lq  mean median    uq    max neval}
+\CommentTok{#>  sqrt(x)   809 1,060  1265  1,180 1,380  4,110   100}
+\CommentTok{#>    x^0.5 9,190 9,570 10125  9,750 9,970 34,500   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26623,20 +26623,20 @@ comparison. \index{methods!cost of dispatch}
 \NormalTok{)}
 \CommentTok{#> Unit: nanoseconds}
 \CommentTok{#>  expr    min     lq  mean median     uq       max neval}
-\CommentTok{#>   fun    179    199   379    228    237    14,300   100}
-\CommentTok{#>    S3    975  1,100 10230  1,150  1,260   875,000   100}
-\CommentTok{#>    S4 11,900 12,400 28175 12,800 14,200   899,000   100}
-\CommentTok{#>    RC  8,130  8,420 42714  8,610  9,060 3,360,000   100}
+\CommentTok{#>   fun    182    206   454    228    243    14,700   100}
+\CommentTok{#>    S3    972  1,110  9909  1,170  1,290   840,000   100}
+\CommentTok{#>    S4 11,900 12,500 28191 13,000 14,600   904,000   100}
+\CommentTok{#>    RC  8,170  8,400 41435  8,580  8,940 3,240,000   100}
 \end{Highlighting}
 \end{Shaded}
 
 The bare function takes about 200 ns. S3 method dispatch takes an
-additional 900 ns; S4 dispatch, 10,000 ns; and RC dispatch, 8,000 ns. S3
-and S4 method dispatch are expensive because R must search for the right
-method every time the generic is called; it might have changed between
-this call and the last. R could do better by caching methods between
-calls, but caching is hard to do correctly and a notorious source of
-bugs.
+additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 8,000 ns.
+S3 and S4 method dispatch are expensive because R must search for the
+right method every time the generic is called; it might have changed
+between this call and the last. R could do better by caching methods
+between calls, but caching is hard to do correctly and a notorious
+source of bugs.
 
 \hypertarget{name-lookup-with-mutable-environments}{%
 \subsection{Name lookup with mutable
@@ -26910,10 +26910,10 @@ subassignment. \indexc{ifelse()} \indexc{pmin()} \indexc{pmax()}
   \DataTypeTok{unit =} \StringTok{"us"}
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
-\CommentTok{#>             expr   min    lq mean median    uq   max neval}
-\CommentTok{#>       squish_ife 20.10 22.30 51.9  28.70 31.60 2,250   100}
-\CommentTok{#>         squish_p 12.40 12.90 36.5  13.50 15.10 1,590   100}
-\CommentTok{#>  squish_in_place  2.79  3.11 31.2   3.48  4.33 2,700   100}
+\CommentTok{#>             expr   min   lq mean median    uq   max neval}
+\CommentTok{#>       squish_ife 20.10 22.3 53.0   26.9 32.70 2,340   100}
+\CommentTok{#>         squish_p 12.50 13.0 35.6   13.4 14.70 1,550   100}
+\CommentTok{#>  squish_in_place  2.78  3.1 31.4    3.6  4.33 2,740   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -26964,8 +26964,8 @@ value is less than \texttt{a} and/or greater than \texttt{b}.
 \NormalTok{)}
 \CommentTok{#> Unit: microseconds}
 \CommentTok{#>             expr  min   lq  mean median   uq     max neval}
-\CommentTok{#>  squish_in_place 3.45 4.07  4.96   4.37 4.75    41.3   100}
-\CommentTok{#>       squish_cpp 2.59 2.90 15.57   3.10 3.46 1,200.0   100}
+\CommentTok{#>  squish_in_place 3.36 4.13  4.98   4.50 4.97    27.7   100}
+\CommentTok{#>       squish_cpp 2.55 2.95 16.20   3.16 3.41 1,280.0   100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -27120,9 +27120,9 @@ seen:
   \DataTypeTok{unit =} \StringTok{"ms"}
 \NormalTok{)}
 \CommentTok{#> Unit: milliseconds}
-\CommentTok{#>          expr   min    lq  mean median    uq    max neval}
-\CommentTok{#>  cond_sum_cpp  5.15  5.19  5.25   5.23  5.26   6.55   100}
-\CommentTok{#>    cond_sum_r 11.20 12.50 14.38  13.10 13.50 145.00   100}
+\CommentTok{#>          expr  min    lq  mean median    uq    max neval}
+\CommentTok{#>  cond_sum_cpp  5.2  5.24  5.28   5.25  5.28   6.72   100}
+\CommentTok{#>    cond_sum_r 12.6 13.90 15.60  14.20 14.50 150.00   100}
 \end{Highlighting}
 \end{Shaded}
 
