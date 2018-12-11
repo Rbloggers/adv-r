@@ -13,7 +13,7 @@ y <- x * 10
 #>   object 'x' not found
 ```
 
-It would be nice if we could capture the intent of the code, without executing it. In other words, how can we separate our description of the action from the action itself? One way is to use `rlang::expr()`: 
+It would be nice if we could capture the intent of the code, without executing it. In other words, how can we separate our description of the action from the action itself? One way is to use `rlang::expr()`:
 
 
 ```r
@@ -635,7 +635,7 @@ lobstr::ast(x <- y <- z)
 #>   └─z
 ```
 
-### Parsing and deparsing 
+### Parsing and deparsing {#parsing}
 
 Most of the time you type code into the console, and R takes care of turning the characters you've typed into an AST. But occasionally you have code stored in a string, and you want to parse it yourself. You can do so using `rlang::parse_expr()`:
 

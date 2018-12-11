@@ -8,7 +8,7 @@ Now that you understand the tree structure of R code, it's time to come back to 
 
 * __Quotation__ is the act of capturing an unevaluated expression.  
 
-* __Unquotation__ is the ability to selectively evaluate evaluate parts of an
+* __Unquotation__ is the ability to selectively evaluate parts of an
   otherwise quoted expression. 
 
 The combination of these two ideas makes it easy create functions that combine code written by the function author with code written by the function user, and helps to solve a wide variety of challenging problems. 
@@ -593,6 +593,11 @@ expr(`$`(df, !!x))
 xs <- exprs(1, a, -b)
 expr(f(!!!xs, y))
 #> f(1, a, -b, y)
+
+# Or with names
+ys <- set_names(xs, c("a", "b", "c"))
+expr(f(!!!ys, d = 4))
+#> f(a = 1, b = a, c = -b, d = 4)
 ```
 
 

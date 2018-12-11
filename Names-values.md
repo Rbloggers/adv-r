@@ -104,9 +104,9 @@ To further clarify this distinction, I'll draw diagrams like this:
 
 \begin{center}\includegraphics[width=1.67in]{diagrams/name-value/binding-1} \end{center}
 
-The name, `x`, is drawn with a rounded rectangle. It has an arrow that points to (or binds or references) the value, the vector `1:3`. Note that the arrow points in opposite direction to the assignment arrow: `<-` creates a binding from the name on the left-hand side to the object on the right-hand side.
+The name, `x`, is drawn with a rounded rectangle. It has an arrow that points to (or binds or references) the value, the vector `c(1, 2, 3)`. Note that the arrow points in opposite direction to the assignment arrow: `<-` creates a binding from the name on the left-hand side to the object on the right-hand side.
 
-Thus, you can think of a name as a reference to a value. For example, if you run this code, you don't get another copy of the value `1:3`, you get another binding to the existing object:
+Thus, you can think of a name as a reference to a value. For example, if you run this code, you don't get another copy of the value `c(1, 2, 3)`, you get another binding to the existing object:
 
 
 ```r
@@ -115,7 +115,7 @@ y <- x
 
 \begin{center}\includegraphics[width=1.77in]{diagrams/name-value/binding-2} \end{center}
 
-You might have noticed that the value `1:3` has a label: `0x74b`. While the vector doesn't have a name, I'll occasionally need to refer to an object independent of its bindings. To make that possible, I'll label values with a unique identifier. These identifiers have a special form that looks like the object's memory "address", i.e. the location in memory where the object is stored. But because the actual memory addresses changes every time the code is run, we use these identifiers instead.
+You might have noticed that the value `c(1, 2, 3)` has a label: `0x74b`. While the vector doesn't have a name, I'll occasionally need to refer to an object independent of its bindings. To make that possible, I'll label values with a unique identifier. These identifiers have a special form that looks like the object's memory "address", i.e. the location in memory where the object is stored. But because the actual memory addresses changes every time the code is run, we use these identifiers instead.
 
 You can access an object's identifier with `lobstr::obj_addr()`. Doing so allows you to see that both `x` and `y` point to the same identifier:
 
@@ -210,9 +210,7 @@ You _can_ also create non-syntactic bindings using single or double quotes (e.g.
 
 Consider the following code. It binds `x` and `y` to the same underlying value, then modifies `y`.[^double-bracket]
 
-[^double-bracket]: You may be surprised to see `[[` used with a numeric vector. We'll come back to this in Section \@ref(subset-single), but in brief, I think you should always use `[[` when you are getting or setting a single element.
-
-<!-- GVW: should I be surprised that `[[` is used with a numeric vector as subscript, or that it's being used to subscript a numeric vector? (I'm new enough that I don't know what should surprise me.) -->
+[^double-bracket]: You may be surprised to see `[[` used to subset a numeric vector. We'll come back to this in Section \@ref(subset-single), but in brief, I think you should always use `[[` when you are getting or setting a single element.
 
 
 ```r
@@ -230,6 +228,8 @@ Modifying `y` clearly didn't modify `x`. So what happened to the shared binding?
 \begin{center}\includegraphics[width=1.67in]{diagrams/name-value/binding-3} \end{center}
 
 This behaviour is called __copy-on-modify__. Understanding it will radically improve your intuition about the performance of R code. A related way to describe this behaviour is to say that R objects are unchangeable, or __immutable__. However, I'll generally avoid that term because there are a couple of important exceptions to copy-on-modify that you'll learn about in Section \@ref(modify-in-place). 
+
+When exploring copy-on-modify behaviour interactively, be aware that you'll get different results inside of RStudio. That's because the environment pane must make a reference to each object in order to display information about it. This distorts your interactive exploration but doesn't affect code inside of functions, and so doesn't affect performance during data analysis. For experimentation, I recommend either running R directly from the terminal, or using RMarkdown (like this book).
 
 ### `tracemem()`
 
@@ -515,6 +515,20 @@ obj_size(x, y)
 #> 8,000,128 B
 ```
 
+Finally, R 3.5.0 and later have a feature that might lead to surprises: ALTREP, short for __alternative representation__. This allows R to represent certain types of vectors very compactly. The place you are most like to see this is with `:` because instead of storing every single number in the sequence, R just stores the first and last number. This means that every sequence, no matter how large, is the same size:
+
+
+```r
+obj_size(1:3)
+#> 680 B
+obj_size(1:1e3)
+#> 680 B
+obj_size(1:1e6)
+#> 680 B
+obj_size(1:1e9)
+#> 680 B
+```
+
 ### Exercises
 
 1.  In the following example, why are `object.size(y)` and `obj_size(y)`
@@ -536,7 +550,7 @@ obj_size(x, y)
     ```r
     x <- list(mean, sd, var)
     obj_size(x)
-    #> 17,664 B
+    #> 17,608 B
     ```
 
 1.  Predict the output of the following code:
@@ -701,8 +715,8 @@ e <- rlang::env()
 e$self <- e
 
 ref(e)
-#> █ [1:0x24a0368] <env> 
-#> └─self = [1:0x24a0368]
+#> █ [1:0x993aa40] <env> 
+#> └─self = [1:0x993aa40]
 ```
 
 \begin{center}\includegraphics[width=1.48in]{diagrams/name-value/e-self} \end{center}
@@ -747,49 +761,49 @@ rm(x)
 
 \begin{center}\includegraphics[width=1.67in]{diagrams/name-value/unbinding-3} \end{center}
 
-We create two objects, but by the end of code neither object is bound to a name. How do these objects get deleted? That's the job of the __garbage collector__, or GC, for short. The GC creates more memory by deleting R objects that are no longer used, and if needed, requesting more memory from the operating system. 
+We created two objects, but by the time the code finishes, neither object is bound to a name. How do these objects get deleted? That's the job of the __garbage collector__, or GC for short. The GC frees up memory by deleting R objects that are no longer used, and by requesting more memory from the operating system if needed. 
 
-R uses a __tracing__ GC. That means it traces every object reachable from the global[^callstack] environment, and all the objects reachable from those objects (i.e. the references in lists and environments are searched recursively). The garbage collector does not use the reference count used for the modify-in-place optimisation described above. The two ideas are closely related but the internal data structures have been optimised for different use cases.
+R uses a __tracing__ GC. This means it traces every object that's reachable from the global[^callstack] environment, and all objects that are, in turn, reachable from those objects (i.e. the references in lists and environments are searched recursively). The garbage collector does not use the modify-in-place reference count described above. While these two ideas are closely related, the internal data structures are optimised for different use cases.
 
-[^callstack]: And every environment on the current call stack.
+[^callstack]: And every environment in the current call stack.
 
-The garbage collector (GC) is run automatically whenever R needs more memory to create a new object. From the outside, it's basically impossible to predict when the GC will run, and indeed, you shouldn't try. Instead, if you want to find out when the GC runs, call `gcinfo(TRUE)`: then the GC will print a message to the console every time it runs.
+The garbage collector (GC) runs automatically whenever R needs more memory to create a new object. Looking from the outside, it's basically impossible to predict when the GC will run. In fact, you shouldn't even try. If you want to find out when the GC runs, call `gcinfo(TRUE)` and GC will print a message to the console every time it runs.
 
-You can force the garbage collector to run by calling `gc()`. Despite what you might have read elsewhere, there's never any _need_ to call `gc()` yourself. You may _want_ to call `gc()` to ask R to return memory to your operating system, or for its side-effect of telling you how much memory is currently being used:  
+You can force garbage collection by calling `gc()`. But despite what you might have read elsewhere, there's never any _need_ to call `gc()` yourself. The only reasons you might _want_ to call `gc()` is to ask R to return memory to your operating system, or is for the side-effect that tells you how much memory is currently being used:   
 
 <!-- GVW: why would I want to ask R to return memory the OS? -->
 
 
 ```r
 gc() 
-#>           used (Mb) gc trigger (Mb) max used (Mb)
-#> Ncells  677000 36.2    1242705 66.4  1242705 66.4
-#> Vcells 3681827 28.1   11775668 89.9 11774445 89.9
+#>           used (Mb) gc trigger  (Mb) max used (Mb)
+#> Ncells  584035 31.2    1296008  69.3  1296008 69.3
+#> Vcells 3128452 23.9   13394499 102.2 11684299 89.2
 ```
 
-`lobstr::mem_used()` is a wrapper around `gc()` that just prints the total number of bytes used:
+`lobstr::mem_used()` is a wrapper around `gc()` that prints the total number of bytes used:
 
 
 ```r
 mem_used()
-#> 67,371,136 B
+#> 57,733,256 B
 ```
 
-This number won't agree with the amount of memory reported by your operating system for three reasons:
+This number won't agree with the amount of memory reported by your operating system. There are three reasons:
 
-1. It only includes objects created by R, not the R interpreter itself.
+1. It includes objects created by R but not by the R interpreter.
 
 1. Both R and the operating system are lazy: they won't reclaim memory 
    until it's actually needed. R might be holding on to memory because 
    the OS hasn't yet asked for it back.
 
-1. R counts the memory occupied by objects but there may be gaps due to 
+1. R counts the memory occupied by objects but there may be empty gaps due to 
    deleted objects. This problem is known as memory fragmentation.
 
 ## Answers {#names-values-answers}
 
-1.  You must surround non-syntactic names in `` ` ``. The variables `1`, `2`,
-    and `3` have non-syntactic names, so must always be quoted with backticks.
+1.  You must quote non-syntactic names with backticks: `` ` ``: for example,
+    the variables `1`, `2`, and `3`.
 
     
     ```r

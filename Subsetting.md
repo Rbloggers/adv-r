@@ -194,6 +194,15 @@ There are six things that you can use to subset a vector:
     #>   NA   NA
     ```
 
+NB: factors are not treated specially when subsetting. This means that subsetting will use the underlying integer vector, not the character levels. This is typically unexpected, so you should avoid subsetting with factors:
+
+
+```r
+y[factor("b")]
+#>   a 
+#> 2.1
+```
+
 ### Lists
 \index{lists!subsetting} 
 \index{subsetting!lists}
@@ -285,7 +294,7 @@ df[c(1, 3), ]
 #> 3 3 1 c
 
 # There are two ways to select columns from a data frame
-# Like a list, which
+# Like a list
 df[c("x", "z")]
 #>   x z
 #> 1 1 a
@@ -545,7 +554,7 @@ It's useful to understand what happens with `[[` when you use an "invalid" index
 
 If the input vector is named, then the names of OOB, missing, or `NULL` components will be `"<NA>"`.
 
-The inconsistency of the `[[` table above lead to the development of `purrr::pluck()` and `purrr::chuck()`. `pluck()` always returns `NULL` (or the value of the `.default` argument) when the element is missing; `chuck()` always throws an error:
+The inconsistency of the `[[` table above led to the development of `purrr::pluck()` and `purrr::chuck()`. `pluck()` always returns `NULL` (or the value of the `.default` argument) when the element is missing; `chuck()` always throws an error:
 
 | `pluck(row, col)` | Zero-length | OOB (int)  | OOB (chr) | Missing  |
 |-------------------|-------------|------------|-----------|----------|
@@ -870,17 +879,17 @@ Because logical subsetting allows you to easily combine conditions from multiple
 
 ```r
 mtcars[mtcars$gear == 5, ]
-#>     mpg cyl  disp  hp drat   wt qsec vs am gear carb
-#> 27 26.0   4 120.3  91 4.43 2.14 16.7  0  1    5    2
-#> 28 30.4   4  95.1 113 3.77 1.51 16.9  1  1    5    2
-#> 29 15.8   8 351.0 264 4.22 3.17 14.5  0  1    5    4
-#> 30 19.7   6 145.0 175 3.62 2.77 15.5  0  1    5    6
-#> 31 15.0   8 301.0 335 3.54 3.57 14.6  0  1    5    8
+#>                 mpg cyl  disp  hp drat   wt qsec vs am gear carb
+#> Porsche 914-2  26.0   4 120.3  91 4.43 2.14 16.7  0  1    5    2
+#> Lotus Europa   30.4   4  95.1 113 3.77 1.51 16.9  1  1    5    2
+#> Ford Pantera L 15.8   8 351.0 264 4.22 3.17 14.5  0  1    5    4
+#> Ferrari Dino   19.7   6 145.0 175 3.62 2.77 15.5  0  1    5    6
+#> Maserati Bora  15.0   8 301.0 335 3.54 3.57 14.6  0  1    5    8
 
 mtcars[mtcars$gear == 5 & mtcars$cyl == 4, ]
-#>     mpg cyl  disp  hp drat   wt qsec vs am gear carb
-#> 27 26.0   4 120.3  91 4.43 2.14 16.7  0  1    5    2
-#> 28 30.4   4  95.1 113 3.77 1.51 16.9  1  1    5    2
+#>                mpg cyl  disp  hp drat   wt qsec vs am gear carb
+#> Porsche 914-2 26.0   4 120.3  91 4.43 2.14 16.7  0  1    5    2
+#> Lotus Europa  30.4   4  95.1 113 3.77 1.51 16.9  1  1    5    2
 ```
 
 Remember to use the vector boolean operators `&` and `|`, not the short-circuiting scalar operators `&&` and `||` which are more useful inside if statements. Don't forget [De Morgan's laws][demorgans], which can be useful to simplify negations:

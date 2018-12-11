@@ -102,7 +102,7 @@ Each of the four primary atomic vectors has special syntax to create an individu
 ### Making longer vectors with `c()` {#atomic-constructing}
 \indexc{typeof()}
 
-To create longer vectors from shorter ones, use `c()`:
+To create longer vectors from shorter ones, use `c()`, short for combine:
 
 
 ```r
@@ -403,14 +403,17 @@ str(array(1:3, 3))         # "array" vector
 
 One of the most important attributes is `class`, which defines the S3 object system. Having a class attribute makes an object an __S3 object__, which means that it will behave differently when passed to a __generic__ function. Every S3 object is built on top of a base type, and often stores additional information in other attributes. You'll learn the details of the S3 object system, and how to create your own S3 classes, in Chapter \@ref(s3). 
 
-In this section, we'll discuss three important S3 vectors used in base R:
+In this section, we'll discuss four important S3 vectors used in base R:
 
-* Categorical data, where values can only come from a fixed set of levels, are recorded in __factor__ vectors.
+* Categorical data, where values can only come from a fixed set of levels, 
+  are recorded in __factor__ vectors.
 
 * Dates (with day resolution) are recorded in __Date__ vectors.
 
 * Date-times (with second or sub-second resolution) are stored in
   __POSIXct__ vectors.
+  
+* Durations are stored in __difftime__ vectors.
 
 
 \begin{center}\includegraphics[width=3.1in]{diagrams/vectors/summary-tree-s3-1} \end{center}
@@ -539,6 +542,40 @@ structure(now_ct, tzone = "Europe/Paris")
 
 [^tidyverse-datetimes]: The tidyverse provides the lubridate [@lubridate] package for working with date-times. It provides a number of convenient helpers which work with the base POSIXct type.
 
+### Durations
+
+Durations, the amount of time between two dates or date times, are stored in difftimes. Difftimes are built on top of doubles, and have a units attribute which determines how the integer should be interpreted:
+
+
+```r
+one_week_1 <- as.difftime(1, units = "weeks")
+one_week_1
+#> Time difference of 1 weeks
+
+typeof(one_week_1)
+#> [1] "double"
+attributes(one_week_1)
+#> $class
+#> [1] "difftime"
+#> 
+#> $units
+#> [1] "weeks"
+
+one_week_2 <- as.difftime(7, units = "days")
+one_week_2
+#> Time difference of 7 days
+
+typeof(one_week_2)
+#> [1] "double"
+attributes(one_week_2)
+#> $class
+#> [1] "difftime"
+#> 
+#> $units
+#> [1] "days"
+```
+
+
 ### Exercises
 
 1.  What sort of object does `table()` return? What is its type? What 
@@ -600,11 +637,11 @@ As described in Section \@ref(list-references), the elements of a list are refer
 
 ```r
 lobstr::obj_size(mtcars)
-#> 7,792 B
+#> 7,208 B
 
 l2 <- list(mtcars, mtcars, mtcars, mtcars)
 lobstr::obj_size(l2)
-#> 7,872 B
+#> 7,288 B
 ```
 
 Lists can contain complex objects so it's not possible to pick one visual style that works for every list. Generally I'll draw lists like vectors, using colour to remind you of the hierarchy.

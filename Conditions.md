@@ -158,7 +158,15 @@ fw <- function() {
 
 By default, warnings are cached and printed only when control returns to the top level:
 
-<!-- GVW: why the delay? -->
+<!-- GVW: I do not see this behavior in RStudio.  Instead, when I paste in the definition of `fw` and call it (in the same code block, if that matters) I get:
+
+1
+W12
+W23
+W3
+
+with W1-3 in red.
+-->
 
 
 ```r
@@ -577,7 +585,7 @@ tryCatch(
 ### Calling handlers
 \index{handlers!calling}
 
-The handlers set up by `tryCatch()` are called exiting handlers, because they cause code to exit once the condition has been caught. By contrast, `withCallingHandler()` sets up __calling__  handlers: code execution continues normally once the handler returns. This tends to make `withCallingHandlers()` a more natural pairing with the non-error conditions.
+The handlers set up by `tryCatch()` are called exiting handlers, because they cause code to exit once the condition has been caught. By contrast, `withCallingHandlers()` sets up __calling__  handlers: code execution continues normally once the handler returns. This tends to make `withCallingHandlers()` a more natural pairing with the non-error conditions.
 
 <!--
 `tryCatch()` handles a signal like you handle a problem; you make the problem go away. `withCallingHandlers()` handles a signal like you handle a car, the car still exists.

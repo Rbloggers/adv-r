@@ -49,9 +49,9 @@ microbenchmark(
   x ^ 0.5
 )
 #> Unit: nanoseconds
-#>     expr   min    lq  mean median    uq    max neval
-#>  sqrt(x)   922 1,100  1369  1,240 1,410  7,050   100
-#>    x^0.5 9,310 9,540 10252  9,740 9,920 49,600   100
+#>     expr   min    lq  mean median     uq    max neval
+#>  sqrt(x)   899 1,220  1430  1,330  1,510  5,350   100
+#>    x^0.5 9,440 9,780 10651  9,960 10,200 51,500   100
 ```
 
 
@@ -158,15 +158,15 @@ microbenchmark(
 )
 #> Unit: nanoseconds
 #>  expr    min     lq  mean median     uq       max neval
-#>   fun    179    208   407    227    249    16,000   100
-#>    S3    981  1,120 10562  1,170  1,310   887,000   100
-#>    S4 11,900 12,400 30372 12,700 13,600 1,010,000   100
-#>    RC  8,190  8,490 43556  8,640  9,250 3,350,000   100
+#>   fun    175    208   427    229    240    17,500   100
+#>    S3    979  1,150 10903  1,210  1,370   933,000   100
+#>    S4 12,200 12,600 30124 13,300 15,300   961,000   100
+#>    RC  8,220  8,540 42353  8,820  9,410 3,320,000   100
 ```
 
 
 
-The bare function takes about 200 ns. S3 method dispatch takes an additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 8,000 ns. S3 and S4 method dispatch are expensive because R must search for the right method every time the generic is called; it might have changed between this call and the last. R could do better by caching methods between calls, but caching is hard to do correctly and a notorious source of bugs.
+The bare function takes about 200 ns. S3 method dispatch takes an additional 1,000 ns; S4 dispatch, 10,000 ns; and RC dispatch, 9,000 ns. S3 and S4 method dispatch are expensive because R must search for the right method every time the generic is called; it might have changed between this call and the last. R could do better by caching methods between calls, but caching is hard to do correctly and a notorious source of bugs.
 
 ### Name lookup with mutable environments
 
@@ -339,10 +339,10 @@ microbenchmark(
   unit = "us"
 )
 #> Unit: microseconds
-#>             expr   min    lq mean median    uq   max neval
-#>       squish_ife 20.20 22.30 54.3  25.90 31.70 2,550   100
-#>         squish_p 12.30 12.80 36.4  13.20 14.40 1,630   100
-#>  squish_in_place  2.79  3.16 32.9   3.67  4.73 2,850   100
+#>             expr   min   lq mean median   uq   max neval
+#>       squish_ife 20.90 24.2 57.7  30.50 33.9 2,490   100
+#>         squish_p 12.40 13.2 39.9  13.90 15.5 1,700   100
+#>  squish_in_place  2.77  3.4 34.0   3.95  4.6 2,960   100
 ```
 
 Using `pmin()` and `pmax()` is about 2x faster than `ifelse()`, and using subsetting directly is about 4x as fast again. We can often do even better by using C++. The following example compares the best R implementation to a relatively simple, if verbose, implementation in C++. Even if you've never used C++, you should still be able to follow the basic strategy: loop over every element in the vector and perform a different action depending on whether or not the value is less than `a` and/or greater than `b`. 
@@ -383,11 +383,11 @@ microbenchmark(
 )
 #> Unit: microseconds
 #>             expr  min   lq  mean median   uq     max neval
-#>  squish_in_place 3.31 4.43  5.28   4.79 5.23    28.4   100
-#>       squish_cpp 2.69 2.99 17.48   3.23 3.61 1,380.0   100
+#>  squish_in_place 3.44 4.65  5.83   5.33 5.84    43.1   100
+#>       squish_cpp 2.51 3.11 19.40   3.30 3.85 1,550.0   100
 ```
 
-The C++ implementation is around 1x faster than the best pure R implementation.
+The C++ implementation is around 2x faster than the best pure R implementation.
 
 ### Exercises
 
@@ -400,7 +400,7 @@ The C++ implementation is around 1x faster than the best pure R implementation.
 
 ## Alternative R implementations {#faster-r}
 
-There are some exciting new implementations of R. While they all try to stick as closely as possible to the existing language definition, they improve speed by using ideas from modern interpreter design. The four most mature open-source projects are:
+There are some exciting new implementations of R. While they all try to stick as closely as possible to the existing language definition, they improve speed by using ideas from modern interpreter design. The five most mature open-source projects are:
 \index{alternative implementations}
 
 * [pqR](http://www.pqr-project.org/) (pretty quick R) by Radford Neal. Built 
@@ -416,14 +416,17 @@ There are some exciting new implementations of R. While they all try to stick as
   is similar to Renjin, but it makes more ambitious optimisations and
   is somewhat less mature. \index{FastR}
 
+* [Rho](https://github.com/rho-devel/rho) by Andrew Runnalls and Karl Millar,
+  refactors R's internal C code into clean C++, and implemented performance
+  optimisations using LLVM. Rho development is currently suspended. 
+  \index{rho}
+
 * [Riposte](https://github.com/jtalbot/riposte) by Justin Talbot and
   Zachary DeVito. Riposte is experimental and ambitious. For the parts of R it 
   implements, it is extremely fast. Riposte is described in more detail in 
   [Riposte: A Trace-Driven Compiler and Parallel VM for Vector Code in 
   R](http://www.justintalbot.com/wp-content/uploads/2012/10/pact080talbot.pdf).
   \index{Riposte}
-
-These are roughly ordered from most practical to most ambitious. Another project, [CXXR](http://www.cs.kent.ac.uk/projects/cxxr/) by Andrew Runnalls, does not provide any performance improvements. Instead, it aims to refactor R's internal C code in order to build a stronger foundation for future development, to keep behaviour identical to GNU-R, and to create better, more extensible documentation of its internals. \index{CXXR}
 
 R is a huge language and it's not clear whether any of these approaches will ever become mainstream. It's a hard task to make an alternative implementation run all R code in the same way as GNU-R. Can you imagine having to reimplement every function in base R to be not only faster, but also to have exactly the same documented bugs? However, even if these implementations never make a dent in the use of GNU-R, they still provide benefits:
 
@@ -486,9 +489,9 @@ microbenchmark(
   unit = "ms"
 )
 #> Unit: milliseconds
-#>          expr   min    lq  mean median    uq    max neval
-#>  cond_sum_cpp  5.21  5.25  5.34   5.27  5.32   7.14   100
-#>    cond_sum_r 11.50 13.10 15.23  13.90 14.60 147.00   100
+#>          expr   min   lq  mean median    uq   max neval
+#>  cond_sum_cpp  5.24  5.3  5.38   5.34  5.39   6.9   100
+#>    cond_sum_r 12.70 14.1 15.99  14.70 15.10 150.0   100
 ```
 
 On my computer, this approach is about 3x faster than the vectorised R equivalent, which is already pretty fast.

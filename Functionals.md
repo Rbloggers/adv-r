@@ -52,10 +52,10 @@ Using functionals is a pattern matching exercise. You look at the for loop, and 
 
 * Section \@ref(predicate-functionals) teaches you about predicates, functions
   that return a single `TRUE` or `FALSE`, and the family of functionals
-  that use them to solve common probelms.
+  that use them to solve common problems.
   
 * Section \@ref(base-functionals) reviews some functionals in base R that
-  are not members of map, reduce, or predicate families.
+  are not members of the map, reduce, or predicate families.
 
 ### Prerequisites {-}
 
@@ -70,7 +70,7 @@ library(purrr)
 \indexc{map()}
 \indexc{lapply()}
 
-The most fundamental functional is `purrr::map()`[^Map]. It takes a vector and a function, calls the function once for each element of the vector, and returns the results in a list. In other words, `map(1:3, f)` is equivalent to `list(f(x[[1]]), f(x[[2]]), f(x[[3]]))`. 
+The most fundamental functional is `purrr::map()`[^Map]. It takes a vector and a function, calls the function once for each element of the vector, and returns the results in a list. In other words, `map(1:3, f)` is equivalent to `list(f(1), f(2), f(3))`. 
 
 
 ```r
@@ -118,7 +118,7 @@ The base equivalent to `map()` is `lapply()`. The only difference is that `lappl
 
 ### Producing atomic vectors
 
-`map()` returns a list, which makes it the most general of the "map" family because you can put anything in a list. But it is inconvenient to return a list when a simpler data structure would do, so there are four more specific variants: `map_lgl()`, `map_int()`, `map_dbl()` and `map_chr()`. Each returns an atomic vector of the specified type:
+`map()` returns a list, which makes it the most general of the "map" family because you can put anything in a list. But it is inconvenient to return a list when a simpler data structure would do, so there are four more specific variants: `map_lgl()`, `map_int()`, `map_dbl()`, and `map_chr()`. Each returns an atomic vector of the specified type:
 
 
 ```r
@@ -180,7 +180,7 @@ Base R has two apply functions that can return atomic vectors: `sapply()` and `v
 
 `sapply()` tries to simplify the result to an atomic vector wherever possible. But this simplification depends on the result, so sometimes you'll get a list, sometimes a vector, and sometimes a matrix. This makes it difficult to program with, and it should be avoided in non-interactive settings.
 
-`vapply()` allows you to provide a template, `FUN.VALUE`, that describes the output shape. If you want to use only base R code you should always use `vapply()` in your functions, not `sapply()`. The primary downside of `vapply()` is its vebosity: the equivalent to `map_dbl(x, mean, na.rm = TRUE)` is `vapply(x, mean, na.rm = TRUE, FUN.VALUE = double(1))`.
+`vapply()` allows you to provide a template, `FUN.VALUE`, that describes the output shape. If you want to use only base R code you should always use `vapply()` in your functions, not `sapply()`. The primary downside of `vapply()` is its verbosity: the equivalent to `map_dbl(x, mean, na.rm = TRUE)` is `vapply(x, mean, na.rm = TRUE, FUN.VALUE = double(1))`.
 :::
 
 ### Anonymous functions and shortcuts {#purrr-shortcuts}
@@ -524,7 +524,7 @@ intercepts
 #> [1] -5.65 -2.78 -2.19
 ```
 
-It's interesting to note that as you move from purrr to base apply functions to for loops you tend to do more and more in each iteration. In purrr we iterate 3 times (`map()`, `map()`, `map_dbl()`), with apply functions we iterate twice (`lapply()`, `vapply()`), and with a for loop we iterate once. I prefer more, but simpler, steps because I think it makes the code understand and later modify.
+It's interesting to note that as you move from purrr to base apply functions to for loops you tend to do more and more in each iteration. In purrr we iterate 3 times (`map()`, `map()`, `map_dbl()`), with apply functions we iterate twice (`lapply()`, `vapply()`), and with a for loop we iterate once. I prefer more, but simpler, steps because I think it makes the code easier to understand and later modify.
 
 ## Map variants
 
@@ -1338,5 +1338,5 @@ str(optimise(sin, c(0, pi), maximum = TRUE))
 1.  What do `eapply()` and `rapply()` do? Does purrr have equivalents?
 
 1.  Challenge: read about the 
-    [fixed point algorithm](https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-12.html#%_idx_1096). 
+    [fixed point algorithm](https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-12.html#%25_idx_1096).
     Complete the exercises using R.
