@@ -26,6 +26,7 @@ before_install:
 #- Rscript -e "install.packages('tinytex')"
 #- Rscript -e "tinytex::tlmgr_install(c('lm-math', 'unicode-math', 'filehook'))"
 
+
 script:
   - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
   - cd _book/
