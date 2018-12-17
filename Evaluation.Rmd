@@ -15,21 +15,41 @@ Once you have the basics under your belt, you'll learn extensions to evaluation 
 *   The quosure: a data structure that captures an expression along with its
     associated environment, as found in function arguments.
 
-*   The data mask, which makes it easier to evaluate an expresion in the 
+*   The data mask, which makes it easier to evaluate an expression in the 
     context of a data frame. This introduces potential evaluation ambiguity 
     which we'll then resolve with data pronouns.
 
-Together, quasiquotation, quosures, and data masks form what we call __tidy evaluation__, or tidy eval for short. Tidy eval provides a principled approach to non-standard evalution that makes it possible to use such functions both interactively and embedded with other functions. Tidy evaluation is the most important practical implication of all this theory so we'll spend a little time exploring the implications. The chapter finishes off with a discussion of the closest related approaches in base R, and how you can program around their drawbacks.
+Together, quasiquotation, quosures, and data masks form what we call __tidy evaluation__, or tidy eval for short. Tidy eval provides a principled approach to non-standard evaluation that makes it possible to use such functions both interactively and embedded with other functions. Tidy evaluation is the most important practical implication of all this theory so we'll spend a little time exploring the implications. The chapter finishes off with a discussion of the closest related approaches in base R, and how you can program around their drawbacks.
 
 ### Outline {-}
+
+* Section \@ref(eval) discusses the basics of evaluation using `eval()`,
+  and shows how you can use it to implement key functions like `local()`
+  and `source()`.
+
+* Section \@ref(quosures) introduces a new data structure, the quosure, which
+  combines an expression with an environment. You'll learn how to capture
+  them from promises, and evaluate them using `rlang::eval_tidy()`.
+
+* Section \@ref(data-masks) extends evaluation with the "data mask", which
+  makes it trivial to intermingle symbols bound in an environment with 
+  variables found in a data frame.
+
+* Section \@ref(tidy-evaluation) shows how to use tidy evaluation in practice,
+  focussing on the common pattern of quoting and unquoting, and how to
+  handle ambiguity with pronouns.
+
+* Section \@ref(base-evaluation) circles back to evaluation in base R, 
+  discusses some of the downsides, and shows how to use quasiquotation and 
+  evaluation to wrap functions that use NSE.
 
 ### Prerequisites {-}
 
 You'll need to be familiar with the content of Chapter \@ref(expressions) and Chapter \@ref(quotation), as well as the environment data structure (Section \@ref(env-basics)) and the caller environments (Section \@ref(call-stack)). 
 
-We'll continue to use rlang and purrr.
+We'll continue to use [rlang](https://rlang.r-lib.org) and [purrr](https://purrr.tidyverse.org).
 
-```{r setup}
+```{r setup, message = FALSE}
 library(rlang)
 library(purrr)
 ```
@@ -306,7 +326,7 @@ That means that when you evaluate them, you get the correct results:
 map(qs, eval_tidy)
 ```
 
-Correclty evaluating the elements of dots was one of the original motivation for the development of quosures.
+Correctly evaluating the elements of dots was one of the original motivation for the development of quosures.
 
 ### Under the hood {#quosure-impl}
 
@@ -399,7 +419,7 @@ When you use `expr_print()` in the console, quosures are coloured according to t
     
 ## Data masks
 
-So far, you've learned about quosures and `eval_tidy()`. In this section, you'll learn about the __data mask__, a data frame where the evaluated code will look first for variable definitions. The data mask is the key idea that powers base functions like `with()`, `subset()` and `transform()`, and is used throughout the tidyverse in packges like dplyr and ggplot2.
+So far, you've learned about quosures and `eval_tidy()`. In this section, you'll learn about the __data mask__, a data frame where the evaluated code will look first for variable definitions. The data mask is the key idea that powers base functions like `with()`, `subset()` and `transform()`, and is used throughout the tidyverse in packages like dplyr and ggplot2.
 
 ### Basics
 
@@ -534,7 +554,7 @@ df <- data.frame(a = 1, b = 2, c = 3, d = 4, e = 5)
 subset(df, select = b:d)
 ```
 
-The key idea is to create a named list where each component gives the position of the corresponing variable:
+The key idea is to create a named list where each component gives the position of the corresponding variable:
 
 ```{r}
 vars <- as.list(set_names(seq_along(df), names(df)))
@@ -574,7 +594,7 @@ select2(df, b:d)
     subset3(df, x == 1)
     ```
     
-    Compare and constrast `subset3()` to `subset2()`. What are its advantages
+    Compare and contrast `subset3()` to `subset2()`. What are its advantages
     and disadvantages.
 
 1.  The following function implements the basics of `dplyr::arrange()`.   
@@ -595,11 +615,11 @@ select2(df, b:d)
     }
     ```
 
-## Using tidy evaluation
+## Using tidy evaluation {#tidy-evaluation}
 
 While it's useful to understand how `eval_tidy()` works, most of the time you won't call it directly. Instead, you'll usually use it indirectly by calling a function that uses `eval_tidy()`. Tidy evaluation is infectious: the root always involves a call to `eval_tidy()` but that may be several levels away.
 
-In this section we'll explore how tidy evalution faciliates this division of responsibility, and you'll learn how to create safe and useful wrapper functions.
+In this section we'll explore how tidy evaluation facilitates this division of responsibility, and you'll learn how to create safe and useful wrapper functions.
 
 ### Quoting and unquoting
 
@@ -612,7 +632,7 @@ bootstrap <- function(df, n) {
 } 
 ```
 
-And we want to create a new function that allows us to boostrap and subset in a single step. Our naive approach doesn't work:
+And we want to create a new function that allows us to bootstrap and subset in a single step. Our naive approach doesn't work:
 
 ```{r, error = TRUE}
 bootset <- function(df, cond, n = nrow(df)) {
@@ -639,7 +659,7 @@ bootset(df, x == 1)
 
 This is a very common pattern; whenever you call a quoting function with arguments from the user, you need to quote them yourself and then unquote.
 
-### Handling ambiguity {#pronouns}
+### Handling ambiguity
 
 In the case above, we needed to think about tidy eval because of quasiquotation. We also need to think tidy evaluation even when the wrapper doesn't need to quote any arguments. Take this wrapper around `subset2()`:
 
@@ -711,7 +731,7 @@ threshold_expr <- function(df, expr, val) {
 }
 ```
 
-It's not possible to evaluate `expr` only the data mask, because the data mask doesn't include any funtions like `+` or `==`. Here, it's the user's responsibility to avoid ambiguity. As a general rule of thumb, as a function author it's your responsibility to avoid ambiguity with any expressions that you create; it's the user's responsibility to avoid ambiguity in expressions that they create.
+It's not possible to evaluate `expr` only the data mask, because the data mask doesn't include any functions like `+` or `==`. Here, it's the user's responsibility to avoid ambiguity. As a general rule of thumb, as a function author it's your responsibility to avoid ambiguity with any expressions that you create; it's the user's responsibility to avoid ambiguity in expressions that they create.
 
 ### Exercises
 
@@ -735,12 +755,12 @@ Now that you understand tidy evaluation, it's time to come back to the alternati
 
 * `match.call()`, call manipulation, and evaluation in the caller environment,
   as used by `write.csv()` and `lm()`. I'll use this technique to motivate how 
-  quasiquotation and (regular) evalation can help you write wrappers around 
+  quasiquotation and (regular) evaluation can help you write wrappers around 
   NSE functions.
 
 ### `substitute()`
 
-The most common form of NSE in base R is `substitute()` + `eval()`.  The following code shows how you might write the core of `subset()` in this style, using `substitute()` and `eval()` rather than `enquo()` and `eval_tidy()`. I repeat the code introuced in Section \@ref(subset) so you can compare easily. The main difference is the evaluation environment: in `subset_base()` the expression is evaluated in the caller environment; in `subset_tidy()`, it's evaluated in the environment where it was defined.
+The most common form of NSE in base R is `substitute()` + `eval()`.  The following code shows how you might write the core of `subset()` in this style, using `substitute()` and `eval()` rather than `enquo()` and `eval_tidy()`. I repeat the code introduced in Section \@ref(subset) so you can compare easily. The main difference is the evaluation environment: in `subset_base()` the expression is evaluated in the caller environment; in `subset_tidy()`, it's evaluated in the environment where it was defined.
 
 ```{r}
 subset_base <- function(data, rows) {
@@ -854,7 +874,7 @@ subset_prog <- function(data, rows, env = caller_env()) {
 
 ### `match.call()`
 
-Another common form of NSE is to capture the complete call with `match.call()`, modify it, and then evaluate. `match.call()` doesn't have an equivalent in tidy evaluation, but it rather than capturing a single argument like `subtitute()` it caputures the complete call:
+Another common form of NSE is to capture the complete call with `match.call()`, modify it, and then evaluate. `match.call()` doesn't have an equivalent in tidy evaluation, but it rather than capturing a single argument like `subtitute()` it captures the complete call:
 
 ```{r}
 g <- function(x, y, z) {
@@ -920,7 +940,7 @@ lm3(mpg ~ disp, mtcars)
 
 There are three pieces that you'll use whenever wrapping a base NSE function in this way:
 
-* You capture the unevaluated arguments usig `enexpr()`, and capture the caller
+* You capture the unevaluated arguments using `enexpr()`, and capture the caller
   environment using `caller_env()`. You have to accept that the function will
   not work correctly if the arguments are not defined in the caller environment.
   
@@ -1024,7 +1044,7 @@ There are two basic ways to overcome this challenge:
     ```
     
 1.  Another way to way to write `boot_lm()` would be to include the
-    boostrapping expression (`data[sample(nrow(data), replace = TRUE), , drop = FALSE]`) 
+    bootstrapping expression (`data[sample(nrow(data), replace = TRUE), , drop = FALSE]`) 
     in the data argument. Implement that approach. What are the advantages? 
     What are the disadvantages?
 
