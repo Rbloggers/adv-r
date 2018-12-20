@@ -10,7 +10,6 @@ bookdown::gitbook:
     sharing: no
   css: adv-r.css
 
-
 bookdown::pdf_book:
   latex_engine: "xelatex"
   keep_tex: true

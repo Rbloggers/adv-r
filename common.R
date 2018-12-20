@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
   fig.show = "hold"
 )
 
+options(rlang_trace_top_env = rlang::current_env())
+
 options(
   digits = 3,
   str = strOptions(strict.width = "cut")
@@ -23,7 +25,7 @@ if (knitr::is_latex_output()) {
   knitr::opts_chunk$set(width = 69)
   options(width = 69)
   options(crayon.enabled = FALSE)
-  options(lobstr.fancy.tree = FALSE)
+  options(cli.unicode = TRUE)
 }
 
 knitr::knit_hooks$set(

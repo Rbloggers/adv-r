@@ -98,6 +98,7 @@ There are exceptions to every rule, and in this case, there is a small selection
 \indexc{formals()} 
 \index{functions!environment}
 \index{environments!of a function}
+\indexc{srcref}
 
 A function has three parts: 
 
@@ -164,7 +165,11 @@ environment(sum)
 
 Primitive functions are only found in the base package. While they have certain performance advantages, this benefit comes at a price: they are harder to write. For this reason, R-core generally avoids creating them unless there is no other option.
 
+<!-- HW: mention internal functions here too? Cross-reference to perf example -->
+
 ### First-class functions {#first-class-functions}
+\index{functions!anonymous} 
+\index{anonymous functions}
 
 It's very important to understand that R functions are objects in their own right, a language property often called "first-class functions". Unlike in many other languages, there is no special syntax for defining and naming a function: you simply create a function object (with `function`) and bind it to a name with `<-`:
 
@@ -177,9 +182,6 @@ f01 <- function(x) {
 ```{r, echo = FALSE, out.width = NULL}
 knitr::include_graphics("diagrams/functions/first-class.png")
 ```
-
-\index{functions!anonymous} 
-\index{anonymous functions}
 
 While you almost always create a function and then bind it to a name, the binding step is not compulsory. If you choose not to give a function a name, you get an __anonymous function__. This is useful when it's not worth the effort to figure out a name:
 
@@ -269,6 +271,10 @@ We'll come back to this idea in Section \@ref(tidy-dots).
 1. When does printing a function not show the environment it was created in?
   
 ## Function composition {#function-composition}
+\index{functions!composition}
+\indexc{\%>\%}
+\index{magrittr}
+\index{piping}
 
 Base R provides two ways to compose multiple function calls. For example, imagine you want to compute the population standard deviation using `sqrt()` and `mean()` as building blocks:
 
@@ -307,7 +313,7 @@ x %>%
   sqrt()
 ```
 
-`x %>% f()` is equivalent to `f(x)`; `x %>% f(y)` is equivalent to `f(x, y)`. The pipe is related to __tacit__ or __point-free programming__[^point-free]. In this style of programming, you don't explicitly refer to variables. Instead, you focus on the high-level composition of functions rather than the low-level flow of data; the focus is on what's being done (the verbs), rather than on what's being modified (the nouns). This style is common in Haskell and F#, the main inspiration for magrittr, and is the default style in stack based programming languages like Forth and Factor. \index{point-free programming} \index{tacit programming}
+`x %>% f()` is equivalent to `f(x)`; `x %>% f(y)` is equivalent to `f(x, y)`. The pipe is related to __tacit__ or __point-free programming__[^point-free]. In this style of programming, you don't explicitly refer to variables. Instead, you focus on the high-level composition of functions rather than the low-level flow of data; the focus is on what's being done (the verbs), rather than on what's being modified (the nouns). This style is common in Haskell and F#, the main inspiration for magrittr, and is the default style in stack based programming languages like Forth and Factor. 
 
 <!-- GVW: if the terminology "tacit" and "point-free" isn't used anywhere else, I wouldn't introduce it here. -->
 
@@ -334,7 +340,8 @@ Each of the three options has its own strengths and weaknesses:
 Most code will use a combination of all three styles. Piping is more common in data analysis code, as much of an analysis consists of a sequence of transformations of an object (like a data frame or plot). I tend to use piping infrequently in packages; not because it is a bad idea, but because it's often a less natural fit.
 
 ## Lexical scoping {#lexical-scoping}
- \index{scoping!lexical|see{lexical scoping}} \index{lexical scoping}
+\index{scoping!lexical}
+\index{lexical scoping}
  
 In Chapter \@ref(names-values), we discussed assignment, the act of binding a name to a value. Here we'll discuss __scoping__, the act of finding the value associated with a name.
 
@@ -368,6 +375,7 @@ R's lexical scoping follows four primary rules:
 [^dyn-scope]: Functions that automatically quote one or more arguments (sometimes called NSE functions) can override the default scoping rules to implement other varieties of scoping. You'll learn more about that in Chapter \@ref(evaluation).
 
 ### Name masking
+\index{closures!scoping}
 
 The basic principle of lexical scoping is that names defined inside a function mask names defined outside a function. This is illustrated in the following example.
 
@@ -427,7 +435,6 @@ g04()
 The same rules also apply to functions created by other functions, which I call manufactured functions, and are the topic of Chapter \@ref(function-factories). Here I'll focus on how they interact with scoping. The following function, `g05()`, returns a function. What do you think this function will return when it's called?[^answer3]
 
 [^answer3]: `g06()` returns `c(10, 2)`.
-\index{closures!scoping}
 
 ```{r, results = "hide"}
 x <- 10
@@ -498,6 +505,7 @@ g11()
 You might be surprised that `g11()` always returns the same value. This happens because every time a function is called a new environment is created to host its execution. This means that a function has no way to tell what happened the last time it was run; each invocation is completely independent. (We'll see some ways to get around this in Section \@ref(stateful-funs))
 
 ### Dynamic lookup
+\indexc{findGlobals()}
 
 Lexical scoping determines where, but not when to look for values. R looks for values when the function is run, not when the function is created. Together, these two properties tell us that the output of a function can differ depending on the objects outside the function's environment:
 
@@ -512,7 +520,6 @@ g12()
 
 This behaviour can be quite annoying. If you make a spelling mistake in your code, you won't get an error message when you create the function. And depending on the variables defined in the global environment, you might not even get an error message when you run the function. 
 
-\indexc{findGlobals()}
 To detect this problem, use `codetools::findGlobals()`. This function lists all the external dependencies (unbound symbols) within a function:
 
 ```{r}
@@ -728,6 +735,7 @@ h08(ls())
 
 ### Missing arguments
 \indexc{missing()}
+\indexc{\%\textbar\textbar\%}
 
 To determine if an argument's value comes from the user or from a default, you can use `missing()`:
 
@@ -856,10 +864,10 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
 
 ## `...`  (dot-dot-dot) {#fun-dot-dot-dot}
 \indexc{...}
-\index{varargs}
-\index{function!variadic}
-\index{ellipsis}
-\index{dot-dot-dot}
+\index{varargs|see{...}}
+\index{function!variadic|see{...}}
+\index{ellipsis|see{...}}
+\index{dot-dot-dot|see{...}}
 
 Functions can have a special argument `...` (pronounced dot-dot-dot). With it, a function can take any number of additional arguments. In other programming languages, this type of argument is often called a varargs, and a function that uses it is said to be variadic. 
 
@@ -1007,6 +1015,7 @@ There are two ways that a function can return a value:
 ### Invisible values {#invisible}
 \indexc{invisible()} 
 \index{functions!invisible results}
+\index{assignment}
 
 Most functions return visibly: calling the function in an interactive context prints the result.
 
@@ -1036,7 +1045,6 @@ Alternatively, you can use `withVisible()` to return the value and a visibility 
 str(withVisible(j04()))
 ```
 
-\index{assignment}
 The most common function that returns invisibly is `<-`: 
 
 ```{r}
@@ -1053,6 +1061,8 @@ a <- b <- c <- d <- 2
 In general, any function called primarily for a side effect (like `<-`, `print()`, or `plot()`) should return an invisible value (typically the value of the first argument).
 
 ### Errors
+\indexc{stop()}
+\index{errors}
 
 If a function cannot complete its assigned task, it should throw an error with `stop()`, which immediately terminates the execution of the function.
 
@@ -1215,6 +1225,7 @@ While there are four forms, you actually only need one because any call can be w
 ### Rewriting to prefix form {#prefix-transform}
 \indexc{`} 
 \index{backticks|see{\texttt{`}}}
+\indexc{sapply()}
 
 An interesting property of R is that every infix, replacement, or special form can be rewritten in prefix form. Doing so is useful because it helps you better understand the structure of the language, it gives you the real name of every function, and it allows you to modify those functions for fun and profit.
 
@@ -1251,7 +1262,7 @@ rm("(")
 
 Of course, overriding built-in functions like this is a bad idea, but, as you'll learn in Section \@ref(html-env), it's possible to apply it only to selected code blocks. This provides a clean and elegant approach to writing domain specific languages and translators to other languages.
 
-A more useful application comes up when using functional programming tools. For example, you could use `sapply()` to add 3 to every element of a list by first defining a function `add()`: \indexc{sapply()}
+A more useful application comes up when using functional programming tools. For example, you could use `sapply()` to add 3 to every element of a list by first defining a function `add()`:
 
 ```{r}
 add <- function(x, y) x + y
@@ -1408,6 +1419,7 @@ rm(`*tmp*`)
 (Yes, it really does create a local variable named *tmp*, which is removed afterwards.)
 
 ### Special forms
+\index{special forms}
 
 Finally, there are a bunch of language features that are usually written in special ways, but also have prefix forms. These include parentheses:
 

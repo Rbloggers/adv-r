@@ -123,46 +123,56 @@ The base equivalent to `map()` is `lapply()`. The only difference is that `lappl
 `map()` returns a list, which makes it the most general of the "map" family because you can put anything in a list. But it is inconvenient to return a list when a simpler data structure would do, so there are four more specific variants: `map_lgl()`, `map_int()`, `map_dbl()`, and `map_chr()`. Each returns an atomic vector of the specified type:
 
 ```{r}
+# map_chr() always returns a character vector
 map_chr(mtcars, typeof)
 
+# map_lgl() always returns a logical vector
 map_lgl(mtcars, is.double)
 
-map_dbl(mtcars, mean)
-
+# map_int() always returns a integer vector
 n_unique <- function(x) length(unique(x))
 map_int(mtcars, n_unique)
+
+# map_dbl() always returns a double vector
+map_dbl(mtcars, mean)
 ```
 
-purrr generally adopts the convention that suffixes, like `_dbl()`, refer to the output. All `map_*()` functions can take any type of vector as input.
-
-These examples rely on the fact that data frames are lists containing vectors of the same length. This is more obvious if we draw a data frame with the same orientation as vector:
+purrr uses the convention that suffixes, like `_dbl()`, refer to the output. All `map_*()` functions can take any type of vector as input. These examples rely on the fact that data frames are lists containing vectors of the same length. This is more obvious if we draw a data frame with the same orientation as vector:
 
 ```{r, echo = FALSE, out.width = NULL}
 knitr::include_graphics("diagrams/functionals/map-list.png")
 ```
 
-All map functions always return an output vector the same length as the input. This means that you'll get an error if the function you are mapping returns multiple results:
+All map functions always return an output vector the same length as the input, which implies that each call to `.f` must return a single value. If it does not, you'll get an error:
 
 ```{r, error = TRUE}
 pair <- function(x) c(x, x)
-map_dbl(1:3, pair)
+map_dbl(1:2, pair)
 ```
 
-When debugging problems like this, it's often useful to switch back to `map()` so you can see what the problematic output is.
+This is similar to the error you'll get if `.f` returns the wrong type of result:
+
+```{r, error = TRUE}
+map_dbl(1:2, as.character)
+```
+
+In either case, it's often useful to switch back to `map()`, because `map()` can accept any type of output. That allows you to see the problematic output, and figure out what to do with it.
 
 ```{r}
-map(1:3, pair)
+map(1:2, pair)
+map(1:2, as.character)
 ```
 
 ::: base
-Base R has two apply functions that can return atomic vectors: `sapply()` and `vapply()`. 
+\indexc{sapply()}
+\indexc{vapply()}
 
-`sapply()` tries to simplify the result to an atomic vector wherever possible. But this simplification depends on the result, so sometimes you'll get a list, sometimes a vector, and sometimes a matrix. This makes it difficult to program with, and it should be avoided in non-interactive settings.
-
-`vapply()` allows you to provide a template, `FUN.VALUE`, that describes the output shape. If you want to use only base R code you should always use `vapply()` in your functions, not `sapply()`. The primary downside of `vapply()` is its verbosity: the equivalent to `map_dbl(x, mean, na.rm = TRUE)` is `vapply(x, mean, na.rm = TRUE, FUN.VALUE = double(1))`.
+Base R has two apply functions that can return atomic vectors: `sapply()` and `vapply()`. I recommend that you avoid `sapply()` because it tries simplify the result, so it can return a list, a vector, or a matrix. This makes it difficult to program with, and it should be avoided in non-interactive settings. `vapply()` is safer because it allows you to provide a template, `FUN.VALUE`, that describes the output shape. If you don't want to use purrr, I recommend using always use `vapply()` in your functions, not `sapply()`. The primary downside of `vapply()` is its verbosity: the equivalent to `map_dbl(x, mean, na.rm = TRUE)` is `vapply(x, mean, na.rm = TRUE, FUN.VALUE = double(1))`.
 :::
 
 ### Anonymous functions and shortcuts {#purrr-shortcuts}
+\index{functions!anonymous}
+\indexc{\textasciitilde}
 
 Instead of using `map()` with an existing function, you can create an inline anonymous function (as mentioned in Section \@ref(first-class-functions)):
 
@@ -192,6 +202,8 @@ str(x)
 ```
 
 Reserve this syntax for short and simple functions. A good rule of thumb is that if your function spans lines or uses `{}`, it's time to give it a name.
+
+\indexc{pluck()}
 
 The map functions also have shortcuts for extracting elements from a vector, powered by  `purrr::pluck()`. You can use a character vector to select elements by name, an integer vector to select by position, or a list to select by both name and position. These are very useful for working with deeply nested lists, which often arise when working with JSON. 
 
@@ -223,6 +235,8 @@ In base R functions, like `lapply()`, you can provide the name of the function a
 :::
 
 ### Passing arguments with `...` {#passing-arguments}
+\indexc{...}
+\index{vectorisation}
 
 It's often convenient to pass along additional arguments to the function that you're calling. For example, you might want to pass `na.rm = TRUE` along to `mean()`. One way to do that is with an anonymous function:
 
@@ -262,6 +276,8 @@ map_dbl(x, ~ plus(.x, runif(1)))
 ```
 
 ### Argument names
+\indexc{.f}
+\indexc{.x}
 
 In the diagrams, I've omitted argument names to focus on the overall structure. But I recommend writing out the full names in your code, as it makes it easier to read. `map(x, mean, 0.1)` is perfectly valid code, but will call `mean(x[[1]], 0.1)` so it relies on the reader remembering that the second argument to `mean()` is `trim`.  To avoid unneccesary burden on the brain of the reader[^future-you], be kind and write `map(x, mean, trim = 0.1)`.
 
@@ -403,6 +419,7 @@ You'll see one more alternative in Section \@ref(pmap).
     ```
 
 ## Purrr style
+\indexc{\%>\%}
 
 Before we go on to explore more map variants, let's take a quick look at how you tend to use multiple purrr functions to solve a moderately realistic problem: fitting a model to each subgroup and extracting a coefficient of the model. For this toy example, I'm going to break the `mtcars` data set down into groups defined by the number of cylinders, using the base `split` function:
 
@@ -410,7 +427,9 @@ Before we go on to explore more map variants, let's take a quick look at how you
 by_cyl <- split(mtcars, mtcars$cyl)
 ```
 
-Now imagine we want to fit a linear model, then extract the second coefficient (i.e. the intercept). The following code shows how you might do that with purrr:
+This creates a list of three data frames: the cars with 4, 6, and 8 cylinders respectively.
+
+Now imagine we want to fit a linear model, then extract the second coefficient (i.e. the slope). The following code shows how you might do that with purrr:
 
 ```{r}
 by_cyl %>% 
@@ -581,6 +600,7 @@ The closest base equivalent to `map2()` is `Map()`, which is discussed in Sectio
 ### No outputs: `walk()` and friends
 \indexc{walk()}
 \indexc{walk2()}
+\indexc{invisible()}
 
 Most functions are called for the value that they return, so it makes sense to capture and store it with a `map()` function. But some functions are called primarily for their side-effects (e.g. `cat()`, `write.csv()`, or `ggsave()`) and it doesn't make sense to capture their results. Take this simple example that displays a welcome message using `cat()`. `cat()` returns `NULL`, so while map works (in the sense that it generates the desired welcomes), it also returns `list(NULL, NULL)`. 
 
@@ -607,7 +627,7 @@ My visual depiction of walk attempts to capture the important difference from `m
 knitr::include_graphics("diagrams/functionals/walk.png")
 ```
 
-[^invisible]: In brief, invisible values are only printed if you explicitly request it. This makes them well suited for functions called primarily for their side-effects, as it allows their output to be ignored by default, while still giving an option to capture it. See Section \@ref(invisible-values) for more details.
+[^invisible]: In brief, invisible values are only printed if you explicitly request it. This makes them well suited for functions called primarily for their side-effects, as it allows their output to be ignored by default, while still giving an option to capture it. See Section \@ref(invisible) for more details.
 
 One of the most useful `walk()` variants is `walk2()` because a very common side-effect is saving something to disk, and when saving something to disk you always have a pair of values: the object and the path that you want to save it to.
 
@@ -665,8 +685,6 @@ imap_chr(x, ~ paste0("The highest value of ", .y, " is ", max(.x)))
 
 ### Any number of inputs: `pmap()` and friends {#pmap}
 \indexc{pmap()}
-\indexc{Map()}
-\indexc{mapply()}
 
 Since we have `map()` and `map2()`, you might expect `map3()`, `map4()`, `map5()`, ... But where would you stop? Instead of generalising `map2()` to an arbitrary number of arguments, purrr takes a slightly different tack with `pmap()`: you supply it a single list, which contains any number of arguments. In most cases, that will be a list of equal-length vectors, i.e. something very similar to a data frame. In diagrams, I'll emphasise that relationship by drawing the input similar to a data frame.
 
@@ -698,10 +716,10 @@ x <- rcauchy(1000)
 pmap_dbl(list(trim = trims), mean, x = x)
 ```
 
-
 ```{r, echo = FALSE, out.width = NULL}
 knitr::include_graphics("diagrams/functionals/pmap-3.png")
 ```
+
 I think it's good practice to name the list to make it very clear how the function will be called. 
 
 It's often convenient to call `pmap()` with a data frame. A handy way to create that data frame is with `tibble::tribble()`, which allows you to describe a data frame row-by-row (rather than column-by-column, as usual): thinking about the parameters to a function as a data frame is a very powerful pattern. The following example shows how you might draw random uniform numbers with varying parameters:
@@ -723,6 +741,8 @@ knitr::include_graphics("diagrams/functionals/pmap-3.png")
 Here, the column names are critical: I've carefully chosen to match them to the arguments to `runif()`, so the `pmap(params, runif)` is equivalent to `runif(n = 1L, min = 0, max = 1)`, `runif(n = 2, min = 10, max = 100)`, `runif(n = 3L, min = 100, max = 1000)`. (If you have a data frame in hand, and the names don't match, use `dplyr::rename()` or similar.)
 
 ::: base
+\indexc{Map()}
+\indexc{mapply()}
 
 There are two base equivalents to the `pmap()` family: `Map()` and `mapply()`. Both have significant drawbacks:
 
@@ -785,7 +805,7 @@ After the map family, the next most important family of functions is the reduce 
 knitr::include_graphics("diagrams/functionals/reduce.png")
 ```
 
-`reduce()` is a useful way to generalise a function that works with two inputs (a __binary__ function) to work with any number of inputs. Imagine you have a list of numeric vectors, and you want to find the values that occur in every element:
+`reduce()` is a useful way to generalise a function that works with two inputs (a __binary__ function) to work with any number of inputs. Imagine you have a list of numeric vectors, and you want to find the values that occur in every element. First we generate some sample data:
 
 ```{r}
 l <- map(1:4, ~ sample(1:10, 15, replace = T))
@@ -837,6 +857,7 @@ The base equivalent is `Reduce()`. Note that the argument order is different: th
 :::
 
 ### Accumulate
+\indexc{accumulate()}
 
 The first `reduce()` variant, `accumulate()`, is useful for understanding how reduce works, because instead of returning just the final result, it returns all the intermediate results as well:
 
@@ -903,8 +924,9 @@ max(integer())  # max(x, -Inf) = x
 If you're using `reduce()` in a function, you should always supply `.init`. Think carefully about what your function should return when passed a vector of length zero or one, and make sure to test your implementation.
 
 ### Multiple inputs
+\indexc{reduce2()}
 
-Very occasionally you need to pass two arguments to the function that you're reducing. For example, you might have a list of data frames that you want to join together, and the variables that you are joining by vary from element to element. This is a very specialised scenario, so I don't want to spend much time on it, except to know that it exists.
+Very occasionally you need to pass two arguments to the function that you're reducing. For example, you might have a list of data frames that you want to join together, and the variables that you are joining by vary from element to element. This is a very specialised scenario, so I don't want to spend much time on it, but I do want you to know that `reduce2()` exists.
 
 Note that the length of the second argument varies based on whether or not `.init` is supplied: if you have four elements of `x`, `f` will only be called three times. If you supply init, `f` will be called four times.
 
@@ -916,6 +938,7 @@ knitr::include_graphics("diagrams/functionals/reduce2-init.png")
 ```
 
 ### Map-reduce
+\index{map-reduce}
 
 You might have heard of map-reduce, the idea that powers technology like Hadoop. Now you can see how simple and powerful the underlying idea is: all map-reduce is a map combined with a reduce. The difference for large data is that the data is spread over multiple computers. Each computer performs the map on the data that it has, then it sends the result to back to a coordinator which _reduces_ the individual results back to a single result.
 
@@ -956,13 +979,22 @@ str(discard(df, is.factor))
 ```
 
 ### Map variants {#predicate-map}
+\indexc{map\_if}
+\indexc{modify\_if}
 
-`map()` and `modify()` come in variants that also take predicate functions, transforming only the elements of `.x` with `.p` is `TRUE`.
+`map()` and `modify()` come in variants that also take predicate functions, transforming only the elements of `.x` where `.p` is `TRUE`.
 
 ```{r}
-str(map_if(iris, is.numeric, mean))
-str(modify_if(iris, is.numeric, mean))
-str(map(keep(iris, is.numeric), mean))
+df <- data.frame(
+  num1 = c(0, 10, 20),
+  num2 = c(5, 6, 7),
+  chr1 = c("a", "b", "c"),
+  stringsAsFactors = FALSE
+)
+
+str(map_if(df, is.numeric, mean))
+str(modify_if(df, is.numeric, mean))
+str(map(keep(df, is.numeric), mean))
 ```
 
 ### Exercises
