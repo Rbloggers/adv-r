@@ -28,7 +28,7 @@ purrr::map_dbl(s, chatty(f))
 #> [1] 9 4 1
 ```
 
-Function operators are closely related to function factories; indeed they're just a function factory that takes a function as input. Like factories, there's nothing you can't do without them, but they often allow you to factor out complexity in order to make your code more readable and resuable. 
+Function operators are closely related to function factories; indeed they're just a function factory that takes a function as input. Like factories, there's nothing you can't do without them, but they often allow you to factor out complexity in order to make your code more readable and reusable. 
 
 Function operators are typically paired with functionals. If you're using a for-loop, there's rarely a reason to use a FO, as it will make your code more complex for little gain.
 
@@ -46,7 +46,7 @@ If you're familiar with Python, decorators are just another name for function op
 
 Function operators are a type of function factory, so make sure you're familiar with at least Section \@ref(function-fundamentals) before you go on. 
 
-We'll use purrr for a couple of functionals that you learned about in Chapter \@ref(functionals), and some function operators that you'll learn about below. We'll also use the memoise package for the `memoise()` operator.
+We'll use [purrr](https://purrr.tidyverse.org) for a couple of functionals that you learned about in Chapter \@ref(functionals), and some function operators that you'll learn about below. We'll also use the [memoise](https://memoise.r-lib.org) package for the `memoise()` operator.
 
 
 ```r
@@ -66,6 +66,7 @@ There are two very useful function operators that will both help you solve commo
 
 ### Capturing errors with `purrr::safely()` {#safely}
 \indexc{safely()}
+\index{error handling}
 
 One advantage of for-loops is that if one of the iterations fails, you can still access all the results up to the failure:
 
@@ -93,7 +94,7 @@ If you do the same thing with a functional, you get no output, making it hard to
 
 ```r
 map_dbl(x, sum)
-#> Error in sum(..., na.rm = na.rm):
+#> Error in .Primitive("sum")(..., na.rm = na.rm):
 #>   invalid 'type' (character) of argument
 ```
 
@@ -105,8 +106,8 @@ safe_sum <- safely(sum)
 safe_sum
 #> function (...) 
 #> capture_error(.f(...), otherwise, quiet)
-#> <bytecode: 0x151e1d8>
-#> <environment: 0x151e670>
+#> <bytecode: 0x5145900>
+#> <environment: 0x5145468>
 ```
 
 Like all function operators, `safely()` takes a function and returns a wrapped function which we can call as usual:
@@ -122,7 +123,7 @@ str(safe_sum(x[[4]]))
 #>  $ result: NULL
 #>  $ error :List of 2
 #>   ..$ message: chr "invalid 'type' (character) of argument"
-#>   ..$ call   : language sum(..., na.rm = na.rm)
+#>   ..$ call   : language .Primitive("sum")(..., na.rm = na.rm)
 #>   ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
 ```
 
@@ -148,7 +149,7 @@ str(out)
 #>   ..$ result: NULL
 #>   ..$ error :List of 2
 #>   .. ..$ message: chr "invalid 'type' (character) of argument"
-#>   .. ..$ call   : language sum(..., na.rm = na.rm)
+#>   .. ..$ call   : language .Primitive("sum")(..., na.rm = na.rm)
 #>   .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condit"..
 ```
 
@@ -170,7 +171,7 @@ str(out)
 #>   ..$ : NULL
 #>   ..$ :List of 2
 #>   .. ..$ message: chr "invalid 'type' (character) of argument"
-#>   .. ..$ call   : language sum(..., na.rm = na.rm)
+#>   .. ..$ call   : language .Primitive("sum")(..., na.rm = na.rm)
 #>   .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condit"..
 ```
 
@@ -198,7 +199,7 @@ out$result[ok]
 ```
 
 \index{fitting many models}
-You can use this same technique in many different situtations. For example, imagine you're fitting a generalised linear model (GLM) to a list of data frames. GLMs can sometimes fail because of optimisation problems, but you still want to be able to try to fit all the models, and later look back at those that failed: 
+You can use this same technique in many different situations. For example, imagine you're fitting a generalised linear model (GLM) to a list of data frames. GLMs can sometimes fail because of optimisation problems, but you still want to be able to try to fit all the models, and later look back at those that failed: 
 
 
 ```r
@@ -254,10 +255,10 @@ system.time(print(slow_function(1)))
 system.time(print(slow_function(1)))
 #> [1] 8.34
 #>    user  system elapsed 
-#>    0.00    0.00    1.01
+#>       0       0       1
 ```
 
-When we memoise this function, it's slow when we call it with new arguments. But when we call it with arguments that it's seen before it's instanteous: it retrieves the previous value of the computation.
+When we memoise this function, it's slow when we call it with new arguments. But when we call it with arguments that it's seen before it's instantaneous: it retrieves the previous value of the computation.
 
 
 ```r
@@ -270,7 +271,7 @@ system.time(print(fast_function(1)))
 system.time(print(fast_function(1)))
 #> [1] 6.01
 #>    user  system elapsed 
-#>   0.016   0.000   0.017
+#>   0.012   0.000   0.015
 ```
 
 A relatively realistic use of memoisation is computing the Fibonacci series. The Fibonacci series is defined recursively: the first two values are defined by convention, $f(0) = 0$, $f(n) = 1$, and then $f(n) = f(n - 1) + f(n - 2)$ (for any positive integer). A naive version is slow because, for example, `fib(10)` computes `fib(9)` and `fib(8)`, and `fib(9)` computes `fib(8)` and `fib(7)`, and so on. 
@@ -283,10 +284,10 @@ fib <- function(n) {
 }
 system.time(fib(23))
 #>    user  system elapsed 
-#>   0.040   0.004   0.043
+#>   0.040   0.000   0.039
 system.time(fib(24))
 #>    user  system elapsed 
-#>   0.064   0.000   0.067
+#>   0.060   0.000   0.062
 ```
 
 Memoising `fib()` makes the implementation much faster because each value is computed only once:
@@ -299,7 +300,7 @@ fib2 <- memoise::memoise(function(n) {
 })
 system.time(fib2(23))
 #>    user  system elapsed 
-#>   0.024   0.000   0.025
+#>   0.024   0.000   0.026
 ```
 
 And future calls can rely on previous computations:
@@ -328,6 +329,7 @@ Think carefully before memoising a function. If the function is not __pure__, i.
 ## Case study: creating your own FOs {#fo-case-study}
 \indexc{delay\_by()}
 \indexc{dot\_every()}
+\index{for loops}
 
 `meomoise()` and `safely()` are very useful but also quite complex. In this case study you'll learn how to create your own simpler function operators. Imagine you have a named vector of URLs and you'd like to download each one to disk. That's pretty simple with `walk2()` and `file.download()`:
 
@@ -381,7 +383,7 @@ system.time(runif(100))
 #>       0       0       0
 system.time(delay_by(runif, 0.1)(100))
 #>    user  system elapsed 
-#>   0.000   0.000   0.101
+#>     0.0     0.0     0.1
 ```
 
 And we can use it with the original `walk2()`:

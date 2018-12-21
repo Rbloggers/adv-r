@@ -26,20 +26,20 @@ randomise(sum)
 #> [1] 489
 ```
 
-The chances are that you've already used a functional. You might have used for-loop replacement like base R's `lapply()`, `apply()`, or `tapply()`, or maybe purrr's `map()`; or maybe you've used a mathemetical functional like `integrate()` or `optim()`. 
+The chances are that you've already used a functional. You might have used for-loop replacements like base R's `lapply()`, `apply()`, and `tapply()`; or purrr's `map()`; or maybe you've used a mathematical functional like `integrate()` or `optim()`. 
 
-A common use of functionals is as an alternative to for loops. For loops have a bad rap in R, because many people believe they are slow[^not-slow], but the real downside of for loops is that they're very flexible, and hence not very expressive. A for loop conveys that it's iterating over something, but doesn't clearly convey what you are trying to achieve. Instead of using a for loop, it's better to use a functional. Each functional is tailored for a specific task, so when you recognise the functional you immediately know why it's being used.
+A common use of functionals is as an alternative to for loops. For loops have a bad rap in R because many people believe they are slow[^not-slow], but the real downside of for loops is that they're very flexible and hence not very expressive. A for loop conveys that it's iterating over something, but doesn't clearly convey what you are trying to achieve. Instead of using a for loop, it's better to use a functional. Each functional is tailored for a specific task, so when you recognise the functional you immediately know why it's being used.
 
 [^not-slow]: Typically it's not the for loop itself that's slow, but what you're doing inside of it. A common culprit of slow loops is modifying a data structure, where each modification generates a copy. See Section \@ref(single-binding) for more details.
 
-Using functionals is a pattern matching exercise. You look at the for loop, and find a functional that matches the basic form. If one doesn't exist, don't try and torture an existing functional to fit the form you need. Instead, just leave it as a for loop! (Or once you've repeated the same loop two or more times, maybe think about writing your own functional).
+Using functionals is a pattern matching exercise. You look at the for loop and find a functional that matches the basic form. If one doesn't exist, don't try and torture an existing functional to fit the form you need. Instead, just leave it as a for loop! (Or once you've repeated the same loop two or more times, maybe think about writing your own functional).
 
 ### Outline {-}
 
 * Section \@ref(map) introduces your first functional: `purrr::map()`.
 
 * Section \@ref(purrr-style) demonstrates how you can combine multiple simple
-  functional to solve a more complex problem, and discusses how purrr style
+  functionals to solve a more complex problem and discusses how purrr style
   differs from other approaches.
 
 * Section \@ref(map-variants) teaches you about 18 (!!) important variants of 
@@ -50,7 +50,7 @@ Using functionals is a pattern matching exercise. You look at the for loop, and 
   `reduce()` systematically reduces a vector to a single result by applying
   a function that takes two inputs.
 
-* Section \@ref(predicate-functionals) teaches you about predicates, functions
+* Section \@ref(predicate-functionals) teaches you about predicates: functions
   that return a single `TRUE` or `FALSE`, and the family of functionals
   that use them to solve common problems.
   
@@ -59,7 +59,7 @@ Using functionals is a pattern matching exercise. You look at the for loop, and 
 
 ### Prerequisites {-}
 
-This chapter will focus on functionals provided by the purrr package. These functions have a consistent interface that makes it easier to understand the key ideas than their base equivalents, which have grown organically over many years. I'll compare and contrast base R functions as we go, and then wrap up the chapter with a discussion of base functionals that don't have purrr equivalents.
+This chapter will focus on functionals provided by the [purrr](https://purrr.tidyverse.org) package [@purrr]. These functions have a consistent interface that makes it easier to understand the key ideas than their base equivalents, which have grown organically over many years. I'll compare and contrast base R functions as we go, and then wrap up the chapter with a discussion of base functionals that don't have purrr equivalents.
 
 
 ```r
@@ -89,7 +89,7 @@ map(1:3, triple)
 Or, graphically:
 
 
-\begin{center}\includegraphics[width=2.7in]{diagrams/functionals/map} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/map} \end{center}
 
 ::: sidebar
 You might wonder why this function is called `map()`. What does it have to do with depicting physical features of land or sea \raisebox{-.1\height}{\includegraphics[height=10pt]{emoji/1f5fa.png}}? In fact, the meaning comes from mathematics where map refers to "an operation that associates each element of a given set with one or more elements of a second set". This makes sense here because `map()` defines a mapping from one vector to another. ("Map" also has the nice property of being short, which is useful for such a fundamental building block.)
@@ -122,68 +122,82 @@ The base equivalent to `map()` is `lapply()`. The only difference is that `lappl
 
 
 ```r
+# map_chr() always returns a character vector
 map_chr(mtcars, typeof)
 #>      mpg      cyl     disp       hp     drat       wt     qsec 
 #> "double" "double" "double" "double" "double" "double" "double" 
 #>       vs       am     gear     carb 
 #> "double" "double" "double" "double"
 
+# map_lgl() always returns a logical vector
 map_lgl(mtcars, is.double)
 #>  mpg  cyl disp   hp drat   wt qsec   vs   am gear carb 
 #> TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 
+# map_int() always returns a integer vector
+n_unique <- function(x) length(unique(x))
+map_int(mtcars, n_unique)
+#>  mpg  cyl disp   hp drat   wt qsec   vs   am gear carb 
+#>   25    3   27   22   22   29   30    2    2    3    6
+
+# map_dbl() always returns a double vector
 map_dbl(mtcars, mean)
 #>     mpg     cyl    disp      hp    drat      wt    qsec      vs 
 #>  20.091   6.188 230.722 146.688   3.597   3.217  17.849   0.438 
 #>      am    gear    carb 
 #>   0.406   3.688   2.812
-
-n_unique <- function(x) length(unique(x))
-map_int(mtcars, n_unique)
-#>  mpg  cyl disp   hp drat   wt qsec   vs   am gear carb 
-#>   25    3   27   22   22   29   30    2    2    3    6
 ```
 
-purrr generally adopts the convention that suffixes, like `_dbl()`, refer to the output. All `map_*()` functions can take any type of vector as input.
-
-These examples rely on the fact that data frames are lists containing vectors of the same length. This is more obvious if we draw a data frame with the same orientation as vector:
+purrr uses the convention that suffixes, like `_dbl()`, refer to the output. All `map_*()` functions can take any type of vector as input. These examples rely on the fact that data frames are lists containing vectors of the same length. This is more obvious if we draw a data frame with the same orientation as vector:
 
 
-\begin{center}\includegraphics[width=3.49in]{diagrams/functionals/map-list} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/map-list} \end{center}
 
-All map functions always return an output vector the same length as the input. This means that you'll get an error if the function you are mapping returns multiple results:
+All map functions always return an output vector the same length as the input, which implies that each call to `.f` must return a single value. If it does not, you'll get an error:
 
 
 ```r
 pair <- function(x) c(x, x)
-map_dbl(1:3, pair)
+map_dbl(1:2, pair)
 #> Error: Result 1 is not a length 1 atomic vector
 ```
 
-When debugging problems like this, it's often useful to switch back to `map()` so you can see what the problematic output is.
+This is similar to the error you'll get if `.f` returns the wrong type of result:
 
 
 ```r
-map(1:3, pair)
+map_dbl(1:2, as.character)
+#> Error: Can't coerce element 1 from a character to a double
+```
+
+In either case, it's often useful to switch back to `map()`, because `map()` can accept any type of output. That allows you to see the problematic output, and figure out what to do with it.
+
+
+```r
+map(1:2, pair)
 #> [[1]]
 #> [1] 1 1
 #> 
 #> [[2]]
 #> [1] 2 2
+map(1:2, as.character)
+#> [[1]]
+#> [1] "1"
 #> 
-#> [[3]]
-#> [1] 3 3
+#> [[2]]
+#> [1] "2"
 ```
 
 ::: base
-Base R has two apply functions that can return atomic vectors: `sapply()` and `vapply()`. 
+\indexc{sapply()}
+\indexc{vapply()}
 
-`sapply()` tries to simplify the result to an atomic vector wherever possible. But this simplification depends on the result, so sometimes you'll get a list, sometimes a vector, and sometimes a matrix. This makes it difficult to program with, and it should be avoided in non-interactive settings.
-
-`vapply()` allows you to provide a template, `FUN.VALUE`, that describes the output shape. If you want to use only base R code you should always use `vapply()` in your functions, not `sapply()`. The primary downside of `vapply()` is its verbosity: the equivalent to `map_dbl(x, mean, na.rm = TRUE)` is `vapply(x, mean, na.rm = TRUE, FUN.VALUE = double(1))`.
+Base R has two apply functions that can return atomic vectors: `sapply()` and `vapply()`. I recommend that you avoid `sapply()` because it tries simplify the result, so it can return a list, a vector, or a matrix. This makes it difficult to program with, and it should be avoided in non-interactive settings. `vapply()` is safer because it allows you to provide a template, `FUN.VALUE`, that describes the output shape. If you don't want to use purrr, I recommend using always use `vapply()` in your functions, not `sapply()`. The primary downside of `vapply()` is its verbosity: the equivalent to `map_dbl(x, mean, na.rm = TRUE)` is `vapply(x, mean, na.rm = TRUE, FUN.VALUE = double(1))`.
 :::
 
 ### Anonymous functions and shortcuts {#purrr-shortcuts}
+\index{functions!anonymous}
+\indexc{\textasciitilde}
 
 Instead of using `map()` with an existing function, you can create an inline anonymous function (as mentioned in Section \@ref(first-class-functions)):
 
@@ -203,7 +217,7 @@ map_dbl(mtcars, ~ length(unique(.x)))
 #>   25    3   27   22   22   29   30    2    2    3    6
 ```
 
-This works because all purrr functions translate formulas, created by `~` (pronouned "twiddle"), into functions. You can see what's happening behind the scenes by calling `as_mapper()`:
+This works because all purrr functions translate formulas, created by `~` (pronounced "twiddle"), into functions. You can see what's happening behind the scenes by calling `as_mapper()`:
 
 
 ```r
@@ -215,7 +229,7 @@ as_mapper(~ length(unique(.x)))
 #> [1] "rlang_lambda_function"
 ```
 
-The function arguments look a little quirky but allow you to refer to `.` for one argument functions, `.x` and `.y.` for two argument functions, and `..1`, `..2`, `..3`, etc, for functions with an arbitrary number of arguments. `.` remains for backward compatiblity but I don't recommend using it because it's easily confused with the `.` use by magrittr's pipe.
+The function arguments look a little quirky but allow you to refer to `.` for one argument functions, `.x` and `.y.` for two argument functions, and `..1`, `..2`, `..3`, etc, for functions with an arbitrary number of arguments. `.` remains for backward compatability but I don't recommend using it because it's easily confused with the `.` use by magrittr's pipe.
 
 This shortcut is particularly useful for generating random data:
 
@@ -230,6 +244,8 @@ str(x)
 ```
 
 Reserve this syntax for short and simple functions. A good rule of thumb is that if your function spans lines or uses `{}`, it's time to give it a name.
+
+\indexc{pluck()}
 
 The map functions also have shortcuts for extracting elements from a vector, powered by  `purrr::pluck()`. You can use a character vector to select elements by name, an integer vector to select by position, or a list to select by both name and position. These are very useful for working with deeply nested lists, which often arise when working with JSON. 
 
@@ -267,6 +283,8 @@ In base R functions, like `lapply()`, you can provide the name of the function a
 :::
 
 ### Passing arguments with `...` {#passing-arguments}
+\indexc{...}
+\index{vectorisation}
 
 It's often convenient to pass along additional arguments to the function that you're calling. For example, you might want to pass `na.rm = TRUE` along to `mean()`. One way to do that is with an anonymous function:
 
@@ -288,12 +306,12 @@ map_dbl(x, mean, na.rm = TRUE)
 This is easiest to understand with a picture: any arguments that come after `f` in the call to `map()` are inserted _after_ the data in individual calls to `f()`:
 
 
-\begin{center}\includegraphics[width=3.74in]{diagrams/functionals/map-arg} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/map-arg} \end{center}
 
 It's important to note that these arguments are not decomposed; or said another way, `map()` is only vectorised over its first argument. If an argument after `f` is a vector, it will be passed along as is:
 
 
-\begin{center}\includegraphics[width=3.59in]{diagrams/functionals/map-arg-recycle} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/map-arg-recycle} \end{center}
 
 (You'll learn about map variants that _are_ vectorised over multiple arguments in Sections \@ref(map2) and \@ref(pmap).)
 
@@ -311,8 +329,10 @@ map_dbl(x, ~ plus(.x, runif(1)))
 ```
 
 ### Argument names
+\indexc{.f}
+\indexc{.x}
 
-In the diagrams, I've omitted argument names to focus on the overall structure. But I recommend writing out the full names in your code, as it makes it easier to read. `map(x, mean, 0.1)` is perfectly valid code, but will call `mean(x[[1]], 0.1)` so it relies on the reader remembering that the second argument to `mean()` is `trim`.  To avoid unnecesary burden on the brain of the reader[^future-you], be kind and write `map(x, mean, trim = 0.1)`.
+In the diagrams, I've omitted argument names to focus on the overall structure. But I recommend writing out the full names in your code, as it makes it easier to read. `map(x, mean, 0.1)` is perfectly valid code, but will call `mean(x[[1]], 0.1)` so it relies on the reader remembering that the second argument to `mean()` is `trim`.  To avoid unneccesary burden on the brain of the reader[^future-you], be kind and write `map(x, mean, trim = 0.1)`.
 
 [^future-you]: Who is highly likely to be future you!
 
@@ -355,7 +375,7 @@ Base functions that pass along `...` use a variety of naming conventions to prev
 So far the first argument to `map()` has always become the first argument to the function. But what happens if the first argument should be constant, and you want to vary a different argument? How do you get the result in this picture?
 
 
-\begin{center}\includegraphics[width=3.74in]{diagrams/functionals/map-arg-flipped} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/map-arg-flipped} \end{center}
 
 It turns out that there's no way to do it directly, but there are two tricks you can use instead. To illustrate them, imagine I have a vector that contains a few unusual values, and I want to explore the effect of different amounts of trimming when computing the mean. In this case, the first argument to `mean()` will be constant, and I want to vary the second argument, `trim`.
 
@@ -465,6 +485,7 @@ You'll see one more alternative in Section \@ref(pmap).
     ```
 
 ## Purrr style
+\indexc{\%>\%}
 
 Before we go on to explore more map variants, let's take a quick look at how you tend to use multiple purrr functions to solve a moderately realistic problem: fitting a model to each subgroup and extracting a coefficient of the model. For this toy example, I'm going to break the `mtcars` data set down into groups defined by the number of cylinders, using the base `split` function:
 
@@ -473,7 +494,9 @@ Before we go on to explore more map variants, let's take a quick look at how you
 by_cyl <- split(mtcars, mtcars$cyl)
 ```
 
-Now imagine we want to fit a linear model, then extract the second coefficient (i.e. the intercept). The following code shows how you might do that with purrr:
+This creates a list of three data frames: the cars with 4, 6, and 8 cylinders respectively.
+
+Now imagine we want to fit a linear model, then extract the second coefficient (i.e. the slope). The following code shows how you might do that with purrr:
 
 
 ```r
@@ -626,7 +649,7 @@ map_dbl(xs, weighted.mean, w = ws)
 #>   'x' and 'w' must have the same length
 ```
 
-\begin{center}\includegraphics[width=3.59in]{diagrams/functionals/map-arg-recycle} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/map-arg-recycle} \end{center}
 
 We need a new tool: a `map2()`, which is vectorised over two arguments. This means both `.x` and `.y` are varied in each call to `.f`:
 
@@ -636,7 +659,7 @@ map2_dbl(xs, ws, weighted.mean)
 #> [1]    NA 0.451 0.603 0.452 0.563 0.510 0.342 0.464
 ```
 
-\begin{center}\includegraphics[width=3.84in]{diagrams/functionals/map2} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/map2} \end{center}
 
 The arguments to `map2()` are slightly different to the arguments to `map()` as two vectors come before the function, rather than one. Additional arguments still go afterwards:
 
@@ -646,7 +669,7 @@ map2_dbl(xs, ws, weighted.mean, na.rm = TRUE)
 #> [1] 0.504 0.451 0.603 0.452 0.563 0.510 0.342 0.464
 ```
 
-\begin{center}\includegraphics[width=4.72in]{diagrams/functionals/map2-arg} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/map2-arg} \end{center}
 
 The basic implementation of `map2()` is simple, and quite similar to that of `map()`. Instead of iterating over one vector, we iterate over two in parallel:
 
@@ -664,7 +687,7 @@ simple_map2 <- function(x, y, f, ...) {
 One of the big differences between `map2()` and the simple function above is that `map2()` recycles its inputs to make sure that they're the same length:
 
 
-\begin{center}\includegraphics[width=3.84in]{diagrams/functionals/map2-recycle} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/map2-recycle} \end{center}
 
 In other words, `map2(x, y, f)` will automatically behave like `map(x, f, y)` when needed. This is helpful when writing functions; in scripts you'd generally just use the simpler form directly.
 
@@ -675,6 +698,7 @@ The closest base equivalent to `map2()` is `Map()`, which is discussed in Sectio
 ### No outputs: `walk()` and friends
 \indexc{walk()}
 \indexc{walk2()}
+\indexc{invisible()}
 
 Most functions are called for the value that they return, so it makes sense to capture and store it with a `map()` function. But some functions are called primarily for their side-effects (e.g. `cat()`, `write.csv()`, or `ggsave()`) and it doesn't make sense to capture their results. Take this simple example that displays a welcome message using `cat()`. `cat()` returns `NULL`, so while map works (in the sense that it generates the desired welcomes), it also returns `list(NULL, NULL)`. 
 
@@ -709,14 +733,14 @@ walk(names, welcome)
 My visual depiction of walk attempts to capture the important difference from `map()`: the outputs are ephemeral, and the input is returned invisibly.
 
 
-\begin{center}\includegraphics[width=2.46in]{diagrams/functionals/walk} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/walk} \end{center}
 
-[^invisible]: In brief, invisible values are only printed if you explicitly request it. This makes them well suited for functions called primarily for their side-effects, as it allows their output to be ignored by default, while still giving an option to capture it. See Section \@ref(invisible-values) for more details.
+[^invisible]: In brief, invisible values are only printed if you explicitly request it. This makes them well suited for functions called primarily for their side-effects, as it allows their output to be ignored by default, while still giving an option to capture it. See Section \@ref(invisible) for more details.
 
 One of the most useful `walk()` variants is `walk2()` because a very common side-effect is saving something to disk, and when saving something to disk you always have a pair of values: the object and the path that you want to save it to.
 
 
-\begin{center}\includegraphics[width=3.3in]{diagrams/functionals/walk2} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/walk2} \end{center}
 
 For example, imagine you have a list of data frames (which I've created here using split), and you'd like to save each one to a separate CSV file. That's easy with `walk2()`:
 
@@ -785,13 +809,11 @@ imap_chr(x, ~ paste0("The highest value of ", .y, " is ", max(.x)))
 
 ### Any number of inputs: `pmap()` and friends {#pmap}
 \indexc{pmap()}
-\indexc{Map()}
-\indexc{mapply()}
 
 Since we have `map()` and `map2()`, you might expect `map3()`, `map4()`, `map5()`, ... But where would you stop? Instead of generalising `map2()` to an arbitrary number of arguments, purrr takes a slightly different tack with `pmap()`: you supply it a single list, which contains any number of arguments. In most cases, that will be a list of equal-length vectors, i.e. something very similar to a data frame. In diagrams, I'll emphasise that relationship by drawing the input similar to a data frame.
 
 
-\begin{center}\includegraphics[width=3.64in]{diagrams/functionals/pmap} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/pmap} \end{center}
 
 There's a simple equivalence between `map2()` and `pmap()`: `map2(x, y, f)` is the same as `pmap(list(x, y), f)`. The `pmap()` equivalent to the `map2_dbl(xs, ws, weighted.mean)` used above is:
 
@@ -809,7 +831,7 @@ pmap_dbl(list(xs, ws), weighted.mean, na.rm = TRUE)
 #> [1] 0.504 0.451 0.603 0.452 0.563 0.510 0.342 0.464
 ```
 
-\begin{center}\includegraphics[width=4.77in]{diagrams/functionals/pmap-arg} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/pmap-arg} \end{center}
 
 A big difference between `pmap()` and the other map functions is that `pmap()` gives you much finer control over argument matching because you can name the components of the list. Returning to our example from Section \@ref(change-argument), where we wanted to vary the `trim` argument to `x`, we could instead use `pmap()`:
 
@@ -823,8 +845,8 @@ pmap_dbl(list(trim = trims), mean, x = x)
 ```
 
 
+\begin{center}\includegraphics{diagrams/functionals/pmap-3} \end{center}
 
-\begin{center}\includegraphics[width=4.67in]{diagrams/functionals/pmap-3} \end{center}
 I think it's good practice to name the list to make it very clear how the function will be called. 
 
 It's often convenient to call `pmap()` with a data frame. A handy way to create that data frame is with `tibble::tribble()`, which allows you to describe a data frame row-by-row (rather than column-by-column, as usual): thinking about the parameters to a function as a data frame is a very powerful pattern. The following example shows how you might draw random uniform numbers with varying parameters:
@@ -850,10 +872,12 @@ pmap(params, runif)
 ```
 
 
-\begin{center}\includegraphics[width=4.67in]{diagrams/functionals/pmap-3} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/pmap-3} \end{center}
 Here, the column names are critical: I've carefully chosen to match them to the arguments to `runif()`, so the `pmap(params, runif)` is equivalent to `runif(n = 1L, min = 0, max = 1)`, `runif(n = 2, min = 10, max = 100)`, `runif(n = 3L, min = 100, max = 1000)`. (If you have a data frame in hand, and the names don't match, use `dplyr::rename()` or similar.)
 
 ::: base
+\indexc{Map()}
+\indexc{mapply()}
 
 There are two base equivalents to the `pmap()` family: `Map()` and `mapply()`. Both have significant drawbacks:
 
@@ -895,7 +919,7 @@ There are two base equivalents to the `pmap()` family: `Map()` and `mapply()`. B
     mtcars[vars] <- map2(trans, mtcars[vars], function(f, var) f(var))
     ```
     
-    Compare and constrast the `map2()` approach to this `map()` approach:
+    Compare and contrast the `map2()` approach to this `map()` approach:
     
     
     ```r
@@ -916,9 +940,9 @@ After the map family, the next most important family of functions is the reduce 
 `reduce()` takes a vector of length n and produces a vector of length one by calling a function with a pair of values at a time: `reduce(1:4, f)` is equivalent to `f(f(f(1, 2), 3), 4)`. 
 
 
-\begin{center}\includegraphics[width=3.25in]{diagrams/functionals/reduce} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/reduce} \end{center}
 
-`reduce()` is a useful way to generalise a function that works with two inputs (a __binary__ function) to work with any number of inputs. Imagine you have a list of numeric vectors, and you want to find the values that occur in every element:
+`reduce()` is a useful way to generalise a function that works with two inputs (a __binary__ function) to work with any number of inputs. Imagine you have a list of numeric vectors, and you want to find the values that occur in every element. First we generate some sample data:
 
 
 ```r
@@ -962,7 +986,7 @@ reduce(l, union)
 Like the map family, you can also pass additional arguments. `intersect()` and `union()` don't take extra arguments so I can't demonstrate them here, but the principle is straightforward and I drew you a picture.
 
 
-\begin{center}\includegraphics[width=4.03in]{diagrams/functionals/reduce-arg} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/reduce-arg} \end{center}
 
 As usual, the essence of `reduce()` can be reduced to a simple wrapper around a for loop:
 
@@ -982,6 +1006,7 @@ The base equivalent is `Reduce()`. Note that the argument order is different: th
 :::
 
 ### Accumulate
+\indexc{accumulate()}
 
 The first `reduce()` variant, `accumulate()`, is useful for understanding how reduce works, because instead of returning just the final result, it returns all the intermediate results as well:
 
@@ -1042,7 +1067,7 @@ reduce(integer(), `+`)
 What should `.init` be here? To figure that out, we need to see what happens when `.init` is supplied:
 
 
-\begin{center}\includegraphics[width=4.23in]{diagrams/functionals/reduce-init} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/reduce-init} \end{center}
 
 So if we call ``reduce(1, `+`, init)`` the result will be `1 + init`. Now we know that the result should be just `1`, so that suggests that `.init` should be 0:
 
@@ -1078,17 +1103,19 @@ max(integer())  # max(x, -Inf) = x
 If you're using `reduce()` in a function, you should always supply `.init`. Think carefully about what your function should return when passed a vector of length zero or one, and make sure to test your implementation.
 
 ### Multiple inputs
+\indexc{reduce2()}
 
-Very occassionally you need to pass two arguments to the function that you're reducing. For example, you might have a list of data frames that you want to join together, and the variables that you are joining by vary from element to element. This is a very specialised scenario, so I don't want to spend much time on it, except to know that it exists.
+Very occasionally you need to pass two arguments to the function that you're reducing. For example, you might have a list of data frames that you want to join together, and the variables that you are joining by vary from element to element. This is a very specialised scenario, so I don't want to spend much time on it, but I do want you to know that `reduce2()` exists.
 
 Note that the length of the second argument varies based on whether or not `.init` is supplied: if you have four elements of `x`, `f` will only be called three times. If you supply init, `f` will be called four times.
 
 
-\begin{center}\includegraphics[width=5.41in]{diagrams/functionals/reduce2} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/reduce2} \end{center}
 
-\begin{center}\includegraphics[width=5.41in]{diagrams/functionals/reduce2-init} \end{center}
+\begin{center}\includegraphics{diagrams/functionals/reduce2-init} \end{center}
 
 ### Map-reduce
+\index{map-reduce}
 
 You might have heard of map-reduce, the idea that powers technology like Hadoop. Now you can see how simple and powerful the underlying idea is: all map-reduce is a map combined with a reduce. The difference for large data is that the data is spread over multiple computers. Each computer performs the map on the data that it has, then it sends the result to back to a coordinator which _reduces_ the individual results back to a single result.
 
@@ -1102,7 +1129,7 @@ A __predicate__ is a function that returns a single `TRUE` or `FALSE`, like `is.
 
 ### Basics
 
-A __predicate functional__ applies a predicate to each element of a vector.  purrr proivdes six useful functions which come in three pairs:
+A __predicate functional__ applies a predicate to each element of a vector.  purrr provides six useful functions which come in three pairs:
 
 * `some(.x, .p)` returns `TRUE` if _any_ element matches;
   `every(.x, .p)` returns `TRUE` if _all_ elements match.
@@ -1137,40 +1164,40 @@ str(discard(df, is.factor))
 ```
 
 ### Map variants {#predicate-map}
+\indexc{map\_if}
+\indexc{modify\_if}
 
-`map()` and `modify()` come in variants that also take predicate functions, transforming only the elements of `.x` with `.p` is `TRUE`.
+`map()` and `modify()` come in variants that also take predicate functions, transforming only the elements of `.x` where `.p` is `TRUE`.
 
 
 ```r
-str(map_if(iris, is.numeric, mean))
-#> List of 5
-#>  $ Sepal.Length: num 5.84
-#>  $ Sepal.Width : num 3.06
-#>  $ Petal.Length: num 3.76
-#>  $ Petal.Width : num 1.2
-#>  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1..
-str(modify_if(iris, is.numeric, mean))
-#> 'data.frame':	150 obs. of  5 variables:
-#>  $ Sepal.Length: num  5.84 5.84 5.84 5.84 5.84 ...
-#>  $ Sepal.Width : num  3.06 3.06 3.06 3.06 3.06 ...
-#>  $ Petal.Length: num  3.76 3.76 3.76 3.76 3.76 ...
-#>  $ Petal.Width : num  1.2 1.2 1.2 1.2 1.2 ...
-#>  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1..
-str(map(keep(iris, is.numeric), mean))
-#> List of 4
-#>  $ Sepal.Length: num 5.84
-#>  $ Sepal.Width : num 3.06
-#>  $ Petal.Length: num 3.76
-#>  $ Petal.Width : num 1.2
+df <- data.frame(
+  num1 = c(0, 10, 20),
+  num2 = c(5, 6, 7),
+  chr1 = c("a", "b", "c"),
+  stringsAsFactors = FALSE
+)
+
+str(map_if(df, is.numeric, mean))
+#> List of 3
+#>  $ num1: num 10
+#>  $ num2: num 6
+#>  $ chr1: chr [1:3] "a" "b" "c"
+str(modify_if(df, is.numeric, mean))
+#> 'data.frame':	3 obs. of  3 variables:
+#>  $ num1: num  10 10 10
+#>  $ num2: num  6 6 6
+#>  $ chr1: chr  "a" "b" "c"
+str(map(keep(df, is.numeric), mean))
+#> List of 2
+#>  $ num1: num 10
+#>  $ num2: num 6
 ```
 
 ### Exercises
 
 1.  Why isn't `is.na()` a predicate function? What base R function is closest
     to being a predicate version of `is.na()`?
-
-1.  What's the relationship between `which()` and `Position()`? What's
-    the relationship between `where()` and `Filter()`?
 
 1.  `simple_reduce()` has a problem when `x` is length 0 or length 1. Describe
     the source of the problem and how you might go about fixing it.
@@ -1187,7 +1214,7 @@ str(map(keep(iris, is.numeric), mean))
     ```
 
 1.  Implement the `span()` function from Haskell: given a list `x` and a 
-    predicate function `f`, `span()` returns the location of the longest 
+    predicate function `f`, `span(x, f)` returns the location of the longest 
     sequential run of elements where the predicate is true. (Hint: you 
     might find `rle()` helpful.)
 

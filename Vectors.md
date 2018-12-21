@@ -2,27 +2,29 @@
 
 
 ## Introduction
+\index{vectors}
+\index{node}
 
-This chapter discusses the most important family of data types in base R: the vector types[^node]. You've probably used many (if not all) of the vectors before, but you may not have thought deeply about how they are interrelated. In this chapter, I won't cover individual vectors types in too much depth. Instead, I'll show you how they fit together as a whole. If you need more details, you can find them in R's documentation.
+This chapter discusses the most important family of data types in base R: vectors[^node]. While you've probably already used many (if not all) of the different types of vectors, you may not have thought deeply about how they're interrelated. In this chapter, I won't cover individual vectors types in too much detail, but I will show you how all the types fit together as a whole. If you need more details, you can find them in R's documntation.
 
-[^node]: Collectively, all other data types are known as the "node" data types, and include things like functions and environments. This is a highly technical term used in only a few places. The place where you're most likely to encounter it is the output of `gc()`: the "N" in `Ncells` stands for nodes, and the "V" in `Vcells` stands for vectors.
+[^node]: Collectively, all the other data types are known as "node" types, which include things like functions and environments. You're most likely to come across this highly technical term when using `gc()`: the "N" in `Ncells` stands for nodes and the "V" in `Vcells` stands for vectors.
 
 <!-- GVW: at this point (after reading previous chapter), my mental model is that a list is a vector of references, and that there's no other significant difference between it and other vector types - if that's so, maybe emphasize the similarities rather than the differences? -->
 
-Vectors come in two flavours: atomic vectors and lists[^generic-vectors]. They differ in the types of their elements: all elements of an atomic vector must be the same type, whereas the elements of a list can have different types. Closely related to vectors is `NULL`; `NULL` is not a vector, but often serves the role of a generic 0-length vector. Throughout this chapter we'll expand on this diagram:
+Vectors come in two flavours: atomic vectors and lists[^generic-vectors]. They differ in terms of their elements' types: for atomic vectors, all elements must have the same type; for lists, elements can have different types. While not a vector, `NULL` is closely related to vectors and often serves the role of a generic zero length vector. This diagram, which we'll be expanding on throughout this chapter, illustrates the basic relationships:
 
 
-\begin{center}\includegraphics[width=2.07in]{diagrams/vectors/summary-tree} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/summary-tree} \end{center}
 
 [^generic-vectors]: A few places in R's documentation call lists generic vectors to emphasise their difference from atomic vectors.
 
 <!-- GVW: in the para below, you use double asterisk for some emphasis and double underscore for other - is this important to bookdown? -->
 
-Every vector can also have __attributes__, which you can think of as a named list containing arbitrary metadata. Two attributes are particularly important because they create important vector variants. The **dim**ension attribute turns vectors into matrices and arrays. The __class__ attribute powers the S3 object system. You'll learn how to use S3 in Chapter \@ref(s3), but here, you'll learn about a handful of the most important S3 vectors: factors, date/times, data frames, and tibbles. Matrices and data frames are not necessarily what you think of as vectors, so you'll learn why these 2d structures are considered to be vectors in R.
+Every vector can also have __attributes__, which you can think of as a named list of arbitrary metadata. Two attributes are particularly important. The **dim**ension attribute turns vectors into matrices and arrays and the __class__ attribute powers the S3 object system. While you'll learn how to use S3 in Chapter \@ref(s3)), here you'll learn about some of the most important S3 vectors: factors, date/times, data frames, and tibbles. And while 2D structures like matrices and data frames are not necessarily what come to mind when you think of vectors, you'll also learn why R considers them to be vectors.
 
 ### Quiz {-}
 
-Take this short quiz to determine if you need to read this chapter. If the answers quickly come to mind, you can comfortably skip this chapter. You can check your answers in [answers](#data-structure-answers).
+Take this short quiz to determine if you need to read this chapter. If the answers quickly come to mind, you can comfortably skip this chapter. You can check your answers in Section \@ref(data-structure-answers).
 
 1. What are the four common types of atomic vectors? What are the two 
    rare types?
@@ -39,68 +41,84 @@ Take this short quiz to determine if you need to read this chapter. If the answe
 
 ### Outline {-}
 
-<!-- 
-* [Vectors](#vectors) introduces you to atomic vectors and lists, R's 1d 
-  data structures.
+* Section \@ref(atomic-vectors) introduces you to the atomic vectors:
+  logical, integer, double, and character. These are R's simplest data 
+  structures.
   
-* [Attributes](#attributes) takes a small detour to discuss attributes,
-  R's flexible metadata specification. Here you'll learn about factors,
-  an important data structure created by setting attributes of an atomic 
-  vector.
+* Section \@ref(attributes) takes a small detour to discuss attributes,
+  R's flexible metadata specification. The most important attributes are
+  names, dimensions, and class.
   
-* [Matrices and arrays](#matrices-and-arrays) introduces matrices and arrays,
-  data structures for storing 2d and higher dimensional data.
+* Section \@ref(s3-atomic-vectors) discusses the important vector types that
+  are built by combining atomic vectors with special attributes. These include
+  factors, dates, date-times, and durations.
   
-* [Data frames](#data-frames) teaches you about the data frame, the most
-  important data structure for storing data in R. Data frames combine 
-  the behaviour of lists and matrices to make a structure ideally suited for
-  the needs of statistical data.
--->
+* Section \@ref(lists) dives into lists. Lists are very similar to atomic 
+  vectors, but have one key difference: an element of a list can be any 
+  data type, including another list. This makes them suitable for representing
+  hierarchical data.
 
+* Section \@ref(tibble) teaches you about data frames and tibbles, which
+  are used to represent rectangular data. They combine the behaviour 
+  of lists and matrices to make a structure ideally suited for the needs 
+  of statistical data.
 
 ## Atomic vectors
 \index{atomic vectors} 
 \index{vectors!atomic|see{atomic vectors}}
-\indexc{NA}
-\indexc{c()} 
+\index{logical vector} 
+\index{integer vector} 
+\index{double vector} 
+\index{numeric vector} 
+\index{character vector} 
 
-There are four common types of atomic vectors: logical, integer, double, and character. Collectively integer and double vectors are known as numeric vectors[^numeric]. There are two rare types that I won't discuss further: complex and raw. Complex numbers are rarely needed for statistics, and raw vectors are a special type only needed when handling binary data. 
+There are four primary types of atomic vectors: logical, integer, double, and character. Collectively integer and double vectors are known as numeric vectors[^numeric]. There are two rare types: complex and raw. I won't discuss them further because complex numbers are rarely needed in statistics, and raw vectors are a special type that's only needed when handling binary data. 
 
 
-\begin{center}\includegraphics[width=3in]{diagrams/vectors/summary-tree-atomic} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/summary-tree-atomic} \end{center}
 
 [^numeric]: This is a slight simplification as R does not use "numeric" consistently, which we'll come back to in Section \@ref(numeric-type).
 
 ### Scalars
 \index{scalars}
+\indexc{NA}
+\indexc{NaN}
+\indexc{Inf}
+\indexc{L}
+\indexc{"}
+\indexc{'}
 
-Each of the four primary atomic vectors has special syntax to create an individual value, aka a __scalar__[^scalar], and its own missing value.:
+Each of the four primary types has a special syntax to create an individual value, AKA a __scalar__[^scalar], and its own missing value.
 
-* Strings are surrounded by `"` (`"hi"`) or `'` (`'bye'`). The string
-  missing value is `NA_character_`. Special characters are escaped with `\\`;
+* Strings are surrounded by `"` (`"hi"`) or `'` (`'bye'`). The missing value 
+  for strings is `NA_character_`. Special characters are escaped with `\\`;
   see `?Quotes` for full details.
 
 <!-- GVW: in above, move description of missing value to end of point for consistency with following points -->
 
 * Doubles can be specified in decimal (`0.1234`), scientific (`1.23e4`), or 
-  hexadecimal (`0xcafe`) forms. There are three special values unique to
-  doubles: `Inf`, `-Inf`, and `NaN`. The double missing value is `NA_real_`.
+  hexadecimal (`0xcafe`) form. There are three special values unique to
+  doubles: `Inf`, `-Inf`, and `NaN` (not a number). These are special values
+  defined by the floating point standard. The missing value fo doubles is 
+  `NA_real_`.
   
 * Integers are written similarly to doubles but must be followed by `L`[^L-suffix]
   (`1234L`, `1e4L`, or `0xcafeL`), and can not include decimals. The integer
   missing value is `NA_integer_`.
 
-* Logicals can be spelled out (`TRUE` or `FALSE`), or abbreviated (`T` or `F`).
-  The logical missing value is `NA`.
+* Logicals can be spelt out (`TRUE` or `FALSE`), or abbreviated (`T` or `F`).
+  The missing value for logicals is `NA`.
 
 [^L-suffix]: `L` is not intuitive, and you might wonder where it comes from. At the time `L` was added to R, R's integer type was equivalent to a long integer in C, and C code could use a suffix of `l` or `L` to force a number to be a long integer. It was decided that `l` was too visually similar to `i` (used for complex numbers in R), leaving `L`.
 
-[^scalar]: Technically, the R language does not possess scalars, and everything that looks like a scalar is actually a vector of length one. This however, is mainly a theoretical distinction, and blurring the distinction between scalar and length-1 vector is unlikely to harm your code.
+[^scalar]: Technically, the R language does not possess scalars. Everything that looks like a scalar is actually a vector of length one. This however, is mainly a theoretical distinction that is unlikely to harm your code.
 
 <!-- GVW: coming from Python, I think the distinction is more than theoretical: the fact that `1[1]` works is pretty remarkable. -->
 
 ### Making longer vectors with `c()` {#atomic-constructing}
 \indexc{typeof()}
+\indexc{length()}
+\indexc{c()} 
 
 To create longer vectors from shorter ones, use `c()`, short for combine:
 
@@ -117,9 +135,9 @@ chr_var <- c("these are", "some strings")
 In diagrams, I'll depict vectors as connected rectangles, so the above code could be drawn as follows:
 
 
-\begin{center}\includegraphics[width=3.64in]{diagrams/vectors/atomic} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/atomic} \end{center}
 
-You can determine the type of a vector with `typeof()` and its length with `length()`.
+You can determine the type of a vector with `typeof()`[^mode] and its length with `length()`.
 
 
 ```r
@@ -133,14 +151,19 @@ typeof(chr_var)
 #> [1] "character"
 ```
 
-### Testing and coercing
-\index{coercion}
+[^mode]: You may have heard of the related `mode()` and `storage.mode()` functions. Do not use them: they exist only for compatibility with S.
 
-Generally, you can __test__ if a vector is of a given type with an `is.` function, but they need to be used with care. `is.character()`, `is.double()`, `is.integer()`, and `is.logical()` do what you might expect: they test if a vector is a character, double, integer, or logical. Beware `is.vector()`, `is.atomic()`, and `is.numeric()`: they don't test if you have a vector, atomic vector, or numeric vector, and you'll need to carefully read the docs to figure out what they do do.
+### Testing and coercion
+\index{coercion}
+\indexc{is.vector()}
+\indexc{is.atomic()}
+\indexc{is.numeric()}
+
+Generally, you can __test__ if a vector is of a given type with an `is.*()` function, but they need to be used with care. `is.character()`, `is.double()`, `is.integer()`, and `is.logical()` do what you might expect: they test if a vector is a character, double, integer, or logical. But beware of `is.vector()`, `is.atomic()`, and `is.numeric()`: they don't test if you have a vector, atomic vector, or numeric vector; you'll need to carefully read the docs to figure out what they do do.
 
 <!-- GVW: in previous, change "beware" to "avoid"? -->
 
-The type is a property of the entire atomic vector, so all elements of an atomic must be the same type. When you attempt to combine different types they will be __coerced__ to the most flexible one (character >> double >> integer >> logical). For example, combining a character and an integer yields a character:
+For atomic vectors, type is a property of the entire vector: all elements must be the same type. When you attempt to combine different types they will be __coerced__ in a hierarchical order of types: character >> double >> integer >> logical. For example, combining a character and an integer yields a character:
 
 <!-- GVW: in the above, I'm as likely to read "character is coerced to double" rather than "character is greater than double" -->
 
@@ -171,7 +194,7 @@ Vectorised logical operations (`&`, `|`, `any`, etc) will coerce to a logical, b
 
 <!-- GVW: hm, from the above I expected that `c('a') & c('b')` would work, but it doesn't. -->
 
-Generally, you can deliberately coerce by using an `as.` function, like `as.character()`, `as.double()`, `as.integer()`, or `as.logical()`. Failed coercions from strings generate a warning and a missing value:
+Generally, you can deliberately coerce by using an `as.*()` function, like `as.character()`, `as.double()`, `as.integer()`, or `as.logical()`. Failed coercion of strings generates a warning and a missing value:
 
 
 ```r
@@ -182,10 +205,10 @@ as.integer(c("1", "1.5", "a"))
 
 ### Exercises
 
-1. How do you create scalars of type raw and complex? (See `?raw` and 
+1. How do you create raw and complex scalars? (See `?raw` and 
    `?complex`)
 
-1. Test your knowledge of vector coercion rules by predicting the output of
+1. Test your knowledge of the vector coercion rules by predicting the output of
    the following uses of `c()`:
 
     
@@ -212,11 +235,11 @@ You might have noticed that the set of atomic vectors does not include a number 
 \indexc{attributes()}
 \indexc{structure()}
 
-You can think of attributes as a named list[^pairlist] used to attach metadata to an object. Individual attributes can be retrieved and modified with `attr()`, or retrieved en masse with `attributes()`, and set en masse with `structure()`. 
+You can think of attributes as a named list[^pairlist] that attaches metadata to an object. Individual attributes can be retrieved and modified with `attr()`, or retrieved en masse with `attributes()`, and set en masse with `structure()`.
 
 <!-- GVW: rather than "think of as a named list" and then immediately walk it back in a footnote, revise first sentence above to say "think of attributes as a list of name/value pairs" and forward ref to discussion about pairlists. -->
 
-[^pairlist]: The reality is a little more complicated: attributes are actually stored in pairlists. Pairlists are functionally indistinguishable from lists, but are profoundly different under the hood, and you'll learn more about them in Section \@ref(pairlists). 
+[^pairlist]: The reality is a little more complicated: attributes are actually stored as pairlists. Pairlists are functionally indistinguishable from lists, but are profoundly different under the hood. You'll learn more about them in Section \@ref(pairlists). 
 
 
 ```r
@@ -244,7 +267,7 @@ str(attributes(a))
 ```
 
 
-\begin{center}\includegraphics[width=2.02in]{diagrams/vectors/attr} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/attr} \end{center}
 
 Attributes should generally be thought of as ephemeral. For example, most attributes are lost by most operations:
 
@@ -260,9 +283,9 @@ There are only two attributes that are routinely preserved:
 
 * __names__, a character vector giving each element a name.
 * __dim__, short for dimensions, an integer vector, used to turn vectors 
-  into matrices and arrays.
+  into matrices or arrays.
 
-To preserve additional attributes, you'll need to create your own S3 class, the topic of Chapter \@ref(s3).
+To preserve other attributes, you'll need to create your own S3 class, the topic of Chapter \@ref(s3).
 
 ### Names {#attr-names}
 \index{attributes!names}
@@ -290,20 +313,21 @@ Avoid using `attr(x, "names")` as it requires more typing and is less readable t
 To be technically correct, when drawing the named vector `x`, I should draw it like so:
 
 
-\begin{center}\includegraphics[width=2.56in]{diagrams/vectors/attr-names-1} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/attr-names-1} \end{center}
 
 However, names are so special and so important, that unless I'm trying specifically to draw attention to the attributes data structure, I'll use them to label the vector directly:
 
 
-\begin{center}\includegraphics[width=1.08in]{diagrams/vectors/attr-names-2} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/attr-names-2} \end{center}
 
-To be maximally useful for character subsetting (e.g. Section \@ref(lookup-tables)) names should be unique, and non-missing, but this is not enforced by R. Depending on how the names are set, missing names may be either `""` or `NA_character_`. If all names are missing, `names()` will return `NULL`.
+To be useful with character subsetting (e.g. Section \@ref(lookup-tables)) names should be unique, and non-missing, but this is not enforced by R. Depending on how the names are set, missing names may be either `""` or `NA_character_`. If all names are missing, `names()` will return `NULL`.
 
 ### Dimensions {#attr-dims}
 \index{arrays} 
 \index{matrices|see{arrays}}
+\index{attributes!dimensions}
 
-Adding a `dim` attribute to a vector allows it to behave like a 2-dimensional __matrix__ or multi-dimensional __array__. Matrices and arrays are primarily a mathematical/statistical tool, not a programming tool, so will be used infrequently in this book, and only covered briefly. Their most important feature is multidimensional subsetting, which is covered in Section \@ref(matrix-subsetting).
+Adding a `dim` attribute to a vector allows it to behave like a 2-dimensional __matrix__ or a multi-dimensional __array__. Matrices and arrays are primarily mathematical/statistical tools, not programming tools, so they'll be used infrequently and only covered briefly in this book. Their most important feature is multidimensional subsetting, which is covered in Section \@ref(matrix-subsetting).
 
 You can create matrices and arrays with `matrix()` and `array()`, or by using the assignment form of `dim()`:
 
@@ -372,11 +396,11 @@ str(array(1:3, 3))         # "array" vector
 1.  How is `setNames()` implemented? How is `unname()` implemented?
     Read the source code.
 
-1.  What does `dim()` return when applied to a 1d vector?
+1.  What does `dim()` return when applied to a 1D vector?
     When might you use `NROW()` or `NCOL()`?
 
 1.  How would you describe the following three objects? What makes them
-    different to `1:5`?
+    different from `1:5`?
 
     
     ```r
@@ -398,7 +422,7 @@ str(array(1:3, 3))         # "array" vector
     it? (Hint: try using help.)
 
 ## S3 atomic vectors
-\index{attributes!names}
+\index{attributes!S3}
 \index{S3!vectors}
 
 One of the most important attributes is `class`, which defines the S3 object system. Having a class attribute makes an object an __S3 object__, which means that it will behave differently when passed to a __generic__ function. Every S3 object is built on top of a base type, and often stores additional information in other attributes. You'll learn the details of the S3 object system, and how to create your own S3 classes, in Chapter \@ref(s3). 
@@ -416,7 +440,7 @@ In this section, we'll discuss four important S3 vectors used in base R:
 * Durations are stored in __difftime__ vectors.
 
 
-\begin{center}\includegraphics[width=3.1in]{diagrams/vectors/summary-tree-s3-1} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/summary-tree-s3-1} \end{center}
 
 ### Factors
 \index{factors}
@@ -441,7 +465,7 @@ attributes(x)
 #> [1] "factor"
 ```
 
-\begin{center}\includegraphics[width=2.56in]{diagrams/vectors/factor} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/factor} \end{center}
 
 Factors are useful when you know the set of possible values, even if you don't see them all in a given dataset. Compared to a character vector, this means that tabulating a factor can yield counts of 0:
 
@@ -479,6 +503,7 @@ biography*](http://simplystatistics.org/2015/07/24/stringsasfactors-an-unauthori
 While factors look like (and often behave like) character vectors, they are built on top of integers. Be careful when treating them like strings. Some string methods (like `gsub()` and `grepl()`) will coerce factors to strings automatically, while others (like `nchar()`) will throw an error, and still others (like `c()`) will use the underlying integer values. For this reason, it's usually best to explicitly convert factors to character vectors if you need string-like behaviour.
 
 ### Dates
+\index{dates}
 
 Date vectors are built on top of double vectors. They have class "Date" and no other attributes:
 
@@ -505,6 +530,8 @@ unclass(date)
 ```
 
 ### Date-times
+\index{date-times}
+\index{POSIXct}
 
 Base R[^tidyverse-datetimes] provides two ways of storing date-time information, POSIXct, and POSIXlt. These are admittedly odd names: "POSIX" is short for Portable Operating System Interface which is a family of cross-platform standards. "ct" standards for calendar time (the `time_t` type in C), and "lt" for local time (the `struct tm` type in C). Here we'll focus on `POSIXct`, because it's the simplest, is built on top of an atomic vector, and is most appropriate for use in data frames. POSIXct vectors are built on top of double vectors, where the value represents the number of seconds since 1970-01-01.
 
@@ -543,6 +570,8 @@ structure(now_ct, tzone = "Europe/Paris")
 [^tidyverse-datetimes]: The tidyverse provides the lubridate [@lubridate] package for working with date-times. It provides a number of convenient helpers which work with the base POSIXct type.
 
 ### Durations
+\index{duration}
+\index{difftime}
 
 Durations, the amount of time between two dates or date times, are stored in difftimes. Difftimes are built on top of doubles, and have a units attribute which determines how the integer should be interpreted:
 
@@ -575,7 +604,6 @@ attributes(one_week_2)
 #> [1] "days"
 ```
 
-
 ### Exercises
 
 1.  What sort of object does `table()` return? What is its type? What 
@@ -602,13 +630,15 @@ attributes(one_week_2)
 
 ## Lists
 \index{lists} 
-\index{vectors!lists|see{lists}}
+\index{vectors!recursive|see{lists}}
+\index{vectors!generic|see{lists}}
 
 Lists are a step up in complexity from atomic vectors because an element of a list can be any type (not just vectors). An element of a list can even be another list!
 
 <!-- GVW: as before, I think that saying "gosh, this is different" may not be appropriate for your audience - anyone capable of reading this material will probably comfortable with the idea of lists-of-lists, and with the idea of a list being a vector of references. -->
 
 ### Creating {#list-creating}
+\indexc{list()}
 
 Construct lists with `list()`: 
 
@@ -647,7 +677,7 @@ lobstr::obj_size(l2)
 Lists can contain complex objects so it's not possible to pick one visual style that works for every list. Generally I'll draw lists like vectors, using colour to remind you of the hierarchy.
 
 
-\begin{center}\includegraphics[width=4.67in]{diagrams/vectors/list} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/list} \end{center}
 
 Lists are sometimes called __recursive__ vectors, because a list can contain other lists. This makes them fundamentally different from atomic vectors.
 
@@ -661,7 +691,7 @@ str(l3)
 #>   .. ..$ : num 1
 ```
 
-\begin{center}\includegraphics[width=1.08in]{diagrams/vectors/list-recursive} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/list-recursive} \end{center}
 
 `c()` will combine several lists into one. If given a combination of atomic vectors and lists, `c()` will coerce the vectors to lists before combining them. Compare the results of `list()` and `c()`:
 
@@ -683,9 +713,9 @@ str(l5)
 #>  $ : num 4
 ```
 
-\begin{center}\includegraphics[width=2.51in]{diagrams/vectors/list-c} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/list-c} \end{center}
 
-### Testing and coercing {#list-types}
+### Testing and coercion {#list-types}
 
 The `typeof()` a list is `list`. You can test for a list with `is.list()`, and coerce to a list with `as.list()`. 
 
@@ -741,11 +771,12 @@ These are relatively esoteric data structures, but can be useful if you want to 
 ## Data frames and tibbles {#tibble}
 \index{data frames}
 \index{tibbles}
+\indexc{row.names}
 
 There are two important S3 vectors that are built on top of lists: data frames and tibbles.
 
 
-\begin{center}\includegraphics[width=1.67in]{diagrams/vectors/summary-tree-s3-2} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/summary-tree-s3-2} \end{center}
 
 A data frame is the most common way of storing data in R, and is crucial for effective data analysis. A data frame is a named list of equal-length vectors. It has attributes providing the (column) `names`, `row.names`[^rownames], and a class of "data.frame": 
 
@@ -770,13 +801,11 @@ attributes(df1)
 
 Because each element of the list has the same length, data frames have a rectangular structure, and hence shares properties of both the matrix and the list:
 
-<!-- GVW: I don't understand your use of 1d and 2d below: `colnames()` returns a 1D structure for me on `df1`. -->
-
-* A data frame has 1d `names()`, and 2d `colnames()` and
-  `rownames()`[^row.names]. The `names()` and `colnames()` are identical.
+* A data frame has `rownames()`[^row.names] and `colnames()`. The `names()`
+  of a data frame are the column names.
   
-* A data frame has 1d `length()`, and 2d `ncol()` and `nrow()`.
-  The `length()` is the number of columns.
+* A data frame has `nrow()` rows and `ncol()` columns. The `length()` of a 
+  data frame gives the number of columns.
 
 [^row.names]: Technically, you are encouraged to use `row.names()`, not `rownames()` with data frames, but this distinction is rarely important.
 
@@ -911,14 +940,15 @@ tibble(
 When drawing data frames and tibbles, rather than focussing on the implementation details, i.e. the attributes:
 
 
-\begin{center}\includegraphics[width=2.65in]{diagrams/vectors/data-frame-1} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/data-frame-1} \end{center}
 
 I'll draw them in the same way as a named list, but arranged to emphasise their columnar structure.
 
 
-\begin{center}\includegraphics[width=1.08in]{diagrams/vectors/data-frame-2} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/data-frame-2} \end{center}
 
 ### Row names {#rownames}
+\indexc{row.names}
 
 Data frames allow you to label each row with a "name", a character vector containing only unique values:
 
@@ -1000,16 +1030,16 @@ dplyr::starwars
 #> # A tibble: 87 x 13
 #>    name  height  mass hair_color skin_color eye_color birth_year
 #>    <chr>  <int> <dbl> <chr>      <chr>      <chr>          <dbl>
-#>  1 Luke~    172    77 blond      fair       blue            19  
+#>  1 Luke…    172    77 blond      fair       blue            19  
 #>  2 C-3PO    167    75 <NA>       gold       yellow         112  
-#>  3 R2-D2     96    32 <NA>       white, bl~ red             33  
-#>  4 Dart~    202   136 none       white      yellow          41.9
-#>  5 Leia~    150    49 brown      light      brown           19  
-#>  6 Owen~    178   120 brown, gr~ light      blue            52  
-#>  7 Beru~    165    75 brown      light      blue            47  
+#>  3 R2-D2     96    32 <NA>       white, bl… red             33  
+#>  4 Dart…    202   136 none       white      yellow          41.9
+#>  5 Leia…    150    49 brown      light      brown           19  
+#>  6 Owen…    178   120 brown, gr… light      blue            52  
+#>  7 Beru…    165    75 brown      light      blue            47  
 #>  8 R5-D4     97    32 <NA>       white, red red             NA  
-#>  9 Bigg~    183    84 black      light      brown           24  
-#> 10 Obi-~    182    77 auburn, w~ fair       blue-gray       57  
+#>  9 Bigg…    183    84 black      light      brown           24  
+#> 10 Obi-…    182    77 auburn, w… fair       blue-gray       57  
 #> # ... with 77 more rows, and 6 more variables: gender <chr>,
 #> #   homeworld <chr>, species <chr>, films <list>, vehicles <list>,
 #> #   starships <list>
@@ -1125,7 +1155,7 @@ data.frame(
 ```
 
 
-\begin{center}\includegraphics[width=1.97in]{diagrams/vectors/data-frame-list} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/data-frame-list} \end{center}
 
 List columns are easier to use with tibbles because you can provide them inside `tibble()`, and they are handled specially when printing:
 
@@ -1165,7 +1195,7 @@ str(dfm)
 #>   ..$ b: chr  "a" "b" "c"
 ```
 
-\begin{center}\includegraphics[width=2.6in]{diagrams/vectors/data-frame-matrix} \end{center}
+\begin{center}\includegraphics{diagrams/vectors/data-frame-matrix} \end{center}
 
 Matrix and data frame columns require a little caution. Many functions that work with data frames assume that all columns are vectors, and the printed display can be confusing.
 
@@ -1189,6 +1219,7 @@ dfm[1, ]
     columns of different types? How does it differ from `data.matrix()`?
 
 ## `NULL`
+\indexc{NULL}
 
 To finish up the chapter, I wanted to talk about a final important data structure that's closely related to vectors: `NULL`. `NULL` is special because it has a unique type, is always length 0, and can't have any attributes:
 

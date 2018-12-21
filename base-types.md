@@ -1,6 +1,8 @@
 # Base types {#base-types}
 
 ## Introduction
+\index{base object}
+\index{OO object}
 
 
 
@@ -9,7 +11,7 @@ To talk about objects and OOP in R we first need to clear up a fundamental confu
 Most of the time, the distinction between objects and object-oriented objects is not important. But here we need to get into the nitty gritty details so we'll use the terms __base objects__ and __OO objects__ to distinguish them.
 
 
-\begin{center}\includegraphics[width=2.21in]{diagrams/oo-venn} \end{center}
+\begin{center}\includegraphics{diagrams/oo-venn} \end{center}
 
 ### Outline {-} 
 
@@ -20,8 +22,9 @@ Most of the time, the distinction between objects and object-oriented objects is
   
 ## Base vs OO objects {#base-vs-oo}
 \indexc{is.object()}
-\indexc{mode()}
+\indexc{otype()}
 \index{attributes!class}
+\indexc{class()}
 
 To tell the difference between a base and OO object, use `is.object()` or `sloop::otype()`:
 
@@ -63,9 +66,9 @@ sloop::s3_class(x)
 ```
 
 ## Base types {#base-types-2}
-\indexc{mode()}
 \indexc{typeof()}
- 
+\index{base type}
+
 While only OO objects have a class attribute, every object has a __base type__:
 
 
@@ -157,9 +160,14 @@ In total, there are 25 different base types. They are listed below, loosely grou
     `bytecode` (`BCODESXP`), `promise` (`PROMSXP`), `...` (`DOTSXP`), and 
     `any` (`ANYSXP`).
 
+\indexc{mode()}
 You may have heard of `mode()` and `storage.mode()`. Do not use these functions: they exist only to provide type names that are compatible with S. 
 
 ### Numeric type {#numeric-type}
+\index{numeric vectors}
+\index{vectors!numeric}
+\indexc{is.numeric()}
+\indexc{as.numeric()}
 
 Be careful when talking about the "numeric" type, because R uses "numeric" to mean three slightly different things:
 

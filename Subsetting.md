@@ -16,8 +16,6 @@ R's subsetting operators are powerful and fast. Mastery of subsetting allows you
 
 * The use of subsetting together with assignment.
 
-This chapter helps you master subsetting by starting with the simplest type of subsetting: subsetting an atomic vector with `[`. It then gradually extends your knowledge, first to more complicated data types (like arrays and lists), and then to the other subsetting operators, `[[` and `$`. You'll then learn how subsetting and assignment can be combined to modify parts of an object, and, finally, you'll see a large number of useful applications.
-
 Subsetting is a natural complement to `str()`. `str()` shows you the structure of any object, and subsetting allows you to pull out the pieces that you're interested in. For large, complex objects, I also highly recommend the interactive RStudio Viewer, which you can activate with `View(my_object)`.
 
 ### Quiz {-}
@@ -38,8 +36,6 @@ Take this short quiz to determine if you need to read this chapter. If the answe
 
 ### Outline {-}
 
-<!-- GVW: this more or less repeats the paragraph above starting "This chapter helps you master..." -->
-
 * Section \@ref(subset-multiple) starts by teaching you about `[`. You'll start
   by learning the six types of data that you can use to subset atomic vectors.
   You'll then learn how those six data types act when used to subset lists,
@@ -58,6 +54,7 @@ Take this short quiz to determine if you need to read this chapter. If the answe
   often encounter in a data analysis.
 
 ## Selecting multiple elements {#subset-multiple}
+\indexc{[}
 
 It's easiest to learn how subsetting works for atomic vectors, and then how it generalises to higher dimensions and other more complicated objects. We'll start with `[`, the most commonly used operator which allows you to extract any number of elements. Section \@ref(subset-single) will cover `[[` and `$`, used to extract a single element from a data structure.
 
@@ -66,7 +63,6 @@ It's easiest to learn how subsetting works for atomic vectors, and then how it g
 ### Atomic vectors
 \index{subsetting!atomic vectors} 
 \index{atomic vectors!subsetting} 
-\indexc{[}
 
 Let's explore the different types of subsetting with a simple vector, `x`. 
 
@@ -80,7 +76,6 @@ Note that the number after the decimal point gives the original position in the 
 There are six things that you can use to subset a vector: 
 
 *   __Positive integers__ return elements at the specified positions: 
-    \index{subsetting!with positive integers}
 
     
     ```r
@@ -99,7 +94,6 @@ There are six things that you can use to subset a vector:
     ```
 
 *   __Negative integers__ omit elements at the specified positions:
-    \index{subsetting!with negative integers}
 
     
     ```r
@@ -119,7 +113,6 @@ There are six things that you can use to subset a vector:
 *   __Logical vectors__ select elements where the corresponding logical 
     value is `TRUE`. This is probably the most useful type of subsetting
     because you can write an expression that creates the logical vector:
-    \index{subsetting!with logical vectors}
 
     
     ```r
@@ -170,8 +163,8 @@ There are six things that you can use to subset a vector:
     #> numeric(0)
     ```
 
-*   If the vector is named, you can also use __character vectors__ to return elements with matching names.
-    \index{subsetting!with character vectors}
+*   If the vector is named, you can also use __character vectors__ to return
+    elements with matching names.
 
     
     ```r
@@ -336,7 +329,7 @@ str(df[, "x"])
 \index{subsetting!simplifying} 
 \index{subsetting!preserving}
 
-By default, subsetting a 2d data structures with a single number, single name, or a logical vector containing a single `TRUE` will simplify the returned output, i.e. it will return an object with lower dimensionality. To preserve the original dimensionality, you must use `drop = FALSE`
+By default, subsetting a matrix or data frame with a single number, single name, or a logical vector containing a single `TRUE`, will simplify the returned output, i.e. it will return an object with lower dimensionality. To preserve the original dimensionality, you must use `drop = FALSE`.
 
 *   For matrices and arrays, any dimensions with length 1 will be dropped:
     
@@ -363,12 +356,9 @@ By default, subsetting a 2d data structures with a single number, single name, o
     #>  $ a: int  1 2
     ```
 
-*   Tibbles default to `drop = FALSE`, and `[` will never return a single 
-    vector.
+The default `drop = TRUE` behaviour is a common source of bugs in functions: you check your code with a data frame or matrix with multiple columns, and it works. Six months later you (or someone else) uses it with a single column data frame and it fails with a mystifying error. When writing functions, get in the habit of always using `drop = FALSE` when subsetting a 2d object. For this reason, tibbles default to `drop = FALSE`, and `[` always returns another tibble.
 
-The default `drop = TRUE` behaviour is a common source of bugs in functions: you check your code with a data frame or matrix with multiple columns, and it works. Six months later you (or someone else) uses it with a single column data frame and it fails with a mystifying error. When writing functions, get in the habit of always using `drop = FALSE` when subsetting a 2d object.
-
-Factor subsetting also has a `drop` argument, but the meaning is rather different. It controls whether or not levels are preserved (not the dimensionality), and it defaults to `FALSE` (levels are preserved, not simplified by default). If you find you are using `drop = TRUE` a lot it's often a sign that you should be using a character vector instead of a factor.
+Factor subsetting also has a `drop` argument, but the meaning is rather different. It controls whether or not levels (not dimensions) are preserved, and it defaults to `FALSE`. If you find you're  using `drop = TRUE` a lot it's often a sign that you should be using a character vector instead of a factor.
 
 
 ```r
@@ -445,17 +435,17 @@ Let's make a simple list and draw it as a train:
 x <- list(1:3, "a", 4:6)
 ```
 
-\begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train} \end{center}
+\begin{center}\includegraphics{diagrams/subsetting/train} \end{center}
 
 When extracting a single element, you have two options: you can create a smaller train, or  you can extract the contents of a carriage. This is the difference between `[` and `[[`:
 
 
-\begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train-single} \end{center}
+\begin{center}\includegraphics{diagrams/subsetting/train-single} \end{center}
 
 When extracting multiple elements (or zero!), you have to make a smaller train:
 
 
-\begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train-multiple} \end{center}
+\begin{center}\includegraphics{diagrams/subsetting/train-multiple} \end{center}
 
 Because it can return only a single item, you must use `[[` with either a single positive integer or a string. If you use a vector with `[[`, it will subset recursively:
 
@@ -539,6 +529,8 @@ x$a
 ### Missing/out of bounds indices
 \index{subsetting!with NA \& NULL} 
 \index{subsetting!out of bounds}
+\indexc{pluck()}
+\indexc{chuck()}
 
 It's useful to understand what happens with `[[` when you use an "invalid" index. The following tables summarise what happens when you subset a logical vector, list, and `NULL` with an out-of-bounds value (OOB), a missing value (e.g. `NA_integer_`), and a zero-length object (like `NULL` or `logical()`) with `[[` . Each cell shows the result of subsetting the data structure named in the row by the type of index described in the column. I've only shown the results for logical vectors, but other atomic vectors behave similarly, returning elements of the same type.
 
@@ -554,21 +546,7 @@ It's useful to understand what happens with `[[` when you use an "invalid" index
 
 If the input vector is named, then the names of OOB, missing, or `NULL` components will be `"<NA>"`.
 
-The inconsistency of the `[[` table above led to the development of `purrr::pluck()` and `purrr::chuck()`. `pluck()` always returns `NULL` (or the value of the `.default` argument) when the element is missing; `chuck()` always throws an error:
-
-| `pluck(row, col)` | Zero-length | OOB (int)  | OOB (chr) | Missing  |
-|-------------------|-------------|------------|-----------|----------|
-| `NULL`            | `NULL`      | `NULL`     | `NULL`    | `NULL`   |
-| Atomic            | `NULL`      | `NULL`     | `NULL`    | `NULL`   |
-| List              | `NULL`      | `NULL`     | `NULL`    | `NULL`   |
-
-| `chuck(row, col)` | Zero-length | OOB (int)  | OOB (chr) | Missing  |
-|-------------------|-------------|------------|-----------|----------|
-| `NULL`            | Error       | Error      | Error     | Error    |
-| Atomic            | Error       | Error      | Error     | Error    |
-| List              | Error       | Error      | Error     | Error    |
-
-The behaviour of `pluck()` makes it well suited for indexing into deeply nested data structures where the component you want does not always exist (as is common when working with JSON data from web APIs). `pluck()` also allows you to mingle integer and character indexes, and to provide an alternative default value if the item does not exist:
+The inconsistency of the `[[` table above led to the development of `purrr::pluck()` and `purrr::chuck()`. `pluck()` always returns `NULL` (or the value of the `.default` argument) when the element is missing; `chuck()` always throws an error. The behaviour of `pluck()` makes it well suited for indexing into deeply nested data structures where the component you want does not always exist (as is common when working with JSON data from web APIs). `pluck()` also allows you to mingle integer and character indexes, and to provide an alternative default value if the item does not exist:
 
 
 ```r
@@ -593,7 +571,7 @@ purrr::pluck(x, "c", 1, .default = NA)
 \index{subsetting!S4} 
 \index{S4!subsetting}
 
-There are also two additional subsetting operators that are needed for S4 objects: `@` (equivalent to `$`), and `slot()` (equivalent to `[[`). `@` is more restrictive than `$` in that it will return an error if the slot does not exist. These are described in more detail in [S4].
+There are also two additional subsetting operators that are needed for S4 objects: `@` (equivalent to `$`), and `slot()` (equivalent to `[[`). `@` is more restrictive than `$` in that it will return an error if the slot does not exist. These are described in more detail in Chapter \@ref(s4).
 
 ### Exercises
 
@@ -609,6 +587,7 @@ There are also two additional subsetting operators that are needed for S4 object
 ## Subsetting and assignment {#subassignment}
 \index{subsetting!subassignment} 
 \index{assignment!subassignment}
+\index{lists!removing an element}
 
 All subsetting operators can be combined with assignment to modify selected values of the input vector, so called subassignment. The basic form is `x[i] <- value`:
 
@@ -622,7 +601,7 @@ x
 
 I recommend ensuring that `length(value)` and `length(x[i])` are equal, and that `i` is unique. R does recycle if needed, but the rules are complex (particularly if `i` contains missing or duplicated values).
 
-With lists, you can use `x[[i]] <- NULL` to remove a component. To add a literal `NULL`, use `x[i] <- list(NULL)`: \index{lists!removing an element}
+With lists, you can use `x[[i]] <- NULL` to remove a component. To add a literal `NULL`, use `x[i] <- list(NULL)`: 
 
 
 ```r
@@ -761,8 +740,10 @@ df[sample(nrow(df), 6, replace = TRUE), ]
 The arguments of `sample()` control the number of samples to extract, and whether sampling is performed with or without replacement.
 
 ### Ordering (integer subsetting)
-
-`order()` takes a vector as input and returns an integer vector describing how the subsetted vector should be ordered: \indexc{order()} \index{sorting}
+\indexc{order()} 
+\index{sorting}
+ 
+`order()` takes a vector as input and returns an integer vector describing how the subsetted vector should be ordered:
 
 <!-- GVW: note that these are 'pull' indices: `order(x)[i]` is the index in `x` of the element that belongs at location `i`, not the index in the result to which `x[i]` should be sent. -->
 

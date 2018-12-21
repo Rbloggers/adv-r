@@ -4,7 +4,7 @@
 
 ## Introduction
 
-The combination of first-class environments, lexical scoping, and metaprogramming gives us a powerful toolkit for translating R code into other languages. One fully-fledged example of this idea is dbplyr, which powers the database backends for dplyr, allowing you to express data maniplation in R and automatically translate it into SQL. You can see the key idea in  `translate_sql()` which takes R code and returns the equivalen SQL:
+The combination of first-class environments, lexical scoping, and metaprogramming gives us a powerful toolkit for translating R code into other languages. One fully-fledged example of this idea is dbplyr, which powers the database backends for dplyr, allowing you to express data manipulation in R and automatically translate it into SQL. You can see the key idea in  `translate_sql()` which takes R code and returns the equivalent SQL:
 
 
 ```r
@@ -19,38 +19,31 @@ translate_sql(select == 7)
 #> <SQL> "select" = 7.0
 ```
 
-Translating R to SQL is complex because of the many idiosyncracies of the different SQL dialects. So here I'll develop two simple, but useful, domain specific languages (DSL): one to generate HTML, and the other to generate mathemetical equations LaTeX. If you're interested in learning more about domain specific languages in general, I highly recommend  _Domain Specific Languages_ [@dsls]. It discusses many options for creating a DSL and provides many examples of different languages.
+Translating R to SQL is complex because of the many idiosyncrasies of different SQL dialects, so here I'll develop two simple, but useful, domain specific languages (DSL): one to generate HTML, and the other to generate mathematical equations LaTeX. If you're interested in learning more about domain specific languages in general, I highly recommend  _Domain Specific Languages_ [@dsls]. It discusses many options for creating a DSL and provides many examples of different languages.
 
-### Outline {-} 
+### Outline {-}
 
-* Section \@ref(html) creates a DSL for generating HTML, using quasiquotation 
+* Section \@ref(html) creates a DSL for generating HTML, using quasiquotation
   and purrr to generate a function for each HTML tag, then tidy evaluation to
   easily access them.
-  
-* Section \@ref(latex) transforms mathematically R code into it's latex 
+
+* Section \@ref(latex) transforms mathematically R code into its LaTeX
   equivalent using a combination of tidy evaluation and expression walking.
 
-### Prerequisites {-} 
+### Prerequisites {-}
 
-This chapter together pulls together many techniques discussed elsewhere in the book. In particular, you'll need to understand environments, expressions, tidy evaluation, and a little functional programming and S3. We'll use rlang for its metaprogramming tools, and purrr for its mapping functions.
+This chapter together pulls together many techniques discussed elsewhere in the book. In particular, you'll need to understand environments, expressions, tidy evaluation, and a little functional programming and S3. We'll use [rlang](https://rlang.r-lib.org) for metaprogramming tools, and [purrr](https://purrr.tidyverse.org) for functional programming.
 
 
 ```r
 library(rlang)
 library(purrr)
-#> 
-#> Attaching package: 'purrr'
-#> The following objects are masked from 'package:rlang':
-#> 
-#>     %@%, %||%, as_function, flatten, flatten_chr,
-#>     flatten_dbl, flatten_int, flatten_lgl, invoke,
-#>     list_along, modify, prepend, rep_along, splice
 ```
 
 ## HTML {#html}
 \index{HTML}
 
-HTML (hypertext markup language) is the language that underlies the majority of the web. It's a special case of SGML (standard generalised markup language), and it's similar but not identical to XML (extensible markup language). HTML looks like this: 
+HTML (HyperText Markup Language) is the language that underlies the majority of the web. It's a special case of SGML (Standard Generalised Markup Language), and it's similar but not identical to XML (eXtensible Markup Language). HTML looks like this:
 
 ```html
 <body>
@@ -68,11 +61,11 @@ Even if you've never looked at HTML before, you can still see that the key compo
 * `<b>` emboldens text.
 * `<img>` embeds an image.
 
-Tags can also have named __attributes__ which look like `<tag name1='value1' name2='value2'></tag>`. Two important attributes used with just about every tag are `id` and `class`. These are used in conjunction with CSS (cascading style sheets) in order to control the visual appearance of the page.
+Tags can also have named __attributes__ which look like `<tag name1='value1' name2='value2'></tag>`. Two of the most important attributes are `id` and `class`, which are used in conjunction with CSS (Cascading Style Sheets) to control the visual appearance of the page.
 
 __Void tags__, like `<img>`, don't have any content, and are written `<img />`, not `<img></img>`. Since they have no content, attributes are more important, and  `img` has three that are used with almost every image: `src` (where the image lives), `width`, and `height`.
 
-Because `<` and `>` have special meanings in HTML, you can't write them directly. Instead you have to use the HTML __escapes__: `&gt;` and `&lt;`. And, since those escapes use `&`, if you want a literal ampersand you have to escape it with `&amp;`.
+Because `<` and `>` have special meanings in HTML, you can't write them directly. Instead you have to use the HTML __escapes__: `&gt;` and `&lt;`. And since those escapes use `&`, if you want a literal ampersand you have to escape it as `&amp;`.
 
 ### Goal
 
@@ -101,11 +94,11 @@ with_html(
 
 This DSL has the following three properties:
 
-* The nesting of function calls matches the nesting of tags. 
+* The nesting of function calls matches the nesting of tags.
 
-* Unnamed arguments become the content of the tag, and named arguments 
-  become their attributes. 
-  
+* Unnamed arguments become the content of the tag, and named arguments
+  become their attributes.
+
 * `&` and other special characters are automatically escaped.
 
 ### Escaping
@@ -116,8 +109,8 @@ Escaping is so fundamental to translation that it'll be our first topic. There a
 * In user input, we need to automatically escape `&`, `<` and `>`.
 
 * At the same time we need to make sure that the `&`, `<` and `>` we generate
-  are not double-escaped (i.e. to `&amp;amp;`, `&amp;lt;` and `&amp;gt;`).
-  
+  are not double-escaped (i.e. that we don't accidentally generate `&amp;amp;`, `&amp;lt;` and `&amp;gt;`).
+
 The easiest way to do this is to create an S3 class that distinguishes between regular text (that needs escaping) and HTML (that doesn't).
 
 
@@ -135,7 +128,7 @@ We then write an escape generic. It has two important methods:
 
 * `escape.character()` takes a regular character vector and returns an HTML
   vector with special characters (`&`, `<`, `>`) escaped.
-  
+
 * `escape.advr_html()` which leaves already escaped HTML as is.
 
 
@@ -171,20 +164,20 @@ escape(html("<hr />"))
 #> <HTML> <hr />
 ```
 
-Conveniently, this also allows a user to opt-out of our escaping if they know the content is already escaped.
+Conveniently, this also allows a user to opt out of our escaping if they know the content is already escaped.
 
 ### Basic tag functions
 
-Next, we'll write a one tag function by hand, then figure out how to generalise it so we can generate a function for every tag with code. 
+Next, we'll write a one-tag function by hand, then figure out how to generalise it so we can generate a function for every tag with code.
 
-Let's start with `<p>`. HTML tags can have both attributes (e.g., id or class) and children (like `<b>` or `<i>`). We need some way of separating these in the function call. Given that attributes are named values and children are not, it seems natural to separate using named arguments from unnamed ones. For example, a call to `p()` might look like:
+Let's start with `<p>`. HTML tags can have both attributes (e.g., id or class) and children (like `<b>` or `<i>`). We need some way of separating these in the function call. Given that attributes are named values and children are not, it seems natural to use named and unnamed arguments for them respectively. For example, a call to `p()` might look like:
 
 
 ```r
 p("Some text. ", b(i("some bold italic text")), class = "mypara")
 ```
 
-We could list all the possible attributes of the `<p>` tag in the function definition. But that's hard not only because there are many attributes, but also because it's possible to use [custom attributes](http://html5doctor.com/html5-custom-data-attributes/). Instead, we'll use `...` and separate the components based on whether or not they are named. With this in mind, we create a helper function that wraps around `rlang::list2()` (so we can use `!!` and `!!!`) and returns named and unnamed components separately:
+We could list all the possible attributes of the `<p>` tag in the function definition, but that's hard because there are many attributes, and because it's possible to use [custom attributes](http://html5doctor.com/html5-custom-data-attributes/). Instead, we'll use `...` and separate the components based on whether or not they are named. With this in mind, we create a helper function that wraps around `rlang::list2()` (so we can use `!!` and `!!!`) and returns named and unnamed components separately:
 
 
 ```r
@@ -208,7 +201,9 @@ str(dots_partition(a = 1, 2, b = 3, 4))
 #>   ..$ : num 4
 ```
 
-We can now create our `p()` function. Notice that there's one new function here: `html_attributes()`. It takes a named list and returns the HTML attribute specification as a string. It's a little complicated (in part, because it deals with some idiosyncracies of HTML that I haven't mentioned here), but it's not that important and doesn't introduce any new programming ideas, so I won't discuss it here. You can find the [source online](https://github.com/hadley/adv-r/blob/master/dsl-html-attributes.r) if you want to work through it yourself.
+We can now create our `p()` function. Notice that there's one new function here: `html_attributes()`. It takes a named list and returns the HTML attribute specification as a string. It's a little complicated (in part, because it deals with some idiosyncrasies of HTML that I haven't mentioned here), but it's not that important and doesn't introduce any new programming ideas, so I won't discuss it in detail. You can find the [source online](https://github.com/hadley/adv-r/blob/master/dsl-html-attributes.r) if you want to work through it yourself.
+
+<!-- GVW: possible/useful to show a very simple version of `html_attributes`, then point out one or two cases for which it fails, then tell them to read the source? I'm always nervous when someone tells me "you don't need to worry about the details of this" -->
 
 
 ```r
@@ -217,7 +212,7 @@ p <- function(...) {
   dots <- dots_partition(...)
   attribs <- html_attributes(dots$named)
   children <- map_chr(dots$unnamed, escape)
-  
+
   html(paste0(
     "<p", attribs, ">",
     paste(children, collapse = ""),
@@ -237,6 +232,8 @@ p("Some text", class = "important", `data-value` = 10)
 
 It's straightforward to adapt `p()` to other tags: we just need to replace `"p"` with the name of the tag. One elegant way to do that is to create a function with `rlang::new_function()`, using unquoting and `paste0()` to generate the starting and ending tags.
 
+<!-- GVW: explain what `exprs(... = )` does and why it works? `grep` doesn't find this particular idiom in other files. -->
+
 
 ```r
 tag <- function(tag) {
@@ -246,7 +243,7 @@ tag <- function(tag) {
       dots <- dots_partition(...)
       attribs <- html_attributes(dots$named)
       children <- map_chr(dots$unnamed, escape)
-  
+
       html(paste0(
         !!paste0("<", tag), attribs, ">",
         paste(children, collapse = ""),
@@ -275,9 +272,10 @@ p <- tag("p")
 b <- tag("b")
 i <- tag("i")
 p("Some text. ", b(i("some bold italic text")), class = "mypara")
-#> <HTML> <p class='mypara'>Some text. <b><i>some bold italic
-#> text</i></b></p>
+#> <HTML> <p class='mypara'>Some text. <b></b></p>
 ```
+
+<!-- GVW: does the function above fail when `tag` is empty in the way that the function below does? -->
 
 Before we generate functions for every possible HTML tag, we need to create a variant that handles void tags. `void_tag()` is quite similar to `tag()`, but it throws an error if there are any unnamed tags, and the tag itself looks a little different.
 
@@ -285,14 +283,14 @@ Before we generate functions for every possible HTML tag, we need to create a va
 ```r
 void_tag <- function(tag) {
   new_function(
-    exprs(... = ), 
+    exprs(... = ),
     expr({
       dots <- dots_partition(...)
       if (length(dots$unnamed) > 0) {
         stop(!!paste0("<", tag, "> must not have unnamed arguments"), call. = FALSE)
       }
       attribs <- html_attributes(dots$named)
-  
+
       html(paste0(!!paste0("<", tag), attribs, " />"))
     }),
     caller_env()
@@ -314,30 +312,30 @@ img(src = "myimage.png", width = 100, height = 100)
 #> <HTML> <img src='myimage.png' width='100' height='100' />
 ```
 
-### Processing all tags
+### Processing all tags {#html-env}
 
 Next we need to generate these functions for every tag. We'll start with a list of all HTML tags:
 
 
 ```r
-tags <- c("a", "abbr", "address", "article", "aside", "audio", 
-  "b","bdi", "bdo", "blockquote", "body", "button", "canvas", 
-  "caption","cite", "code", "colgroup", "data", "datalist", 
-  "dd", "del","details", "dfn", "div", "dl", "dt", "em", 
-  "eventsource","fieldset", "figcaption", "figure", "footer", 
-  "form", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", 
-  "hgroup", "html", "i","iframe", "ins", "kbd", "label", 
-  "legend", "li", "mark", "map","menu", "meter", "nav", 
-  "noscript", "object", "ol", "optgroup", "option", "output", 
-  "p", "pre", "progress", "q", "ruby", "rp","rt", "s", "samp", 
-  "script", "section", "select", "small", "span", "strong", 
-  "style", "sub", "summary", "sup", "table", "tbody", "td", 
+tags <- c("a", "abbr", "address", "article", "aside", "audio",
+  "b","bdi", "bdo", "blockquote", "body", "button", "canvas",
+  "caption","cite", "code", "colgroup", "data", "datalist",
+  "dd", "del","details", "dfn", "div", "dl", "dt", "em",
+  "eventsource","fieldset", "figcaption", "figure", "footer",
+  "form", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header",
+  "hgroup", "html", "i","iframe", "ins", "kbd", "label",
+  "legend", "li", "mark", "map","menu", "meter", "nav",
+  "noscript", "object", "ol", "optgroup", "option", "output",
+  "p", "pre", "progress", "q", "ruby", "rp","rt", "s", "samp",
+  "script", "section", "select", "small", "span", "strong",
+  "style", "sub", "summary", "sup", "table", "tbody", "td",
   "textarea", "tfoot", "th", "thead", "time", "title", "tr",
   "u", "ul", "var", "video"
 )
 
 void_tags <- c("area", "base", "br", "col", "command", "embed",
-  "hr", "img", "input", "keygen", "link", "meta", "param", 
+  "hr", "img", "input", "keygen", "link", "meta", "param",
   "source", "track", "wbr"
 )
 ```
@@ -352,17 +350,16 @@ html_tags <- c(
 )
 ```
 
-This gives us an explicit (but verbose) way to call create HTML:
+This gives us an explicit (but verbose) way to create HTML:
 
 
 ```r
 html_tags$p(
-  "Some text. ", 
-  html_tags$b(html_tags$i("some bold italic text")), 
+  "Some text. ",
+  html_tags$b(html_tags$i("some bold italic text")),
   class = "mypara"
 )
-#> <HTML> <p class='mypara'>Some text. <b><i>some bold italic
-#> text</i></b></p>
+#> <HTML> <p class='mypara'>Some text. <b></b></p>
 ```
 
 We can then finish off our HTML DSL with a function that allows us to evaluate code in the context of that list. Here we slightly abuse the data mask, passing it a list of functions rather than a data frame. This is quick hack to mingle the execution environment of `code` with the functions in `html_tags`.
@@ -386,36 +383,34 @@ with_html(
     img(src = "myimg.png", width = 100, height = 100)
   )
 )
-#> <HTML> <body><h1 id='first'>A heading</h1><p>Some text
-#> &amp;<b>some bold text.</b></p><img src='myimg.png'
-#> width='100' height='100' /></body>
+#> <HTML> <body></body>
 ```
 
 If you want to access the R function overridden by an HTML tag with the same name inside `with_html()`, you can use the full `package::function` specification.
 
 ### Exercises
 
-1.  The escaping rules for `<script>` tags are different because they contain 
-    javascript, not HTML. Instead of escaping angle  brackets or ampersands,
+1.  The escaping rules for `<script>` tags are different because they contain
+    JavaScript, not HTML. Instead of escaping angle  brackets or ampersands,
     you need to escape `</script>` so that the tag isn't closed too early.
     For example, `script("'</script>'")`, shouldn't generate this:
-    
+
     ```html
     <script>'</script>'</script>
     ```
-    
-    But    
-    
+
+    But
+
     ```html
     <script>'<\/script>'</script>
     ```
-    
+
     Adapt the code above to follow these rules.
 
 1.  The use of `...` for all functions has some big downsides. There's no
     input validation and there will be little information in the
-    documentation or autocomplete about how they are used in the function. 
-    Create a new function that, when given a named list of tags and their   
+    documentation or autocomplete about how they are used in the function.
+    Create a new function that, when given a named list of tags and their
     attribute names (like below), creates tag functions with named arguments.
 
     
@@ -433,19 +428,19 @@ If you want to access the R function overridden by an HTML tag with the same nam
     (You may need to do some research into block vs inline tags.)
 
 1.  Reason about the following code that calls `with_html()` referencing objects
-    from the environment. Will it work or fail? Why? Run the code to 
+    from the environment. Will it work or fail? Why? Run the code to
     verify your predictions.
-    
+
     
     ```r
     greeting <- "Hello!"
     with_html(p(greeting))
     
-    p <- function() "p" 
+    p <- function() "p"
     address <- "123 anywhere street"
     with_html(p(address))
     ```
-    
+
 
 ## LaTeX {#latex}
 \index{LaTeX}
@@ -456,20 +451,20 @@ Because we need to convert both functions and names, this mathematical DSL will 
 
 ### LaTeX mathematics
 
-Before we begin, let's quickly cover how formulas are expressed in LaTeX. The full spectrum of LaTeX mathematical notation is complex. Fortunately, they are [well documented](http://en.wikibooks.org/wiki/LaTeX/Mathematics), and the most common commands  have a fairly simple structure:
+Before we begin, let's quickly cover how formulas are expressed in LaTeX. The full standard is very complex, but fortunately is [well documented](http://en.wikibooks.org/wiki/LaTeX/Mathematics), and the most common commands have a fairly simple structure:
 
 * Most simple mathematical equations are written in the same way you'd type
   them in R: `x * y`, `z ^ 5`. Subscripts are written using `_` (e.g., `x_1`).
 
 * Special characters start with a `\`: `\pi` = π, `\pm` = ±, and so on.
-  There are a huge number of symbols available in LaTeX. Googling for
-  `latex math symbols` will return many 
-  [lists](http://www.sunilpatel.co.uk/latex-type/latex-math-symbols/). 
-  There's even [a service](http://detexify.kirelabs.org/classify.html) that 
+  There are a huge number of symbols available in LaTeX: searching online for
+  `latex math symbols` returns many
+  [lists](http://www.sunilpatel.co.uk/latex-type/latex-math-symbols/).
+  There's even [a service](http://detexify.kirelabs.org/classify.html) that
   will look up the symbol you sketch in the browser.
 
 * More complicated functions look like `\name{arg1}{arg2}`. For example, to
-  write a fraction you'd use `\frac{a}{b}`. To write a square root, you'd use 
+  write a fraction you'd use `\frac{a}{b}`. To write a square root, you'd use
   `\sqrt{a}`.
 
 * To group elements together use `{}`: i.e., `x ^ a + b` vs. `x ^ {a + b}`.
@@ -479,6 +474,7 @@ Before we begin, let's quickly cover how formulas are expressed in LaTeX. The fu
   `f(a * b)` represents calling the function `f` with input `a * b`,
   or is shorthand for `f * (a * b)`. If `f` is a function, you can tell
   LaTeX to typeset it using an upright font with `\textrm{f}(a * b)`.
+  (The `rm` stands for "Roman", to distinguish the font from "it" for "italics".)
 
 ### Goal
 
@@ -497,13 +493,13 @@ We'll code this translation in the opposite direction of what we did with the HT
 
 ### `to_math`()
 
-To begin, we need a wrapper function that will convert R expressions into LaTeX math expressions. This will work similarly to `to_html()`: capturing the unevaluated expression and evaluate it in a special environment. There are two main differences:
+To begin, we need a wrapper function that will convert R expressions into LaTeX math expressions. This will work like `to_html()` by capturing the unevaluated expression and evaluating it in a special environment. There are two main differences:
 
-* The evaluation environment is no longer constant, as it has to vary depending 
+* The evaluation environment is no longer constant, as it has to vary depending on
   the input. This is necessary to handle unknown symbols and functions.
 
-* We never evaluate in the argument environment because we're traslating every
-  function to a latex expression. The user will need to explicit use `!!` in
+* We never evaluate in the argument environment because we're translating every
+  function to a LaTeX expression. The user will need to use explicitly `!!` in
   order to evaluate normally.
 
 This gives us:
@@ -513,7 +509,7 @@ This gives us:
 to_math <- function(x) {
   expr <- enexpr(x)
   out <- eval_bare(expr, latex_env(expr))
-  
+
   latex(out)
 }
 
@@ -523,11 +519,11 @@ print.advr_latex <- function(x) {
 }
 ```
 
-Next we'll build up `latex_env()`, starting simple and getting progressively more complex.
+Next we'll build up `latex_env()`, starting simply and getting progressively more complex.
 
 ### Known symbols
 
-Our first step is to create an environment that will convert the special LaTeX symbols used for Greek character, e.g., `pi` to `\pi`. We'll use the trick from Section \@ref(subset), binding symbol `pi` to value `"\pi"`.
+Our first step is to create an environment that will convert the special LaTeX symbols used for Greek character, e.g., `pi` to `\pi`. We'll use the trick from Section \@ref(subset) to bind the symbol `pi` to the value `"\pi"`.
 
 
 ```r
@@ -536,7 +532,7 @@ greek <- c(
   "gamma", "varpi", "phi", "delta", "kappa", "rho",
   "varphi", "epsilon", "lambda", "varrho", "chi", "varepsilon",
   "mu", "sigma", "psi", "zeta", "nu", "varsigma", "omega", "eta",
-  "xi", "Gamma", "Lambda", "Sigma", "Psi", "Delta", "Xi", 
+  "xi", "Gamma", "Lambda", "Sigma", "Psi", "Delta", "Xi",
   "Upsilon", "Omega", "Theta", "Pi", "Phi")
 greek_list <- set_names(paste0("\\", greek), greek)
 greek_env <- as_environment(greek_list)
@@ -560,9 +556,11 @@ Looks good so far!
 
 ### Unknown symbols
 
-If a symbol isn't Greek, we want to leave it as is. This is tricky because we don't know in advance what symbols will be used, and we can't possibly generate them all. Instead, we'll use the approach described in Section \@ref(#ast-funs): walking the AST and to find all symbols. This gives us `all_names_rec()` and helper `all_names()`:
+If a symbol isn't Greek, we want to leave it as is. This is tricky because we don't know in advance what symbols will be used, and we can't possibly generate them all. Instead, we'll use the approach described in Section \@ref(ast-funs): walking the AST and to find all symbols. This gives us `all_names_rec()` and helper `all_names()`:
 
 
+
+<!-- GVW: on first reading I wondered why you bothered to define `switch_expr`, since it only appears to be used once.  Then I saw that there's a second call much further down. Highlight this somehow? -->
 
 
 ```r
@@ -623,9 +621,11 @@ to_math(pi)
 #> <LATEX> \pi
 ```
 
+<!-- GVW: is there no way to re-attach `greek_env` rather than cloning it? Just curious... -->
+
 ### Known functions
 
-Next we'll add functions to our DSL. We'll start with a couple of helpers that make it easy to add new unary and binary operators. These functions are very simple: they only assemble strings. 
+Next we'll add functions to our DSL. We'll start with a couple of helpers that make it easy to add new unary and binary operators. These functions are very simple: they only assemble strings.
 
 
 ```r
@@ -633,7 +633,7 @@ unary_op <- function(left, right) {
   new_function(
     exprs(e1 = ),
     expr(
-      paste0(!!left, e1, !!right)  
+      paste0(!!left, e1, !!right)
     ),
     caller_env()
   )
@@ -643,7 +643,7 @@ binary_op <- function(sep) {
   new_function(
     exprs(e1 = , e2 = ),
     expr(
-      paste0(e1, !!sep, e2)  
+      paste0(e1, !!sep, e2)
     ),
     caller_env()
   )
@@ -670,12 +670,12 @@ f_env <- child_env(
   `/` = binary_op(" / "),
   `^` = binary_op("^"),
   `[` = binary_op("_"),
-  
+
   # Grouping
   `{` = unary_op("\\left{ ", " \\right}"),
   `(` = unary_op("\\left( ", " \\right)"),
   paste = paste,
-  
+
   # Other math functions
   sqrt = unary_op("\\sqrt{", "}"),
   sin =  unary_op("\\sin(", ")"),
@@ -684,14 +684,14 @@ f_env <- child_env(
   frac = function(a, b) {
     paste0("\\frac{", a, "}{", b, "}")
   },
-  
+
   # Labelling
   hat =   unary_op("\\hat{", "}"),
   tilde = unary_op("\\tilde{", "}")
 )
 ```
 
-We again modify `latex_env()` to include this environment. It should be the last environment R looks for names in. This ensures that `sin(sin)` will work.
+We again modify `latex_env()` to include this environment. It should be the last environment R looks for names in so that expressions like `sin(sin)` will work.
 
 
 ```r
@@ -705,7 +705,7 @@ latex_env <- function(expr) {
 
   # Known symbols
   greek_env <- env_clone(greek_env, parent = symbol_env)
-  
+
   greek_env
 }
 
@@ -724,7 +724,7 @@ Finally, we'll add a default for functions that we don't yet know about. Like th
 
 ```r
 all_calls_rec <- function(x) {
-  switch_expr(x, 
+  switch_expr(x,
     constant = ,
     symbol =   character(),
     call = {
@@ -743,7 +743,7 @@ all_calls(expr(f(g + b, c, d(a))))
 #> [1] "f" "+" "d"
 ```
 
-And we need a closure that will generate the functions for each unknown call.
+We need a closure that will generate the functions for each unknown call:
 
 
 ```r
@@ -762,7 +762,7 @@ unknown_op("foo")
 #>     contents <- paste(..., collapse = ", ")
 #>     paste0("\\mathrm{foo}(", contents, ")")
 #> }
-#> <environment: 0x105ee60>
+#> <environment: 0x4d93ab8>
 ```
 
 And again we update `latex_env()`:
@@ -795,14 +795,14 @@ to_math(sin(pi) + f(a))
 #> <LATEX> \sin(\pi) + \mathrm{f}(a)
 ```
 
-You could certainly take this idea further and translate types of mathmetical expression, but you should not need any additional metaprogramming tools.
+You could certainly take this idea further and translate types of mathematical expression, but you should not need any additional metaprogramming tools.
 
 ### Exercises
 
 1.  Add escaping. The special symbols that should be escaped by adding a backslash
-    in front of them are `\`, `$`, and `%`. Just as with HTML, you'll need to 
-    make sure you don't end up double-escaping. So you'll need to create a small 
-    S3 class and then use that in function operators. That will also allow you 
+    in front of them are `\`, `$`, and `%`. Just as with HTML, you'll need to
+    make sure you don't end up double-escaping. So you'll need to create a small
+    S3 class and then use that in function operators. That will also allow you
     to embed arbitrary LaTeX if needed.
 
 1.  Complete the DSL to support all the functions that `plotmath` supports.

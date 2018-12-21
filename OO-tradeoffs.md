@@ -6,13 +6,25 @@
 
 You now know about the three most important OOP toolkits available in R. Now that you understand their basic operation and the principles that underlie them, we can start to compare and contrast the systems in order to understand their strengths and weaknesses. This will help you pick the system that is most likely to solve new problems.
 
-Overall, when picking an OO system, I recommend that you default to S3. S3 is simple, and widely used throughout base R and CRAN. While it's far from perfect, its idiosyncracies are well understood and there are known approaches to overcome most shortcomings. If you have an existing background in programming you are likely to lean towards R6, because it will feel familiar. I think you should resist this tendency for two reasons. Firstly, if you use R6 it's very easy to create a non-idiomatic API that will feel very odd to native R users, and will have surprising pain points because of the reference semantics. Secondly, if you stick to R6, you'll lose out on learning a new way of thinking about OOP that gives you a new set of tools for solving problems. 
+Overall, when picking an OO system, I recommend that you default to S3. S3 is simple, and widely used throughout base R and CRAN. While it's far from perfect, its idiosyncrasies are well understood and there are known approaches to overcome most shortcomings. If you have an existing background in programming you are likely to lean towards R6, because it will feel familiar. I think you should resist this tendency for two reasons. Firstly, if you use R6 it's very easy to create a non-idiomatic API that will feel very odd to native R users, and will have surprising pain points because of the reference semantics. Secondly, if you stick to R6, you'll lose out on learning a new way of thinking about OOP that gives you a new set of tools for solving problems. 
 
 ### Outline {-} 
 
-This chapter is divided into two parts. [S4 vs S3](#s3-s4) compares S3 and S4. In brief, S4 is more formal and tends to require more upfront planning. That makes it more suitable for big projects developed by teams, not individuals. [R6 vs S3](#s3-r6) compares S3 and R6. This section is quite long because these two systems are fundamentally different and there are a number of tradeoffs that you need to consider.
+* Section \@ref(s3-s4) compares S3 and S4. In brief, S4 is more formal and 
+  tends to require more upfront planning. That makes it more suitable for big 
+  projects developed by teams, not individuals. 
+  
+* Section \@ref(s3-r6) compares S3 and R6. This section is quite long because 
+  these two systems are fundamentally different and there are a number of 
+  tradeoffs that you need to consider.
+
+### Prerequisites {-}
+
+You need to be familiar with S3, S4, and R6, as discussed in the previous three chapters.
 
 ## S4 vs S3 {#s3-s4}
+\index{S4!vs S3}
+\index{S3!vs S4}
 
 Once you've mastered S3, S4 is not too difficult to pick up: the underlying ideas are the same, S4 is just more formal, more strict, and more verbose. The strictness and formality of S4 make it well suited for large teams. Since more structure is provided by the system itself, there is less need for convention, and new contributors don't need as much training. S4 tends to require more upfront design than S3, and this investment is more likely to pay off on larger projects where greater resources are available.
 
@@ -36,6 +48,8 @@ This domain is a good fit for S4 because there are often computational shortcuts
 The biggest challenge to using S4 is the combination of increased complexity and absence of a single source of documentation. S4 is a complex system and it can be challenging to use effectively in practice. This wouldn't be such a problem if S4 documentation wasn't scattered through R documentation, books, and websites. S4 needs a book length treatment, but that book does not (yet) exist. (The documentation for S3 is no better, but the lack is less painful because S3 is much simpler.)
 
 ## R6 vs S3  {#s3-r6}
+\index{S3!vs R6}
+\index{R6!vs S3}
 
 R6 is a profoundly different OO system from S3 and S4 because it is built on encapsulated objects, rather than generic functions. Additionally R6 objects have reference semantics, which means that they can be modified in place. These two big differences have a number of non-obvious consequences which we'll explore here:
 
@@ -83,11 +97,13 @@ land$plot()
 movie$plot()
 ```
 
-These considerations also apply to the arguments to the generic. S3 generics must have the same core arguments, which mean they generally have non-specific names like `x` or `.data`. S3 generics generally need `...` to pass on additional arguments to methods, but this has the downside that mispelled argument names will not create an error. In comparison, R6 methods can vary more widely and use more specific and evocative argument names.
+These considerations also apply to the arguments to the generic. S3 generics must have the same core arguments, which mean they generally have non-specific names like `x` or `.data`. S3 generics generally need `...` to pass on additional arguments to methods, but this has the downside that misspelled argument names will not create an error. In comparison, R6 methods can vary more widely and use more specific and evocative argument names.
 
 A secondary advantage of local namespacing is that creating an R6 method is very cheap. Most encapsulated OO languages encourage you to create many small methods, each doing one thing well with an evocative name. Creating a new S3 method is more expensive, because you may also have to create a generic, and think about the naming issues described above. That means that the advice to create many small methods does not apply to S3. It's still a good idea to break your code down into small, easily understood chunks, but they should generally just be regular functions, not methods.
 
 ### Threading state
+\index{threading state}
+\index{accumulator programming}
 
 One challenge of programming with S3 is when you want to both return a value and modify the object. This violates our guideline that a function should either be called for its return value or for its side effects, but is necessary in a handful of cases. 
 
@@ -150,6 +166,8 @@ s
 
 This problem is known as __threading state__ or __accumulator programming__,  because no matter how deeply the `pop()` is called, you have to thread the modified stack object all the way back to where it lives.
 
+\index{multiple assing}
+\indexc{\%<-\%}
 One way that other FP languages deal with this challenge is to provide a __multiple assign__ (or destructuring bind) operator that allows you to assign multiple values in a single step. The zeallot package [@zeallot] provides multi-assign for R with `%<-%`. This makes the code more elegant, but doesn't solve the key problem:
 
 
@@ -193,9 +211,11 @@ s$pop()
 #> [1] 20
 ```
 
-I encounted a real-life example of threading state in ggplot2 scales. Scales are complex because they need to combine data across every facet and every layer. I originally used S3 classes, but it required passing scale data to and from many functions. Switching to R6 made the code substantially simpler. However, it also introduced some problems because I forgot to call to `$clone()` when modifying a plot. This allowed independent plots to share the same scale data, creating a subtle bug that was hard to track down.
+I encountered a real-life example of threading state in ggplot2 scales. Scales are complex because they need to combine data across every facet and every layer. I originally used S3 classes, but it required passing scale data to and from many functions. Switching to R6 made the code substantially simpler. However, it also introduced some problems because I forgot to call to `$clone()` when modifying a plot. This allowed independent plots to share the same scale data, creating a subtle bug that was hard to track down.
 
 ### Method chaining {#tradeoffs-pipe}
+\index{method chaining}
+\indexc{\%>\%}
 
 The pipe, `%>%`, is useful because it provides an infix operator that makes it easy to compose functions from left-to-right. Interestingly, the pipe is not so important for R6 objects because they already use an infix operator: `$`. This allows the user to chain together multiple method calls in a single expression, a technique known as __method chaining__:
 

@@ -21,8 +21,12 @@ square <- power1(2)
 cube <- power1(3)
 ```
 
+Don't worry if this code doesn't make sense yet; it should by the end of the chapter!
+
 <!-- GVW: is `force` necessary? (my guess is "yes", because we could call `power1` with an expression as a parameter and be surprised when it's evaluated later) LATER: you touch on this in the factory pitfalls section below, so forward ref? -->
 
+\index{manufactured functions}
+\index{functions!manufactured}
 I'll call `square()` and `cube()` __manufactured functions__, but this is just a term to ease communication with other humans: from R's perspective they are no different to functions created any other way. 
 
 
@@ -39,7 +43,7 @@ You have already learned about the individual components that make function fact
   functions. In R, you bind a function to a name in the same way as you bind
   any object to a name: with `<-`.
 
-* In Section \@ref(the-function-environment), you learned that a function
+* In Section \@ref(function-environments), you learned that a function
   captures (encloses) the environment in which it is created.
 
 * In Section \@ref(execution-environments), you learned that a function 
@@ -74,20 +78,16 @@ Of the three main functional programming tools (functionals, function factories,
 
 Make sure you're familiar with the contents of Sections \@ref(first-class-functions) (first-class functions), \@ref(the-function-environment) (function environments), and \@ref(execution-environments) (execution environments) mentioned above.
 
-Function factories only need base R. We'll use a little rlang to peek inside of them more easily, and we'll use ggplot2 and scales to explore the use of function factories in visualisation.
+Function factories only need base R. We'll use a little [rlang](https://rlang.r-lib.org) to peek inside of them more easily, and we'll use [ggplot2](https://ggplot2.tidyverse.org) and [scales](https://scales.r-lib.org) to explore the use of function factories in visualisation.
 
 
 ```r
-# The development version includes some printing tweaks that we need here
-# devtools::install_github("r-lib/rlang")
 library(rlang)
-
 library(ggplot2)
 library(scales)
 ```
 
 ## Factory fundamentals
-\index{closures|see{functions}}
 
 The key idea that makes function factories work can be expressed very concisely:
 
@@ -106,14 +106,14 @@ square
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <environment: 0x12bd9d8>
+#> <environment: 0x35d9938>
 
 cube
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x186b7e0>
-#> <environment: 0x1cf1e00>
+#> <bytecode: 0x2761f40>
+#> <environment: 0x37bc210>
 ```
 
 Printing manufactured functions is not revealing because the bodies are identical; it's the contents of the enclosing environment that's important. We can get a little more insight by using `rlang::env_print()`. That shows us that we have two different environments (each of which was originally an execution environment of `power1()`). The environments have the same parent, which is the enclosing environment of `power1()`, the global environment.
@@ -121,16 +121,16 @@ Printing manufactured functions is not revealing because the bodies are identica
 
 ```r
 env_print(square)
-#> <environment: 0x12bd9d8>
-#>   parent: <environment: global>
-#>   bindings:
-#>    * exp: <dbl>
+#> <environment: 0x35d9938>
+#> parent: <environment: global>
+#> bindings:
+#>  * exp: <dbl>
 
 env_print(cube)
-#> <environment: 0x1cf1e00>
-#>   parent: <environment: global>
-#>   bindings:
-#>    * exp: <dbl>
+#> <environment: 0x37bc210>
+#> parent: <environment: global>
+#> bindings:
+#>  * exp: <dbl>
 ```
 
 `env_print()` shows us that both environments have a binding to `exp`, but we want to see its value[^env_print]. That's easily done with `env_get()`:
@@ -166,7 +166,7 @@ This is what makes manufactured functions behave differently from one another: n
 We can also show these relationships in a diagram:
 
 
-\begin{center}\includegraphics[width=3.69in]{diagrams/function-factories/power-full} \end{center}
+\begin{center}\includegraphics{diagrams/function-factories/power-full} \end{center}
 
 There's a lot going on this diagram and some of the details aren't that important. We can simplify considerably by using two conventions:
 
@@ -176,7 +176,7 @@ There's a lot going on this diagram and some of the details aren't that importan
   environment.
 
 
-\begin{center}\includegraphics[width=3.44in]{diagrams/function-factories/power-simple} \end{center}
+\begin{center}\includegraphics{diagrams/function-factories/power-simple} \end{center}
 
 This view, which focuses on the environments, doesn't show any direct link between `cube()` and `square()`. That's because the link is the through the body of the function, which is identical for both, but is not shown in this diagram.
 
@@ -189,7 +189,7 @@ square(10)
 ```
 
 
-\begin{center}\includegraphics[width=3.44in]{diagrams/function-factories/power-exec} \end{center}
+\begin{center}\includegraphics{diagrams/function-factories/power-exec} \end{center}
 
 
 ### Stateful functions {#stateful-funs}
@@ -207,7 +207,7 @@ There are two things that make this possible:
   
 The usual assignment operator, `<-`, always creates a binding in the current environment. The __super assignment operator__, `<<-` rebinds an existing name found in a parent environment.
 
-The following example example shows how we can combine these ideas to create a function that records how many times it has been called:
+The following example shows how we can combine these ideas to create a function that records how many times it has been called:
 
 
 ```r
@@ -225,7 +225,7 @@ counter_two <- new_counter()
 ```
 
 
-\begin{center}\includegraphics[width=3.69in]{diagrams/function-factories/counter-1} \end{center}
+\begin{center}\includegraphics{diagrams/function-factories/counter-1} \end{center}
 
 When the manufactured function is run `i <<- i + 1` will modify `i` in its enclosing environment. Because manufactured functions have independent enclosing environments, they have independent counts:
 
@@ -240,11 +240,13 @@ counter_two()
 ```
 
 
-\begin{center}\includegraphics[width=3.69in]{diagrams/function-factories/counter-2} \end{center}
+\begin{center}\includegraphics{diagrams/function-factories/counter-2} \end{center}
 
 Stateful functions are best used in moderation. As soon as your function starts managing the state of multiple variables, it's better to switch to R6, the topic of Chapter \@ref(r6).
 
 ### Potential pitfalls {#factory-pitfalls}
+\index{lazy evaluation}
+\indexc{force()}
 
 There are two potential pitfalls to be aware of when creating your own function factories: forgetting to evaluate all inputs and accidentally capturing large objects. 
 
@@ -268,6 +270,8 @@ square2(2)
 
 This is described in Section \@ref(forcing-evaluation), and happens when a binding changes in between calling the factory function and calling the manufactured function. This is likely to only happen rarely, but when it does, it will lead to a real head-scratcher of a bug. Avoid future pain by ensuring every argument is evaluated, using `force()` if the argument is only used by the manufactured function.
 
+\index{GC}
+
 With most functions, you can rely on the GC to clean up any large temporary objects created inside a function. However, manufactured functions hold on to the execution environment, so you'll need to explicitly unbind any large temporary objects with `rm()`. Compare the sizes of `g1()` and `g2()` in the example below:
 
 
@@ -280,7 +284,7 @@ f1 <- function(n) {
 
 g1 <- f1(1e6)
 lobstr::obj_size(g1)
-#> 8,013,656 B
+#> 8,013,120 B
 
 f2 <- function(n) {
   x <- runif(n)
@@ -291,7 +295,7 @@ f2 <- function(n) {
 
 g2 <- f2(1e6)
 lobstr::obj_size(g2)
-#> 13,496 B
+#> 12,960 B
 ```
 
 ### Exercises
@@ -359,6 +363,7 @@ lobstr::obj_size(g2)
 We'll begin our exploration of useful function factories with a few examples from ggplot2. 
 
 ### Labelling
+\index{scales}
 
 One of the goals of the [scales](http://scales.r-lib.org) package is to make it easy to customise the labels on ggplot2. It provides many functions to control the fine details of axes and legends. One useful class of functions are the formatter functions[^suffix] which which make it easier to control the appearance of axis breaks. The design of these functions might initially seem a little odd: they all return a function, which you have to call in order to format a number.
 
@@ -396,6 +401,7 @@ core + scale_y_continuous(label = scientific_format())
 \includegraphics[width=0.25\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-22-1} \includegraphics[width=0.25\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-22-2} \includegraphics[width=0.25\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-22-3} \includegraphics[width=0.25\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-22-4} 
 
 ### Histogram bins
+\index{histogram}
 
 A little known feature of `geom_histogram()` is that the `binwidth` argument can be a function. This is particularly useful because the function is executed once for each group, which means you can have different binwidths in different facets, which is otherwise not possible.
 
@@ -470,9 +476,10 @@ ggplot(df, aes(x)) +
 
 \begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-25-1} \end{center}
 
-[^optimal]: ggplot2 doesn't expose these functions directly because I don't think the defintion of optimality needed to make the problem mathematically tractable is a good match to the actual needs of data exploration.
+[^optimal]: ggplot2 doesn't expose these functions directly because I don't think the definition of optimality needed to make the problem mathematically tractable is a good match to the actual needs of data exploration.
 
-### ggsave
+### `ggsave()`
+\indexc{ggsave()}
 
 Finally, I want to show a function factory used internally by ggplot2. `ggplot2:::plot_dev()` is used by `ggsave()` to go from a file extension (e.g. `png`, `jpeg` etc) to a graphics device function (e.g. `png()`, `jpeg()`). The challenge here arises because the base graphics devices have some minor inconsistencies which we need to paper over:
 
@@ -512,12 +519,12 @@ plot_dev <- function(ext, dpi = 96) {
 
 plot_dev("pdf")
 #> function(filename, ...) grDevices::pdf(file = filename, ...)
-#> <bytecode: 0x4f98f30>
-#> <environment: 0x49b9148>
+#> <bytecode: 0x52bba78>
+#> <environment: 0x4b442f8>
 plot_dev("png")
 #> function(...) grDevices::png(..., res = dpi, units = "in")
-#> <bytecode: 0x529d8e0>
-#> <environment: 0x572ade0>
+#> <bytecode: 0x553ceb0>
+#> <environment: 0x585c038>
 ```
 
 ### Exercises
@@ -538,7 +545,7 @@ All of these examples can be tackled without function factories, but I think fun
 ### Box-Cox transformation
 \index{Box-Cox transformation}
 
-The Box-Cox transformation is a flexible transformation often used to transform data towards normality. It has a single parameter, $\lambda$, which controls the strength of the transformation. We could express the transformation as a simple two argument function:
+The Box-Cox transformation (a type of [power transformation](https://en.wikipedia.org/wiki/Power_transform)) is a flexible transformation often used to transform data towards normality. It has a single parameter, $\lambda$, which controls the strength of the transformation. We could express the transformation as a simple two argument function:
 
 
 ```r
@@ -573,7 +580,9 @@ ggplot(data.frame(x = c(0, 5)), aes(x)) +
   lapply(c(0.5, 1, 1.5), stat_boxcox) + 
   scale_colour_viridis_c(limits = c(0, 1.5))
 
-# visually, log() does seem to make sense as the limit as lambda -> 0
+# visually, log() does seem to make sense as the transformation
+# for lambda = 0; as values get smaller and smaller, the function
+# gets close and closer to a log transformation
 ggplot(data.frame(x = c(0.01, 1)), aes(x)) + 
   lapply(c(0.5, 0.25, 0.1, 0), stat_boxcox) + 
   scale_colour_viridis_c(limits = c(0, 1.5))
@@ -585,7 +594,7 @@ ggplot(data.frame(x = c(0.01, 1)), aes(x)) +
 In general, this allows you to use a Box-Cox transformation with any function that accepts a unary transformation function: you don't have to worry about that function providing `...` to pass along additional arguments. I also think that the partitioning of `lambda` and `x` into two different function arguments is natural since `lambda` plays quite a different role than `x`. 
 
 ### Bootstrap generators
-\index{boostraping generator}
+\index{bootstrapping}
 
 Function factories are a useful approach for bootstrapping. Instead of thinking about a single bootstrap (you always need more than one!), you can think about a bootstrap __generator__, a function that yields a fresh bootstrap every time it is called:
 
@@ -596,7 +605,8 @@ boot_permute <- function(df, var) {
   force(var)
   
   function() {
-    df[[var]][sample(n, n, replace = TRUE)]
+    col <- df[[var]]
+    col[sample(n, replace = TRUE)]
   }
 }
 
@@ -820,8 +830,8 @@ funs$root
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x186b7e0>
-#> <environment: 0x5b516a0>
+#> <bytecode: 0x2761f40>
+#> <environment: 0x5b130b8>
 ```
 
 This idea extends in a straightforward way if your function factory takes two (replace `map()` with `map2()`) or more (replace with `pmap()`) arguments.
@@ -891,7 +901,7 @@ One downside of the current construction is that you have to prefix every functi
 
 <!-- GVW: as above, defer discussion of quasiquotation (that chapter can refer back to this example for motivation)? -->
 
-You'll learn an alternative approach to the same problem in Section \@ref(quasi-function). Instead of using a function factory, you could construct the function with quasiquotation. This requires additional knowledge, but generates functions with readable bodies, and avoids accidentally capturing large objects in the enclosing scope. The following code is a quick preview of how we could rewrite `power1()` to use quasiquotation:
+You'll learn an alternative approach to the same problem in Section \@ref(new-function). Instead of using a function factory, you could construct the function with quasiquotation. This requires additional knowledge, but generates functions with readable bodies, and avoids accidentally capturing large objects in the enclosing scope. The following code is a quick preview of how we could rewrite `power1()` to use quasiquotation:
 
 
 ```r
@@ -911,7 +921,7 @@ funs$root
 #> {
 #>     x^0.5
 #> }
-#> <environment: 0x5acf868>
+#> <environment: 0x4f04e20>
 ```
 
 As well as `0.5` appearing directly in the body, note that the environment of the function is the global environment, not an execution environment of `power3()`.
