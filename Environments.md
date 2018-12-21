@@ -33,7 +33,7 @@ If you can answer the following questions correctly, you already know the most i
   for computing with environments, illustrating the idea with a useful
   function.
   
-* Section \@ref(function-envs) describes environments used for special 
+* Section \@ref(special-environments) describes environments used for special 
   purposes: for packages, within functions, for namespaces, and for
   function execution.
   
@@ -62,8 +62,7 @@ Generally, an environment is similar to a named list, with four important except
 
 *   Every name must be unique.
 
-*   The names in an environment are not ordered (i.e. it doesn't make sense 
-    to ask what the first element of an environment is).
+*   The names in an environment are not ordered.
 
 *   An environment has a parent. 
 
@@ -93,16 +92,12 @@ e1 <- env(
 Use `new.env()` to create a new environment. Ignore the `hash` and `size` parameters; they are not needed. Note that you cannot simultaneously create and define values; use `$<-`, as shown below.
 :::
 
-<!-- GVW: repeating the "i.e." from above -->
-
 The job of an environment is to associate, or __bind__, a set of names to a set of values. You can think of an environment as a bag of names, with no implied order (i.e. it doesn't make sense to ask which is the first element in an environment). For that reason, we'll draw the environment as so:
 
 
 \begin{center}\includegraphics{diagrams/environments/bindings} \end{center}
 
-As discussed in Section \@ref(env-modify), environments have reference semantics: unlike most R objects, when you modify them, you modify them in place, and don't create a copy. One important implication is that environments can contain themselves. This means that environments go one step further in their level of recursion than lists: an environment can contain any object, including itself!
-
-<!-- GVW: is it R's copy-on-modify semantics that prevents lists from containing lists? -->
+As discussed in Section \@ref(env-modify), environments have reference semantics: unlike most R objects, when you modify them, you modify them in place, and don't create a copy. One important implication is that environments can "contain" themselves. 
 
 
 ```r
@@ -154,9 +149,7 @@ In R 3.2.0 and greater, use `names()` to list the bindings in an environment. If
 
 We'll talk in detail about special environments in \@ref(special-environments), but for now we need to mention two. The current environment, or `current_env()` is the environment in which code is currently executing. When you're experimenting interactively, that's usually the global environment, or `global_env()`. The global environment is sometimes called your "workspace", as it's where all interactive (i.e. outside of a function) computation takes place.
 
-Note that to compare environments, you need to use `identical()` and not `==`:
-
-<!-- GVW: why? -->
+To compare environments, you need to use `identical()` and not `==`. This is because `==` is a vectorised operator, and environments are not vectors.
 
 
 ```r
@@ -186,9 +179,7 @@ e2b <- env(e2a, a = 1, b = 2, c = 3)
 
 \begin{center}\includegraphics{diagrams/environments/parents} \end{center}
 
-<!-- GVW: second sentence below is first mention of "empty environment" - reorder or forward ref? -->
-
-We use the metaphor of a family to name environments relative to one another. The grandparent of an environment is the parent's parent, and the ancestors include all parent environments up to the empty environment. To save space, I typically won't draw all the ancestors; just remember whenever you see a pale blue circle, there's a parent environment somewhere.
+To save space, I typically won't draw all the ancestors; just remember whenever you see a pale blue circle, there's a parent environment somewhere. 
 
 You can find the parent of an environment with `env_parent()`:
 
@@ -200,7 +191,7 @@ env_parent(e2a)
 #> <environment: R_GlobalEnv>
 ```
 
-Only one environment doesn't have a parent: the __empty__ environment. I draw the empty environment with a hollow parent environment, and where space allows I'll label it with `R_EmptyEnv`, the name R uses.
+Only one environment doesn't have a parent: the __empty__ environment.  I draw the empty environment with a hollow parent environment, and where space allows I'll label it with `R_EmptyEnv`, the name R uses.
 
 
 ```r
@@ -210,30 +201,36 @@ e2d <- env(e2c, a = 1, b = 2, c = 3)
 
 \begin{center}\includegraphics{diagrams/environments/parents-empty} \end{center}
 
-You'll get an error if you try to find the parent of the empty environment:
-
-
-```r
-env_parent(empty_env())
-#> Error: The empty environment has no parent
-```
-
-You can list all ancestors of an environment with `env_parents()`:
+The ancestors of every environment eventually terminate with the empty environment. You can list see all ancestors with `env_parents()`:
 
 
 ```r
 env_parents(e2b)
-#> [[1]]   <env: 0x57aa2c8>
+#> [[1]]   <env: 0x1eba9b8>
 #> [[2]] $ <env: global>
-
 env_parents(e2d)
-#> [[1]]   <env: 0x601ca60>
+#> [[1]]   <env: 0x1903f60>
 #> [[2]] $ <env: empty>
 ```
 
-<!-- GVW: so the empty environment *isn't* the parent of the global environment? -->
+By default, `env_parents()` stops when it gets to the global environment. This is useful because the ancestors of the global environment include every attached package, which you can see if you override the default behaviour as below. We'll come back to these environments in Section \@ref(search-path). 
 
-By default, `env_parents()` continues until it hits either the global environment or the empty environment. You can control this behaviour with the `last` environment.
+
+```r
+env_parents(e2b, last = empty_env())
+#>  [[1]]   <env: 0x1eba9b8>
+#>  [[2]] $ <env: global>
+#>  [[3]] $ <env: package:rlang>
+#>  [[4]] $ <env: package:stats>
+#>  [[5]] $ <env: package:graphics>
+#>  [[6]] $ <env: package:grDevices>
+#>  [[7]] $ <env: package:utils>
+#>  [[8]] $ <env: package:datasets>
+#>  [[9]] $ <env: package:methods>
+#> [[10]] $ <env: Autoloads>
+#> [[11]] $ <env: package:base>
+#> [[12]] $ <env: empty>
+```
 
 ::: base 
 Use `parent.env()` to find the parent of an environment. No base function returns all ancestors.
@@ -243,7 +240,6 @@ Use `parent.env()` to find the parent of an environment. No base function return
 \indexc{<<-}
 \index{assignment}
 \index{super assignment}
-<!-- GVW: "found by in" below... -->
 
 The ancestors of an environment have an important relationship to `<<-`. Regular assignment, `<-`, always creates a variable in the current environment. Super assignment, `<<-`, never creates a variable in the current environment, but instead modifies an existing variable found in a parent environment. 
 
@@ -346,9 +342,7 @@ env_has(e3, "a")
 #> TRUE
 ```
 
-Unlike lists, setting an element to `NULL` does not remove it. Instead, use `env_unbind()`:
-
-<!-- GVW: maybe worth pointing out that this is because you do sometimes want a name that refers to NULL? -->
+Unlike lists, setting an element to `NULL` does not remove it, because sometimes you want an name that refers to `NULL`. Instead, use `env_unbind()`:
 
 
 ```r
@@ -401,12 +395,10 @@ There are two more exotic variants of `env_bind()`:
     #>       0       0       0
     ```
 
-    Delayed bindings are used to implement `autoload()`, which makes R behave 
-    as if the package data is in memory, even though it's only loaded from 
-    disk when you ask for it.
+    The primary use of delayed bindings is in `autoload()`, which makes 
+    allows R packages to provide datasets that behave like they are loaded in
+    memory, even though they're only loaded from disk when needed.
 
-    <!-- GVW: is `autoload` just one example, or is it the only major use? -->
-  
 *   `env_bind_fns()` creates __active bindings__ which are re-computed every 
     time they're accessed:
 
@@ -423,26 +415,8 @@ There are two more exotic variants of `env_bind()`:
     #> [1] 0.834
     ```
 
-    The argument to the function allows you to also override behaviour when
-    the variable is set:
-    
-    
-    ```r
-    env_bind_fns(current_env(), z2 = function(val) {
-      if (missing(val)) {
-        2
-      } else {
-         stop("Don't touch z2!", call. = FALSE)
-      }
-    })
-    
-    z2
-    #> [1] 2
-    z2 <- 3
-    #> Error: Don't touch z2!
-    ```
-
-<!-- GVW: example of where this is used in practice to correspond with the `autoload` example? -->
+    Active bindings are used to implement R6's active fields, which you'll learn
+    about in Section @\ref(active-fields).
 
 ::: base
 See  `?delayedAssign()` and `?makeActiveBinding()`.
@@ -497,8 +471,6 @@ See  `?delayedAssign()` and `?makeActiveBinding()`.
 If you want to operate on every ancestor of an environment, it's often convenient to write a recursive function. This section shows you how, applying your new knowledge of environments to write a function that given a name, finds the environment `where()` that name is defined, using R's regular scoping rules. 
 
 The definition of `where()` is straightforward. It has two arguments: the name to look for (as a string), and the environment in which to start the search. (We'll learn why `caller_env()` is a good default in Section \@ref(call-stack).)
-
-<!-- GVW: am I correct that this avoids the problem Python has using function calls to create default values for parameters because the call to `caller_env` is delayed until `env` is used? -->
 
 
 ```r
@@ -581,8 +553,6 @@ f <- function(..., env = caller_env()) {
 
 It's possible to use a loop instead of recursion. I think it's harder to understand than the recursive version, but I include it because you might find it easier to see what's happening if you haven't written many recursive functions.
 
-<!-- GVW: shouldn't the success case branch below return `env`? -->
-
 
 ```r
 f2 <- function(..., env = caller_env()) {
@@ -617,45 +587,30 @@ f2 <- function(..., env = caller_env()) {
  
 Most environments are not created by you (e.g. with `env()`) but are instead created by R. In this section, you'll learn about the most important environments, starting with the package environments. You'll then learn about the function environment bound to the function when it is created, and the (usually) ephemeral execution environment created every time the function is called. Finally, you'll see how the package and function environments interact to support namespaces, which ensure that a package always behaves the same way, regardless of what other packages the user has loaded.
 
-### Package environments and the search path
+### Package environments and the search path {#search-path}
 \indexc{search()} 
 \index{search path}
 \indexc{Autoloads}
 \index{environment!base}
 \indexc{base\_env()}
 
-Each package attached by `library()` or `require()` becomes one of the parents of the global environment. The immediate parent of the global environment is the last package you attached[^attach]:
-
-<!-- GVW: I'd move the diagram 'diagrams/environments/search-path.png' to here -->
+Each package attached by `library()` or `require()` becomes one of the parents of the global environment. The immediate parent of the global environment is the last package you attached[^attach], the parent of that package is the second to last package you attached, ...
 
 [^attach]: Note the difference between attached and loaded. A package is loaded automatically if you access one of its functions using `::`; it is only __attached__ to the search path by `library()` or `require()`.
 
 
-```r
-env_parent(global_env())
-#> <environment: package:rlang>
-#> attr(,"name")
-#> [1] "package:rlang"
-#> attr(,"path")
-#> [1] "/home/travis/R/Library/rlang"
-```
+\begin{center}\includegraphics{diagrams/environments/search-path} \end{center}
 
-And the parent of that package is the second to last package you attached:
+If you follow all the parents back, you see the order in which every package has been attached. This is known as the __search path__ because all objects in these environments can be found from the top-level interactive workspace. You can see the names of these environments with `base::search()`, or the environments themselves with `rlang::search_envs()`:
 
 
 ```r
-env_parent(env_parent(global_env()))
-#> <environment: package:stats>
-#> attr(,"name")
-#> [1] "package:stats"
-#> attr(,"path")
-#> [1] "/home/travis/R-bin/lib/R/library/stats"
-```
+search()
+#>  [1] ".GlobalEnv"        "package:rlang"     "package:stats"    
+#>  [4] "package:graphics"  "package:grDevices" "package:utils"    
+#>  [7] "package:datasets"  "package:methods"   "Autoloads"        
+#> [10] "package:base"
 
-If you follow all the parents back, you see the order in which every package has been attached. This is known as the __search path__ because all objects in these environments can be found from the top-level interactive workspace. 
-
-
-```r
 search_envs()
 #>  [[1]] $ <env: global>
 #>  [[2]] $ <env: package:rlang>
@@ -669,10 +624,6 @@ search_envs()
 #> [[10]] $ <env: package:base>
 ```
 
-:::base 
-You can access the names of the environments on the search path with `search()`
-:::
-
 The last two environments on the search path are always the same:
 
 * The `Autoloads` environment uses delayed bindings to save memory by only 
@@ -683,12 +634,7 @@ The last two environments on the search path are always the same:
   to bootstrap the loading of all other packages. You can access it directly 
   with `base_env()`.
 
-Graphically, the search path looks like this:
-
-
-\begin{center}\includegraphics{diagrams/environments/search-path} \end{center}
-
-When you attach another package with `library()`, the parent environment of the global environment changes:
+Note that when you attach another package with `library()`, the parent environment of the global environment changes:
 
 
 \begin{center}\includegraphics{diagrams/environments/search-path-2} \end{center}
@@ -713,9 +659,7 @@ fn_env(f)
 Use `environment(f)` to access the environment of function `f`.
 :::
 
-<!-- GVW: mixing singular and plural in the sentence below. -->
-
-In diagrams, I'll depict functions as rectangles with a rounded end that binds an environment. 
+In diagrams, I'll draw a function as a rectangle with a rounded end that binds an environment. 
 
 
 \begin{center}\includegraphics{diagrams/environments/binding} \end{center}
@@ -745,7 +689,7 @@ sd
 #> function (x, na.rm = FALSE) 
 #> sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), 
 #>     na.rm = na.rm))
-#> <bytecode: 0x5801048>
+#> <bytecode: 0x4fe8788>
 #> <environment: namespace:stats>
 ```
 
@@ -840,9 +784,7 @@ y <- h(1) # 3.
 
 \begin{center}\includegraphics{diagrams/environments/execution} \end{center}
 
-<!-- GVW: "garbage collected" rather than "GC'd" -->
-
-An execution environment is usually ephemeral; once the function has completed, the environment will be GC'd. There are several ways to make it stay around for longer. The first is to explicitly return it:
+An execution environment is usually ephemeral; once the function has completed, the environment will be garbage collected. There are several ways to make it stay around for longer. The first is to explicitly return it:
 
 
 ```r
@@ -853,7 +795,7 @@ h2 <- function(x) {
 
 e <- h2(x = 10)
 env_print(e)
-#> <environment: 0x4a25da0>
+#> <environment: 0x677c228>
 #> parent: <environment: global>
 #> bindings:
 #>  * a: <dbl>
@@ -876,7 +818,7 @@ plus <- function(x) {
 plus_one <- plus(1)
 plus_one
 #> function(y) x + y
-#> <environment: 0x341ad28>
+#> <environment: 0x17787c8>
 ```
 
 
@@ -1010,8 +952,6 @@ a(f())
 
 `x` is lazily evaluated so this tree gets two branches. In the first branch `a()` calls `b()`, then `b()` calls `c()`. The second branch starts when `c()` evaluates its argument `x`. This argument is evaluated in a new branch because the environment in which it is evaluated is the global environment, not the environment of `c()`.
 
-<!-- GVW: took me a couple of tries to understand this example, but I think that's the material, not the explanation. -->
-
 ### Frames
 \index{frame}
 \indexc{parent.frame()}
@@ -1055,13 +995,11 @@ Looking up variables in the calling stack rather than in the enclosing environme
 
 As well as powering scoping, environments are also useful data structures in their own right because they have reference semantics.  There are three common problems that they can help solve:
 
-*   __Avoiding copies of large data__. Since environments have reference semantics, 
-    you'll never accidentally create a copy. This makes it a useful vessel for 
-    large objects. Bare environments are not that pleasant to work with;
-    I recommend using R6 objects instead. Learn more in [R6].
+*   __Avoiding copies of large data__. Since environments have reference 
+    semantics, you'll never accidentally create a copy. But bare environments 
+    are painful to work with, so instead I recommend using R6 objects, which 
+    are built on top of environments. Learn more in Chapter \@ref(R6).
 
-<!-- GVW: previous point feels like you're telling me to use environments, but not to. -->
-  
 *   __Managing state within a package__. Explicit environments are useful in 
     packages because they allow you to maintain state across function calls. 
     Normally, objects in a package are locked, so you can't modify them 

@@ -23,8 +23,6 @@ cube <- power1(3)
 
 Don't worry if this code doesn't make sense yet; it should by the end of the chapter!
 
-<!-- GVW: is `force` necessary? (my guess is "yes", because we could call `power1` with an expression as a parameter and be surprised when it's evaluated later) LATER: you touch on this in the factory pitfalls section below, so forward ref? -->
-
 \index{manufactured functions}
 \index{functions!manufactured}
 I'll call `square()` and `cube()` __manufactured functions__, but this is just a term to ease communication with other humans: from R's perspective they are no different to functions created any other way. 
@@ -133,33 +131,121 @@ env_print(cube)
 #>  * exp: <dbl>
 ```
 
-`env_print()` shows us that both environments have a binding to `exp`, but we want to see its value[^env_print]. That's easily done with `env_get()`:
+`env_print()` shows us that both environments have a binding to `exp`, but we want to see its value[^env_print]. We can do that by first getting the environment of the function, and then extract the values:
 
 
 ```r
-env_get(square, "exp")
-#> Warning: Passing an environment wrapper like a function is deprecated.
-#> Please retrieve the environment before calling `env_get()`
-#> This warning is displayed once per session.
+environment(square)$exp
 #> [1] 2
 
-env_get(cube, "exp")
+environment(cube)$exp
 #> [1] 3
 ```
-
-<!-- GVW: when I run the above, I get:
-
-Passing an environment wrapper like a function is deprecated.
-Please retrieve the environment before calling `env_get()`
-This warning is displayed once per session.
-
-I'm using R 3.5.1.
-
--->
 
 This is what makes manufactured functions behave differently from one another: names in the enclosing environment are bound to different values.
 
 [^env_print]: A future version of `env_print()` is likely to do better at summarising the contents so you don't need this step.
+
+### Scoping
+
+Here I'll focus on how they interact with scoping. The following function, `g05()`, returns a function. What do you think this function will return when it's called?[^answer3]
+
+[^answer3]: `g06()` returns `c(10, 2)`.
+
+
+```r
+x <- 10
+y <- 20
+
+g05 <- function() {
+  y <- 2
+  function() {
+    c(x, y)
+  }
+}
+g06 <- g05()
+g06()
+```
+
+This seems a little magical: how does R know what the value of `y` is after `g05()` is returned? R knows because `g06()` preserves the environment where it was defined and that environment includes the value of `y`. You'll learn more about how environments work in Chapter \@ref(environments).
+
+
+### Forcing evaluation
+\indexc{force()}
+
+To __compel__ the evaluation of an argument, use `force()`: 
+
+
+```r
+h02 <- function(x) {
+  force(x)
+  10
+}
+h02(stop("This is an error!"))
+#> Error in force(x):
+#>   This is an error!
+```
+
+It's usually not necessary to force evaluation. However, it is important for certain functional programming techniques, like the one we'll cover in detail in Chapter \@ref(function-operators). Here, I'm just going to show you what the basic issue is.
+
+Consider this small but surprisingly tricky function. It takes a single argument `x`, and returns a function that returns `x` when called.
+
+
+```r
+capture1 <- function(x) {
+  function() {
+    x
+  }
+}
+```
+
+The subtlety here is that the value of `x` will be captured not when you call `capture1()`, but when you call the function that `capture1()` returns:
+
+
+```r
+x <- 10
+h03 <- capture1(x)
+h04 <- capture1(x)
+
+h03()
+#> [1] 10
+
+x <- 20
+h04()
+#> [1] 20
+```
+
+Even more confusingly this only happens once: the value is locked in after you have called `h03()`/`h04()` for the first time.
+
+
+```r
+x <- 30
+h03()
+#> [1] 10
+h04()
+#> [1] 20
+```
+
+This behaviour is a consequence of lazy evaluation. The `x` argument is evaluated once `h03()`/`h04()` is called, and then its value is cached.  We can avoid the confusion by forcing `x`:
+
+
+```r
+capture2 <- function(x) {
+  force(x)
+  
+  function() {
+    x
+  }
+}
+
+x <- 10
+h05 <- capture2(x)
+
+x <- 20
+h05()
+#> [1] 10
+```
+
 
 ### Diagram conventions
 
@@ -190,6 +276,7 @@ square(10)
 
 
 \begin{center}\includegraphics{diagrams/function-factories/power-exec} \end{center}
+
 
 
 ### Stateful functions {#stateful-funs}
@@ -300,6 +387,19 @@ lobstr::obj_size(g2)
 
 ### Exercises
 
+1.  The definition of `force()` is simple:
+
+    
+    ```r
+    force
+    #> function (x) 
+    #> x
+    #> <bytecode: 0xa61cf8>
+    #> <environment: namespace:base>
+    ```
+    
+    Why is it better to `force(x)` instead of just `x`?
+
 1.  Base R contains two function factories, `approxfun()` and `ecdf()`. 
     Read their documentation and experiment to figure out what the functions 
     do and what they return.
@@ -365,7 +465,7 @@ We'll begin our exploration of useful function factories with a few examples fro
 ### Labelling
 \index{scales}
 
-One of the goals of the [scales](http://scales.r-lib.org) package is to make it easy to customise the labels on ggplot2. It provides many functions to control the fine details of axes and legends. One useful class of functions are the formatter functions[^suffix] which which make it easier to control the appearance of axis breaks. The design of these functions might initially seem a little odd: they all return a function, which you have to call in order to format a number.
+One of the goals of the [scales](http://scales.r-lib.org) package is to make it easy to customise the labels on ggplot2. It provides many functions to control the fine details of axes and legends. One useful class of functions are the formatter functions[^suffix] which make it easier to control the appearance of axis breaks. The design of these functions might initially seem a little odd: they all return a function, which you have to call in order to format a number.
 
 
 ```r
@@ -381,8 +481,6 @@ number_format(scale = 1e-3, suffix = " K")(y)
 
 In other words, the primary interface is a function factory. At first glance, this seems to add extra complexity for little gain. But it enables a nice interaction with ggplot2's scales, because they accept functions in the `label` argument:
 
-<!-- GVW: I get "partially matched argument" warnings telling me `label -> labels` below -->
-
 
 ```r
 df <- data.frame(x = 1, y = y)
@@ -392,13 +490,19 @@ core <- ggplot(df, aes(x, y)) +
   labs(x = NULL, y = NULL)
   
 core
-core + scale_y_continuous(label = comma_format())
-core + scale_y_continuous(label = number_format(scale = 1e-3, suffix = " K"))
-core + scale_y_continuous(label = scientific_format())
+core + scale_y_continuous(
+  labels = comma_format()
+)
+core + scale_y_continuous(
+  labels = number_format(scale = 1e-3, suffix = " K")
+)
+core + scale_y_continuous(
+  labels = scientific_format()
+)
 ```
 
 
-\includegraphics[width=0.25\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-22-1} \includegraphics[width=0.25\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-22-2} \includegraphics[width=0.25\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-22-3} \includegraphics[width=0.25\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-22-4} 
+\includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-29-1} \includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-29-2} \includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-29-3} \includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-29-4} 
 
 ### Histogram bins
 \index{histogram}
@@ -423,7 +527,7 @@ ggplot(df, aes(x)) +
 
 
 
-\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-23-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-30-1} \end{center}
 
 Here each facet has the same number of observations, but the variability is very different. It would be nice if we could request that the binwidths vary so we get approximately the same number of observations in each bin. One way to do that is with a function factory that inputs the desired number of bins (`n`), and outputs a function that takes a numeric vector and returns a binwidth:
 
@@ -445,11 +549,9 @@ ggplot(df, aes(x)) +
 
 
 
-\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-24-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-31-1} \end{center}
 
 We could use this same pattern to wrap around the base R functions that automatically find the "optimal"[^optimal] binwidth, `nclass.Sturges()`, `nclass.scott()`, and `nclass.FD()`:
-
-<!-- GVW: just curious - why is 'Sturges' name-cased but 'scott' is lower case? -->
 
 
 ```r
@@ -474,7 +576,7 @@ ggplot(df, aes(x)) +
 
 
 
-\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-25-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 [^optimal]: ggplot2 doesn't expose these functions directly because I don't think the definition of optimality needed to make the problem mathematically tractable is a good match to the actual needs of data exploration.
 
@@ -519,12 +621,12 @@ plot_dev <- function(ext, dpi = 96) {
 
 plot_dev("pdf")
 #> function(filename, ...) grDevices::pdf(file = filename, ...)
-#> <bytecode: 0x52bba78>
-#> <environment: 0x4b442f8>
+#> <bytecode: 0x3f97010>
+#> <environment: 0xfa06b0>
 plot_dev("png")
 #> function(...) grDevices::png(..., res = dpi, units = "in")
-#> <bytecode: 0x553ceb0>
-#> <environment: 0x585c038>
+#> <bytecode: 0x41f5650>
+#> <environment: 0x46ffab8>
 ```
 
 ### Exercises
@@ -589,7 +691,7 @@ ggplot(data.frame(x = c(0.01, 1)), aes(x)) +
 ```
 
 
-\includegraphics[width=0.5\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-28-1} \includegraphics[width=0.5\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-28-2} 
+\includegraphics[width=0.5\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-35-1} \includegraphics[width=0.5\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-35-2} 
 
 In general, this allows you to use a Box-Cox transformation with any function that accepts a unary transformation function: you don't have to worry about that function providing `...` to pass along additional arguments. I also think that the partitioning of `lambda` and `x` into two different function arguments is natural since `lambda` plays quite a different role than `x`. 
 
@@ -704,8 +806,6 @@ So far we’ve been thinking of `lambda` as fixed and known and the function tol
 
 In statistics, we highlight this change in perspective by writing $f_{\mathbf{x}}(\lambda)$ instead of $f(\lambda, \mathbf{x})$. In R, we can use a function factory. We provide `x` and generate a function with a single parameter, `lambda`:
 
-<!-- GVW: you don't force(x) because length(x) implicitly does that? -->
-
 
 ```r
 ll_poisson1 <- function(x) {
@@ -716,6 +816,8 @@ ll_poisson1 <- function(x) {
   }
 }
 ```
+
+(We don't need `force()` because `length()` implicitly forces evaluation of `x`.)
 
 One nice thing about this approach is that we can do some precomputation: any term that only involves `x` can be computed once in the factory. This is useful because we're going to need to call this function many times to find the best `lambda`.
 
@@ -775,10 +877,10 @@ The advantage of using a function factory here is fairly small, but there are tw
 * We can precompute some values in the factory itself, saving computation time
   in each iteration.
   
-* I think the two-level design better reflects the mathematical structure of 
+* The two-level design better reflects the mathematical structure of 
   the underlying problem.
 
-These advantages get bigger in more complex MLE problems, where you have multiple parameters and multiple data vectors.
+These advantages get bigger in more complex MLE problems, where you have multiple parameters and multiple data vectors. 
 
 <!-- GVW: stepping back, what patterns in existing code should people look for that suggest "Hey, maybe use a function factory here"? -->
 
@@ -830,15 +932,12 @@ funs$root
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x2761f40>
-#> <environment: 0x5b130b8>
+#> <bytecode: 0x45cf8b8>
+#> <environment: 0x46027a8>
 ```
 
 This idea extends in a straightforward way if your function factory takes two (replace `map()` with `map2()`) or more (replace with `pmap()`) arguments.
 
-<!-- GVW: I wouldn't start a new subsection here, because on first reading it made me think that this was all you were going to say about this example -->
-
-### Moving a list to the global environment
 \indexc{with()}
 \indexc{attach()}
 \indexc{env\_bind()}
@@ -877,17 +976,16 @@ One downside of the current construction is that you have to prefix every functi
     some of the worst problems with `attach()` don't apply.
 
 *   Finally, you could copy the functions to the global environment with 
-    `env_bind()`. This is mostly permanent:
+    `env_bind()` (you'll learn about `!!!` in Section \@ref(tidy-dots)). 
+    This is mostly permanent:
     
-<!-- GVW: quasiquotation hasn't yet been introduced, and readers may not know about it, so maybe defer this discussion to that section with a forward ref? -->
-
     
     ```r
     rlang::env_bind(globalenv(), !!!funs)
     root(100)
     #> [1] 10
     ```
-    
+  
     You can later unbind those same names, but there's no guarantee that 
     they haven't been rebound in the meantime, and you might be deleting an
     object that someone else created.
@@ -897,34 +995,7 @@ One downside of the current construction is that you have to prefix every functi
     rlang::env_unbind(globalenv(), names(funs))
     ```
 
-### Another approach
-
-<!-- GVW: as above, defer discussion of quasiquotation (that chapter can refer back to this example for motivation)? -->
-
-You'll learn an alternative approach to the same problem in Section \@ref(new-function). Instead of using a function factory, you could construct the function with quasiquotation. This requires additional knowledge, but generates functions with readable bodies, and avoids accidentally capturing large objects in the enclosing scope. The following code is a quick preview of how we could rewrite `power1()` to use quasiquotation:
-
-
-```r
-power3 <- function(exponent) {
-  new_function(
-    exprs(x = ), 
-    expr({
-      x ^ !!exponent
-    }), 
-    caller_env()
-  )
-}
-funs <- purrr::map(names, power3)
-
-funs$root
-#> function (x) 
-#> {
-#>     x^0.5
-#> }
-#> <environment: 0x4f04e20>
-```
-
-As well as `0.5` appearing directly in the body, note that the environment of the function is the global environment, not an execution environment of `power3()`.
+You'll learn an alternative approach to the same problem in Section \@ref(new-function). Instead of using a function factory, you could construct the function with quasiquotation. This requires additional knowledge, but generates functions with readable bodies, and avoids accidentally capturing large objects in the enclosing scope. We use that idea in Section \@ref(tag-functios) when we work on tools for generating HTML from R.
 
 ### Exercises
 

@@ -849,7 +849,7 @@ It can take some time to get your head around the distinction between names and 
 \indexc{`}
 \index{non-syntactic names}
 
-R has strict rules about what constitutes a valid name. A \textbf{syntactic} name must consist of letters\footnote{Surprisingly, what constitutes a letter is determined by your current locale. That means that the syntax of R code can actually differ from computer to computer, and that it's possible for a file that works on one computer to not even parse on another!}, digits, \texttt{.} and \texttt{\_} but can't begin with \texttt{\_} or a digit. Additionally, you can't use any of the \textbf{reserved words} like \texttt{TRUE}, \texttt{NULL}, \texttt{if}, and \texttt{function} (see the complete list in \texttt{?Reserved}). A name that doesn't follow these rules is a \textbf{non-syntactic} name; if you try to use them, you'll get an error:
+R has strict rules about what constitutes a valid name. A \textbf{syntactic} name must consist of letters\footnote{Surprisingly, precisely what constitutes a letter is determined by your current locale. That means that the syntax of R code can actually differ from computer to computer, and that it's possible for a file that works on one computer to not even parse on another! Avoid this problem by sticking to ASCII characters (i.e.~A-Z) as much as possible.}, digits, \texttt{.} and \texttt{\_} but can't begin with \texttt{\_} or a digit. Additionally, you can't use any of the \textbf{reserved words} like \texttt{TRUE}, \texttt{NULL}, \texttt{if}, and \texttt{function} (see the complete list in \texttt{?Reserved}). A name that doesn't follow these rules is a \textbf{non-syntactic} name; if you try to use them, you'll get an error:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -973,7 +973,7 @@ From then on, whenever that object is copied, \texttt{tracemem()} will print a m
 \end{Highlighting}
 \end{Shaded}
 
-Note that if you modify \texttt{y} again, it won't get copied. That's because the new object now only has a single name bound to it, so R applies modify-in-place optimisation. We'll come back to this shortly.
+Note that if you modify \texttt{y} again, it won't get copied. That's because the new object now only has a single name bound to it, so R applies modify-in-place optimisation. We'll come back to this in Section \ref{modify-in-place}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1011,7 +1011,7 @@ While \texttt{f()} is running, the \texttt{a} inside the function points to the 
 
 \begin{center}\includegraphics{diagrams/name-value/binding-f1} \end{center}
 
-(You'll learn more about the conventions used in this diagram in \protect\hyperlink{execution-environments}{Execution environments}.)
+You'll learn more about the conventions used in this diagram in Section \ref{execution-environments}. In brief: the function \texttt{f()} is depicted by the yellow object on the right. It has a formal argument, \texttt{a}, which becomes a binding (indicated by dotted black line) in the execution environment (the gray box) when the function is run.
 
 Once \texttt{f()} completes, \texttt{x} and \texttt{z} will point to the same object. \texttt{0x74b} never gets copied because it never gets modified. If \texttt{f()} did modify \texttt{x}, R would create a new copy, and then \texttt{z} would bind that object.
 
@@ -1024,7 +1024,7 @@ Once \texttt{f()} completes, \texttt{x} and \texttt{z} will point to the same ob
 
 \index{lists}
 
-It's not just names (i.e.~variables) that point to values; elements of lists do too. Take this list, which is superficially very similar to the vector above:
+It's not just names (i.e.~variables) that point to values; elements of lists do too. Take this list, which is superficially very similar to the numeric vector above:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1032,7 +1032,7 @@ It's not just names (i.e.~variables) that point to values; elements of lists do 
 \end{Highlighting}
 \end{Shaded}
 
-The internal representation of a list is actually quite different from that of a vector. A list is really a vector of references:
+This list is more complex because instead of storing the values itself, it instead stores references to them:
 
 \begin{center}\includegraphics{diagrams/name-value/list} \end{center}
 
@@ -1097,7 +1097,7 @@ If you modify a column, only \emph{that} column needs to be modified; the others
 
 \begin{center}\includegraphics{diagrams/name-value/d-modify-c} \end{center}
 
-However, if you modify a row, there is no way to share data with the previous version of the data frame: every column must be copied-and-modified.
+However, if you modify a row, every column is modified, which means every column must be copied:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1113,7 +1113,7 @@ However, if you modify a row, there is no way to share data with the previous ve
 
 \index{string pool}
 
-The final place that R uses references is with character vectors. I usually draw character vectors like this:
+The final place that R uses references is with character vectors\footnote{Confusingly, a character vector is a vector of strings, not individual characters.}. I usually draw character vectors like this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1219,7 +1219,7 @@ Since the elements of lists are references to values, the size of a list might b
 \end{Highlighting}
 \end{Shaded}
 
-\texttt{y} is only 80 bytes\footnote{If you're running the 32-bit version of R you'll see slightly different sizes.} bigger than \texttt{x}. That's the size of an empty list with three elements:
+\texttt{y} is only 80 bytes\footnote{If you're running 32-bit R, you'll see slightly different sizes.} bigger than \texttt{x}. That's the size of an empty list with three elements:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1490,6 +1490,15 @@ This is a unique property of environments!
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
+  Explain why the following code doesn't create a circular list.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+\NormalTok{x[[}\DecValTok{1}\NormalTok{]] <-}\StringTok{ }\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+\item
   Wrap the two methods for subtracting medians into two functions, then
   use the `bench' package (Hester \protect\hyperlink{ref-bench}{2018}) to carefully compare their speeds. How does
   performance change as the number of columns increase?
@@ -1537,14 +1546,14 @@ R uses a \textbf{tracing} GC. This means it traces every object that's reachable
 
 The garbage collector (GC) runs automatically whenever R needs more memory to create a new object. Looking from the outside, it's basically impossible to predict when the GC will run. In fact, you shouldn't even try. If you want to find out when the GC runs, call \texttt{gcinfo(TRUE)} and GC will print a message to the console every time it runs.
 
-You can force garbage collection by calling \texttt{gc()}. But despite what you might have read elsewhere, there's never any \emph{need} to call \texttt{gc()} yourself. The only reasons you might \emph{want} to call \texttt{gc()} is to ask R to return memory to your operating system, or is for the side-effect that tells you how much memory is currently being used:
+You can force garbage collection by calling \texttt{gc()}. But despite what you might have read elsewhere, there's never any \emph{need} to call \texttt{gc()} yourself. The only reasons you might \emph{want} to call \texttt{gc()} is to ask R to return memory to your operating system so other programs can use it, or for the side-effect that tells you how much memory is currently being used:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{gc}\NormalTok{() }
 \CommentTok{#>           used (Mb) gc trigger (Mb) max used (Mb)}
-\CommentTok{#> Ncells  679483 36.3    1283951 68.6  1283951 68.6}
-\CommentTok{#> Vcells 4696254 35.9   11788708 90.0 11788708 90.0}
+\CommentTok{#> Ncells  566477 30.3    1304485 69.7   728592 39.0}
+\CommentTok{#> Vcells 1092434  8.4    8388608 64.0  1758196 13.5}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1553,7 +1562,7 @@ You can force garbage collection by calling \texttt{gc()}. But despite what you 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{mem_used}\NormalTok{()}
-\CommentTok{#> 75,604,112 B}
+\CommentTok{#> 40,501,072 B}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1684,7 +1693,7 @@ Take this short quiz to determine if you need to read this chapter. If the answe
 \index{numeric vector}
 \index{character vector}
 
-There are four primary types of atomic vectors: logical, integer, double, and character. Collectively integer and double vectors are known as numeric vectors\footnote{This is a slight simplification as R does not use ``numeric'' consistently, which we'll come back to in Section \ref{numeric-type}.}. There are two rare types: complex and raw. I won't discuss them further because complex numbers are rarely needed in statistics, and raw vectors are a special type that's only needed when handling binary data.
+There are four primary types of atomic vectors: logical, integer, double, and character (which contains strings). Collectively integer and double vectors are known as numeric vectors\footnote{This is a slight simplification as R does not use ``numeric'' consistently, which we'll come back to in Section \ref{numeric-type}.}. There are two rare types: complex and raw. I won't discuss them further because complex numbers are rarely needed in statistics, and raw vectors are a special type that's only needed when handling binary data.
 
 \begin{center}\includegraphics{diagrams/vectors/summary-tree-atomic} \end{center}
 
@@ -1699,17 +1708,13 @@ There are four primary types of atomic vectors: logical, integer, double, and ch
 \indexc{"}
 \indexc{'}
 
-Each of the four primary types has a special syntax to create an individual value, AKA a \textbf{scalar}\footnote{Technically, the R language does not possess scalars. Everything that looks like a scalar is actually a vector of length one. This however, is mainly a theoretical distinction that is unlikely to harm your code.}, and its own missing value.
+Each of the four primary types has a special syntax to create an individual value, AKA a \textbf{scalar}\footnote{Technically, the R language does not possess scalars. Everything that looks like a scalar is actually a vector of length one. This is mostly a theoretical distinction, but it does mean that expressions like \texttt{1{[}1{]}} work.}, and its own missing value.
 
 \begin{itemize}
-\tightlist
 \item
-  Strings are surrounded by \texttt{"} (\texttt{"hi"}) or \texttt{\textquotesingle{}} (\texttt{\textquotesingle{}bye\textquotesingle{}}). The missing value
-  for strings is \texttt{NA\_character\_}. Special characters are escaped with \texttt{\textbackslash{}\textbackslash{}};
-  see \texttt{?Quotes} for full details.
-\end{itemize}
-
-\begin{itemize}
+  Strings are surrounded by \texttt{"} (\texttt{"hi"}) or \texttt{\textquotesingle{}} (\texttt{\textquotesingle{}bye\textquotesingle{}}). Special characters
+  are escaped with \texttt{\textbackslash{}}; see \texttt{?Quotes} for full details. The missing value
+  for strings is \texttt{NA\_character\_}.
 \item
   Doubles can be specified in decimal (\texttt{0.1234}), scientific (\texttt{1.23e4}), or
   hexadecimal (\texttt{0xcafe}) form. There are three special values unique to
@@ -1743,6 +1748,15 @@ To create longer vectors from shorter ones, use \texttt{c()}, short for combine:
 \end{Highlighting}
 \end{Shaded}
 
+When the inputs are atomic vectors, \texttt{c()} always creates another atomic vector; i.e.~it flattens:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{c}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\CommentTok{#> [1] 1 2 3 4}
+\end{Highlighting}
+\end{Shaded}
+
 In diagrams, I'll depict vectors as connected rectangles, so the above code could be drawn as follows:
 
 \begin{center}\includegraphics{diagrams/vectors/atomic} \end{center}
@@ -1770,9 +1784,9 @@ You can determine the type of a vector with \texttt{typeof()}\footnote{You may h
 \indexc{is.atomic()}
 \indexc{is.numeric()}
 
-Generally, you can \textbf{test} if a vector is of a given type with an \texttt{is.*()} function, but they need to be used with care. \texttt{is.character()}, \texttt{is.double()}, \texttt{is.integer()}, and \texttt{is.logical()} do what you might expect: they test if a vector is a character, double, integer, or logical. But beware of \texttt{is.vector()}, \texttt{is.atomic()}, and \texttt{is.numeric()}: they don't test if you have a vector, atomic vector, or numeric vector; you'll need to carefully read the docs to figure out what they do do.
+Generally, you can \textbf{test} if a vector is of a given type with an \texttt{is.*()} function, but they need to be used with care. \texttt{is.character()}, \texttt{is.double()}, \texttt{is.integer()}, and \texttt{is.logical()} do what you might expect: they test if a vector is a character, double, integer, or logical. Avoid \texttt{is.vector()}, \texttt{is.atomic()}, and \texttt{is.numeric()}: they don't test if you have a vector, atomic vector, or numeric vector; you'll need to carefully read the docs to figure out what they actually do.
 
-For atomic vectors, type is a property of the entire vector: all elements must be the same type. When you attempt to combine different types they will be \textbf{coerced} in a hierarchical order of types: character \textgreater{}\textgreater{} double \textgreater{}\textgreater{} integer \textgreater{}\textgreater{} logical. For example, combining a character and an integer yields a character:
+For atomic vectors, type is a property of the entire vector: all elements must be the same type. When you attempt to combine different types they will be \textbf{coerced} in a fixed order: character → double → integer → logical. For example, combining a character and an integer yields a character:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1798,8 +1812,6 @@ Coercion often happens automatically. Most mathematical functions (\texttt{+}, \
 \CommentTok{#> [1] 0.333}
 \end{Highlighting}
 \end{Shaded}
-
-Vectorised logical operations (\texttt{\&}, \texttt{\textbar{}}, \texttt{any}, etc) will coerce to a logical, but since this might lose information, it's always accompanied by a warning.
 
 Generally, you can deliberately coerce by using an \texttt{as.*()} function, like \texttt{as.character()}, \texttt{as.double()}, \texttt{as.integer()}, or \texttt{as.logical()}. Failed coercion of strings generates a warning and a missing value:
 
@@ -1853,7 +1865,7 @@ You might have noticed that the set of atomic vectors does not include a number 
 \indexc{attributes()}
 \indexc{structure()}
 
-You can think of attributes as a named list\footnote{The reality is a little more complicated: attributes are actually stored as pairlists. Pairlists are functionally indistinguishable from lists, but are profoundly different under the hood. You'll learn more about them in Section \ref{pairlists}.} that attaches metadata to an object. Individual attributes can be retrieved and modified with \texttt{attr()}, or retrieved en masse with \texttt{attributes()}, and set en masse with \texttt{structure()}.
+You can think of attributes as name-value pairs\footnote{Attributes behave like named lists, but are actually pairlists. Pairlists are functionally indistinguishable from lists, but are profoundly different under the hood. You'll learn more about them in Section \ref{pairlists}.} that attach metadata to an object. Individual attributes can be retrieved and modified with \texttt{attr()}, or retrieved en masse with \texttt{attributes()}, and set en masse with \texttt{structure()}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1921,7 +1933,7 @@ You can name a vector in three ways:
 \CommentTok{# When creating it: }
 \NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DataTypeTok{a =} \DecValTok{1}\NormalTok{, }\DataTypeTok{b =} \DecValTok{2}\NormalTok{, }\DataTypeTok{c =} \DecValTok{3}\NormalTok{)}
 
-\CommentTok{# By assigning names() to an existing vector:}
+\CommentTok{# By assigning a character vector to names()}
 \NormalTok{x <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{3}
 \KeywordTok{names}\NormalTok{(x) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{)}
 
@@ -2137,7 +2149,7 @@ A minor variation of factors is \textbf{ordered} factors, which generally behave
 \end{Highlighting}
 \end{Shaded}
 
-With base R\footnote{The tidyverse never automatically coerce characters to factor, and provides the forcats (Wickham \protect\hyperlink{ref-forcats}{2018}) package specifically for working with factors.} you tend to encounter factors very frequently, because many base R functions (like \texttt{read.csv()} and \texttt{data.frame()}) automatically convert character vectors to factors. This is suboptimal, because there's no way for those functions to know the set of all possible levels or their optimal order: the levels are a property of the experimental design, not the data. Instead, use the argument \texttt{stringsAsFactors\ =\ FALSE} to suppress this behaviour, and then manually convert character vectors to factors using your knowledge of the data. To learn about the historical context of this behaviour, I recommend \href{http://simplystatistics.org/2015/07/24/stringsasfactors-an-unauthorized-biography/}{\emph{stringsAsFactors: An unauthorized
+With base R\footnote{The tidyverse never automatically coerce characters to factor, and provides the forcats (Wickham \protect\hyperlink{ref-forcats}{2018}) package specifically for working with factors.} you tend to encounter factors very frequently, because many base R functions (like \texttt{read.csv()} and \texttt{data.frame()}) automatically convert character vectors to factors. This is undesirable, because there's no way for those functions to know the set of all possible levels or their optimal order: the levels are a property of the experimental design, not the data. Instead, use the argument \texttt{stringsAsFactors\ =\ FALSE} to suppress this behaviour, and then manually convert character vectors to factors using your knowledge of the data. To learn about the historical context of this behaviour, I recommend \href{http://simplystatistics.org/2015/07/24/stringsasfactors-an-unauthorized-biography/}{\emph{stringsAsFactors: An unauthorized
 biography}} by Roger Peng, and \href{http://notstatschat.tumblr.com/post/124987394001/stringsasfactors-sigh}{\emph{stringsAsFactors =
 \textless{}sigh\textgreater{}}} by Thomas Lumley.
 
@@ -2162,7 +2174,7 @@ Date vectors are built on top of double vectors. They have class ``Date'' and no
 \end{Highlighting}
 \end{Shaded}
 
-The value of the double (which can be seen by stripping the class), represents the number of days since 1970-01-01:
+The value of the double (which can be seen by stripping the class), represents the number of days since 1970-01-01\footnote{This is special date is known as the Unix Epoch.}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2287,7 +2299,7 @@ Durations, the amount of time between two dates or date times, are stored in dif
 \index{vectors!recursive|see{lists}}
 \index{vectors!generic|see{lists}}
 
-Lists are a step up in complexity from atomic vectors because an element of a list can be any type (not just vectors). An element of a list can even be another list!
+Lists are a step up in complexity from atomic vectors because an element of a list can be any type (not just vectors). More precisely, every element of a list is the same type; it's a \emph{reference} to another object, as you saw in Section \ref{list-references}.
 
 \hypertarget{list-creating}{%
 \subsection{Creating}\label{list-creating}}
@@ -2595,7 +2607,7 @@ While every element of a data frame (or tibble) must have the same length, both 
 \end{Highlighting}
 \end{Shaded}
 
-There is one final difference: \texttt{tibble()} allows you to refer to newly created variables:
+There is one final difference: \texttt{tibble()} allows you to refer to freshly created variables during construction:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2611,6 +2623,8 @@ There is one final difference: \texttt{tibble()} allows you to refer to newly cr
 \CommentTok{#> 3     3     6}
 \end{Highlighting}
 \end{Shaded}
+
+(Inputs are evaluated left-to-right.)
 
 When drawing data frames and tibbles, rather than focussing on the implementation details, i.e.~the attributes:
 
@@ -2657,7 +2671,7 @@ You can get and set row names with \texttt{rownames()}, and you can use them to 
 
 Row names arise naturally if you think of data frames as 2d structures like matrices: the columns (variables) have names so the rows (observations) should too. Most matrices are numeric, so having a place to store character labels is important. But this analogy to matrices is misleading because matrices possess an important property that data frames do not: they are transposable. In matrices the rows and columns are interchangeable, and transposing a matrix gives you another matrix (and transposing again gives you back the original matrix). With data frames, however, the rows and columns are not interchangeable, and the transpose of a data frame is not a data frame.
 
-There are three reasons that row names are suboptimal:
+There are three reasons that row names are undesirable:
 
 \begin{itemize}
 \item
@@ -2752,7 +2766,7 @@ Tibbles:
 
 As you will learn in Chapter \ref{subsetting}, you can subset a data frame or a tibble like a 1d structure (where it behaves like a list), or a 2d structure (where it behaves like a matrix).
 
-In my opinion, data frames have two suboptimal subsetting behaviours:
+In my opinion, data frames have two undesirable subsetting behaviours:
 
 \begin{itemize}
 \item
@@ -2783,7 +2797,7 @@ Tibbles tweak these behaviours so that \texttt{{[}} always returns a tibble, and
 \end{Highlighting}
 \end{Shaded}
 
-A tibble's insistence on returning a data frame from \texttt{{[}} can cause problems with legacy code, which often uses \texttt{df{[},\ "col"{]}} to extract a single column. To fix this, use \texttt{df{[}{[}"col"{]}{]}} instead; this is more expressive (since \texttt{{[}{[}} always extracts a single element) and works with both data frames and tibbles.
+A tibble's insistence on returning a data frame from \texttt{{[}} can cause problems with legacy code, which often uses \texttt{df{[},\ "col"{]}} to extract a single column. If you want a single column, I recommend that you use \texttt{df{[}{[}"col"{]}{]}}. This clearly communicates your intent, and works with both data frames and tibbles.
 
 \hypertarget{df-test-coerce}{%
 \subsection{Testing and coercing}\label{df-test-coerce}}
@@ -2825,7 +2839,7 @@ You can coerce an object to a data frame with \texttt{as.data.frame()} or to as 
 
 Since a data frame is a list of vectors, it is possible for a data frame to have a column that is a list. This is very useful because a list can contain any other object, which means that you can put any object in a data frame. This allows you to keep related objects together in a row, no matter how complex the individual objects are. You can see an application of this in the ``Many Models'' chapter of ``R for Data Science'', \url{http://r4ds.had.co.nz/many-models.html}.
 
-List-columns are allowed in data frames but you have to do a little extra work, either adding the list-column after creation, or wrapping the list in \texttt{I()}.
+List-columns are allowed in data frames but you have to do a little extra work, either adding the list-column after creation, or wrapping the list in \texttt{I()}\footnote{\texttt{I()} is short for identity, and is often used to indicate that an input should be left as is, not automatically transformed.}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2953,7 +2967,7 @@ There are two common uses of \texttt{NULL}:
 \item
   To represent an empty vector (a vector of length 0) of arbitrary type.
   For example, if you use \texttt{c()} but don't include any arguments, you get
-  \texttt{NULL}, and concatenating \texttt{NULL} to a vector leaves it unchanged\footnote{Algebraically, this makes \texttt{NULL} the identity element under vector concatenation.}:
+  \texttt{NULL}, and concatenating \texttt{NULL} to a vector leaves it unchanged\footnote{\texttt{I()} is short for identity, and is often used to indicate that an input should be left as is, not automatically transformed.}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3073,7 +3087,7 @@ Take this short quiz to determine if you need to read this chapter. If the answe
 
 \indexc{[}
 
-It's easiest to learn how subsetting works for atomic vectors, and then how it generalises to higher dimensions and other more complicated objects. We'll start with \texttt{{[}}, the most commonly used operator which allows you to extract any number of elements. Section \ref{subset-single} will cover \texttt{{[}{[}} and \texttt{\$}, used to extract a single element from a data structure.
+Use \texttt{{[}} to select any number elements from a vector. I'll start by applying it to 1D atomic vectors, and then show how it generalises to more complex objects and more dimensions.
 
 \hypertarget{atomic-vectors-1}{%
 \subsection{Atomic vectors}\label{atomic-vectors-1}}
@@ -3146,8 +3160,13 @@ There are six things that you can use to subset a vector:
 \end{Highlighting}
 \end{Shaded}
 
-  If the logical vector is shorter than the vector being subsetted, it
-  will be silently \textbf{recycled} to be the same length.
+  \index{recycling}
+  In \texttt{x{[}y{]}}, what happens if \texttt{x} and \texttt{y} are different lengths? The behaviour
+  is controlled by the \textbf{recycling rules}, and the shorter of the two will
+  be ``recycled'' to the length of the longer. This is convenient and easy to
+  understand when one of \texttt{x} and \texttt{y} is length one, but I recommend avoiding
+  recycling for other lengths because the rules are consistently applied
+  throughout base R.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3270,7 +3289,18 @@ The most common way of subsetting matrices (2d) and arrays (\textgreater{}2d) is
 \end{Highlighting}
 \end{Shaded}
 
-By default, \texttt{{[}} will simplify the results to the lowest possible dimensionality. You'll learn how to avoid this in Section \ref{simplify-preserve}.
+By default, \texttt{{[}} will simplify the results to the lowest possible dimensionality, and both of the following expressions return 1D vectors. You'll learn how to avoid this dimension ``dropping'' in Section \ref{simplify-preserve}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a[}\DecValTok{1}\NormalTok{, ]}
+\CommentTok{#> A B C }
+\CommentTok{#> 1 4 7}
+\NormalTok{a[}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{]}
+\CommentTok{#> A }
+\CommentTok{#> 1}
+\end{Highlighting}
+\end{Shaded}
 
 Because matrices and arrays are just vectors with special attributes, you can subset them with a single vector, as if they were a 1d vector. Arrays in R are stored in column-major order:
 
@@ -3294,11 +3324,11 @@ You can also subset higher-dimensional data structures with an integer matrix (o
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{select <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(}
-  \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{),}
-  \KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{),}
-  \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{)}
-\NormalTok{)}
+\NormalTok{select <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }\DataTypeTok{byrow =} \OtherTok{TRUE}\NormalTok{, }\KeywordTok{c}\NormalTok{(}
+  \DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{,}
+  \DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{,}
+  \DecValTok{2}\NormalTok{, }\DecValTok{4}
+\NormalTok{))}
 \NormalTok{vals[select]}
 \CommentTok{#> [1] "1,1" "3,1" "2,4"}
 \end{Highlighting}
@@ -3310,7 +3340,16 @@ You can also subset higher-dimensional data structures with an integer matrix (o
 \index{subsetting!data frames}
 \index{data frames!subsetting}
 
-Data frames possess the characteristics of both lists and matrices: if you subset with a single vector, they behave like lists; if you subset with two vectors, they behave like matrices.
+Data frames possess the characteristics of both lists and matrices:
+
+\begin{itemize}
+\item
+  When subsetting with a single index, they behave like lists, indexing into
+  the columns, so \texttt{df{[}1:2{]}} selects the first two columns.
+\item
+  When subsetting with two indices, they behave like matrices, so
+  \texttt{df{[}1:3,\ {]}} selects the first three \emph{rows} (and all the columns)\footnote{If you're coming from Python this is likely to be confusing, as you'd probably expect \texttt{df{[}1:3,\ 1:2{]}} to select three columns and two rows. Generally, R seems to ``think about'' dimensions in the opposite direction to Python.}.
+\end{itemize}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3507,21 +3546,9 @@ When extracting multiple elements (or zero!), you have to make a smaller train:
 
 \begin{center}\includegraphics{diagrams/subsetting/train-multiple} \end{center}
 
-Because it can return only a single item, you must use \texttt{{[}{[}} with either a single positive integer or a string. If you use a vector with \texttt{{[}{[}}, it will subset recursively:
+Because it can return only a single item, you must use \texttt{{[}{[}} with either a single positive integer or a string. If you use a vector with \texttt{{[}{[}}, it will subset recursively, i.e. \texttt{x{[}{[}c(1,\ 2){]}{]}} is equivalent to \texttt{x{[}{[}1{]}{]}{[}{[}2{]}{]}}. This is a quirky feature that few people know about, so I recommend avoiding it in favour of \texttt{purrr::pluck()}, which you'll learn about in Section \ref{subsetting-oob}.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{b <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{a =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{b =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{c =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{d =} \DecValTok{1}\NormalTok{))))}
-\NormalTok{b[[}\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{, }\StringTok{"d"}\NormalTok{)]]}
-\CommentTok{#> [1] 1}
-
-\CommentTok{# Equivalent to}
-\NormalTok{b[[}\StringTok{"a"}\NormalTok{]][[}\StringTok{"b"}\NormalTok{]][[}\StringTok{"c"}\NormalTok{]][[}\StringTok{"d"}\NormalTok{]]}
-\CommentTok{#> [1] 1}
-\end{Highlighting}
-\end{Shaded}
-
-\texttt{{[}{[}} is crucial for working with lists, but I recommend using it whenever you want your code to clearly express that it's working with a single item. That frequently arises in for loops, e.g., instead of writing:
+You must use \texttt{{[}{[}} when working with lists, but I also recommend using it with atomic vectors whenever you extract a single value. For example, instead of writing:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3541,7 +3568,7 @@ It's better to write:
 \end{Highlighting}
 \end{Shaded}
 
-That reinforces to the reader that you expect to get and set individual values.
+Because it reinforces to the reader that you expect to get and set individual values.
 
 \hypertarget{section-1}{%
 \subsection{\texorpdfstring{\texttt{\$}}{\$}}\label{section-1}}
@@ -3563,7 +3590,7 @@ That reinforces to the reader that you expect to get and set individual values.
 \end{Highlighting}
 \end{Shaded}
 
-There's one important difference between \texttt{\$} and \texttt{{[}{[}}. \texttt{\$} does partial matching:
+There's one important difference between \texttt{\$} and \texttt{{[}{[}}. \texttt{\$} does partial matching from left-to-right:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3588,8 +3615,8 @@ To help avoid this behaviour I highly recommend setting the global option \textt
 
 (For data frames, you can also avoid this problem by using tibbles instead: they never do partial matching.)
 
-\hypertarget{missingout-of-bounds-indices}{%
-\subsection{Missing/out of bounds indices}\label{missingout-of-bounds-indices}}
+\hypertarget{subsetting-oob}{%
+\subsection{Missing/out of bounds indices}\label{subsetting-oob}}
 
 \index{subsetting!with NA \& NULL}
 \index{subsetting!out of bounds}
@@ -3609,7 +3636,7 @@ List & Error & Error & \texttt{NULL} & \texttt{NULL}\tabularnewline
 \bottomrule
 \end{longtable}
 
-If the input vector is named, then the names of OOB, missing, or \texttt{NULL} components will be \texttt{"\textless{}NA\textgreater{}"}.
+If the vector being indexed is named, then the names of OOB, missing, or \texttt{NULL} components will be \texttt{"\textless{}NA\textgreater{}"}.
 
 The inconsistency of the \texttt{{[}{[}} table above led to the development of \texttt{purrr::pluck()} and \texttt{purrr::chuck()}. \texttt{pluck()} always returns \texttt{NULL} (or the value of the \texttt{.default} argument) when the element is missing; \texttt{chuck()} always throws an error. The behaviour of \texttt{pluck()} makes it well suited for indexing into deeply nested data structures where the component you want does not always exist (as is common when working with JSON data from web APIs). \texttt{pluck()} also allows you to mingle integer and character indexes, and to provide an alternative default value if the item does not exist:
 
@@ -3692,7 +3719,7 @@ With lists, you can use \texttt{x{[}{[}i{]}{]}\ \textless{}-\ NULL} to remove a 
 \end{Highlighting}
 \end{Shaded}
 
-Subsetting with nothing can be useful in conjunction with assignment because it will preserve the structure of the original object. Compare the following two expressions. In the first, \texttt{mtcars} will remain as a data frame. In the second, \texttt{mtcars} will become a list.
+Subsetting with nothing can be useful in conjunction with assignment because it is designed to preserve the structure of the original object. Compare the following two expressions. In the first, \texttt{mtcars} will remain as a data frame because you are changing the contents of \texttt{mtcars}, not \texttt{mtcars} itself. In the second, \texttt{mtcars} becomes a list, because you've changed the object it is bound to.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3725,13 +3752,17 @@ Character matching provides a powerful way to make lookup tables. Say you want t
 \NormalTok{lookup[x]}
 \CommentTok{#>        m        f        u        f        f        m        m }
 \CommentTok{#>   "Male" "Female"       NA "Female" "Female"   "Male"   "Male"}
-
-\KeywordTok{unname}\NormalTok{(lookup[x])}
-\CommentTok{#> [1] "Male"   "Female" NA       "Female" "Female" "Male"   "Male"}
 \end{Highlighting}
 \end{Shaded}
 
 If you don't want names in the result, use \texttt{unname()} to remove them.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{unname}\NormalTok{(lookup[x])}
+\CommentTok{#> [1] "Male"   "Female" NA       "Female" "Female" "Male"   "Male"}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{matching-merging}{%
 \subsection{Matching and merging by hand (integer subsetting)}\label{matching-merging}}
@@ -3753,11 +3784,13 @@ You may have a more complicated lookup table which has multiple columns of infor
 \end{Highlighting}
 \end{Shaded}
 
-We want to duplicate the \texttt{info} table so that we have a row for each value in \texttt{grades}. An elegant way to do this is by combining \texttt{match()} and integer subsetting:
+We want to duplicate the \texttt{info} table so that we have a row for each value in \texttt{grades}. An elegant way to do this is by combining \texttt{match()} and integer subsetting (\texttt{match(needles,\ haystack)} returns the position where each \texttt{needle} is found in the \texttt{haystack}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{id <-}\StringTok{ }\KeywordTok{match}\NormalTok{(grades, info}\OperatorTok{$}\NormalTok{grade)}
+\NormalTok{id}
+\CommentTok{#> [1] 3 2 2 1 3}
 \NormalTok{info[id, ]}
 \CommentTok{#>     grade      desc  fail}
 \CommentTok{#> 3       1      Poor  TRUE}
@@ -3778,7 +3811,7 @@ If you have multiple columns to match on, you'll need to first collapse them to 
 \index{sampling}
 \index{bootstrapping}
 
-You can use integer indices to perform random sampling or bootstrapping of a vector or data frame. \texttt{sample()} generates a vector of indices, then subsetting accesses the values:
+You can use integer indices to perform random sampling or bootstrapping of a vector or data frame. \texttt{sample(n)} generates a random permutation of \texttt{1:n}, then subsetting accesses the values:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3821,7 +3854,7 @@ The arguments of \texttt{sample()} control the number of samples to extract, and
 
 \index{sorting}
 
-\texttt{order()} takes a vector as input and returns an integer vector describing how the subsetted vector should be ordered:
+\texttt{order()} takes a vector as input and returns an integer vector describing how the subsetted vector should be ordered\footnote{These are ``pull'' indices, i.e. \texttt{order(x){[}i{]}} is the index in \texttt{x} of the element that belongs at location \texttt{i}, not the index in the result to which \texttt{x{[}i{]}} should be sent.}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3871,7 +3904,7 @@ You can sort vectors directly with \texttt{sort()}, or use \texttt{dplyr::arrang
 \hypertarget{expanding-aggregated-counts-integer-subsetting}{%
 \subsection{Expanding aggregated counts (integer subsetting)}\label{expanding-aggregated-counts-integer-subsetting}}
 
-Sometimes you get a data frame where identical rows have been collapsed into one and a count column has been added. \texttt{rep()} and integer subsetting make it easy to uncollapse the data by subsetting with a repeated row index:
+Sometimes you get a data frame where identical rows have been collapsed into one and a count column has been added. \texttt{rep()} and integer subsetting make it easy to uncollapse, because we can take advantage of \texttt{rep()}s vectorisation: \texttt{rep(x,\ y)} repeats \texttt{x{[}i{]}} \texttt{y{[}i{]}} times.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4046,15 +4079,11 @@ Let's create two logical vectors and their integer equivalents and then explore 
 When first learning subsetting, a common mistake is to use \texttt{x{[}which(y){]}} instead of \texttt{x{[}y{]}}. Here the \texttt{which()} achieves nothing: it switches from logical to integer subsetting but the result will be exactly the same. In more general cases, there are two important differences.
 
 \begin{itemize}
-\tightlist
 \item
   When the logical vector contains \texttt{NA}, logical subsetting replaces these
   values by \texttt{NA} while \texttt{which()} drops these values. It's not uncommon to use
-  \texttt{which()} for this side-effect, but that's
-\end{itemize}
-
-\begin{itemize}
-\tightlist
+  \texttt{which()} for this side-effect, but I don't recommend it: nothing about
+  the name ``which'' implies the removal of missing values.
 \item
   \texttt{x{[}-which(y){]}} is \textbf{not} equivalent to \texttt{x{[}!y{]}}: if \texttt{y} is all FALSE,
   \texttt{which(y)} will be \texttt{integer(0)} and \texttt{-integer(0)} is still \texttt{integer(0)}, so
@@ -4377,14 +4406,7 @@ A final option is to put functions in a list:
 \end{Highlighting}
 \end{Shaded}
 
-In R, you'll often see functions called \textbf{closures}. This name reflects the fact that R functions capture, or \textbf{enclose}, their environments.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{typeof}\NormalTok{(f01)}
-\CommentTok{#> [1] "closure"}
-\end{Highlighting}
-\end{Shaded}
+In R, you'll often see functions called \textbf{closures}. This name reflects the fact that R functions capture, or enclose, their environments, which you'll learn more about in Section \ref{function-environments}.
 
 \hypertarget{invoking-a-function}{%
 \subsection{Invoking a function}\label{invoking-a-function}}
@@ -4415,14 +4437,9 @@ We'll come back to this idea in Section \ref{tidy-dots}.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
-  Given a function, like \texttt{"mean"}, \texttt{match.fun()} lets you find a function.
+  Given a name, like \texttt{"mean"}, \texttt{match.fun()} lets you find a function.
   Given a function, can you find its name? Why doesn't that make sense in R?
-\end{enumerate}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
 \item
   It's possible (although typically not useful) to call an anonymous function.
   Which of the two approaches below is correct? Why?
@@ -4527,7 +4544,7 @@ The magrittr package (Bache and Wickham \protect\hyperlink{ref-magrittr}{2014}) 
 \end{Highlighting}
 \end{Shaded}
 
-\texttt{x\ \%\textgreater{}\%\ f()} is equivalent to \texttt{f(x)}; \texttt{x\ \%\textgreater{}\%\ f(y)} is equivalent to \texttt{f(x,\ y)}. The pipe is related to \textbf{tacit} or \textbf{point-free programming}\footnote{Point-free programming is related to point-free topology. It's just a coincidence that many forms of point-free programming use \texttt{.} extensively. Point-free programming is sometimes humorously called pointless programming.}. In this style of programming, you don't explicitly refer to variables. Instead, you focus on the high-level composition of functions rather than the low-level flow of data; the focus is on what's being done (the verbs), rather than on what's being modified (the nouns). This style is common in Haskell and F\#, the main inspiration for magrittr, and is the default style in stack based programming languages like Forth and Factor.
+\texttt{x\ \%\textgreater{}\%\ f()} is equivalent to \texttt{f(x)}; \texttt{x\ \%\textgreater{}\%\ f(y)} is equivalent to \texttt{f(x,\ y)}. The pipe allows you to focus on the high-level composition of functions rather than the low-level flow of data; the focus is on what's being done (the verbs), rather than on what's being modified (the nouns). This style is common in Haskell and F\#, the main inspiration for magrittr, and is the default style in stack based programming languages like Forth and Factor.
 
 Each of the three options has its own strengths and weaknesses:
 
@@ -4576,7 +4593,7 @@ The basic rules of scoping are quite intuitive, and you've probably already inte
 
 In this section, you'll learn the formal rules of scoping as well as some of its more subtle details. A deeper understanding of scoping will help you to use more advanced functional programming tools, and eventually, even to write tools that translate R code into other languages.
 
-R uses \textbf{lexical scoping}\footnote{Functions that automatically quote one or more arguments (sometimes called NSE functions) can override the default scoping rules to implement other varieties of scoping. You'll learn more about that in Chapter \ref{evaluation}.}: it looks up the values of names based on how a function is defined, not how it is called. ``Lexical'' here is not the English adjective ``relating to words or a vocabulary''. It's a technical CS term that tells us that the scoping rules use a parse-time, rather than a run-time structure.
+R uses \textbf{lexical scoping}\footnote{Functions that automatically quote one or more arguments can override the default scoping rules to implement other varieties of scoping. You'll learn more about that in Chapter \ref{evaluation}.}: it looks up the values of names based on how a function is defined, not how it is called. ``Lexical'' here is not the English adjective ``relating to words or a vocabulary''. It's a technical CS term that tells us that the scoping rules use a parse-time, rather than a run-time structure.
 
 R's lexical scoping follows four primary rules:
 
@@ -4624,6 +4641,10 @@ If a name isn't defined inside a function, R looks one level up.
 \NormalTok{\}}
 \KeywordTok{g03}\NormalTok{()}
 \CommentTok{#> [1] 2 1}
+
+\CommentTok{# And this doesn't change the previous value of y}
+\NormalTok{y}
+\CommentTok{#> [1] 20}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4646,25 +4667,7 @@ Run the following code in your head, then confirm the result by running the code
 \end{Highlighting}
 \end{Shaded}
 
-The same rules also apply to functions created by other functions, which I call manufactured functions, and are the topic of Chapter \ref{function-factories}. Here I'll focus on how they interact with scoping. The following function, \texttt{g05()}, returns a function. What do you think this function will return when it's called?\footnote{\texttt{g06()} returns \texttt{c(10,\ 2)}.}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x <-}\StringTok{ }\DecValTok{10}
-\NormalTok{y <-}\StringTok{ }\DecValTok{20}
-
-\NormalTok{g05 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
-\NormalTok{  y <-}\StringTok{ }\DecValTok{2}
-  \ControlFlowTok{function}\NormalTok{() \{}
-    \KeywordTok{c}\NormalTok{(x, y)}
-\NormalTok{  \}}
-\NormalTok{\}}
-\NormalTok{g06 <-}\StringTok{ }\KeywordTok{g05}\NormalTok{()}
-\KeywordTok{g06}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-This seems a little magical: how does R know what the value of \texttt{y} is after \texttt{g05()} is returned? R knows because \texttt{g06()} preserves the environment where it was defined and that environment includes the value of \texttt{y}. You'll learn more about how environments work in Chapter \ref{environments}.
+The same rules also apply to functions created by other functions, which I call manufactured functions, the topic of Chapter \ref{function-factories}.
 
 \hypertarget{functions-vs.variables}{%
 \subsection{Functions vs.~variables}\label{functions-vs.variables}}
@@ -4823,89 +4826,6 @@ In R, function arguments are \textbf{lazily evaluated}: they're only evaluated i
 
 This is an important feature because it allows you to do things like include potentially expensive computations in function arguments that will only be evaluated if needed.
 
-\hypertarget{forcing-evaluation}{%
-\subsection{Forcing evaluation}\label{forcing-evaluation}}
-
-\indexc{force()}
-
-To \textbf{compel} the evaluation of an argument, use \texttt{force()}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{h02 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
-  \KeywordTok{force}\NormalTok{(x)}
-  \DecValTok{10}
-\NormalTok{\}}
-\KeywordTok{h02}\NormalTok{(}\KeywordTok{stop}\NormalTok{(}\StringTok{"This is an error!"}\NormalTok{))}
-\CommentTok{#> Error in force(x):}
-\CommentTok{#>   This is an error!}
-\end{Highlighting}
-\end{Shaded}
-
-It's usually not necessary to force evaluation. However, it is important for certain functional programming techniques, like the one we'll cover in detail in Chapter \ref{function-operators}. Here, I'm just going to show you what the basic issue is.
-
-Consider this small but surprisingly tricky function. It takes a single argument \texttt{x}, and returns a function that returns \texttt{x} when called.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{capture1 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
-  \ControlFlowTok{function}\NormalTok{() \{}
-\NormalTok{    x}
-\NormalTok{  \}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-The subtlety here is that the value of \texttt{x} will be captured not when you call \texttt{capture1()}, but when you call the function that \texttt{capture1()} returns:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x <-}\StringTok{ }\DecValTok{10}
-\NormalTok{h03 <-}\StringTok{ }\KeywordTok{capture1}\NormalTok{(x)}
-\NormalTok{h04 <-}\StringTok{ }\KeywordTok{capture1}\NormalTok{(x)}
-
-\KeywordTok{h03}\NormalTok{()}
-\CommentTok{#> [1] 10}
-
-\NormalTok{x <-}\StringTok{ }\DecValTok{20}
-\KeywordTok{h04}\NormalTok{()}
-\CommentTok{#> [1] 20}
-\end{Highlighting}
-\end{Shaded}
-
-Even more confusingly this only happens once: the value is locked in after you have called \texttt{h03()}/\texttt{h04()} for the first time.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x <-}\StringTok{ }\DecValTok{30}
-\KeywordTok{h03}\NormalTok{()}
-\CommentTok{#> [1] 10}
-\KeywordTok{h04}\NormalTok{()}
-\CommentTok{#> [1] 20}
-\end{Highlighting}
-\end{Shaded}
-
-This behaviour is a consequence of lazy evaluation. The \texttt{x} argument is evaluated once \texttt{h03()}/\texttt{h04()} is called, and then its value is cached. We can avoid the confusion by forcing \texttt{x}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{capture2 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
-  \KeywordTok{force}\NormalTok{(x)}
-  
-  \ControlFlowTok{function}\NormalTok{() \{}
-\NormalTok{    x}
-\NormalTok{  \}}
-\NormalTok{\}}
-
-\NormalTok{x <-}\StringTok{ }\DecValTok{10}
-\NormalTok{h05 <-}\StringTok{ }\KeywordTok{capture2}\NormalTok{(x)}
-
-\NormalTok{x <-}\StringTok{ }\DecValTok{20}
-\KeywordTok{h05}\NormalTok{()}
-\CommentTok{#> [1] 10}
-\end{Highlighting}
-\end{Shaded}
-
 \hypertarget{promises}{%
 \subsection{Promises}\label{promises}}
 
@@ -4918,43 +4838,64 @@ A promise has three components:
 
 \begin{itemize}
 \item
-  The expression, like \texttt{x\ +\ y} which gives rise to the delayed computation.
+  An expression, like \texttt{x\ +\ y}, which gives rise to the delayed computation.
 \item
-  The environment where the expression should be evaluated.
-\item
-  The value, which is computed and cached the first time a promise is accessed
-  when the expression is evaluated in the specified environment.
-\end{itemize}
-
-The value cache ensures that the promise always returns the same value, even when it's accessed multiple times. For example, you can see in the following code that \texttt{runif(1)} is only evaluated once:
+  An environment where the expression should be evaluated, i.e.~the
+  environment where the function is called. This makes sure that the
+  following function returns 11, not 101:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{h06 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{ }
-  \KeywordTok{c}\NormalTok{(x, x, x)  }
+\NormalTok{y <-}\StringTok{ }\DecValTok{10}
+\NormalTok{h02 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+\NormalTok{  y <-}\StringTok{ }\DecValTok{100}
+\NormalTok{  x }\OperatorTok{+}\StringTok{ }\DecValTok{1}
 \NormalTok{\}}
 
-\KeywordTok{h06}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{))}
-\CommentTok{#> [1] 0.806 0.806 0.806}
+\KeywordTok{h02}\NormalTok{(y)}
+\CommentTok{#> [1] 11}
 \end{Highlighting}
 \end{Shaded}
 
-You can also create promises ``by hand'' using \texttt{delayedAssign()}:
+  This also means that when you do assignment inside a call to a function,
+  the variable is bound outside of the function, not inside of it.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{delayedAssign}\NormalTok{(}\StringTok{"x"}\NormalTok{, \{}\KeywordTok{print}\NormalTok{(}\StringTok{"Executing code"}\NormalTok{); }\KeywordTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{)\})}
-\NormalTok{x}
-\CommentTok{#> [1] "Executing code"}
-\CommentTok{#> [1] 0.814}
-\NormalTok{x}
-\CommentTok{#> [1] 0.814}
+\KeywordTok{h02}\NormalTok{(y <-}\StringTok{ }\DecValTok{1000}\NormalTok{)}
+\CommentTok{#> [1] 1001}
+\NormalTok{y}
+\CommentTok{#> [1] 1000}
 \end{Highlighting}
 \end{Shaded}
+\item
+  A value, which is computed and cached the first time a promise is
+  accessed when the expression is evaluated in the specified environment.
+  This ensures that the promise is evaluated at most once, and is why you
+  only see ``Calculating\ldots{}'' printed once in the following example.
 
-You'll see this idea again in Section \ref{advanced-bindings}.
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{double <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{ }
+  \KeywordTok{message}\NormalTok{(}\StringTok{"Calculating..."}\NormalTok{)}
+\NormalTok{  x }\OperatorTok{*}\StringTok{ }\DecValTok{2}
+\NormalTok{\}}
+
+\NormalTok{h06 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+  \KeywordTok{c}\NormalTok{(x, x)}
+\NormalTok{\}}
+
+\KeywordTok{h06}\NormalTok{(}\KeywordTok{double}\NormalTok{(x))}
+\CommentTok{#> Calculating...}
+\CommentTok{#> [1] 40 40}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
 
 You cannot manipulate promises with R code. Promises are like a quantum state: any attempt to inspect them with R code will force an immediate evaluation, making the promise disappear. Later, in Section \ref{quosures}, you'll learn about quosures, which reify promises into an R object where you can easily inspect the expression and the environment.
+
+\hypertarget{assignment}{%
+\subsection{Assignment}\label{assignment}}
 
 \hypertarget{default-arguments}{%
 \subsection{Default arguments}\label{default-arguments}}
@@ -5046,7 +4987,7 @@ It looks like both \texttt{x} and \texttt{size} are required, but in fact if it'
 \end{Highlighting}
 \end{Shaded}
 
-With the binary pattern created by the \texttt{\%\textbar{}\textbar{}\%} infix function, which uses the LHS if it's not \texttt{NULL} and the RHS otherwise, we can further simplify \texttt{sample()}:
+With the binary pattern created by the \texttt{\%\textbar{}\textbar{}\%} infix function, which uses the left side if it's not \texttt{NULL} and the right side otherwise, we can further simplify \texttt{sample()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5065,7 +5006,7 @@ With the binary pattern created by the \texttt{\%\textbar{}\textbar{}\%} infix f
 \end{Highlighting}
 \end{Shaded}
 
-Because of lazy evaluation, you don't need to worry about unnecessary computation: the RHS of \texttt{\%\textbar{}\textbar{}\%} will only be evaluated if the LHS is \texttt{NULL}.
+Because of lazy evaluation, you don't need to worry about unnecessary computation: the right side of \texttt{\%\textbar{}\textbar{}\%} will only be evaluated if the left side is \texttt{NULL}.
 
 \hypertarget{exercises-14}{%
 \subsection{Exercises}\label{exercises-14}}
@@ -5106,20 +5047,6 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
 \CommentTok{#> [1] FALSE FALSE FALSE}
 \end{Highlighting}
 \end{Shaded}
-\item
-  The definition of \texttt{force()} is simple:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{force}
-\CommentTok{#> function (x) }
-\CommentTok{#> x}
-\CommentTok{#> <bytecode: 0x1763cf8>}
-\CommentTok{#> <environment: namespace:base>}
-\end{Highlighting}
-\end{Shaded}
-
-  Why is it better to \texttt{force(x)} instead of just \texttt{x}?
 \item
   What does this function return? Why? Which principle does it illustrate?
 
@@ -5167,7 +5094,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
   \KeywordTok{print}\NormalTok{(x)}
 \NormalTok{\}}
 \KeywordTok{show_time}\NormalTok{()}
-\CommentTok{#> [1] "2018-12-21 04:52:32 UTC"}
+\CommentTok{#> [1] "2018-12-21 05:30:59 UTC"}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -5205,7 +5132,7 @@ You can also use \texttt{...} to pass those additional arguments on to another f
 \end{Highlighting}
 \end{Shaded}
 
-Using a special syntax, it's possible (but rarely useful) to refer to elements of \texttt{...} by position:
+Using a special form, \texttt{..N}, it's possible (but rarely useful) to refer to elements of \texttt{...} by position:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5292,8 +5219,6 @@ Using \texttt{...} comes with two downsides:
 \end{Shaded}
 \end{itemize}
 
-\texttt{...} is a powerful tool, but be aware of the downsides.
-
 \hypertarget{exercises-15}{%
 \subsection{Exercises}\label{exercises-15}}
 
@@ -5325,7 +5250,7 @@ Using \texttt{...} comes with two downsides:
 \end{Highlighting}
 \end{Shaded}
 
-  \begin{center}\includegraphics[width=0.7\linewidth]{Functions_files/figure-latex/unnamed-chunk-65-1} \end{center}
+  \begin{center}\includegraphics[width=0.7\linewidth]{Functions_files/figure-latex/unnamed-chunk-59-1} \end{center}
 \item
   Why does \texttt{plot(1:10,\ col\ =\ "red")} only colour the points, not the axes
   or labels? Read the source code of \texttt{plot.default()} to find out.
@@ -5479,9 +5404,7 @@ An error indicates that something has gone wrong, and forces the user to deal wi
 
 \index{handler!exit}
 
-Sometimes a function needs to make temporary changes to the global state. But having to cleanup those changes can be painful (what happens if there's an error?). To ensure that your changes are undone and that the global state is restored when the function completes, set up an \textbf{exit handler} . You do so by calling \texttt{on.exit()} with the code to be run. When the function exits, this code executes regardless of whether the function returns a value or throws an error.
-
-To setup an exit handler:
+Sometimes a function needs to make temporary changes to the global state. But having to cleanup those changes can be painful (what happens if there's an error?). To ensure that these changes are undone and that the global state is restored no matter how a function exits, use \texttt{on.exit()} to set up an \textbf{exit handler}. The following simple example shows that the exit handler is run regardless of whether the function exits normally or with an error.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5509,9 +5432,9 @@ To setup an exit handler:
 \end{Highlighting}
 \end{Shaded}
 
-Always set \texttt{add\ =\ TRUE} when using \texttt{on.exit()}. If you don't, each call to \texttt{on.exit()} will overwrite the previous exit handler. Even when only registering a single handler, it's good practice to set \texttt{add\ =\ TRUE} so that you won't get any unpleasant surprises if you later add more exit handlers
+Always set \texttt{add\ =\ TRUE} when using \texttt{on.exit()}. If you don't, each call to \texttt{on.exit()} will overwrite the previous exit handler. Even when only registering a single handler, it's good practice to set \texttt{add\ =\ TRUE} so that you won't get any unpleasant surprises if you later add more exit handlers.
 
-\texttt{on.exit()} is important because it allows you to place clean-up actions next to other actions.
+\texttt{on.exit()} is useful because it allows you to place clean-up code directly next to the code that requires clean-up:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5543,7 +5466,9 @@ Coupled with lazy evaluation, this creates a very useful pattern for running a b
 \end{Highlighting}
 \end{Shaded}
 
-See the withr package (Hester et al. \protect\hyperlink{ref-withr}{2018}) for a collection of functions of this nature.
+The use of \texttt{force()} isn't strictly necessary here as simply referring to \texttt{code} will force its evaluation. However, using \texttt{force()} makes it very clear that we are deliberately forcing the execution. You'll learn other uses of \texttt{force()} in Chapter \ref{function-factories}.
+
+The withr package (Hester et al. \protect\hyperlink{ref-withr}{2018}) provides a collection of other functions for setting up a temporary state.
 
 In R 3.4 and earlier, \texttt{on.exit()} expressions are always run in order of creation:
 
@@ -5676,7 +5601,7 @@ The following example shows three pairs of equivalent calls, rewriting an infix 
 \end{Highlighting}
 \end{Shaded}
 
-Knowing the function name of a non-prefix function allows you to override its behaviour. For example, if you're ever feeling particularly evil, run the following code while a friend is away from their computer. It will introduce a fun bug: 10\% of the time, it will add 1 to any numeric calculation inside the parentheses.
+Suprisingly, in R, \texttt{for} can be called like a regular function! The same is true for basically every operation in R, which means that knowing the function name of a non-prefix function allows you to override its behaviour. For example, if you're ever feeling particularly evil, run the following code while a friend is away from their computer. It will introduce a fun bug: 10\% of the time, it will add 1 to any numeric calculation inside the parentheses.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5688,8 +5613,8 @@ Knowing the function name of a non-prefix function allows you to override its be
 \NormalTok{  \}}
 \NormalTok{\}}
 \KeywordTok{replicate}\NormalTok{(}\DecValTok{50}\NormalTok{, (}\DecValTok{1} \OperatorTok{+}\StringTok{ }\DecValTok{2}\NormalTok{))}
-\CommentTok{#>  [1] 3 3 3 3 3 3 3 3 3 3 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3}
-\CommentTok{#> [33] 3 3 3 3 4 3 4 3 3 3 3 4 3 3 3 3 3 3}
+\CommentTok{#>  [1] 3 3 3 3 3 3 3 3 3 3 3 3 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3}
+\CommentTok{#> [33] 3 3 3 3 3 3 4 3 4 3 3 3 3 4 3 3 3 3}
 \KeywordTok{rm}\NormalTok{(}\StringTok{"("}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -5715,7 +5640,7 @@ But we can also get the same result simply by relying on the existing \texttt{+}
 \end{Highlighting}
 \end{Shaded}
 
-We'll explore this idea in detail in \protect\hyperlink{functionals}{functionals}.
+We'll explore this idea in detail in Section \ref{functionals}.
 
 \hypertarget{prefix-form}{%
 \subsection{Prefix form}\label{prefix-form}}
@@ -5729,7 +5654,7 @@ The prefix form is the most common form in R code, and indeed in the majority of
 \item
   By position, like \texttt{help(mean)}.
 \item
-  Using partial matching, like \texttt{help(to\ =\ mean)}. 
+  Using partial matching, like \texttt{help(top\ =\ mean)}.
 \item
   By name, like \texttt{help(topic\ =\ mean)}.
 \end{itemize}
@@ -5766,7 +5691,16 @@ As illustrated by the following chunk, arguments are matched by exact name, then
 \end{Highlighting}
 \end{Shaded}
 
-In general, use positional matching only for the first one or two arguments; they will be the most commonly used, and most readers will know what they are. Avoid using positional matching for less commonly used arguments, and never use partial matching. See the tidyverse style guide, \url{http://style.tidyverse.org/syntax.html\#argument-names}, for more advice.
+In general, use positional matching only for the first one or two arguments; they will be the most commonly used, and most readers will know what they are. Avoid using positional matching for less commonly used arguments, and never use partial matching. Unfortunately you can't disable partial matching, but you can turn it into a warning with the \texttt{warnPartialMatchArgs} option:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{warnPartialMatchArgs =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{k01}\NormalTok{(}\DataTypeTok{a =} \DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\CommentTok{#> Warning in k01(a = 1, 2, 3): partial argument match of 'a' to}
+\CommentTok{#> 'abcdef'}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{infix-functions}{%
 \subsection{Infix functions}\label{infix-functions}}
@@ -5840,7 +5774,7 @@ Replacement functions act like they modify their arguments in place, and have th
 \end{Highlighting}
 \end{Shaded}
 
-Replacement functions are used by placing the function call on the LHS of \texttt{\textless{}-}:
+Replacement functions are used by placing the function call on the left side of \texttt{\textless{}-}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5865,7 +5799,7 @@ I say they ``act'' like they modify their arguments in place, because, as discus
 \end{Highlighting}
 \end{Shaded}
 
-If you want to supply additional arguments, place them between \texttt{x} and \texttt{value}:
+If your replacement function needs additional arguments, place them between \texttt{x} and \texttt{value}, and call the replacement function with additional arguments on the left:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6111,7 +6045,7 @@ If you can answer the following questions correctly, you already know the most i
   for computing with environments, illustrating the idea with a useful
   function.
 \item
-  Section \ref{function-envs} describes environments used for special
+  Section \ref{special-environments} describes environments used for special
   purposes: for packages, within functions, for namespaces, and for
   function execution.
 \item
@@ -6147,8 +6081,7 @@ Generally, an environment is similar to a named list, with four important except
 \item
   Every name must be unique.
 \item
-  The names in an environment are not ordered (i.e.~it doesn't make sense
-  to ask what the first element of an environment is).
+  The names in an environment are not ordered.
 \item
   An environment has a parent.
 \item
@@ -6184,7 +6117,7 @@ The job of an environment is to associate, or \textbf{bind}, a set of names to a
 
 \begin{center}\includegraphics{diagrams/environments/bindings} \end{center}
 
-As discussed in Section \ref{env-modify}, environments have reference semantics: unlike most R objects, when you modify them, you modify them in place, and don't create a copy. One important implication is that environments can contain themselves. This means that environments go one step further in their level of recursion than lists: an environment can contain any object, including itself!
+As discussed in Section \ref{env-modify}, environments have reference semantics: unlike most R objects, when you modify them, you modify them in place, and don't create a copy. One important implication is that environments can ``contain'' themselves.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6239,7 +6172,7 @@ In R 3.2.0 and greater, use \texttt{names()} to list the bindings in an environm
 
 We'll talk in detail about special environments in \ref{special-environments}, but for now we need to mention two. The current environment, or \texttt{current\_env()} is the environment in which code is currently executing. When you're experimenting interactively, that's usually the global environment, or \texttt{global\_env()}. The global environment is sometimes called your ``workspace'', as it's where all interactive (i.e.~outside of a function) computation takes place.
 
-Note that to compare environments, you need to use \texttt{identical()} and not \texttt{==}:
+To compare environments, you need to use \texttt{identical()} and not \texttt{==}. This is because \texttt{==} is a vectorised operator, and environments are not vectors.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6271,7 +6204,7 @@ Every environment has a \textbf{parent}, another environment. In diagrams, the p
 
 \begin{center}\includegraphics{diagrams/environments/parents} \end{center}
 
-We use the metaphor of a family to name environments relative to one another. The grandparent of an environment is the parent's parent, and the ancestors include all parent environments up to the empty environment. To save space, I typically won't draw all the ancestors; just remember whenever you see a pale blue circle, there's a parent environment somewhere.
+To save space, I typically won't draw all the ancestors; just remember whenever you see a pale blue circle, there's a parent environment somewhere.
 
 You can find the parent of an environment with \texttt{env\_parent()}:
 
@@ -6295,30 +6228,38 @@ Only one environment doesn't have a parent: the \textbf{empty} environment. I dr
 
 \begin{center}\includegraphics{diagrams/environments/parents-empty} \end{center}
 
-You'll get an error if you try to find the parent of the empty environment:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{env_parent}\NormalTok{(}\KeywordTok{empty_env}\NormalTok{())}
-\CommentTok{#> Error: The empty environment has no parent}
-\end{Highlighting}
-\end{Shaded}
-
-You can list all ancestors of an environment with \texttt{env\_parents()}:
+The ancestors of every environment eventually terminate with the empty environment. You can list see all ancestors with \texttt{env\_parents()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parents}\NormalTok{(e2b)}
-\CommentTok{#> [[1]]   <env: 0x57aa2c8>}
+\CommentTok{#> [[1]]   <env: 0x1eba9b8>}
 \CommentTok{#> [[2]] $ <env: global>}
-
 \KeywordTok{env_parents}\NormalTok{(e2d)}
-\CommentTok{#> [[1]]   <env: 0x601ca60>}
+\CommentTok{#> [[1]]   <env: 0x1903f60>}
 \CommentTok{#> [[2]] $ <env: empty>}
 \end{Highlighting}
 \end{Shaded}
 
-By default, \texttt{env\_parents()} continues until it hits either the global environment or the empty environment. You can control this behaviour with the \texttt{last} environment.
+By default, \texttt{env\_parents()} stops when it gets to the global environment. This is useful because the ancestors of the global environment include every attached package, which you can see if you override the default behaviour as below. We'll come back to these environments in Section \ref{search-path}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{env_parents}\NormalTok{(e2b, }\DataTypeTok{last =} \KeywordTok{empty_env}\NormalTok{())}
+\CommentTok{#>  [[1]]   <env: 0x1eba9b8>}
+\CommentTok{#>  [[2]] $ <env: global>}
+\CommentTok{#>  [[3]] $ <env: package:rlang>}
+\CommentTok{#>  [[4]] $ <env: package:stats>}
+\CommentTok{#>  [[5]] $ <env: package:graphics>}
+\CommentTok{#>  [[6]] $ <env: package:grDevices>}
+\CommentTok{#>  [[7]] $ <env: package:utils>}
+\CommentTok{#>  [[8]] $ <env: package:datasets>}
+\CommentTok{#>  [[9]] $ <env: package:methods>}
+\CommentTok{#> [[10]] $ <env: Autoloads>}
+\CommentTok{#> [[11]] $ <env: package:base>}
+\CommentTok{#> [[12]] $ <env: empty>}
+\end{Highlighting}
+\end{Shaded}
 
 Use \texttt{parent.env()} to find the parent of an environment. No base function returns all ancestors.
 
@@ -6442,7 +6383,7 @@ You can determine if an environment has a binding with \texttt{env\_has()}:
 \end{Highlighting}
 \end{Shaded}
 
-Unlike lists, setting an element to \texttt{NULL} does not remove it. Instead, use \texttt{env\_unbind()}:
+Unlike lists, setting an element to \texttt{NULL} does not remove it, because sometimes you want an name that refers to \texttt{NULL}. Instead, use \texttt{env\_unbind()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6500,9 +6441,9 @@ There are two more exotic variants of \texttt{env\_bind()}:
 \end{Highlighting}
 \end{Shaded}
 
-  Delayed bindings are used to implement \texttt{autoload()}, which makes R behave
-  as if the package data is in memory, even though it's only loaded from
-  disk when you ask for it.
+  The primary use of delayed bindings is in \texttt{autoload()}, which makes
+  allows R packages to provide datasets that behave like they are loaded in
+  memory, even though they're only loaded from disk when needed.
 \item
   \texttt{env\_bind\_fns()} creates \textbf{active bindings} which are re-computed every
   time they're accessed:
@@ -6521,25 +6462,8 @@ There are two more exotic variants of \texttt{env\_bind()}:
 \end{Highlighting}
 \end{Shaded}
 
-  The argument to the function allows you to also override behaviour when
-  the variable is set:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{env_bind_fns}\NormalTok{(}\KeywordTok{current_env}\NormalTok{(), }\DataTypeTok{z2 =} \ControlFlowTok{function}\NormalTok{(val) \{}
-  \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{missing}\NormalTok{(val)) \{}
-    \DecValTok{2}
-\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
-     \KeywordTok{stop}\NormalTok{(}\StringTok{"Don't touch z2!"}\NormalTok{, }\DataTypeTok{call. =} \OtherTok{FALSE}\NormalTok{)}
-\NormalTok{  \}}
-\NormalTok{\})}
-
-\NormalTok{z2}
-\CommentTok{#> [1] 2}
-\NormalTok{z2 <-}\StringTok{ }\DecValTok{3}
-\CommentTok{#> Error: Don't touch z2!}
-\end{Highlighting}
-\end{Shaded}
+  Active bindings are used to implement R6's active fields, which you'll learn
+  about in Section @\ref(active-fields).
 \end{itemize}
 
 See \texttt{?delayedAssign()} and \texttt{?makeActiveBinding()}.
@@ -6732,8 +6656,8 @@ It's possible to use a loop instead of recursion. I think it's harder to underst
 
 Most environments are not created by you (e.g.~with \texttt{env()}) but are instead created by R. In this section, you'll learn about the most important environments, starting with the package environments. You'll then learn about the function environment bound to the function when it is created, and the (usually) ephemeral execution environment created every time the function is called. Finally, you'll see how the package and function environments interact to support namespaces, which ensure that a package always behaves the same way, regardless of what other packages the user has loaded.
 
-\hypertarget{package-environments-and-the-search-path}{%
-\subsection{Package environments and the search path}\label{package-environments-and-the-search-path}}
+\hypertarget{search-path}{%
+\subsection{Package environments and the search path}\label{search-path}}
 
 \indexc{search()}
 
@@ -6742,36 +6666,20 @@ Most environments are not created by you (e.g.~with \texttt{env()}) but are inst
 \index{environment!base}
 \indexc{base\_env()}
 
-Each package attached by \texttt{library()} or \texttt{require()} becomes one of the parents of the global environment. The immediate parent of the global environment is the last package you attached\footnote{Note the difference between attached and loaded. A package is loaded automatically if you access one of its functions using \texttt{::}; it is only \textbf{attached} to the search path by \texttt{library()} or \texttt{require()}.}:
+Each package attached by \texttt{library()} or \texttt{require()} becomes one of the parents of the global environment. The immediate parent of the global environment is the last package you attached\footnote{Note the difference between attached and loaded. A package is loaded automatically if you access one of its functions using \texttt{::}; it is only \textbf{attached} to the search path by \texttt{library()} or \texttt{require()}.}, the parent of that package is the second to last package you attached, \ldots{}
+
+\begin{center}\includegraphics{diagrams/environments/search-path} \end{center}
+
+If you follow all the parents back, you see the order in which every package has been attached. This is known as the \textbf{search path} because all objects in these environments can be found from the top-level interactive workspace. You can see the names of these environments with \texttt{base::search()}, or the environments themselves with \texttt{rlang::search\_envs()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{env_parent}\NormalTok{(}\KeywordTok{global_env}\NormalTok{())}
-\CommentTok{#> <environment: package:rlang>}
-\CommentTok{#> attr(,"name")}
-\CommentTok{#> [1] "package:rlang"}
-\CommentTok{#> attr(,"path")}
-\CommentTok{#> [1] "/home/travis/R/Library/rlang"}
-\end{Highlighting}
-\end{Shaded}
+\KeywordTok{search}\NormalTok{()}
+\CommentTok{#>  [1] ".GlobalEnv"        "package:rlang"     "package:stats"    }
+\CommentTok{#>  [4] "package:graphics"  "package:grDevices" "package:utils"    }
+\CommentTok{#>  [7] "package:datasets"  "package:methods"   "Autoloads"        }
+\CommentTok{#> [10] "package:base"}
 
-And the parent of that package is the second to last package you attached:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{env_parent}\NormalTok{(}\KeywordTok{env_parent}\NormalTok{(}\KeywordTok{global_env}\NormalTok{()))}
-\CommentTok{#> <environment: package:stats>}
-\CommentTok{#> attr(,"name")}
-\CommentTok{#> [1] "package:stats"}
-\CommentTok{#> attr(,"path")}
-\CommentTok{#> [1] "/home/travis/R-bin/lib/R/library/stats"}
-\end{Highlighting}
-\end{Shaded}
-
-If you follow all the parents back, you see the order in which every package has been attached. This is known as the \textbf{search path} because all objects in these environments can be found from the top-level interactive workspace.
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{search_envs}\NormalTok{()}
 \CommentTok{#>  [[1]] $ <env: global>}
 \CommentTok{#>  [[2]] $ <env: package:rlang>}
@@ -6786,8 +6694,6 @@ If you follow all the parents back, you see the order in which every package has
 \end{Highlighting}
 \end{Shaded}
 
-You can access the names of the environments on the search path with \texttt{search()}
-
 The last two environments on the search path are always the same:
 
 \begin{itemize}
@@ -6801,11 +6707,7 @@ The last two environments on the search path are always the same:
   with \texttt{base\_env()}.
 \end{itemize}
 
-Graphically, the search path looks like this:
-
-\begin{center}\includegraphics{diagrams/environments/search-path} \end{center}
-
-When you attach another package with \texttt{library()}, the parent environment of the global environment changes:
+Note that when you attach another package with \texttt{library()}, the parent environment of the global environment changes:
 
 \begin{center}\includegraphics{diagrams/environments/search-path-2} \end{center}
 
@@ -6830,7 +6732,7 @@ You can get the function environment with \texttt{fn\_env()}:
 
 Use \texttt{environment(f)} to access the environment of function \texttt{f}.
 
-In diagrams, I'll depict functions as rectangles with a rounded end that binds an environment.
+In diagrams, I'll draw a function as a rectangle with a rounded end that binds an environment.
 
 \begin{center}\includegraphics{diagrams/environments/binding} \end{center}
 
@@ -6860,7 +6762,7 @@ For example, take \texttt{sd()}:
 \CommentTok{#> function (x, na.rm = FALSE) }
 \CommentTok{#> sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), }
 \CommentTok{#>     na.rm = na.rm))}
-\CommentTok{#> <bytecode: 0x5801048>}
+\CommentTok{#> <bytecode: 0x4fe8788>}
 \CommentTok{#> <environment: namespace:stats>}
 \end{Highlighting}
 \end{Shaded}
@@ -6963,7 +6865,7 @@ This function returns the same value every time because of the fresh start princ
 
 \begin{center}\includegraphics{diagrams/environments/execution} \end{center}
 
-An execution environment is usually ephemeral; once the function has completed, the environment will be GC'd. There are several ways to make it stay around for longer. The first is to explicitly return it:
+An execution environment is usually ephemeral; once the function has completed, the environment will be garbage collected. There are several ways to make it stay around for longer. The first is to explicitly return it:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6974,7 +6876,7 @@ An execution environment is usually ephemeral; once the function has completed, 
 
 \NormalTok{e <-}\StringTok{ }\KeywordTok{h2}\NormalTok{(}\DataTypeTok{x =} \DecValTok{10}\NormalTok{)}
 \KeywordTok{env_print}\NormalTok{(e)}
-\CommentTok{#> <environment: 0x4a25da0>}
+\CommentTok{#> <environment: 0x677c228>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * a: <dbl>}
@@ -6998,7 +6900,7 @@ There's a lot going on in the diagram because the enclosing environment of \text
 \NormalTok{plus_one <-}\StringTok{ }\KeywordTok{plus}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \NormalTok{plus_one}
 \CommentTok{#> function(y) x + y}
-\CommentTok{#> <environment: 0x341ad28>}
+\CommentTok{#> <environment: 0x17787c8>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7200,15 +7102,11 @@ Looking up variables in the calling stack rather than in the enclosing environme
 As well as powering scoping, environments are also useful data structures in their own right because they have reference semantics. There are three common problems that they can help solve:
 
 \begin{itemize}
-\tightlist
 \item
-  \textbf{Avoiding copies of large data}. Since environments have reference semantics,
-  you'll never accidentally create a copy. This makes it a useful vessel for
-  large objects. Bare environments are not that pleasant to work with;
-  I recommend using R6 objects instead. Learn more in \protect\hyperlink{r6}{R6}.
-\end{itemize}
-
-\begin{itemize}
+  \textbf{Avoiding copies of large data}. Since environments have reference
+  semantics, you'll never accidentally create a copy. But bare environments
+  are painful to work with, so instead I recommend using R6 objects, which
+  are built on top of environments. Learn more in Chapter \ref{R6}.
 \item
   \textbf{Managing state within a package}. Explicit environments are useful in
   packages because they allow you to maintain state across function calls.
@@ -7410,7 +7308,7 @@ In base R, errors are signalled, or \textbf{thrown}, by \texttt{stop()}:
 \end{Highlighting}
 \end{Shaded}
 
-By default, the error message includes the call, but this is typically not useful (and recapitulates information that you can easily get from \texttt{traceback()}), so I think it's good practice to use \texttt{call.\ =\ FALSE}:
+By default, the error message includes the call, but this is typically not useful (and recapitulates information that you can easily get from \texttt{traceback()}), so I think it's good practice to use \texttt{call.\ =\ FALSE}\footnote{The trailing \texttt{.} in \texttt{call.} is a peculiarity of \texttt{stop()}; don't read anything into it.}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7665,7 +7563,7 @@ However, if you wrap the statement that creates the error in \texttt{try()}, the
 
 It is possible, but not recommended, to save the result of \texttt{try()} and perform different actions based on whether or not the code succeeded or failed\footnote{You can tell if the expression failed because the result will have class \texttt{try-error}.}. Instead, it is better to use \texttt{tryCatch()} or a higher-level helper; you'll learn about those shortly.
 
-A simple, but useful, pattern is to do assignment inside the call: this lets you define a default value to be used if the code does not succeed.
+A simple, but useful, pattern is to do assignment inside the call: this lets you define a default value to be used if the code does not succeed. This works because the argument is evaluated in the calling environment, not inside the function (See Section \ref{promises} for more details.)
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7914,7 +7812,7 @@ Compare the results of \texttt{tryCatch()} and \texttt{withCallingHandlers()} in
 \end{Highlighting}
 \end{Shaded}
 
-Handlers are applied in order, so you don't need to worry getting caught in an infinite loop:
+Handlers are applied in order, so you don't need to worry getting caught in an infinite loop. In the following example, the \texttt{message()} signalled by the handler doesn't also get caught:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8606,7 +8504,7 @@ When you call \texttt{log()} a condition is signalled, but nothing happens becau
 \end{Highlighting}
 \end{Shaded}
 
-To ``activate'' logging you need a handler that does something with the \texttt{log} condition. Below I define a \texttt{record\_log()} function that will record all logging messages to a path:
+To ``activate'' logging you need a handler that does something with the \texttt{log} condition. Below I define a \texttt{record\_log()} function that will record all logging messages to a file:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8753,19 +8651,14 @@ Firstly, functional languages have \textbf{first-class functions}, functions tha
 Secondly, many functional languages require functions to be \textbf{pure}. A function is pure if it satisfies two properties:
 
 \begin{itemize}
-\tightlist
 \item
   The output only depends on the inputs, i.e.~if you call it again with the
   same inputs, you get the same outputs. This excludes functions like \texttt{runif()},
   \texttt{read.csv()}, or \texttt{Sys.time()} that can return different values.
-\end{itemize}
-
-\begin{itemize}
-\tightlist
 \item
-  The function has no side-effects, like changing the value of a variable,
-  writing to disk, or displaying to the screen. This excludes functions like
-  \texttt{print()}, \texttt{write.csv()} and \texttt{\textless{}-}.
+  The function has no side-effects, like changing the value of a global
+  variable, writing to disk, or displaying to the screen. This excludes
+  functions like \texttt{print()}, \texttt{write.csv()} and \texttt{\textless{}-}.
 \end{itemize}
 
 Pure functions are much easier to reason about, but obviously have significant downsides: imagine doing a data analysis where you couldn't generate random numbers or read files from disk.
@@ -9221,9 +9114,16 @@ It turns out that there's no way to do it directly, but there are two tricks you
 \CommentTok{#> [1] -0.3500  0.0434  0.0354  0.0502}
 \end{Highlighting}
 \end{Shaded}
-\end{itemize}
 
-\begin{itemize}
+  This is still a little confusing because I'm using both \texttt{x} and \texttt{.x}.
+  You can make it a little clearer by abandoning the \texttt{\textasciitilde{}} helper:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{map_dbl}\NormalTok{(trims, }\ControlFlowTok{function}\NormalTok{(trim) }\KeywordTok{mean}\NormalTok{(x, }\DataTypeTok{trim =}\NormalTok{ trim))}
+\CommentTok{#> [1] -0.3500  0.0434  0.0354  0.0502}
+\end{Highlighting}
+\end{Shaded}
 \item
   Sometimes, if you want to be (too) clever, you can take advantage of R's
   flexible argument matching rules (as described in Section
@@ -10035,6 +9935,8 @@ Note that the length of the second argument varies based on whether or not \text
 
 You might have heard of map-reduce, the idea that powers technology like Hadoop. Now you can see how simple and powerful the underlying idea is: all map-reduce is a map combined with a reduce. The difference for large data is that the data is spread over multiple computers. Each computer performs the map on the data that it has, then it sends the result to back to a coordinator which \emph{reduces} the individual results back to a single result.
 
+As a simple example, imagine computing the mean of a very large vector, so large that it has to be split over multiple computers. You could ask each computer to calculate the sum and the length, and then return those to the coordinatorr which computes the overall mean by dividing the total sum by the total length.
+
 \hypertarget{predicate-functionals}{%
 \section{Predicate functionals}\label{predicate-functionals}}
 
@@ -10049,21 +9951,16 @@ A \textbf{predicate} is a function that returns a single \texttt{TRUE} or \textt
 A \textbf{predicate functional} applies a predicate to each element of a vector. purrr provides six useful functions which come in three pairs:
 
 \begin{itemize}
-\tightlist
 \item
   \texttt{some(.x,\ .p)} returns \texttt{TRUE} if \emph{any} element matches;
   \texttt{every(.x,\ .p)} returns \texttt{TRUE} if \emph{all} elements match.
-\end{itemize}
 
-\begin{itemize}
-\tightlist
+  These are similary to \texttt{any(map\_lgl(.x,\ .p))} and \texttt{all(map\_lgl(.x,\ .p))}
+  but they terminate early: \texttt{some()} returns \texttt{TRUE} when it sees the first
+  \texttt{TRUE}, and \texttt{every()} returns \texttt{FALSE} when it sees the first \texttt{FALSE}.
 \item
   \texttt{detect(.x,\ .p)} returns the \emph{value} of the first match;
   \texttt{detect\_index(.x,\ .p)} returns the \emph{location} of the first match.
-\end{itemize}
-
-\begin{itemize}
-\tightlist
 \item
   \texttt{keep(.x,\ .p)} \emph{keeps} all matching elements;
   \texttt{discard(.x,\ .p)} \emph{drops} all matching elements.
@@ -10482,22 +10379,125 @@ Printing manufactured functions is not revealing because the bodies are identica
 \end{Highlighting}
 \end{Shaded}
 
-\texttt{env\_print()} shows us that both environments have a binding to \texttt{exp}, but we want to see its value\footnote{A future version of \texttt{env\_print()} is likely to do better at summarising the contents so you don't need this step.}. That's easily done with \texttt{env\_get()}:
+\texttt{env\_print()} shows us that both environments have a binding to \texttt{exp}, but we want to see its value\footnote{A future version of \texttt{env\_print()} is likely to do better at summarising the contents so you don't need this step.}. We can do that by first getting the environment of the function, and then extract the values:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{env_get}\NormalTok{(square, }\StringTok{"exp"}\NormalTok{)}
-\CommentTok{#> Warning: Passing an environment wrapper like a function is deprecated.}
-\CommentTok{#> Please retrieve the environment before calling `env_get()`}
-\CommentTok{#> This warning is displayed once per session.}
+\KeywordTok{environment}\NormalTok{(square)}\OperatorTok{$}\NormalTok{exp}
 \CommentTok{#> [1] 2}
 
-\KeywordTok{env_get}\NormalTok{(cube, }\StringTok{"exp"}\NormalTok{)}
+\KeywordTok{environment}\NormalTok{(cube)}\OperatorTok{$}\NormalTok{exp}
 \CommentTok{#> [1] 3}
 \end{Highlighting}
 \end{Shaded}
 
 This is what makes manufactured functions behave differently from one another: names in the enclosing environment are bound to different values.
+
+\hypertarget{scoping}{%
+\subsection{Scoping}\label{scoping}}
+
+Here I'll focus on how they interact with scoping. The following function, \texttt{g05()}, returns a function. What do you think this function will return when it's called?\footnote{\texttt{g06()} returns \texttt{c(10,\ 2)}.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\DecValTok{10}
+\NormalTok{y <-}\StringTok{ }\DecValTok{20}
+
+\NormalTok{g05 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{  y <-}\StringTok{ }\DecValTok{2}
+  \ControlFlowTok{function}\NormalTok{() \{}
+    \KeywordTok{c}\NormalTok{(x, y)}
+\NormalTok{  \}}
+\NormalTok{\}}
+\NormalTok{g06 <-}\StringTok{ }\KeywordTok{g05}\NormalTok{()}
+\KeywordTok{g06}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+This seems a little magical: how does R know what the value of \texttt{y} is after \texttt{g05()} is returned? R knows because \texttt{g06()} preserves the environment where it was defined and that environment includes the value of \texttt{y}. You'll learn more about how environments work in Chapter \ref{environments}.
+
+\hypertarget{forcing-evaluation}{%
+\subsection{Forcing evaluation}\label{forcing-evaluation}}
+
+\indexc{force()}
+
+To \textbf{compel} the evaluation of an argument, use \texttt{force()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{h02 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+  \KeywordTok{force}\NormalTok{(x)}
+  \DecValTok{10}
+\NormalTok{\}}
+\KeywordTok{h02}\NormalTok{(}\KeywordTok{stop}\NormalTok{(}\StringTok{"This is an error!"}\NormalTok{))}
+\CommentTok{#> Error in force(x):}
+\CommentTok{#>   This is an error!}
+\end{Highlighting}
+\end{Shaded}
+
+It's usually not necessary to force evaluation. However, it is important for certain functional programming techniques, like the one we'll cover in detail in Chapter \ref{function-operators}. Here, I'm just going to show you what the basic issue is.
+
+Consider this small but surprisingly tricky function. It takes a single argument \texttt{x}, and returns a function that returns \texttt{x} when called.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{capture1 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+  \ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{    x}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The subtlety here is that the value of \texttt{x} will be captured not when you call \texttt{capture1()}, but when you call the function that \texttt{capture1()} returns:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\DecValTok{10}
+\NormalTok{h03 <-}\StringTok{ }\KeywordTok{capture1}\NormalTok{(x)}
+\NormalTok{h04 <-}\StringTok{ }\KeywordTok{capture1}\NormalTok{(x)}
+
+\KeywordTok{h03}\NormalTok{()}
+\CommentTok{#> [1] 10}
+
+\NormalTok{x <-}\StringTok{ }\DecValTok{20}
+\KeywordTok{h04}\NormalTok{()}
+\CommentTok{#> [1] 20}
+\end{Highlighting}
+\end{Shaded}
+
+Even more confusingly this only happens once: the value is locked in after you have called \texttt{h03()}/\texttt{h04()} for the first time.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\DecValTok{30}
+\KeywordTok{h03}\NormalTok{()}
+\CommentTok{#> [1] 10}
+\KeywordTok{h04}\NormalTok{()}
+\CommentTok{#> [1] 20}
+\end{Highlighting}
+\end{Shaded}
+
+This behaviour is a consequence of lazy evaluation. The \texttt{x} argument is evaluated once \texttt{h03()}/\texttt{h04()} is called, and then its value is cached. We can avoid the confusion by forcing \texttt{x}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{capture2 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+  \KeywordTok{force}\NormalTok{(x)}
+  
+  \ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{    x}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\NormalTok{x <-}\StringTok{ }\DecValTok{10}
+\NormalTok{h05 <-}\StringTok{ }\KeywordTok{capture2}\NormalTok{(x)}
+
+\NormalTok{x <-}\StringTok{ }\DecValTok{20}
+\KeywordTok{h05}\NormalTok{()}
+\CommentTok{#> [1] 10}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{diagram-conventions}{%
 \subsection{Diagram conventions}\label{diagram-conventions}}
@@ -10653,6 +10653,20 @@ With most functions, you can rely on the GC to clean up any large temporary obje
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
+  The definition of \texttt{force()} is simple:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{force}
+\CommentTok{#> function (x) }
+\CommentTok{#> x}
+\CommentTok{#> <bytecode: 0xa61cf8>}
+\CommentTok{#> <environment: namespace:base>}
+\end{Highlighting}
+\end{Shaded}
+
+  Why is it better to \texttt{force(x)} instead of just \texttt{x}?
+\item
   Base R contains two function factories, \texttt{approxfun()} and \texttt{ecdf()}.
   Read their documentation and experiment to figure out what the functions
   do and what they return.
@@ -10726,7 +10740,7 @@ We'll begin our exploration of useful function factories with a few examples fro
 
 \index{scales}
 
-One of the goals of the \href{http://scales.r-lib.org}{scales} package is to make it easy to customise the labels on ggplot2. It provides many functions to control the fine details of axes and legends. One useful class of functions are the formatter functions\footnote{It's an unfortunate accident of history that scales uses function suffixes instead of function prefixes. That's because it was written before I understood the autocomplete advantages to using common prefixes instead of common suffixes.} which which make it easier to control the appearance of axis breaks. The design of these functions might initially seem a little odd: they all return a function, which you have to call in order to format a number.
+One of the goals of the \href{http://scales.r-lib.org}{scales} package is to make it easy to customise the labels on ggplot2. It provides many functions to control the fine details of axes and legends. One useful class of functions are the formatter functions\footnote{It's an unfortunate accident of history that scales uses function suffixes instead of function prefixes. That's because it was written before I understood the autocomplete advantages to using common prefixes instead of common suffixes.} which make it easier to control the appearance of axis breaks. The design of these functions might initially seem a little odd: they all return a function, which you have to call in order to format a number.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10750,13 +10764,19 @@ In other words, the primary interface is a function factory. At first glance, th
 \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{y =} \OtherTok{NULL}\NormalTok{)}
   
 \NormalTok{core}
-\NormalTok{core }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{label =} \KeywordTok{comma_format}\NormalTok{())}
-\NormalTok{core }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{label =} \KeywordTok{number_format}\NormalTok{(}\DataTypeTok{scale =} \FloatTok{1e-3}\NormalTok{, }\DataTypeTok{suffix =} \StringTok{" K"}\NormalTok{))}
-\NormalTok{core }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{label =} \KeywordTok{scientific_format}\NormalTok{())}
+\NormalTok{core }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_y_continuous}\NormalTok{(}
+  \DataTypeTok{labels =} \KeywordTok{comma_format}\NormalTok{()}
+\NormalTok{)}
+\NormalTok{core }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_y_continuous}\NormalTok{(}
+  \DataTypeTok{labels =} \KeywordTok{number_format}\NormalTok{(}\DataTypeTok{scale =} \FloatTok{1e-3}\NormalTok{, }\DataTypeTok{suffix =} \StringTok{" K"}\NormalTok{)}
+\NormalTok{)}
+\NormalTok{core }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_y_continuous}\NormalTok{(}
+  \DataTypeTok{labels =} \KeywordTok{scientific_format}\NormalTok{()}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.25\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-22-1} \includegraphics[width=0.25\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-22-2} \includegraphics[width=0.25\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-22-3} \includegraphics[width=0.25\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-22-4}
+\includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-29-1} \includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-29-2} \includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-29-3} \includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-29-4}
 
 \hypertarget{histogram-bins}{%
 \subsection{Histogram bins}\label{histogram-bins}}
@@ -10782,7 +10802,7 @@ To illustrate this idea, and see where variable binwidth might be useful, I'm go
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-23-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-30-1} \end{center}
 
 Here each facet has the same number of observations, but the variability is very different. It would be nice if we could request that the binwidths vary so we get approximately the same number of observations in each bin. One way to do that is with a function factory that inputs the desired number of bins (\texttt{n}), and outputs a function that takes a numeric vector and returns a binwidth:
 
@@ -10803,7 +10823,7 @@ Here each facet has the same number of observations, but the variability is very
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-24-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-31-1} \end{center}
 
 We could use this same pattern to wrap around the base R functions that automatically find the ``optimal''\footnote{ggplot2 doesn't expose these functions directly because I don't think the definition of optimality needed to make the problem mathematically tractable is a good match to the actual needs of data exploration.} binwidth, \texttt{nclass.Sturges()}, \texttt{nclass.scott()}, and \texttt{nclass.FD()}:
 
@@ -10829,7 +10849,7 @@ We could use this same pattern to wrap around the base R functions that automati
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-25-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 \hypertarget{ggsave}{%
 \subsection{\texorpdfstring{\texttt{ggsave()}}{ggsave()}}\label{ggsave}}
@@ -10877,12 +10897,12 @@ A mildly simplified version of \texttt{plot\_dev()} is shown below:
 
 \KeywordTok{plot_dev}\NormalTok{(}\StringTok{"pdf"}\NormalTok{)}
 \CommentTok{#> function(filename, ...) grDevices::pdf(file = filename, ...)}
-\CommentTok{#> <bytecode: 0x52bba78>}
-\CommentTok{#> <environment: 0x4b442f8>}
+\CommentTok{#> <bytecode: 0x3f97010>}
+\CommentTok{#> <environment: 0xfa06b0>}
 \KeywordTok{plot_dev}\NormalTok{(}\StringTok{"png"}\NormalTok{)}
 \CommentTok{#> function(...) grDevices::png(..., res = dpi, units = "in")}
-\CommentTok{#> <bytecode: 0x553ceb0>}
-\CommentTok{#> <environment: 0x585c038>}
+\CommentTok{#> <bytecode: 0x41f5650>}
+\CommentTok{#> <environment: 0x46ffab8>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -10964,7 +10984,7 @@ But re-formulating as a function factory makes it easy to explore its behaviour 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-28-1} \includegraphics[width=0.5\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-28-2}
+\includegraphics[width=0.5\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-35-1} \includegraphics[width=0.5\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-35-2}
 
 In general, this allows you to use a Box-Cox transformation with any function that accepts a unary transformation function: you don't have to worry about that function providing \texttt{...} to pass along additional arguments. I also think that the partitioning of \texttt{lambda} and \texttt{x} into two different function arguments is natural since \texttt{lambda} plays quite a different role than \texttt{x}.
 
@@ -11103,6 +11123,8 @@ In statistics, we highlight this change in perspective by writing \(f_{\mathbf{x
 \end{Highlighting}
 \end{Shaded}
 
+(We don't need \texttt{force()} because \texttt{length()} implicitly forces evaluation of \texttt{x}.)
+
 One nice thing about this approach is that we can do some precomputation: any term that only involves \texttt{x} can be computed once in the factory. This is useful because we're going to need to call this function many times to find the best \texttt{lambda}.
 
 \begin{Shaded}
@@ -11167,7 +11189,7 @@ The advantage of using a function factory here is fairly small, but there are tw
   We can precompute some values in the factory itself, saving computation time
   in each iteration.
 \item
-  I think the two-level design better reflects the mathematical structure of
+  The two-level design better reflects the mathematical structure of
   the underlying problem.
 \end{itemize}
 
@@ -11228,15 +11250,12 @@ To finish off the chapter, I'll show how you might combine functionals and funct
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <bytecode: 0x2761f40>}
-\CommentTok{#> <environment: 0x5b130b8>}
+\CommentTok{#> <bytecode: 0x45cf8b8>}
+\CommentTok{#> <environment: 0x46027a8>}
 \end{Highlighting}
 \end{Shaded}
 
 This idea extends in a straightforward way if your function factory takes two (replace \texttt{map()} with \texttt{map2()}) or more (replace with \texttt{pmap()}) arguments.
-
-\hypertarget{moving-a-list-to-the-global-environment}{%
-\subsection{Moving a list to the global environment}\label{moving-a-list-to-the-global-environment}}
 
 \indexc{with()}
 \indexc{attach()}
@@ -11280,54 +11299,29 @@ One downside of the current construction is that you have to prefix every functi
   some of the worst problems with \texttt{attach()} don't apply.
 \item
   Finally, you could copy the functions to the global environment with
-  \texttt{env\_bind()}. This is mostly permanent:
-\end{itemize}
-
-\begin{verbatim}
-```r
-rlang::env_bind(globalenv(), !!!funs)
-root(100)
-#> [1] 10
-```
-
-You can later unbind those same names, but there's no guarantee that 
-they haven't been rebound in the meantime, and you might be deleting an
-object that someone else created.
-
-
-```r
-rlang::env_unbind(globalenv(), names(funs))
-```
-\end{verbatim}
-
-\hypertarget{another-approach}{%
-\subsection{Another approach}\label{another-approach}}
-
-You'll learn an alternative approach to the same problem in Section \ref{new-function}. Instead of using a function factory, you could construct the function with quasiquotation. This requires additional knowledge, but generates functions with readable bodies, and avoids accidentally capturing large objects in the enclosing scope. The following code is a quick preview of how we could rewrite \texttt{power1()} to use quasiquotation:
+  \texttt{env\_bind()} (you'll learn about \texttt{!!!} in Section \ref{tidy-dots}).
+  This is mostly permanent:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{power3 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(exponent) \{}
-  \KeywordTok{new_function}\NormalTok{(}
-    \KeywordTok{exprs}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ ), }
-    \KeywordTok{expr}\NormalTok{(\{}
-\NormalTok{      x }\OperatorTok{^}\StringTok{ }\OperatorTok{!!}\NormalTok{exponent}
-\NormalTok{    \}), }
-    \KeywordTok{caller_env}\NormalTok{()}
-\NormalTok{  )}
-\NormalTok{\}}
-\NormalTok{funs <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map}\NormalTok{(names, power3)}
-
-\NormalTok{funs}\OperatorTok{$}\NormalTok{root}
-\CommentTok{#> function (x) }
-\CommentTok{#> \{}
-\CommentTok{#>     x^0.5}
-\CommentTok{#> \}}
-\CommentTok{#> <environment: 0x4f04e20>}
+\NormalTok{rlang}\OperatorTok{::}\KeywordTok{env_bind}\NormalTok{(}\KeywordTok{globalenv}\NormalTok{(), }\OperatorTok{!!!}\NormalTok{funs)}
+\KeywordTok{root}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\CommentTok{#> [1] 10}
 \end{Highlighting}
 \end{Shaded}
 
-As well as \texttt{0.5} appearing directly in the body, note that the environment of the function is the global environment, not an execution environment of \texttt{power3()}.
+  You can later unbind those same names, but there's no guarantee that
+  they haven't been rebound in the meantime, and you might be deleting an
+  object that someone else created.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rlang}\OperatorTok{::}\KeywordTok{env_unbind}\NormalTok{(}\KeywordTok{globalenv}\NormalTok{(), }\KeywordTok{names}\NormalTok{(funs))}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+You'll learn an alternative approach to the same problem in Section \ref{new-function}. Instead of using a function factory, you could construct the function with quasiquotation. This requires additional knowledge, but generates functions with readable bodies, and avoids accidentally capturing large objects in the enclosing scope. We use that idea in Section \ref{tag-functios} when we work on tools for generating HTML from R.
 
 \hypertarget{exercises-33}{%
 \subsection{Exercises}\label{exercises-33}}
@@ -11618,6 +11612,8 @@ purrr comes with three other function operators in a similar vein:
 \begin{itemize}
 \item
   \texttt{possibly()}: returns a default value when there's an error.
+  It provides no way to tell if an error occured or not, so it's best
+  reserved for cases when there's some obvious sentinel value (like \texttt{NA}).
 \item
   \texttt{quietly()}: turns output, messages, and warning side-effects into
   \texttt{output}, \texttt{message}, and \texttt{warning} components of the output.
@@ -14144,7 +14140,7 @@ The distinction between public and private fields is important when you create c
 \index{R6!active fields}
 \index{active bindings}
 
-Active fields allow you to define components that look like fields from the outside, but are defined with functions, like methods. Active fields are implemented using \textbf{active bindings} (see Section \ref{advanced-bindings} for details). Each active binding is a function that takes a single argument: \texttt{value}. If the argument is \texttt{missing()}, the value is being retrieved; otherwise it's being modified.
+Active fields allow you to define components that look like fields from the outside, but are defined with functions, like methods. Active fields are implemented using \textbf{active bindings} (Section \ref{advanced-bindings}). Each active binding is a function that takes a single argument: \texttt{value}. If the argument is \texttt{missing()}, the value is being retrieved; otherwise it's being modified.
 
 For example, you could make an active field \texttt{random} that returns a different value every time you access it:
 
@@ -20820,6 +20816,8 @@ It's straightforward to adapt \texttt{p()} to other tags: we just need to replac
 \end{Highlighting}
 \end{Shaded}
 
+We need the weird \texttt{exprs(...\ =\ )} syntax to generate the empty \texttt{...} argument in the tag function.
+
 Now we can run our earlier example:
 
 \begin{Shaded}
@@ -20898,7 +20896,7 @@ Next we need to generate these functions for every tag. We'll start with a list 
 \end{Highlighting}
 \end{Shaded}
 
-If you look at this list carefully, you'll see there are quite a few tags that have the same name as base R functions (\texttt{body}, \texttt{col}, \texttt{q}, \texttt{source}, \texttt{sub}, \texttt{summary}, \texttt{table}). This means we don't want to make all the functions available by default, in either the global environment or in a package. Instead, we'll put them in a list and then provide a helper to make it easy to use them when desired. First, we make a named list containing all the tag functions:
+If you look at this list carefully, you'll see there are quite a few tags that have the same name as base R functions (\texttt{body}, \texttt{col}, \texttt{q}, \texttt{source}, \texttt{sub}, \texttt{summary}, \texttt{table}). This means we don't want to make all the functions available by default, in either the global environment or in a package. Instead, we'll put them in a list (like in Section \ref{functional-factories}) and then provide a helper to make it easy to use them when desired. First, we make a named list containing all the tag functions:
 
 \begin{Shaded}
 \begin{Highlighting}[]

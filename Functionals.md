@@ -393,8 +393,15 @@ x <- rcauchy(1000)
     map_dbl(trims, ~ mean(x, trim = .x))
     #> [1] -0.3500  0.0434  0.0354  0.0502
     ```
-
-<!-- GVW: use of `x` and `.x` here is confusing -->
+    
+    This is still a little confusing because I'm using both `x` and `.x`.
+    You can make it a little clearer by abandoning the `~` helper:
+    
+    
+    ```r
+    map_dbl(trims, function(trim) mean(x, trim = trim))
+    #> [1] -0.3500  0.0434  0.0354  0.0502
+    ```
 
 *   Sometimes, if you want to be (too) clever, you can take advantage of R's 
     flexible argument matching rules (as described in Section 
@@ -1119,7 +1126,7 @@ Note that the length of the second argument varies based on whether or not `.ini
 
 You might have heard of map-reduce, the idea that powers technology like Hadoop. Now you can see how simple and powerful the underlying idea is: all map-reduce is a map combined with a reduce. The difference for large data is that the data is spread over multiple computers. Each computer performs the map on the data that it has, then it sends the result to back to a coordinator which _reduces_ the individual results back to a single result.
 
-<!-- GVW: provide a couple of examples here of how complex calculations can be decomposed into map followed by reduce -->
+As a simple example, imagine computing the mean of a very large vector, so large that it has to be split over multiple computers. You could ask each computer to calculate the sum and the length, and then return those to the coordinatorr which computes the overall mean by dividing the total sum by the total length.
 
 ## Predicate functionals
 \index{predicates} 
@@ -1131,16 +1138,16 @@ A __predicate__ is a function that returns a single `TRUE` or `FALSE`, like `is.
 
 A __predicate functional__ applies a predicate to each element of a vector.  purrr provides six useful functions which come in three pairs:
 
-* `some(.x, .p)` returns `TRUE` if _any_ element matches;
-  `every(.x, .p)` returns `TRUE` if _all_ elements match.
-
-<!-- GVW: explain in terms of map followed by any() or all()? -->
+*   `some(.x, .p)` returns `TRUE` if _any_ element matches;
+    `every(.x, .p)` returns `TRUE` if _all_ elements match.
+    
+    These are similary to `any(map_lgl(.x, .p))` and `all(map_lgl(.x, .p))`
+    but they terminate early: `some()` returns `TRUE` when it sees the first 
+    `TRUE`, and `every()` returns `FALSE` when it sees the first `FALSE`.
 
 * `detect(.x, .p)` returns the _value_ of the first match;
   `detect_index(.x, .p)` returns the _location_ of the first match.
 
-<!-- GVW: are there variants that start the search after a certain point? -->
-  
 * `keep(.x, .p)` _keeps_ all matching elements;
   `discard(.x, .p)` _drops_ all matching elements.
 

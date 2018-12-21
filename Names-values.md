@@ -148,9 +148,7 @@ if <- 10
 #> Error: unexpected assignment in "if <-"
 ```
 
-[^letters]: Surprisingly, what constitutes a letter is determined by your current locale. That means that the syntax of R code can actually differ from computer to computer, and that it's possible for a file that works on one computer to not even parse on another!
-
-<!-- GVW: please add a line to this footnote describing the safe character set to use in programs, or a link to the style guide section. -->
+[^letters]: Surprisingly, precisely what constitutes a letter is determined by your current locale. That means that the syntax of R code can actually differ from computer to computer, and that it's possible for a file that works on one computer to not even parse on another! Avoid this problem by sticking to ASCII characters (i.e. A-Z) as much as possible.
 
 It's possible to override these rules and use any name, i.e., any sequence of characters, by surrounding it with backticks:
 
@@ -247,8 +245,6 @@ cat(tracemem(x), "\n")
 
 From then on, whenever that object is copied, `tracemem()` will print a message telling you which object was copied, its new address, and the sequence of calls that led to the copy:
 
-<!-- GVW: that's cool. -->
-
 
 ```r
 y <- x
@@ -256,9 +252,7 @@ y[[3]] <- 4L
 #> tracemem[0x7f80c0e0ffc8 -> 0x7f80c4427f40]: 
 ```
 
-Note that if you modify `y` again, it won't get copied. That's because the new object now only has a single name bound to it, so R applies modify-in-place optimisation. We'll come back to this shortly.
-
-<!-- GVW: forward link to section that resolves the "shortly". -->
+Note that if you modify `y` again, it won't get copied. That's because the new object now only has a single name bound to it, so R applies modify-in-place optimisation. We'll come back to this in Section \@ref(modify-in-place).
 
 
 ```r
@@ -294,9 +288,7 @@ While `f()` is running, the `a` inside the function points to the same value as 
 
 \begin{center}\includegraphics{diagrams/name-value/binding-f1} \end{center}
 
-(You'll learn more about the conventions used in this diagram in [Execution environments].)
-
-<!-- GVW: I think I've figured out what the colors and curves mean, but I'm not sure... -->
+You'll learn more about the conventions used in this diagram in Section \@ref(execution-environments). In brief: the function `f()` is depicted by the yellow object on the right. It has a formal argument, `a`, which becomes a binding (indicated by dotted black line) in the execution environment (the gray box) when the function is run.
 
 Once `f()` completes, `x` and `z` will point to the same object. `0x74b` never gets copied because it never gets modified. If `f()` did modify `x`, R would create a new copy, and then `z` would bind that object.
 
@@ -307,16 +299,14 @@ Once `f()` completes, `x` and `z` will point to the same object. `0x74b` never g
 \indexc{ref()}
 \index{lists}
 
-It's not just names (i.e. variables) that point to values; elements of lists do too. Take this list, which is superficially very similar to the vector above:
+It's not just names (i.e. variables) that point to values; elements of lists do too. Take this list, which is superficially very similar to the numeric vector above:
 
 
 ```r
 l1 <- list(1, 2, 3)
 ```
 
-The internal representation of a list is actually quite different from that of a vector. A list is really a vector of references:
-
-<!-- GVW: isn't this exactly the same as the structure of a vector, just storing a different type? -->
+This list is more complex because instead of storing the values itself, it instead stores references to them:
 
 
 \begin{center}\includegraphics{diagrams/name-value/list} \end{center}
@@ -378,9 +368,7 @@ d2[, 2] <- d2[, 2] * 2
 
 \begin{center}\includegraphics{diagrams/name-value/d-modify-c} \end{center}
 
-However, if you modify a row, there is no way to share data with the previous version of the data frame: every column must be copied-and-modified.
-
-<!-- GVW: "if you modify a row, every column is modified, which means every column must be copied" -->
+However, if you modify a row, every column is modified, which means every column must be copied:
 
 
 ```r
@@ -393,7 +381,9 @@ d3[1, ] <- d3[1, ] * 3
 ### Character vectors
 \index{string pool}
 
-The final place that R uses references is with character vectors. I usually draw character vectors like this:
+The final place that R uses references is with character vectors[^character-vector]. I usually draw character vectors like this:
+
+[^character-vector]: Confusingly, a character vector is a vector of strings, not individual characters. 
 
 
 ```r
@@ -406,8 +396,6 @@ But this is a polite fiction. R actually uses a __global string pool__ where eac
 
 
 \begin{center}\includegraphics{diagrams/name-value/character-2} \end{center}
-
-<!-- GVW: what I brought with me from other languages was that "character vector" referred to a single string (a vector of characters), but what I now understand is that "character vector" means "a vector of character strings".  Might be worth footnoting this for people who make the same mistake I did? -->
 
 You can request that `ref()` show these references by setting the `character` argument to `TRUE`:
 
@@ -497,9 +485,7 @@ obj_size(list(NULL, NULL, NULL))
 #> 80 B
 ```
 
-[^32bit]: If you're running the 32-bit version of R you'll see slightly different sizes.
-
-<!-- GVW: "On a 64-bit machine --- if you're running 32-bit R ..." -->
+[^32bit]: If you're running 32-bit R, you'll see slightly different sizes.
 
 Similarly, because R uses a global string pool character vectors take up less memory than you might expect: repeating a string 1000 times does not make it take up 1000 times as much memory.
 
@@ -733,9 +719,15 @@ ref(e)
 
 This is a unique property of environments!
 
-<!-- GVW: having people explain why `x <- list(); x[[1]] <- x` *doesn't* produce a circular list might be a good exercise. -->
-
 ### Exercises
+
+1.  Explain why the following code doesn't create a circular list.
+
+    
+    ```r
+    x <- list()
+    x[[1]] <- x
+    ```
 
 1.  Wrap the two methods for subtracting medians into two functions, then
     use the 'bench' package [@bench] to carefully compare their speeds. How does
@@ -780,16 +772,14 @@ R uses a __tracing__ GC. This means it traces every object that's reachable from
 
 The garbage collector (GC) runs automatically whenever R needs more memory to create a new object. Looking from the outside, it's basically impossible to predict when the GC will run. In fact, you shouldn't even try. If you want to find out when the GC runs, call `gcinfo(TRUE)` and GC will print a message to the console every time it runs.
 
-You can force garbage collection by calling `gc()`. But despite what you might have read elsewhere, there's never any _need_ to call `gc()` yourself. The only reasons you might _want_ to call `gc()` is to ask R to return memory to your operating system, or is for the side-effect that tells you how much memory is currently being used:   
-
-<!-- GVW: why would I want to ask R to return memory the OS? -->
+You can force garbage collection by calling `gc()`. But despite what you might have read elsewhere, there's never any _need_ to call `gc()` yourself. The only reasons you might _want_ to call `gc()` is to ask R to return memory to your operating system so other programs can use it, or for the side-effect that tells you how much memory is currently being used:   
 
 
 ```r
 gc() 
 #>           used (Mb) gc trigger (Mb) max used (Mb)
-#> Ncells  679483 36.3    1283951 68.6  1283951 68.6
-#> Vcells 4696254 35.9   11788708 90.0 11788708 90.0
+#> Ncells  566477 30.3    1304485 69.7   728592 39.0
+#> Vcells 1092434  8.4    8388608 64.0  1758196 13.5
 ```
 
 `lobstr::mem_used()` is a wrapper around `gc()` that prints the total number of bytes used:
@@ -797,7 +787,7 @@ gc()
 
 ```r
 mem_used()
-#> 75,604,112 B
+#> 40,501,072 B
 ```
 
 This number won't agree with the amount of memory reported by your operating system. There are three reasons:
@@ -823,7 +813,6 @@ This number won't agree with the amount of memory reported by your operating sys
     
     df$`3` <- df$`1` + df$`2`
     ```
-
 
 1.  It occupies about 8 MB.
    
