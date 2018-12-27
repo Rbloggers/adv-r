@@ -300,8 +300,6 @@ And for each function that you want available within R, you need to prefix it wi
 // [[Rcpp::export]]
 ```
 
-Note that the space is mandatory. 
-
 :::sidebar
 If you're familiar with roxygen2, you might wonder how this relates to `@export`. `Rcpp::export` controls whether a function is exported from C++ to R; `@export` controls whether a function is exported from a package and made available to the user.
 :::
@@ -496,8 +494,9 @@ f(_["x"] = "y", _["value"] = 1);
 ```
 
 ### Attributes
+\index{attributes!in C++} 
 
-All R objects have attributes, which can be queried and modified with `.attr()`. Rcpp also provides `.names()` as an alias for the name attribute. The following code snippet illustrates these methods. Note the use of `::create()`, a _class_ method. This allows you to create an R vector from C++ scalar values: \index{attributes!in C++ } \index{names!in C++}
+All R objects have attributes, which can be queried and modified with `.attr()`. Rcpp also provides `.names()` as an alias for the name attribute. The following code snippet illustrates these methods. Note the use of `::create()`, a _class_ method. This allows you to create an R vector from C++ scalar values: 
 
 ```{r attribs, engine = "Rcpp"}
 #include <Rcpp.h>
@@ -518,8 +517,9 @@ NumericVector attribs() {
 For S4 objects, `.slot()` plays a similar role to `.attr()`.
 
 ## Missing values {#rcpp-na}
+\indexc{NA}
 
-If you're working with missing values, you need to know two things: \index{missing values!in C++}
+If you're working with missing values, you need to know two things:
 
 * How R's missing values behave in C++'s scalars (e.g., `double`).
 * How to get and set missing values in vectors (e.g., `NumericVector`).
@@ -569,6 +569,8 @@ evalCpp("NAN < 1")
 evalCpp("NAN > 1")
 evalCpp("NAN == NAN")
 ```
+
+(Here I'm using `evalCpp()` which allows you to see the result of running a single C++ expression, making it excellent for this sort of interactive experimentation.)
 
 But be careful when combining them with boolean values:
 
@@ -867,8 +869,9 @@ LogicalVector duplicatedC(IntegerVector x) {
 ```
 
 ### Map
+\index{hashmaps}
 
-A map is similar to a set, but instead of storing presence or absence, it can store additional data. It's useful for functions like `table()` or `match()` that need to look up a value. As with sets, there are ordered (`std::map`) and unordered (`std::unordered_map`) versions. Since maps have a value and a key, you need to specify both types when initialising a map: `map<double, int>`, `unordered_map<int, double>`, and so on. The following example shows how you could use a `map` to implement `table()` for numeric vectors: \index{maps}
+A map is similar to a set, but instead of storing presence or absence, it can store additional data. It's useful for functions like `table()` or `match()` that need to look up a value. As with sets, there are ordered (`std::map`) and unordered (`std::unordered_map`) versions. Since maps have a value and a key, you need to specify both types when initialising a map: `map<double, int>`, `unordered_map<int, double>`, and so on. The following example shows how you could use a `map` to implement `table()` for numeric vectors:
 
 ```{r, engine = "Rcpp"}
 #include <Rcpp.h>

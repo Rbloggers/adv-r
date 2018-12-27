@@ -53,7 +53,7 @@ R6 objects have reference semantics which means that they are modified in-place,
 \index{R6!classes}
 \index{classes!R6}
 \indexc{self}
-\indexc{R6Class()}
+\index{R6!R6Class@\texttt{R6Class()}}
 
 R6 only needs a single function call to create both the class and its methods: `R6::R6Class()`. This is the only function from the package that you'll ever use![^package]
 
@@ -69,6 +69,7 @@ The following example shows the two most important arguments to `R6Class()`:
   fields (anything else) that make up the public interface of the object. 
   By convention, methods and fields use `snake_case`. Methods can access
   the methods and fields of the current object via `self$`.[^python]
+  \index{methods!R6}
 
 [^python]: Unlike in `this` in python, the `self` variable is automatically provided by R6, and does not form part of the method signature.
 
@@ -88,6 +89,7 @@ You should always assign the result of `R6Class()` into a variable with the same
 Accumulator
 ```
 
+\index{constructors!R6}
 You construct a new object from the class by calling the `new()` method. In R6, methods belong to objects, so you use `$` to access `new()`:
 
 ```{r}
@@ -214,6 +216,7 @@ As above, new methods and fields are only available to new objects; they are not
 
 ### Inheritance
 \index{R6!inheritance}
+\index{inheritance!R6}
 
 To inherit behaviour from an existing class, provide the class object to the `inherit` argument:
 
@@ -232,7 +235,7 @@ x2 <- AccumulatorChatty$new()
 x2$add(10)$add(1)$sum
 ```
 
-Note that `$add()` overrides the implementation in the superclass, but we can delegate to the superclass implementation through `super$`. (This is analogous to `NextMethod()` in S3, as discussed in Section \@ref(s3-inheritance).) Any methods which are not overridden will use the implementation in the parent class.
+`$add()` overrides the superclass implementation, but we can still delegate to the superclass implementation by using `super$`. (This is analogous to `NextMethod()` in S3, as discussed in Section \@ref(s3-inheritance).) Any methods which are not overridden will use the implementation in the parent class.
 
 ### Introspection
 \index{R6!introspection}
@@ -368,6 +371,7 @@ x$random
 x$random
 ```
 
+\index{validators!R6}
 Active fields are particularly useful in conjunction with private fields, because they make it possible to implement components that look like fields from the outside but provide additional checks. For example, we can use then make a read-only `age` field, and to ensure that `name` is a length 1 character vector.
 
 ```{r, error = TRUE}
@@ -448,7 +452,7 @@ y1$add(10)
 c(y1 = y1$sum, y2 = y2$sum)
 ```
 
-(Note that `$clone()` does not recursively clone nested R6 objects. If you want that, you'll need to use `$clone(deep = TRUE)`.)
+(`$clone()` does not recursively clone nested R6 objects. If you want that, you'll need to use `$clone(deep = TRUE)`.)
 
 There are three other less obvious consequences:
 
@@ -522,7 +526,7 @@ rm(tf)
 ```
 
 ### R6 fields
-\index{mutable default argument}
+\index{mutable default arguments}
 
 A final consequence of reference semantics can crop up where you don't expect it. If you use a R6 class as the default value of a field, it will be shared across all instances of the object! Take the following code: we want to create a temporary database every time we call `TemporaryDatabase$new()`, but the current code always uses the same path.
 
