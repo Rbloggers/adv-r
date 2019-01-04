@@ -83,10 +83,28 @@ div.sourceCode {
   padding: 2px 0;
 }
 
+div.level1 { 
+  -webkit-column-break-after: always;
+  page-break-before: always;
+}
+img {
+  display: block;
+  page-break-before: auto; /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+  page-break-after: auto; /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+  page-break-inside: avoid; /* or 'auto' */
+}
+table, ul, ol, .code-snippet, blockquote, pre {
+  page-break-before: auto; /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+  page-break-after: auto; /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+  page-break-inside: avoid; /* or 'auto' */
+}
+
+
 @media print {
   div.level1 { 
     -webkit-column-break-after: always;
-    page-break-before: always;}
+    page-break-before: always;
+  }
   img {
     display: block;
     page-break-before: auto; /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
