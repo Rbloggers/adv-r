@@ -81,7 +81,7 @@ cppFunction('int add(int x, int y, int z) {
 # add works like a regular R function
 add
 #> function (x, y, z) 
-#> .Call(<pointer: 0x7f370d77af60>, x, y, z)
+#> .Call(<pointer: 0x7f9acdb6ef60>, x, y, z)
 add(1, 2, 3)
 #> [1] 6
 ```
@@ -242,9 +242,9 @@ bench::mark(
 #> # A tibble: 3 x 6
 #>   expression      min     mean   median      max `itr/sec`
 #>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>
-#> 1 sum(x)       1.31µs   1.51µs   1.34µs   80.9µs   660999.
-#> 2 sumC(x)      3.24µs   4.58µs   4.72µs   1.03ms   218383.
-#> 3 sumR(x)     38.32µs  40.28µs  39.02µs 135.96µs    24828.
+#> 1 sum(x)       1.31µs   1.55µs   1.33µs  81.68µs   643040.
+#> 2 sumC(x)      3.27µs    4.7µs   4.77µs   1.04ms   212852.
+#> 3 sumR(x)     38.31µs  40.99µs  39.17µs 135.52µs    24399.
 ```
 
 ### Vector input, vector output
@@ -295,8 +295,8 @@ bench::mark(
 #> # A tibble: 2 x 6
 #>   expression          min     mean   median      max `itr/sec`
 #>   <chr>          <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>
-#> 1 pdistR(0.5, y)   8.51ms   8.82ms   8.67ms  13.04ms      113.
-#> 2 pdistC(0.5, y)   4.69ms   4.84ms   4.78ms   5.91ms      206.
+#> 1 pdistR(0.5, y)   8.62ms   8.83ms   8.75ms  11.33ms      113.
+#> 2 pdistC(0.5, y)   4.73ms   4.83ms    4.8ms   6.22ms      207.
 ```
 
 On my computer, it takes around 5 ms with a 1 million element `y` vector. The C++ function is about 2.5x faster, ~2 ms, but assuming it took you 10 minutes to write the C++ function, you'd need to run it ~200,000 times to make rewriting worthwhile. The reason why the C++ function is faster is subtle, and relates to memory management. The R version needs to create an intermediate vector the same length as y (`x - ys`), and allocating memory is an expensive operation. The C++ function avoids this overhead because it uses an intermediate scalar.
@@ -319,8 +319,6 @@ And for each function that you want available within R, you need to prefix it wi
 ```cpp
 // [[Rcpp::export]]
 ```
-
-Note that the space is mandatory. 
 
 :::sidebar
 If you're familiar with roxygen2, you might wonder how this relates to `@export`. `Rcpp::export` controls whether a function is exported from C++ to R; `@export` controls whether a function is exported from a package and made available to the user.
@@ -524,8 +522,9 @@ f(_["x"] = "y", _["value"] = 1);
 ```
 
 ### Attributes
+\index{attributes!in C++} 
 
-All R objects have attributes, which can be queried and modified with `.attr()`. Rcpp also provides `.names()` as an alias for the name attribute. The following code snippet illustrates these methods. Note the use of `::create()`, a _class_ method. This allows you to create an R vector from C++ scalar values: \index{attributes!in C++ } \index{names!in C++}
+All R objects have attributes, which can be queried and modified with `.attr()`. Rcpp also provides `.names()` as an alias for the name attribute. The following code snippet illustrates these methods. Note the use of `::create()`, a _class_ method. This allows you to create an R vector from C++ scalar values: 
 
 
 ```cpp
@@ -547,8 +546,9 @@ NumericVector attribs() {
 For S4 objects, `.slot()` plays a similar role to `.attr()`.
 
 ## Missing values {#rcpp-na}
+\indexc{NA}
 
-If you're working with missing values, you need to know two things: \index{missing values!in C++}
+If you're working with missing values, you need to know two things:
 
 * How R's missing values behave in C++'s scalars (e.g., `double`).
 * How to get and set missing values in vectors (e.g., `NumericVector`).
@@ -608,6 +608,8 @@ evalCpp("NAN > 1")
 evalCpp("NAN == NAN")
 #> [1] FALSE
 ```
+
+(Here I'm using `evalCpp()` which allows you to see the result of running a single C++ expression, making it excellent for this sort of interactive experimentation.)
 
 But be careful when combining them with boolean values:
 
@@ -933,8 +935,9 @@ LogicalVector duplicatedC(IntegerVector x) {
 ```
 
 ### Map
+\index{hashmaps}
 
-A map is similar to a set, but instead of storing presence or absence, it can store additional data. It's useful for functions like `table()` or `match()` that need to look up a value. As with sets, there are ordered (`std::map`) and unordered (`std::unordered_map`) versions. Since maps have a value and a key, you need to specify both types when initialising a map: `map<double, int>`, `unordered_map<int, double>`, and so on. The following example shows how you could use a `map` to implement `table()` for numeric vectors: \index{maps}
+A map is similar to a set, but instead of storing presence or absence, it can store additional data. It's useful for functions like `table()` or `match()` that need to look up a value. As with sets, there are ordered (`std::map`) and unordered (`std::unordered_map`) versions. Since maps have a value and a key, you need to specify both types when initialising a map: `map<double, int>`, `unordered_map<int, double>`, and so on. The following example shows how you could use a `map` to implement `table()` for numeric vectors:
 
 
 ```cpp
@@ -1042,12 +1045,11 @@ bench::mark(
   check = FALSE
 )
 #> # A tibble: 2 x 10
-#>   expression      min     mean   median    max `itr/sec` mem_alloc
-#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:>     <dbl> <bch:byt>
-#> 1 gibbs_r(1…   5.87ms   6.13ms   6.01ms 8.35ms      163.    4.97MB
-#> 2 gibbs_cpp… 302.81µs    353µs 345.71µs 1.53ms     2833.     4.1KB
-#> # ... with 3 more variables: n_gc <dbl>, n_itr <int>,
-#> #   total_time <bch:tm>
+#>   expression      min    mean   median    max `itr/sec` mem_alloc  n_gc
+#>   <chr>      <bch:tm> <bch:t> <bch:tm> <bch:>     <dbl> <bch:byt> <dbl>
+#> 1 gibbs_r(1…   5.62ms   5.8ms   5.73ms 6.89ms      172.    4.97MB    12
+#> 2 gibbs_cpp… 297.62µs 347.1µs 341.48µs 1.44ms     2881.     4.1KB     8
+#> # ... with 2 more variables: n_itr <int>, total_time <bch:tm>
 ```
 
 ### R vectorisation vs. C++ vectorisation
@@ -1152,13 +1154,12 @@ bench::mark(
   vacc3 = vacc3(age, female, ily)
 )
 #> # A tibble: 3 x 10
-#>   expression      min     mean   median      max `itr/sec` mem_alloc
-#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl> <bch:byt>
-#> 1 vacc1        1.84ms   1.97ms   1.93ms   4.52ms      508.    7.86KB
-#> 2 vacc2      102.55µs 121.71µs 113.45µs 345.52µs     8216.     224KB
-#> 3 vacc3       29.21µs  31.97µs  30.46µs 136.17µs    31281.   14.48KB
-#> # ... with 3 more variables: n_gc <dbl>, n_itr <int>,
-#> #   total_time <bch:tm>
+#>   expression     min     mean   median      max `itr/sec` mem_alloc  n_gc
+#>   <chr>      <bch:t> <bch:tm> <bch:tm> <bch:tm>     <dbl> <bch:byt> <dbl>
+#> 1 vacc1       1.78ms   1.91ms   1.89ms   3.01ms      523.    7.86KB    10
+#> 2 vacc2      98.92µs 115.84µs 107.62µs 306.23µs     8632.     224KB    12
+#> 3 vacc3      29.25µs  31.53µs  30.25µs  83.29µs    31720.   14.48KB     3
+#> # ... with 2 more variables: n_itr <int>, total_time <bch:tm>
 ```
 
 Not surprisingly, our original approach with loops is very slow.  Vectorising in R gives a huge speedup, and we can eke out even more performance (~10x) with the C++ loop. I was a little surprised that the C++ was so much faster, but it is because the R version has to create 11 vectors to store intermediate results, where the C++ code only needs to create 1.

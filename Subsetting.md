@@ -445,18 +445,15 @@ Let's make a simple list and draw it as a train:
 ```r
 x <- list(1:3, "a", 4:6)
 ```
-
-\begin{center}\includegraphics{diagrams/subsetting/train} \end{center}
+<img src="diagrams/subsetting/train.png" style="display: block; margin: auto;" />
 
 When extracting a single element, you have two options: you can create a smaller train, or  you can extract the contents of a carriage. This is the difference between `[` and `[[`:
 
-
-\begin{center}\includegraphics{diagrams/subsetting/train-single} \end{center}
+<img src="diagrams/subsetting/train-single.png" style="display: block; margin: auto;" />
 
 When extracting multiple elements (or zero!), you have to make a smaller train:
 
-
-\begin{center}\includegraphics{diagrams/subsetting/train-multiple} \end{center}
+<img src="diagrams/subsetting/train-multiple.png" style="display: block; margin: auto;" />
 
 Because it can return only a single item, you must use `[[` with either a single positive integer or a string. If you use a vector with `[[`, it will subset recursively, i.e. `x[[c(1, 2)]]` is equivalent to `x[[1]][[2]]`. This is a quirky feature that few people know about, so I recommend avoiding it in favour of `purrr::pluck()`, which you'll learn about in Section \@ref(subsetting-oob).
 
@@ -510,6 +507,7 @@ x[["a"]]
 #> NULL
 ```
 
+\index{options!warnPartialMatchDollar@\texttt{warnPartialMatchDollar}}
 To help avoid this behaviour I highly recommend setting the global option `warnPartialMatchDollar` to `TRUE`:
 
 
@@ -560,8 +558,6 @@ purrr::pluck(x, "c", 1, .default = NA)
 ```
 
 ### `@` and `slot()`
-\index{subsetting!S4} 
-\index{S4!subsetting}
 
 There are also two additional subsetting operators that are needed for S4 objects: `@` (equivalent to `$`), and `slot()` (equivalent to `[[`). `@` is more restrictive than `$` in that it will return an error if the slot does not exist. These are described in more detail in Chapter \@ref(s4).
 
@@ -653,7 +649,7 @@ unname(lookup[x])
 ```
 
 ### Matching and merging by hand (integer subsetting) {#matching-merging}
-\index{matching \& merging}
+\index{matching and merging}
 \indexc{match()}
 
 You may have a more complicated lookup table which has multiple columns of information. Suppose we have a vector of integer grades, and a table that describes their properties: 
@@ -688,7 +684,6 @@ info[id, ]
 If you have multiple columns to match on, you'll need to first collapse them to a single column (with e.g. `interaction()`), but typically you are better off switching to a function designed specifically for joining multiple tables like `merge()`, or `dplyr::left_join()`.
 
 ### Random samples/bootstraps (integer subsetting)
-\indexc{sample()} 
 \index{sampling} 
 \index{bootstrapping}
 
@@ -802,7 +797,6 @@ df[rep(1:nrow(df), df$n), ]
 ```
 
 ### Removing columns from data frames (character subsetting)
-\index{data frames!remove columns}
 
 There are two ways to remove columns from a data frame. You can set individual columns to `NULL`: 
 

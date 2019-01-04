@@ -10,8 +10,6 @@ A __function factory__ is a function that makes functions. Here's a very simple 
 
 ```r
 power1 <- function(exp) {
-  force(exp)
-  
   function(x) {
     x ^ exp
   }
@@ -21,7 +19,7 @@ square <- power1(2)
 cube <- power1(3)
 ```
 
-Don't worry if this code doesn't make sense yet; it should by the end of the chapter!
+Don't worry if this doesn't make sense yet, it should by the end of the chapter!
 
 \index{manufactured functions}
 \index{functions!manufactured}
@@ -51,7 +49,7 @@ You have already learned about the individual components that make function fact
 
 In this chapter, you'll learn how the non-obvious combination of these three features lead to the function factory. You'll also see examples of their usage in visualisation and statistics.
 
-Of the three main functional programming tools (functionals, function factories, and function operators), function factories are probably the least useful. Generally, they don't tend to reduce overall code complexity. Instead, they tend to partition complexity into more easily digested chunks. Function factories are also an important building block for the very useful function operators, which you'll learn about in Chapter \@ref(function-operators).
+Of the three main functional programming tools (functionals, function factories, and function operators), function factories are the least commonly used. Generally, they don't tend to reduce overall code complexity but instead partition complexity into more easily digested chunks. Function factories are also an important building block for the very useful function operators, which you'll learn about in Chapter \@ref(function-operators).
 
 ### Outline {-}
 
@@ -74,7 +72,7 @@ Of the three main functional programming tools (functionals, function factories,
 
 ### Prerequisites {-}
 
-Make sure you're familiar with the contents of Sections \@ref(first-class-functions) (first-class functions), \@ref(the-function-environment) (function environments), and \@ref(execution-environments) (execution environments) mentioned above.
+Make sure you're familiar with the contents of Sections \@ref(first-class-functions) (first-class functions), \@ref(function-environments) (the function environment), and \@ref(execution-environments) (execution environments) mentioned above.
 
 Function factories only need base R. We'll use a little [rlang](https://rlang.r-lib.org) to peek inside of them more easily, and we'll use [ggplot2](https://ggplot2.tidyverse.org) and [scales](https://scales.r-lib.org) to explore the use of function factories in visualisation.
 
@@ -104,41 +102,41 @@ square
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <environment: 0x35d9938>
+#> <environment: 0x2f39bc8>
 
 cube
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x2761f40>
-#> <environment: 0x37bc210>
+#> <bytecode: 0x19c9460>
+#> <environment: 0x2fb3d50>
 ```
 
-Printing manufactured functions is not revealing because the bodies are identical; it's the contents of the enclosing environment that's important. We can get a little more insight by using `rlang::env_print()`. That shows us that we have two different environments (each of which was originally an execution environment of `power1()`). The environments have the same parent, which is the enclosing environment of `power1()`, the global environment.
+It's obvious where `x` comes from, but how does R find the value associated with `exp`? Simply printing the manufactured functions is not revealing because the bodies are identical; it's the contents of the enclosing environment that's important. We can get a little more insight by using `rlang::env_print()`. That shows us that we have two different environments (each of which was originally an execution environment of `power1()`). The environments have the same parent, which is the enclosing environment of `power1()`, the global environment.
 
 
 ```r
 env_print(square)
-#> <environment: 0x35d9938>
+#> <environment: 0x2f39bc8>
 #> parent: <environment: global>
 #> bindings:
 #>  * exp: <dbl>
 
 env_print(cube)
-#> <environment: 0x37bc210>
+#> <environment: 0x2fb3d50>
 #> parent: <environment: global>
 #> bindings:
 #>  * exp: <dbl>
 ```
 
-`env_print()` shows us that both environments have a binding to `exp`, but we want to see its value[^env_print]. We can do that by first getting the environment of the function, and then extract the values:
+`env_print()` shows us that both environments have a binding to `exp`, but we want to see its value[^env_print]. We can do that by first getting the environment of the function, and then extracting the values:
 
 
 ```r
-environment(square)$exp
+fn_env(square)$exp
 #> [1] 2
 
-environment(cube)$exp
+fn_env(cube)$exp
 #> [1] 3
 ```
 
@@ -146,113 +144,11 @@ This is what makes manufactured functions behave differently from one another: n
 
 [^env_print]: A future version of `env_print()` is likely to do better at summarising the contents so you don't need this step.
 
-### Scoping
-
-Here I'll focus on how they interact with scoping. The following function, `g05()`, returns a function. What do you think this function will return when it's called?[^answer3]
-
-[^answer3]: `g06()` returns `c(10, 2)`.
-
-
-```r
-x <- 10
-y <- 20
-
-g05 <- function() {
-  y <- 2
-  function() {
-    c(x, y)
-  }
-}
-g06 <- g05()
-g06()
-```
-
-This seems a little magical: how does R know what the value of `y` is after `g05()` is returned? R knows because `g06()` preserves the environment where it was defined and that environment includes the value of `y`. You'll learn more about how environments work in Chapter \@ref(environments).
-
-
-### Forcing evaluation
-\indexc{force()}
-
-To __compel__ the evaluation of an argument, use `force()`: 
-
-
-```r
-h02 <- function(x) {
-  force(x)
-  10
-}
-h02(stop("This is an error!"))
-#> Error in force(x):
-#>   This is an error!
-```
-
-It's usually not necessary to force evaluation. However, it is important for certain functional programming techniques, like the one we'll cover in detail in Chapter \@ref(function-operators). Here, I'm just going to show you what the basic issue is.
-
-Consider this small but surprisingly tricky function. It takes a single argument `x`, and returns a function that returns `x` when called.
-
-
-```r
-capture1 <- function(x) {
-  function() {
-    x
-  }
-}
-```
-
-The subtlety here is that the value of `x` will be captured not when you call `capture1()`, but when you call the function that `capture1()` returns:
-
-
-```r
-x <- 10
-h03 <- capture1(x)
-h04 <- capture1(x)
-
-h03()
-#> [1] 10
-
-x <- 20
-h04()
-#> [1] 20
-```
-
-Even more confusingly this only happens once: the value is locked in after you have called `h03()`/`h04()` for the first time.
-
-
-```r
-x <- 30
-h03()
-#> [1] 10
-h04()
-#> [1] 20
-```
-
-This behaviour is a consequence of lazy evaluation. The `x` argument is evaluated once `h03()`/`h04()` is called, and then its value is cached.  We can avoid the confusion by forcing `x`:
-
-
-```r
-capture2 <- function(x) {
-  force(x)
-  
-  function() {
-    x
-  }
-}
-
-x <- 10
-h05 <- capture2(x)
-
-x <- 20
-h05()
-#> [1] 10
-```
-
-
 ### Diagram conventions
 
 We can also show these relationships in a diagram:
 
-
-\begin{center}\includegraphics{diagrams/function-factories/power-full} \end{center}
+<img src="diagrams/function-factories/power-full.png" style="display: block; margin: auto;" />
 
 There's a lot going on this diagram and some of the details aren't that important. We can simplify considerably by using two conventions:
 
@@ -261,8 +157,7 @@ There's a lot going on this diagram and some of the details aren't that importan
 * Any environment without an explicit parent inherits from the global 
   environment.
 
-
-\begin{center}\includegraphics{diagrams/function-factories/power-simple} \end{center}
+<img src="diagrams/function-factories/power-simple.png" style="display: block; margin: auto;" />
 
 This view, which focuses on the environments, doesn't show any direct link between `cube()` and `square()`. That's because the link is the through the body of the function, which is identical for both, but is not shown in this diagram.
 
@@ -274,10 +169,50 @@ square(10)
 #> [1] 100
 ```
 
+<img src="diagrams/function-factories/power-exec.png" style="display: block; margin: auto;" />
 
-\begin{center}\includegraphics{diagrams/function-factories/power-exec} \end{center}
+### Forcing evaluation
+\indexc{lazy evaluation}
+\indexc{force()}
+
+There's a subtle bug in `power1()` caused by lazy evaluation. To see the problem we need to introduce some indirection:
 
 
+```r
+x <- 2
+square <- power1(x)
+x <- 3
+```
+
+What should `square(2)` return? You would hope it returns 4:
+
+
+```r
+square(2)
+#> [1] 8
+```
+
+Unfortunately it doesn't because `x` is only evaluated lazily when `square()` is run, not when `power1()` is run. In general, this problem will arise whenever a binding changes in between calling the factory function and calling the manufactured function. This is likely to only happen rarely, but when it does, it will lead to a real head-scratcher of a bug. 
+
+We can fix this problem by __forcing__ evaluation with `force()`:
+
+
+```r
+power2 <- function(exp) {
+  force(exp)
+  function(x) {
+    x ^ exp
+  }
+}
+
+x <- 2
+square <- power2(x)
+x <- 3
+square(2)
+#> [1] 4
+```
+
+Whenever you create a function factory, make sure every argument is evaluated, using `force()` as necessary if the argument is only used by the manufactured function.
 
 ### Stateful functions {#stateful-funs}
 \indexc{<<-} 
@@ -311,8 +246,7 @@ counter_one <- new_counter()
 counter_two <- new_counter()
 ```
 
-
-\begin{center}\includegraphics{diagrams/function-factories/counter-1} \end{center}
+<img src="diagrams/function-factories/counter-1.png" style="display: block; margin: auto;" />
 
 When the manufactured function is run `i <<- i + 1` will modify `i` in its enclosing environment. Because manufactured functions have independent enclosing environments, they have independent counts:
 
@@ -326,40 +260,14 @@ counter_two()
 #> [1] 1
 ```
 
-
-\begin{center}\includegraphics{diagrams/function-factories/counter-2} \end{center}
+<img src="diagrams/function-factories/counter-2.png" style="display: block; margin: auto;" />
 
 Stateful functions are best used in moderation. As soon as your function starts managing the state of multiple variables, it's better to switch to R6, the topic of Chapter \@ref(r6).
 
-### Potential pitfalls {#factory-pitfalls}
-\index{lazy evaluation}
-\indexc{force()}
+### Garbage collection {#factory-pitfalls}
+\index{garbage collector!manufactured functions}
 
-There are two potential pitfalls to be aware of when creating your own function factories: forgetting to evaluate all inputs and accidentally capturing large objects. 
-
-Generally, you can rely on lazy evaluation to evaluate function inputs at the right time. However, there's a catch when it comes to function factories: if you don't eagerly evaluate every argument, it's possible to get confusing behaviour, as shown below.
-
-
-```r
-power2 <- function(exp) {
-  function(x) {
-    x ^ exp
-  }
-}
-
-exp2 <- 2
-square2 <- power2(exp2)
-exp2 <- 3
-
-square2(2)
-#> [1] 8
-```
-
-This is described in Section \@ref(forcing-evaluation), and happens when a binding changes in between calling the factory function and calling the manufactured function. This is likely to only happen rarely, but when it does, it will lead to a real head-scratcher of a bug. Avoid future pain by ensuring every argument is evaluated, using `force()` if the argument is only used by the manufactured function.
-
-\index{GC}
-
-With most functions, you can rely on the GC to clean up any large temporary objects created inside a function. However, manufactured functions hold on to the execution environment, so you'll need to explicitly unbind any large temporary objects with `rm()`. Compare the sizes of `g1()` and `g2()` in the example below:
+With most functions, you can rely on the garbage collector to clean up any large temporary objects created inside a function. However, manufactured functions hold on to the execution environment, so you'll need to explicitly unbind any large temporary objects with `rm()`. Compare the sizes of `g1()` and `g2()` in the example below:
 
 
 ```r
@@ -394,7 +302,7 @@ lobstr::obj_size(g2)
     force
     #> function (x) 
     #> x
-    #> <bytecode: 0xa61cf8>
+    #> <bytecode: 0x12e1cf8>
     #> <environment: namespace:base>
     ```
     
@@ -463,7 +371,6 @@ lobstr::obj_size(g2)
 We'll begin our exploration of useful function factories with a few examples from ggplot2. 
 
 ### Labelling
-\index{scales}
 
 One of the goals of the [scales](http://scales.r-lib.org) package is to make it easy to customise the labels on ggplot2. It provides many functions to control the fine details of axes and legends. One useful class of functions are the formatter functions[^suffix] which make it easier to control the appearance of axis breaks. The design of these functions might initially seem a little odd: they all return a function, which you have to call in order to format a number.
 
@@ -501,11 +408,9 @@ core + scale_y_continuous(
 )
 ```
 
-
-\includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-29-1} \includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-29-2} \includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-29-3} \includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-29-4} 
+<img src="Function-factories_files/figure-html/unnamed-chunk-25-1.png" width="24%" /><img src="Function-factories_files/figure-html/unnamed-chunk-25-2.png" width="24%" /><img src="Function-factories_files/figure-html/unnamed-chunk-25-3.png" width="24%" /><img src="Function-factories_files/figure-html/unnamed-chunk-25-4.png" width="24%" />
 
 ### Histogram bins
-\index{histogram}
 
 A little known feature of `geom_histogram()` is that the `binwidth` argument can be a function. This is particularly useful because the function is executed once for each group, which means you can have different binwidths in different facets, which is otherwise not possible.
 
@@ -525,9 +430,7 @@ ggplot(df, aes(x)) +
   labs(x = NULL)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-30-1} \end{center}
+<img src="Function-factories_files/figure-html/unnamed-chunk-26-1.png" width="90%" style="display: block; margin: auto;" />
 
 Here each facet has the same number of observations, but the variability is very different. It would be nice if we could request that the binwidths vary so we get approximately the same number of observations in each bin. One way to do that is with a function factory that inputs the desired number of bins (`n`), and outputs a function that takes a numeric vector and returns a binwidth:
 
@@ -547,9 +450,7 @@ ggplot(df, aes(x)) +
   labs(x = NULL)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-31-1} \end{center}
+<img src="Function-factories_files/figure-html/unnamed-chunk-27-1.png" width="90%" style="display: block; margin: auto;" />
 
 We could use this same pattern to wrap around the base R functions that automatically find the "optimal"[^optimal] binwidth, `nclass.Sturges()`, `nclass.scott()`, and `nclass.FD()`:
 
@@ -574,9 +475,7 @@ ggplot(df, aes(x)) +
   labs(x = NULL)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-32-1} \end{center}
+<img src="Function-factories_files/figure-html/unnamed-chunk-28-1.png" width="90%" style="display: block; margin: auto;" />
 
 [^optimal]: ggplot2 doesn't expose these functions directly because I don't think the definition of optimality needed to make the problem mathematically tractable is a good match to the actual needs of data exploration.
 
@@ -621,12 +520,12 @@ plot_dev <- function(ext, dpi = 96) {
 
 plot_dev("pdf")
 #> function(filename, ...) grDevices::pdf(file = filename, ...)
-#> <bytecode: 0x3f97010>
-#> <environment: 0xfa06b0>
+#> <bytecode: 0x5642520>
+#> <environment: 0x503f770>
 plot_dev("png")
 #> function(...) grDevices::png(..., res = dpi, units = "in")
-#> <bytecode: 0x41f5650>
-#> <environment: 0x46ffab8>
+#> <bytecode: 0x5918258>
+#> <environment: 0x5c97b68>
 ```
 
 ### Exercises
@@ -690,8 +589,7 @@ ggplot(data.frame(x = c(0.01, 1)), aes(x)) +
   scale_colour_viridis_c(limits = c(0, 1.5))
 ```
 
-
-\includegraphics[width=0.5\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-35-1} \includegraphics[width=0.5\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-35-2} 
+<img src="Function-factories_files/figure-html/unnamed-chunk-31-1.png" width="50%" /><img src="Function-factories_files/figure-html/unnamed-chunk-31-2.png" width="50%" />
 
 In general, this allows you to use a Box-Cox transformation with any function that accepts a unary transformation function: you don't have to worry about that function providing `...` to pass along additional arguments. I also think that the partitioning of `lambda` and `x` into two different function arguments is natural since `lambda` plays quite a different role than `x`. 
 
@@ -932,15 +830,15 @@ funs$root
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x45cf8b8>
-#> <environment: 0x46027a8>
+#> <bytecode: 0x19c9460>
+#> <environment: 0x672ff80>
 ```
 
 This idea extends in a straightforward way if your function factory takes two (replace `map()` with `map2()`) or more (replace with `pmap()`) arguments.
 
 \indexc{with()}
 \indexc{attach()}
-\indexc{env\_bind()}
+\indexc{env\_bind\_*}
 
 One downside of the current construction is that you have to prefix every function call with `funs$`. There are three ways to eliminate this additional syntax:
 
@@ -995,7 +893,7 @@ One downside of the current construction is that you have to prefix every functi
     rlang::env_unbind(globalenv(), names(funs))
     ```
 
-You'll learn an alternative approach to the same problem in Section \@ref(new-function). Instead of using a function factory, you could construct the function with quasiquotation. This requires additional knowledge, but generates functions with readable bodies, and avoids accidentally capturing large objects in the enclosing scope. We use that idea in Section \@ref(tag-functios) when we work on tools for generating HTML from R.
+You'll learn an alternative approach to the same problem in Section \@ref(new-function). Instead of using a function factory, you could construct the function with quasiquotation. This requires additional knowledge, but generates functions with readable bodies, and avoids accidentally capturing large objects in the enclosing scope. We use that idea in Section \@ref(tag-functions) when we work on tools for generating HTML from R.
 
 ### Exercises
 

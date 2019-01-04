@@ -13,7 +13,7 @@ Recently, functional techniques have experienced a surge in interest because the
 
 Every programming language has functions, so what makes a programming language functional? There are many definitions for precisely what makes a language "functional", but there are two common threads. 
 
-Firstly, functional languages have __first-class functions__, functions that behave like any other data structure. In R, this means that you can do anything with a function that you can do with a vector: you can assign them to variables, store them in lists, pass them as arguments to other functions, create them inside functions, and even return them as the result of a function. 
+Firstly, functional languages have __first-class functions__, functions that behave like any other data structure. In R, this means that you can do many of the things with a function that you can do with a vector: you can assign them to variables, store them in lists, pass them as arguments to other functions, create them inside functions, and even return them as the result of a function. 
 
 Secondly, many functional languages require functions to be __pure__. A function is pure if it satisfies two properties:
 
@@ -43,9 +43,9 @@ The following three chapters discuss the three key functional techniques that he
   you'll use them all the time in data analysis.
 
 * Chapter \@ref(function-factories) introduces __function factories__: 
-  functions that create functions. Function factories are less useful than
-  functionals, but often allow you to elegantly partition work between different
-  parts of your code.
+  functions that create functions. Function factories are less commonly
+  used than functionals, but can allow you to elegantly partition work 
+  between different parts of your code.
 
 * Chapter \@ref(function-operators) shows you how to create __function
   operators__: functions that take functions as input and produce functions 
@@ -54,5 +54,4 @@ The following three chapters discuss the three key functional techniques that he
 
 Collectively, these types of function are called __higher-order functions__ and they fill out a two-by-two table:
 
-
-\begin{center}\includegraphics{diagrams/fp} \end{center}
+<img src="diagrams/fp.png" style="display: block; margin: auto;" />

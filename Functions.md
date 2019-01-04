@@ -4,6 +4,7 @@
 
 ## Introduction
 \index{functions}
+\index{closures|see {functions}}
 
 If you're reading this book, you've probably already created many R functions and know how to use them to reduce duplication in your code. In this chapter, you'll learn how to turn that informal, working knowledge into more rigorous, theoretical understanding. And while you'll see some interesting tricks and techniques along the way, keep in mind that what you'll learn here will be important for understanding the more advanced topics discussed later in the book.
 
@@ -97,6 +98,7 @@ There are exceptions to every rule, and in this case, there is a small selection
 \index{functions!body} 
 \indexc{body()} 
 \index{functions!formals} 
+\index{arguments!formal} 
 \indexc{formals()} 
 \index{functions!environment}
 \index{environments!of a function}
@@ -137,8 +139,7 @@ environment(f02)
 
 I'll draw functions as in the following diagram. The black dot on the left is the environment. The two blocks to the right are the function arguments. I won't draw the body, because it's usually large, and doesn't help you understand the "shape" of the function.
 
-
-\begin{center}\includegraphics{diagrams/functions/components} \end{center}
+<img src="diagrams/functions/components.png" style="display: block; margin: auto;" />
 
 Like all objects in R, functions can also possess any number of additional `attributes()`. One attribute used by base R is "srcref", short for source reference. It points to the source code used to create the function. The srcref is used for printing because, unlike `body()`, it contains code comments and other formatting.  
 
@@ -153,8 +154,8 @@ attr(f02, "srcref")
 
 ### Primitive functions
 \index{primitive functions} 
-\index{functions!primitive|see{primitive functions}} 
-\indexc{.Primitive}
+\index{functions!primitive} 
+\indexc{.Primitive()}
 
 There is one exception to the rule that a function has three components. Primitive functions, like `sum()` and `[`, call C code directly. 
 
@@ -205,8 +206,7 @@ f01 <- function(x) {
 }
 ```
 
-
-\begin{center}\includegraphics{diagrams/functions/first-class} \end{center}
+<img src="diagrams/functions/first-class.png" style="display: block; margin: auto;" />
 
 While you almost always create a function and then bind it to a name, the binding step is not compulsory. If you choose not to give a function a name, you get an __anonymous function__. This is useful when it's not worth the effort to figure out a name:
 
@@ -280,7 +280,7 @@ We'll come back to this idea in Section \@ref(tidy-dots).
     
     
     ```r
-    objs <- mget(ls("package:base"), inherits = TRUE)
+    objs <- mget(ls("package:base", all = TRUE), inherits = TRUE)
     funs <- Filter(is.function, objs)
     ```
 
@@ -300,8 +300,8 @@ We'll come back to this idea in Section \@ref(tidy-dots).
 ## Function composition {#function-composition}
 \index{functions!composition}
 \indexc{\%>\%}
-\index{magrittr}
-\index{piping}
+\index{magrittr|see {\texttt{\%>\%}}}
+\index{piping|see {\texttt{\%>\%}}}
 
 Base R provides two ways to compose multiple function calls. For example, imagine you want to compute the population standard deviation using `sqrt()` and `mean()` as building blocks:
 
@@ -371,8 +371,7 @@ Most code will use a combination of all three styles. Piping is more common in d
 
 ## Lexical scoping {#lexical-scoping}
 \index{scoping!lexical}
-\index{lexical scoping}
- 
+
 In Chapter \@ref(names-values), we discussed assignment, the act of binding a name to a value. Here we'll discuss __scoping__, the act of finding the value associated with a name.
 
 The basic rules of scoping are quite intuitive, and you've probably already internalised them, even if you never explicitly studied them. For example, what will the following code return, 10 or 20?[^answer1]
@@ -404,7 +403,7 @@ R's lexical scoping follows four primary rules:
 [^dyn-scope]: Functions that automatically quote one or more arguments can override the default scoping rules to implement other varieties of scoping. You'll learn more about that in Chapter \@ref(evaluation).
 
 ### Name masking
-\index{closures!scoping}
+\index{functions!scoping}
 
 The basic principle of lexical scoping is that names defined inside a function mask names defined outside a function. This is illustrated in the following example.
 
@@ -488,7 +487,7 @@ g10()
 #> [1] 110
 ```
 
-Note that for the record, using the same name for two different things makes for confusing code, and is something best avoided!
+For the record, using the same name for different things is confusing and best avoided!
 
 ### A fresh start {#fresh-start}
 
@@ -583,6 +582,7 @@ The problem and its solution reveal why this seemingly undesirable behaviour exi
     ```
 
 ## Lazy evaluation {#lazy-evaluation}
+\index{evaluation!lazy|see {lazy evaluation}} 
 \index{lazy evaluation} 
 \index{functions!lazy evaluation}
 
@@ -601,7 +601,7 @@ This is an important feature because it allows you to do things like include pot
 
 ### Promises
 \index{promises}
-\index{thunks|see{promises}}
+\index{thunks|see {promises}}
 
 Lazy evaluation is powered by a data structure called a __promise__, or (less commonly) a thunk. It's one of the features that makes R such an interesting programming language (we'll return to promises again in Section \@ref(quosures)).
 
@@ -648,20 +648,16 @@ A promise has three components:
       x * 2
     }
     
-    h06 <- function(x) {
+    h03 <- function(x) {
       c(x, x)
     }
     
-    h06(double(x))
+    h03(double(x))
     #> Calculating...
     #> [1] 40 40
     ```
 
 You cannot manipulate promises with R code. Promises are like a quantum state: any attempt to inspect them with R code will force an immediate evaluation, making the promise disappear. Later, in Section \@ref(quosures), you'll learn about quosures, which reify promises into an R object where you can easily inspect the expression and the environment.
-
-### Assignment
-
-
 
 
 ### Default arguments
@@ -671,14 +667,14 @@ Thanks to lazy evaluation, default values can be defined in terms of other argum
 
 
 ```r
-h07 <- function(x = 1, y = x * 2, z = a + b) {
+h04 <- function(x = 1, y = x * 2, z = a + b) {
   a <- 10
   b <- 100
   
   c(x, y, z)
 }
 
-h07()
+h04()
 #> [1]   1   2 110
 ```
 
@@ -688,36 +684,36 @@ The evaluation environment is slightly different for default and user supplied a
 
 
 ```r
-h08 <- function(x = ls()) {
+h05 <- function(x = ls()) {
   a <- 1
   x
 }
 
-# ls() evaluated inside h08:
-h08()
+# ls() evaluated inside h05:
+h05()
 #> [1] "a" "x"
 
 # ls() evaluated in global environment:
-h08(ls())
-#> [1] "h08"
+h05(ls())
+#> [1] "h05"
 ```
 
 ### Missing arguments
-\indexc{missing()}
+\index{missing arguments!missing@\texttt{missing()}}
 \indexc{\%\textbar\textbar\%}
 
 To determine if an argument's value comes from the user or from a default, you can use `missing()`:
 
 
 ```r
-h09 <- function(x = 10) {
+h06 <- function(x = 10) {
   list(missing(x), x)
 }
-str(h09())
+str(h06())
 #> List of 2
 #>  $ : logi TRUE
 #>  $ : num 10
-str(h09(10))
+str(h06(10))
 #> List of 2
 #>  $ : logi FALSE
 #>  $ : num 10
@@ -746,6 +742,7 @@ sample <- function(x, size = NULL, replace = FALSE, prob = NULL) {
 ```
 
 With the binary pattern created by the `%||%` infix function, which uses the left side if it's not `NULL` and the right side otherwise, we can further simplify `sample()`:
+\indexc{NULL}
 
 
 ```r
@@ -842,17 +839,16 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
       print(x)
     }
     show_time()
-    #> [1] "2018-12-21 05:30:59 UTC"
+    #> [1] "2019-01-04 08:44:12 UTC"
     ```
 
 1.  How many arguments are required when calling `library()`?
 
 ## `...`  (dot-dot-dot) {#fun-dot-dot-dot}
 \indexc{...}
-\index{varargs|see{...}}
-\index{function!variadic|see{...}}
-\index{ellipsis|see{...}}
-\index{dot-dot-dot|see{...}}
+\index{functions!variadic|see {...}}
+\index{ellipsis|see {...}}
+\index{dot-dot-dot|see {...}}
 
 Functions can have a special argument `...` (pronounced dot-dot-dot). With it, a function can take any number of additional arguments. In other programming languages, this type of argument is often called a varargs, and a function that uses it is said to be variadic. 
 
@@ -975,9 +971,7 @@ Using `...` comes with two downsides:
     plot(1:10, col = "red", pch = 20, xlab = "x", col.lab = "blue")
     ```
     
-    
-    
-    \begin{center}\includegraphics[width=0.7\linewidth]{Functions_files/figure-latex/unnamed-chunk-59-1} \end{center}
+    <img src="Functions_files/figure-html/unnamed-chunk-58-1.png" width="70%" style="display: block; margin: auto;" />
     
 1.  Why does `plot(1:10, col = "red")` only colour the points, not the axes 
     or labels? Read the source code of `plot.default()` to find out.
@@ -1106,7 +1100,7 @@ An error indicates that something has gone wrong, and forces the user to deal wi
 
 ### Exit handlers {#on-exit}
 \indexc{on.exit()}
-\index{handler!exit}
+\index{handlers!exit}
 
 Sometimes a function needs to make temporary changes to the global state. But having to cleanup those changes can be painful (what happens if there's an error?). To ensure that these changes are undone and that the global state is restored no matter how a function exits, use `on.exit()` to set up an __exit handler__. The following simple example shows that the exit handler is run regardless of whether the function exits normally or with an error.
 
@@ -1177,11 +1171,11 @@ In R 3.4 and earlier, `on.exit()` expressions are always run in order of creatio
 
 
 ```r
-f <- function() {
+j08 <- function() {
   on.exit(message("a"), add = TRUE)
   on.exit(message("b"), add = TRUE)
 }
-f()
+j08()
 #> a
 #> b
 ```
@@ -1190,11 +1184,11 @@ This can make cleanup a little tricky if some actions need to happen in a specif
 
 
 ```r
-f <- function() {
+j09 <- function() {
   on.exit(message("a"), add = TRUE, after = FALSE)
   on.exit(message("b"), add = TRUE, after = FALSE)
 }
-f()
+j09()
 #> b
 #> a
 ```
@@ -1261,8 +1255,8 @@ While everything that happens in R is a result of a function call, not all calls
 While there are four forms, you actually only need one because any call can be written in prefix form. I'll demonstrate this property, and then you'll learn about each of the forms in turn.
 
 ### Rewriting to prefix form {#prefix-transform}
-\indexc{`} 
-\index{backticks|see{\texttt{`}}}
+\index{'@\texttt{`}}
+\index{backticks|see {\texttt{`}}}
 \indexc{sapply()}
 
 An interesting property of R is that every infix, replacement, or special form can be rewritten in prefix form. Doing so is useful because it helps you better understand the structure of the language, it gives you the real name of every function, and it allows you to modify those functions for fun and profit.
@@ -1293,8 +1287,8 @@ Suprisingly, in R, `for` can be called like a regular function! The same is true
   }
 }
 replicate(50, (1 + 2))
-#>  [1] 3 3 3 3 3 3 3 3 3 3 3 3 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
-#> [33] 3 3 3 3 3 3 4 3 4 3 3 3 3 4 3 3 3 3
+#>  [1] 3 3 3 3 3 3 3 3 3 3 3 3 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+#> [36] 3 3 3 4 3 4 3 3 3 3 4 3 3 3 3
 rm("(")
 ```
 
@@ -1321,6 +1315,7 @@ We'll explore this idea in detail in Section \@ref(functionals).
 
 ### Prefix form {#prefix-form}
 \index{functions!arguments}
+\index{arguments!matching}
 
 The prefix form is the most common form in R code, and indeed in the majority of programming languages. Prefix calls in R are a little special because you can specify arguments in three ways:
 
@@ -1360,13 +1355,13 @@ str(k01(1, 3, b = 1))
 ```
 
 In general, use positional matching only for the first one or two arguments; they will be the most commonly used, and most readers will know what they are. Avoid using positional matching for less commonly used arguments, and never use partial matching. Unfortunately you can't disable partial matching, but you can turn it into a warning with the `warnPartialMatchArgs` option:
+\index{options!warnPartialMatchArgs@\texttt{warnPartialMatchArgs}}
 
 
 ```r
 options(warnPartialMatchArgs = TRUE)
 x <- k01(a = 1, 2, 3)
-#> Warning in k01(a = 1, 2, 3): partial argument match of 'a' to
-#> 'abcdef'
+#> Warning in k01(a = 1, 2, 3): partial argument match of 'a' to 'abcdef'
 ```
 
 ### Infix functions
@@ -1419,7 +1414,7 @@ There are two special infix functions that can be called with a single argument:
 ### Replacement functions {#replacement-functions}
 \index{replacement functions} 
 \index{functions!replacement}
-\index{assignment!replacement functions}
+\index{assignment!in replacement functions}
 
 Replacement functions act like they modify their arguments in place, and have the special name `xxx<-`. They must have arguments named `x` and `value`, and must return the modified object. For example, the following function modifies the second element of a vector: 
 
@@ -1500,6 +1495,7 @@ rm(`*tmp*`)
 
 ### Special forms
 \index{special forms}
+\index{functions!special}
 
 Finally, there are a bunch of language features that are usually written in special ways, but also have prefix forms. These include parentheses:
 
@@ -1527,7 +1523,7 @@ Finally, the most complex is the "function" function:
 
 Knowing the name of the function that underlies a special form is useful for getting documentation: `?(` is a syntax error; `` ?`(` `` will give you the documentation for parentheses.
 
-Note that all special forms are implemented as primitive functions (i.e. in C); this means printing these functions is not informative:
+All special forms are implemented as primitive functions (i.e. in C); this means printing these functions is not informative:
 
 
 ```r
@@ -1582,7 +1578,7 @@ Note that all special forms are implemented as primitive functions (i.e. in C); 
     ```
 
 1. Create a list of all the replacement functions found in the base package. 
-   Which ones are primitive functions? (Hint: use `apropros()`)
+   Which ones are primitive functions? (Hint: use `apropos()`)
 
 1. What are valid names for user-created infix functions?
 
