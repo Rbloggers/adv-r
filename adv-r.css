@@ -82,3 +82,15 @@ div.sourceCode {
 .book .book-body .page-wrapper .page-inner section.normal code {
   padding: 2px 0;
 }
+
+@media print {
+  div.level1 { 
+    -webkit-column-break-after: always;
+    page-break-before: always;}
+  img {
+    display: block;
+  }
+  img, table, ul, ol, .code-snippet, blockquote, pre {
+      page-break-inside: avoid;
+  }
+}

@@ -29,12 +29,15 @@ before_install:
 
 
 script:
-  - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
-  - cd _book/
-  - cp ../adv-r_cover.pdf .
-  - pdftk _main.pdf cat 2-r1 output adv-r_ori.pdf
-  - pdftk adv-r_cover.pdf adv-r_ori.pdf cat output adv-r.pdf && rm -r adv-r_*.pdf
-  - cd -
+  - Rscript -e 'bookdown::render_book("index.rmd")'
+  - mv _book/_main.html _book/index.html
+  # LaTeX book
+  #- Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
+  #- cd _book/
+  #- cp ../adv-r_cover.pdf .
+  #- pdftk _main.pdf cat 2-r1 output adv-r_ori.pdf
+  #- pdftk adv-r_cover.pdf adv-r_ori.pdf cat output adv-r.pdf && rm -r adv-r_*.pdf
+  #- cd -
 
 deploy:
   provider: pages
