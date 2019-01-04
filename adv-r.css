@@ -89,8 +89,13 @@ div.sourceCode {
     page-break-before: always;}
   img {
     display: block;
+    page-break-before: auto; /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+    page-break-after: auto; /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+    page-break-inside: avoid; /* or 'auto' */
   }
-  img, table, ul, ol, .code-snippet, blockquote, pre {
-      page-break-inside: avoid;
+  table, ul, ol, .code-snippet, blockquote, pre {
+    page-break-before: auto; /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+    page-break-after: auto; /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+    page-break-inside: avoid; /* or 'auto' */
   }
 }
