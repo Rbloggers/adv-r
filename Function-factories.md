@@ -102,14 +102,14 @@ square
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <environment: 0x2f39bc8>
+#> <environment: 0x35d9938>
 
 cube
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x19c9460>
-#> <environment: 0x2fb3d50>
+#> <bytecode: 0x2761f40>
+#> <environment: 0x37bc210>
 ```
 
 It's obvious where `x` comes from, but how does R find the value associated with `exp`? Simply printing the manufactured functions is not revealing because the bodies are identical; it's the contents of the enclosing environment that's important. We can get a little more insight by using `rlang::env_print()`. That shows us that we have two different environments (each of which was originally an execution environment of `power1()`). The environments have the same parent, which is the enclosing environment of `power1()`, the global environment.
@@ -117,13 +117,13 @@ It's obvious where `x` comes from, but how does R find the value associated with
 
 ```r
 env_print(square)
-#> <environment: 0x2f39bc8>
+#> <environment: 0x35d9938>
 #> parent: <environment: global>
 #> bindings:
 #>  * exp: <dbl>
 
 env_print(cube)
-#> <environment: 0x2fb3d50>
+#> <environment: 0x37bc210>
 #> parent: <environment: global>
 #> bindings:
 #>  * exp: <dbl>
@@ -148,7 +148,8 @@ This is what makes manufactured functions behave differently from one another: n
 
 We can also show these relationships in a diagram:
 
-<img src="diagrams/function-factories/power-full.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/function-factories/power-full} \end{center}
 
 There's a lot going on this diagram and some of the details aren't that important. We can simplify considerably by using two conventions:
 
@@ -157,7 +158,8 @@ There's a lot going on this diagram and some of the details aren't that importan
 * Any environment without an explicit parent inherits from the global 
   environment.
 
-<img src="diagrams/function-factories/power-simple.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/function-factories/power-simple} \end{center}
 
 This view, which focuses on the environments, doesn't show any direct link between `cube()` and `square()`. That's because the link is the through the body of the function, which is identical for both, but is not shown in this diagram.
 
@@ -169,7 +171,8 @@ square(10)
 #> [1] 100
 ```
 
-<img src="diagrams/function-factories/power-exec.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/function-factories/power-exec} \end{center}
 
 ### Forcing evaluation
 \indexc{lazy evaluation}
@@ -246,7 +249,8 @@ counter_one <- new_counter()
 counter_two <- new_counter()
 ```
 
-<img src="diagrams/function-factories/counter-1.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/function-factories/counter-1} \end{center}
 
 When the manufactured function is run `i <<- i + 1` will modify `i` in its enclosing environment. Because manufactured functions have independent enclosing environments, they have independent counts:
 
@@ -260,7 +264,8 @@ counter_two()
 #> [1] 1
 ```
 
-<img src="diagrams/function-factories/counter-2.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/function-factories/counter-2} \end{center}
 
 Stateful functions are best used in moderation. As soon as your function starts managing the state of multiple variables, it's better to switch to R6, the topic of Chapter \@ref(r6).
 
@@ -302,7 +307,7 @@ lobstr::obj_size(g2)
     force
     #> function (x) 
     #> x
-    #> <bytecode: 0x12e1cf8>
+    #> <bytecode: 0x1d50cf8>
     #> <environment: namespace:base>
     ```
     
@@ -408,7 +413,8 @@ core + scale_y_continuous(
 )
 ```
 
-<img src="Function-factories_files/figure-html/unnamed-chunk-25-1.png" width="24%" /><img src="Function-factories_files/figure-html/unnamed-chunk-25-2.png" width="24%" /><img src="Function-factories_files/figure-html/unnamed-chunk-25-3.png" width="24%" /><img src="Function-factories_files/figure-html/unnamed-chunk-25-4.png" width="24%" />
+
+\includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-25-1} \includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-25-2} \includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-25-3} \includegraphics[width=0.24\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-25-4} 
 
 ### Histogram bins
 
@@ -430,7 +436,9 @@ ggplot(df, aes(x)) +
   labs(x = NULL)
 ```
 
-<img src="Function-factories_files/figure-html/unnamed-chunk-26-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
 Here each facet has the same number of observations, but the variability is very different. It would be nice if we could request that the binwidths vary so we get approximately the same number of observations in each bin. One way to do that is with a function factory that inputs the desired number of bins (`n`), and outputs a function that takes a numeric vector and returns a binwidth:
 
@@ -450,7 +458,9 @@ ggplot(df, aes(x)) +
   labs(x = NULL)
 ```
 
-<img src="Function-factories_files/figure-html/unnamed-chunk-27-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-27-1} \end{center}
 
 We could use this same pattern to wrap around the base R functions that automatically find the "optimal"[^optimal] binwidth, `nclass.Sturges()`, `nclass.scott()`, and `nclass.FD()`:
 
@@ -475,7 +485,9 @@ ggplot(df, aes(x)) +
   labs(x = NULL)
 ```
 
-<img src="Function-factories_files/figure-html/unnamed-chunk-28-1.png" width="90%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
 [^optimal]: ggplot2 doesn't expose these functions directly because I don't think the definition of optimality needed to make the problem mathematically tractable is a good match to the actual needs of data exploration.
 
@@ -520,12 +532,12 @@ plot_dev <- function(ext, dpi = 96) {
 
 plot_dev("pdf")
 #> function(filename, ...) grDevices::pdf(file = filename, ...)
-#> <bytecode: 0x5642520>
-#> <environment: 0x503f770>
+#> <bytecode: 0x1ecd6e8>
+#> <environment: 0x5b59db8>
 plot_dev("png")
 #> function(...) grDevices::png(..., res = dpi, units = "in")
-#> <bytecode: 0x5918258>
-#> <environment: 0x5c97b68>
+#> <bytecode: 0x42039c0>
+#> <environment: 0x25ffa08>
 ```
 
 ### Exercises
@@ -589,7 +601,8 @@ ggplot(data.frame(x = c(0.01, 1)), aes(x)) +
   scale_colour_viridis_c(limits = c(0, 1.5))
 ```
 
-<img src="Function-factories_files/figure-html/unnamed-chunk-31-1.png" width="50%" /><img src="Function-factories_files/figure-html/unnamed-chunk-31-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-31-1} \includegraphics[width=0.5\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-31-2} 
 
 In general, this allows you to use a Box-Cox transformation with any function that accepts a unary transformation function: you don't have to worry about that function providing `...` to pass along additional arguments. I also think that the partitioning of `lambda` and `x` into two different function arguments is natural since `lambda` plays quite a different role than `x`. 
 
@@ -830,8 +843,8 @@ funs$root
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x19c9460>
-#> <environment: 0x672ff80>
+#> <bytecode: 0x69e40a0>
+#> <environment: 0x6571718>
 ```
 
 This idea extends in a straightforward way if your function factory takes two (replace `map()` with `map2()`) or more (replace with `pmap()`) arguments.

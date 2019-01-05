@@ -432,7 +432,8 @@ expr(f(!!x, y))
 
 I think this is easiest to understand with a diagram. `!!` introduces a placeholder in the AST, shown with dotted borders. Here the placeholder `x` is replaced by an AST, illustrated by a dotted connection.
 
-<img src="diagrams/quotation/bang-bang.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/quotation/bang-bang} \end{center}
 
 As well as call objects, `!!` also works with symbols and constants:
 
@@ -443,7 +444,8 @@ b <- 1
 expr(f(!!a, !!b))
 #> f(y, 1)
 ```
-<img src="diagrams/quotation/simple.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/quotation/simple} \end{center}
 
 If the right-hand side of `!!` is a function call, `!!` will evaluate it and insert the results:
 
@@ -467,11 +469,13 @@ x2 <- expr(x + 2)
 expr(!!x1 / !!x2)
 #> (x + 1)/(x + 2)
 ```
-<img src="diagrams/quotation/infix.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/quotation/infix} \end{center}
 
 If we simply pasted the text of the expressions together, we'd end up with `x + 1 / x + 2`, which has a very different AST:
 
-<img src="diagrams/quotation/infix-bad.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/quotation/infix-bad} \end{center}
 
 ### Unquoting a function
 \index{unquoting!functions}
@@ -494,7 +498,8 @@ expr((!!f)(x, y))
 #> pkg::foo(x, y)
 ```
 
-<img src="diagrams/quotation/fun.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/quotation/fun} \end{center}
 
 Because of the large number of parentheses involved, it can be clearer to use `rlang::call2()`:
 
@@ -569,7 +574,8 @@ expr(f(!!!ys, d = 4))
 #> f(a = 1, b = a, c = -b, d = 4)
 ```
 
-<img src="diagrams/quotation/bang-bang-bang.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/quotation/bang-bang-bang} \end{center}
 
 `!!!` can be used in any rlang function that takes `...` regardless of whether or not `...` is quoted or evaluated. We'll come back to this in Section \@ref(tidy-dots); for now note that this can be useful in `call2()`.
 
@@ -848,7 +854,9 @@ plot(
 )
 ```
 
-<img src="Quotation_files/figure-html/unnamed-chunk-58-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Quotation_files/figure-latex/unnamed-chunk-58-1} \end{center}
 
 These functions have no built-in options for indirect specification, but you'll learn how to simulate unquoting in Section \@ref(base-nonquote).
 
@@ -1385,7 +1393,9 @@ Another application of `new_function()` is for functions that work like `graphic
 curve(sin(exp(4 * x)), n = 1000)
 ```
 
-<img src="Quotation_files/figure-html/curve-demo-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Quotation_files/figure-latex/curve-demo-1} \end{center}
 
 Here `x` is a pronoun: it doesn't represent a single concrete value, but is instead a placeholder that varies over the range of the plot. One way to implement `curve()` is to turn that expression into a function with a single argument, `x`, then call that function:
 

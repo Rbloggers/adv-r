@@ -94,7 +94,8 @@ Use `new.env()` to create a new environment. Ignore the `hash` and `size` parame
 
 The job of an environment is to associate, or __bind__, a set of names to a set of values. You can think of an environment as a bag of names, with no implied order (i.e. it doesn't make sense to ask which is the first element in an environment). For that reason, we'll draw the environment as so:
 
-<img src="diagrams/environments/bindings.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/bindings} \end{center}
 
 As discussed in Section \@ref(env-modify), environments have reference semantics: unlike most R objects, when you modify them, you modify them in place, and don't create a copy. One important implication is that environments can "contain" themselves. 
 
@@ -103,14 +104,15 @@ As discussed in Section \@ref(env-modify), environments have reference semantics
 e1$d <- e1
 ```
 
-<img src="diagrams/environments/loop.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/loop} \end{center}
 
 Printing an environment just displays its memory address, which is not terribly useful:
 
 
 ```r
 e1
-#> <environment: 0x3d54158>
+#> <environment: 0x223cfd8>
 ```
 
 Instead, we'll use `env_print()` which gives us a little more information:
@@ -118,7 +120,7 @@ Instead, we'll use `env_print()` which gives us a little more information:
 
 ```r
 env_print(e1)
-#> <environment: 0x3d54158>
+#> <environment: 0x223cfd8>
 #> parent: <environment: global>
 #> bindings:
 #>  * a: <lgl>
@@ -172,7 +174,8 @@ Every environment has a __parent__, another environment. In diagrams, the parent
 e2a <- env(d = 4, e = 5)
 e2b <- env(e2a, a = 1, b = 2, c = 3)
 ```
-<img src="diagrams/environments/parents.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/parents} \end{center}
 
 To save space, I typically won't draw all the ancestors; just remember whenever you see a pale blue circle, there's a parent environment somewhere. 
 
@@ -181,7 +184,7 @@ You can find the parent of an environment with `env_parent()`:
 
 ```r
 env_parent(e2b)
-#> <environment: 0x55bb2b0>
+#> <environment: 0x57aa2c8>
 env_parent(e2a)
 #> <environment: R_GlobalEnv>
 ```
@@ -193,17 +196,18 @@ Only one environment doesn't have a parent: the __empty__ environment.  I draw t
 e2c <- env(empty_env(), d = 4, e = 5)
 e2d <- env(e2c, a = 1, b = 2, c = 3)
 ```
-<img src="diagrams/environments/parents-empty.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/parents-empty} \end{center}
 
 The ancestors of every environment eventually terminate with the empty environment. You can list see all ancestors with `env_parents()`:
 
 
 ```r
 env_parents(e2b)
-#> [[1]]   <env: 0x55bb2b0>
+#> [[1]]   <env: 0x1eba9b8>
 #> [[2]] $ <env: global>
 env_parents(e2d)
-#> [[1]]   <env: 0x64f6790>
+#> [[1]]   <env: 0x1903f60>
 #> [[2]] $ <env: empty>
 ```
 
@@ -212,7 +216,7 @@ By default, `env_parents()` stops when it gets to the global environment. This i
 
 ```r
 env_parents(e2b, last = empty_env())
-#>  [[1]]   <env: 0x55bb2b0>
+#>  [[1]]   <env: 0x1eba9b8>
 #>  [[2]] $ <env: global>
 #>  [[3]] $ <env: package:rlang>
 #>  [[4]] $ <env: package:stats>
@@ -374,7 +378,7 @@ There are two more exotic variants of `env_bind()`:
     system.time(print(b))
     #> [1] 1
     #>    user  system elapsed 
-    #>       0       0       1
+    #>   0.004   0.000   1.001
     system.time(print(b))
     #> [1] 1
     #>    user  system elapsed 
@@ -411,11 +415,13 @@ See  `?delayedAssign()` and `?makeActiveBinding()`.
 
 1.  Create an environment as illustrated by this picture.
 
-    <img src="diagrams/environments/recursive-1.png" style="display: block; margin: auto;" />
+    
+    \begin{center}\includegraphics{diagrams/environments/recursive-1} \end{center}
 
 1.  Create a pair of environments as illustrated by this picture.
 
-    <img src="diagrams/environments/recursive-2.png" style="display: block; margin: auto;" />
+    
+    \begin{center}\includegraphics{diagrams/environments/recursive-2} \end{center}
 
 1.  Explain why `e[[1]]` and `e[c("a", "b")]` don't make sense when `e` is
     an environment.
@@ -502,7 +508,8 @@ It might help to see a picture. Imagine you have two environments, as in the fol
 e4a <- env(empty_env(), a = 1, b = 2)
 e4b <- env(e4a, x = 10, a = 11)
 ```
-<img src="diagrams/environments/where-ex.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/where-ex} \end{center}
 
 * `where("a", e4b)` will find `a` in `e4b`.
 
@@ -577,7 +584,8 @@ Each package attached by `library()` or `require()` becomes one of the parents o
 
 [^attach]: Note the difference between attached and loaded. A package is loaded automatically if you access one of its functions using `::`; it is only __attached__ to the search path by `library()` or `require()`.
 
-<img src="diagrams/environments/search-path.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/search-path} \end{center}
 
 If you follow all the parents back, you see the order in which every package has been attached. This is known as the __search path__ because all objects in these environments can be found from the top-level interactive workspace. You can see the names of these environments with `base::search()`, or the environments themselves with `rlang::search_envs()`:
 
@@ -614,7 +622,8 @@ The last two environments on the search path are always the same:
 
 Note that when you attach another package with `library()`, the parent environment of the global environment changes:
 
-<img src="diagrams/environments/search-path-2.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/search-path-2} \end{center}
 
 ### The function environment {#function-environments}
 \index{environments!function}
@@ -638,7 +647,8 @@ Use `environment(f)` to access the environment of function `f`.
 
 In diagrams, I'll draw a function as a rectangle with a rounded end that binds an environment. 
 
-<img src="diagrams/environments/binding.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/binding} \end{center}
 
 In this case, `f()` binds the environment that binds the name `f` to the function. But that's not always the case: in the following example `g` is bound in a new environment `e`, but `g()` binds the global environment. The distinction between binding and being bound by is subtle but important; the difference is how we find `g` vs. how `g` finds its variables.
 
@@ -648,7 +658,8 @@ e <- env()
 e$g <- function() 1
 ```
 
-<img src="diagrams/environments/binding-2.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/binding-2} \end{center}
 
 
 ### Namespaces
@@ -664,7 +675,7 @@ sd
 #> function (x, na.rm = FALSE) 
 #> sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), 
 #>     na.rm = na.rm))
-#> <bytecode: 0x27ae208>
+#> <bytecode: 0x4fe8788>
 #> <environment: namespace:stats>
 ```
 
@@ -681,7 +692,8 @@ sd
 
 Every binding in the package environment is also found in the namespace environment; this ensures every function can use every other function in the package. But some bindings only occur in the namespace environment. These are known as internal or non-exported objects, which make it possible to hide internal implementation details from the user.
 
-<img src="diagrams/environments/namespace-bind.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/namespace-bind} \end{center}
 
 Every namespace environment has the same set of ancestors:
 
@@ -701,11 +713,13 @@ Every namespace environment has the same set of ancestors:
   such code. It is needed primarily for historical reasons, particularly due 
   to how S3 method dispatch works.
 
-<img src="diagrams/environments/namespace-env.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/namespace-env} \end{center}
 
 Putting all these diagrams together we get:
 
-<img src="diagrams/environments/namespace.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/namespace} \end{center}
 
 So when `sd()` looks for the value of `var` it always finds it in a sequence of environments determined by the package developer, but not by the package user. This ensures that package code always works the same way regardless of what packages have been attached by the user.
 
@@ -754,7 +768,8 @@ h <- function(x) {
 y <- h(1) # 3.
 ```
 
-<img src="diagrams/environments/execution.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/execution} \end{center}
 
 An execution environment is usually ephemeral; once the function has completed, the environment will be garbage collected. There are several ways to make it stay around for longer. The first is to explicitly return it:
 
@@ -767,7 +782,7 @@ h2 <- function(x) {
 
 e <- h2(x = 10)
 env_print(e)
-#> <environment: 0x703ba68>
+#> <environment: 0x677c228>
 #> parent: <environment: global>
 #> bindings:
 #>  * a: <dbl>
@@ -789,10 +804,11 @@ plus <- function(x) {
 plus_one <- plus(1)
 plus_one
 #> function(y) x + y
-#> <environment: 0x70a6ef8>
+#> <environment: 0x17787c8>
 ```
 
-<img src="diagrams/environments/closure.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/closure} \end{center}
 
 What happens when we call `plus_one()`? Its execution environment will have the captured execution environment of `plus()` as its parent:
 
@@ -802,7 +818,8 @@ plus_one(2)
 #> [1] 3
 ```
 
-<img src="diagrams/environments/closure-call.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/closure-call} \end{center}
 
 You'll learn more about function factories in Section \@ref(factory-fundamentals).
 
@@ -939,7 +956,8 @@ The frame is an extremely important internal data structure, and R code can only
 
 [^frame]: NB: `?environment` uses frame in a different sense: "Environments consist of a _frame_, or collection of named objects, and a pointer to an enclosing environment.". We avoid this sense of frame, which comes from S, because it's very specific and not widely used in base R. For example, the "frame" in `parent.frame()` is an execution context, not a collection of named objects.
 
-<img src="diagrams/environments/calling.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/environments/calling} \end{center}
 
 (To focus on the calling environments, I have omitted the bindings in the global environment from `f`, `g`, and `h` to the respective function objects.)
 

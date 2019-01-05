@@ -80,7 +80,8 @@ We'll start by introducing some conventions for drawing ASTs, beginning with a s
 
 *   By "hand" (i.e. with OmniGraffle):
 
-    <img src="diagrams/expressions/simple.png" style="display: block; margin: auto;" />
+    
+    \begin{center}\includegraphics{diagrams/expressions/simple} \end{center}
 
 *   With `lobstr::ast()`:
 
@@ -111,7 +112,8 @@ Colours will be shown when _you_ call `ast()`, but do not appear in the book for
 
 The above example only contained one function call, making for a very shallow tree. Most expressions will contain considerably more calls, creating trees with multiple levels. For example, consider the AST for `f(g(1, 2), h(3, 4, i()))`:
 
-<img src="diagrams/expressions/complicated.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/expressions/complicated} \end{center}
 
 ```r
 lobstr::ast(f(g(1, 2), h(3, 4, i())))
@@ -172,7 +174,8 @@ And they both have this AST[^ast-infix]:
 
 [^ast-infix]: The names of non-prefix functions are non-syntactic so I surround them with ``` `` ```, as in Section \@ref(non-syntactic).
 
-<img src="diagrams/expressions/prefix.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/expressions/prefix} \end{center}
 
 ```r
 lobstr::ast(y <- x * 10)
@@ -456,7 +459,8 @@ lobstr::ast(foo(1)(2))
 #> │ └─1 
 #> └─2
 ```
-<img src="diagrams/expressions/call-call.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/expressions/call-call} \end{center}
 
 #### Constructing {#call2}
 \index{call objects!constructing}
@@ -565,7 +569,8 @@ Infix functions introduce two sources of ambiguity[^ambig]. The first source of 
 
 [^ambig]: This ambiguity does not exist in languages with only prefix or postfix calls. It's interesting to compare a simple arithmetic operation in Lisp (prefix) and Forth (postfix). In Lisp you'd write `(* (+ 1 2) 3))`; this avoids ambiguity by requiring parentheses everywhere. In Forth, you'd write `1 2 + 3 *`; this doesn't require any parentheses, but does require more thought when reading.
 
-<img src="diagrams/expressions/ambig-order.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/expressions/ambig-order} \end{center}
 
 Programming languages use conventions called __operator precedence__ to resolve this ambiguity. We can use `ast()` to see what R does:
 

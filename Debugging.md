@@ -117,11 +117,13 @@ i <- function(d) {
 
 When we run `f("a")` code in RStudio we see:
 
-<img src="screenshots/debugging/rstudio-error.png" width="100%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=1\linewidth]{screenshots/debugging/rstudio-error} \end{center}
 
 Two options appear to the right of the error message: "Show Traceback" and "Rerun with Debug".  If you click "Show traceback" you see:
 
-<img src="screenshots/debugging/rstudio-traceback.png" width="100%" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics[width=1\linewidth]{screenshots/debugging/rstudio-traceback} \end{center}
 
 If you're not using RStudio, you can use `traceback()` to get the same information (sans pretty formatting):
 
@@ -168,16 +170,6 @@ You can using `rlang::with_abort()` and `rlang::last_trace()` to see the call tr
 ```r
 rlang::with_abort(f(j()))
 #> Error: Oops!
-#> Backtrace:
-#>     █
-#>  1. ├─rlang::with_abort(f(j()))
-#>  2. │ └─base::withCallingHandlers(...)
-#>  3. ├─global::f(j())
-#>  4. │ └─global::g(a)
-#>  5. │   └─global::h(b)
-#>  6. │     └─global::i(c)
-#>  7. └─global::j()
-#>  8.   └─global::k()
 rlang::last_trace()
 #>     █
 #>  1. ├─rlang::with_abort(f(j()))
@@ -234,10 +226,14 @@ In RStudio, you'll see the corresponding code in the editor (with the statement 
 
 As well as allowing you to run regular R code, `browser()` provides a few special commands. You can use them by either typing short text commands, or by clicking a button in the RStudio toolbar, Figure \@ref(fig:debug-toolbar):
 
-<div class="figure" style="text-align: center">
-<img src="screenshots/debug-toolbar.png" alt="RStudio debugging toolbar" width="50%" />
-<p class="caption">(\#fig:debug-toolbar)RStudio debugging toolbar</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{screenshots/debug-toolbar} 
+
+}
+
+\caption{RStudio debugging toolbar}(\#fig:debug-toolbar)
+\end{figure}
 
 * Next, `n`: executes the next step in the function. If you have a
   variable named `n`, you'll need `print(n)` to display its value.
@@ -479,13 +475,6 @@ There are other ways for a function to fail apart from throwing an error:
       
     rlang::with_abort(f(), "message")
     #> Error: Hi!
-    #> 
-    #> Backtrace:
-    #>     █
-    #>  1. ├─rlang::with_abort(f(), "message")
-    #>  2. │ └─base::withCallingHandlers(...)
-    #>  3. └─global::f()
-    #>  4.   └─global::g()
     rlang::last_trace()
     #>     █
     #>  1. ├─rlang::with_abort(f(), "message")

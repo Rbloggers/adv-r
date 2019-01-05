@@ -106,8 +106,8 @@ safe_sum <- safely(sum)
 safe_sum
 #> function (...) 
 #> capture_error(.f(...), otherwise, quiet)
-#> <bytecode: 0x5422ca0>
-#> <environment: 0x5422808>
+#> <bytecode: 0x5145900>
+#> <environment: 0x5145468>
 ```
 
 Like all function operators, `safely()` takes a function and returns a wrapped function which we can call as usual:
@@ -150,7 +150,7 @@ str(out)
 #>   ..$ error :List of 2
 #>   .. ..$ message: chr "invalid 'type' (character) of argument"
 #>   .. ..$ call   : language .Primitive("sum")(..., na.rm = na.rm)
-#>   .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
+#>   .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condit"..
 ```
 
 The output is in a slightly inconvenient form, since we have four lists, each of which is a list containing the `result` and the `error`. We can make the output easier to use with `purrr::transpose()`. This turns it "inside-out" so that we get a list of `result`s and a list of `error`s:
@@ -172,7 +172,7 @@ str(out)
 #>   ..$ :List of 2
 #>   .. ..$ message: chr "invalid 'type' (character) of argument"
 #>   .. ..$ call   : language .Primitive("sum")(..., na.rm = na.rm)
-#>   .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
+#>   .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condit"..
 ```
 
 Now we can easily find the results that worked, or the inputs that failed:
@@ -254,7 +254,7 @@ system.time(print(slow_function(1)))
 system.time(print(slow_function(1)))
 #> [1] 8.34
 #>    user  system elapsed 
-#>   0.004   0.000   1.004
+#>       0       0       1
 ```
 
 When we memoise this function, it's slow when we call it with new arguments. But when we call it with arguments that it's seen before it's instantaneous: it retrieves the previous value of the computation.
@@ -270,7 +270,7 @@ system.time(print(fast_function(1)))
 system.time(print(fast_function(1)))
 #> [1] 6.01
 #>    user  system elapsed 
-#>   0.012   0.004   0.015
+#>   0.012   0.000   0.015
 ```
 
 A relatively realistic use of memoisation is computing the Fibonacci series. The Fibonacci series is defined recursively: the first two values are defined by convention, $f(0) = 0$, $f(n) = 1$, and then $f(n) = f(n - 1) + f(n - 2)$ (for any positive integer). A naive version is slow because, for example, `fib(10)` computes `fib(9)` and `fib(8)`, and `fib(9)` computes `fib(8)` and `fib(7)`, and so on. 
@@ -283,7 +283,7 @@ fib <- function(n) {
 }
 system.time(fib(23))
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.040   0.000   0.039
 system.time(fib(24))
 #>    user  system elapsed 
 #>   0.060   0.000   0.062
@@ -299,7 +299,7 @@ fib2 <- memoise::memoise(function(n) {
 })
 system.time(fib2(23))
 #>    user  system elapsed 
-#>   0.024   0.000   0.025
+#>   0.024   0.000   0.026
 ```
 
 And future calls can rely on previous computations:

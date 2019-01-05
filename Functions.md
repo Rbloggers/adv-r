@@ -139,7 +139,8 @@ environment(f02)
 
 I'll draw functions as in the following diagram. The black dot on the left is the environment. The two blocks to the right are the function arguments. I won't draw the body, because it's usually large, and doesn't help you understand the "shape" of the function.
 
-<img src="diagrams/functions/components.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/functions/components} \end{center}
 
 Like all objects in R, functions can also possess any number of additional `attributes()`. One attribute used by base R is "srcref", short for source reference. It points to the source code used to create the function. The srcref is used for printing because, unlike `body()`, it contains code comments and other formatting.  
 
@@ -206,7 +207,8 @@ f01 <- function(x) {
 }
 ```
 
-<img src="diagrams/functions/first-class.png" style="display: block; margin: auto;" />
+
+\begin{center}\includegraphics{diagrams/functions/first-class} \end{center}
 
 While you almost always create a function and then bind it to a name, the binding step is not compulsory. If you choose not to give a function a name, you get an __anonymous function__. This is useful when it's not worth the effort to figure out a name:
 
@@ -839,7 +841,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
       print(x)
     }
     show_time()
-    #> [1] "2019-01-04 08:44:12 UTC"
+    #> [1] "2018-12-27 01:25:04 UTC"
     ```
 
 1.  How many arguments are required when calling `library()`?
@@ -971,7 +973,9 @@ Using `...` comes with two downsides:
     plot(1:10, col = "red", pch = 20, xlab = "x", col.lab = "blue")
     ```
     
-    <img src="Functions_files/figure-html/unnamed-chunk-58-1.png" width="70%" style="display: block; margin: auto;" />
+    
+    
+    \begin{center}\includegraphics[width=0.7\linewidth]{Functions_files/figure-latex/unnamed-chunk-58-1} \end{center}
     
 1.  Why does `plot(1:10, col = "red")` only colour the points, not the axes 
     or labels? Read the source code of `plot.default()` to find out.
@@ -1287,8 +1291,8 @@ Suprisingly, in R, `for` can be called like a regular function! The same is true
   }
 }
 replicate(50, (1 + 2))
-#>  [1] 3 3 3 3 3 3 3 3 3 3 3 3 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
-#> [36] 3 3 3 4 3 4 3 3 3 3 4 3 3 3 3
+#>  [1] 3 3 3 3 3 3 3 3 3 3 3 3 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+#> [33] 3 3 3 3 3 3 4 3 4 3 3 3 3 4 3 3 3 3
 rm("(")
 ```
 
@@ -1361,7 +1365,8 @@ In general, use positional matching only for the first one or two arguments; the
 ```r
 options(warnPartialMatchArgs = TRUE)
 x <- k01(a = 1, 2, 3)
-#> Warning in k01(a = 1, 2, 3): partial argument match of 'a' to 'abcdef'
+#> Warning in k01(a = 1, 2, 3): partial argument match of 'a' to
+#> 'abcdef'
 ```
 
 ### Infix functions

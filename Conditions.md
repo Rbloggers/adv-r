@@ -137,11 +137,6 @@ The rlang equivalent to `stop()`, `rlang::abort()`, does this automatically. We'
 h <- function() abort("This is an error!")
 f()
 #> Error: This is an error!
-#> Backtrace:
-#>     █
-#>  1. └─global::f()
-#>  2.   └─global::g()
-#>  3.     └─global::h()
 ```
 
 (NB: `stop()` pastes together multiple inputs, while `abort()` does not. To create complex error messages with abort, I recommend using `glue::glue()`. This allows us to use other arguments to `abort()` for useful features that you'll learn about in Section \@ref(custom-conditions).)
@@ -821,14 +816,8 @@ This gives us:
 ```r
 my_log(letters)
 #> Error: `x` must be a numeric vector; not character.
-#> Backtrace:
-#>     █
-#>  1. └─global::my_log(letters)
 my_log(1:10, base = letters)
 #> Error: `base` must be a numeric vector; not character.
-#> Backtrace:
-#>     █
-#>  1. └─global::my_log(1:10, base = letters)
 ```
 
 This is an improvement for interactive usage as the error messages are more likely to guide the user towards a correct fix. However, they're no better if you want to programmatically handle the errors: all the useful metadata about the error is jammed into a single string.
@@ -903,16 +892,8 @@ my_log <- function(x, base = exp(1)) {
 ```r
 my_log(letters)
 #> Error: `x` must be numeric; not character.
-#> Backtrace:
-#>     █
-#>  1. └─global::my_log(letters)
-#>  2.   └─global::abort_bad_argument("x", must = "be numeric", not = x)
 my_log(1:10, base = letters)
 #> Error: `base` must be numeric; not character.
-#> Backtrace:
-#>     █
-#>  1. └─global::my_log(1:10, base = letters)
-#>  2.   └─global::abort_bad_argument("base", must = "be numeric", not = base)
 ```
 
 ### Handling
@@ -923,11 +904,6 @@ These structured condition objects are much easier to program with. The first pl
 
 ```r
 library(testthat)
-#> 
-#> Attaching package: 'testthat'
-#> The following objects are masked from 'package:rlang':
-#> 
-#>     is_false, is_null, is_true
 
 err <- catch_cnd(my_log("a"))
 expect_s3_class(err, "error_bad_argument")
@@ -1095,7 +1071,7 @@ str(safety(stop("Error!")))
 #>  $ result: NULL
 #>  $ error :List of 2
 #>   ..$ message: chr "Error!"
-#>   ..$ call   : language doTryCatch(return(expr), name, parentenv, handler)
+#>   ..$ call   : language doTryCatch(return(expr), name, parentenv, h..
 #>   ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
 ```
 
@@ -1123,16 +1099,6 @@ warning2error({
   warn("Hello")
 })
 #> Error: Hello
-#> Backtrace:
-#>     █
-#>  1. ├─global::warning2error(...)
-#>  2. │ └─base::withCallingHandlers(...)
-#>  3. ├─rlang::warn("Hello")
-#>  4. │ └─base::warning(cnd)
-#>  5. │   └─base::withRestarts(...)
-#>  6. │     └─base:::withOneRestart(expr, restarts[[1L]])
-#>  7. │       └─base:::doWithOneRestart(return(expr), restart)
-#>  8. └─(function (cnd) ...
 ```
 
 You could write a similar function if you were trying to find the source of an annoying message. More on this in Section \@ref(non-error-failures).
@@ -1251,7 +1217,7 @@ catch_cnds({
 #> backtrace:
 #>  1. global::catch_cnds(...)
 #>  6. base::withCallingHandlers(...)
-#> Call `rlang::last_trace()` to see the full backtrace
+#> Call `summary(rlang::last_error())` to see the full backtrace
 ```
 
 This is the key idea underlying the evaluate package [@evaluate] which powers knitr: it captures every output into a special data structure so that it can be later replayed. As a whole, the evaluate package is quite a lot more complicated than the code here because it also needs to handle plots and text output.

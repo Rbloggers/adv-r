@@ -15,7 +15,7 @@ linestretch: 1.15
 geometry: b5paper, bottom=0.72in
 ---
 
- 
+<!-- 
 
 # Welcome {-}
 
@@ -44,4 +44,4 @@ You may also be interested in:
 * __"[R Packages](http://r-pkgs.had.co.nz/)"__ which teaches you 
   how to make the most of R's fantastic package system.
 
-
+-->
