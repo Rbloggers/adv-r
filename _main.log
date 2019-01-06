@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017) (preloaded format=xelatex 2017.6.7)  6 JAN 2019 03:29
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017) (preloaded format=xelatex 2017.6.7)  6 JAN 2019 03:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -961,18 +961,18 @@ Package: newunicodechar 2018/04/08 v1.2 Defining Unicode characters
 !
 ! fontspec error: "font-not-found"
 ! 
-! The font "Ubuntu Mono" cannot be found.
+! The font "UbuntuMono" cannot be found.
 ! 
 ! See the fontspec documentation for further information.
 ! 
 ! For immediate help type H <return>.
 !...............................................  
                                                   
-l.152 \newfontfamily{\fallbackfont}{Ubuntu Mono}
-                                                 
+l.152 \newfontfamily{\fallbackfont}{UbuntuMono}
+                                                
 Here is how much of TeX's memory you used:
- 24705 strings out of 494986
- 444134 string characters out of 6178476
+ 24704 strings out of 494986
+ 444122 string characters out of 6178476
  536876 words of memory out of 5000000
  28383 multiletter control sequences out of 15000+600000
  530688 words of font info for 30 fonts, out of 8000000 for 9000
