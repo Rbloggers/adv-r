@@ -15,8 +15,9 @@ bookdown::pdf_book:
   latex_engine: "xelatex"
   keep_tex: true
   pandoc_args: [ "--top-level-division=chapter", "--lua-filter=latex/sidebar.lua" ] #
-  toc_unnumbered: false
+  toc_unnumbered: no
   number_sections: true
+  template: null
   includes:
     in_header: latex/preamble.tex
     before_body: latex/before_body.tex
