@@ -313,6 +313,8 @@ ruler()
 #> 123456789012345678901234567890123456789012345678901234567890123456789
 ```
 
+-->
+
 [r-help]: https://stat.ethz.ch/mailman/listinfo/r-help
 [rstats-twitter]: https://twitter.com/search?q=%23rstats
 [r-meetups]: https://www.meetup.com/topics/r-programming-language/
@@ -320,5 +322,3 @@ ruler()
 [r-ladies]: http://r-ladies.org
 [rmarkdown]: https://rmarkdown.rstudio.com
 [shiny]: http://shiny.rstudio.com
-
--->
