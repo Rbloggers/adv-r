@@ -19,7 +19,7 @@ bookdown::pdf_book:
   number_sections: true
   template: null
   includes:
-    in_header: latex/preamble.tex #header.tex
+    in_header: latex/preamble.tex
     before_body: latex/before_body.tex
     after_body: latex/after_body.tex
   quote_footer: ["\\hspace*{\\fill} ", ""]
