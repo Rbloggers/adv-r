@@ -17,7 +17,6 @@ bookdown::pdf_book:
   pandoc_args: --top-level-division=chapter #[  "--lua-filter=latex/sidebar.lua" ] #
   toc_unnumbered: no
   number_sections: true
-  template: null
   includes:
     in_header: header.tex #latex/preamble.tex
     before_body: latex/before_body.tex
