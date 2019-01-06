@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017) (preloaded format=xelatex 2017.6.7)  5 JAN 2019 15:11
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017) (preloaded format=xelatex 2017.6.7)  6 JAN 2019 02:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1230,21 +1230,18 @@ File: diagrams/name-value/binding-1.png Graphic file (type QTm)
 File: diagrams/name-value/binding-2.png Graphic file (type QTm)
 <use  "diagrams/name-value/binding-2.png" > [33] [34] [35]
 File: diagrams/name-value/binding-3.png Graphic file (type QTm)
-<use  "diagrams/name-value/binding-3.png" >
+<use  "diagrams/name-value/binding-3.png" > [36]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 959.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[36] [37]
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 958.
+[37]
 File: diagrams/name-value/binding-f1.png Graphic file (type QTm)
 <use  "diagrams/name-value/binding-f1.png" >
 File: diagrams/name-value/binding-f2.png Graphic file (type QTm)
 <use  "diagrams/name-value/binding-f2.png" >
 File: diagrams/name-value/list.png Graphic file (type QTm)
-<use  "diagrams/name-value/list.png" >
+<use  "diagrams/name-value/list.png" > [38]
 File: diagrams/name-value/l-modify-1.png Graphic file (type QTm)
-<use  "diagrams/name-value/l-modify-1.png" > [38]
+<use  "diagrams/name-value/l-modify-1.png" >
 File: diagrams/name-value/l-modify-2.png Graphic file (type QTm)
 <use  "diagrams/name-value/l-modify-2.png" >
 Missing character: There is no █ in font [lmmono10-italic]:!
@@ -1261,6 +1258,9 @@ Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 [39]
 File: diagrams/name-value/dataframe.png Graphic file (type QTm)
 <use  "diagrams/name-value/dataframe.png" >
@@ -1268,7 +1268,7 @@ File: diagrams/name-value/d-modify-c.png Graphic file (type QTm)
 <use  "diagrams/name-value/d-modify-c.png" >
 File: diagrams/name-value/d-modify-r.png Graphic file (type QTm)
 <use  "diagrams/name-value/d-modify-r.png" >
-Underfull \vbox (badness 5878) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [40]
 File: diagrams/name-value/character.png Graphic file (type QTm)
@@ -1285,133 +1285,136 @@ Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 [41] [42] [43]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[44]
 File: diagrams/name-value/v-inplace-1.png Graphic file (type QTm)
-<use  "diagrams/name-value/v-inplace-1.png" > [44]
+<use  "diagrams/name-value/v-inplace-1.png" >
 File: diagrams/name-value/v-inplace-2.png Graphic file (type QTm)
 <use  "diagrams/name-value/v-inplace-2.png" > [45] [46]
 File: diagrams/name-value/e-modify-1.png Graphic file (type QTm)
-<use  "diagrams/name-value/e-modify-1.png" >
+<use  "diagrams/name-value/e-modify-1.png" > [47]
 File: diagrams/name-value/e-modify-2.png Graphic file (type QTm)
-<use  "diagrams/name-value/e-modify-2.png" > [47]
+<use  "diagrams/name-value/e-modify-2.png" >
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 File: diagrams/name-value/e-self.png Graphic file (type QTm)
-<use  "diagrams/name-value/e-self.png" >
+<use  "diagrams/name-value/e-self.png" > [48]
 File: diagrams/name-value/unbinding-1.png Graphic file (type QTm)
 <use  "diagrams/name-value/unbinding-1.png" >
 File: diagrams/name-value/unbinding-2.png Graphic file (type QTm)
-<use  "diagrams/name-value/unbinding-2.png" > [48]
+<use  "diagrams/name-value/unbinding-2.png" >
 File: diagrams/name-value/unbinding-3.png Graphic file (type QTm)
-<use  "diagrams/name-value/unbinding-3.png" > [49] [50]
+<use  "diagrams/name-value/unbinding-3.png" > [49] [50] [51] [52
+
+]
 Chapter 3.
 File: diagrams/vectors/summary-tree.png Graphic file (type QTm)
-<use  "diagrams/vectors/summary-tree.png" > [51
-
-] [52]
+<use  "diagrams/vectors/summary-tree.png" > [53] [54]
 File: diagrams/vectors/summary-tree-atomic.png Graphic file (type QTm)
-<use  "diagrams/vectors/summary-tree-atomic.png" > [53]
+<use  "diagrams/vectors/summary-tree-atomic.png" > [55]
 File: diagrams/vectors/atomic.png Graphic file (type QTm)
 <use  "diagrams/vectors/atomic.png" >
-Overfull \vbox (0.10913pt too high) detected at line 1787
+Overfull \vbox (0.10913pt too high) detected at line 1786
  []
 
-[54]
-Underfull \hbox (badness 1158) in paragraph at lines 1826--1827
+[56]
+Underfull \hbox (badness 1158) in paragraph at lines 1825--1826
 \TU/lmtt/m/n/10 as.character()\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 as.double()\TU/l
 mr/m/n/10 , \TU/lmtt/m/n/10 as.integer()\TU/lmr/m/n/10 , or \TU/lmtt/m/n/10 as.
 logical()\TU/lmr/m/n/10 . Failed
  []
 
-[55] [56]
+[57] [58]
 File: diagrams/vectors/attr.png Graphic file (type QTm)
 <use  "diagrams/vectors/attr.png" >
 Underfull \vbox (badness 1675) has occurred while \output is active []
 
-[57]
+[59]
 File: diagrams/vectors/attr-names-1.png Graphic file (type QTm)
 <use  "diagrams/vectors/attr-names-1.png" >
 File: diagrams/vectors/attr-names-2.png Graphic file (type QTm)
-<use  "diagrams/vectors/attr-names-2.png" > [58] [59] [60]
+<use  "diagrams/vectors/attr-names-2.png" > [60] [61] [62]
 File: diagrams/vectors/summary-tree-s3-1.png Graphic file (type QTm)
-<use  "diagrams/vectors/summary-tree-s3-1.png" > [61]
+<use  "diagrams/vectors/summary-tree-s3-1.png" > [63]
 File: diagrams/vectors/factor.png Graphic file (type QTm)
-<use  "diagrams/vectors/factor.png" > [62]
-Underfull \hbox (badness 1038) in paragraph at lines 2163--2166
+<use  "diagrams/vectors/factor.png" > [64]
+Underfull \hbox (badness 1038) in paragraph at lines 2162--2165
 \TU/lmr/m/n/10 then manually convert character vectors to factors using your kn
 owledge
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2163--2166
+Underfull \hbox (badness 10000) in paragraph at lines 2162--2165
 [][][][][][][][][][][][][][][][] [] [][][] [] [][][][] [] [][] [] [][] [] [][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 [][][][]$[]\TU/lmr/m/n/10 )
  []
 
-[63] [64] [65] [66]
+[65] [66] [67] [68]
 File: diagrams/vectors/list.png Graphic file (type QTm)
 <use  "diagrams/vectors/list.png" >
 File: diagrams/vectors/list-recursive.png Graphic file (type QTm)
-<use  "diagrams/vectors/list-recursive.png" > [67]
+<use  "diagrams/vectors/list-recursive.png" > [69]
 File: diagrams/vectors/list-c.png Graphic file (type QTm)
 <use  "diagrams/vectors/list-c.png" >
 Underfull \vbox (badness 6125) has occurred while \output is active []
 
-[68]
+[70]
 File: diagrams/vectors/summary-tree-s3-2.png Graphic file (type QTm)
 <use  "diagrams/vectors/summary-tree-s3-2.png" >
 Underfull \vbox (badness 4229) has occurred while \output is active []
 
-[69] [70]
-Overfull \vbox (0.99481pt too high) detected at line 2549
+[71] [72]
+Overfull \vbox (0.99481pt too high) detected at line 2548
  []
 
-[71]
+[73]
 Underfull \vbox (badness 1117) has occurred while \output is active []
 
-[72]
+[74]
 File: diagrams/vectors/data-frame-1.png Graphic file (type QTm)
 <use  "diagrams/vectors/data-frame-1.png" >
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[73]
+[75]
 File: diagrams/vectors/data-frame-2.png Graphic file (type QTm)
-<use  "diagrams/vectors/data-frame-2.png" > [74] [75] [76] [77]
+<use  "diagrams/vectors/data-frame-2.png" > [76] [77] [78] [79]
 File: diagrams/vectors/data-frame-list.png Graphic file (type QTm)
 <use  "diagrams/vectors/data-frame-list.png" >
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[78] [79]
+[80] [81]
 File: diagrams/vectors/data-frame-matrix.png Graphic file (type QTm)
 <use  "diagrams/vectors/data-frame-matrix.png" >
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 2937.
-[80] [81] [82]
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 2936.
+[82] [83] [84]
 Chapter 4.
-[83
+[85
 
-] [84] [85] [86] [87] [88] [89] [90] [91]
+] [86] [87] [88] [89] [90] [91] [92] [93]
 File: diagrams/subsetting/train.png Graphic file (type QTm)
 <use  "diagrams/subsetting/train.png" >
 File: diagrams/subsetting/train-single.png Graphic file (type QTm)
 <use  "diagrams/subsetting/train-single.png" >
 File: diagrams/subsetting/train-multiple.png Graphic file (type QTm)
-<use  "diagrams/subsetting/train-multiple.png" > [92] [93]
-Overfull \hbox (2.0436pt too wide) in paragraph at lines 3645--3646
+<use  "diagrams/subsetting/train-multiple.png" > [94] [95]
+Overfull \hbox (2.0436pt too wide) in paragraph at lines 3644--3645
 []\TU/lmr/m/n/10 The inconsistency of the \TU/lmtt/m/n/10 [[ \TU/lmr/m/n/10 tab
 le above led to the development of \TU/lmtt/m/n/10 purrr::pluck()
  []
 
-[94] [95] [96] [97] [98] [99]
+[96] [97] [98] [99] [100] [101]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[100] [101] [102] [103] [104]
+[102] [103] [104] [105] [106]
 Chapter 5.
-[105
+[107
 
-] [106]
-Underfull \hbox (badness 1057) in paragraph at lines 4277--4278
+] [108]
+Underfull \hbox (badness 1057) in paragraph at lines 4276--4277
 [][][][][][][][][][][][][][][] [] [][][][][][][][][][][][][][][][] [] [][][][][
 ][] [] [][]$[]\TU/lmr/m/n/10 ), you can turn this an error by
  []
@@ -1419,81 +1422,81 @@ Underfull \hbox (badness 1057) in paragraph at lines 4277--4278
 
 Underfull \vbox (badness 1622) has occurred while \output is active []
 
-[107] [108] [109] [110] [111] [112] [113] [114]
+[109] [110] [111] [112] [113] [114] [115] [116]
 Chapter 6.
-[115
+[117
 
-] [116] [117]
+] [118] [119]
 File: diagrams/functions/components.png Graphic file (type QTm)
-<use  "diagrams/functions/components.png" > [118]
+<use  "diagrams/functions/components.png" > [120]
 File: diagrams/functions/first-class.png Graphic file (type QTm)
-<use  "diagrams/functions/first-class.png" > [119] [120] [121]
+<use  "diagrams/functions/first-class.png" > [121] [122] [123]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[122] [123] [124] [125] [126]
+[124] [125] [126] [127] [128]
 Underfull \vbox (badness 6141) has occurred while \output is active []
 
-[127] [128] [129] [130] [131] [132] [133] [134]
+[129] [130] [131] [132] [133] [134] [135] [136]
 File: Functions_files/figure-latex/unnamed-chunk-58-1.pdf Graphic file (type QT
 m)
-<use  "Functions_files/figure-latex/unnamed-chunk-58-1.pdf" > [135] [136] [137]
-[138]
+<use  "Functions_files/figure-latex/unnamed-chunk-58-1.pdf" > [137] [138] [139]
+[140]
 Underfull \vbox (badness 1466) has occurred while \output is active []
 
-[139] [140] [141] [142] [143] [144] [145] [146]
-Underfull \hbox (badness 10000) in paragraph at lines 6429--6430
+[141] [142] [143] [144] [145] [146] [147] [148]
+Underfull \hbox (badness 10000) in paragraph at lines 6428--6429
 []\TU/lmtt/m/n/10 function(arg1, arg2) {body} \TU/lmr/m/n/10 ([]\TU/lmtt/m/n/10
  function[](alist(arg1, arg2),
  []
 
-[147] [148]
+[149] [150]
 Chapter 7.
-[149
+[151
 
-] [150]
+] [152]
 File: diagrams/environments/bindings.png Graphic file (type QTm)
 <use  "diagrams/environments/bindings.png" >
 File: diagrams/environments/loop.png Graphic file (type QTm)
-<use  "diagrams/environments/loop.png" > [151] [152]
+<use  "diagrams/environments/loop.png" > [153] [154]
 File: diagrams/environments/parents.png Graphic file (type QTm)
 <use  "diagrams/environments/parents.png" >
 File: diagrams/environments/parents-empty.png Graphic file (type QTm)
-<use  "diagrams/environments/parents-empty.png" > [153] [154] [155] [156]
+<use  "diagrams/environments/parents-empty.png" > [155] [156] [157] [158]
 File: diagrams/environments/recursive-1.png Graphic file (type QTm)
-<use  "diagrams/environments/recursive-1.png" > [157]
+<use  "diagrams/environments/recursive-1.png" > [159]
 File: diagrams/environments/recursive-2.png Graphic file (type QTm)
 <use  "diagrams/environments/recursive-2.png" >
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[158] [159]
+[160] [161]
 File: diagrams/environments/where-ex.png Graphic file (type QTm)
-<use  "diagrams/environments/where-ex.png" > [160] [161]
+<use  "diagrams/environments/where-ex.png" > [162] [163]
 File: diagrams/environments/search-path.png Graphic file (type QTm)
-<use  "diagrams/environments/search-path.png" > [162]
+<use  "diagrams/environments/search-path.png" > [164]
 File: diagrams/environments/search-path-2.png Graphic file (type QTm)
 <use  "diagrams/environments/search-path-2.png" >
 File: diagrams/environments/binding.png Graphic file (type QTm)
-<use  "diagrams/environments/binding.png" > [163]
+<use  "diagrams/environments/binding.png" > [165]
 File: diagrams/environments/binding-2.png Graphic file (type QTm)
-<use  "diagrams/environments/binding-2.png" > [164]
+<use  "diagrams/environments/binding-2.png" > [166]
 File: diagrams/environments/namespace-bind.png Graphic file (type QTm)
 <use  "diagrams/environments/namespace-bind.png" >
 File: diagrams/environments/namespace-env.png Graphic file (type QTm)
 <use  "diagrams/environments/namespace-env.png" >
 File: diagrams/environments/namespace.png Graphic file (type QTm)
-<use  "diagrams/environments/namespace.png" > [165] [166]
+<use  "diagrams/environments/namespace.png" > [167] [168]
 File: diagrams/environments/execution.png Graphic file (type QTm)
 <use  "diagrams/environments/execution.png" >
 Underfull \vbox (badness 3930) has occurred while \output is active []
 
-[167]
+[169]
 File: diagrams/environments/closure.png Graphic file (type QTm)
 <use  "diagrams/environments/closure.png" >
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[168]
+[170]
 File: diagrams/environments/closure-call.png Graphic file (type QTm)
-<use  "diagrams/environments/closure-call.png" > [169] [170]
+<use  "diagrams/environments/closure-call.png" > [171] [172]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
@@ -1503,7 +1506,7 @@ Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[171]
+[173]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
@@ -1525,33 +1528,33 @@ File: diagrams/environments/calling.png Graphic file (type QTm)
 <use  "diagrams/environments/calling.png" >
 Underfull \vbox (badness 1259) has occurred while \output is active []
 
-[172] [173] [174] [175] [176
+[174] [175] [176] [177] [178
 
 ]
 Chapter 8.
-[177]
-Underfull \hbox (badness 3240) in paragraph at lines 7697--7702
+[179]
+Underfull \hbox (badness 3240) in paragraph at lines 7696--7701
 []\TU/lmr/m/it/10 Beyond exception handling: conditions and restarts \TU/lmr/m/
 n/10 ([]$[][][][] [] [] [] [][][] []
  []
 
 
-Overfull \hbox (5.60358pt too wide) in paragraph at lines 7697--7702
+Overfull \hbox (5.60358pt too wide) in paragraph at lines 7696--7701
 [][][][][][][][][][][] [] [][][] [] [][][][] [] [][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] [
 ]
  []
 
 
-Overfull \hbox (16.3436pt too wide) in paragraph at lines 7719--7721
+Overfull \hbox (16.3436pt too wide) in paragraph at lines 7718--7720
 []\TU/lmr/m/n/10 What’s the main difference between \TU/lmtt/m/n/10 tryCatch() 
 \TU/lmr/m/n/10 and \TU/lmtt/m/n/10 withCallingHandlers()\TU/lmr/m/n/10 ? 
  []
 
-[178] [179] [180] [181] [182] [183] [184] [185] [186]
+[180] [181] [182] [183] [184] [185] [186] [187] [188]
 Underfull \vbox (badness 2717) has occurred while \output is active []
 
-[187] [188] [189] [190] [191]
+[189] [190] [191] [192] [193]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
@@ -1584,7 +1587,7 @@ Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[192]
+[194]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
@@ -1596,141 +1599,141 @@ Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[193] [194] [195] [196] [197] [198] [199]
-Overfull \vbox (0.40485pt too high) detected at line 8834
+[195] [196] [197] [198] [199] [200] [201]
+Overfull \vbox (0.40485pt too high) detected at line 8833
  []
 
-[200]
+[202]
 Underfull \vbox (badness 4739) has occurred while \output is active []
 
-[201] [202]
-Underfull \hbox (badness 2103) in paragraph at lines 8952--8953
+[203] [204]
+Underfull \hbox (badness 2103) in paragraph at lines 8951--8952
 []\TU/lmr/m/n/10 What if you also want to capture errors? You’ll need to wrap t
 he
  []
 
 
-Underfull \vbox (badness 1509) detected at line 8998
+Underfull \vbox (badness 1509) detected at line 8997
  []
 
-[203] [204] [205] [206] [207] [208
+[205] [206] [207] [208] [209] [210
 
-] [209] [210] [211
+] [211] [212] [213
 
-] [212]
+] [214]
 File: diagrams/fp.png Graphic file (type QTm)
-<use  "diagrams/fp.png" > [213] [214
+<use  "diagrams/fp.png" > [215] [216
 
 ]
 Chapter 9.
-[215]
-Underfull \hbox (badness 1521) in paragraph at lines 9280--9284
+[217]
+Underfull \hbox (badness 1521) in paragraph at lines 9279--9283
 []\TU/lmr/m/n/10 Section []9.5[] introduces a new style of functional: \TU/lmtt
 /m/n/10 purrr:reduce()\TU/lmr/m/n/10 .
  []
 
-[216]
+[218]
 File: diagrams/functionals/map.png Graphic file (type QTm)
 <use  "diagrams/functionals/map.png" >
 File: emoji/1f5fa.png Graphic file (type QTm)
-<use  "emoji/1f5fa.png" > [217] [218]
+<use  "emoji/1f5fa.png" > [219] [220]
 File: diagrams/functionals/map-list.png Graphic file (type QTm)
-<use  "diagrams/functionals/map-list.png" > [219] [220]
-Overfull \vbox (1.75183pt too high) detected at line 9521
+<use  "diagrams/functionals/map-list.png" > [221] [222]
+Overfull \vbox (1.75183pt too high) detected at line 9520
  []
 
-[221]
+[223]
 File: diagrams/functionals/map-arg.png Graphic file (type QTm)
 <use  "diagrams/functionals/map-arg.png" >
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[222]
+[224]
 File: diagrams/functionals/map-arg-recycle.png Graphic file (type QTm)
 <use  "diagrams/functionals/map-arg-recycle.png" >
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[223] [224]
+[225] [226]
 File: diagrams/functionals/map-arg-flipped.png Graphic file (type QTm)
-<use  "diagrams/functionals/map-arg-flipped.png" > [225] [226] [227] [228] [229
-] [230]
+<use  "diagrams/functionals/map-arg-flipped.png" > [227] [228] [229] [230] [231
+] [232]
 File: diagrams/functionals/map-arg-recycle.png Graphic file (type QTm)
 <use  "diagrams/functionals/map-arg-recycle.png" >
 File: diagrams/functionals/map2.png Graphic file (type QTm)
 <use  "diagrams/functionals/map2.png" >
 File: diagrams/functionals/map2-arg.png Graphic file (type QTm)
-<use  "diagrams/functionals/map2-arg.png" > [231]
+<use  "diagrams/functionals/map2-arg.png" > [233]
 File: diagrams/functionals/map2-recycle.png Graphic file (type QTm)
-<use  "diagrams/functionals/map2-recycle.png" > [232]
+<use  "diagrams/functionals/map2-recycle.png" > [234]
 File: diagrams/functionals/walk.png Graphic file (type QTm)
-<use  "diagrams/functionals/walk.png" > [233]
+<use  "diagrams/functionals/walk.png" > [235]
 File: diagrams/functionals/walk2.png Graphic file (type QTm)
 <use  "diagrams/functionals/walk2.png" >
-Underfull \hbox (badness 2828) in paragraph at lines 10061--10062
+Underfull \hbox (badness 2828) in paragraph at lines 10060--10061
 []\TU/lmr/m/n/10 Here the \TU/lmtt/m/n/10 walk2() \TU/lmr/m/n/10 is equivalent 
 to \TU/lmtt/m/n/10 write.csv(cyls[[1]], paths[[1]])\TU/lmr/m/n/10 ,
  []
 
-[234]
+[236]
 File: diagrams/functionals/pmap.png Graphic file (type QTm)
-<use  "diagrams/functionals/pmap.png" > [235]
+<use  "diagrams/functionals/pmap.png" > [237]
 File: diagrams/functionals/pmap-arg.png Graphic file (type QTm)
 <use  "diagrams/functionals/pmap-arg.png" >
 Underfull \vbox (badness 1418) has occurred while \output is active []
 
-[236]
+[238]
 File: diagrams/functionals/pmap-3.png Graphic file (type QTm)
-<use  "diagrams/functionals/pmap-3.png" > [237] [238]
+<use  "diagrams/functionals/pmap-3.png" > [239] [240]
 File: diagrams/functionals/reduce.png Graphic file (type QTm)
-<use  "diagrams/functionals/reduce.png" > [239]
+<use  "diagrams/functionals/reduce.png" > [241]
 File: diagrams/functionals/reduce-arg.png Graphic file (type QTm)
-<use  "diagrams/functionals/reduce-arg.png" > [240] [241]
+<use  "diagrams/functionals/reduce-arg.png" > [242] [243]
 File: diagrams/functionals/reduce-init.png Graphic file (type QTm)
-<use  "diagrams/functionals/reduce-init.png" > [242]
+<use  "diagrams/functionals/reduce-init.png" > [244]
 File: diagrams/functionals/reduce2.png Graphic file (type QTm)
 <use  "diagrams/functionals/reduce2.png" >
 File: diagrams/functionals/reduce2-init.png Graphic file (type QTm)
 <use  "diagrams/functionals/reduce2-init.png" >
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[243]
-Underfull \hbox (badness 2253) in paragraph at lines 10468--10469
+[245]
+Underfull \hbox (badness 2253) in paragraph at lines 10467--10468
 \TU/lmr/m/n/10 A \TU/lmr/bx/n/10 predicate \TU/lmr/m/n/10 is a function that re
 turns a single \TU/lmtt/m/n/10 TRUE \TU/lmr/m/n/10 or \TU/lmtt/m/n/10 FALSE\TU/
 lmr/m/n/10 , like
  []
 
-[244] [245] [246] [247] [248]
-Underfull \hbox (badness 10000) in paragraph at lines 10739--10742
+[246] [247] [248] [249] [250]
+Underfull \hbox (badness 10000) in paragraph at lines 10738--10741
 [][][] [] [][][][][] [] [][][][][][][] [] [][][][][] [] [][][][] [] [][][][][][
 ][][][][] [] [][][][] [] [][][][][][][][][][][][][][] [] [][][][] [] [][][] [] 
 [][][] []
  []
 
-[249] [250
+[251] [252
 
 ]
 Chapter 10.
-[251]
+[253]
 Underfull \vbox (badness 2005) has occurred while \output is active []
 
-[252] [253]
+[254] [255]
 File: diagrams/function-factories/power-full.png Graphic file (type QTm)
 <use  "diagrams/function-factories/power-full.png" >
 Underfull \vbox (badness 6493) has occurred while \output is active []
 
-[254]
+[256]
 File: diagrams/function-factories/power-simple.png Graphic file (type QTm)
 <use  "diagrams/function-factories/power-simple.png" >
 File: diagrams/function-factories/power-exec.png Graphic file (type QTm)
-<use  "diagrams/function-factories/power-exec.png" > [255] [256]
+<use  "diagrams/function-factories/power-exec.png" > [257] [258]
 File: diagrams/function-factories/counter-1.png Graphic file (type QTm)
 <use  "diagrams/function-factories/counter-1.png" >
 File: diagrams/function-factories/counter-2.png Graphic file (type QTm)
-<use  "diagrams/function-factories/counter-2.png" > [257] [258]
-Overfull \vbox (0.63689pt too high) detected at line 11144
+<use  "diagrams/function-factories/counter-2.png" > [259] [260]
+Overfull \vbox (0.63689pt too high) detected at line 11143
  []
 
-[259] [260]
+[261] [262]
 File: Function-factories_files/figure-latex/unnamed-chunk-25-1.pdf Graphic file
  (type QTm)
 <use  "Function-factories_files/figure-latex/unnamed-chunk-25-1.pdf" >
@@ -1743,10 +1746,10 @@ File: Function-factories_files/figure-latex/unnamed-chunk-25-3.pdf Graphic file
 File: Function-factories_files/figure-latex/unnamed-chunk-25-4.pdf Graphic file
  (type QTm)
 <use  "Function-factories_files/figure-latex/unnamed-chunk-25-4.pdf" >
-Overfull \vbox (1.04404pt too high) detected at line 11228
+Overfull \vbox (1.04404pt too high) detected at line 11227
  []
 
-[261]
+[263]
 File: Function-factories_files/figure-latex/unnamed-chunk-26-1.pdf Graphic file
  (type QTm)
 <use  "Function-factories_files/figure-latex/unnamed-chunk-26-1.pdf" >
@@ -1755,17 +1758,17 @@ File: Function-factories_files/figure-latex/unnamed-chunk-27-1.pdf Graphic file
 <use  "Function-factories_files/figure-latex/unnamed-chunk-27-1.pdf" >
 Underfull \vbox (badness 1377) has occurred while \output is active []
 
-[262]
+[264]
 File: Function-factories_files/figure-latex/unnamed-chunk-28-1.pdf Graphic file
  (type QTm)
 <use  "Function-factories_files/figure-latex/unnamed-chunk-28-1.pdf" >
-Underfull \hbox (badness 1888) in paragraph at lines 11284--11285
+Underfull \hbox (badness 1888) in paragraph at lines 11283--11284
 \TU/lmr/m/n/10 Finally, I want to show a function factory used internally by gg
 plot2.
  []
 
-[263]
-Overfull \hbox (37.4636pt too wide) in paragraph at lines 11341--11343
+[265]
+Overfull \hbox (37.4636pt too wide) in paragraph at lines 11340--11342
 []\TU/lmr/m/n/10 Compare and contrast \TU/lmtt/m/n/10 ggplot2::label_bquote() \
 TU/lmr/m/n/10 with \TU/lmtt/m/n/10 scales::number_format() 
  []
@@ -1773,111 +1776,111 @@ TU/lmr/m/n/10 with \TU/lmtt/m/n/10 scales::number_format()
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[264]
-Underfull \hbox (badness 5161) in paragraph at lines 11367--11368
+[266]
+Underfull \hbox (badness 5161) in paragraph at lines 11366--11367
 \TU/lmr/m/n/10 The Box-Cox transformation (a type of power transformation ([]$[
 ][][][][] []
  []
 
 
-Underfull \hbox (badness 2253) in paragraph at lines 11367--11368
+Underfull \hbox (badness 2253) in paragraph at lines 11366--11367
 [] [] [][] [] [][][][][][][][][] [] [][][] [] [][][][] [] [][][][][] [] [][][][
 ][][][][][]$[]\TU/lmr/m/n/10 )) is a flexible transformation of-
  []
 
-[265]
+[267]
 File: Function-factories_files/figure-latex/unnamed-chunk-31-1.pdf Graphic file
  (type QTm)
 <use  "Function-factories_files/figure-latex/unnamed-chunk-31-1.pdf" >
 File: Function-factories_files/figure-latex/unnamed-chunk-31-2.pdf Graphic file
  (type QTm)
 <use  "Function-factories_files/figure-latex/unnamed-chunk-31-2.pdf" >
-Overfull \hbox (2.21689pt too wide) in paragraph at lines 11412--11413
+Overfull \hbox (2.21689pt too wide) in paragraph at lines 11411--11412
 [][] [] 
  []
 
-[266]
+[268]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[267] [268]
-Overfull \vbox (0.41185pt too high) detected at line 11567
+[269] [270]
+Overfull \vbox (0.41185pt too high) detected at line 11566
  []
 
-[269] [270] [271]
+[271] [272] [273]
 Underfull \vbox (badness 1062) has occurred while \output is active []
 
-[272] [273] [274]
+[274] [275] [276]
 Chapter 11.
-[275
+[277
 
-] [276]
+] [278]
 Underfull \vbox (badness 2735) has occurred while \output is active []
 
-[277]
+[279]
 Underfull \vbox (badness 1354) has occurred while \output is active []
 
-[278] [279] [280]
+[280] [281] [282]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[281]
+[283]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[282] [283] [284]
-Underfull \hbox (badness 6236) in paragraph at lines 12282--12286
+[284] [285] [286]
+Underfull \hbox (badness 6236) in paragraph at lines 12281--12285
 []\TU/lmr/m/n/10 Weigh the pros and cons of \TU/lmtt/m/n/10 download.file %>% d
 ot_every(10)
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 12282--12286
+Underfull \hbox (badness 10000) in paragraph at lines 12281--12285
 \TU/lmtt/m/n/10 %>% delay_by(0.1) \TU/lmr/m/n/10 vs \TU/lmtt/m/n/10 download.fi
 le %>% delay_by(0.1) %>%
  []
 
-[285] [286
+[287] [288
 
-] [287] [288] [289
+] [289] [290] [291
 
-] [290]
+] [292]
 Underfull \vbox (badness 4981) has occurred while \output is active []
 
-[291] [292] [293] [294
+[293] [294] [295] [296
 
 ]
 Chapter 12.
 File: diagrams/oo-venn.png Graphic file (type QTm)
-<use  "diagrams/oo-venn.png" > [295]
+<use  "diagrams/oo-venn.png" > [297]
 Underfull \vbox (badness 2269) has occurred while \output is active []
 
-[296]
-Underfull \hbox (badness 1048) in paragraph at lines 12589--12592
+[298]
+Underfull \hbox (badness 1048) in paragraph at lines 12588--12591
 \TU/lmtt/m/n/10 integer \TU/lmr/m/n/10 (\TU/lmtt/m/n/10 INTSXP\TU/lmr/m/n/10 ),
  \TU/lmtt/m/n/10 double \TU/lmr/m/n/10 (\TU/lmtt/m/n/10 REALSXP\TU/lmr/m/n/10 )
 , \TU/lmtt/m/n/10 complex \TU/lmr/m/n/10 (\TU/lmtt/m/n/10 CPLSXP\TU/lmr/m/n/10 
 ), \TU/lmtt/m/n/10 character
  []
 
-[297]
-Underfull \hbox (badness 1048) in paragraph at lines 12662--12666
+[299]
+Underfull \hbox (badness 1048) in paragraph at lines 12661--12665
 \TU/lmtt/m/n/10 bytecode \TU/lmr/m/n/10 (\TU/lmtt/m/n/10 BCODESXP\TU/lmr/m/n/10
  ), \TU/lmtt/m/n/10 promise \TU/lmr/m/n/10 (\TU/lmtt/m/n/10 PROMSXP\TU/lmr/m/n/
 10 ), \TU/lmtt/m/n/10 ... \TU/lmr/m/n/10 (\TU/lmtt/m/n/10 DOTSXP\TU/lmr/m/n/10 
 ), and \TU/lmtt/m/n/10 any
  []
 
-[298] [299] [300
+[300] [301] [302
 
 ]
 Chapter 13.
-[301] [302] [303]
+[303] [304] [305]
 Underfull \vbox (badness 4279) has occurred while \output is active []
 
-[304] [305] [306]
+[306] [307] [308]
 Underfull \vbox (badness 1721) has occurred while \output is active []
 
-[307] [308] [309] [310] [311] [312] [313] [314] [315] [316] [317] [318] [319] [
-320] [321] [322] [323]
-Underfull \hbox (badness 1888) in paragraph at lines 13950--13951
+[309] [310] [311] [312] [313] [314] [315] [316] [317] [318] [319] [320] [321] [
+322] [323] [324] [325]
+Underfull \hbox (badness 1888) in paragraph at lines 13949--13950
 \TU/lmtt/m/n/10 DispatchGroup() \TU/lmr/m/n/10 or \TU/lmtt/m/n/10 DispatchOrEva
 l()\TU/lmr/m/n/10 . \TU/lmtt/m/n/10 s3_dispatch() \TU/lmr/m/n/10 shows internal
 
@@ -1886,61 +1889,61 @@ l()\TU/lmr/m/n/10 . \TU/lmtt/m/n/10 s3_dispatch() \TU/lmr/m/n/10 shows internal
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[324] [325] [326] [327] [328]
+[326] [327] [328] [329] [330]
 Chapter 14.
-[329
+[331
 
-] [330] [331] [332]
-Underfull \hbox (badness 1112) in paragraph at lines 14317--14318
+] [332] [333] [334]
+Underfull \hbox (badness 1112) in paragraph at lines 14316--14317
 []\TU/lmr/m/n/10 Defining \TU/lmtt/m/n/10 $print() \TU/lmr/m/n/10 allows you to
  override the default printing behaviour.
  []
 
-[333]
-Overfull \vbox (0.18784pt too high) detected at line 14409
+[335]
+Overfull \vbox (0.18784pt too high) detected at line 14408
  []
 
-[334]
+[336]
 Underfull \vbox (badness 4479) has occurred while \output is active []
 
-[335]
+[337]
 Missing character: There is no ♠ in font [lmmono10-regular]:!
 Missing character: There is no ♥ in font [lmmono10-regular]:!
 Missing character: There is no ♦ in font [lmmono10-regular]:!
 Missing character: There is no ♣ in font [lmmono10-regular]:!
-[336] [337] [338]
+[338] [339] [340]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[339] [340] [341] [342]
+[341] [342] [343] [344]
 Underfull \vbox (badness 1648) has occurred while \output is active []
 
-[343] [344]
+[345] [346]
 Chapter 15.
-[345
+[347
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 14934--14938
+Underfull \hbox (badness 10000) in paragraph at lines 14933--14937
 \TU/lmr/m/n/10 methods ([]$[][][][][] [] [] [] [][][][][][][][][][][][] [] [][]
 [] [] [][][][] [] [][][][][][][][][][][][][][][][][] [] [][][][] [] [][][][][][
 ] []
  []
 
 
-Underfull \hbox (badness 2809) in paragraph at lines 14934--14938
+Underfull \hbox (badness 2809) in paragraph at lines 14933--14937
 [][][][][][][][][][][][][][][][][][][][][][][][][] [] [][][][]$[]\TU/lmr/m/n/10
  ) taught by Martin Morgan and Hervé
  []
 
-[346] [347] [348] [349] [350] [351] [352] [353]
+[348] [349] [350] [351] [352] [353] [354] [355]
 Underfull \vbox (badness 1424) has occurred while \output is active []
 
-[354] [355]
-Overfull \hbox (5.38359pt too wide) in paragraph at lines 15485--15488
+[356] [357]
+Overfull \hbox (5.38359pt too wide) in paragraph at lines 15484--15487
 []\TU/lmr/m/n/10 Why does the \TU/lmtt/m/n/10 show() \TU/lmr/m/n/10 method defi
 ned in Section []15.4.3[] use \TU/lmtt/m/n/10 is(object)[[1]]\TU/lmr/m/n/10 .
  []
 
-[356]
+[358]
 File: diagrams/s4/emoji.png Graphic file (type QTm)
 <use  "diagrams/s4/emoji.png" >
 File: emoji/1f61c.png Graphic file (type QTm)
@@ -1956,7 +1959,7 @@ File: emoji/1f576.png Graphic file (type QTm)
 File: emoji/1f642.png Graphic file (type QTm)
 <use  "emoji/1f642.png" >
 File: diagrams/s4/single.png Graphic file (type QTm)
-<use  "diagrams/s4/single.png" > [357]
+<use  "diagrams/s4/single.png" > [359]
 File: emoji/1f609.png Graphic file (type QTm)
 <use  "emoji/1f609.png" >
 File: emoji/1f636.png Graphic file (type QTm)
@@ -1964,7 +1967,7 @@ File: emoji/1f636.png Graphic file (type QTm)
 File: diagrams/s4/single-any.png Graphic file (type QTm)
 <use  "diagrams/s4/single-any.png" >
 File: diagrams/s4/multiple.png Graphic file (type QTm)
-<use  "diagrams/s4/multiple.png" > [358]
+<use  "diagrams/s4/multiple.png" > [360]
 File: emoji/1f576.png Graphic file (type QTm)
 <use  "emoji/1f576.png" >
 File: emoji/1f642.png Graphic file (type QTm)
@@ -1981,18 +1984,18 @@ File: diagrams/s4/multiple-any.png Graphic file (type QTm)
 <use  "diagrams/s4/multiple-any.png" >
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[359]
+[361]
 File: diagrams/s4/multiple-all.png Graphic file (type QTm)
 <use  "diagrams/s4/multiple-all.png" >
 File: diagrams/s4/single-single.png Graphic file (type QTm)
 <use  "diagrams/s4/single-single.png" >
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[360]
+[362]
 File: diagrams/s4/single-single-ambig.png Graphic file (type QTm)
 <use  "diagrams/s4/single-single-ambig.png" >
 File: diagrams/s4/single-multiple.png Graphic file (type QTm)
-<use  "diagrams/s4/single-multiple.png" > [361]
+<use  "diagrams/s4/single-multiple.png" > [363]
 File: diagrams/s4/multiple-multiple.png Graphic file (type QTm)
 <use  "diagrams/s4/multiple-multiple.png" >
 File: emoji/1f605.png Graphic file (type QTm)
@@ -2001,27 +2004,27 @@ File: emoji/1f63d.png Graphic file (type QTm)
 <use  "emoji/1f63d.png" >
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[362]
+[364]
 File: emoji/1f603.png Graphic file (type QTm)
 <use  "emoji/1f603.png" >
 File: emoji/1f609.png Graphic file (type QTm)
 <use  "emoji/1f609.png" >
 File: emoji/1f619.png Graphic file (type QTm)
-<use  "emoji/1f619.png" > [363] [364] [365] [366
+<use  "emoji/1f619.png" > [365] [366] [367] [368
 
 ]
 Chapter 16.
-[367]
+[369]
 File: diagrams/s4/Matrix.png Graphic file (type QTm)
-<use  "diagrams/s4/Matrix.png" > [368] [369] [370] [371] [372] [373] [374] [375
+<use  "diagrams/s4/Matrix.png" > [370] [371] [372] [373] [374] [375] [376] [377
 
-] [376] [377
+] [378] [379
 
-] [378]
+] [380]
 Chapter 17.
-[379
+[381
 
-] [380] [381]
+] [382] [383]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no ├ in font [lmmono10-italic]:!
@@ -2064,24 +2067,24 @@ Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[382] [383]
+[384] [385]
 Underfull \vbox (badness 2828) has occurred while \output is active []
 
-[384]
-Underfull \vbox (badness 2080) detected at line 16372
+[386]
+Underfull \vbox (badness 2080) detected at line 16371
  []
 
 
 Underfull \vbox (badness 1394) has occurred while \output is active []
 
-[385] [386] [387] [388
+[387] [388] [389] [390
 
 ]
 Chapter 18.
-[389]
+[391]
 Underfull \vbox (badness 1264) has occurred while \output is active []
 
-[390]
+[392]
 File: diagrams/expressions/simple.png Graphic file (type QTm)
 <use  "diagrams/expressions/simple.png" >
 Missing character: There is no █ in font [lmmono10-italic]:!
@@ -2092,7 +2095,7 @@ Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[391]
+[393]
 File: diagrams/expressions/complicated.png Graphic file (type QTm)
 <use  "diagrams/expressions/complicated.png" >
 Missing character: There is no █ in font [lmmono10-italic]:!
@@ -2125,7 +2128,7 @@ Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[392]
+[394]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no ├ in font [lmmono10-italic]:!
@@ -2156,7 +2159,7 @@ Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[393]
+[395]
 Missing character: There is no █ in font [lmmono10-regular]:!
 Missing character: There is no ─ in font [lmmono10-regular]:!
 Missing character: There is no └ in font [lmmono10-regular]:!
@@ -2201,7 +2204,7 @@ Missing character: There is no ─ in font [lmmono10-regular]:!
 Missing character: There is no └ in font [lmmono10-regular]:!
 Missing character: There is no ─ in font [lmmono10-regular]:!
 
-Underfull \hbox (badness 2293) in paragraph at lines 16701--16703
+Underfull \hbox (badness 2293) in paragraph at lines 16700--16702
 []\TU/lmr/m/n/10 Draw the following trees by hand then check your answers with
  []
 
@@ -2223,7 +2226,7 @@ Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[394]
+[396]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no ├ in font [lmmono10-italic]:!
@@ -2240,7 +2243,7 @@ Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 
-Underfull \hbox (badness 1303) in paragraph at lines 16765--16766
+Underfull \hbox (badness 1303) in paragraph at lines 16764--16765
 \TU/lmr/m/n/10 a \TU/lmr/bx/n/10 constant \TU/lmr/m/n/10 is either \TU/lmtt/m/n
 /10 NULL \TU/lmr/m/n/10 or a length-1 atomic vector (or scalar, Sec-
  []
@@ -2248,20 +2251,20 @@ Underfull \hbox (badness 1303) in paragraph at lines 16765--16766
 
 Underfull \vbox (badness 1097) has occurred while \output is active []
 
-[395]
-Underfull \hbox (badness 3260) in paragraph at lines 16804--16805
+[397]
+Underfull \hbox (badness 3260) in paragraph at lines 16803--16804
 []\TU/lmr/m/n/10 You can turn a symbol back into a string with \TU/lmtt/m/n/10 
 as.character() \TU/lmr/m/n/10 or
  []
 
-[396]
+[398]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[397] [398]
+[399] [400]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no █ in font [lmmono10-italic]:!
@@ -2300,20 +2303,20 @@ Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 File: diagrams/expressions/call-call.png Graphic file (type QTm)
-<use  "diagrams/expressions/call-call.png" > [399]
-Overfull \hbox (1.21364pt too wide) in alignment at lines 17001--17005
+<use  "diagrams/expressions/call-call.png" > [401]
+Overfull \hbox (1.21364pt too wide) in alignment at lines 17000--17004
  [] [] [] 
  []
 
 
-Overfull \hbox (1.21364pt too wide) in alignment at lines 17005--17012
+Overfull \hbox (1.21364pt too wide) in alignment at lines 17004--17011
  [] [] [] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[400] [401]
+[402] [403]
 File: diagrams/expressions/ambig-order.png Graphic file (type QTm)
 <use  "diagrams/expressions/ambig-order.png" >
 Missing character: There is no █ in font [lmmono10-italic]:!
@@ -2338,7 +2341,7 @@ Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[402]
+[404]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no ├ in font [lmmono10-italic]:!
@@ -2396,45 +2399,45 @@ Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[403] [404] [405] [406] [407] [408] [409]
+[405] [406] [407] [408] [409] [410] [411]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[410] [411] [412] [413] [414]
+[412] [413] [414] [415] [416]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[415] [416]
+[417] [418]
 Chapter 19.
-[417
+[419
 
 ]
 Underfull \vbox (badness 1810) has occurred while \output is active []
 
-[418] [419] [420] [421]
+[420] [421] [422] [423]
 Underfull \vbox (badness 4492) has occurred while \output is active []
 
-[422] [423] [424] [425] [426]
+[424] [425] [426] [427] [428]
 File: diagrams/quotation/bang-bang.png Graphic file (type QTm)
 <use  "diagrams/quotation/bang-bang.png" >
 File: diagrams/quotation/simple.png Graphic file (type QTm)
-<use  "diagrams/quotation/simple.png" > [427]
+<use  "diagrams/quotation/simple.png" > [429]
 File: diagrams/quotation/infix.png Graphic file (type QTm)
 <use  "diagrams/quotation/infix.png" >
 File: diagrams/quotation/infix-bad.png Graphic file (type QTm)
 <use  "diagrams/quotation/infix-bad.png" >
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[428]
+[430]
 File: diagrams/quotation/fun.png Graphic file (type QTm)
-<use  "diagrams/quotation/fun.png" > [429]
+<use  "diagrams/quotation/fun.png" > [431]
 File: diagrams/quotation/bang-bang-bang.png Graphic file (type QTm)
 <use  "diagrams/quotation/bang-bang-bang.png" >
 Underfull \vbox (badness 1769) has occurred while \output is active []
 
-[430] [431] [432]
+[432] [433] [434]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
@@ -2458,11 +2461,11 @@ Missing character: There is no ─ in font [lmmono10-italic]:!
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[433] [434] [435] [436]
+[435] [436] [437] [438]
 File: Quotation_files/figure-latex/unnamed-chunk-58-1.pdf Graphic file (type QT
 m)
-<use  "Quotation_files/figure-latex/unnamed-chunk-58-1.pdf" > [437] [438] [439]
-[440]
+<use  "Quotation_files/figure-latex/unnamed-chunk-58-1.pdf" > [439] [440] [441]
+[442]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
@@ -2473,15 +2476,15 @@ Missing character: There is no ─ in font [lmmono10-italic]:!
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[441] [442] [443]
+[443] [444] [445]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[444] [445] [446] [447]
-Underfull \hbox (badness 2150) in paragraph at lines 19413--19414
+[446] [447] [448] [449]
+Underfull \hbox (badness 2150) in paragraph at lines 19412--19413
 []\TU/lmr/m/n/10 Another application of \TU/lmtt/m/n/10 new_function() \TU/lmr/
 m/n/10 is for functions that work like
  []
@@ -2490,27 +2493,27 @@ File: Quotation_files/figure-latex/curve-demo-1.pdf Graphic file (type QTm)
 <use  "Quotation_files/figure-latex/curve-demo-1.pdf" >
 Underfull \vbox (badness 3884) has occurred while \output is active []
 
-[448]
-Overfull \hbox (15.7856pt too wide) in paragraph at lines 19448--19453
+[450]
+Overfull \hbox (15.7856pt too wide) in paragraph at lines 19447--19452
 []\TU/lmr/m/n/10 In the linear-model example, we could replace the \TU/lmtt/m/n
 /10 expr() \TU/lmr/m/n/10 in \TU/lmtt/m/n/10 reduce(summands,
  []
 
 
-Underfull \hbox (badness 1194) in paragraph at lines 19483--19483
+Underfull \hbox (badness 1194) in paragraph at lines 19482--19482
 [][][]\TU/lmr/m/n/8 A fun connection between philosophy and R is in []$[][][][]
 [] [] [] [] [][][][][][][][][][][][][][] [] [][][] [] [][][] []
  []
 
-[449] [450]
+[451] [452]
 Chapter 20.
-[451
+[453
 
-] [452] [453] [454]
+] [454] [455] [456]
 Underfull \vbox (badness 1122) has occurred while \output is active []
 
-[455] [456] [457]
-Overfull \hbox (37.5656pt too wide) in paragraph at lines 19869--19870
+[457] [458] [459]
+Overfull \hbox (37.5656pt too wide) in paragraph at lines 19868--19869
 []\TU/lmr/m/n/10 For this simple case, \TU/lmtt/m/n/10 eval_tidy(q1) \TU/lmr/m/
 n/10 is basically a shortcut for \TU/lmtt/m/n/10 eval_bare(get_expr(q1),
  []
@@ -2518,13 +2521,13 @@ n/10 is basically a shortcut for \TU/lmtt/m/n/10 eval_bare(get_expr(q1),
 
 Underfull \vbox (badness 5374) has occurred while \output is active []
 
-[458]
+[460]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[459]
+[461]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[460] [461] [462]
+[462] [463] [464]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
@@ -2540,10 +2543,10 @@ Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[463] [464] [465] [466]
+[465] [466] [467] [468]
 Underfull \vbox (badness 2111) has occurred while \output is active []
 
-[467] [468]
+[469] [470]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
@@ -2562,71 +2565,71 @@ Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[469] [470] [471] [472] [473] [474] [475] [476] [477] [478]
-Underfull \hbox (badness 3815) in paragraph at lines 20974--20978
+[471] [472] [473] [474] [475] [476] [477] [478] [479] [480]
+Underfull \hbox (badness 3815) in paragraph at lines 20973--20977
 \TU/lmr/m/n/10 resmaple expression (\TU/lmtt/m/n/10 data[sample(nrow(data), rep
 lace = TRUE), ,
  []
 
-[479] [480
+[481] [482
 
 ]
 Chapter 21.
-[481] [482]
-Underfull \hbox (badness 1442) in paragraph at lines 21066--21067
+[483] [484]
+Underfull \hbox (badness 1442) in paragraph at lines 21065--21066
 []\TU/lmr/m/n/10 Tags can have named \TU/lmr/bx/n/10 attributes \TU/lmr/m/n/10 
 which look like \TU/lmtt/m/n/10 <tag name1=[]value1[]
  []
 
-[483] [484] [485] [486] [487]
-Overfull \vbox (1.0048pt too high) detected at line 21366
+[485] [486] [487] [488] [489]
+Overfull \vbox (1.0048pt too high) detected at line 21365
  []
 
-[488]
-Overfull \vbox (0.50186pt too high) detected at line 21403
+[490]
+Overfull \vbox (0.50186pt too high) detected at line 21402
  []
 
-[489] [490]
-Underfull \hbox (badness 1708) in paragraph at lines 21499--21500
+[491] [492]
+Underfull \hbox (badness 1708) in paragraph at lines 21498--21499
 \TU/lmr/m/n/10 The full standard is very complex, but fortunately is well docum
 ented
  []
 
 
-Underfull \hbox (badness 1173) in paragraph at lines 21499--21500
+Underfull \hbox (badness 1173) in paragraph at lines 21498--21499
 \TU/lmr/m/n/10 ([]$[][][][] [] [] [] [][] [] [][][][][][][][][] [] [][][] [] []
 [][][] [] [][][][][] [] [][][][][][][][][][][]$[]), and the most common
  []
 
 Missing character: There is no π in font [lmroman10-regular]:mapping=tex-text;!
-[491] [492] [493] [494] [495] [496]
+[493] [494] [495] [496] [497] [498]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[497]
+[499]
 Underfull \vbox (badness 2744) has occurred while \output is active []
 
-[498] [499] [500
+[500] [501] [502
 
-] [501] [502] [503
+] [503] [504] [505
 
-] [504
+] [506
 
 ]
 Chapter 22.
 
-Underfull \hbox (badness 8094) in paragraph at lines 21906--21907
+Underfull \hbox (badness 8094) in paragraph at lines 21905--21906
 \TU/lmr/m/n/10 RStudio debugging documentation ([]$[][][][][] [] [] [] [][][][]
 [][][] [] [][][][][][][] [] [][][] [] [][] [] [][][][][][] []
  []
 
-[505] [506] [507]
+[507] [508] [509]
 File: screenshots/debugging/rstudio-error.png Graphic file (type QTm)
 <use  "screenshots/debugging/rstudio-error.png" >
 File: screenshots/debugging/rstudio-traceback.png Graphic file (type QTm)
 <use  "screenshots/debugging/rstudio-traceback.png" >
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[508]
+[510]
 Missing character: There is no █ in font [lmmono10-italic]:!
 Missing character: There is no ├ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
@@ -2651,14 +2654,14 @@ Missing character: There is no ─ in font [lmmono10-italic]:!
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[509]
+[511]
 File: screenshots/debug-toolbar.png Graphic file (type QTm)
-<use  "screenshots/debug-toolbar.png" > [510]
+<use  "screenshots/debug-toolbar.png" > [512]
 File: screenshots/step-into.png Graphic file (type QTm)
 <use  "screenshots/step-into.png" >
 File: screenshots/finish-loop.png Graphic file (type QTm)
-<use  "screenshots/finish-loop.png" > [511] [512]
-Overfull \hbox (11.31366pt too wide) in alignment at lines 22263--22267
+<use  "screenshots/finish-loop.png" > [513] [514]
+Overfull \hbox (11.31366pt too wide) in alignment at lines 22262--22266
  [] [] [] [] 
  []
 
@@ -2671,24 +2674,24 @@ Missing character: There is no ─ in font [lmmono10-regular]:!
 Missing character: There is no └ in font [lmmono10-regular]:!
 Missing character: There is no ─ in font [lmmono10-regular]:!
 
-Overfull \hbox (11.31366pt too wide) in alignment at lines 22267--22274
+Overfull \hbox (11.31366pt too wide) in alignment at lines 22266--22273
  [] [] [] [] 
  []
 
-[513] [514]
-Overfull \hbox (77.87561pt too wide) in paragraph at lines 22387--22388
+[515] [516]
+Overfull \hbox (77.87561pt too wide) in paragraph at lines 22386--22387
 \TU/lmr/m/n/10 you’re knitting the file using RStudio, switch to calling \TU/lm
 tt/m/n/10 rmarkdown::render("path/to/file.Rmd")
  []
 
-[515]
-Overfull \hbox (9.71562pt too wide) in paragraph at lines 22402--22403
+[517]
+Overfull \hbox (9.71562pt too wide) in paragraph at lines 22401--22402
 []\TU/lmr/m/n/10 If you simply want to a traceback, the easiest option is to us
 e \TU/lmtt/m/n/10 rlang::trace_back()\TU/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 2285) in paragraph at lines 22433--22435
+Underfull \hbox (badness 2285) in paragraph at lines 22432--22434
 []\TU/lmr/m/n/10 A function may generate an unexpected message. You can use
  []
 
@@ -2702,95 +2705,95 @@ Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
 Missing character: There is no └ in font [lmmono10-italic]:!
 Missing character: There is no ─ in font [lmmono10-italic]:!
-[516] [517] [518
+[518] [519] [520
 
 ]
 Chapter 23.
-[519] [520] [521]
+[521] [522] [523]
 File: screenshots/performance/flamegraph.png Graphic file (type QTm)
-<use  "screenshots/performance/flamegraph.png" > [522]
+<use  "screenshots/performance/flamegraph.png" > [524]
 File: screenshots/performance/info.png Graphic file (type QTm)
 <use  "screenshots/performance/info.png" >
 File: screenshots/performance/tree.png Graphic file (type QTm)
 <use  "screenshots/performance/tree.png" >
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[523] [524]
+[525] [526]
 File: screenshots/performance/memory.png Graphic file (type QTm)
-<use  "screenshots/performance/memory.png" > [525] [526] [527]
+<use  "screenshots/performance/memory.png" > [527] [528] [529]
 File: Perf-measure_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type 
 QTm)
-<use  "Perf-measure_files/figure-latex/unnamed-chunk-9-1.pdf" > [528]
-Underfull \hbox (badness 1137) in paragraph at lines 22851--22854
+<use  "Perf-measure_files/figure-latex/unnamed-chunk-9-1.pdf" > [530]
+Underfull \hbox (badness 1137) in paragraph at lines 22850--22853
 []\TU/lmr/m/n/10 How do the estimates from \TU/lmtt/m/n/10 system.time() \TU/lm
 r/m/n/10 compare to those from
  []
 
-[529] [530
+[531] [532
 
 ]
 Chapter 24.
-[531] [532] [533] [534] [535] [536] [537] [538] [539] [540] [541] [542] [543]
+[533] [534] [535] [536] [537] [538] [539] [540] [541] [542] [543] [544] [545]
 Underfull \vbox (badness 1389) has occurred while \output is active []
 
-[544] [545] [546
+[546] [547] [548
 
 ]
 Chapter 25.
-[547]
-Underfull \hbox (badness 4205) in paragraph at lines 23579--23581
+[549]
+Underfull \hbox (badness 4205) in paragraph at lines 23578--23580
 []\TU/lmr/m/n/10 On Windows, install Rtools ([]$[][][][] [] [] [] [][][][] [] [
 ][][][][][][][][][] [] [][][] [] [][][] [] [][][][][][][] []
  []
 
-[548] [549] [550] [551] [552]
-Underfull \hbox (badness 1946) in paragraph at lines 23827--23831
+[550] [551] [552] [553] [554]
+Underfull \hbox (badness 1946) in paragraph at lines 23826--23830
 []\TU/lmr/m/n/10 We create a new numeric vector of length \TU/lmtt/m/n/10 n \TU
 /lmr/m/n/10 with a constructor:
  []
 
-[553] [554] [555]
-Underfull \vbox (badness 10000) detected at line 23991
+[555] [556] [557]
+Underfull \vbox (badness 10000) detected at line 23990
  []
 
 
-Underfull \vbox (badness 10000) detected at line 23991
+Underfull \vbox (badness 10000) detected at line 23990
  []
 
-[556]
-Underfull \hbox (badness 10000) in paragraph at lines 24007--24011
+[558]
+Underfull \hbox (badness 10000) in paragraph at lines 24006--24010
 [] [] [][] [] [][][][][][][][][] [] [][][] [] [][][][] [] [][][][][][][][][][] 
 [] [][][] [] [][][][][][][][][][][] [] [][][][][][][][]$[]\TU/lmr/m/n/10 ).
  []
 
-[557]
-Overfull \vbox (0.95486pt too high) detected at line 24080
+[559]
+Overfull \vbox (0.95486pt too high) detected at line 24079
  []
 
-[558] [559] [560]
+[560] [561] [562]
 Underfull \vbox (badness 1275) has occurred while \output is active []
 
-[561] [562] [563]
-Underfull \hbox (badness 1028) in paragraph at lines 24390--24393
+[563] [564] [565]
+Underfull \hbox (badness 1028) in paragraph at lines 24389--24392
 []\TU/lmr/m/n/10 Notice the type of the iterator: \TU/lmtt/m/n/10 NumericVector
 ::iterator\TU/lmr/m/n/10 . Each
  []
 
 
-Underfull \hbox (badness 1968) in paragraph at lines 24390--24393
+Underfull \hbox (badness 1968) in paragraph at lines 24389--24392
 \TU/lmr/m/n/10 vector type has its own iterator type: \TU/lmtt/m/n/10 LogicalVe
 ctor::iterator\TU/lmr/m/n/10 ,
  []
 
-[564] [565] [566]
-Overfull \hbox (23.4916pt too wide) in paragraph at lines 24485--24486
+[566] [567] [568]
+Overfull \hbox (23.4916pt too wide) in paragraph at lines 24484--24485
 \TU/lmtt/m/n/10 stack\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 unordered_map\TU/lmr/m/n/
 10 , \TU/lmtt/m/n/10 unordered_set\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 unordered_mu
 ltimap\TU/lmr/m/n/10 , \TU/lmtt/m/n/10 unordered_multiset\TU/lmr/m/n/10 ,
  []
 
-[567]
-Underfull \hbox (badness 1371) in paragraph at lines 24533--24534
+[569]
+Underfull \hbox (badness 1371) in paragraph at lines 24532--24533
 []\TU/lmr/m/n/10 (An alternative implementation would be to replace \TU/lmtt/m/
 n/10 i \TU/lmr/m/n/10 with the iterator
  []
@@ -2798,94 +2801,94 @@ n/10 i \TU/lmr/m/n/10 with the iterator
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[568] [569]
-Underfull \hbox (badness 1661) in paragraph at lines 24622--24623
+[570] [571]
+Underfull \hbox (badness 1661) in paragraph at lines 24621--24622
 [][][][][][][][][][][][] [] [][][] [] [][][][] [] [][][][] [] [][] [] [][][]$[]
 \TU/lmr/m/n/10 ) by Dirk Eddelbuettel, illustrating the
  []
 
-[570] [571]
-Underfull \hbox (badness 3735) in paragraph at lines 24702--24703
+[572] [573]
+Underfull \hbox (badness 3735) in paragraph at lines 24701--24702
 \TU/lmr/m/n/10 in data frames” ([]$[][][][][] [] [] [] [][][][][][][][][] [] []
 [][][][][] [] [][] [] [][][][][][][][][][] [] [][][][] [] [][][][] [] [][] [] [
 ][] []
  []
 
-[572] [573] [574] [575]
-Underfull \hbox (badness 1424) in paragraph at lines 24875--24880
+[574] [575] [576] [577]
+Underfull \hbox (badness 1424) in paragraph at lines 24874--24879
 []\TU/lmr/m/n/10 Automatically creating wrappers between C++ data structures an
 d
  []
 
 
-Underfull \hbox (badness 4582) in paragraph at lines 24875--24880
+Underfull \hbox (badness 4582) in paragraph at lines 24874--24879
 \TU/lmr/m/n/10 R data structures, including mapping C++ classes to reference
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24892--24897
+Underfull \hbox (badness 10000) in paragraph at lines 24891--24896
 []\TU/lmr/m/it/10 C++ Annotations \TU/lmr/m/n/10 ([]$[][][][] [] [] [] [][][] [
 ] [][][][] [] [][][] [] [][] [] [][][][][][][][][] [] [][][][][][][][][] []
  []
 
 
-Underfull \hbox (badness 1158) in paragraph at lines 24892--24897
+Underfull \hbox (badness 1158) in paragraph at lines 24891--24896
 [][][][][][][][][] [] [][][][]$[]\TU/lmr/m/n/10 ), aimed at “knowledgeable user
 s of C (or any other
  []
 
 
-Underfull \hbox (badness 2027) in paragraph at lines 24897--24900
+Underfull \hbox (badness 2027) in paragraph at lines 24896--24899
 []\TU/lmr/m/it/10 Algorithm Libraries \TU/lmr/m/n/10 ([]$[][][][] [] [] [] [][]
 [] [] [][] [] [][][][][][][][] [] [][] [] [] [] [][][][][][][][] [] [][][][][][
 ] [] [][][][]$[]),
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24902--24903
+Underfull \hbox (badness 10000) in paragraph at lines 24901--24902
 \TU/lmr/m/n/10 ([]$[][][][] [] [] [] [][][] [] [][][] [] [][][] [] [][][][][][]
 [] [] [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24902--24903
+Underfull \hbox (badness 10000) in paragraph at lines 24901--24902
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][]$[]\TU/lmr/m/n/10 ), \TU/lmr/m/it/10
  Algorithms \TU/lmr/m/n/10 by
  []
 
 
-Underfull \hbox (badness 2042) in paragraph at lines 24902--24903
+Underfull \hbox (badness 2042) in paragraph at lines 24901--24902
 \TU/lmr/m/n/10 Robert Sedgewick and Kevin Wayne which has a free online textboo
 k
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24902--24903
+Underfull \hbox (badness 10000) in paragraph at lines 24901--24902
 \TU/lmr/m/n/10 ([]$[][][][] [] [] [] [][][][][] [] [][] [] [][][][][][][][][] [
 ] [][][] [] [][][][][]$[]) and a matching Coursera course
  []
 
-[576]
-Underfull \hbox (badness 1478) in paragraph at lines 24928--24930
+[578]
+Underfull \hbox (badness 1478) in paragraph at lines 24927--24929
 [][]\TU/lmr/m/n/10 Bengtsson, Henrik. 2003. “The R.oo Package - Object-Oriented
  Pro-
  []
 
 
-Underfull \hbox (badness 1097) in paragraph at lines 24928--24930
+Underfull \hbox (badness 1097) in paragraph at lines 24927--24929
 \TU/lmr/m/n/10 gramming with References Using Standard R Code.” In \TU/lmr/m/it
 /10 Proceedings of
  []
 
 
-Underfull \hbox (badness 2707) in paragraph at lines 24931--24933
+Underfull \hbox (badness 2707) in paragraph at lines 24930--24932
 [][]\TU/lmr/m/n/10 Brown, Christopher. 2013. \TU/lmr/m/it/10 Hash: Full Feature
  Implementation of
  []
 
-[577] [578] [579] [580] (./_main.ind
+[579] [580] [581] [582] (./_main.ind
 Underfull \hbox (badness 10000) in paragraph at lines 33--34
 []\TU/lmr/m/n/10 accumulator pro-
  []
@@ -2940,16 +2943,390 @@ Underfull \hbox (badness 10000) in paragraph at lines 78--79
 []\TU/lmr/m/n/10 base type, \TU/lmr/m/it/10 see
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 85--86
+[]\TU/lmr/m/n/10 bootstrapping, 96,
+ []
+
+[583
+
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 98--99
+[]| \TU/lmr/m/n/10 constructing,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
+[]\TU/lmr/m/n/10 closures, \TU/lmr/m/it/10 see \TU/lmr/m/n/10 func-
+ []
+
+
+Underfull \hbox (badness 5696) in paragraph at lines 113--114
+[]\TU/lmtt/m/n/10 cnd_muffle()\TU/lmr/m/n/10 , 189,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 117--118
+[]| \TU/lmr/m/n/10 handling, 184,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 118--119
+[]| \TU/lmr/m/n/10 muffling, 182,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 120--121
+[]| \TU/lmr/m/n/10 signalling, 177,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+[]| \TU/lmtt/m/n/10 data.frame()\TU/lmr/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 138--139
+[]| \TU/lmr/m/n/10 matrix-columns,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+[]\TU/lmr/m/n/10 date-times, \TU/lmr/m/it/10 see
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 149--150
+[]| \TU/lmr/m/n/10 non-interactive,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 150--151
+[]| \TU/lmr/m/n/10 RMarkdown,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 155--156
+[]\TU/lmr/m/n/10 dictionaries, \TU/lmr/m/it/10 see
+ []
+
+
+Underfull \hbox (badness 5403) in paragraph at lines 164--165
+[]\TU/lmr/m/n/10 durations, \TU/lmr/m/it/10 see \TU/lmr/m/n/10 diff-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+[]\TU/lmtt/m/n/10 env_bind_*\TU/lmr/m/n/10 , 153,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 175--176
+[]\TU/lmr/m/n/10 environments, 43,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+[]| \TU/lmr/m/n/10 of a function,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 192--193
+[]\TU/lmtt/m/n/10 eval_tidy()\TU/lmr/m/n/10 , 456,
+ []
+
+[584]
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
+[]| \TU/lmr/m/n/10 lazy, \TU/lmr/m/it/10 see \TU/lmr/m/n/10 lazy
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
+[]\TU/lmr/m/n/10 expression vectors,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--205
+[]| \TU/lmtt/m/n/10 expression()\TU/lmr/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 207--208
+[]| \TU/lmr/m/n/10 capturing with
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 219--220
+[]\TU/lmtt/m/n/10 findInterval()\TU/lmr/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 228--229
+[]\TU/lmr/m/n/10 function factories,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 229--230
+[]\TU/lmr/m/n/10 function operators,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 230--231
+[]\TU/lmr/m/n/10 functional program-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 237--238
+[]| \TU/lmr/m/n/10 default values,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 238--239
+[]| \TU/lmr/m/n/10 environment,
+ []
+
+
+Underfull \hbox (badness 6110) in paragraph at lines 245--246
+[]| \TU/lmr/m/n/10 lazy evaluation,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 246--247
+[]| \TU/lmr/m/n/10 manufactured,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 247--248
+[]| \TU/lmr/m/n/10 predicate, \TU/lmr/m/it/10 see
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 259--260
+[]| \TU/lmr/m/n/10 manufactured
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 259--260
+\TU/lmr/m/n/10 functions,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 260--261
+[]| \TU/lmr/m/n/10 performance,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 300--301
+[]\TU/lmtt/m/n/10 invisible()\TU/lmr/m/n/10 , 134,
+ []
+
+[585]
+Underfull \hbox (badness 10000) in paragraph at lines 317--318
+[]\TU/lmtt/m/n/10 lazy evaluation\TU/lmr/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 326--327
+[]| \TU/lmr/m/n/10 subsetting, 85,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 332--333
+[]| \TU/lmr/m/n/10 avoiding copies
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 333--334
+[]| \TU/lmr/m/n/10 common pat-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 343--344
+[]\TU/lmr/m/n/10 manufactured func-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 358--359
+[]\TU/lmr/m/n/10 metaprogramming,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 361--362
+[]| \TU/lmr/m/n/10 performance,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 363--364
+[]| \TU/lmr/m/n/10 double dis-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 369--370
+[]\TU/lmr/m/n/10 microbenchmarking,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 369--370
+\TU/lmr/m/it/10 see \TU/lmr/m/n/10 bench-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 371--372
+[]\TU/lmr/m/n/10 missing arguments,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 379--380
+[]\TU/lmr/m/n/10 multiple dispatch,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 395--396
+[]\TU/lmr/m/n/10 non-standard evalu-
+ []
+
+
+Underfull \hbox (badness 7504) in paragraph at lines 395--396
+\TU/lmr/m/n/10 ation, 375,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 404--405
+[]\TU/lmr/m/n/10 object-oriented pro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 404--405
+\TU/lmr/m/n/10 gramming,
+ []
+
+
+Overfull \hbox (17.12787pt too wide) in paragraph at lines 412--413
+[]| \TU/lmtt/m/n/10 browserNLdisabled\TU/lmr/m/n/10 ,
+ []
+
+[586]
+Overfull \hbox (32.87787pt too wide) in paragraph at lines 415--416
+[]| \TU/lmtt/m/n/10 warnPartialMatchArgs\TU/lmr/m/n/10 ,
+ []
+
+
+Overfull \hbox (43.37787pt too wide) in paragraph at lines 416--417
+[]| \TU/lmtt/m/n/10 warnPartialMatchDollar\TU/lmr/m/n/10 ,
+ []
+
+
+Overfull \hbox (28.62787pt too wide) in paragraph at lines 422--423
+[]\TU/lmtt/m/n/10 packageStartupMessage()\TU/lmr/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 424--425
+[]\TU/lmtt/m/n/10 parent.frame()\TU/lmr/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 439--440
+[]\TU/lmr/m/n/10 primitive functions,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 464--465
+[]| \TU/lmr/m/n/10 access control,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 468--469
+[]| \TU/lmr/m/n/10 introspection,
+ []
+
+
+Underfull \hbox (badness 6808) in paragraph at lines 470--471
+[]| \TU/lmr/m/n/10 adding extra,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 484--485
+[]| \TU/lmr/m/n/10 over environ-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 490--491
+[]\TU/lmr/m/n/10 reference semantics,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 492--493
+[]\TU/lmr/m/n/10 replacement func-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 504--505
+[]| \TU/lmr/m/n/10 constructors,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 505--506
+[]| \TU/lmr/m/n/10 finding source,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 507--508
+[]| \TU/lmr/m/n/10 group generics,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 509--510
+[]| \TU/lmr/m/n/10 implicit class,
+ []
+
+[587]
+Underfull \hbox (badness 10000) in paragraph at lines 529--530
+[]| \TU/lmr/m/n/10 introspection,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 532--533
+[]| \TU/lmr/m/n/10 multiple dis-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 533--534
+[]| \TU/lmr/m/n/10 multiple inheri-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 534--535
+[]| \TU/lmr/m/n/10 pseudo-classes,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 536--537
+[]| \TU/lmr/m/n/10 single dispatch,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 553--554
+[]\TU/lmtt/m/n/10 setBreakpoint()\TU/lmr/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 5696) in paragraph at lines 555--556
+[]\TU/lmtt/m/n/10 setGeneric()\TU/lmr/m/n/10 , 351,
+ []
+
 ! Undefined control sequence.
-l.80   \item bindings, \seealso
-                                {assignment}{29} 
+l.570   \item splicing, \seealso
+                                 {!!!}{428}, 436 
 Here is how much of TeX's memory you used:
  23489 strings out of 494986
  433546 string characters out of 6178476
- 614500 words of memory out of 5000000
+ 614501 words of memory out of 5000000
  26890 multiletter control sequences out of 15000+600000
  565809 words of font info for 79 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 41i,8n,54p,10403b,465s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,8n,54p,10403b,487s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on _main.pdf (580 pages).
+Output written on _main.pdf (587 pages).
