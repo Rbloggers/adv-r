@@ -1,6 +1,5 @@
 # (PART) Foundations {-}
 
-\pagenumbering{arabic}
 
 # Introduction {#foundations-intro  .unnumbered}
 
