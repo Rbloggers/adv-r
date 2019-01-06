@@ -85,15 +85,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
 
 %%% Use protect on footnotes to avoid problems with footnotes in titles
 \let\rmarkdownfootnote\footnote%
@@ -235,7 +226,7 @@ To Mina, my constant companion.
 }
 \hypertarget{preface}{%
 \chapter*{Preface}\label{preface}}
-\addcontentsline{toc}{chapter}{Preface}
+
 
 Welcome to the 2nd edition of Advanced R. I had three main goals for this edition:
 
@@ -706,7 +697,7 @@ zeallot & 0.1.0 & CRAN (R 3.5.1)\tabularnewline
 
 \hypertarget{foundations-intro}{%
 \chapter*{Introduction}\label{foundations-intro}}
-\addcontentsline{toc}{chapter}{Introduction}
+
 
 To start your journey in mastering R, the following six chapters will help you learn what I consider to be the foundational components of R. I expect that you've already seen many of these pieces before, but you probably have not studied them deeply. To help check your existing knowledge, each chapter starts with a quiz; if you get all the questions right, feel free to skip to the next chapter!
 
@@ -778,7 +769,7 @@ The goal of this chapter is to help you understand the distinction between names
 
 \hypertarget{quiz}{%
 \subsection*{Quiz}\label{quiz}}
-\addcontentsline{toc}{subsection}{Quiz}
+
 
 Answer the following questions to see if you can safely skip this chapter. You can find the answers at the end of the chapter in Section \ref{names-values-answers}.
 
@@ -818,7 +809,7 @@ Answer the following questions to see if you can safely skip this chapter. You c
 
 \hypertarget{outline}{%
 \subsection*{Outline}\label{outline}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -848,7 +839,7 @@ Answer the following questions to see if you can safely skip this chapter. You c
 
 \hypertarget{prerequisites}{%
 \subsection*{Prerequisites}\label{prerequisites}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 We'll use the \href{https://github.com/r-lib/lobstr}{lobstr} package to dig into the internal representation of R objects.
 
@@ -860,7 +851,7 @@ We'll use the \href{https://github.com/r-lib/lobstr}{lobstr} package to dig into
 
 \hypertarget{sources}{%
 \subsection*{Sources}\label{sources}}
-\addcontentsline{toc}{subsection}{Sources}
+
 
 The details of R's memory management are not documented in a single place. Much of the information in this chapter was gleaned from a close reading of the documentation (particularly \texttt{?Memory} and \texttt{?gc}), the \href{http://cran.r-project.org/doc/manuals/R-exts.html\#Profiling-R-code-for-memory-use}{memory profiling} section of ``Writing R extensions'' (R Core Team \protect\hyperlink{ref-r-exts}{2018}\protect\hyperlink{ref-r-exts}{b}), and the \href{http://cran.r-project.org/doc/manuals/R-ints.html\#SEXPs}{SEXPs} section of ``R internals'' (R Core Team \protect\hyperlink{ref-r-ints}{2018}\protect\hyperlink{ref-r-ints}{a}). The rest I figured out by reading the C source code, performing small experiments, and asking questions on R-devel. Any mistakes are entirely mine.
 
@@ -1720,7 +1711,7 @@ Every vector can also have \textbf{attributes}, which you can think of as a name
 
 \hypertarget{quiz-1}{%
 \subsection*{Quiz}\label{quiz-1}}
-\addcontentsline{toc}{subsection}{Quiz}
+
 
 Take this short quiz to determine if you need to read this chapter. If the answers quickly come to mind, you can comfortably skip this chapter. You can check your answers in Section \ref{data-structure-answers}.
 
@@ -1743,7 +1734,7 @@ Take this short quiz to determine if you need to read this chapter. If the answe
 
 \hypertarget{outline-1}{%
 \subsection*{Outline}\label{outline-1}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -3120,7 +3111,7 @@ Subsetting is a natural complement to \texttt{str()}. \texttt{str()} shows you t
 
 \hypertarget{quiz-2}{%
 \subsection*{Quiz}\label{quiz-2}}
-\addcontentsline{toc}{subsection}{Quiz}
+
 
 Take this short quiz to determine if you need to read this chapter. If the answers quickly come to mind, you can comfortably skip this chapter. Check your answers in Section \ref{subsetting-answers}.
 
@@ -3142,7 +3133,7 @@ Take this short quiz to determine if you need to read this chapter. If the answe
 
 \hypertarget{outline-2}{%
 \subsection*{Outline}\label{outline-2}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -4224,7 +4215,7 @@ The condition system (messages, warnings, and errors) also provides ``non-local'
 
 \hypertarget{quiz-3}{%
 \subsection*{Quiz}\label{quiz-3}}
-\addcontentsline{toc}{subsection}{Quiz}
+
 
 Want to skip this chapter? Go for it, if you can answer the questions below. Find the answers at the end of the chapter in Section \ref{control-flow-answers}.
 
@@ -4246,7 +4237,7 @@ Want to skip this chapter? Go for it, if you can answer the questions below. Fin
 
 \hypertarget{outline-3}{%
 \subsection*{Outline}\label{outline-3}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -4756,7 +4747,7 @@ If you're reading this book, you've probably already created many R functions an
 
 \hypertarget{quiz-4}{%
 \subsection*{Quiz}\label{quiz-4}}
-\addcontentsline{toc}{subsection}{Quiz}
+
 
 Answer the following questions to see if you can safely skip this chapter. You can find the answers in Section \ref{function-answers}.
 
@@ -4815,7 +4806,7 @@ Answer the following questions to see if you can safely skip this chapter. You c
 
 \hypertarget{outline-4}{%
 \subsection*{Outline}\label{outline-4}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -6624,7 +6615,7 @@ Understanding environments is not necessary for day-to-day use of R. But they ar
 
 \hypertarget{quiz-5}{%
 \subsection*{Quiz}\label{quiz-5}}
-\addcontentsline{toc}{subsection}{Quiz}
+
 
 If you can answer the following questions correctly, you already know the most important topics in this chapter. You can find the answers at the end of the chapter in Section \ref{env-answers}.
 
@@ -6646,7 +6637,7 @@ If you can answer the following questions correctly, you already know the most i
 
 \hypertarget{outline-5}{%
 \subsection*{Outline}\label{outline-5}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -6672,7 +6663,7 @@ If you can answer the following questions correctly, you already know the most i
 
 \hypertarget{prerequisites-1}{%
 \subsection*{Prerequisites}\label{prerequisites-1}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 This chapter will use \href{https://rlang.r-lib.org}{rlang} functions for working with environments, because it allows us to focus on the essence of environments, rather than the incidental details.
 
@@ -7236,7 +7227,7 @@ It's natural to work with environments recursively, so \texttt{where()} provides
 
 \hypertarget{iteration-vs-recursion}{%
 \subsection*{Iteration vs recursion}\label{iteration-vs-recursion}}
-\addcontentsline{toc}{subsection}{Iteration vs recursion}
+
 
 It's possible to use a loop instead of recursion. I think it's harder to understand than the recursive version, but I include it because you might find it easier to see what's happening if you haven't written many recursive functions.
 
@@ -7824,7 +7815,7 @@ I also found it helpful to work through the underlying C code that implements th
 
 \hypertarget{quiz-6}{%
 \subsection*{Quiz}\label{quiz-6}}
-\addcontentsline{toc}{subsection}{Quiz}
+
 
 Want to skip this chapter? Go for it, if you can answer the questions below. Find the answers at the end of the chapter in Section \ref{conditions-answers}.
 
@@ -7842,7 +7833,7 @@ Want to skip this chapter? Go for it, if you can answer the questions below. Fin
 
 \hypertarget{outline-6}{%
 \subsection*{Outline}\label{outline-6}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -9285,7 +9276,7 @@ Restarts are currently beyond the scope of the book, but I suspect will be inclu
 
 \hypertarget{fp}{%
 \chapter*{Introduction}\label{fp}}
-\addcontentsline{toc}{chapter}{Introduction}
+
 
 \index{functional programming}
 
@@ -9295,7 +9286,7 @@ Recently, functional techniques have experienced a surge in interest because the
 
 \hypertarget{functional-programming-languages}{%
 \section*{Functional programming languages}\label{functional-programming-languages}}
-\addcontentsline{toc}{section}{Functional programming languages}
+
 
 Every programming language has functions, so what makes a programming language functional? There are many definitions for precisely what makes a language ``functional'', but there are two common threads.
 
@@ -9320,7 +9311,7 @@ Strictly speaking, R isn't a functional programming \emph{language} because it d
 
 \hypertarget{functional-style}{%
 \section*{Functional style}\label{functional-style}}
-\addcontentsline{toc}{section}{Functional style}
+
 
 It's hard to describe exactly what a functional \emph{style} is, but generally I think it means decomposing a big problem into smaller pieces, then solving each piece with a function or combination of functions. When using a functional style, you strive to decompose components of the problem into isolated functions that operate independently. Each function taken by itself is simple and straightforward to understand; complexity is handled by composing functions in various ways.
 
@@ -9390,7 +9381,7 @@ If you're an experienced for loop user, switching to functionals is typically a 
 
 \hypertarget{outline-7}{%
 \subsection*{Outline}\label{outline-7}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -9418,7 +9409,7 @@ If you're an experienced for loop user, switching to functionals is typically a 
 
 \hypertarget{prerequisites-3}{%
 \subsection*{Prerequisites}\label{prerequisites-3}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 This chapter will focus on functionals provided by the \href{https://purrr.tidyverse.org}{purrr package} (Henry and Wickham \protect\hyperlink{ref-purrr}{2018}\protect\hyperlink{ref-purrr}{a}). These functions have a consistent interface that makes it easier to understand the key ideas than their base equivalents, which have grown organically over many years. I'll compare and contrast base R functions as we go, and then wrap up the chapter with a discussion of base functionals that don't have purrr equivalents.
 
@@ -10965,7 +10956,7 @@ Of the three main functional programming tools (functionals, function factories,
 
 \hypertarget{outline-8}{%
 \subsection*{Outline}\label{outline-8}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -10989,7 +10980,7 @@ Of the three main functional programming tools (functionals, function factories,
 
 \hypertarget{prerequisites-4}{%
 \subsection*{Prerequisites}\label{prerequisites-4}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 Make sure you're familiar with the contents of Sections \ref{first-class-functions} (first-class functions), \ref{function-environments} (the function environment), and \ref{execution-environments} (execution environments) mentioned above.
 
@@ -11998,7 +11989,7 @@ If you're familiar with Python, decorators are just another name for function op
 
 \hypertarget{outline-9}{%
 \subsection*{Outline}\label{outline-9}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -12011,7 +12002,7 @@ If you're familiar with Python, decorators are just another name for function op
 
 \hypertarget{prerequisites-5}{%
 \subsection*{Prerequisites}\label{prerequisites-5}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 Function operators are a type of function factory, so make sure you're familiar with at least Section \ref{function-fundamentals} before you go on.
 
@@ -12469,7 +12460,7 @@ The pipe works well here because I've carefully chosen the function names to yie
 
 \hypertarget{oo}{%
 \chapter*{Introduction}\label{oo}}
-\addcontentsline{toc}{chapter}{Introduction}
+
 
 In the following five chapters you'll learn about \textbf{object oriented programming} (OOP). OOP is a little more challenging in R than in other languages because:
 
@@ -12520,7 +12511,7 @@ This book focusses on the mechanics of OOP, not its effective use, and it may be
 
 \hypertarget{oop-systems}{%
 \section*{OOP systems}\label{oop-systems}}
-\addcontentsline{toc}{section}{OOP systems}
+
 
 Different people use OOP terms in different ways, so this section provides a quick overview of important vocabulary. The explanations are necessarily compressed, but we will come back to these ideas multiple times.
 
@@ -12567,7 +12558,7 @@ With this terminology in hand, we can now talk precisely about the different OO 
 
 \hypertarget{oop-in-r}{%
 \section*{OOP in R}\label{oop-in-r}}
-\addcontentsline{toc}{section}{OOP in R}
+
 
 Base R provides three OOP systems: S3, S4, and reference classes (RC):
 
@@ -12618,7 +12609,7 @@ Apart from R6, which is widely used, these systems are primarily of theoretical 
 
 \hypertarget{sloop}{%
 \section*{sloop}\label{sloop}}
-\addcontentsline{toc}{section}{sloop}
+
 
 Before we go on I want to introduce the sloop package:
 
@@ -12663,7 +12654,7 @@ Most of the time, the distinction between objects and object-oriented objects is
 
 \hypertarget{outline-10}{%
 \subsection*{Outline}\label{outline-10}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -12894,7 +12885,7 @@ The goal of this chapter is to show you how the S3 system works, not how to use 
 
 \hypertarget{outline-11}{%
 \subsection*{Outline}\label{outline-11}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -12923,7 +12914,7 @@ The goal of this chapter is to show you how the S3 system works, not how to use 
 
 \hypertarget{prerequisites-6}{%
 \subsection*{Prerequisites}\label{prerequisites-6}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 S3 classes are implemented using attributes, so make sure you're familiar with the details described in Section \ref{attributes}. We'll use existing base S3 vectors for examples and exploration, so make sure that you're familiar with the factor, Date, difftime, POSIXct, and POSIXlt classes described in Section \ref{s3-atomic-vectors}.
 
@@ -14287,7 +14278,7 @@ R6 is very similar to a base OOP system called \textbf{reference classes}, or RC
 
 \hypertarget{outline-12}{%
 \subsection*{Outline}\label{outline-12}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -14311,7 +14302,7 @@ R6 is very similar to a base OOP system called \textbf{reference classes}, or RC
 
 \hypertarget{prerequisites-7}{%
 \subsection*{Prerequisites}\label{prerequisites-7}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 Because \href{https://r6.r-lib.org}{R6} is not built into base R, you'll need to install and load the R6 package to use it:
 
@@ -15054,7 +15045,7 @@ An important new component of S4 is the \textbf{slot}, a named component of the 
 
 \hypertarget{outline-13}{%
 \subsection*{Outline}\label{outline-13}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -15079,7 +15070,7 @@ An important new component of S4 is the \textbf{slot}, a named component of the 
 
 \hypertarget{learning-more}{%
 \subsection*{Learning more}\label{learning-more}}
-\addcontentsline{toc}{subsection}{Learning more}
+
 
 Like the other OO chapters, the focus here will be on S4 works, not how to deploy it most effectively. If you do want to use it in practice, there are two main challenges:
 
@@ -15112,7 +15103,7 @@ As you move towards more advanced usage, you will need to piece together needed 
 
 \hypertarget{prerequisites-8}{%
 \subsection*{Prerequisites}\label{prerequisites-8}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 All functions related to S4 live in the methods package. This package is always available when you're running R interactively, but may not be available when running R in batch mode, i.e.~from \texttt{Rscript}\footnote{This is a historical quirk introduced because the methods package used to take a long time to load and \texttt{Rscript} is optimised for fast command line invocation.}. For this reason, it's a good idea to call \texttt{library(methods)} whenever you use S4. This also signals to the reader that you'll be using the S4 object system.
 
@@ -15909,7 +15900,7 @@ Overall, when picking an OO system, I recommend that you default to S3. S3 is si
 
 \hypertarget{outline-14}{%
 \subsection*{Outline}\label{outline-14}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -15924,7 +15915,7 @@ Overall, when picking an OO system, I recommend that you default to S3. S3 is si
 
 \hypertarget{prerequisites-9}{%
 \subsection*{Prerequisites}\label{prerequisites-9}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 You need to be familiar with S3, S4, and R6, as discussed in the previous three chapters.
 
@@ -16173,7 +16164,7 @@ The primary advantage of method chaining is that you can get useful autocomplete
 
 \hypertarget{introduction-16}{%
 \chapter*{Introduction}\label{introduction-16}}
-\addcontentsline{toc}{chapter}{Introduction}
+
 
 \index{metaprogramming}
 \index{non-standard evaluation}
@@ -16227,7 +16218,7 @@ But I think it's easier to learn metaprogramming now than ever before. Over the 
 
 \hypertarget{outline-15}{%
 \subsection*{Outline}\label{outline-15}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 Each section in this chapter introduces one big new idea:
 
@@ -16256,7 +16247,7 @@ Each section in this chapter introduces one big new idea:
 
 \hypertarget{prerequisites-10}{%
 \subsection*{Prerequisites}\label{prerequisites-10}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 This chapter introduces the big ideas using rlang; you'll learn the base equivalents in later chapters. We'll also use the lobstr package to explore the tree structure of code.
 
@@ -16654,7 +16645,7 @@ The focus of this chapter is the data structures that underlie expressions. Mast
 
 \hypertarget{outline-16}{%
 \subsection*{Outline}\label{outline-16}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -16680,7 +16671,7 @@ The focus of this chapter is the data structures that underlie expressions. Mast
 
 \hypertarget{prerequisites-11}{%
 \subsection*{Prerequisites}\label{prerequisites-11}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 Make sure you've read the metaprogramming overview in Chapter \ref{meta-big-picture} to get a broad overview of the motivation and the basic vocabulary. You'll also need the \href{https://rlang.r-lib.org}{rlang} package to capture and compute on expressions, and the \href{https://lobstr.r-lib.org}{lobstr} package to visualise them.
 
@@ -18004,7 +17995,7 @@ Quasiquotation is one of the three pillar of tidy evaluation. You'll learn about
 
 \hypertarget{outline-17}{%
 \subsection*{Outline}\label{outline-17}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -18034,7 +18025,7 @@ Quasiquotation is one of the three pillar of tidy evaluation. You'll learn about
 
 \hypertarget{prerequisites-12}{%
 \subsection*{Prerequisites}\label{prerequisites-12}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 Make sure you've read the metaprogramming overview in Chapter \ref{meta-big-picture} to get a broad overview of the motivation and the basic vocabulary, and that you're familiar with the tree structure of expressions as described in Section \ref{expression-details}.
 
@@ -18049,7 +18040,7 @@ Code-wise, we'll mostly be using the tools from \href{https://rlang.r-lib.org}{r
 
 \hypertarget{related-work}{%
 \subsection*{Related work}\label{related-work}}
-\addcontentsline{toc}{subsection}{Related work}
+
 
 \index{macros}
 \index{fexprs}
@@ -19683,7 +19674,7 @@ Together, quasiquotation, quosures, and data masks form what we call \textbf{tid
 
 \hypertarget{outline-18}{%
 \subsection*{Outline}\label{outline-18}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -19710,7 +19701,7 @@ Together, quasiquotation, quosures, and data masks form what we call \textbf{tid
 
 \hypertarget{prerequisites-13}{%
 \subsection*{Prerequisites}\label{prerequisites-13}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 You'll need to be familiar with the content of Chapter \ref{expressions} and Chapter \ref{quasiquotation}, as well as the environment data structure (Section \ref{env-basics}) and the caller environment (Section \ref{call-stack}).
 
@@ -21180,7 +21171,7 @@ If you're interested in learning more about domain specific languages in general
 
 \hypertarget{outline-19}{%
 \subsection*{Outline}\label{outline-19}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -21194,7 +21185,7 @@ If you're interested in learning more about domain specific languages in general
 
 \hypertarget{prerequisites-14}{%
 \subsection*{Prerequisites}\label{prerequisites-14}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 This chapter together pulls together many techniques discussed elsewhere in the book. In particular, you'll need to understand environments, expressions, tidy evaluation, and a little functional programming and S3. We'll use \href{https://rlang.r-lib.org}{rlang} for metaprogramming tools, and \href{https://purrr.tidyverse.org}{purrr} for functional programming.
 
@@ -22058,7 +22049,7 @@ You could certainly take this idea further and translate types of mathematical e
 
 \hypertarget{introduction-22}{%
 \chapter*{Introduction}\label{introduction-22}}
-\addcontentsline{toc}{chapter}{Introduction}
+
 
 The final four chapters cover two general programming techniques: finding and fixing bugs, and finding and fixing performance issues.
 
@@ -22084,7 +22075,7 @@ NB: You shouldn't need to use these tools when writing \emph{new} functions. If 
 
 \hypertarget{outline-20}{%
 \subsection*{Outline}\label{outline-20}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -22667,7 +22658,7 @@ Once you've identified bottlenecks you'll need to carefully experiment with alte
 
 \hypertarget{outline-21}{%
 \subsection*{Outline}\label{outline-21}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -22681,7 +22672,7 @@ Once you've identified bottlenecks you'll need to carefully experiment with alte
 
 \hypertarget{prerequisites-15}{%
 \subsection*{Prerequisites}\label{prerequisites-15}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 We'll use \href{https://rstudio.github.io/profvis/}{profvis} for profiling, and \href{https://bench.r-lib.org/}{bench} for microbenchmarking.
 
@@ -23064,7 +23055,7 @@ If you'd like to learn more about the performance characteristics of the R langu
 
 \hypertarget{outline-22}{%
 \subsection*{Outline}\label{outline-22}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -23093,7 +23084,7 @@ If you'd like to learn more about the performance characteristics of the R langu
 
 \hypertarget{prerequisites-16}{%
 \subsection*{Prerequisites}\label{prerequisites-16}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 We'll use \href{https://bench.r-lib.org/}{bench} to precisely compare the performance of small self-contained code chunks.
 
@@ -23701,7 +23692,7 @@ The aim of this chapter is to discuss only those aspects of C++ and Rcpp that ar
 
 \hypertarget{outline-23}{%
 \subsection*{Outline}\label{outline-23}}
-\addcontentsline{toc}{subsection}{Outline}
+
 
 \begin{itemize}
 \item
@@ -23736,7 +23727,7 @@ The aim of this chapter is to discuss only those aspects of C++ and Rcpp that ar
 
 \hypertarget{prerequisites-17}{%
 \subsection*{Prerequisites}\label{prerequisites-17}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+
 
 We'll use \href{http://www.rcpp.org/}{Rcpp} to call C++ from R:
 
@@ -25214,7 +25205,7 @@ Wickham, Hadley, and Yihui Xie. 2018. \emph{Evaluate: Parsing and Evaluation Too
 
 \backmatter
 \cleardoublepage
-\addcontentsline{toc}{chapter}{Index}
+
 \printindex
 
 
