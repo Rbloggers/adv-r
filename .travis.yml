@@ -21,8 +21,6 @@ before_install:
   - sudo $(which tlmgr) install index unicode-math filehook lm-math babel-english idxlayout newunicodechar
   - sudo apt-get install pdftk
   - sudo apt-get install fonts-inconsolata -y
-  - if [[ ! -d ~/.fonts ]]; then mkdir ~/.fonts; fi
-  - cp -r latex/UbuntuMono* ~/.fonts
   - sudo fc-cache -fv
 
 
