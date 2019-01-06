@@ -13,6 +13,7 @@ documentclass: book
 bibliography: book.bib
 link-citations: yes
 indent: true
+subparagraph: yes
 linestretch: 1.15
 geometry: b5paper, bottom=0.72in
 ---
