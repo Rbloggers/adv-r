@@ -29,7 +29,7 @@ before_install:
 
 
 script:
-  - fc-list | grep 'UbuntuMono'
+  - echo 'hi'
   #- Rscript -e 'bookdown::render_book("index.rmd")'
   #- mv _book/_main.html _book/index.html
   # LaTeX book
