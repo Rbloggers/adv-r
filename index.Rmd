@@ -8,6 +8,7 @@ github-repo: hadley/adv-r
 twitter-handle: hadley
 cover-image: cover.png
 site: bookdown::bookdown_site
+always_allow_html: yes
 documentclass: book
 bibliography: book.bib
 link-citations: yes
