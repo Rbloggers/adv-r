@@ -84,7 +84,7 @@
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
+\setcounter{secnumdepth}{0}
 
 %%% Use protect on footnotes to avoid problems with footnotes in titles
 \let\rmarkdownfootnote\footnote%
@@ -147,6 +147,8 @@ To Mina, my constant companion.
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
+\pagenumbering{arabic}
+
 \hypertarget{preface}{%
 \chapter*{Preface}\label{preface}}
 
@@ -477,12 +479,7 @@ I would like to thank the many contributors to R-devel and R-help and, more rece
 
 This book was \href{https://github.com/hadley/adv-r/}{written in the open}, and chapters were advertised on \href{https://twitter.com/hadleywickham}{twitter} when complete. It is truly a community effort: many people read drafts, fixed typos, suggested improvements, and contributed content. Without those contributors, the book wouldn't be nearly as good as it is, and I'm deeply grateful for their help. Special thanks go to Jeff Hammerbacher, Peter Li, and Greg Wilson, who all read the book from cover-to-cover and provided many fixes and suggestions.
 
-\begin{verbatim}
-#> Warning: The `printer` argument is soft-deprecated as of rlang 0.3.0.
-#> This warning is displayed once per session.
-\end{verbatim}
-
-A big thank you to all 367 contributors (in alphabetical order): Aaron Wolen (@aaronwolen), @absolutelyNoWarranty, Adam Hunt (@adamphunt), @agrabovsky, Alexander Grueneberg (@agrueneberg), Anthony Damico (@ajdamico), James Manton (@ajdm), Aaron Schumacher (@ajschumacher), Alan Dipert (@alandipert), Alex Brown (@alexbbrown), @alexperrone, Alex Whitworth (@alexWhitworth), Alexandros Kokkalis (@alko989), @amarchin, Amelia McNamara (@AmeliaMN), Bryce Mecum (@amoeba), Andrew Laucius (@andrewla), Andrew Bray (@andrewpbray), Andrie de Vries (@andrie), Angela Li (@angela-li), @aranlunzer, Ari Lamstein (@arilamstein), @asnr, Andy Teucher (@ateucher), Albert Vilella (@avilella), baptiste (@baptiste), Brian G. Barkley (@BarkleyBG), Mara Averick (@batpigandme), Brandon Greenwell (@bgreenwell), Brandon Hurr (@bhive01), Jason Knight (@binarybana), Brett Klamer (@bklamer), Jesse Anderson (@blindjesse), Brian Mayer (@blmayer), Benjamin L. Moore (@blmoore), Brian Diggs (@BrianDiggs), Brian S. Yandell (@byandell), @carey1024, Chip Hogg (@chiphogg), Chris Muir (@ChrisMuir), Christopher Gandrud (@christophergandrud), Clay Ford (@clayford), Colin Fay (@ColinFay), @cortinah, Cameron Plouffe (@cplouffe), Carson Sievert (@cpsievert), Craig Citro (@craigcitro), Craig Grabowski (@craiggrabowski), Christopher Roach (@croach), Peter Meilstrup (@crowding), Crt Ahlin (@crtahlin), Carlos Scheidegger (@cscheid), Colin Gillespie (@csgillespie), Christopher Brown (@ctbrown), Davor Cubranic (@cubranic), Darren Cusanovich (@cusanovich), Christian G. Warden (@cwarden), Charlotte Wickham (@cwickham), Dean Attali (@daattali), Dan Sullivan (@dan87134), Daniel Barnett (@daniel-barnett), Kenny Darrell (@darrkj), Tracy Nance (@datapixie), Dave Childers (@davechilders), David Rubinger (@davidrubinger), David Chudzicki (@dchudz), Daisuke ICHIKAWA (@dichika), david kahle (@dkahle), David LeBauer (@dlebauer), David Schweizer (@dlschweizer), David Montaner (@dmontaner), @dmurdoch, Zhuoer Dong (@dongzhuoer), Doug Mitarotonda (@dougmitarotonda), Jonathan Hill (@Dripdrop12), @drtjc, Julian During (@duju211), @duncanwadsworth, @eaurele, Dirk Eddelbuettel (@eddelbuettel), @EdFineOKL, Edwin Thoen (@EdwinTh), Ethan Heinzen (@eheinzen), @eijoac, Joel Schwartz (@eipi10), Eric Ronald Legrand (@elegrand), Ellis Valentiner (@ellisvalentiner), Emil Hvitfeldt (@EmilHvitfeldt), Emil Rehnberg (@EmilRehnberg), Daniel Lee (@erget), Eric C. Anderson (@eriqande), Enrico Spinielli (@espinielli), @etb, David Hajage (@eusebe), Fabian Scheipl (@fabian-s), @flammy0530, François Michonneau (@fmichonneau), Francois Pepin (@fpepin), Frank Farach (@frankfarach), @freezby, Frans van Dunné (@FvD), @fyears, @gagnagaman, Garrett Grolemund (@garrettgman), Gavin Simpson (@gavinsimpson), @gezakiss7, @gggtest, Gökçen Eraslan (@gokceneraslan), Georg Russ (@gr650), @grasshoppermouse, Gregor Thomas (@gregorp), Garrett See (@gsee), Ari Friedman (@gsk3), Gunnlaugur Thor Briem (@gthb), Greg Wilson (@gvwilson), Hadley Wickham (@hadley), Hamed (@hamedbh), Jeff Hammerbacher (@hammer), Harley Day (@harleyday), @hassaad85, @helmingstay, Henning (@henningsway), Henrik Bengtsson (@HenrikBengtsson), Ching Boon (@hoscb), @hplieninger, Iain Dillingham (@iaindillingham), @IanKopacka, Ian Lyttle (@ijlyttle), Ilan Man (@ilanman), Imanuel Costigan (@imanuelcostigan), Thomas Bürli (@initdch), Os Keyes (@Ironholds), @irudnyts, i (@isomorphisms), Irene Steves (@isteves), Jan Gleixner (@jan-glx), Jannes Muenchow (@jannes-m), Jason Asher (@jasonasher), Jason Davies (@jasondavies), Chris (@jastingo), jcborras (@jcborras), John Blischak (@jdblischak), @jeharmse, Lukas Burk (@jemus42), Jennifer (Jenny) Bryan (@jennybc), Justin Jent (@jentjr), Jeston (@JestonBlu), Jim Hester (@jimhester), @JimInNashville, @jimmyliu2017, Jim Vine (@jimvine), Jinlong Yang (@jinlong25), J.J. Allaire (@jjallaire), @JMHay, Jochen Van de Velde (@jochenvdv), Johann Hibschman (@johannh), John Baumgartner (@johnbaums), John Horton (@johnjosephhorton), @johnthomas12, Jon Calder (@jonmcalder), Jon Harmon (@jonthegeek), Julia Gustavsen (@jooolia), JorneBiccler (@JorneBiccler), Jeffrey Arnold (@jrnold), Joyce Robbins (@jtr13), Juan Manuel Truppia (@juancentro), Kevin Markham (@justmarkham), john verzani (@jverzani), Michael Kane (@kaneplusplus), Bart Kastermans (@kasterma), Kevin D'Auria (@kdauria), Karandeep Singh (@kdpsingh), Ken Williams (@kenahoo), Kendon Bell (@kendonB), Kent Johnson (@kent37), Kevin Ushey (@kevinushey), 电线杆 (@kfeng123), Karl Forner (@kforner), Kirill Sevastyanenko (@kirillseva), Brian Knaus (@knausb), Kirill Müller (@krlmlr), Kriti Sen Sharma (@ksens), Kai Tang (唐恺） (@ktang), Kevin Wright (@kwstat), \href{mailto:suo.lawrence.liu@gmail.com}{\nolinkurl{suo.lawrence.liu@gmail.com}} (@Lawrence-Liu), @ldfmrails, Rachel Severson (@leighseverson), Laurent Gatto (@lgatto), C. Jason Liang (@liangcj), Steve Lianoglou (@lianos), Likan (@likanzhan), @lindbrook, Lingbing Feng (@Lingbing), Marcel Ramos (@LiNk-NY), Zhongpeng Lin (@linzhp), Lionel Henry (@lionel-), Lluís (@llrs), myq (@lrcg), Luke W Johnston (@lwjohnst86), Kevin Lynagh (@lynaghk), @MajoroMask, Malcolm Barrett (@malcolmbarrett), @mannyishere, @mascaretti, Matt (@mattbaggott), Matthew Grogan (@mattgrogan), @matthewhillary, Matthieu Gomez (@matthieugomez), Matt Malin (@mattmalin), Mauro Lepore (@maurolepore), Max Ghenis (@MaxGhenis), Maximilian Held (@maxheld83), Michal Bojanowski (@mbojan), Mark Rosenstein (@mbrmbr), Michael Sumner (@mdsumner), Jun Mei (@meijun), merkliopas (@merkliopas), mfrasco (@mfrasco), Michael Bach (@michaelbach), Michael Bishop (@MichaelMBishop), Michael Buckley (@michaelmikebuckley), Michael Quinn (@michaelquinn32), @miguelmorin, Michael (@mikekaminsky), Mine Cetinkaya-Rundel (@mine-cetinkaya-rundel), @mjsduncan, Mamoun Benghezal (@MoBeng), Matt Pettis (@mpettis), Martin Morgan (@mtmorgan), Guy Dawson (@Mullefa), Nacho Caballero (@nachocab), Natalya Rapstine (@natalya-patrikeeva), Nick Carchedi (@ncarchedi), Pascal Burkhard (@Nenuial), Noah Greifer (@ngreifer), Nicholas Vasile (@nickv9), Nikos Ignatiadis (@nignatiadis), Nina Munkholt Jakobsen (@nmjakobsen), Xavier Laviron (@norival), Nick Pullen (@nstjhp), Oge Nnadi (@ogennadi), Oliver Paisley (@oliverpaisley), Pariksheet Nanda (@omsai), Øystein Sørensen (@osorensen), Paul (@otepoti), Otho Mantegazza (@othomantegazza), Dewey Dunnington (@paleolimbot), Parker Abercrombie (@parkerabercrombie), Patrick Hausmann (@patperu), Patrick Miller (@patr1ckm), Patrick Werkmeister (@Patrick01), @paulponcet, @pdb61, Tom Crockett (@pelotom), @pengyu, Jeremiah (@perryjer1), Peter Hickey (@PeteHaitch), Phil Chalmers (@philchalmers), Jose Antonio Magaña Mesa (@picarus), Pierre Casadebaig (@picasa), Antonio Piccolboni (@piccolbo), Pierre Roudier (@pierreroudier), Poor Yorick (@pooryorick), Marie-Helene Burle (@prosoitos), Peter Schulam (@pschulam), John (@quantbo), Quyu Kong (@qykong), Ramiro Magno (@ramiromagno), Ramnath Vaidyanathan (@ramnathv), Kun Ren (@renkun-ken), Richard Reeve (@richardreeve), Richard Cotton (@richierocks), Robert M Flight (@rmflight), R. Mark Sharp (@rmsharp), Robert Krzyzanowski (@robertzk), @robiRagan, Romain François (@romainfrancois), Ross Holmberg (@rossholmberg), Ricardo Pietrobon (@rpietro), @rrunner, Ryan Walker (@rtwalker), @rubenfcasal, Rob Weyant (@rweyant), Rumen Zarev (@rzarev), Nan Wang (@sailingwave), Samuel Perreault (@samperochkin), @sbgraves237, Scott Kostyshak (@scottkosty), Scott Leishman (@scttl), Sean Hughes (@seaaan), Sean Anderson (@seananderson), Sean Carmody (@seancarmody), Sebastian (@sebastian-c), Matthew Sedaghatfar (@sedaghatfar), @see24, Sven E. Templer (@setempler), @sflippl, @shabbybanks, Steven Pav (@shabbychef), Shannon Rush (@shannonrush), S'busiso Mkhondwane (@sibusiso16), Sigfried Gold (@Sigfried), Simon O'Hanlon (@simonohanlon101), Simon Potter (@sjp), Leo Razoumov (@slonik-az), Richard M. Smith (@Smudgerville), Steve (@SplashDance), Scott Ritchie (@sritchie73), Tim Cole (@statist7), @ste-fan, @stephens999, Steve Walker (@stevencarlislewalker), Stefan Widgren (@stewid), Homer Strong (@strongh), Dirk (@surmann), Sebastien Vigneau (@svigneau), Scott Warchal (@Swarchal), Steven Nydick (@swnydick), Taekyun Kim (@taekyunk), Tal Galili (@talgalili), @Tazinho, Tyler Bradley (@tbradley1013), Tom B (@tbuckl), @tdenes, @thomasherbig, Thomas (@thomaskern), Thomas Lin Pedersen (@thomasp85), Thomas Zumbrunn (@thomaszumbrunn), Tim Waterhouse (@timwaterhouse), TJ Mahr (@tjmahr), Anton Antonov (@tonytonov), Ben Torvaney (@Torvaney), Jeff Allen (@trestletech), Chitu Okoli (@Tripartio), Kirill Tsukanov (@tskir), Terence Teo (@tteo), Tim Triche, Jr. (@ttriche), @tyhenkaline, Tyler Ritchie (@tylerritchie), Tyler Littlefield (@tyluRp), Varun Agrawal (@varun729), Vijay Barve (@vijaybarve), Victor (@vkryukov), Vaidotas Zemlys-Balevičius (@vzemlys), Winston Chang (@wch), Linda Chin (@wchi144), Welliton Souza (@Welliton309), Gregg Whitworth (@whitwort), Will Beasley (@wibeasley), William R Bauer (@WilCrofter), William Doane (@WilDoane), Sean Wilkinson (@wilkinson), Christof Winter (@winterschlaefer), Bill Carver (@wmc3), Wolfgang Huber (@wolfganghuber), Krishna Sankar (@xsankar), Yihui Xie (@yihui), yang (@yiluheihei), Yoni Ben-Meshulam (@yoni), @yuchouchen, Yuqi Liao (@yuqiliao), Hiroaki Yutani (@yutannihilation), Zachary Foster (@zachary-foster), @zachcp, @zackham, Edward Cho (@zerokarmaleft), Albert Zhao (@zxzb).
+A big thank you to all 374 contributors (in alphabetical order): Aaron Wolen (@aaronwolen), @absolutelyNoWarranty, Adam Hunt (@adamphunt), @agrabovsky, Alexander Grueneberg (@agrueneberg), Anthony Damico (@ajdamico), James Manton (@ajdm), Aaron Schumacher (@ajschumacher), Alan Dipert (@alandipert), Alex Brown (@alexbbrown), @alexperrone, Alex Whitworth (@alexWhitworth), Alexandros Kokkalis (@alko989), @amarchin, Amelia McNamara (@AmeliaMN), Bryce Mecum (@amoeba), Andrew Laucius (@andrewla), Andrew Bray (@andrewpbray), Andrie de Vries (@andrie), Angela Li (@angela-li), @aranlunzer, Ari Lamstein (@arilamstein), @asnr, Andy Teucher (@ateucher), Albert Vilella (@avilella), baptiste (@baptiste), Brian G. Barkley (@BarkleyBG), Mara Averick (@batpigandme), Brandon Greenwell (@bgreenwell), Brandon Hurr (@bhive01), Jason Knight (@binarybana), Brett Klamer (@bklamer), Jesse Anderson (@blindjesse), Brian Mayer (@blmayer), Benjamin L. Moore (@blmoore), Brian Diggs (@BrianDiggs), Brian S. Yandell (@byandell), @carey1024, Chip Hogg (@chiphogg), Chris Muir (@ChrisMuir), Christopher Gandrud (@christophergandrud), Clay Ford (@clayford), Colin Fay (@ColinFay), @cortinah, Cameron Plouffe (@cplouffe), Carson Sievert (@cpsievert), Craig Citro (@craigcitro), Craig Grabowski (@craiggrabowski), Christopher Roach (@croach), Peter Meilstrup (@crowding), Crt Ahlin (@crtahlin), Carlos Scheidegger (@cscheid), Colin Gillespie (@csgillespie), Christopher Brown (@ctbrown), Davor Cubranic (@cubranic), Darren Cusanovich (@cusanovich), Christian G. Warden (@cwarden), Charlotte Wickham (@cwickham), Dean Attali (@daattali), Dan Sullivan (@dan87134), Daniel Barnett (@daniel-barnett), Daniel (@danielruc91), Kenny Darrell (@darrkj), Tracy Nance (@datapixie), Dave Childers (@davechilders), David Rubinger (@davidrubinger), David Chudzicki (@dchudz), Deependra Dhakal (@DeependraD), Daisuke ICHIKAWA (@dichika), david kahle (@dkahle), David LeBauer (@dlebauer), David Schweizer (@dlschweizer), David Montaner (@dmontaner), @dmurdoch, Zhuoer Dong (@dongzhuoer), Doug Mitarotonda (@dougmitarotonda), Jonathan Hill (@Dripdrop12), @drtjc, Julian During (@duju211), @duncanwadsworth, @eaurele, Dirk Eddelbuettel (@eddelbuettel), @EdFineOKL, Eduard Szöcs (@EDiLD), Edwin Thoen (@EdwinTh), Ethan Heinzen (@eheinzen), @eijoac, Joel Schwartz (@eipi10), Eric Ronald Legrand (@elegrand), Ellis Valentiner (@ellisvalentiner), Emil Hvitfeldt (@EmilHvitfeldt), Emil Rehnberg (@EmilRehnberg), Daniel Lee (@erget), Eric C. Anderson (@eriqande), Enrico Spinielli (@espinielli), @etb, David Hajage (@eusebe), Fabian Scheipl (@fabian-s), @flammy0530, François Michonneau (@fmichonneau), Francois Pepin (@fpepin), Frank Farach (@frankfarach), @freezby, Frans van Dunné (@FvD), @fyears, @gagnagaman, Garrett Grolemund (@garrettgman), Gavin Simpson (@gavinsimpson), @gezakiss7, @gggtest, Gökçen Eraslan (@gokceneraslan), Georg Russ (@gr650), @grasshoppermouse, Gregor Thomas (@gregorp), Garrett See (@gsee), Ari Friedman (@gsk3), Gunnlaugur Thor Briem (@gthb), Greg Wilson (@gvwilson), Hadley Wickham (@hadley), Hamed (@hamedbh), Jeff Hammerbacher (@hammer), Harley Day (@harleyday), @hassaad85, @helmingstay, Henning (@henningsway), Henrik Bengtsson (@HenrikBengtsson), Ching Boon (@hoscb), @hplieninger, Iain Dillingham (@iaindillingham), @IanKopacka, Ian Lyttle (@ijlyttle), Ilan Man (@ilanman), Imanuel Costigan (@imanuelcostigan), Thomas Bürli (@initdch), Os Keyes (@Ironholds), @irudnyts, i (@isomorphisms), Irene Steves (@isteves), Jan Gleixner (@jan-glx), Jannes Muenchow (@jannes-m), Jason Asher (@jasonasher), Jason Davies (@jasondavies), Chris (@jastingo), jcborras (@jcborras), John Blischak (@jdblischak), @jeharmse, Lukas Burk (@jemus42), Jennifer (Jenny) Bryan (@jennybc), Justin Jent (@jentjr), Jeston (@JestonBlu), Jim Hester (@jimhester), @JimInNashville, @jimmyliu2017, Jim Vine (@jimvine), Jinlong Yang (@jinlong25), J.J. Allaire (@jjallaire), @JMHay, Jochen Van de Velde (@jochenvdv), Johann Hibschman (@johannh), John Baumgartner (@johnbaums), John Horton (@johnjosephhorton), @johnthomas12, Jon Calder (@jonmcalder), Jon Harmon (@jonthegeek), Julia Gustavsen (@jooolia), JorneBiccler (@JorneBiccler), Jeffrey Arnold (@jrnold), Joyce Robbins (@jtr13), Juan Manuel Truppia (@juancentro), Kevin Markham (@justmarkham), john verzani (@jverzani), Michael Kane (@kaneplusplus), Bart Kastermans (@kasterma), Kevin D'Auria (@kdauria), Karandeep Singh (@kdpsingh), Ken Williams (@kenahoo), Kendon Bell (@kendonB), Kent Johnson (@kent37), Kevin Ushey (@kevinushey), 电线杆 (@kfeng123), Karl Forner (@kforner), Kirill Sevastyanenko (@kirillseva), Brian Knaus (@knausb), Kirill Müller (@krlmlr), Kriti Sen Sharma (@ksens), Kai Tang (唐恺） (@ktang), Kevin Wright (@kwstat), \href{mailto:suo.lawrence.liu@gmail.com}{\nolinkurl{suo.lawrence.liu@gmail.com}} (@Lawrence-Liu), @ldfmrails, Kevin Kainan Li (@legendre6891), Rachel Severson (@leighseverson), Laurent Gatto (@lgatto), C. Jason Liang (@liangcj), Steve Lianoglou (@lianos), Likan (@likanzhan), @lindbrook, Lingbing Feng (@Lingbing), Marcel Ramos (@LiNk-NY), Zhongpeng Lin (@linzhp), Lionel Henry (@lionel-), Lluís (@llrs), myq (@lrcg), Luke W Johnston (@lwjohnst86), Kevin Lynagh (@lynaghk), @MajoroMask, Malcolm Barrett (@malcolmbarrett), @mannyishere, @mascaretti, Matt (@mattbaggott), Matthew Grogan (@mattgrogan), @matthewhillary, Matthieu Gomez (@matthieugomez), Matt Malin (@mattmalin), Mauro Lepore (@maurolepore), Max Ghenis (@MaxGhenis), Maximilian Held (@maxheld83), Michal Bojanowski (@mbojan), Mark Rosenstein (@mbrmbr), Michael Sumner (@mdsumner), Jun Mei (@meijun), merkliopas (@merkliopas), mfrasco (@mfrasco), Michael Bach (@michaelbach), Michael Bishop (@MichaelMBishop), Michael Buckley (@michaelmikebuckley), Michael Quinn (@michaelquinn32), @miguelmorin, Michael (@mikekaminsky), Mine Cetinkaya-Rundel (@mine-cetinkaya-rundel), @mjsduncan, Mamoun Benghezal (@MoBeng), Matt Pettis (@mpettis), Martin Morgan (@mtmorgan), Guy Dawson (@Mullefa), Nacho Caballero (@nachocab), Natalya Rapstine (@natalya-patrikeeva), Nick Carchedi (@ncarchedi), Pascal Burkhard (@Nenuial), Noah Greifer (@ngreifer), Nicholas Vasile (@nickv9), Nikos Ignatiadis (@nignatiadis), Nina Munkholt Jakobsen (@nmjakobsen), Xavier Laviron (@norival), Nick Pullen (@nstjhp), Oge Nnadi (@ogennadi), Oliver Paisley (@oliverpaisley), Pariksheet Nanda (@omsai), Øystein Sørensen (@osorensen), Paul (@otepoti), Otho Mantegazza (@othomantegazza), Dewey Dunnington (@paleolimbot), Parker Abercrombie (@parkerabercrombie), Patrick Hausmann (@patperu), Patrick Miller (@patr1ckm), Patrick Werkmeister (@Patrick01), @paulponcet, @pdb61, Tom Crockett (@pelotom), @pengyu, Jeremiah (@perryjer1), Peter Hickey (@PeteHaitch), Phil Chalmers (@philchalmers), Jose Antonio Magaña Mesa (@picarus), Pierre Casadebaig (@picasa), Antonio Piccolboni (@piccolbo), Pierre Roudier (@pierreroudier), Poor Yorick (@pooryorick), Marie-Helene Burle (@prosoitos), Peter Schulam (@pschulam), John (@quantbo), Quyu Kong (@qykong), Ramiro Magno (@ramiromagno), Ramnath Vaidyanathan (@ramnathv), Kun Ren (@renkun-ken), Richard Reeve (@richardreeve), Richard Cotton (@richierocks), Robert M Flight (@rmflight), R. Mark Sharp (@rmsharp), Robert Krzyzanowski (@robertzk), @robiRagan, Romain François (@romainfrancois), Ross Holmberg (@rossholmberg), Ricardo Pietrobon (@rpietro), @rrunner, Ryan Walker (@rtwalker), @rubenfcasal, Rob Weyant (@rweyant), Rumen Zarev (@rzarev), Nan Wang (@sailingwave), Samuel Perreault (@samperochkin), @sbgraves237, Scott Kostyshak (@scottkosty), Scott Leishman (@scttl), Sean Hughes (@seaaan), Sean Anderson (@seananderson), Sean Carmody (@seancarmody), Sebastian (@sebastian-c), Matthew Sedaghatfar (@sedaghatfar), @see24, Sven E. Templer (@setempler), @sflippl, @shabbybanks, Steven Pav (@shabbychef), Shannon Rush (@shannonrush), S'busiso Mkhondwane (@sibusiso16), Sigfried Gold (@Sigfried), Simon O'Hanlon (@simonohanlon101), Simon Potter (@sjp), Leo Razoumov (@slonik-az), Richard M. Smith (@Smudgerville), Steve (@SplashDance), Scott Ritchie (@sritchie73), Tim Cole (@statist7), @ste-fan, @stephens999, Steve Walker (@stevencarlislewalker), Stefan Widgren (@stewid), Homer Strong (@strongh), Dirk (@surmann), Sebastien Vigneau (@svigneau), Scott Warchal (@Swarchal), Steven Nydick (@swnydick), Taekyun Kim (@taekyunk), Tal Galili (@talgalili), @Tazinho, Tyler Bradley (@tbradley1013), Tom B (@tbuckl), @tdenes, @thomasherbig, Thomas (@thomaskern), Thomas Lin Pedersen (@thomasp85), Thomas Zumbrunn (@thomaszumbrunn), Tim Waterhouse (@timwaterhouse), TJ Mahr (@tjmahr), Thomas Nagler (@tnagler), Anton Antonov (@tonytonov), Ben Torvaney (@Torvaney), Jeff Allen (@trestletech), Tyler Rinker (@trinker), Chitu Okoli (@Tripartio), Kirill Tsukanov (@tskir), Terence Teo (@tteo), Tim Triche, Jr. (@ttriche), @tyhenkaline, Tyler Ritchie (@tylerritchie), Tyler Littlefield (@tyluRp), Varun Agrawal (@varun729), Vijay Barve (@vijaybarve), Victor (@vkryukov), Vaidotas Zemlys-Balevičius (@vzemlys), Winston Chang (@wch), Linda Chin (@wchi144), Welliton Souza (@Welliton309), Gregg Whitworth (@whitwort), Will Beasley (@wibeasley), William R Bauer (@WilCrofter), William Doane (@WilDoane), Sean Wilkinson (@wilkinson), Christof Winter (@winterschlaefer), Bill Carver (@wmc3), Wolfgang Huber (@wolfganghuber), Krishna Sankar (@xsankar), Yihui Xie (@yihui), yang (@yiluheihei), Yoni Ben-Meshulam (@yoni), @yuchouchen, Yuqi Liao (@yuqiliao), Hiroaki Yutani (@yutannihilation), Zachary Foster (@zachary-foster), @zachcp, @zackham, Sergio Oller (@zeehio), Edward Cho (@zerokarmaleft), Albert Zhao (@zxzb).
 
 \hypertarget{conventions}{%
 \section{Conventions}\label{conventions}}
@@ -505,7 +502,7 @@ This version of the book was built with the following version of R and packages.
 setting & value\tabularnewline
 \midrule
 \endhead
-version & R version 3.5.1 (2018-12-12)\tabularnewline
+version & R version 3.5.2 (2017-01-27)\tabularnewline
 os & Ubuntu 14.04.5 LTS\tabularnewline
 system & x86\_64, linux-gnu\tabularnewline
 ui & X11\tabularnewline
@@ -513,7 +510,7 @@ language & (EN)\tabularnewline
 collate & en\_US.UTF-8\tabularnewline
 ctype & en\_US.UTF-8\tabularnewline
 tz & UTC\tabularnewline
-date & 2018-12-21\tabularnewline
+date & 2019-01-09\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -522,88 +519,89 @@ date & 2018-12-21\tabularnewline
 package & version & source\tabularnewline
 \midrule
 \endhead
-assertthat & 0.2.0 & CRAN (R 3.5.1)\tabularnewline
-backports & 1.1.3 & CRAN (R 3.5.1)\tabularnewline
-base64enc & 0.1-3 & CRAN (R 3.5.1)\tabularnewline
-beeswarm & 0.2.3 & CRAN (R 3.5.1)\tabularnewline
-bench & 1.0.1 & CRAN (R 3.5.1)\tabularnewline
-BH & 1.66.0-1 & CRAN (R 3.5.1)\tabularnewline
-bindr & 0.1.1 & CRAN (R 3.5.1)\tabularnewline
-bindrcpp & 0.2.2 & CRAN (R 3.5.1)\tabularnewline
-bit & 1.1-14 & CRAN (R 3.5.1)\tabularnewline
-bit64 & 0.9-7 & CRAN (R 3.5.1)\tabularnewline
-blob & 1.1.1 & CRAN (R 3.5.1)\tabularnewline
-bookdown & 0.8 & CRAN (R 3.5.1)\tabularnewline
-cli & 1.0.1 & CRAN (R 3.5.1)\tabularnewline
-codetools & 0.2-15 & CRAN (R 3.5.1)\tabularnewline
-colorspace & 1.3-2 & CRAN (R 3.5.1)\tabularnewline
-crayon & 1.3.4 & CRAN (R 3.5.1)\tabularnewline
-DBI & 1.0.0 & CRAN (R 3.5.1)\tabularnewline
-dbplyr & 1.2.2 & CRAN (R 3.5.1)\tabularnewline
-desc & 1.2.0 & CRAN (R 3.5.1)\tabularnewline
-digest & 0.6.18 & CRAN (R 3.5.1)\tabularnewline
-dplyr & 0.7.8 & CRAN (R 3.5.1)\tabularnewline
+assertthat & 0.2.0 & CRAN (R 3.5.2)\tabularnewline
+backports & 1.1.3 & CRAN (R 3.5.2)\tabularnewline
+base64enc & 0.1-3 & CRAN (R 3.5.2)\tabularnewline
+beeswarm & 0.2.3 & CRAN (R 3.5.2)\tabularnewline
+bench & 1.0.1 & CRAN (R 3.5.2)\tabularnewline
+BH & 1.69.0-1 & CRAN (R 3.5.2)\tabularnewline
+bindr & 0.1.1 & CRAN (R 3.5.2)\tabularnewline
+bindrcpp & 0.2.2 & CRAN (R 3.5.2)\tabularnewline
+bit & 1.1-14 & CRAN (R 3.5.2)\tabularnewline
+bit64 & 0.9-7 & CRAN (R 3.5.2)\tabularnewline
+blob & 1.1.1 & CRAN (R 3.5.2)\tabularnewline
+bookdown & 0.9 & CRAN (R 3.5.2)\tabularnewline
+cli & 1.0.1 & CRAN (R 3.5.2)\tabularnewline
+codetools & 0.2-15 & CRAN (R 3.5.2)\tabularnewline
+colorspace & 1.3-2 & CRAN (R 3.5.2)\tabularnewline
+crayon & 1.3.4 & CRAN (R 3.5.2)\tabularnewline
+DBI & 1.0.0 & CRAN (R 3.5.2)\tabularnewline
+dbplyr & 1.2.2 & CRAN (R 3.5.2)\tabularnewline
+desc & 1.2.0 & CRAN (R 3.5.2)\tabularnewline
+digest & 0.6.18 & CRAN (R 3.5.2)\tabularnewline
+dplyr & 0.7.8 & CRAN (R 3.5.2)\tabularnewline
 emo & 0.0.0.9000 & Github (hadley/emo@02a5206)\tabularnewline
-evaluate & 0.12 & CRAN (R 3.5.1)\tabularnewline
-fansi & 0.4.0 & CRAN (R 3.5.1)\tabularnewline
-ggbeeswarm & 0.6.0 & CRAN (R 3.5.1)\tabularnewline
-ggplot2 & 3.1.0 & CRAN (R 3.5.1)\tabularnewline
-glue & 1.3.0 & Github (tidyverse/glue@35c61e9)\tabularnewline
-gtable & 0.2.0 & CRAN (R 3.5.1)\tabularnewline
-highr & 0.7 & CRAN (R 3.5.1)\tabularnewline
-htmltools & 0.3.6 & CRAN (R 3.5.1)\tabularnewline
-htmlwidgets & 1.3 & CRAN (R 3.5.1)\tabularnewline
-jsonlite & 1.6 & CRAN (R 3.5.1)\tabularnewline
-knitr & 1.21 & CRAN (R 3.5.1)\tabularnewline
-labeling & 0.3 & CRAN (R 3.5.1)\tabularnewline
-lattice & 0.20-35 & CRAN (R 3.5.1)\tabularnewline
-lazyeval & 0.2.1 & CRAN (R 3.5.1)\tabularnewline
-lobstr & 1.0.0.9000 & Github (r-lib/lobstr@0d3ad9f)\tabularnewline
-lubridate & 1.7.4 & CRAN (R 3.5.1)\tabularnewline
-magrittr & 1.5 & CRAN (R 3.5.1)\tabularnewline
-markdown & 0.9 & CRAN (R 3.5.1)\tabularnewline
-MASS & 7.3-50 & CRAN (R 3.5.1)\tabularnewline
-Matrix & 1.2-14 & CRAN (R 3.5.1)\tabularnewline
-memoise & 1.1.0 & CRAN (R 3.5.1)\tabularnewline
-mgcv & 1.8-24 & CRAN (R 3.5.1)\tabularnewline
-mime & 0.6 & CRAN (R 3.5.1)\tabularnewline
-munsell & 0.5.0 & CRAN (R 3.5.1)\tabularnewline
-nlme & 3.1-137 & CRAN (R 3.5.1)\tabularnewline
-pillar & 1.3.1 & CRAN (R 3.5.1)\tabularnewline
-pkgconfig & 2.0.2 & CRAN (R 3.5.1)\tabularnewline
-plogr & 0.2.0 & CRAN (R 3.5.1)\tabularnewline
-plyr & 1.8.4 & CRAN (R 3.5.1)\tabularnewline
-praise & 1.0.0 & CRAN (R 3.5.1)\tabularnewline
-prettyunits & 1.0.2 & CRAN (R 3.5.1)\tabularnewline
-profmem & 0.5.0 & CRAN (R 3.5.1)\tabularnewline
-profvis & 0.3.5 & CRAN (R 3.5.1)\tabularnewline
-purrr & 0.2.5 & CRAN (R 3.5.1)\tabularnewline
-R6 & 2.3.0 & CRAN (R 3.5.1)\tabularnewline
-RColorBrewer & 1.1-2 & CRAN (R 3.5.1)\tabularnewline
-Rcpp & 1.0.0 & CRAN (R 3.5.1)\tabularnewline
-reshape2 & 1.4.3 & CRAN (R 3.5.1)\tabularnewline
-rlang & 0.3.0.9002 & Github (r-lib/rlang@e7475ab)\tabularnewline
-rmarkdown & 1.11 & CRAN (R 3.5.1)\tabularnewline
-rprojroot & 1.3-2 & CRAN (R 3.5.1)\tabularnewline
-RSQLite & 2.1.1 & CRAN (R 3.5.1)\tabularnewline
-scales & 1.0.0 & CRAN (R 3.5.1)\tabularnewline
-sessioninfo & 1.1.1 & CRAN (R 3.5.1)\tabularnewline
-sloop & 1.0.0 & CRAN (R 3.5.1)\tabularnewline
-stringi & 1.2.4 & CRAN (R 3.5.1)\tabularnewline
-stringr & 1.3.1 & CRAN (R 3.5.1)\tabularnewline
-testthat & 2.0.1 & CRAN (R 3.5.1)\tabularnewline
-tibble & 1.4.2 & CRAN (R 3.5.1)\tabularnewline
-tidyr & 0.8.2 & CRAN (R 3.5.1)\tabularnewline
-tidyselect & 0.2.5 & CRAN (R 3.5.1)\tabularnewline
-tinytex & 0.9 & CRAN (R 3.5.1)\tabularnewline
-utf8 & 1.1.4 & CRAN (R 3.5.1)\tabularnewline
-vctrs & 0.1.0 & CRAN (R 3.5.1)\tabularnewline
-vipor & 0.4.5 & CRAN (R 3.5.1)\tabularnewline
-viridisLite & 0.3.0 & CRAN (R 3.5.1)\tabularnewline
-withr & 2.1.2 & CRAN (R 3.5.1)\tabularnewline
-xfun & 0.4 & CRAN (R 3.5.1)\tabularnewline
-yaml & 2.2.0 & CRAN (R 3.5.1)\tabularnewline
-zeallot & 0.1.0 & CRAN (R 3.5.1)\tabularnewline
+evaluate & 0.12 & CRAN (R 3.5.2)\tabularnewline
+fansi & 0.4.0 & CRAN (R 3.5.2)\tabularnewline
+ggbeeswarm & 0.6.0 & CRAN (R 3.5.2)\tabularnewline
+ggplot2 & 3.1.0 & CRAN (R 3.5.2)\tabularnewline
+glue & 1.3.0.9000 & Github (tidyverse/glue@3f7012c)\tabularnewline
+gtable & 0.2.0 & CRAN (R 3.5.2)\tabularnewline
+highr & 0.7 & CRAN (R 3.5.2)\tabularnewline
+htmltools & 0.3.6 & CRAN (R 3.5.2)\tabularnewline
+htmlwidgets & 1.3 & CRAN (R 3.5.2)\tabularnewline
+jsonlite & 1.6 & CRAN (R 3.5.2)\tabularnewline
+knitr & 1.21 & CRAN (R 3.5.2)\tabularnewline
+labeling & 0.3 & CRAN (R 3.5.2)\tabularnewline
+lattice & 0.20-38 & CRAN (R 3.5.2)\tabularnewline
+lazyeval & 0.2.1 & CRAN (R 3.5.2)\tabularnewline
+lobstr & 1.0.1 & CRAN (R 3.5.2)\tabularnewline
+lubridate & 1.7.4 & CRAN (R 3.5.2)\tabularnewline
+magrittr & 1.5 & CRAN (R 3.5.2)\tabularnewline
+markdown & 0.9 & CRAN (R 3.5.2)\tabularnewline
+MASS & 7.3-51.1 & CRAN (R 3.5.2)\tabularnewline
+Matrix & 1.2-15 & CRAN (R 3.5.2)\tabularnewline
+memoise & 1.1.0 & CRAN (R 3.5.2)\tabularnewline
+mgcv & 1.8-26 & CRAN (R 3.5.2)\tabularnewline
+mime & 0.6 & CRAN (R 3.5.2)\tabularnewline
+munsell & 0.5.0 & CRAN (R 3.5.2)\tabularnewline
+nlme & 3.1-137 & CRAN (R 3.5.2)\tabularnewline
+pillar & 1.3.1 & CRAN (R 3.5.2)\tabularnewline
+pkgconfig & 2.0.2 & CRAN (R 3.5.2)\tabularnewline
+plogr & 0.2.0 & CRAN (R 3.5.2)\tabularnewline
+plyr & 1.8.4 & CRAN (R 3.5.2)\tabularnewline
+png & 0.1-7 & CRAN (R 3.5.2)\tabularnewline
+praise & 1.0.0 & CRAN (R 3.5.2)\tabularnewline
+prettyunits & 1.0.2 & CRAN (R 3.5.2)\tabularnewline
+profmem & 0.5.0 & CRAN (R 3.5.2)\tabularnewline
+profvis & 0.3.5 & CRAN (R 3.5.2)\tabularnewline
+purrr & 0.2.5 & CRAN (R 3.5.2)\tabularnewline
+R6 & 2.3.0 & CRAN (R 3.5.2)\tabularnewline
+RColorBrewer & 1.1-2 & CRAN (R 3.5.2)\tabularnewline
+Rcpp & 1.0.0 & CRAN (R 3.5.2)\tabularnewline
+reshape2 & 1.4.3 & CRAN (R 3.5.2)\tabularnewline
+rlang & 0.3.1.9000 & Github (r-lib/rlang@cb84015)\tabularnewline
+rmarkdown & 1.11 & CRAN (R 3.5.2)\tabularnewline
+rprojroot & 1.3-2 & CRAN (R 3.5.2)\tabularnewline
+RSQLite & 2.1.1 & CRAN (R 3.5.2)\tabularnewline
+scales & 1.0.0 & CRAN (R 3.5.2)\tabularnewline
+sessioninfo & 1.1.1 & CRAN (R 3.5.2)\tabularnewline
+sloop & 1.0.0 & CRAN (R 3.5.2)\tabularnewline
+stringi & 1.2.4 & CRAN (R 3.5.2)\tabularnewline
+stringr & 1.3.1 & CRAN (R 3.5.2)\tabularnewline
+testthat & 2.0.1 & CRAN (R 3.5.2)\tabularnewline
+tibble & 2.0.0 & CRAN (R 3.5.2)\tabularnewline
+tidyr & 0.8.2 & CRAN (R 3.5.2)\tabularnewline
+tidyselect & 0.2.5 & CRAN (R 3.5.2)\tabularnewline
+tinytex & 0.9 & CRAN (R 3.5.2)\tabularnewline
+utf8 & 1.1.4 & CRAN (R 3.5.2)\tabularnewline
+vctrs & 0.1.0 & CRAN (R 3.5.2)\tabularnewline
+vipor & 0.4.5 & CRAN (R 3.5.2)\tabularnewline
+viridisLite & 0.3.0 & CRAN (R 3.5.2)\tabularnewline
+withr & 2.1.2 & CRAN (R 3.5.2)\tabularnewline
+xfun & 0.4 & CRAN (R 3.5.2)\tabularnewline
+yaml & 2.2.0 & CRAN (R 3.5.2)\tabularnewline
+zeallot & 0.1.0 & CRAN (R 3.5.2)\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -807,7 +805,7 @@ In other words, the object, or value, doesn't have a name; it's actually the nam
 
 To further clarify this distinction, I'll draw diagrams like this:
 
-\begin{center}\includegraphics{diagrams/name-value/binding-1} \end{center}
+\begin{center}\includegraphics[width=1.67in]{diagrams/name-value/binding-1} \end{center}
 
 The name, \texttt{x}, is drawn with a rounded rectangle. It has an arrow that points to (or binds or references) the value, the vector \texttt{c(1,\ 2,\ 3)}. The arrow points in opposite direction to the assignment arrow: \texttt{\textless{}-} creates a binding from the name on the left-hand side to the object on the right-hand side.
 
@@ -819,7 +817,7 @@ Thus, you can think of a name as a reference to a value. For example, if you run
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/name-value/binding-2} \end{center}
+\begin{center}\includegraphics[width=1.77in]{diagrams/name-value/binding-2} \end{center}
 
 You might have noticed that the value \texttt{c(1,\ 2,\ 3)} has a label: \texttt{0x74b}. While the vector doesn't have a name, I'll occasionally need to refer to an object independent of its bindings. To make that possible, I'll label values with a unique identifier. These identifiers have a special form that looks like the object's memory ``address'', i.e.~the location in memory where the object is stored. But because the actual memory addresses changes every time the code is run, we use these identifiers instead.
 
@@ -828,9 +826,9 @@ You can access an object's identifier with \texttt{lobstr::obj\_addr()}. Doing s
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{obj_addr}\NormalTok{(x)}
-\CommentTok{#> [1] "0x2cbbb98"}
+\CommentTok{#> [1] "0x1793c58"}
 \KeywordTok{obj_addr}\NormalTok{(y)}
-\CommentTok{#> [1] "0x2cbbb98"}
+\CommentTok{#> [1] "0x1793c58"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -938,7 +936,7 @@ Consider the following code. It binds \texttt{x} and \texttt{y} to the same unde
 
 Modifying \texttt{y} clearly didn't modify \texttt{x}. So what happened to the shared binding? While the value associated with \texttt{y} changed, the original object did not. Instead, R created a new object, \texttt{0xcd2}, a copy of \texttt{0x74b} with one value changed, then rebound \texttt{y} to that object.
 
-\begin{center}\includegraphics{diagrams/name-value/binding-3} \end{center}
+\begin{center}\includegraphics[width=1.67in]{diagrams/name-value/binding-3} \end{center}
 
 This behaviour is called \textbf{copy-on-modify}. Understanding it will radically improve your intuition about the performance of R code. A related way to describe this behaviour is to say that R objects are unchangeable, or \textbf{immutable}. However, I'll generally avoid that term because there are a couple of important exceptions to copy-on-modify that you'll learn about in Section \ref{modify-in-place}.
 
@@ -994,7 +992,7 @@ The same rules for copying also apply to function calls. Take this code:
 
 \NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
 \KeywordTok{cat}\NormalTok{(}\KeywordTok{tracemem}\NormalTok{(x), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> <0x4481268>}
+\CommentTok{#> <0x2ed78f8>}
 
 \NormalTok{z <-}\StringTok{ }\KeywordTok{f}\NormalTok{(x)}
 \CommentTok{# there's no copy here!}
@@ -1005,13 +1003,13 @@ The same rules for copying also apply to function calls. Take this code:
 
 While \texttt{f()} is running, the \texttt{a} inside the function points to the same value as the \texttt{x} does outside the function:
 
-\begin{center}\includegraphics{diagrams/name-value/binding-f1} \end{center}
+\begin{center}\includegraphics[width=2.6in]{diagrams/name-value/binding-f1} \end{center}
 
 You'll learn more about the conventions used in this diagram in Section \ref{execution-environments}. In brief: the function \texttt{f()} is depicted by the yellow object on the right. It has a formal argument, \texttt{a}, which becomes a binding (indicated by dotted black line) in the execution environment (the gray box) when the function is run.
 
 Once \texttt{f()} completes, \texttt{x} and \texttt{z} will point to the same object. \texttt{0x74b} never gets copied because it never gets modified. If \texttt{f()} did modify \texttt{x}, R would create a new copy, and then \texttt{z} would bind that object.
 
-\begin{center}\includegraphics{diagrams/name-value/binding-f2} \end{center}
+\begin{center}\includegraphics[width=1.77in]{diagrams/name-value/binding-f2} \end{center}
 
 \hypertarget{list-references}{%
 \subsection{Lists}\label{list-references}}
@@ -1030,7 +1028,7 @@ It's not just names (i.e.~variables) that point to values; elements of lists do 
 
 This list is more complex because instead of storing the values itself, it instead stores references to them:
 
-\begin{center}\includegraphics{diagrams/name-value/list} \end{center}
+\begin{center}\includegraphics[width=1.97in]{diagrams/name-value/list} \end{center}
 
 This is particularly important when we modify a list:
 
@@ -1040,7 +1038,7 @@ This is particularly important when we modify a list:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/name-value/l-modify-1} \end{center}
+\begin{center}\includegraphics[width=1.97in]{diagrams/name-value/l-modify-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1048,7 +1046,7 @@ This is particularly important when we modify a list:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/name-value/l-modify-2} \end{center}
+\begin{center}\includegraphics[width=2.31in]{diagrams/name-value/l-modify-2} \end{center}
 
 Like vectors, lists use copy-on-modify behaviour; the original list is left unchanged, and R creates a modified copy. This, however, is a \textbf{shallow} copy: the list object and its bindings are copied, but the values pointed to by the bindings are not. The opposite of a shallow copy is a deep copy where the contents of every reference are copied. Prior to R 3.1.0, copies were always deep copies.
 
@@ -1057,15 +1055,15 @@ To see values that are shared across lists, use \texttt{lobstr::ref()}. \texttt{
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ref}\NormalTok{(l1, l2)}
-\CommentTok{#> █ [1:0x7f4e6a8] <list> }
-\CommentTok{#> ├─[2:0x7e38660] <dbl> }
-\CommentTok{#> ├─[3:0x7e38628] <dbl> }
-\CommentTok{#> └─[4:0x7e385f0] <dbl> }
+\CommentTok{#> █ [1:0x6b2a1d8] <list> }
+\CommentTok{#> ├─[2:0x6951480] <dbl> }
+\CommentTok{#> ├─[3:0x6951448] <dbl> }
+\CommentTok{#> └─[4:0x6951410] <dbl> }
 \CommentTok{#>  }
-\CommentTok{#> █ [5:0x8912738] <list> }
-\CommentTok{#> ├─[2:0x7e38660] }
-\CommentTok{#> ├─[3:0x7e38628] }
-\CommentTok{#> └─[6:0x8805f48] <dbl>}
+\CommentTok{#> █ [5:0x75ac878] <list> }
+\CommentTok{#> ├─[2:0x6951480] }
+\CommentTok{#> ├─[3:0x6951448] }
+\CommentTok{#> └─[6:0x747b030] <dbl>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1080,7 +1078,7 @@ Data frames are lists of vectors, so copy-on-modify has important consequences w
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/name-value/dataframe} \end{center}
+\begin{center}\includegraphics[width=1.72in]{diagrams/name-value/dataframe} \end{center}
 
 If you modify a column, only \emph{that} column needs to be modified; the others will still point to their original references:
 
@@ -1091,7 +1089,7 @@ If you modify a column, only \emph{that} column needs to be modified; the others
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/name-value/d-modify-c} \end{center}
+\begin{center}\includegraphics[width=2.21in]{diagrams/name-value/d-modify-c} \end{center}
 
 However, if you modify a row, every column is modified, which means every column must be copied:
 
@@ -1102,7 +1100,7 @@ However, if you modify a row, every column is modified, which means every column
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/name-value/d-modify-r} \end{center}
+\begin{center}\includegraphics[width=3.39in]{diagrams/name-value/d-modify-r} \end{center}
 
 \hypertarget{character-vectors}{%
 \subsection{Character vectors}\label{character-vectors}}
@@ -1117,22 +1115,22 @@ The final place that R uses references is with character vectors\footnote{Confus
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/name-value/character} \end{center}
+\begin{center}\includegraphics[width=2.51in]{diagrams/name-value/character} \end{center}
 
 But this is a polite fiction. R actually uses a \textbf{global string pool} where each element of a character vector is a pointer to a unique string in the pool:
 
-\begin{center}\includegraphics{diagrams/name-value/character-2} \end{center}
+\begin{center}\includegraphics[width=2.6in]{diagrams/name-value/character-2} \end{center}
 
 You can request that \texttt{ref()} show these references by setting the \texttt{character} argument to \texttt{TRUE}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ref}\NormalTok{(x, }\DataTypeTok{character =} \OtherTok{TRUE}\NormalTok{)}
-\CommentTok{#> █ [1:0x310b1e8] <chr> }
-\CommentTok{#> ├─[2:0x23186f0] <string: "a"> }
-\CommentTok{#> ├─[2:0x23186f0] }
-\CommentTok{#> ├─[3:0x4d2ba58] <string: "abc"> }
-\CommentTok{#> └─[4:0x27ccb80] <string: "d">}
+\CommentTok{#> █ [1:0x24eec18] <chr> }
+\CommentTok{#> ├─[2:0xe24758] <string: "a"> }
+\CommentTok{#> ├─[2:0xe24758] }
+\CommentTok{#> ├─[3:0x4171178] <string: "abc"> }
+\CommentTok{#> └─[4:0x12daaf0] <string: "d">}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1339,7 +1337,7 @@ If an object has a single name bound to it, R will modify it in place:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/name-value/v-inplace-1} \end{center}
+\begin{center}\includegraphics[width=1.67in]{diagrams/name-value/v-inplace-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1347,7 +1345,7 @@ If an object has a single name bound to it, R will modify it in place:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/name-value/v-inplace-2} \end{center}
+\begin{center}\includegraphics[width=1.67in]{diagrams/name-value/v-inplace-2} \end{center}
 
 (Note the object IDs here: \texttt{v} continues to bind to the same object, \texttt{0x207}.)
 
@@ -1449,7 +1447,7 @@ Take this environment, which we bind to \texttt{e1} and \texttt{e2}:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/name-value/e-modify-1} \end{center}
+\begin{center}\includegraphics[width=1.92in]{diagrams/name-value/e-modify-1} \end{center}
 
 If we change a binding, the environment is modified in place:
 
@@ -1461,7 +1459,7 @@ If we change a binding, the environment is modified in place:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/name-value/e-modify-2} \end{center}
+\begin{center}\includegraphics[width=1.92in]{diagrams/name-value/e-modify-2} \end{center}
 
 This basic idea can be used to create functions that ``remember'' their previous state. See Section \ref{stateful-funs} for more details. This property is also used to implement the R6 object oriented programming system, the topic of Chapter \ref{r6}.
 
@@ -1473,12 +1471,12 @@ One consequence of this is that environments can contain themselves:
 \NormalTok{e}\OperatorTok{$}\NormalTok{self <-}\StringTok{ }\NormalTok{e}
 
 \KeywordTok{ref}\NormalTok{(e)}
-\CommentTok{#> █ [1:0x2b5fab0] <env> }
-\CommentTok{#> └─self = [1:0x2b5fab0]}
+\CommentTok{#> █ [1:0xcde320] <env> }
+\CommentTok{#> └─self = [1:0xcde320]}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/name-value/e-self} \end{center}
+\begin{center}\includegraphics[width=1.48in]{diagrams/name-value/e-self} \end{center}
 
 This is a unique property of environments!
 
@@ -1519,7 +1517,7 @@ Consider this code:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/name-value/unbinding-1} \end{center}
+\begin{center}\includegraphics[width=1.67in]{diagrams/name-value/unbinding-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1527,7 +1525,7 @@ Consider this code:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/name-value/unbinding-2} \end{center}
+\begin{center}\includegraphics[width=1.67in]{diagrams/name-value/unbinding-2} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1535,7 +1533,7 @@ Consider this code:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/name-value/unbinding-3} \end{center}
+\begin{center}\includegraphics[width=1.67in]{diagrams/name-value/unbinding-3} \end{center}
 
 We created two objects, but by the time the code finishes, neither object is bound to a name. How do these objects get deleted? That's the job of the \textbf{garbage collector}, or GC for short. The GC frees up memory by deleting R objects that are no longer used, and by requesting more memory from the operating system if needed.
 
@@ -1550,8 +1548,8 @@ You can force garbage collection by calling \texttt{gc()}. But despite what you 
 \begin{Highlighting}[]
 \KeywordTok{gc}\NormalTok{() }
 \CommentTok{#>           used (Mb) gc trigger (Mb) max used (Mb)}
-\CommentTok{#> Ncells  566477 30.3    1304485 69.7   728592 39.0}
-\CommentTok{#> Vcells 1092434  8.4    8388608 64.0  1758196 13.5}
+\CommentTok{#> Ncells  680373 36.4    1285091 68.7  1285091 68.7}
+\CommentTok{#> Vcells 4696467 35.9   11789897 90.0 11789883 90.0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1560,7 +1558,7 @@ You can force garbage collection by calling \texttt{gc()}. But despite what you 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{mem_used}\NormalTok{()}
-\CommentTok{#> 40,501,072 B}
+\CommentTok{#> 75,676,872 B}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1624,7 +1622,7 @@ This chapter discusses the most important family of data types in base R: vector
 
 Vectors come in two flavours: atomic vectors and lists\footnote{A few places in R's documentation call lists generic vectors to emphasise their difference from atomic vectors.}. They differ in terms of their elements' types: for atomic vectors, all elements must have the same type; for lists, elements can have different types. While not a vector, \texttt{NULL} is closely related to vectors and often serves the role of a generic zero length vector. This diagram, which we'll be expanding on throughout this chapter, illustrates the basic relationships:
 
-\begin{center}\includegraphics{diagrams/vectors/summary-tree} \end{center}
+\begin{center}\includegraphics[width=2.07in]{diagrams/vectors/summary-tree} \end{center}
 
 Every vector can also have \textbf{attributes}, which you can think of as a named list of arbitrary metadata. Two attributes are particularly important. The \textbf{dim}ension attribute turns vectors into matrices and arrays and the \textbf{class} attribute powers the S3 object system. While you'll learn how to use S3 in Chapter \ref{s3}), here you'll learn about some of the most important S3 vectors: factors, date/times, data frames, and tibbles. And while 2D structures like matrices and data frames are not necessarily what come to mind when you think of vectors, you'll also learn why R considers them to be vectors.
 
@@ -1693,7 +1691,7 @@ Take this short quiz to determine if you need to read this chapter. If the answe
 
 There are four primary types of atomic vectors: logical, integer, double, and character (which contains strings). Collectively integer and double vectors are known as numeric vectors\footnote{This is a slight simplification as R does not use ``numeric'' consistently, which we'll come back to in Section \ref{numeric-type}.}. There are two rare types: complex and raw. I won't discuss them further because complex numbers are rarely needed in statistics, and raw vectors are a special type that's only needed when handling binary data.
 
-\begin{center}\includegraphics{diagrams/vectors/summary-tree-atomic} \end{center}
+\begin{center}\includegraphics[width=3in]{diagrams/vectors/summary-tree-atomic} \end{center}
 
 \hypertarget{scalars}{%
 \subsection{Scalars}\label{scalars}}
@@ -1758,7 +1756,7 @@ When the inputs are atomic vectors, \texttt{c()} always creates another atomic v
 
 In diagrams, I'll depict vectors as connected rectangles, so the above code could be drawn as follows:
 
-\begin{center}\includegraphics{diagrams/vectors/atomic} \end{center}
+\begin{center}\includegraphics[width=3.64in]{diagrams/vectors/atomic} \end{center}
 
 You can determine the type of a vector with \texttt{typeof()}\footnote{You may have heard of the related \texttt{mode()} and \texttt{storage.mode()} functions. Do not use them: they exist only for compatibility with S.} and its length with \texttt{length()}.
 
@@ -1893,7 +1891,7 @@ You can think of attributes as name-value pairs\footnote{Attributes behave like 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/vectors/attr} \end{center}
+\begin{center}\includegraphics[width=2.02in]{diagrams/vectors/attr} \end{center}
 
 Attributes should generally be thought of as ephemeral. For example, most attributes are lost by most operations:
 
@@ -1946,11 +1944,11 @@ Avoid using \texttt{attr(x,\ "names")} as it requires more typing and is less re
 
 To be technically correct, when drawing the named vector \texttt{x}, I should draw it like so:
 
-\begin{center}\includegraphics{diagrams/vectors/attr-names-1} \end{center}
+\begin{center}\includegraphics[width=2.56in]{diagrams/vectors/attr-names-1} \end{center}
 
 However, names are so special and so important, that unless I'm trying specifically to draw attention to the attributes data structure, I'll use them to label the vector directly:
 
-\begin{center}\includegraphics{diagrams/vectors/attr-names-2} \end{center}
+\begin{center}\includegraphics[width=1.08in]{diagrams/vectors/attr-names-2} \end{center}
 
 To be useful with character subsetting (e.g.~Section \ref{lookup-tables}) names should be unique, and non-missing, but this is not enforced by R. Depending on how the names are set, missing names may be either \texttt{""} or \texttt{NA\_character\_}. If all names are missing, \texttt{names()} will return \texttt{NULL}.
 
@@ -2090,7 +2088,7 @@ In this section, we'll discuss four important S3 vectors used in base R:
   Durations, which are stored in \textbf{difftime} vectors.
 \end{itemize}
 
-\begin{center}\includegraphics{diagrams/vectors/summary-tree-s3-1} \end{center}
+\begin{center}\includegraphics[width=3.1in]{diagrams/vectors/summary-tree-s3-1} \end{center}
 
 \hypertarget{factors}{%
 \subsection{Factors}\label{factors}}
@@ -2118,7 +2116,7 @@ A factor is a vector that can contain only predefined values. It is used to stor
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/vectors/factor} \end{center}
+\begin{center}\includegraphics[width=2.56in]{diagrams/vectors/factor} \end{center}
 
 Factors are useful when you know the set of possible values but they're not all present in a given dataset. In contrast to a character vector, when you tabulate a factor you'll get counts of all categories, even unobserved ones:
 
@@ -2344,7 +2342,7 @@ Because the elements of a list are references, creating a list does not involve 
 
 Lists can contain complex objects so it's not possible to pick a single visual style that works for every list. Generally I'll draw lists like vectors, using colour to remind you of the hierarchy.
 
-\begin{center}\includegraphics{diagrams/vectors/list} \end{center}
+\begin{center}\includegraphics[width=4.67in]{diagrams/vectors/list} \end{center}
 
 Lists are sometimes called \textbf{recursive} vectors because a list can contain other lists. This makes them fundamentally different from atomic vectors.
 
@@ -2359,7 +2357,7 @@ Lists are sometimes called \textbf{recursive} vectors because a list can contain
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/vectors/list-recursive} \end{center}
+\begin{center}\includegraphics[width=1.08in]{diagrams/vectors/list-recursive} \end{center}
 
 \texttt{c()} will combine several lists into one. If given a combination of atomic vectors and lists, \texttt{c()} will coerce the vectors to lists before combining them. Compare the results of \texttt{list()} and \texttt{c()}:
 
@@ -2382,7 +2380,7 @@ Lists are sometimes called \textbf{recursive} vectors because a list can contain
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/vectors/list-c} \end{center}
+\begin{center}\includegraphics[width=2.51in]{diagrams/vectors/list-c} \end{center}
 
 \hypertarget{list-types}{%
 \subsection{Testing and coercion}\label{list-types}}
@@ -2456,7 +2454,7 @@ These data structures are relatively esoteric but they can be useful if you want
 
 The two most important S3 vectors built on top of lists are data frames and tibbles.
 
-\begin{center}\includegraphics{diagrams/vectors/summary-tree-s3-2} \end{center}
+\begin{center}\includegraphics[width=1.67in]{diagrams/vectors/summary-tree-s3-2} \end{center}
 
 If you do data analysis in R, you're going to be using data frames. A data frame is a named list of vectors with attributes for (column) \texttt{names}, \texttt{row.names}\footnote{Row names are one of the most surprisingly complex data structures in R. They've also been a persistent source of performance issues over the years. The most straightforward implementation is a character or integer vector, with one element for each row. But there's also a compact representation for ``automatic'' row names (consecutive integers), created by \texttt{.set\_row\_names()}. R 3.5 has a special way of deferring integer to character conversion that is specifically designed to speed up \texttt{lm()}; see \url{https://svn.r-project.org/R/branches/ALTREP/ALTREP.html\#deferred_string_conversions} for details.}, and its class, ``data.frame'':
 
@@ -2603,7 +2601,14 @@ While every element of a data frame (or tibble) must have the same length, both 
 \CommentTok{#> 3     3     1}
 \CommentTok{#> 4     4     1}
 \KeywordTok{tibble}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{, }\DataTypeTok{y =} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{)}
-\CommentTok{#> Error: Column `y` must be length 1 or 4, not 2}
+\CommentTok{#> Error: Tibble columns must have consistent lengths, only values of length one are recycled:}
+\CommentTok{#> * Length 2: Column `y`}
+\CommentTok{#> * Length 4: Column `x`}
+\CommentTok{#> Backtrace:}
+\CommentTok{#>     █}
+\CommentTok{#>  1. └─tibble::tibble(x = 1:4, y = 1:2)}
+\CommentTok{#>  2.   └─tibble:::lst_to_tibble(xlq$output, .rows, .name_repair, lengths = xlq$lengths)}
+\CommentTok{#>  3.     └─tibble:::recycle_columns(x, .rows, lengths)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2628,11 +2633,11 @@ There is one final difference: \texttt{tibble()} allows you to refer to variable
 
 When drawing data frames and tibbles, rather than focussing on the implementation details, i.e.~the attributes:
 
-\begin{center}\includegraphics{diagrams/vectors/data-frame-1} \end{center}
+\begin{center}\includegraphics[width=2.65in]{diagrams/vectors/data-frame-1} \end{center}
 
 I'll draw them the same way as a named list, but arrange them to emphasise their columnar structure.
 
-\begin{center}\includegraphics{diagrams/vectors/data-frame-2} \end{center}
+\begin{center}\includegraphics[width=1.08in]{diagrams/vectors/data-frame-2} \end{center}
 
 \hypertarget{rownames}{%
 \subsection{Row names}\label{rownames}}
@@ -2737,7 +2742,7 @@ One of the most obvious differences between tibbles and data frames is how they 
 \CommentTok{#>  8 R5-D4     97    32 <NA>       white, red red             NA  }
 \CommentTok{#>  9 Bigg…    183    84 black      light      brown           24  }
 \CommentTok{#> 10 Obi-…    182    77 auburn, w… fair       blue-gray       57  }
-\CommentTok{#> # ... with 77 more rows, and 6 more variables: gender <chr>,}
+\CommentTok{#> # … with 77 more rows, and 6 more variables: gender <chr>,}
 \CommentTok{#> #   homeworld <chr>, species <chr>, films <list>, vehicles <list>,}
 \CommentTok{#> #   starships <list>}
 \end{Highlighting}
@@ -2849,7 +2854,7 @@ List-columns are allowed in data frames but you have to do a little extra work b
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/vectors/data-frame-list} \end{center}
+\begin{center}\includegraphics[width=1.97in]{diagrams/vectors/data-frame-list} \end{center}
 
 List columns are easier to use with tibbles because they can be directly included inside tibble() and they will be printed tidily:
 
@@ -2893,7 +2898,7 @@ As long as the number of rows matches the data frame, it's also possible to have
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/vectors/data-frame-matrix} \end{center}
+\begin{center}\includegraphics[width=2.6in]{diagrams/vectors/data-frame-matrix} \end{center}
 
 Matrix and data frame columns require a little caution. Many functions that work with data frames assume that all columns are vectors. Also, the printed display can be confusing.
 
@@ -3012,21 +3017,21 @@ If you're familiar with SQL, you'll know about relational \texttt{NULL} and migh
 
 \index{subsetting}
 
-R's subsetting operators are powerful and fast. Mastery of subsetting allows you to succinctly express complex operations in a way that few other languages can match. Subsetting is easy to learn but hard to master because you need to internalise a number of interrelated concepts:
+R's subsetting operators are fast and powerful. Mastering them allows you to succinctly perform complex operations in a way that few other languages can match. Subsetting in R is easy to learn but hard to master because you need to internalise a number of interrelated concepts:
 
 \begin{itemize}
 \item
-  The six types of thing that you can subset with.
+  There are six ways to subset atomic vectors.
 \item
-  The three subsetting operators, \texttt{{[}{[}}, \texttt{{[}}, and \texttt{\$}.
+  There are three subsetting operators, \texttt{{[}{[}}, \texttt{{[}}, and \texttt{\$}.
 \item
-  How the subsetting operators interact with vector types (e.g.,
-  atomic vectors, lists, factors, matrices, and data frames).
+  Subsetting operators interact differently with different vector
+  types (e.g., atomic vectors, lists, factors, matrices, and data frames).
 \item
-  The use of subsetting together with assignment.
+  Subsetting can be combined with assignment.
 \end{itemize}
 
-Subsetting is a natural complement to \texttt{str()}. \texttt{str()} shows you the structure of any object, and subsetting allows you to pull out the pieces that you're interested in. For large, complex objects, I also highly recommend the interactive RStudio Viewer, which you can activate with \texttt{View(my\_object)}.
+Subsetting is a natural complement to \texttt{str()}. While \texttt{str()} shows you all the pieces of any object (its structure), subsetting allows you to pull out the pieces that you're interested in. For large, complex objects, I highly recommend using the interactive RStudio Viewer, which you can activate with \texttt{View(my\_object)}.
 
 \hypertarget{quiz-2}{%
 \subsection*{Quiz}\label{quiz-2}}
@@ -3044,7 +3049,7 @@ Take this short quiz to determine if you need to read this chapter. If the answe
 \item
   When should you use \texttt{drop\ =\ FALSE}?
 \item
-  If \texttt{x} is a matrix, what does \texttt{x{[}{]}\ \textless{}-\ 0} do? How is it different to
+  If \texttt{x} is a matrix, what does \texttt{x{[}{]}\ \textless{}-\ 0} do? How is it different from
   \texttt{x\ \textless{}-\ 0}?
 \item
   How can you use a named vector to relabel categorical variables?
@@ -3056,22 +3061,22 @@ Take this short quiz to determine if you need to read this chapter. If the answe
 
 \begin{itemize}
 \item
-  Section \ref{subset-multiple} starts by teaching you about \texttt{{[}}. You'll start
-  by learning the six types of data that you can use to subset atomic vectors.
-  You'll then learn how those six data types act when used to subset lists,
-  matrices, and data frames.
+  Section \ref{subset-multiple} starts by teaching you about \texttt{{[}}.
+  You'll learn the six ways to subset atomic vectors. You'll then
+  learn how those six ways act when used to subset lists, matrices,
+  and data frames.
 \item
-  Section \ref{subset-single} expands your knowledge of
-  subsetting operators to include \texttt{{[}{[}} and \texttt{\$}, focussing on the important
+  Section \ref{subset-single} expands your knowledge of subsetting
+  operators to include \texttt{{[}{[}} and \texttt{\$} and focuses on the important
   principles of simplifying vs.~preserving.
 \item
-  In Section \ref{subassignment} you'll learn the
-  art of subassignment, combining subsetting and assignment to modify parts
-  of an object.
+  In Section \ref{subassignment} you'll learn the art of
+  subassignment, which combines subsetting and assignment to modify
+  parts of an object.
 \item
   Section \ref{applications} leads you through eight important, but
   not obvious, applications of subsetting to solve problems that you
-  often encounter in a data analysis.
+  often encounter in data analysis.
 \end{itemize}
 
 \hypertarget{subset-multiple}{%
@@ -3528,15 +3533,15 @@ Let's make a simple list and draw it as a train:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/subsetting/train} \end{center}
+\begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train} \end{center}
 
 When extracting a single element, you have two options: you can create a smaller train, or you can extract the contents of a carriage. This is the difference between \texttt{{[}} and \texttt{{[}{[}}:
 
-\begin{center}\includegraphics{diagrams/subsetting/train-single} \end{center}
+\begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train-single} \end{center}
 
 When extracting multiple elements (or zero!), you have to make a smaller train:
 
-\begin{center}\includegraphics{diagrams/subsetting/train-multiple} \end{center}
+\begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train-multiple} \end{center}
 
 Because it can return only a single item, you must use \texttt{{[}{[}} with either a single positive integer or a string. If you use a vector with \texttt{{[}{[}}, it will subset recursively, i.e. \texttt{x{[}{[}c(1,\ 2){]}{]}} is equivalent to \texttt{x{[}{[}1{]}{]}{[}{[}2{]}{]}}. This is a quirky feature that few people know about, so I recommend avoiding it in favour of \texttt{purrr::pluck()}, which you'll learn about in Section \ref{subsetting-oob}.
 
@@ -4825,7 +4830,7 @@ While the formals and body are specified explicitly when you create a function, 
 
 I'll draw functions as in the following diagram. The black dot on the left is the environment. The two blocks to the right are the function arguments. I won't draw the body, because it's usually large, and doesn't help you understand the ``shape'' of the function.
 
-\begin{center}\includegraphics{diagrams/functions/components} \end{center}
+\begin{center}\includegraphics[width=1.23in]{diagrams/functions/components} \end{center}
 
 Like all objects in R, functions can also possess any number of additional \texttt{attributes()}. One attribute used by base R is ``srcref'', short for source reference. It points to the source code used to create the function. The srcref is used for printing because, unlike \texttt{body()}, it contains code comments and other formatting.
 
@@ -4899,7 +4904,7 @@ It's very important to understand that R functions are objects in their own righ
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/functions/first-class} \end{center}
+\begin{center}\includegraphics[width=1.62in]{diagrams/functions/first-class} \end{center}
 
 While you almost always create a function and then bind it to a name, the binding step is not compulsory. If you choose not to give a function a name, you get an \textbf{anonymous function}. This is useful when it's not worth the effort to figure out a name:
 
@@ -5611,7 +5616,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
   \KeywordTok{print}\NormalTok{(x)}
 \NormalTok{\}}
 \KeywordTok{show_time}\NormalTok{()}
-\CommentTok{#> [1] "2018-12-27 01:25:04 UTC"}
+\CommentTok{#> [1] "2019-01-09 11:33:58 UTC"}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -6633,7 +6638,7 @@ Use \texttt{new.env()} to create a new environment. Ignore the \texttt{hash} and
 
 The job of an environment is to associate, or \textbf{bind}, a set of names to a set of values. You can think of an environment as a bag of names, with no implied order (i.e.~it doesn't make sense to ask which is the first element in an environment). For that reason, we'll draw the environment as so:
 
-\begin{center}\includegraphics{diagrams/environments/bindings} \end{center}
+\begin{center}\includegraphics[width=3.05in]{diagrams/environments/bindings} \end{center}
 
 As discussed in Section \ref{env-modify}, environments have reference semantics: unlike most R objects, when you modify them, you modify them in place, and don't create a copy. One important implication is that environments can ``contain'' themselves.
 
@@ -6643,14 +6648,14 @@ As discussed in Section \ref{env-modify}, environments have reference semantics:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/environments/loop} \end{center}
+\begin{center}\includegraphics[width=3.05in]{diagrams/environments/loop} \end{center}
 
 Printing an environment just displays its memory address, which is not terribly useful:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{e1}
-\CommentTok{#> <environment: 0x223cfd8>}
+\CommentTok{#> <environment: 0x1bded20>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6659,7 +6664,7 @@ Instead, we'll use \texttt{env\_print()} which gives us a little more informatio
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_print}\NormalTok{(e1)}
-\CommentTok{#> <environment: 0x223cfd8>}
+\CommentTok{#> <environment: 0x1bded20>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * a: <lgl>}
@@ -6718,7 +6723,7 @@ Every environment has a \textbf{parent}, another environment. In diagrams, the p
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/environments/parents} \end{center}
+\begin{center}\includegraphics[width=3.74in]{diagrams/environments/parents} \end{center}
 
 To save space, I typically won't draw all the ancestors; just remember whenever you see a pale blue circle, there's a parent environment somewhere.
 
@@ -6727,7 +6732,7 @@ You can find the parent of an environment with \texttt{env\_parent()}:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parent}\NormalTok{(e2b)}
-\CommentTok{#> <environment: 0x57aa2c8>}
+\CommentTok{#> <environment: 0x4fda770>}
 \KeywordTok{env_parent}\NormalTok{(e2a)}
 \CommentTok{#> <environment: R_GlobalEnv>}
 \end{Highlighting}
@@ -6742,17 +6747,17 @@ Only one environment doesn't have a parent: the \textbf{empty} environment. I dr
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/environments/parents-empty} \end{center}
+\begin{center}\includegraphics[width=3.74in]{diagrams/environments/parents-empty} \end{center}
 
 The ancestors of every environment eventually terminate with the empty environment. You can list see all ancestors with \texttt{env\_parents()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parents}\NormalTok{(e2b)}
-\CommentTok{#> [[1]]   <env: 0x1eba9b8>}
+\CommentTok{#> [[1]]   <env: 0x4fda770>}
 \CommentTok{#> [[2]] $ <env: global>}
 \KeywordTok{env_parents}\NormalTok{(e2d)}
-\CommentTok{#> [[1]]   <env: 0x1903f60>}
+\CommentTok{#> [[1]]   <env: 0x5a65388>}
 \CommentTok{#> [[2]] $ <env: empty>}
 \end{Highlighting}
 \end{Shaded}
@@ -6762,7 +6767,7 @@ By default, \texttt{env\_parents()} stops when it gets to the global environment
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parents}\NormalTok{(e2b, }\DataTypeTok{last =} \KeywordTok{empty_env}\NormalTok{())}
-\CommentTok{#>  [[1]]   <env: 0x1eba9b8>}
+\CommentTok{#>  [[1]]   <env: 0x4fda770>}
 \CommentTok{#>  [[2]] $ <env: global>}
 \CommentTok{#>  [[3]] $ <env: package:rlang>}
 \CommentTok{#>  [[4]] $ <env: package:stats>}
@@ -6940,7 +6945,7 @@ There are two more exotic variants of \texttt{env\_bind()}:
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(b))}
 \CommentTok{#> [1] 1}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.004   0.000   1.001}
+\CommentTok{#>       0       0       1}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(b))}
 \CommentTok{#> [1] 1}
 \CommentTok{#>    user  system elapsed }
@@ -6982,11 +6987,11 @@ See \texttt{?delayedAssign()} and \texttt{?makeActiveBinding()}.
 \item
   Create an environment as illustrated by this picture.
 
-  \begin{center}\includegraphics{diagrams/environments/recursive-1} \end{center}
+  \begin{center}\includegraphics[width=1.48in]{diagrams/environments/recursive-1} \end{center}
 \item
   Create a pair of environments as illustrated by this picture.
 
-  \begin{center}\includegraphics{diagrams/environments/recursive-2} \end{center}
+  \begin{center}\includegraphics[width=2.56in]{diagrams/environments/recursive-2} \end{center}
 \item
   Explain why \texttt{e{[}{[}1{]}{]}} and \texttt{e{[}c("a",\ "b"){]}} don't make sense when \texttt{e} is
   an environment.
@@ -7084,7 +7089,7 @@ It might help to see a picture. Imagine you have two environments, as in the fol
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/environments/where-ex} \end{center}
+\begin{center}\includegraphics[width=3.69in]{diagrams/environments/where-ex} \end{center}
 
 \begin{itemize}
 \item
@@ -7171,7 +7176,7 @@ Most environments are not created by you (e.g.~with \texttt{env()}) but are inst
 
 Each package attached by \texttt{library()} or \texttt{require()} becomes one of the parents of the global environment. The immediate parent of the global environment is the last package you attached\footnote{Note the difference between attached and loaded. A package is loaded automatically if you access one of its functions using \texttt{::}; it is only \textbf{attached} to the search path by \texttt{library()} or \texttt{require()}.}, the parent of that package is the second to last package you attached, \ldots{}
 
-\begin{center}\includegraphics{diagrams/environments/search-path} \end{center}
+\begin{center}\includegraphics[width=4.33in]{diagrams/environments/search-path} \end{center}
 
 If you follow all the parents back, you see the order in which every package has been attached. This is known as the \textbf{search path} because all objects in these environments can be found from the top-level interactive workspace. You can see the names of these environments with \texttt{base::search()}, or the environments themselves with \texttt{rlang::search\_envs()}:
 
@@ -7212,7 +7217,7 @@ The last two environments on the search path are always the same:
 
 Note that when you attach another package with \texttt{library()}, the parent environment of the global environment changes:
 
-\begin{center}\includegraphics{diagrams/environments/search-path-2} \end{center}
+\begin{center}\includegraphics[width=4.33in]{diagrams/environments/search-path-2} \end{center}
 
 \hypertarget{function-environments}{%
 \subsection{The function environment}\label{function-environments}}
@@ -7237,7 +7242,7 @@ Use \texttt{environment(f)} to access the environment of function \texttt{f}.
 
 In diagrams, I'll draw a function as a rectangle with a rounded end that binds an environment.
 
-\begin{center}\includegraphics{diagrams/environments/binding} \end{center}
+\begin{center}\includegraphics[width=1.85in]{diagrams/environments/binding} \end{center}
 
 In this case, \texttt{f()} binds the environment that binds the name \texttt{f} to the function. But that's not always the case: in the following example \texttt{g} is bound in a new environment \texttt{e}, but \texttt{g()} binds the global environment. The distinction between binding and being bound by is subtle but important; the difference is how we find \texttt{g} vs.~how \texttt{g} finds its variables.
 
@@ -7248,7 +7253,7 @@ In this case, \texttt{f()} binds the environment that binds the name \texttt{f} 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/environments/binding-2} \end{center}
+\begin{center}\includegraphics[width=1.73in]{diagrams/environments/binding-2} \end{center}
 
 \hypertarget{namespaces}{%
 \subsection{Namespaces}\label{namespaces}}
@@ -7265,7 +7270,7 @@ For example, take \texttt{sd()}:
 \CommentTok{#> function (x, na.rm = FALSE) }
 \CommentTok{#> sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), }
 \CommentTok{#>     na.rm = na.rm))}
-\CommentTok{#> <bytecode: 0x4fe8788>}
+\CommentTok{#> <bytecode: 0x6167a00>}
 \CommentTok{#> <environment: namespace:stats>}
 \end{Highlighting}
 \end{Shaded}
@@ -7286,7 +7291,7 @@ For example, take \texttt{sd()}:
 
 Every binding in the package environment is also found in the namespace environment; this ensures every function can use every other function in the package. But some bindings only occur in the namespace environment. These are known as internal or non-exported objects, which make it possible to hide internal implementation details from the user.
 
-\begin{center}\includegraphics{diagrams/environments/namespace-bind} \end{center}
+\begin{center}\includegraphics[width=2.08in]{diagrams/environments/namespace-bind} \end{center}
 
 Every namespace environment has the same set of ancestors:
 
@@ -7309,11 +7314,11 @@ Every namespace environment has the same set of ancestors:
   to how S3 method dispatch works.
 \end{itemize}
 
-\begin{center}\includegraphics{diagrams/environments/namespace-env} \end{center}
+\begin{center}\includegraphics[width=4.13in]{diagrams/environments/namespace-env} \end{center}
 
 Putting all these diagrams together we get:
 
-\begin{center}\includegraphics{diagrams/environments/namespace} \end{center}
+\begin{center}\includegraphics[width=4.13in]{diagrams/environments/namespace} \end{center}
 
 So when \texttt{sd()} looks for the value of \texttt{var} it always finds it in a sequence of environments determined by the package developer, but not by the package user. This ensures that package code always works the same way regardless of what packages have been attached by the user.
 
@@ -7367,7 +7372,7 @@ This function returns the same value every time because of the fresh start princ
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/environments/execution} \end{center}
+\begin{center}\includegraphics[width=2.64in]{diagrams/environments/execution} \end{center}
 
 An execution environment is usually ephemeral; once the function has completed, the environment will be garbage collected. There are several ways to make it stay around for longer. The first is to explicitly return it:
 
@@ -7380,7 +7385,7 @@ An execution environment is usually ephemeral; once the function has completed, 
 
 \NormalTok{e <-}\StringTok{ }\KeywordTok{h2}\NormalTok{(}\DataTypeTok{x =} \DecValTok{10}\NormalTok{)}
 \KeywordTok{env_print}\NormalTok{(e)}
-\CommentTok{#> <environment: 0x677c228>}
+\CommentTok{#> <environment: 0x6651228>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * a: <dbl>}
@@ -7403,11 +7408,11 @@ There's a lot going on in the diagram because the enclosing environment of \text
 \NormalTok{plus_one <-}\StringTok{ }\KeywordTok{plus}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \NormalTok{plus_one}
 \CommentTok{#> function(y) x + y}
-\CommentTok{#> <environment: 0x17787c8>}
+\CommentTok{#> <environment: 0x5bcbe48>}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/environments/closure} \end{center}
+\begin{center}\includegraphics[width=1.69in]{diagrams/environments/closure} \end{center}
 
 What happens when we call \texttt{plus\_one()}? Its execution environment will have the captured execution environment of \texttt{plus()} as its parent:
 
@@ -7418,7 +7423,7 @@ What happens when we call \texttt{plus\_one()}? Its execution environment will h
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/environments/closure-call} \end{center}
+\begin{center}\includegraphics[width=1.69in]{diagrams/environments/closure-call} \end{center}
 
 You'll learn more about function factories in Section \ref{factory-fundamentals}.
 
@@ -7570,7 +7575,7 @@ The frame is an extremely important internal data structure, and R code can only
   A parent, the previous call in the call stack (shown by a grey arrow).
 \end{itemize}
 
-\begin{center}\includegraphics{diagrams/environments/calling} \end{center}
+\begin{center}\includegraphics[width=3.58in]{diagrams/environments/calling} \end{center}
 
 (To focus on the calling environments, I have omitted the bindings in the global environment from \texttt{f}, \texttt{g}, and \texttt{h} to the respective function objects.)
 
@@ -7826,6 +7831,11 @@ The rlang equivalent to \texttt{stop()}, \texttt{rlang::abort()}, does this auto
 \NormalTok{h <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() }\KeywordTok{abort}\NormalTok{(}\StringTok{"This is an error!"}\NormalTok{)}
 \KeywordTok{f}\NormalTok{()}
 \CommentTok{#> Error: This is an error!}
+\CommentTok{#> Backtrace:}
+\CommentTok{#>     █}
+\CommentTok{#>  1. └─global::f()}
+\CommentTok{#>  2.   └─global::g()}
+\CommentTok{#>  3.     └─global::h()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8583,8 +8593,14 @@ This gives us:
 \begin{Highlighting}[]
 \KeywordTok{my_log}\NormalTok{(letters)}
 \CommentTok{#> Error: `x` must be a numeric vector; not character.}
+\CommentTok{#> Backtrace:}
+\CommentTok{#>     █}
+\CommentTok{#>  1. └─global::my_log(letters)}
 \KeywordTok{my_log}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{base =}\NormalTok{ letters)}
 \CommentTok{#> Error: `base` must be a numeric vector; not character.}
+\CommentTok{#> Backtrace:}
+\CommentTok{#>     █}
+\CommentTok{#>  1. └─global::my_log(1:10, base = letters)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8661,8 +8677,16 @@ We can now rewrite \texttt{my\_log()} to use this new helper:
 \begin{Highlighting}[]
 \KeywordTok{my_log}\NormalTok{(letters)}
 \CommentTok{#> Error: `x` must be numeric; not character.}
+\CommentTok{#> Backtrace:}
+\CommentTok{#>     █}
+\CommentTok{#>  1. └─global::my_log(letters)}
+\CommentTok{#>  2.   └─global::abort_bad_argument("x", must = "be numeric", not = x)}
 \KeywordTok{my_log}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{base =}\NormalTok{ letters)}
 \CommentTok{#> Error: `base` must be numeric; not character.}
+\CommentTok{#> Backtrace:}
+\CommentTok{#>     █}
+\CommentTok{#>  1. └─global::my_log(1:10, base = letters)}
+\CommentTok{#>  2.   └─global::abort_bad_argument("base", must = "be numeric", not = base)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8676,6 +8700,11 @@ These structured condition objects are much easier to program with. The first pl
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(testthat)}
+\CommentTok{#> }
+\CommentTok{#> Attaching package: 'testthat'}
+\CommentTok{#> The following objects are masked from 'package:rlang':}
+\CommentTok{#> }
+\CommentTok{#>     is_false, is_null, is_true}
 
 \NormalTok{err <-}\StringTok{ }\KeywordTok{catch_cnd}\NormalTok{(}\KeywordTok{my_log}\NormalTok{(}\StringTok{"a"}\NormalTok{))}
 \KeywordTok{expect_s3_class}\NormalTok{(err, }\StringTok{"error_bad_argument"}\NormalTok{)}
@@ -8892,6 +8921,16 @@ As well as returning default values when a condition is signalled, handlers can 
   \KeywordTok{warn}\NormalTok{(}\StringTok{"Hello"}\NormalTok{)}
 \NormalTok{\})}
 \CommentTok{#> Error: Hello}
+\CommentTok{#> Backtrace:}
+\CommentTok{#>     █}
+\CommentTok{#>  1. ├─global::warning2error(...)}
+\CommentTok{#>  2. │ └─base::withCallingHandlers(...)}
+\CommentTok{#>  3. ├─rlang::warn("Hello")}
+\CommentTok{#>  4. │ └─base::warning(cnd)}
+\CommentTok{#>  5. │   └─base::withRestarts(...)}
+\CommentTok{#>  6. │     └─base:::withOneRestart(expr, restarts[[1L]])}
+\CommentTok{#>  7. │       └─base:::doWithOneRestart(return(expr), restart)}
+\CommentTok{#>  8. └─(function (cnd) ...}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8982,7 +9021,7 @@ What if you also want to capture errors? You'll need to wrap the \texttt{withCal
 \CommentTok{#> backtrace:}
 \CommentTok{#>  1. global::catch_cnds(...)}
 \CommentTok{#>  6. base::withCallingHandlers(...)}
-\CommentTok{#> Call `summary(rlang::last_error())` to see the full backtrace}
+\CommentTok{#> Call `rlang::last_trace()` to see the full backtrace}
 \end{Highlighting}
 \end{Shaded}
 
@@ -9210,7 +9249,7 @@ The following three chapters discuss the three key functional techniques that he
 
 Collectively, these types of function are called \textbf{higher-order functions} and they fill out a two-by-two table:
 
-\begin{center}\includegraphics{diagrams/fp} \end{center}
+\begin{center}\includegraphics[width=2.95in]{diagrams/fp} \end{center}
 
 \hypertarget{functionals}{%
 \chapter{Functionals}\label{functionals}}
@@ -9314,7 +9353,7 @@ The most fundamental functional is \texttt{purrr::map()}\footnote{Not to be conf
 
 Or, graphically:
 
-\begin{center}\includegraphics{diagrams/functionals/map} \end{center}
+\begin{center}\includegraphics[width=2.7in]{diagrams/functionals/map} \end{center}
 
 You might wonder why this function is called \texttt{map()}. What does it have to do with depicting physical features of land or sea \raisebox{-.1\height}{\includegraphics[height=10pt]{emoji/1f5fa.png}}? In fact, the meaning comes from mathematics where map refers to ``an operation that associates each element of a given set with one or more elements of a second set''. This makes sense here because \texttt{map()} defines a mapping from one vector to another. (``Map'' also has the nice property of being short, which is useful for such a fundamental building block.)
 
@@ -9374,7 +9413,7 @@ The base equivalent to \texttt{map()} is \texttt{lapply()}. The only difference 
 
 purrr uses the convention that suffixes, like \texttt{\_dbl()}, refer to the output. All \texttt{map\_*()} functions can take any type of vector as input. These examples rely two facts: \texttt{mtcars} is a data frame, and data frames are lists containing vectors of the same length. This is more obvious if we draw a data frame with the same orientation as vector:
 
-\begin{center}\includegraphics{diagrams/functionals/map-list} \end{center}
+\begin{center}\includegraphics[width=3.49in]{diagrams/functionals/map-list} \end{center}
 
 All map functions always return an output vector the same length as the input, which implies that each call to \texttt{.f} must return a single value. If it does not, you'll get an error:
 
@@ -9539,11 +9578,11 @@ But because the map functions pass \texttt{...} along, there's a simpler form av
 
 This is easiest to understand with a picture: any arguments that come after \texttt{f} in the call to \texttt{map()} are inserted \emph{after} the data in individual calls to \texttt{f()}:
 
-\begin{center}\includegraphics{diagrams/functionals/map-arg} \end{center}
+\begin{center}\includegraphics[width=3.74in]{diagrams/functionals/map-arg} \end{center}
 
 It's important to note that these arguments are not decomposed; or said another way, \texttt{map()} is only vectorised over its first argument. If an argument after \texttt{f} is a vector, it will be passed along as is:
 
-\begin{center}\includegraphics{diagrams/functionals/map-arg-recycle} \end{center}
+\begin{center}\includegraphics[width=3.59in]{diagrams/functionals/map-arg-recycle} \end{center}
 
 (You'll learn about map variants that \emph{are} vectorised over multiple arguments in Sections \ref{map2} and \ref{pmap}.)
 
@@ -9605,7 +9644,7 @@ Base functions that pass along \texttt{...} use a variety of naming conventions 
 
 So far the first argument to \texttt{map()} has always become the first argument to the function. But what happens if the first argument should be constant, and you want to vary a different argument? How do you get the result in this picture?
 
-\begin{center}\includegraphics{diagrams/functionals/map-arg-flipped} \end{center}
+\begin{center}\includegraphics[width=3.74in]{diagrams/functionals/map-arg-flipped} \end{center}
 
 It turns out that there's no way to do it directly, but there are two tricks you can use instead. To illustrate them, imagine I have a vector that contains a few unusual values, and I want to explore the effect of different amounts of trimming when computing the mean. In this case, the first argument to \texttt{mean()} will be constant, and I want to vary the second argument, \texttt{trim}.
 
@@ -9938,7 +9977,7 @@ But passing \texttt{ws} as an additional argument doesn't work because arguments
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/functionals/map-arg-recycle} \end{center}
+\begin{center}\includegraphics[width=3.59in]{diagrams/functionals/map-arg-recycle} \end{center}
 
 We need a new tool: a \texttt{map2()}, which is vectorised over two arguments. This means both \texttt{.x} and \texttt{.y} are varied in each call to \texttt{.f}:
 
@@ -9949,7 +9988,7 @@ We need a new tool: a \texttt{map2()}, which is vectorised over two arguments. T
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/functionals/map2} \end{center}
+\begin{center}\includegraphics[width=3.84in]{diagrams/functionals/map2} \end{center}
 
 The arguments to \texttt{map2()} are slightly different to the arguments to \texttt{map()} as two vectors come before the function, rather than one. Additional arguments still go afterwards:
 
@@ -9960,7 +9999,7 @@ The arguments to \texttt{map2()} are slightly different to the arguments to \tex
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/functionals/map2-arg} \end{center}
+\begin{center}\includegraphics[width=4.72in]{diagrams/functionals/map2-arg} \end{center}
 
 The basic implementation of \texttt{map2()} is simple, and quite similar to that of \texttt{map()}. Instead of iterating over one vector, we iterate over two in parallel:
 
@@ -9978,7 +10017,7 @@ The basic implementation of \texttt{map2()} is simple, and quite similar to that
 
 One of the big differences between \texttt{map2()} and the simple function above is that \texttt{map2()} recycles its inputs to make sure that they're the same length:
 
-\begin{center}\includegraphics{diagrams/functionals/map2-recycle} \end{center}
+\begin{center}\includegraphics[width=3.84in]{diagrams/functionals/map2-recycle} \end{center}
 
 In other words, \texttt{map2(x,\ y,\ f)} will automatically behave like \texttt{map(x,\ f,\ y)} when needed. This is helpful when writing functions; in scripts you'd generally just use the simpler form directly.
 
@@ -10025,11 +10064,11 @@ You could avoid this problem by assigning the results of \texttt{map()} to a var
 
 My visual depiction of walk attempts to capture the important difference from \texttt{map()}: the outputs are ephemeral, and the input is returned invisibly.
 
-\begin{center}\includegraphics{diagrams/functionals/walk} \end{center}
+\begin{center}\includegraphics[width=2.46in]{diagrams/functionals/walk} \end{center}
 
 One of the most useful \texttt{walk()} variants is \texttt{walk2()} because a very common side-effect is saving something to disk, and when saving something to disk you always have a pair of values: the object and the path that you want to save it to.
 
-\begin{center}\includegraphics{diagrams/functionals/walk2} \end{center}
+\begin{center}\includegraphics[width=3.3in]{diagrams/functionals/walk2} \end{center}
 
 For example, imagine you have a list of data frames (which I've created here using split), and you'd like to save each one to a separate CSV file. That's easy with \texttt{walk2()}:
 
@@ -10113,7 +10152,7 @@ If the vector is unnamed, the second argument will be the index:
 
 Since we have \texttt{map()} and \texttt{map2()}, you might expect \texttt{map3()}, \texttt{map4()}, \texttt{map5()}, \ldots{} But where would you stop? Instead of generalising \texttt{map2()} to an arbitrary number of arguments, purrr takes a slightly different tack with \texttt{pmap()}: you supply it a single list, which contains any number of arguments. In most cases, that will be a list of equal-length vectors, i.e.~something very similar to a data frame. In diagrams, I'll emphasise that relationship by drawing the input similar to a data frame.
 
-\begin{center}\includegraphics{diagrams/functionals/pmap} \end{center}
+\begin{center}\includegraphics[width=3.69in]{diagrams/functionals/pmap} \end{center}
 
 There's a simple equivalence between \texttt{map2()} and \texttt{pmap()}: \texttt{map2(x,\ y,\ f)} is the same as \texttt{pmap(list(x,\ y),\ f)}. The \texttt{pmap()} equivalent to the \texttt{map2\_dbl(xs,\ ws,\ weighted.mean)} used above is:
 
@@ -10133,7 +10172,7 @@ As before, the varying arguments come before \texttt{.f} (although now they must
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/functionals/pmap-arg} \end{center}
+\begin{center}\includegraphics[width=4.77in]{diagrams/functionals/pmap-arg} \end{center}
 
 A big difference between \texttt{pmap()} and the other map functions is that \texttt{pmap()} gives you much finer control over argument matching because you can name the components of the list. Returning to our example from Section \ref{change-argument}, where we wanted to vary the \texttt{trim} argument to \texttt{x}, we could instead use \texttt{pmap()}:
 
@@ -10172,7 +10211,7 @@ It's often convenient to call \texttt{pmap()} with a data frame. A handy way to 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/functionals/pmap-3} \end{center}
+\begin{center}\includegraphics[width=4.67in]{diagrams/functionals/pmap-3} \end{center}
 
 Here, the column names are critical: I've carefully chosen to match them to the arguments to \texttt{runif()}, so the \texttt{pmap(params,\ runif)} is equivalent to \texttt{runif(n\ =\ 1L,\ min\ =\ 0,\ max\ =\ 1)}, \texttt{runif(n\ =\ 2,\ min\ =\ 10,\ max\ =\ 100)}, \texttt{runif(n\ =\ 3L,\ min\ =\ 100,\ max\ =\ 1000)}. (If you have a data frame in hand, and the names don't match, use \texttt{dplyr::rename()} or similar.)
 
@@ -10252,7 +10291,7 @@ After the map family, the next most important family of functions is the reduce 
 
 \texttt{reduce()} takes a vector of length n and produces a vector of length one by calling a function with a pair of values at a time: \texttt{reduce(1:4,\ f)} is equivalent to \texttt{f(f(f(1,\ 2),\ 3),\ 4)}.
 
-\begin{center}\includegraphics{diagrams/functionals/reduce} \end{center}
+\begin{center}\includegraphics[width=3.25in]{diagrams/functionals/reduce} \end{center}
 
 \texttt{reduce()} is a useful way to generalise a function that works with two inputs (a \textbf{binary} function) to work with any number of inputs. Imagine you have a list of numeric vectors, and you want to find the values that occur in every element. First we generate some sample data:
 
@@ -10301,7 +10340,7 @@ We could apply the same idea if we wanted to list all the elements that appear i
 
 Like the map family, you can also pass additional arguments. \texttt{intersect()} and \texttt{union()} don't take extra arguments so I can't demonstrate them here, but the principle is straightforward and I drew you a picture.
 
-\begin{center}\includegraphics{diagrams/functionals/reduce-arg} \end{center}
+\begin{center}\includegraphics[width=4.03in]{diagrams/functionals/reduce-arg} \end{center}
 
 As usual, the essence of \texttt{reduce()} can be reduced to a simple wrapper around a for loop:
 
@@ -10388,7 +10427,7 @@ What if it's length 0? We get an error that suggests we need to use the \texttt{
 
 What should \texttt{.init} be here? To figure that out, we need to see what happens when \texttt{.init} is supplied:
 
-\begin{center}\includegraphics{diagrams/functionals/reduce-init} \end{center}
+\begin{center}\includegraphics[width=4.23in]{diagrams/functionals/reduce-init} \end{center}
 
 So if we call \texttt{reduce(1,\ \textasciigrave{}+\textasciigrave{},\ init)} the result will be \texttt{1\ +\ init}. Now we know that the result should be just \texttt{1}, so that suggests that \texttt{.init} should be 0:
 
@@ -10435,9 +10474,9 @@ Very occasionally you need to pass two arguments to the function that you're red
 
 The length of the second argument varies based on whether or not \texttt{.init} is supplied: if you have four elements of \texttt{x}, \texttt{f} will only be called three times. If you supply init, \texttt{f} will be called four times.
 
-\begin{center}\includegraphics{diagrams/functionals/reduce2} \end{center}
+\begin{center}\includegraphics[width=5.41in]{diagrams/functionals/reduce2} \end{center}
 
-\begin{center}\includegraphics{diagrams/functionals/reduce2-init} \end{center}
+\begin{center}\includegraphics[width=5.41in]{diagrams/functionals/reduce2-init} \end{center}
 
 \hypertarget{map-reduce}{%
 \subsection{Map-reduce}\label{map-reduce}}
@@ -10852,14 +10891,14 @@ Let's start by taking a look at \texttt{square()} and \texttt{cube()}:
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <environment: 0x35d9938>}
+\CommentTok{#> <environment: 0x26e4a00>}
 
 \NormalTok{cube}
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <bytecode: 0x2761f40>}
-\CommentTok{#> <environment: 0x37bc210>}
+\CommentTok{#> <bytecode: 0xced558>}
+\CommentTok{#> <environment: 0x28bc1e0>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -10868,13 +10907,13 @@ It's obvious where \texttt{x} comes from, but how does R find the value associat
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_print}\NormalTok{(square)}
-\CommentTok{#> <environment: 0x35d9938>}
+\CommentTok{#> <environment: 0x26e4a00>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * exp: <dbl>}
 
 \KeywordTok{env_print}\NormalTok{(cube)}
-\CommentTok{#> <environment: 0x37bc210>}
+\CommentTok{#> <environment: 0x28bc1e0>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * exp: <dbl>}
@@ -10900,7 +10939,7 @@ This is what makes manufactured functions behave differently from one another: n
 
 We can also show these relationships in a diagram:
 
-\begin{center}\includegraphics{diagrams/function-factories/power-full} \end{center}
+\begin{center}\includegraphics[width=3.69in]{diagrams/function-factories/power-full} \end{center}
 
 There's a lot going on this diagram and some of the details aren't that important. We can simplify considerably by using two conventions:
 
@@ -10912,7 +10951,7 @@ There's a lot going on this diagram and some of the details aren't that importan
   environment.
 \end{itemize}
 
-\begin{center}\includegraphics{diagrams/function-factories/power-simple} \end{center}
+\begin{center}\includegraphics[width=3.44in]{diagrams/function-factories/power-simple} \end{center}
 
 This view, which focuses on the environments, doesn't show any direct link between \texttt{cube()} and \texttt{square()}. That's because the link is the through the body of the function, which is identical for both, but is not shown in this diagram.
 
@@ -10925,7 +10964,7 @@ To finish up, let's look at the execution environment of \texttt{square(10)}. Wh
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/function-factories/power-exec} \end{center}
+\begin{center}\includegraphics[width=3.44in]{diagrams/function-factories/power-exec} \end{center}
 
 \hypertarget{forcing-evaluation}{%
 \subsection{Forcing evaluation}\label{forcing-evaluation}}
@@ -11014,7 +11053,7 @@ The following example shows how we can combine these ideas to create a function 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/function-factories/counter-1} \end{center}
+\begin{center}\includegraphics[width=3.69in]{diagrams/function-factories/counter-1} \end{center}
 
 When the manufactured function is run \texttt{i\ \textless{}\textless{}-\ i\ +\ 1} will modify \texttt{i} in its enclosing environment. Because manufactured functions have independent enclosing environments, they have independent counts:
 
@@ -11029,7 +11068,7 @@ When the manufactured function is run \texttt{i\ \textless{}\textless{}-\ i\ +\ 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/function-factories/counter-2} \end{center}
+\begin{center}\includegraphics[width=3.69in]{diagrams/function-factories/counter-2} \end{center}
 
 Stateful functions are best used in moderation. As soon as your function starts managing the state of multiple variables, it's better to switch to R6, the topic of Chapter \ref{r6}.
 
@@ -11078,7 +11117,7 @@ With most functions, you can rely on the garbage collector to clean up any large
 \NormalTok{force}
 \CommentTok{#> function (x) }
 \CommentTok{#> x}
-\CommentTok{#> <bytecode: 0x1d50cf8>}
+\CommentTok{#> <bytecode: 0x921d60>}
 \CommentTok{#> <environment: namespace:base>}
 \end{Highlighting}
 \end{Shaded}
@@ -11311,12 +11350,12 @@ A mildly simplified version of \texttt{plot\_dev()} is shown below:
 
 \KeywordTok{plot_dev}\NormalTok{(}\StringTok{"pdf"}\NormalTok{)}
 \CommentTok{#> function(filename, ...) grDevices::pdf(file = filename, ...)}
-\CommentTok{#> <bytecode: 0x1ecd6e8>}
-\CommentTok{#> <environment: 0x5b59db8>}
+\CommentTok{#> <bytecode: 0x3fe1b80>}
+\CommentTok{#> <environment: 0x31c9938>}
 \KeywordTok{plot_dev}\NormalTok{(}\StringTok{"png"}\NormalTok{)}
 \CommentTok{#> function(...) grDevices::png(..., res = dpi, units = "in")}
-\CommentTok{#> <bytecode: 0x42039c0>}
-\CommentTok{#> <environment: 0x25ffa08>}
+\CommentTok{#> <bytecode: 0x4432340>}
+\CommentTok{#> <environment: 0x4852500>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -11664,8 +11703,8 @@ To finish off the chapter, I'll show how you might combine functionals and funct
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <bytecode: 0x69e40a0>}
-\CommentTok{#> <environment: 0x6571718>}
+\CommentTok{#> <bytecode: 0xced558>}
+\CommentTok{#> <environment: 0x55da678>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -11902,8 +11941,8 @@ If you do the same thing with a functional, you get no output, making it hard to
 \NormalTok{safe_sum}
 \CommentTok{#> function (...) }
 \CommentTok{#> capture_error(.f(...), otherwise, quiet)}
-\CommentTok{#> <bytecode: 0x5145900>}
-\CommentTok{#> <environment: 0x5145468>}
+\CommentTok{#> <bytecode: 0x4c69de8>}
+\CommentTok{#> <environment: 0x4c69950>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12073,12 +12112,12 @@ When we memoise this function, it's slow when we call it with new arguments. But
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(}\KeywordTok{fast_function}\NormalTok{(}\DecValTok{1}\NormalTok{)))}
 \CommentTok{#> [1] 6.01}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>       0       0       1}
+\CommentTok{#>   0.004   0.000   1.002}
 
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(}\KeywordTok{fast_function}\NormalTok{(}\DecValTok{1}\NormalTok{)))}
 \CommentTok{#> [1] 6.01}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.012   0.000   0.015}
+\CommentTok{#>   0.012   0.000   0.014}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12095,7 +12134,7 @@ A relatively realistic use of memoisation is computing the Fibonacci series. The
 \CommentTok{#>   0.040   0.000   0.039}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib}\NormalTok{(}\DecValTok{24}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.060   0.000   0.062}
+\CommentTok{#>   0.064   0.000   0.062}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12109,7 +12148,7 @@ Memoising \texttt{fib()} makes the implementation much faster because each value
 \NormalTok{\})}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib2}\NormalTok{(}\DecValTok{23}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.024   0.000   0.026}
+\CommentTok{#>   0.024   0.000   0.025}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12485,7 +12524,7 @@ To talk about objects and OOP in R we first need to clear up a fundamental confu
 
 Most of the time, the distinction between objects and object-oriented objects is not important. But here we need to get into the nitty gritty details so we'll use the terms \textbf{base objects} and \textbf{OO objects} to distinguish them.
 
-\begin{center}\includegraphics{diagrams/oo-venn} \end{center}
+\begin{center}\includegraphics[width=2.21in]{diagrams/oo-venn} \end{center}
 
 \hypertarget{outline-10}{%
 \subsection*{Outline}\label{outline-10}}
@@ -12889,7 +12928,7 @@ Unlike most functions, you can't see the source code for most S3 methods\footnot
 \KeywordTok{s3_get_method}\NormalTok{(weighted.mean.Date)}
 \CommentTok{#> function (x, w, ...) }
 \CommentTok{#> structure(weighted.mean(unclass(x), w, ...), class = "Date")}
-\CommentTok{#> <bytecode: 0x5fa5038>}
+\CommentTok{#> <bytecode: 0x5c9a190>}
 \CommentTok{#> <environment: namespace:stats>}
 \end{Highlighting}
 \end{Shaded}
@@ -13308,7 +13347,7 @@ Most generics are very simple, and consist of only a call to \texttt{UseMethod()
 \NormalTok{mean}
 \CommentTok{#> function (x, ...) }
 \CommentTok{#> UseMethod("mean")}
-\CommentTok{#> <bytecode: 0x15fc470>}
+\CommentTok{#> <bytecode: 0x154de60>}
 \CommentTok{#> <environment: namespace:base>}
 \end{Highlighting}
 \end{Shaded}
@@ -13389,14 +13428,14 @@ The essence of method dispatch is quite simple, but as the chapter proceeds you'
 \begin{Highlighting}[]
 \KeywordTok{s3_methods_generic}\NormalTok{(}\StringTok{"mean"}\NormalTok{)}
 \CommentTok{#> # A tibble: 6 x 4}
-\CommentTok{#>   generic class    visible source             }
-\CommentTok{#>   <chr>   <chr>    <lgl>   <chr>              }
-\CommentTok{#> 1 mean    Date     TRUE    base               }
-\CommentTok{#> 2 mean    default  TRUE    base               }
-\CommentTok{#> 3 mean    difftime TRUE    base               }
-\CommentTok{#> 4 mean    POSIXct  TRUE    base               }
-\CommentTok{#> 5 mean    POSIXlt  TRUE    base               }
-\CommentTok{#> 6 mean    quosure  FALSE   registered S3method}
+\CommentTok{#>   generic class visible source             }
+\CommentTok{#>   <chr>   <chr> <lgl>   <chr>              }
+\CommentTok{#> 1 mean    1     TRUE    base               }
+\CommentTok{#> 2 mean    2     TRUE    base               }
+\CommentTok{#> 3 mean    3     TRUE    base               }
+\CommentTok{#> 4 mean    4     TRUE    base               }
+\CommentTok{#> 5 mean    5     TRUE    base               }
+\CommentTok{#> 6 mean    6     FALSE   registered S3method}
 
 \KeywordTok{s3_methods_class}\NormalTok{(}\StringTok{"ordered"}\NormalTok{)}
 \CommentTok{#> # A tibble: 4 x 4}
@@ -15498,7 +15537,7 @@ These features make S4 very powerful, but can also make it hard to understand wh
 
 But it's important to describe the full details, so here we'll start simple with single inheritance and single dispatch, and work our way up to the more complicated cases. To illustrate the ideas without getting bogged down in the details, we'll use an imaginary \textbf{class graph} based on emoji:
 
-\begin{center}\includegraphics{diagrams/s4/emoji} \end{center}
+\begin{center}\includegraphics[width=2.36in]{diagrams/s4/emoji} \end{center}
 
 Emoji give us very compact class names that evoke the relationships between the classes. It should be straightforward to remember that \raisebox{-.1\height}{\includegraphics[height=10pt]{emoji/1f61c.png}} inherits from \raisebox{-.1\height}{\includegraphics[height=10pt]{emoji/1f609.png}} which inherits from \raisebox{-.1\height}{\includegraphics[height=10pt]{emoji/1f636.png}}, and that \raisebox{-.1\height}{\includegraphics[height=10pt]{emoji/1f60e.png}} inherits from both \raisebox{-.1\height}{\includegraphics[height=10pt]{emoji/1f576.png}} and \raisebox{-.1\height}{\includegraphics[height=10pt]{emoji/1f642.png}}.
 
@@ -15509,7 +15548,7 @@ Emoji give us very compact class names that evoke the relationships between the 
 
 Let's start with the simplest case: a generic function that dispatches on a single class with a single parent. The method dispatch here is simple so it's a good place to define the graphical conventions we'll use for the more complex cases.
 
-\begin{center}\includegraphics{diagrams/s4/single} \end{center}
+\begin{center}\includegraphics[width=1.97in]{diagrams/s4/single} \end{center}
 
 There are two parts to this diagram:
 
@@ -15530,7 +15569,7 @@ To find the method that gets called, you start with the most specific class of t
 \indexc{ANY}
 There are two \textbf{pseudo-classes} that you can define methods for. These are called pseudo-classes because they don't actually exist, but allow you to define useful behaviours. The first pseudo-class is \texttt{ANY} which matches any class\footnote{The S4 \texttt{ANY} pseudoclass plays the same same role as the S3 \texttt{default} pseudo-class.}. For technical reasons that we'll get to later, the link to the \texttt{ANY} method is longer than the links between the other classes:
 
-\begin{center}\includegraphics{diagrams/s4/single-any} \end{center}
+\begin{center}\includegraphics[width=2.8in]{diagrams/s4/single-any} \end{center}
 
 \indexc{MISSING}
 
@@ -15544,7 +15583,7 @@ The second pseudo-class is \texttt{MISSING}. If you define a method for this pse
 
 Things get more complicated when the class has multiple parents.
 
-\begin{center}\includegraphics{diagrams/s4/multiple} \end{center}
+\begin{center}\includegraphics[width=1.87in]{diagrams/s4/multiple} \end{center}
 
 The basic process remains the same: you start from the actual class supplied to the generic, then follow the arrows until you find a defined method. The wrinkle is that now there are multiple arrows to follow, so you might find multiple methods. If that happens, you pick the method that is closest, i.e.~requires travelling the fewest arrows.
 
@@ -15552,19 +15591,19 @@ NB: while the method graph is a powerful metaphor for understanding method dispa
 
 What happens if methods are the same distance? For example, imagine we've defined methods for \raisebox{-.1\height}{\includegraphics[height=10pt]{emoji/1f576.png}} and \raisebox{-.1\height}{\includegraphics[height=10pt]{emoji/1f642.png}}, and we call the generic with \raisebox{-.1\height}{\includegraphics[height=10pt]{emoji/1f60e.png}}. Note that no method can be found for the \raisebox{-.1\height}{\includegraphics[height=10pt]{emoji/1f636.png}} class, which I'll highlight with a red double outline.
 
-\begin{center}\includegraphics{diagrams/s4/multiple-ambig} \end{center}
+\begin{center}\includegraphics[width=1.72in]{diagrams/s4/multiple-ambig} \end{center}
 
 This is called an \textbf{ambiguous} method, and in diagrams I'll illustrate it with a thick dotted border. When this happens in R, you'll get a warning, and the method for the class that comes earlier in the alphabet will be picked (this is effectively random and should not be relied upon). When you discover ambiguity you should always resolve it by providing a more precise method:
 
-\begin{center}\includegraphics{diagrams/s4/multiple-ambig-2} \end{center}
+\begin{center}\includegraphics[width=1.72in]{diagrams/s4/multiple-ambig-2} \end{center}
 
 The fallback \texttt{ANY} method still exists but the rules are little more complex. As indicated by the wavy dotted lines, the \texttt{ANY} method is always considered further away than a method for a real class. This means that it will never contribute to ambiguity.
 
-\begin{center}\includegraphics{diagrams/s4/multiple-any} \end{center}
+\begin{center}\includegraphics[width=2.51in]{diagrams/s4/multiple-any} \end{center}
 
 With multiple inheritances it is hard to simultaneously prevent ambiguity, ensure that every terminal method has an implementation, and minimise the number of defined methods (in order to benefit from OOP). For example, of the six ways to define only two methods for this call, only one is free from problems. For this reason, I recommend using multiple inheritance with extreme care: you will need to carefully think about the method graph and plan accordingly.
 
-\begin{center}\includegraphics{diagrams/s4/multiple-all} \end{center}
+\begin{center}\includegraphics[width=4.33in]{diagrams/s4/multiple-all} \end{center}
 
 \hypertarget{multiple-dispatch}{%
 \subsection{Multiple dispatch}\label{multiple-dispatch}}
@@ -15574,13 +15613,13 @@ With multiple inheritances it is hard to simultaneously prevent ambiguity, ensur
 
 Once you understand multiple inheritance, understanding multiple dispatch is straightforward. You follow multiple arrows in the same way as previously, but now each method is specified by two classes (separated by a comma).
 
-\begin{center}\includegraphics{diagrams/s4/single-single} \end{center}
+\begin{center}\includegraphics[width=3.3in]{diagrams/s4/single-single} \end{center}
 
 I'm not going to show examples of dispatching on more than two arguments, but you can follow the basic principles to generate your own method graphs.
 
 The main difference between multiple inheritance and multiple dispatch is that there are many more arrows to follow. The following diagram shows four defined methods which produce two ambiguous cases:
 
-\begin{center}\includegraphics{diagrams/s4/single-single-ambig} \end{center}
+\begin{center}\includegraphics[width=3.3in]{diagrams/s4/single-single-ambig} \end{center}
 
 Multiple dispatch tends to be less tricky to work with than multiple inheritance because there are usually fewer terminal class combinations. In this example, there's only one. That means, at a minimum, you can define a single method and have default behaviour for all inputs.
 
@@ -15589,11 +15628,11 @@ Multiple dispatch tends to be less tricky to work with than multiple inheritance
 
 Of course you can combine multiple dispatch with multiple inheritance:
 
-\begin{center}\includegraphics{diagrams/s4/single-multiple} \end{center}
+\begin{center}\includegraphics[width=3.2in]{diagrams/s4/single-multiple} \end{center}
 
 A still more complicated case dispatches on two classes, both of which have multiple inheritance:
 
-\begin{center}\includegraphics{diagrams/s4/multiple-multiple} \end{center}
+\begin{center}\includegraphics[width=2.46in]{diagrams/s4/multiple-multiple} \end{center}
 
 As the method graph gets more and more complicated it gets harder and harder to predict which method will get called given a combination of inputs, and it gets harder and harder to make sure that you haven't introduced ambiguity. If you have to draw diagrams to figure out what method is actually going to be called, it's a strong indication that you should go back and simplify your design.
 
@@ -15699,7 +15738,7 @@ In this case, the existing function becomes the default (\texttt{ANY}) method:
 \CommentTok{#> }
 \CommentTok{#> function (x, ...) }
 \CommentTok{#> UseMethod("mean")}
-\CommentTok{#> <bytecode: 0x17345b8>}
+\CommentTok{#> <bytecode: 0x28f7718>}
 \CommentTok{#> <environment: namespace:base>}
 \CommentTok{#> }
 \CommentTok{#> Signatures:}
@@ -15764,7 +15803,7 @@ Once you've mastered S3, S4 is not too difficult to pick up: the underlying idea
 
 One large team effort where S4 is used to good effect is Bioconductor. Bioconductor is similar to CRAN: it's a way of sharing packages amongst a wider audience. Bioconductor is smaller than CRAN (\textasciitilde{}1,300 vs \textasciitilde{}10,000 packages, July 2017) and the packages tend to be more tightly integrated because of the shared domain and because Bioconductor has a stricter review process. Bioconductor packages are not required to use S4, but most will because the key data structures (e.g.~SummarizedExperiment, IRanges, DNAStringSet) are built using S4.
 
-S4 is also a good fit for complex systems of interrelated objects, and it's possible to minimise code duplication through careful implementation of methods. The best example of such a system is the Matrix package (Bates and Maechler \protect\hyperlink{ref-Matrix}{2018}). It is designed to efficiently store and compute with many different types of sparse and dense matrices. As of version 1.2.14, it defines 102 classes, 21 generic functions, and 1993 methods, and to give you some idea of the complexity, a small subset of the class graph is shown in Figure \ref{fig:matrix-classes}.
+S4 is also a good fit for complex systems of interrelated objects, and it's possible to minimise code duplication through careful implementation of methods. The best example of such a system is the Matrix package (Bates and Maechler \protect\hyperlink{ref-Matrix}{2018}). It is designed to efficiently store and compute with many different types of sparse and dense matrices. As of version 1.2.15, it defines 102 classes, 21 generic functions, and 1993 methods, and to give you some idea of the complexity, a small subset of the class graph is shown in Figure \ref{fig:matrix-classes}.
 
 \begin{figure}
 
@@ -16497,7 +16536,6 @@ The focus of this chapter is the data structures that underlie expressions. Mast
 \item
   Section \ref{ast-funs} shows you how you can use recursive functions to
   ``compute on the language'', writing functions that compute with expressions.
-  =
 \item
   Section \ref{expression-special} circles back to three more
   specialised data structures: pairlists, missing arguments, and expression
@@ -16536,7 +16574,7 @@ We'll start by introducing some conventions for drawing ASTs, beginning with a s
 \item
   By ``hand'' (i.e.~with OmniGraffle):
 
-  \begin{center}\includegraphics{diagrams/expressions/simple} \end{center}
+  \begin{center}\includegraphics[width=1.97in]{diagrams/expressions/simple} \end{center}
 \item
   With \texttt{lobstr::ast()}:
 
@@ -16570,7 +16608,7 @@ Colours will be shown when \emph{you} call \texttt{ast()}, but do not appear in 
 
 The above example only contained one function call, making for a very shallow tree. Most expressions will contain considerably more calls, creating trees with multiple levels. For example, consider the AST for \texttt{f(g(1,\ 2),\ h(3,\ 4,\ i()))}:
 
-\begin{center}\includegraphics{diagrams/expressions/complicated} \end{center}
+\begin{center}\includegraphics[width=3.15in]{diagrams/expressions/complicated} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -16606,7 +16644,7 @@ You might have wondered what makes these \emph{abstract} syntax trees. They are 
 \end{Highlighting}
 \end{Shaded}
 
-There's only one placewhere whitespace does affect the AST:
+There's only one place where whitespace affects the AST:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -16638,7 +16676,7 @@ Every call in R can be written in tree form because any call can be written in p
 
 And they both have this AST\footnote{The names of non-prefix functions are non-syntactic so I surround them with \texttt{\textasciigrave{}\textasciigrave{}}, as in Section \ref{non-syntactic}.}:
 
-\begin{center}\includegraphics{diagrams/expressions/prefix} \end{center}
+\begin{center}\includegraphics[width=2.26in]{diagrams/expressions/prefix} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -16952,7 +16990,7 @@ However, sometimes the function doesn't exist in the current environment and you
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/expressions/call-call} \end{center}
+\begin{center}\includegraphics[width=4.03in]{diagrams/expressions/call-call} \end{center}
 
 \hypertarget{call2}{%
 \subsubsection{Constructing}\label{call2}}
@@ -17082,7 +17120,7 @@ We've talked a lot about expressions and the AST, but not about how expressions 
 
 Infix functions introduce two sources of ambiguity\footnote{This ambiguity does not exist in languages with only prefix or postfix calls. It's interesting to compare a simple arithmetic operation in Lisp (prefix) and Forth (postfix). In Lisp you'd write \texttt{(*\ (+\ 1\ 2)\ 3))}; this avoids ambiguity by requiring parentheses everywhere. In Forth, you'd write \texttt{1\ 2\ +\ 3\ *}; this doesn't require any parentheses, but does require more thought when reading.}. The first source of ambiguity arises from infix functions: what does \texttt{1\ +\ 2\ *\ 3} yield? Do you get 9 (i.e. \texttt{(1\ +\ 2)\ *\ 3}), or 7 (i.e. \texttt{1\ +\ (2\ *\ 3)})? In other words, which of the two possible parse trees below does R use?
 
-\begin{center}\includegraphics{diagrams/expressions/ambig-order} \end{center}
+\begin{center}\includegraphics[width=3.89in]{diagrams/expressions/ambig-order} \end{center}
 
 Programming languages use conventions called \textbf{operator precedence} to resolve this ambiguity. We can use \texttt{ast()} to see what R does:
 
@@ -17202,7 +17240,7 @@ Most of the time you type code into the console, and R takes care of turning the
 \end{Highlighting}
 \end{Shaded}
 
-If you find yourself working with strings containing code very frequently, you should reconsider your process. Read the Chapter \ref{quasiquotation} and consider if you can instead more safely generate expressions using quasiquotation.
+If you find yourself working with strings containing code very frequently, you should reconsider your process. Read Chapter \ref{quasiquotation} and consider if you can instead more safely generate expressions using quasiquotation.
 
 \indexc{parsing!parse@\texttt{parse()}}
 
@@ -18101,7 +18139,7 @@ In short, use \texttt{enexpr()} and \texttt{enexprs()} to capture the expression
 \index{symbols!capturing}
 \indexc{ensym()}
 
-Sometimes you only want to allow the user to specify a variable name, not an arbtirary expression. In this case, you can use \texttt{ensym()} or \texttt{ensyms()}. These are variants of \texttt{enexpr()} and \texttt{enexprs()} that check the captured expression is either symbol or a string (which is converted to a symbol\footnote{This is for compatibility with base R, which allows you to provide a string instead of a symbol in many places: \texttt{"x"\ \textless{}-\ 1}, \texttt{"foo"(x,\ y)}, \texttt{c("x"\ =\ 1)}.}). \texttt{ensym()} and \texttt{ensyms()} throw an error if given anything else.
+Sometimes you only want to allow the user to specify a variable name, not an arbitrary expression. In this case, you can use \texttt{ensym()} or \texttt{ensyms()}. These are variants of \texttt{enexpr()} and \texttt{enexprs()} that check the captured expression is either symbol or a string (which is converted to a symbol\footnote{This is for compatibility with base R, which allows you to provide a string instead of a symbol in many places: \texttt{"x"\ \textless{}-\ 1}, \texttt{"foo"(x,\ y)}, \texttt{c("x"\ =\ 1)}.}). \texttt{ensym()} and \texttt{ensyms()} throw an error if given anything else.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -18340,7 +18378,7 @@ Use \texttt{!!} to unquote a single argument in a function call. \texttt{!!} tak
 
 I think this is easiest to understand with a diagram. \texttt{!!} introduces a placeholder in the AST, shown with dotted borders. Here the placeholder \texttt{x} is replaced by an AST, illustrated by a dotted connection.
 
-\begin{center}\includegraphics{diagrams/quotation/bang-bang} \end{center}
+\begin{center}\includegraphics[width=2.7in]{diagrams/quotation/bang-bang} \end{center}
 
 As well as call objects, \texttt{!!} also works with symbols and constants:
 
@@ -18353,7 +18391,7 @@ As well as call objects, \texttt{!!} also works with symbols and constants:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/quotation/simple} \end{center}
+\begin{center}\includegraphics[width=2.36in]{diagrams/quotation/simple} \end{center}
 
 If the right-hand side of \texttt{!!} is a function call, \texttt{!!} will evaluate it and insert the results:
 
@@ -18380,11 +18418,11 @@ If the right-hand side of \texttt{!!} is a function call, \texttt{!!} will evalu
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/quotation/infix} \end{center}
+\begin{center}\includegraphics[width=4.47in]{diagrams/quotation/infix} \end{center}
 
 If we simply pasted the text of the expressions together, we'd end up with \texttt{x\ +\ 1\ /\ x\ +\ 2}, which has a very different AST:
 
-\begin{center}\includegraphics{diagrams/quotation/infix-bad} \end{center}
+\begin{center}\includegraphics[width=2.95in]{diagrams/quotation/infix-bad} \end{center}
 
 \hypertarget{unquoting-a-function}{%
 \subsection{Unquoting a function}\label{unquoting-a-function}}
@@ -18411,7 +18449,7 @@ This also works when \texttt{f} is itself a call:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/quotation/fun} \end{center}
+\begin{center}\includegraphics[width=3.1in]{diagrams/quotation/fun} \end{center}
 
 Because of the large number of parentheses involved, it can be clearer to use \texttt{rlang::call2()}:
 
@@ -18498,7 +18536,7 @@ To make unquoting work, you'll need to use the prefix form (Section \ref{prefix-
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{diagrams/quotation/bang-bang-bang} \end{center}
+\begin{center}\includegraphics[width=3.89in]{diagrams/quotation/bang-bang-bang} \end{center}
 
 \texttt{!!!} can be used in any rlang function that takes \texttt{...} regardless of whether or not \texttt{...} is quoted or evaluated. We'll come back to this in Section \ref{tidy-dots}; for now note that this can be useful in \texttt{call2()}.
 
@@ -19649,9 +19687,11 @@ The essence of \texttt{local()} is quite simple and re-implemented below. We cap
 \NormalTok{foo}
 \CommentTok{#> [1] 210}
 \NormalTok{x}
-\CommentTok{#> [1] 10}
+\CommentTok{#> Error in eval(expr, envir, enclos):}
+\CommentTok{#>   object 'x' not found}
 \NormalTok{y}
-\CommentTok{#> [1] 2}
+\CommentTok{#> Error in eval(expr, envir, enclos):}
+\CommentTok{#>   object 'y' not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -19833,7 +19873,7 @@ There are three ways to create quosures:
 \KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\NormalTok{y), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{, }\DataTypeTok{y =} \DecValTok{10}\NormalTok{))}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + y}
-\CommentTok{#> env:  0x6c6c450}
+\CommentTok{#> env:  0x518e230}
 \end{Highlighting}
 \end{Shaded}
 \end{itemize}
@@ -19887,7 +19927,7 @@ Quosures are typically just a convenience: they make code cleaner because you on
 \CommentTok{#> $f}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x}
-\CommentTok{#> env:  0x4774400}
+\CommentTok{#> env:  0x59baab0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -20026,19 +20066,19 @@ When you use \texttt{expr\_print()} in the console, quosures are coloured accord
 \NormalTok{q1}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x}
-\CommentTok{#> env:  0x67b5518}
+\CommentTok{#> env:  0x5089fd0}
 
 \NormalTok{q2 <-}\StringTok{ }\KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\OperatorTok{!!}\NormalTok{q1), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{10}\NormalTok{))}
 \NormalTok{q2}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + (^x)}
-\CommentTok{#> env:  0x6cc1670}
+\CommentTok{#> env:  0x5223338}
 
 \NormalTok{q3 <-}\StringTok{ }\KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\OperatorTok{!!}\NormalTok{q2), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{100}\NormalTok{))}
 \NormalTok{q3}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + (^x + (^x))}
-\CommentTok{#> env:  0x3d98ef8}
+\CommentTok{#> env:  0x54c75e0}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -21814,7 +21854,7 @@ We need a closure that will generate the functions for each unknown call:
 \CommentTok{#>     contents <- paste(..., collapse = ", ")}
 \CommentTok{#>     paste0("\textbackslash{}\textbackslash{}mathrm\{foo\}(", contents, ")")}
 \CommentTok{#> \}}
-\CommentTok{#> <environment: 0x4d93ab8>}
+\CommentTok{#> <environment: 0x51a2dd0>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -22070,6 +22110,16 @@ You can using \texttt{rlang::with\_abort()} and \texttt{rlang::last\_trace()} to
 \begin{Highlighting}[]
 \NormalTok{rlang}\OperatorTok{::}\KeywordTok{with_abort}\NormalTok{(}\KeywordTok{f}\NormalTok{(}\KeywordTok{j}\NormalTok{()))}
 \CommentTok{#> Error: Oops!}
+\CommentTok{#> Backtrace:}
+\CommentTok{#>     █}
+\CommentTok{#>  1. ├─rlang::with_abort(f(j()))}
+\CommentTok{#>  2. │ └─base::withCallingHandlers(...)}
+\CommentTok{#>  3. ├─global::f(j())}
+\CommentTok{#>  4. │ └─global::g(a)}
+\CommentTok{#>  5. │   └─global::h(b)}
+\CommentTok{#>  6. │     └─global::i(c)}
+\CommentTok{#>  7. └─global::j()}
+\CommentTok{#>  8.   └─global::k()}
 \NormalTok{rlang}\OperatorTok{::}\KeywordTok{last_trace}\NormalTok{()}
 \CommentTok{#>     █}
 \CommentTok{#>  1. ├─rlang::with_abort(f(j()))}
@@ -22431,6 +22481,13 @@ There are other ways for a function to fail apart from throwing an error:
 
 \NormalTok{rlang}\OperatorTok{::}\KeywordTok{with_abort}\NormalTok{(}\KeywordTok{f}\NormalTok{(), }\StringTok{"message"}\NormalTok{)}
 \CommentTok{#> Error: Hi!}
+\CommentTok{#> }
+\CommentTok{#> Backtrace:}
+\CommentTok{#>     █}
+\CommentTok{#>  1. ├─rlang::with_abort(f(), "message")}
+\CommentTok{#>  2. │ └─base::withCallingHandlers(...)}
+\CommentTok{#>  3. └─global::f()}
+\CommentTok{#>  4.   └─global::g()}
 \NormalTok{rlang}\OperatorTok{::}\KeywordTok{last_trace}\NormalTok{()}
 \CommentTok{#>     █}
 \CommentTok{#>  1. ├─rlang::with_abort(f(), "message")}
@@ -22734,11 +22791,11 @@ A great tool for microbenchmarking in R is the bench package (Hester \protect\hy
 \NormalTok{  x }\OperatorTok{^}\StringTok{ }\FloatTok{0.5}
 \NormalTok{))}
 \CommentTok{#> # A tibble: 2 x 10}
-\CommentTok{#>   expression      min     mean   median     max `itr/sec` mem_alloc}
-\CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:t>     <dbl> <bch:byt>}
-\CommentTok{#> 1 sqrt(x)    591.86ns 828.33ns  687.9ns  24.7µs  1207253.      848B}
-\CommentTok{#> 2 x^0.5        9.01µs   9.93µs   9.44µs 105.3µs   100715.      848B}
-\CommentTok{#> # ... with 3 more variables: n_gc <dbl>, n_itr <int>,}
+\CommentTok{#>   expression      min     mean   median    max `itr/sec` mem_alloc}
+\CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:>     <dbl> <bch:byt>}
+\CommentTok{#> 1 sqrt(x)    593.14ns 798.55ns 667.06ns 41.6µs  1252274.      848B}
+\CommentTok{#> 2 x^0.5        9.02µs   9.96µs   9.46µs 59.4µs   100406.      848B}
+\CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
 \end{Shaded}
@@ -22796,8 +22853,8 @@ Because the result is a special type of tibble, you can use \texttt{{[}} to sele
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 sqrt(x)    591.86ns  687.9ns  1207253.     0}
-\CommentTok{#> 2 x^0.5        9.01µs   9.44µs   100715.     0}
+\CommentTok{#> 1 sqrt(x)    593.14ns 667.06ns  1252274.     0}
+\CommentTok{#> 2 x^0.5        9.02µs   9.46µs   100406.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -22965,8 +23022,8 @@ Now use \texttt{bench::mark()} to precisely compare the variations. \texttt{benc
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean1(x)      226µs    232µs     4261.     0}
-\CommentTok{#> 2 mean2(x)      112µs    113µs     8577.     0}
+\CommentTok{#> 1 mean1(x)      227µs    231µs     4227.     0}
+\CommentTok{#> 2 mean2(x)      113µs    114µs     8477.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23099,8 +23156,8 @@ For example, calling \texttt{mean.default()} is quite a bit faster than calling 
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression           min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>           <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)           2.58µs   2.97µs   301302.     1}
-\CommentTok{#> 2 mean.default(x)   1.23µs   1.41µs   641697.     0}
+\CommentTok{#> 1 mean(x)           2.56µs   2.99µs   292231.     1}
+\CommentTok{#> 2 mean.default(x)   1.21µs   1.38µs   657788.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23119,9 +23176,9 @@ An even riskier optimisation is to directly call the underlying \texttt{.Interna
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression              min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)              2.57µs   2.89µs   307359.     1}
-\CommentTok{#> 2 mean.default(x)      1.22µs    1.4µs   658531.     0}
-\CommentTok{#> 3 .Internal(mean(x)) 330.04ns  341.1ns  2659102.     0}
+\CommentTok{#> 1 mean(x)              2.58µs   2.94µs   299736.     1}
+\CommentTok{#> 2 mean.default(x)      1.22µs   1.41µs   648959.     0}
+\CommentTok{#> 3 .Internal(mean(x)) 340.05ns 354.02ns  2511523.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23138,9 +23195,9 @@ NB: most of these differences arise because \texttt{x} is small. If you increase
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression              min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)              24.8µs   25.2µs    38524.     0}
-\CommentTok{#> 2 mean.default(x)      23.3µs   23.6µs    41293.     0}
-\CommentTok{#> 3 .Internal(mean(x))   22.4µs   22.5µs    43332.     0}
+\CommentTok{#> 1 mean(x)              24.8µs   25.2µs    38138.     1}
+\CommentTok{#> 2 mean.default(x)      23.4µs   23.6µs    41248.     0}
+\CommentTok{#> 3 .Internal(mean(x))   22.4µs   22.4µs    43449.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23169,8 +23226,8 @@ Knowing that you're dealing with a specific type of input can be another way to 
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression         min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>         <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 as.data.frame   1.01ms   1.09ms      899.     7}
-\CommentTok{#> 2 quick_df        6.25µs    7.3µs   124155.     2}
+\CommentTok{#> 1 as.data.frame   1.04ms   1.11ms      895.     7}
+\CommentTok{#> 2 quick_df        6.13µs   7.13µs   126098.     2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23179,8 +23236,9 @@ Again, note the trade-off. This method is fast because it's dangerous. If you gi
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{quickdf}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{, }\DataTypeTok{y =} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{))}
-\CommentTok{#> Warning in format.data.frame(x, digits = digits, na.encode = FALSE):}
-\CommentTok{#> corrupt data frame: columns will be truncated or padded with NAs}
+\CommentTok{#> Warning in format.data.frame(if (omit) x[seq_len(n0), , drop = FALSE]}
+\CommentTok{#> else x, : corrupt data frame: columns will be truncated or padded}
+\CommentTok{#> with NAs}
 \CommentTok{#>   x y}
 \CommentTok{#> 1 1 1}
 \end{Highlighting}
@@ -23277,9 +23335,9 @@ The downside of vectorisation is that it makes it harder to predict how operatio
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression        min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>        <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 lookup[x1]   503.96ns 550.99ns  1498188.     0}
-\CommentTok{#> 2 lookup[x10]     1.5µs   1.59µs   487031.     0}
-\CommentTok{#> 3 lookup[x100]   4.05µs   5.67µs   163413.     0}
+\CommentTok{#> 1 lookup[x1]   503.96ns 607.92ns  1353975.     1}
+\CommentTok{#> 2 lookup[x10]    1.57µs   1.68µs   527332.     0}
+\CommentTok{#> 3 lookup[x100]   4.07µs   4.96µs   186887.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23337,10 +23395,10 @@ You saw one example of this type of problem in Section \ref{memory-profiling}, s
 \CommentTok{#> # A tibble: 4 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 loop10         20µs   22.2µs    43123.     4}
-\CommentTok{#> 2 loop100    811.09µs 842.51µs     1169.     1}
-\CommentTok{#> 3 vec10        4.87µs   5.12µs   182716.     1}
-\CommentTok{#> 4 vec100      39.53µs   40.7µs    23555.     0}
+\CommentTok{#> 1 loop10      19.96µs  21.84µs    44404.     2}
+\CommentTok{#> 2 loop100    794.74µs 826.17µs     1197.     2}
+\CommentTok{#> 3 vec10        4.89µs   5.21µs   179726.     0}
+\CommentTok{#> 4 vec100      39.13µs  40.25µs    24238.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23372,14 +23430,14 @@ For data in this form, there are two ways to use \texttt{t.test()}. We can eithe
 \NormalTok{  \}}
 \NormalTok{)}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.888   0.000   0.888}
+\CommentTok{#>    0.84    0.00    0.84}
 \KeywordTok{system.time}\NormalTok{(}
   \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{m) \{}
     \KeywordTok{t.test}\NormalTok{(X[i, grp }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], X[i, grp }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{])}\OperatorTok{$}\NormalTok{statistic}
 \NormalTok{  \}}
 \NormalTok{)}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.204   0.000   0.204}
+\CommentTok{#>   0.192   0.000   0.193}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23392,7 +23450,7 @@ Of course, a for loop computes, but doesn't save the values. We can \texttt{map\
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(t1 <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map_dbl}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{m, compT))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.204   0.004   0.210}
+\CommentTok{#>   0.192   0.000   0.195}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23418,7 +23476,7 @@ How can we make this faster? First, we could try doing less work. If you look at
 
 \KeywordTok{system.time}\NormalTok{(t2 <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map_dbl}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{m, }\OperatorTok{~}\StringTok{ }\KeywordTok{my_t}\NormalTok{(X[.,], grp)))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.032   0.000   0.030}
+\CommentTok{#>   0.032   0.000   0.031}
 \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{all.equal}\NormalTok{(t1, t2))}
 \end{Highlighting}
 \end{Shaded}
@@ -23446,7 +23504,7 @@ Now that we have a fairly simple function, we can make it faster still by vector
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(t3 <-}\StringTok{ }\KeywordTok{rowtstat}\NormalTok{(X, grp))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.012   0.000   0.012}
+\CommentTok{#>   0.012   0.000   0.011}
 \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{all.equal}\NormalTok{(t1, t3))}
 \end{Highlighting}
 \end{Shaded}
@@ -23586,7 +23644,7 @@ You'll also need a working C++ compiler. To get it:
 \CommentTok{# add works like a regular R function}
 \NormalTok{add}
 \CommentTok{#> function (x, y, z) }
-\CommentTok{#> .Call(<pointer: 0x7f370d77af60>, x, y, z)}
+\CommentTok{#> .Call(<pointer: 0x7fd293615f60>, x, y, z)}
 \KeywordTok{add}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
 \CommentTok{#> [1] 6}
 \end{Highlighting}
@@ -23774,9 +23832,9 @@ This is a good example of where C++ is much more efficient than R. As shown by t
 \CommentTok{#> # A tibble: 3 x 6}
 \CommentTok{#>   expression      min     mean   median      max `itr/sec`}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>}
-\CommentTok{#> 1 sum(x)       1.31µs   1.51µs   1.34µs   80.9µs   660999.}
-\CommentTok{#> 2 sumC(x)      3.24µs   4.58µs   4.72µs   1.03ms   218383.}
-\CommentTok{#> 3 sumR(x)     38.32µs  40.28µs  39.02µs 135.96µs    24828.}
+\CommentTok{#> 1 sum(x)       1.31µs   1.53µs   1.34µs  98.47µs   651320.}
+\CommentTok{#> 2 sumC(x)      3.26µs   4.68µs   4.75µs   1.05ms   213754.}
+\CommentTok{#> 3 sumR(x)     40.12µs   42.4µs  40.86µs   1.84ms    23584.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23832,8 +23890,8 @@ Note that because the R version is fully vectorised, it's already going to be fa
 \CommentTok{#> # A tibble: 2 x 6}
 \CommentTok{#>   expression          min     mean   median      max `itr/sec`}
 \CommentTok{#>   <chr>          <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>}
-\CommentTok{#> 1 pdistR(0.5, y)   8.51ms   8.82ms   8.67ms  13.04ms      113.}
-\CommentTok{#> 2 pdistC(0.5, y)   4.69ms   4.84ms   4.78ms   5.91ms      206.}
+\CommentTok{#> 1 pdistR(0.5, y)   9.77ms   10.3ms  10.28ms     13ms      97.1}
+\CommentTok{#> 2 pdistC(0.5, y)   4.89ms   5.86ms   5.81ms   6.94ms     171.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -24678,9 +24736,9 @@ Benchmarking the two implementations yields:
 \CommentTok{#> # A tibble: 2 x 10}
 \CommentTok{#>   expression      min     mean   median    max `itr/sec` mem_alloc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:>     <dbl> <bch:byt>}
-\CommentTok{#> 1 gibbs_r(1…   5.87ms   6.13ms   6.01ms 8.35ms      163.    4.97MB}
-\CommentTok{#> 2 gibbs_cpp… 302.81µs    353µs 345.71µs 1.53ms     2833.     4.1KB}
-\CommentTok{#> # ... with 3 more variables: n_gc <dbl>, n_itr <int>,}
+\CommentTok{#> 1 gibbs_r(1…   5.71ms   5.92ms   5.83ms 7.04ms      169.    4.97MB}
+\CommentTok{#> 2 gibbs_cpp… 308.27µs 348.44µs 343.75µs 1.53ms     2870.     4.1KB}
+\CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
 \end{Shaded}
@@ -24791,12 +24849,12 @@ The original blog post forgot to do this, and introduced a bug in the C++ versio
   \DataTypeTok{vacc3 =} \KeywordTok{vacc3}\NormalTok{(age, female, ily)}
 \NormalTok{)}
 \CommentTok{#> # A tibble: 3 x 10}
-\CommentTok{#>   expression      min     mean   median      max `itr/sec` mem_alloc}
-\CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl> <bch:byt>}
-\CommentTok{#> 1 vacc1        1.84ms   1.97ms   1.93ms   4.52ms      508.    7.86KB}
-\CommentTok{#> 2 vacc2      102.55µs 121.71µs 113.45µs 345.52µs     8216.     224KB}
-\CommentTok{#> 3 vacc3       29.21µs  31.97µs  30.46µs 136.17µs    31281.   14.48KB}
-\CommentTok{#> # ... with 3 more variables: n_gc <dbl>, n_itr <int>,}
+\CommentTok{#>   expression     min     mean   median      max `itr/sec` mem_alloc}
+\CommentTok{#>   <chr>      <bch:t> <bch:tm> <bch:tm> <bch:tm>     <dbl> <bch:byt>}
+\CommentTok{#> 1 vacc1       1.83ms   1.98ms   1.95ms   3.41ms      505.    7.86KB}
+\CommentTok{#> 2 vacc2      98.97µs 120.97µs 110.66µs   1.91ms     8267.  223.98KB}
+\CommentTok{#> 3 vacc3      29.36µs  31.43µs  30.48µs 151.58µs    31821.   14.48KB}
+\CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
 \end{Shaded}

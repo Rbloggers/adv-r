@@ -32,7 +32,7 @@ One large team effort where S4 is used to good effect is Bioconductor. Bioconduc
 
 
 
-S4 is also a good fit for complex systems of interrelated objects, and it's possible to minimise code duplication through careful implementation of methods. The best example of such a system is the Matrix package [@Matrix]. It is designed to efficiently store and compute with many different types of sparse and dense matrices. As of version 1.2.14, it defines 102 classes, 21 generic functions, and 1993 methods, and to give you some idea of the complexity, a small subset of the class graph is shown in Figure \@ref(fig:matrix-classes).
+S4 is also a good fit for complex systems of interrelated objects, and it's possible to minimise code duplication through careful implementation of methods. The best example of such a system is the Matrix package [@Matrix]. It is designed to efficiently store and compute with many different types of sparse and dense matrices. As of version 1.2.15, it defines 102 classes, 21 generic functions, and 1993 methods, and to give you some idea of the complexity, a small subset of the class graph is shown in Figure \@ref(fig:matrix-classes).
 
 \begin{figure}
 

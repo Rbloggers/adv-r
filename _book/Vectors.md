@@ -12,7 +12,7 @@ This chapter discusses the most important family of data types in base R: vector
 Vectors come in two flavours: atomic vectors and lists[^generic-vectors]. They differ in terms of their elements' types: for atomic vectors, all elements must have the same type; for lists, elements can have different types. While not a vector, `NULL` is closely related to vectors and often serves the role of a generic zero length vector. This diagram, which we'll be expanding on throughout this chapter, illustrates the basic relationships:
 
 
-\begin{center}\includegraphics{diagrams/vectors/summary-tree} \end{center}
+\begin{center}\includegraphics[width=2.07in]{diagrams/vectors/summary-tree} \end{center}
 
 [^generic-vectors]: A few places in R's documentation call lists generic vectors to emphasise their difference from atomic vectors.
 
@@ -71,7 +71,7 @@ Take this short quiz to determine if you need to read this chapter. If the answe
 There are four primary types of atomic vectors: logical, integer, double, and character (which contains strings). Collectively integer and double vectors are known as numeric vectors[^numeric]. There are two rare types: complex and raw. I won't discuss them further because complex numbers are rarely needed in statistics, and raw vectors are a special type that's only needed when handling binary data. 
 
 
-\begin{center}\includegraphics{diagrams/vectors/summary-tree-atomic} \end{center}
+\begin{center}\includegraphics[width=3in]{diagrams/vectors/summary-tree-atomic} \end{center}
 
 [^numeric]: This is a slight simplification as R does not use "numeric" consistently, which we'll come back to in Section \@ref(numeric-type).
 
@@ -134,7 +134,7 @@ c(c(1, 2), c(3, 4))
 In diagrams, I'll depict vectors as connected rectangles, so the above code could be drawn as follows:
 
 
-\begin{center}\includegraphics{diagrams/vectors/atomic} \end{center}
+\begin{center}\includegraphics[width=3.64in]{diagrams/vectors/atomic} \end{center}
 
 You can determine the type of a vector with `typeof()`[^mode] and its length with `length()`.
 
@@ -256,7 +256,7 @@ str(attributes(a))
 ```
 
 
-\begin{center}\includegraphics{diagrams/vectors/attr} \end{center}
+\begin{center}\includegraphics[width=2.02in]{diagrams/vectors/attr} \end{center}
 
 Attributes should generally be thought of as ephemeral. For example, most attributes are lost by most operations:
 
@@ -301,12 +301,12 @@ Avoid using `attr(x, "names")` as it requires more typing and is less readable t
 To be technically correct, when drawing the named vector `x`, I should draw it like so:
 
 
-\begin{center}\includegraphics{diagrams/vectors/attr-names-1} \end{center}
+\begin{center}\includegraphics[width=2.56in]{diagrams/vectors/attr-names-1} \end{center}
 
 However, names are so special and so important, that unless I'm trying specifically to draw attention to the attributes data structure, I'll use them to label the vector directly:
 
 
-\begin{center}\includegraphics{diagrams/vectors/attr-names-2} \end{center}
+\begin{center}\includegraphics[width=1.08in]{diagrams/vectors/attr-names-2} \end{center}
 
 To be useful with character subsetting (e.g. Section \@ref(lookup-tables)) names should be unique, and non-missing, but this is not enforced by R. Depending on how the names are set, missing names may be either `""` or `NA_character_`. If all names are missing, `names()` will return `NULL`.
 
@@ -426,7 +426,7 @@ In this section, we'll discuss four important S3 vectors used in base R:
 * Durations, which are stored in __difftime__ vectors.
 
 
-\begin{center}\includegraphics{diagrams/vectors/summary-tree-s3-1} \end{center}
+\begin{center}\includegraphics[width=3.1in]{diagrams/vectors/summary-tree-s3-1} \end{center}
 
 ### Factors
 \indexc{factor}
@@ -451,7 +451,7 @@ attributes(x)
 #> [1] "factor"
 ```
 
-\begin{center}\includegraphics{diagrams/vectors/factor} \end{center}
+\begin{center}\includegraphics[width=2.56in]{diagrams/vectors/factor} \end{center}
 
 Factors are useful when you know the set of possible values but they're not all present in a given dataset. In contrast to a character vector, when you tabulate a factor you'll get counts of all categories, even unobserved ones:
 
@@ -659,7 +659,7 @@ lobstr::obj_size(l2)
 Lists can contain complex objects so it's not possible to pick a single visual style that works for every list. Generally I'll draw lists like vectors, using colour to remind you of the hierarchy.
 
 
-\begin{center}\includegraphics{diagrams/vectors/list} \end{center}
+\begin{center}\includegraphics[width=4.67in]{diagrams/vectors/list} \end{center}
 
 Lists are sometimes called __recursive__ vectors because a list can contain other lists. This makes them fundamentally different from atomic vectors.
 
@@ -673,7 +673,7 @@ str(l3)
 #>   .. ..$ : num 1
 ```
 
-\begin{center}\includegraphics{diagrams/vectors/list-recursive} \end{center}
+\begin{center}\includegraphics[width=1.08in]{diagrams/vectors/list-recursive} \end{center}
 
 `c()` will combine several lists into one. If given a combination of atomic vectors and lists, `c()` will coerce the vectors to lists before combining them. Compare the results of `list()` and `c()`:
 
@@ -695,7 +695,7 @@ str(l5)
 #>  $ : num 4
 ```
 
-\begin{center}\includegraphics{diagrams/vectors/list-c} \end{center}
+\begin{center}\includegraphics[width=2.51in]{diagrams/vectors/list-c} \end{center}
 
 ### Testing and coercion {#list-types}
 
@@ -758,7 +758,7 @@ These data structures are relatively esoteric but they can be useful if you want
 The two most important S3 vectors built on top of lists are data frames and tibbles. 
 
 
-\begin{center}\includegraphics{diagrams/vectors/summary-tree-s3-2} \end{center}
+\begin{center}\includegraphics[width=1.67in]{diagrams/vectors/summary-tree-s3-2} \end{center}
 
 If you do data analysis in R, you're going to be using data frames. A data frame is a named list of vectors with attributes for (column) `names`, `row.names`[^rownames], and its class, "data.frame":
 
@@ -897,7 +897,14 @@ tibble(x = 1:4, y = 1)
 #> 3     3     1
 #> 4     4     1
 tibble(x = 1:4, y = 1:2)
-#> Error: Column `y` must be length 1 or 4, not 2
+#> Error: Tibble columns must have consistent lengths, only values of length one are recycled:
+#> * Length 2: Column `y`
+#> * Length 4: Column `x`
+#> Backtrace:
+#>     █
+#>  1. └─tibble::tibble(x = 1:4, y = 1:2)
+#>  2.   └─tibble:::lst_to_tibble(xlq$output, .rows, .name_repair, lengths = xlq$lengths)
+#>  3.     └─tibble:::recycle_columns(x, .rows, lengths)
 ```
 
 There is one final difference: `tibble()` allows you to refer to variables created during construction:
@@ -921,12 +928,12 @@ tibble(
 When drawing data frames and tibbles, rather than focussing on the implementation details, i.e. the attributes:
 
 
-\begin{center}\includegraphics{diagrams/vectors/data-frame-1} \end{center}
+\begin{center}\includegraphics[width=2.65in]{diagrams/vectors/data-frame-1} \end{center}
 
 I'll draw them the same way as a named list, but arrange them to emphasise their columnar structure.
 
 
-\begin{center}\includegraphics{diagrams/vectors/data-frame-2} \end{center}
+\begin{center}\includegraphics[width=1.08in]{diagrams/vectors/data-frame-2} \end{center}
 
 ### Row names {#rownames}
 \indexc{row.names}
@@ -1021,7 +1028,7 @@ dplyr::starwars
 #>  8 R5-D4     97    32 <NA>       white, red red             NA  
 #>  9 Bigg…    183    84 black      light      brown           24  
 #> 10 Obi-…    182    77 auburn, w… fair       blue-gray       57  
-#> # ... with 77 more rows, and 6 more variables: gender <chr>,
+#> # … with 77 more rows, and 6 more variables: gender <chr>,
 #> #   homeworld <chr>, species <chr>, films <list>, vehicles <list>,
 #> #   starships <list>
 ```
@@ -1124,7 +1131,7 @@ data.frame(
 ```
 
 
-\begin{center}\includegraphics{diagrams/vectors/data-frame-list} \end{center}
+\begin{center}\includegraphics[width=1.97in]{diagrams/vectors/data-frame-list} \end{center}
 
 List columns are easier to use with tibbles because they can be directly included inside tibble() and they will be printed tidily:
 
@@ -1164,7 +1171,7 @@ str(dfm)
 #>   ..$ b: chr  "a" "b" "c"
 ```
 
-\begin{center}\includegraphics{diagrams/vectors/data-frame-matrix} \end{center}
+\begin{center}\includegraphics[width=2.6in]{diagrams/vectors/data-frame-matrix} \end{center}
 
 Matrix and data frame columns require a little caution. Many functions that work with data frames assume that all columns are vectors. Also, the printed display can be confusing.
 

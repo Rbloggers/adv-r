@@ -88,7 +88,7 @@ map(1:3, triple)
 Or, graphically:
 
 
-\begin{center}\includegraphics{diagrams/functionals/map} \end{center}
+\begin{center}\includegraphics[width=2.7in]{diagrams/functionals/map} \end{center}
 
 ::: sidebar
 You might wonder why this function is called `map()`. What does it have to do with depicting physical features of land or sea \raisebox{-.1\height}{\includegraphics[height=10pt]{emoji/1f5fa.png}}? In fact, the meaning comes from mathematics where map refers to "an operation that associates each element of a given set with one or more elements of a second set". This makes sense here because `map()` defines a mapping from one vector to another. ("Map" also has the nice property of being short, which is useful for such a fundamental building block.)
@@ -151,7 +151,7 @@ map_dbl(mtcars, mean)
 purrr uses the convention that suffixes, like `_dbl()`, refer to the output. All `map_*()` functions can take any type of vector as input. These examples rely two facts: `mtcars` is a data frame, and data frames are lists containing vectors of the same length. This is more obvious if we draw a data frame with the same orientation as vector:
 
 
-\begin{center}\includegraphics{diagrams/functionals/map-list} \end{center}
+\begin{center}\includegraphics[width=3.49in]{diagrams/functionals/map-list} \end{center}
 
 All map functions always return an output vector the same length as the input, which implies that each call to `.f` must return a single value. If it does not, you'll get an error:
 
@@ -306,12 +306,12 @@ map_dbl(x, mean, na.rm = TRUE)
 This is easiest to understand with a picture: any arguments that come after `f` in the call to `map()` are inserted _after_ the data in individual calls to `f()`:
 
 
-\begin{center}\includegraphics{diagrams/functionals/map-arg} \end{center}
+\begin{center}\includegraphics[width=3.74in]{diagrams/functionals/map-arg} \end{center}
 
 It's important to note that these arguments are not decomposed; or said another way, `map()` is only vectorised over its first argument. If an argument after `f` is a vector, it will be passed along as is:
 
 
-\begin{center}\includegraphics{diagrams/functionals/map-arg-recycle} \end{center}
+\begin{center}\includegraphics[width=3.59in]{diagrams/functionals/map-arg-recycle} \end{center}
 
 (You'll learn about map variants that _are_ vectorised over multiple arguments in Sections \@ref(map2) and \@ref(pmap).)
 
@@ -373,7 +373,7 @@ Base functions that pass along `...` use a variety of naming conventions to prev
 So far the first argument to `map()` has always become the first argument to the function. But what happens if the first argument should be constant, and you want to vary a different argument? How do you get the result in this picture?
 
 
-\begin{center}\includegraphics{diagrams/functionals/map-arg-flipped} \end{center}
+\begin{center}\includegraphics[width=3.74in]{diagrams/functionals/map-arg-flipped} \end{center}
 
 It turns out that there's no way to do it directly, but there are two tricks you can use instead. To illustrate them, imagine I have a vector that contains a few unusual values, and I want to explore the effect of different amounts of trimming when computing the mean. In this case, the first argument to `mean()` will be constant, and I want to vary the second argument, `trim`.
 
@@ -654,7 +654,7 @@ map_dbl(xs, weighted.mean, w = ws)
 #>   'x' and 'w' must have the same length
 ```
 
-\begin{center}\includegraphics{diagrams/functionals/map-arg-recycle} \end{center}
+\begin{center}\includegraphics[width=3.59in]{diagrams/functionals/map-arg-recycle} \end{center}
 
 We need a new tool: a `map2()`, which is vectorised over two arguments. This means both `.x` and `.y` are varied in each call to `.f`:
 
@@ -664,7 +664,7 @@ map2_dbl(xs, ws, weighted.mean)
 #> [1]    NA 0.451 0.603 0.452 0.563 0.510 0.342 0.464
 ```
 
-\begin{center}\includegraphics{diagrams/functionals/map2} \end{center}
+\begin{center}\includegraphics[width=3.84in]{diagrams/functionals/map2} \end{center}
 
 The arguments to `map2()` are slightly different to the arguments to `map()` as two vectors come before the function, rather than one. Additional arguments still go afterwards:
 
@@ -674,7 +674,7 @@ map2_dbl(xs, ws, weighted.mean, na.rm = TRUE)
 #> [1] 0.504 0.451 0.603 0.452 0.563 0.510 0.342 0.464
 ```
 
-\begin{center}\includegraphics{diagrams/functionals/map2-arg} \end{center}
+\begin{center}\includegraphics[width=4.72in]{diagrams/functionals/map2-arg} \end{center}
 
 The basic implementation of `map2()` is simple, and quite similar to that of `map()`. Instead of iterating over one vector, we iterate over two in parallel:
 
@@ -692,7 +692,7 @@ simple_map2 <- function(x, y, f, ...) {
 One of the big differences between `map2()` and the simple function above is that `map2()` recycles its inputs to make sure that they're the same length:
 
 
-\begin{center}\includegraphics{diagrams/functionals/map2-recycle} \end{center}
+\begin{center}\includegraphics[width=3.84in]{diagrams/functionals/map2-recycle} \end{center}
 
 In other words, `map2(x, y, f)` will automatically behave like `map(x, f, y)` when needed. This is helpful when writing functions; in scripts you'd generally just use the simpler form directly.
 
@@ -738,14 +738,14 @@ walk(names, welcome)
 My visual depiction of walk attempts to capture the important difference from `map()`: the outputs are ephemeral, and the input is returned invisibly.
 
 
-\begin{center}\includegraphics{diagrams/functionals/walk} \end{center}
+\begin{center}\includegraphics[width=2.46in]{diagrams/functionals/walk} \end{center}
 
 [^invisible]: In brief, invisible values are only printed if you explicitly request it. This makes them well suited for functions called primarily for their side-effects, as it allows their output to be ignored by default, while still giving an option to capture it. See Section \@ref(invisible) for more details.
 
 One of the most useful `walk()` variants is `walk2()` because a very common side-effect is saving something to disk, and when saving something to disk you always have a pair of values: the object and the path that you want to save it to.
 
 
-\begin{center}\includegraphics{diagrams/functionals/walk2} \end{center}
+\begin{center}\includegraphics[width=3.3in]{diagrams/functionals/walk2} \end{center}
 
 For example, imagine you have a list of data frames (which I've created here using split), and you'd like to save each one to a separate CSV file. That's easy with `walk2()`:
 
@@ -818,7 +818,7 @@ imap_chr(x, ~ paste0("The highest value of ", .y, " is ", max(.x)))
 Since we have `map()` and `map2()`, you might expect `map3()`, `map4()`, `map5()`, ... But where would you stop? Instead of generalising `map2()` to an arbitrary number of arguments, purrr takes a slightly different tack with `pmap()`: you supply it a single list, which contains any number of arguments. In most cases, that will be a list of equal-length vectors, i.e. something very similar to a data frame. In diagrams, I'll emphasise that relationship by drawing the input similar to a data frame.
 
 
-\begin{center}\includegraphics{diagrams/functionals/pmap} \end{center}
+\begin{center}\includegraphics[width=3.69in]{diagrams/functionals/pmap} \end{center}
 
 There's a simple equivalence between `map2()` and `pmap()`: `map2(x, y, f)` is the same as `pmap(list(x, y), f)`. The `pmap()` equivalent to the `map2_dbl(xs, ws, weighted.mean)` used above is:
 
@@ -836,7 +836,7 @@ pmap_dbl(list(xs, ws), weighted.mean, na.rm = TRUE)
 #> [1] 0.504 0.451 0.603 0.452 0.563 0.510 0.342 0.464
 ```
 
-\begin{center}\includegraphics{diagrams/functionals/pmap-arg} \end{center}
+\begin{center}\includegraphics[width=4.77in]{diagrams/functionals/pmap-arg} \end{center}
 
 A big difference between `pmap()` and the other map functions is that `pmap()` gives you much finer control over argument matching because you can name the components of the list. Returning to our example from Section \@ref(change-argument), where we wanted to vary the `trim` argument to `x`, we could instead use `pmap()`:
 
@@ -874,7 +874,7 @@ pmap(params, runif)
 ```
 
 
-\begin{center}\includegraphics{diagrams/functionals/pmap-3} \end{center}
+\begin{center}\includegraphics[width=4.67in]{diagrams/functionals/pmap-3} \end{center}
 Here, the column names are critical: I've carefully chosen to match them to the arguments to `runif()`, so the `pmap(params, runif)` is equivalent to `runif(n = 1L, min = 0, max = 1)`, `runif(n = 2, min = 10, max = 100)`, `runif(n = 3L, min = 100, max = 1000)`. (If you have a data frame in hand, and the names don't match, use `dplyr::rename()` or similar.)
 
 ::: base
@@ -942,7 +942,7 @@ After the map family, the next most important family of functions is the reduce 
 `reduce()` takes a vector of length n and produces a vector of length one by calling a function with a pair of values at a time: `reduce(1:4, f)` is equivalent to `f(f(f(1, 2), 3), 4)`. 
 
 
-\begin{center}\includegraphics{diagrams/functionals/reduce} \end{center}
+\begin{center}\includegraphics[width=3.25in]{diagrams/functionals/reduce} \end{center}
 
 `reduce()` is a useful way to generalise a function that works with two inputs (a __binary__ function) to work with any number of inputs. Imagine you have a list of numeric vectors, and you want to find the values that occur in every element. First we generate some sample data:
 
@@ -988,7 +988,7 @@ reduce(l, union)
 Like the map family, you can also pass additional arguments. `intersect()` and `union()` don't take extra arguments so I can't demonstrate them here, but the principle is straightforward and I drew you a picture.
 
 
-\begin{center}\includegraphics{diagrams/functionals/reduce-arg} \end{center}
+\begin{center}\includegraphics[width=4.03in]{diagrams/functionals/reduce-arg} \end{center}
 
 As usual, the essence of `reduce()` can be reduced to a simple wrapper around a for loop:
 
@@ -1069,7 +1069,7 @@ reduce(integer(), `+`)
 What should `.init` be here? To figure that out, we need to see what happens when `.init` is supplied:
 
 
-\begin{center}\includegraphics{diagrams/functionals/reduce-init} \end{center}
+\begin{center}\includegraphics[width=4.23in]{diagrams/functionals/reduce-init} \end{center}
 
 So if we call ``reduce(1, `+`, init)`` the result will be `1 + init`. Now we know that the result should be just `1`, so that suggests that `.init` should be 0:
 
@@ -1112,9 +1112,9 @@ Very occasionally you need to pass two arguments to the function that you're red
 The length of the second argument varies based on whether or not `.init` is supplied: if you have four elements of `x`, `f` will only be called three times. If you supply init, `f` will be called four times.
 
 
-\begin{center}\includegraphics{diagrams/functionals/reduce2} \end{center}
+\begin{center}\includegraphics[width=5.41in]{diagrams/functionals/reduce2} \end{center}
 
-\begin{center}\includegraphics{diagrams/functionals/reduce2-init} \end{center}
+\begin{center}\includegraphics[width=5.41in]{diagrams/functionals/reduce2-init} \end{center}
 
 ### Map-reduce
 \index{map-reduce}

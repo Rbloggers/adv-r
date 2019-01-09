@@ -102,14 +102,14 @@ square
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <environment: 0x35d9938>
+#> <environment: 0x26e4a00>
 
 cube
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x2761f40>
-#> <environment: 0x37bc210>
+#> <bytecode: 0xced558>
+#> <environment: 0x28bc1e0>
 ```
 
 It's obvious where `x` comes from, but how does R find the value associated with `exp`? Simply printing the manufactured functions is not revealing because the bodies are identical; it's the contents of the enclosing environment that's important. We can get a little more insight by using `rlang::env_print()`. That shows us that we have two different environments (each of which was originally an execution environment of `power1()`). The environments have the same parent, which is the enclosing environment of `power1()`, the global environment.
@@ -117,13 +117,13 @@ It's obvious where `x` comes from, but how does R find the value associated with
 
 ```r
 env_print(square)
-#> <environment: 0x35d9938>
+#> <environment: 0x26e4a00>
 #> parent: <environment: global>
 #> bindings:
 #>  * exp: <dbl>
 
 env_print(cube)
-#> <environment: 0x37bc210>
+#> <environment: 0x28bc1e0>
 #> parent: <environment: global>
 #> bindings:
 #>  * exp: <dbl>
@@ -149,7 +149,7 @@ This is what makes manufactured functions behave differently from one another: n
 We can also show these relationships in a diagram:
 
 
-\begin{center}\includegraphics{diagrams/function-factories/power-full} \end{center}
+\begin{center}\includegraphics[width=3.69in]{diagrams/function-factories/power-full} \end{center}
 
 There's a lot going on this diagram and some of the details aren't that important. We can simplify considerably by using two conventions:
 
@@ -159,7 +159,7 @@ There's a lot going on this diagram and some of the details aren't that importan
   environment.
 
 
-\begin{center}\includegraphics{diagrams/function-factories/power-simple} \end{center}
+\begin{center}\includegraphics[width=3.44in]{diagrams/function-factories/power-simple} \end{center}
 
 This view, which focuses on the environments, doesn't show any direct link between `cube()` and `square()`. That's because the link is the through the body of the function, which is identical for both, but is not shown in this diagram.
 
@@ -172,7 +172,7 @@ square(10)
 ```
 
 
-\begin{center}\includegraphics{diagrams/function-factories/power-exec} \end{center}
+\begin{center}\includegraphics[width=3.44in]{diagrams/function-factories/power-exec} \end{center}
 
 ### Forcing evaluation
 \indexc{lazy evaluation}
@@ -250,7 +250,7 @@ counter_two <- new_counter()
 ```
 
 
-\begin{center}\includegraphics{diagrams/function-factories/counter-1} \end{center}
+\begin{center}\includegraphics[width=3.69in]{diagrams/function-factories/counter-1} \end{center}
 
 When the manufactured function is run `i <<- i + 1` will modify `i` in its enclosing environment. Because manufactured functions have independent enclosing environments, they have independent counts:
 
@@ -265,7 +265,7 @@ counter_two()
 ```
 
 
-\begin{center}\includegraphics{diagrams/function-factories/counter-2} \end{center}
+\begin{center}\includegraphics[width=3.69in]{diagrams/function-factories/counter-2} \end{center}
 
 Stateful functions are best used in moderation. As soon as your function starts managing the state of multiple variables, it's better to switch to R6, the topic of Chapter \@ref(r6).
 
@@ -307,7 +307,7 @@ lobstr::obj_size(g2)
     force
     #> function (x) 
     #> x
-    #> <bytecode: 0x1d50cf8>
+    #> <bytecode: 0x921d60>
     #> <environment: namespace:base>
     ```
     
@@ -532,12 +532,12 @@ plot_dev <- function(ext, dpi = 96) {
 
 plot_dev("pdf")
 #> function(filename, ...) grDevices::pdf(file = filename, ...)
-#> <bytecode: 0x1ecd6e8>
-#> <environment: 0x5b59db8>
+#> <bytecode: 0x3fe1b80>
+#> <environment: 0x31c9938>
 plot_dev("png")
 #> function(...) grDevices::png(..., res = dpi, units = "in")
-#> <bytecode: 0x42039c0>
-#> <environment: 0x25ffa08>
+#> <bytecode: 0x4432340>
+#> <environment: 0x4852500>
 ```
 
 ### Exercises
@@ -843,8 +843,8 @@ funs$root
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x69e40a0>
-#> <environment: 0x6571718>
+#> <bytecode: 0xced558>
+#> <environment: 0x55da678>
 ```
 
 This idea extends in a straightforward way if your function factory takes two (replace `map()` with `map2()`) or more (replace with `pmap()`) arguments.

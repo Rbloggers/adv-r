@@ -1,3 +1,5 @@
+\pagenumbering{arabic} 
+
 # Preface {-}
 
 Welcome to the 2nd edition of Advanced R. I had three main goals for this edition:

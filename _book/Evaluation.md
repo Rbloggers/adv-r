@@ -155,9 +155,11 @@ foo <- local2({
 foo
 #> [1] 210
 x
-#> [1] 10
+#> Error in eval(expr, envir, enclos):
+#>   object 'x' not found
 y
-#> [1] 2
+#> Error in eval(expr, envir, enclos):
+#>   object 'y' not found
 ```
 
 Understanding how `base::local()` works is harder, as it uses `eval()` and `substitute()` together in rather complicated ways. Figuring out exactly what's going on is good practice if you really want to understand the subtleties of `substitute()` and the base `eval()` functions, so is included in the exercises below.
@@ -314,7 +316,7 @@ There are three ways to create quosures:
     new_quosure(expr(x + y), env(x = 1, y = 10))
     #> <quosure>
     #> expr: ^x + y
-    #> env:  0x6c6c450
+    #> env:  0x518e230
     ```
 
 ### Evaluating
@@ -361,7 +363,7 @@ qs
 #> $f
 #> <quosure>
 #> expr: ^x
-#> env:  0x4774400
+#> env:  0x59baab0
 ```
 
 That means that when you evaluate them, you get the correct results:
@@ -481,19 +483,19 @@ When you use `expr_print()` in the console, quosures are coloured according to t
     q1
     #> <quosure>
     #> expr: ^x
-    #> env:  0x67b5518
+    #> env:  0x5089fd0
     
     q2 <- new_quosure(expr(x + !!q1), env(x = 10))
     q2
     #> <quosure>
     #> expr: ^x + (^x)
-    #> env:  0x6cc1670
+    #> env:  0x5223338
     
     q3 <- new_quosure(expr(x + !!q2), env(x = 100))
     q3
     #> <quosure>
     #> expr: ^x + (^x + (^x))
-    #> env:  0x3d98ef8
+    #> env:  0x54c75e0
     ```
 
 1.  Write an `enenv()` function that captures the environment associated

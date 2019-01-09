@@ -11,7 +11,7 @@ To talk about objects and OOP in R we first need to clear up a fundamental confu
 Most of the time, the distinction between objects and object-oriented objects is not important. But here we need to get into the nitty gritty details so we'll use the terms __base objects__ and __OO objects__ to distinguish them.
 
 
-\begin{center}\includegraphics{diagrams/oo-venn} \end{center}
+\begin{center}\includegraphics[width=2.21in]{diagrams/oo-venn} \end{center}
 
 ### Outline {-} 
 

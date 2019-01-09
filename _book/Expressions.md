@@ -52,7 +52,7 @@ The focus of this chapter is the data structures that underlie expressions. Mast
 
 * Section \@ref(ast-funs) shows you how you can use recursive functions to
   "compute on the language", writing functions that compute with expressions. 
-=
+
 * Section \@ref(expression-special) circles back to three more 
   specialised data structures: pairlists, missing arguments, and expression
   vectors.
@@ -81,7 +81,7 @@ We'll start by introducing some conventions for drawing ASTs, beginning with a s
 *   By "hand" (i.e. with OmniGraffle):
 
     
-    \begin{center}\includegraphics{diagrams/expressions/simple} \end{center}
+    \begin{center}\includegraphics[width=1.97in]{diagrams/expressions/simple} \end{center}
 
 *   With `lobstr::ast()`:
 
@@ -113,7 +113,7 @@ Colours will be shown when _you_ call `ast()`, but do not appear in the book for
 The above example only contained one function call, making for a very shallow tree. Most expressions will contain considerably more calls, creating trees with multiple levels. For example, consider the AST for `f(g(1, 2), h(3, 4, i()))`:
 
 
-\begin{center}\includegraphics{diagrams/expressions/complicated} \end{center}
+\begin{center}\includegraphics[width=3.15in]{diagrams/expressions/complicated} \end{center}
 
 ```r
 lobstr::ast(f(g(1, 2), h(3, 4, i())))
@@ -144,7 +144,7 @@ ast(
 #> └─y
 ```
 
-There's only one placewhere whitespace does affect the AST:
+There's only one place where whitespace affects the AST:
 
 
 ```r
@@ -175,7 +175,7 @@ And they both have this AST[^ast-infix]:
 [^ast-infix]: The names of non-prefix functions are non-syntactic so I surround them with ``` `` ```, as in Section \@ref(non-syntactic).
 
 
-\begin{center}\includegraphics{diagrams/expressions/prefix} \end{center}
+\begin{center}\includegraphics[width=2.26in]{diagrams/expressions/prefix} \end{center}
 
 ```r
 lobstr::ast(y <- x * 10)
@@ -460,7 +460,7 @@ lobstr::ast(foo(1)(2))
 #> └─2
 ```
 
-\begin{center}\includegraphics{diagrams/expressions/call-call} \end{center}
+\begin{center}\includegraphics[width=4.03in]{diagrams/expressions/call-call} \end{center}
 
 #### Constructing {#call2}
 \index{call objects!constructing}
@@ -570,7 +570,7 @@ Infix functions introduce two sources of ambiguity[^ambig]. The first source of 
 [^ambig]: This ambiguity does not exist in languages with only prefix or postfix calls. It's interesting to compare a simple arithmetic operation in Lisp (prefix) and Forth (postfix). In Lisp you'd write `(* (+ 1 2) 3))`; this avoids ambiguity by requiring parentheses everywhere. In Forth, you'd write `1 2 + 3 *`; this doesn't require any parentheses, but does require more thought when reading.
 
 
-\begin{center}\includegraphics{diagrams/expressions/ambig-order} \end{center}
+\begin{center}\includegraphics[width=3.89in]{diagrams/expressions/ambig-order} \end{center}
 
 Programming languages use conventions called __operator precedence__ to resolve this ambiguity. We can use `ast()` to see what R does:
 
@@ -680,7 +680,7 @@ rlang::parse_exprs(x3)
 #> a + 1
 ```
 
-If you find yourself working with strings containing code very frequently, you should reconsider your process. Read the Chapter \@ref(quasiquotation) and consider if you can instead more safely generate expressions using quasiquotation.
+If you find yourself working with strings containing code very frequently, you should reconsider your process. Read Chapter \@ref(quasiquotation) and consider if you can instead more safely generate expressions using quasiquotation.
 
 ::: base
 \indexc{parsing!parse@\texttt{parse()}}

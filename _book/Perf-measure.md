@@ -235,11 +235,11 @@ x <- runif(100)
   x ^ 0.5
 ))
 #> # A tibble: 2 x 10
-#>   expression      min     mean   median     max `itr/sec` mem_alloc
-#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:t>     <dbl> <bch:byt>
-#> 1 sqrt(x)    591.86ns 828.33ns  687.9ns  24.7µs  1207253.      848B
-#> 2 x^0.5        9.01µs   9.93µs   9.44µs 105.3µs   100715.      848B
-#> # ... with 3 more variables: n_gc <dbl>, n_itr <int>,
+#>   expression      min     mean   median    max `itr/sec` mem_alloc
+#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:>     <dbl> <bch:byt>
+#> 1 sqrt(x)    593.14ns 798.55ns 667.06ns 41.6µs  1252274.      848B
+#> 2 x^0.5        9.02µs   9.96µs   9.46µs 59.4µs   100406.      848B
+#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,
 #> #   total_time <bch:tm>
 ```
 
@@ -292,8 +292,8 @@ lb[c("expression", "min", "median", "itr/sec", "n_gc")]
 #> # A tibble: 2 x 5
 #>   expression      min   median `itr/sec`  n_gc
 #>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 sqrt(x)    591.86ns  687.9ns  1207253.     0
-#> 2 x^0.5        9.01µs   9.44µs   100715.     0
+#> 1 sqrt(x)    593.14ns 667.06ns  1252274.     0
+#> 2 x^0.5        9.02µs   9.46µs   100406.     0
 ```
 
 ### Interpreting results

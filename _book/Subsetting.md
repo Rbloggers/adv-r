@@ -5,18 +5,18 @@
 ## Introduction
 \index{subsetting}
 
-R's subsetting operators are powerful and fast. Mastery of subsetting allows you to succinctly express complex operations in a way that few other languages can match. Subsetting is easy to learn but hard to master because you need to internalise a number of interrelated concepts:
+R's subsetting operators are fast and powerful. Mastering them allows you to succinctly perform complex operations in a way that few other languages can match. Subsetting in R is easy to learn but hard to master because you need to internalise a number of interrelated concepts:
 
-* The six types of thing that you can subset with.
+* There are six ways to subset atomic vectors.
 
-* The three subsetting operators, `[[`, `[`, and `$`.
+* There are three subsetting operators, `[[`, `[`, and `$`.
 
-* How the subsetting operators interact with vector types (e.g., 
-  atomic vectors, lists, factors, matrices, and data frames).
+* Subsetting operators interact differently with different vector 
+  types (e.g., atomic vectors, lists, factors, matrices, and data frames).
 
-* The use of subsetting together with assignment.
+* Subsetting can be combined with assignment.
 
-Subsetting is a natural complement to `str()`. `str()` shows you the structure of any object, and subsetting allows you to pull out the pieces that you're interested in. For large, complex objects, I also highly recommend the interactive RStudio Viewer, which you can activate with `View(my_object)`.
+Subsetting is a natural complement to `str()`. While `str()` shows you all the pieces of any object (its structure), subsetting allows you to pull out the pieces that you're interested in. For large, complex objects, I highly recommend using the interactive RStudio Viewer, which you can activate with `View(my_object)`.
 
 ### Quiz {-}
 
@@ -29,29 +29,29 @@ Take this short quiz to determine if you need to read this chapter. If the answe
 
 1.  When should you use `drop = FALSE`?
 
-1.  If `x` is a matrix, what does `x[] <- 0` do? How is it different to
+1.  If `x` is a matrix, what does `x[] <- 0` do? How is it different from
     `x <- 0`?
 
 1.  How can you use a named vector to relabel categorical variables?
 
 ### Outline {-}
 
-* Section \@ref(subset-multiple) starts by teaching you about `[`. You'll start
-  by learning the six types of data that you can use to subset atomic vectors.
-  You'll then learn how those six data types act when used to subset lists,
-  matrices, and data frames.
+* Section \@ref(subset-multiple) starts by teaching you about `[`. 
+  You'll learn the six ways to subset atomic vectors. You'll then 
+  learn how those six ways act when used to subset lists, matrices, 
+  and data frames.
   
-* Section \@ref(subset-single) expands your knowledge of 
-  subsetting operators to include `[[` and `$`, focussing on the important
+* Section \@ref(subset-single) expands your knowledge of subsetting 
+  operators to include `[[` and `$` and focuses on the important 
   principles of simplifying vs. preserving.
   
-* In Section \@ref(subassignment) you'll learn the
-  art of subassignment, combining subsetting and assignment to modify parts 
-  of an object.
+* In Section \@ref(subassignment) you'll learn the art of 
+  subassignment, which combines subsetting and assignment to modify 
+  parts of an object.
   
 * Section \@ref(applications) leads you through eight important, but
   not obvious, applications of subsetting to solve problems that you
-  often encounter in a data analysis.
+  often encounter in data analysis.
 
 ## Selecting multiple elements {#subset-multiple}
 \indexc{[}
@@ -446,17 +446,17 @@ Let's make a simple list and draw it as a train:
 x <- list(1:3, "a", 4:6)
 ```
 
-\begin{center}\includegraphics{diagrams/subsetting/train} \end{center}
+\begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train} \end{center}
 
 When extracting a single element, you have two options: you can create a smaller train, or  you can extract the contents of a carriage. This is the difference between `[` and `[[`:
 
 
-\begin{center}\includegraphics{diagrams/subsetting/train-single} \end{center}
+\begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train-single} \end{center}
 
 When extracting multiple elements (or zero!), you have to make a smaller train:
 
 
-\begin{center}\includegraphics{diagrams/subsetting/train-multiple} \end{center}
+\begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train-multiple} \end{center}
 
 Because it can return only a single item, you must use `[[` with either a single positive integer or a string. If you use a vector with `[[`, it will subset recursively, i.e. `x[[c(1, 2)]]` is equivalent to `x[[1]][[2]]`. This is a quirky feature that few people know about, so I recommend avoiding it in favour of `purrr::pluck()`, which you'll learn about in Section \@ref(subsetting-oob).
 

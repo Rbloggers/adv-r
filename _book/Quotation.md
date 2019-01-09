@@ -246,7 +246,7 @@ In short, use `enexpr()` and `enexprs()` to capture the expressions supplied as 
 \index{symbols!capturing}
 \indexc{ensym()}
 
-Sometimes you only want to allow the user to specify a variable name, not an arbtirary expression. In this case, you can use `ensym()` or `ensyms()`. These are variants of `enexpr()` and `enexprs()` that check the captured expression is either symbol or a string (which is converted to a symbol[^string-symbol]). `ensym()` and `ensyms()` throw an error if given anything else.
+Sometimes you only want to allow the user to specify a variable name, not an arbitrary expression. In this case, you can use `ensym()` or `ensyms()`. These are variants of `enexpr()` and `enexprs()` that check the captured expression is either symbol or a string (which is converted to a symbol[^string-symbol]). `ensym()` and `ensyms()` throw an error if given anything else.
 
 [^string-symbol]: This is for compatibility with base R, which allows you to provide a string instead of a symbol in many places: `"x" <- 1`, `"foo"(x, y)`, `c("x" = 1)`.
 
@@ -433,7 +433,7 @@ expr(f(!!x, y))
 I think this is easiest to understand with a diagram. `!!` introduces a placeholder in the AST, shown with dotted borders. Here the placeholder `x` is replaced by an AST, illustrated by a dotted connection.
 
 
-\begin{center}\includegraphics{diagrams/quotation/bang-bang} \end{center}
+\begin{center}\includegraphics[width=2.7in]{diagrams/quotation/bang-bang} \end{center}
 
 As well as call objects, `!!` also works with symbols and constants:
 
@@ -445,7 +445,7 @@ expr(f(!!a, !!b))
 #> f(y, 1)
 ```
 
-\begin{center}\includegraphics{diagrams/quotation/simple} \end{center}
+\begin{center}\includegraphics[width=2.36in]{diagrams/quotation/simple} \end{center}
 
 If the right-hand side of `!!` is a function call, `!!` will evaluate it and insert the results:
 
@@ -470,12 +470,12 @@ expr(!!x1 / !!x2)
 #> (x + 1)/(x + 2)
 ```
 
-\begin{center}\includegraphics{diagrams/quotation/infix} \end{center}
+\begin{center}\includegraphics[width=4.47in]{diagrams/quotation/infix} \end{center}
 
 If we simply pasted the text of the expressions together, we'd end up with `x + 1 / x + 2`, which has a very different AST:
 
 
-\begin{center}\includegraphics{diagrams/quotation/infix-bad} \end{center}
+\begin{center}\includegraphics[width=2.95in]{diagrams/quotation/infix-bad} \end{center}
 
 ### Unquoting a function
 \index{unquoting!functions}
@@ -499,7 +499,7 @@ expr((!!f)(x, y))
 ```
 
 
-\begin{center}\includegraphics{diagrams/quotation/fun} \end{center}
+\begin{center}\includegraphics[width=3.1in]{diagrams/quotation/fun} \end{center}
 
 Because of the large number of parentheses involved, it can be clearer to use `rlang::call2()`:
 
@@ -575,7 +575,7 @@ expr(f(!!!ys, d = 4))
 ```
 
 
-\begin{center}\includegraphics{diagrams/quotation/bang-bang-bang} \end{center}
+\begin{center}\includegraphics[width=3.89in]{diagrams/quotation/bang-bang-bang} \end{center}
 
 `!!!` can be used in any rlang function that takes `...` regardless of whether or not `...` is quoted or evaluated. We'll come back to this in Section \@ref(tidy-dots); for now note that this can be useful in `call2()`.
 

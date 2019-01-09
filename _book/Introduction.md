@@ -183,13 +183,7 @@ This book was [written in the open](https://github.com/hadley/adv-r/), and chapt
 
 
 
-
-```
-#> Warning: The `printer` argument is soft-deprecated as of rlang 0.3.0.
-#> This warning is displayed once per session.
-```
-
-A big thank you to all 367 contributors (in alphabetical order): Aaron Wolen (\@aaronwolen), \@absolutelyNoWarranty, Adam Hunt (\@adamphunt), \@agrabovsky, Alexander Grueneberg (\@agrueneberg), Anthony Damico (\@ajdamico), James Manton (\@ajdm), Aaron Schumacher (\@ajschumacher), Alan Dipert (\@alandipert), Alex Brown (\@alexbbrown), \@alexperrone, Alex Whitworth (\@alexWhitworth), Alexandros Kokkalis (\@alko989), \@amarchin, Amelia McNamara (\@AmeliaMN), Bryce Mecum (\@amoeba), Andrew Laucius (\@andrewla), Andrew Bray (\@andrewpbray), Andrie de Vries (\@andrie), Angela Li (\@angela-li), \@aranlunzer, Ari Lamstein (\@arilamstein), \@asnr, Andy Teucher (\@ateucher), Albert Vilella (\@avilella), baptiste (\@baptiste), Brian G. Barkley (\@BarkleyBG), Mara Averick (\@batpigandme), Brandon Greenwell (\@bgreenwell), Brandon Hurr (\@bhive01), Jason Knight (\@binarybana), Brett Klamer (\@bklamer), Jesse Anderson (\@blindjesse), Brian Mayer (\@blmayer), Benjamin L. Moore (\@blmoore), Brian Diggs (\@BrianDiggs), Brian S. Yandell (\@byandell), \@carey1024, Chip Hogg (\@chiphogg), Chris Muir (\@ChrisMuir), Christopher Gandrud (\@christophergandrud), Clay Ford (\@clayford), Colin Fay (\@ColinFay), \@cortinah, Cameron Plouffe (\@cplouffe), Carson Sievert (\@cpsievert), Craig Citro (\@craigcitro), Craig Grabowski (\@craiggrabowski), Christopher Roach (\@croach), Peter Meilstrup (\@crowding), Crt Ahlin (\@crtahlin), Carlos Scheidegger (\@cscheid), Colin Gillespie (\@csgillespie), Christopher Brown (\@ctbrown), Davor Cubranic (\@cubranic), Darren Cusanovich (\@cusanovich), Christian G. Warden (\@cwarden), Charlotte Wickham (\@cwickham), Dean Attali (\@daattali), Dan Sullivan (\@dan87134), Daniel Barnett (\@daniel-barnett), Kenny Darrell (\@darrkj), Tracy Nance (\@datapixie), Dave Childers (\@davechilders), David Rubinger (\@davidrubinger), David Chudzicki (\@dchudz), Daisuke ICHIKAWA (\@dichika), david kahle (\@dkahle), David LeBauer (\@dlebauer), David Schweizer (\@dlschweizer), David Montaner (\@dmontaner), \@dmurdoch, Zhuoer Dong (\@dongzhuoer), Doug Mitarotonda (\@dougmitarotonda), Jonathan Hill (\@Dripdrop12), \@drtjc, Julian During (\@duju211), \@duncanwadsworth, \@eaurele, Dirk Eddelbuettel (\@eddelbuettel), \@EdFineOKL, Edwin Thoen (\@EdwinTh), Ethan Heinzen (\@eheinzen), \@eijoac, Joel Schwartz (\@eipi10), Eric Ronald Legrand (\@elegrand), Ellis Valentiner (\@ellisvalentiner), Emil Hvitfeldt (\@EmilHvitfeldt), Emil Rehnberg (\@EmilRehnberg), Daniel Lee (\@erget), Eric C. Anderson (\@eriqande), Enrico Spinielli (\@espinielli), \@etb, David Hajage (\@eusebe), Fabian Scheipl (\@fabian-s), \@flammy0530, François Michonneau (\@fmichonneau), Francois Pepin (\@fpepin), Frank Farach (\@frankfarach), \@freezby, Frans van Dunné (\@FvD), \@fyears, \@gagnagaman, Garrett Grolemund (\@garrettgman), Gavin Simpson (\@gavinsimpson), \@gezakiss7, \@gggtest, Gökçen Eraslan (\@gokceneraslan), Georg Russ (\@gr650), \@grasshoppermouse, Gregor Thomas (\@gregorp), Garrett See (\@gsee), Ari Friedman (\@gsk3), Gunnlaugur Thor Briem (\@gthb), Greg Wilson (\@gvwilson), Hadley Wickham (\@hadley), Hamed (\@hamedbh), Jeff Hammerbacher (\@hammer), Harley Day (\@harleyday), \@hassaad85, \@helmingstay, Henning (\@henningsway), Henrik Bengtsson (\@HenrikBengtsson), Ching Boon (\@hoscb), \@hplieninger, Iain Dillingham (\@iaindillingham), \@IanKopacka, Ian Lyttle (\@ijlyttle), Ilan Man (\@ilanman), Imanuel Costigan (\@imanuelcostigan), Thomas Bürli (\@initdch), Os Keyes (\@Ironholds), \@irudnyts, i (\@isomorphisms), Irene Steves (\@isteves), Jan Gleixner (\@jan-glx), Jannes Muenchow (\@jannes-m), Jason Asher (\@jasonasher), Jason Davies (\@jasondavies), Chris (\@jastingo), jcborras (\@jcborras), John Blischak (\@jdblischak), \@jeharmse, Lukas Burk (\@jemus42), Jennifer (Jenny) Bryan (\@jennybc), Justin Jent (\@jentjr), Jeston (\@JestonBlu), Jim Hester (\@jimhester), \@JimInNashville, \@jimmyliu2017, Jim Vine (\@jimvine), Jinlong Yang (\@jinlong25), J.J. Allaire (\@jjallaire), \@JMHay, Jochen Van de Velde (\@jochenvdv), Johann Hibschman (\@johannh), John Baumgartner (\@johnbaums), John Horton (\@johnjosephhorton), \@johnthomas12, Jon Calder (\@jonmcalder), Jon Harmon (\@jonthegeek), Julia Gustavsen (\@jooolia), JorneBiccler (\@JorneBiccler), Jeffrey Arnold (\@jrnold), Joyce Robbins (\@jtr13), Juan Manuel Truppia (\@juancentro), Kevin Markham (\@justmarkham), john verzani (\@jverzani), Michael Kane (\@kaneplusplus), Bart Kastermans (\@kasterma), Kevin D'Auria (\@kdauria), Karandeep Singh (\@kdpsingh), Ken Williams (\@kenahoo), Kendon Bell (\@kendonB), Kent Johnson (\@kent37), Kevin Ushey (\@kevinushey), 电线杆 (\@kfeng123), Karl Forner (\@kforner), Kirill Sevastyanenko (\@kirillseva), Brian Knaus (\@knausb), Kirill Müller (\@krlmlr), Kriti Sen Sharma (\@ksens), Kai Tang (唐恺） (\@ktang), Kevin Wright (\@kwstat), suo.lawrence.liu@gmail.com (\@Lawrence-Liu), \@ldfmrails, Rachel Severson (\@leighseverson), Laurent Gatto (\@lgatto), C. Jason Liang (\@liangcj), Steve Lianoglou (\@lianos), Likan (\@likanzhan), \@lindbrook, Lingbing Feng (\@Lingbing), Marcel Ramos (\@LiNk-NY), Zhongpeng Lin (\@linzhp), Lionel Henry (\@lionel-), Lluís (\@llrs), myq (\@lrcg), Luke W Johnston (\@lwjohnst86), Kevin Lynagh (\@lynaghk), \@MajoroMask, Malcolm Barrett (\@malcolmbarrett), \@mannyishere, \@mascaretti, Matt (\@mattbaggott), Matthew Grogan (\@mattgrogan), \@matthewhillary, Matthieu Gomez (\@matthieugomez), Matt Malin (\@mattmalin), Mauro Lepore (\@maurolepore), Max Ghenis (\@MaxGhenis), Maximilian Held (\@maxheld83), Michal Bojanowski (\@mbojan), Mark Rosenstein (\@mbrmbr), Michael Sumner (\@mdsumner), Jun Mei (\@meijun), merkliopas (\@merkliopas), mfrasco (\@mfrasco), Michael Bach (\@michaelbach), Michael Bishop (\@MichaelMBishop), Michael Buckley (\@michaelmikebuckley), Michael Quinn (\@michaelquinn32), \@miguelmorin, Michael (\@mikekaminsky), Mine Cetinkaya-Rundel (\@mine-cetinkaya-rundel), \@mjsduncan, Mamoun Benghezal (\@MoBeng), Matt Pettis (\@mpettis), Martin Morgan (\@mtmorgan), Guy Dawson (\@Mullefa), Nacho Caballero (\@nachocab), Natalya Rapstine (\@natalya-patrikeeva), Nick Carchedi (\@ncarchedi), Pascal Burkhard (\@Nenuial), Noah Greifer (\@ngreifer), Nicholas Vasile (\@nickv9), Nikos Ignatiadis (\@nignatiadis), Nina Munkholt Jakobsen (\@nmjakobsen), Xavier Laviron (\@norival), Nick Pullen (\@nstjhp), Oge Nnadi (\@ogennadi), Oliver Paisley (\@oliverpaisley), Pariksheet Nanda (\@omsai), Øystein Sørensen (\@osorensen), Paul (\@otepoti), Otho Mantegazza (\@othomantegazza), Dewey Dunnington (\@paleolimbot), Parker Abercrombie (\@parkerabercrombie), Patrick Hausmann (\@patperu), Patrick Miller (\@patr1ckm), Patrick Werkmeister (\@Patrick01), \@paulponcet, \@pdb61, Tom Crockett (\@pelotom), \@pengyu, Jeremiah (\@perryjer1), Peter Hickey (\@PeteHaitch), Phil Chalmers (\@philchalmers), Jose Antonio Magaña Mesa (\@picarus), Pierre Casadebaig (\@picasa), Antonio Piccolboni (\@piccolbo), Pierre Roudier (\@pierreroudier), Poor Yorick (\@pooryorick), Marie-Helene Burle (\@prosoitos), Peter Schulam (\@pschulam), John (\@quantbo), Quyu Kong (\@qykong), Ramiro Magno (\@ramiromagno), Ramnath Vaidyanathan (\@ramnathv), Kun Ren (\@renkun-ken), Richard Reeve (\@richardreeve), Richard Cotton (\@richierocks), Robert M Flight (\@rmflight), R. Mark Sharp (\@rmsharp), Robert Krzyzanowski (\@robertzk), \@robiRagan, Romain François (\@romainfrancois), Ross Holmberg (\@rossholmberg), Ricardo Pietrobon (\@rpietro), \@rrunner, Ryan Walker (\@rtwalker), \@rubenfcasal, Rob Weyant (\@rweyant), Rumen Zarev (\@rzarev), Nan Wang (\@sailingwave), Samuel Perreault (\@samperochkin), \@sbgraves237, Scott Kostyshak (\@scottkosty), Scott Leishman (\@scttl), Sean Hughes (\@seaaan), Sean Anderson (\@seananderson), Sean Carmody (\@seancarmody), Sebastian (\@sebastian-c), Matthew Sedaghatfar (\@sedaghatfar), \@see24, Sven E. Templer (\@setempler), \@sflippl, \@shabbybanks, Steven Pav (\@shabbychef), Shannon Rush (\@shannonrush), S'busiso Mkhondwane (\@sibusiso16), Sigfried Gold (\@Sigfried), Simon O'Hanlon (\@simonohanlon101), Simon Potter (\@sjp), Leo Razoumov (\@slonik-az), Richard M. Smith (\@Smudgerville), Steve (\@SplashDance), Scott Ritchie (\@sritchie73), Tim Cole (\@statist7), \@ste-fan, \@stephens999, Steve Walker (\@stevencarlislewalker), Stefan Widgren (\@stewid), Homer Strong (\@strongh), Dirk (\@surmann), Sebastien Vigneau (\@svigneau), Scott Warchal (\@Swarchal), Steven Nydick (\@swnydick), Taekyun Kim (\@taekyunk), Tal Galili (\@talgalili), \@Tazinho, Tyler Bradley (\@tbradley1013), Tom B (\@tbuckl), \@tdenes, \@thomasherbig, Thomas (\@thomaskern), Thomas Lin Pedersen (\@thomasp85), Thomas Zumbrunn (\@thomaszumbrunn), Tim Waterhouse (\@timwaterhouse), TJ Mahr (\@tjmahr), Anton Antonov (\@tonytonov), Ben Torvaney (\@Torvaney), Jeff Allen (\@trestletech), Chitu Okoli (\@Tripartio), Kirill Tsukanov (\@tskir), Terence Teo (\@tteo), Tim Triche, Jr. (\@ttriche), \@tyhenkaline, Tyler Ritchie (\@tylerritchie), Tyler Littlefield (\@tyluRp), Varun Agrawal (\@varun729), Vijay Barve (\@vijaybarve), Victor (\@vkryukov), Vaidotas Zemlys-Balevičius (\@vzemlys), Winston Chang (\@wch), Linda Chin (\@wchi144), Welliton Souza (\@Welliton309), Gregg Whitworth (\@whitwort), Will Beasley (\@wibeasley), William R Bauer (\@WilCrofter), William Doane (\@WilDoane), Sean Wilkinson (\@wilkinson), Christof Winter (\@winterschlaefer), Bill Carver (\@wmc3), Wolfgang Huber (\@wolfganghuber), Krishna Sankar (\@xsankar), Yihui Xie (\@yihui), yang (\@yiluheihei), Yoni Ben-Meshulam (\@yoni), \@yuchouchen, Yuqi Liao (\@yuqiliao), Hiroaki Yutani (\@yutannihilation), Zachary Foster (\@zachary-foster), \@zachcp, \@zackham, Edward Cho (\@zerokarmaleft), Albert Zhao (\@zxzb).
+A big thank you to all 374 contributors (in alphabetical order): Aaron Wolen (\@aaronwolen), \@absolutelyNoWarranty, Adam Hunt (\@adamphunt), \@agrabovsky, Alexander Grueneberg (\@agrueneberg), Anthony Damico (\@ajdamico), James Manton (\@ajdm), Aaron Schumacher (\@ajschumacher), Alan Dipert (\@alandipert), Alex Brown (\@alexbbrown), \@alexperrone, Alex Whitworth (\@alexWhitworth), Alexandros Kokkalis (\@alko989), \@amarchin, Amelia McNamara (\@AmeliaMN), Bryce Mecum (\@amoeba), Andrew Laucius (\@andrewla), Andrew Bray (\@andrewpbray), Andrie de Vries (\@andrie), Angela Li (\@angela-li), \@aranlunzer, Ari Lamstein (\@arilamstein), \@asnr, Andy Teucher (\@ateucher), Albert Vilella (\@avilella), baptiste (\@baptiste), Brian G. Barkley (\@BarkleyBG), Mara Averick (\@batpigandme), Brandon Greenwell (\@bgreenwell), Brandon Hurr (\@bhive01), Jason Knight (\@binarybana), Brett Klamer (\@bklamer), Jesse Anderson (\@blindjesse), Brian Mayer (\@blmayer), Benjamin L. Moore (\@blmoore), Brian Diggs (\@BrianDiggs), Brian S. Yandell (\@byandell), \@carey1024, Chip Hogg (\@chiphogg), Chris Muir (\@ChrisMuir), Christopher Gandrud (\@christophergandrud), Clay Ford (\@clayford), Colin Fay (\@ColinFay), \@cortinah, Cameron Plouffe (\@cplouffe), Carson Sievert (\@cpsievert), Craig Citro (\@craigcitro), Craig Grabowski (\@craiggrabowski), Christopher Roach (\@croach), Peter Meilstrup (\@crowding), Crt Ahlin (\@crtahlin), Carlos Scheidegger (\@cscheid), Colin Gillespie (\@csgillespie), Christopher Brown (\@ctbrown), Davor Cubranic (\@cubranic), Darren Cusanovich (\@cusanovich), Christian G. Warden (\@cwarden), Charlotte Wickham (\@cwickham), Dean Attali (\@daattali), Dan Sullivan (\@dan87134), Daniel Barnett (\@daniel-barnett), Daniel (\@danielruc91), Kenny Darrell (\@darrkj), Tracy Nance (\@datapixie), Dave Childers (\@davechilders), David Rubinger (\@davidrubinger), David Chudzicki (\@dchudz), Deependra Dhakal (\@DeependraD), Daisuke ICHIKAWA (\@dichika), david kahle (\@dkahle), David LeBauer (\@dlebauer), David Schweizer (\@dlschweizer), David Montaner (\@dmontaner), \@dmurdoch, Zhuoer Dong (\@dongzhuoer), Doug Mitarotonda (\@dougmitarotonda), Jonathan Hill (\@Dripdrop12), \@drtjc, Julian During (\@duju211), \@duncanwadsworth, \@eaurele, Dirk Eddelbuettel (\@eddelbuettel), \@EdFineOKL, Eduard Szöcs (\@EDiLD), Edwin Thoen (\@EdwinTh), Ethan Heinzen (\@eheinzen), \@eijoac, Joel Schwartz (\@eipi10), Eric Ronald Legrand (\@elegrand), Ellis Valentiner (\@ellisvalentiner), Emil Hvitfeldt (\@EmilHvitfeldt), Emil Rehnberg (\@EmilRehnberg), Daniel Lee (\@erget), Eric C. Anderson (\@eriqande), Enrico Spinielli (\@espinielli), \@etb, David Hajage (\@eusebe), Fabian Scheipl (\@fabian-s), \@flammy0530, François Michonneau (\@fmichonneau), Francois Pepin (\@fpepin), Frank Farach (\@frankfarach), \@freezby, Frans van Dunné (\@FvD), \@fyears, \@gagnagaman, Garrett Grolemund (\@garrettgman), Gavin Simpson (\@gavinsimpson), \@gezakiss7, \@gggtest, Gökçen Eraslan (\@gokceneraslan), Georg Russ (\@gr650), \@grasshoppermouse, Gregor Thomas (\@gregorp), Garrett See (\@gsee), Ari Friedman (\@gsk3), Gunnlaugur Thor Briem (\@gthb), Greg Wilson (\@gvwilson), Hadley Wickham (\@hadley), Hamed (\@hamedbh), Jeff Hammerbacher (\@hammer), Harley Day (\@harleyday), \@hassaad85, \@helmingstay, Henning (\@henningsway), Henrik Bengtsson (\@HenrikBengtsson), Ching Boon (\@hoscb), \@hplieninger, Iain Dillingham (\@iaindillingham), \@IanKopacka, Ian Lyttle (\@ijlyttle), Ilan Man (\@ilanman), Imanuel Costigan (\@imanuelcostigan), Thomas Bürli (\@initdch), Os Keyes (\@Ironholds), \@irudnyts, i (\@isomorphisms), Irene Steves (\@isteves), Jan Gleixner (\@jan-glx), Jannes Muenchow (\@jannes-m), Jason Asher (\@jasonasher), Jason Davies (\@jasondavies), Chris (\@jastingo), jcborras (\@jcborras), John Blischak (\@jdblischak), \@jeharmse, Lukas Burk (\@jemus42), Jennifer (Jenny) Bryan (\@jennybc), Justin Jent (\@jentjr), Jeston (\@JestonBlu), Jim Hester (\@jimhester), \@JimInNashville, \@jimmyliu2017, Jim Vine (\@jimvine), Jinlong Yang (\@jinlong25), J.J. Allaire (\@jjallaire), \@JMHay, Jochen Van de Velde (\@jochenvdv), Johann Hibschman (\@johannh), John Baumgartner (\@johnbaums), John Horton (\@johnjosephhorton), \@johnthomas12, Jon Calder (\@jonmcalder), Jon Harmon (\@jonthegeek), Julia Gustavsen (\@jooolia), JorneBiccler (\@JorneBiccler), Jeffrey Arnold (\@jrnold), Joyce Robbins (\@jtr13), Juan Manuel Truppia (\@juancentro), Kevin Markham (\@justmarkham), john verzani (\@jverzani), Michael Kane (\@kaneplusplus), Bart Kastermans (\@kasterma), Kevin D'Auria (\@kdauria), Karandeep Singh (\@kdpsingh), Ken Williams (\@kenahoo), Kendon Bell (\@kendonB), Kent Johnson (\@kent37), Kevin Ushey (\@kevinushey), 电线杆 (\@kfeng123), Karl Forner (\@kforner), Kirill Sevastyanenko (\@kirillseva), Brian Knaus (\@knausb), Kirill Müller (\@krlmlr), Kriti Sen Sharma (\@ksens), Kai Tang (唐恺） (\@ktang), Kevin Wright (\@kwstat), suo.lawrence.liu@gmail.com (\@Lawrence-Liu), \@ldfmrails, Kevin Kainan Li (\@legendre6891), Rachel Severson (\@leighseverson), Laurent Gatto (\@lgatto), C. Jason Liang (\@liangcj), Steve Lianoglou (\@lianos), Likan (\@likanzhan), \@lindbrook, Lingbing Feng (\@Lingbing), Marcel Ramos (\@LiNk-NY), Zhongpeng Lin (\@linzhp), Lionel Henry (\@lionel-), Lluís (\@llrs), myq (\@lrcg), Luke W Johnston (\@lwjohnst86), Kevin Lynagh (\@lynaghk), \@MajoroMask, Malcolm Barrett (\@malcolmbarrett), \@mannyishere, \@mascaretti, Matt (\@mattbaggott), Matthew Grogan (\@mattgrogan), \@matthewhillary, Matthieu Gomez (\@matthieugomez), Matt Malin (\@mattmalin), Mauro Lepore (\@maurolepore), Max Ghenis (\@MaxGhenis), Maximilian Held (\@maxheld83), Michal Bojanowski (\@mbojan), Mark Rosenstein (\@mbrmbr), Michael Sumner (\@mdsumner), Jun Mei (\@meijun), merkliopas (\@merkliopas), mfrasco (\@mfrasco), Michael Bach (\@michaelbach), Michael Bishop (\@MichaelMBishop), Michael Buckley (\@michaelmikebuckley), Michael Quinn (\@michaelquinn32), \@miguelmorin, Michael (\@mikekaminsky), Mine Cetinkaya-Rundel (\@mine-cetinkaya-rundel), \@mjsduncan, Mamoun Benghezal (\@MoBeng), Matt Pettis (\@mpettis), Martin Morgan (\@mtmorgan), Guy Dawson (\@Mullefa), Nacho Caballero (\@nachocab), Natalya Rapstine (\@natalya-patrikeeva), Nick Carchedi (\@ncarchedi), Pascal Burkhard (\@Nenuial), Noah Greifer (\@ngreifer), Nicholas Vasile (\@nickv9), Nikos Ignatiadis (\@nignatiadis), Nina Munkholt Jakobsen (\@nmjakobsen), Xavier Laviron (\@norival), Nick Pullen (\@nstjhp), Oge Nnadi (\@ogennadi), Oliver Paisley (\@oliverpaisley), Pariksheet Nanda (\@omsai), Øystein Sørensen (\@osorensen), Paul (\@otepoti), Otho Mantegazza (\@othomantegazza), Dewey Dunnington (\@paleolimbot), Parker Abercrombie (\@parkerabercrombie), Patrick Hausmann (\@patperu), Patrick Miller (\@patr1ckm), Patrick Werkmeister (\@Patrick01), \@paulponcet, \@pdb61, Tom Crockett (\@pelotom), \@pengyu, Jeremiah (\@perryjer1), Peter Hickey (\@PeteHaitch), Phil Chalmers (\@philchalmers), Jose Antonio Magaña Mesa (\@picarus), Pierre Casadebaig (\@picasa), Antonio Piccolboni (\@piccolbo), Pierre Roudier (\@pierreroudier), Poor Yorick (\@pooryorick), Marie-Helene Burle (\@prosoitos), Peter Schulam (\@pschulam), John (\@quantbo), Quyu Kong (\@qykong), Ramiro Magno (\@ramiromagno), Ramnath Vaidyanathan (\@ramnathv), Kun Ren (\@renkun-ken), Richard Reeve (\@richardreeve), Richard Cotton (\@richierocks), Robert M Flight (\@rmflight), R. Mark Sharp (\@rmsharp), Robert Krzyzanowski (\@robertzk), \@robiRagan, Romain François (\@romainfrancois), Ross Holmberg (\@rossholmberg), Ricardo Pietrobon (\@rpietro), \@rrunner, Ryan Walker (\@rtwalker), \@rubenfcasal, Rob Weyant (\@rweyant), Rumen Zarev (\@rzarev), Nan Wang (\@sailingwave), Samuel Perreault (\@samperochkin), \@sbgraves237, Scott Kostyshak (\@scottkosty), Scott Leishman (\@scttl), Sean Hughes (\@seaaan), Sean Anderson (\@seananderson), Sean Carmody (\@seancarmody), Sebastian (\@sebastian-c), Matthew Sedaghatfar (\@sedaghatfar), \@see24, Sven E. Templer (\@setempler), \@sflippl, \@shabbybanks, Steven Pav (\@shabbychef), Shannon Rush (\@shannonrush), S'busiso Mkhondwane (\@sibusiso16), Sigfried Gold (\@Sigfried), Simon O'Hanlon (\@simonohanlon101), Simon Potter (\@sjp), Leo Razoumov (\@slonik-az), Richard M. Smith (\@Smudgerville), Steve (\@SplashDance), Scott Ritchie (\@sritchie73), Tim Cole (\@statist7), \@ste-fan, \@stephens999, Steve Walker (\@stevencarlislewalker), Stefan Widgren (\@stewid), Homer Strong (\@strongh), Dirk (\@surmann), Sebastien Vigneau (\@svigneau), Scott Warchal (\@Swarchal), Steven Nydick (\@swnydick), Taekyun Kim (\@taekyunk), Tal Galili (\@talgalili), \@Tazinho, Tyler Bradley (\@tbradley1013), Tom B (\@tbuckl), \@tdenes, \@thomasherbig, Thomas (\@thomaskern), Thomas Lin Pedersen (\@thomasp85), Thomas Zumbrunn (\@thomaszumbrunn), Tim Waterhouse (\@timwaterhouse), TJ Mahr (\@tjmahr), Thomas Nagler (\@tnagler), Anton Antonov (\@tonytonov), Ben Torvaney (\@Torvaney), Jeff Allen (\@trestletech), Tyler Rinker (\@trinker), Chitu Okoli (\@Tripartio), Kirill Tsukanov (\@tskir), Terence Teo (\@tteo), Tim Triche, Jr. (\@ttriche), \@tyhenkaline, Tyler Ritchie (\@tylerritchie), Tyler Littlefield (\@tyluRp), Varun Agrawal (\@varun729), Vijay Barve (\@vijaybarve), Victor (\@vkryukov), Vaidotas Zemlys-Balevičius (\@vzemlys), Winston Chang (\@wch), Linda Chin (\@wchi144), Welliton Souza (\@Welliton309), Gregg Whitworth (\@whitwort), Will Beasley (\@wibeasley), William R Bauer (\@WilCrofter), William Doane (\@WilDoane), Sean Wilkinson (\@wilkinson), Christof Winter (\@winterschlaefer), Bill Carver (\@wmc3), Wolfgang Huber (\@wolfganghuber), Krishna Sankar (\@xsankar), Yihui Xie (\@yihui), yang (\@yiluheihei), Yoni Ben-Meshulam (\@yoni), \@yuchouchen, Yuqi Liao (\@yuqiliao), Hiroaki Yutani (\@yutannihilation), Zachary Foster (\@zachary-foster), \@zachcp, \@zackham, Sergio Oller (\@zeehio), Edward Cho (\@zerokarmaleft), Albert Zhao (\@zxzb).
 
 ## Conventions {#conventions}
 
@@ -208,7 +202,7 @@ This version of the book was built with the following version of R and packages.
 
 |setting  |value                        |
 |:--------|:----------------------------|
-|version  |R version 3.5.1 (2018-12-12) |
+|version  |R version 3.5.2 (2017-01-27) |
 |os       |Ubuntu 14.04.5 LTS           |
 |system   |x86_64, linux-gnu            |
 |ui       |X11                          |
@@ -216,93 +210,94 @@ This version of the book was built with the following version of R and packages.
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |UTC                          |
-|date     |2018-12-21                   |
+|date     |2019-01-09                   |
 
 
 |package      |version    |source                           |
 |:------------|:----------|:--------------------------------|
-|assertthat   |0.2.0      |CRAN (R 3.5.1)                   |
-|backports    |1.1.3      |CRAN (R 3.5.1)                   |
-|base64enc    |0.1-3      |CRAN (R 3.5.1)                   |
-|beeswarm     |0.2.3      |CRAN (R 3.5.1)                   |
-|bench        |1.0.1      |CRAN (R 3.5.1)                   |
-|BH           |1.66.0-1   |CRAN (R 3.5.1)                   |
-|bindr        |0.1.1      |CRAN (R 3.5.1)                   |
-|bindrcpp     |0.2.2      |CRAN (R 3.5.1)                   |
-|bit          |1.1-14     |CRAN (R 3.5.1)                   |
-|bit64        |0.9-7      |CRAN (R 3.5.1)                   |
-|blob         |1.1.1      |CRAN (R 3.5.1)                   |
-|bookdown     |0.8        |CRAN (R 3.5.1)                   |
-|cli          |1.0.1      |CRAN (R 3.5.1)                   |
-|codetools    |0.2-15     |CRAN (R 3.5.1)                   |
-|colorspace   |1.3-2      |CRAN (R 3.5.1)                   |
-|crayon       |1.3.4      |CRAN (R 3.5.1)                   |
-|DBI          |1.0.0      |CRAN (R 3.5.1)                   |
-|dbplyr       |1.2.2      |CRAN (R 3.5.1)                   |
-|desc         |1.2.0      |CRAN (R 3.5.1)                   |
-|digest       |0.6.18     |CRAN (R 3.5.1)                   |
-|dplyr        |0.7.8      |CRAN (R 3.5.1)                   |
+|assertthat   |0.2.0      |CRAN (R 3.5.2)                   |
+|backports    |1.1.3      |CRAN (R 3.5.2)                   |
+|base64enc    |0.1-3      |CRAN (R 3.5.2)                   |
+|beeswarm     |0.2.3      |CRAN (R 3.5.2)                   |
+|bench        |1.0.1      |CRAN (R 3.5.2)                   |
+|BH           |1.69.0-1   |CRAN (R 3.5.2)                   |
+|bindr        |0.1.1      |CRAN (R 3.5.2)                   |
+|bindrcpp     |0.2.2      |CRAN (R 3.5.2)                   |
+|bit          |1.1-14     |CRAN (R 3.5.2)                   |
+|bit64        |0.9-7      |CRAN (R 3.5.2)                   |
+|blob         |1.1.1      |CRAN (R 3.5.2)                   |
+|bookdown     |0.9        |CRAN (R 3.5.2)                   |
+|cli          |1.0.1      |CRAN (R 3.5.2)                   |
+|codetools    |0.2-15     |CRAN (R 3.5.2)                   |
+|colorspace   |1.3-2      |CRAN (R 3.5.2)                   |
+|crayon       |1.3.4      |CRAN (R 3.5.2)                   |
+|DBI          |1.0.0      |CRAN (R 3.5.2)                   |
+|dbplyr       |1.2.2      |CRAN (R 3.5.2)                   |
+|desc         |1.2.0      |CRAN (R 3.5.2)                   |
+|digest       |0.6.18     |CRAN (R 3.5.2)                   |
+|dplyr        |0.7.8      |CRAN (R 3.5.2)                   |
 |emo          |0.0.0.9000 |Github (hadley/emo\@02a5206)     |
-|evaluate     |0.12       |CRAN (R 3.5.1)                   |
-|fansi        |0.4.0      |CRAN (R 3.5.1)                   |
-|ggbeeswarm   |0.6.0      |CRAN (R 3.5.1)                   |
-|ggplot2      |3.1.0      |CRAN (R 3.5.1)                   |
-|glue         |1.3.0      |Github (tidyverse/glue\@35c61e9) |
-|gtable       |0.2.0      |CRAN (R 3.5.1)                   |
-|highr        |0.7        |CRAN (R 3.5.1)                   |
-|htmltools    |0.3.6      |CRAN (R 3.5.1)                   |
-|htmlwidgets  |1.3        |CRAN (R 3.5.1)                   |
-|jsonlite     |1.6        |CRAN (R 3.5.1)                   |
-|knitr        |1.21       |CRAN (R 3.5.1)                   |
-|labeling     |0.3        |CRAN (R 3.5.1)                   |
-|lattice      |0.20-35    |CRAN (R 3.5.1)                   |
-|lazyeval     |0.2.1      |CRAN (R 3.5.1)                   |
-|lobstr       |1.0.0.9000 |Github (r-lib/lobstr\@0d3ad9f)   |
-|lubridate    |1.7.4      |CRAN (R 3.5.1)                   |
-|magrittr     |1.5        |CRAN (R 3.5.1)                   |
-|markdown     |0.9        |CRAN (R 3.5.1)                   |
-|MASS         |7.3-50     |CRAN (R 3.5.1)                   |
-|Matrix       |1.2-14     |CRAN (R 3.5.1)                   |
-|memoise      |1.1.0      |CRAN (R 3.5.1)                   |
-|mgcv         |1.8-24     |CRAN (R 3.5.1)                   |
-|mime         |0.6        |CRAN (R 3.5.1)                   |
-|munsell      |0.5.0      |CRAN (R 3.5.1)                   |
-|nlme         |3.1-137    |CRAN (R 3.5.1)                   |
-|pillar       |1.3.1      |CRAN (R 3.5.1)                   |
-|pkgconfig    |2.0.2      |CRAN (R 3.5.1)                   |
-|plogr        |0.2.0      |CRAN (R 3.5.1)                   |
-|plyr         |1.8.4      |CRAN (R 3.5.1)                   |
-|praise       |1.0.0      |CRAN (R 3.5.1)                   |
-|prettyunits  |1.0.2      |CRAN (R 3.5.1)                   |
-|profmem      |0.5.0      |CRAN (R 3.5.1)                   |
-|profvis      |0.3.5      |CRAN (R 3.5.1)                   |
-|purrr        |0.2.5      |CRAN (R 3.5.1)                   |
-|R6           |2.3.0      |CRAN (R 3.5.1)                   |
-|RColorBrewer |1.1-2      |CRAN (R 3.5.1)                   |
-|Rcpp         |1.0.0      |CRAN (R 3.5.1)                   |
-|reshape2     |1.4.3      |CRAN (R 3.5.1)                   |
-|rlang        |0.3.0.9002 |Github (r-lib/rlang\@e7475ab)    |
-|rmarkdown    |1.11       |CRAN (R 3.5.1)                   |
-|rprojroot    |1.3-2      |CRAN (R 3.5.1)                   |
-|RSQLite      |2.1.1      |CRAN (R 3.5.1)                   |
-|scales       |1.0.0      |CRAN (R 3.5.1)                   |
-|sessioninfo  |1.1.1      |CRAN (R 3.5.1)                   |
-|sloop        |1.0.0      |CRAN (R 3.5.1)                   |
-|stringi      |1.2.4      |CRAN (R 3.5.1)                   |
-|stringr      |1.3.1      |CRAN (R 3.5.1)                   |
-|testthat     |2.0.1      |CRAN (R 3.5.1)                   |
-|tibble       |1.4.2      |CRAN (R 3.5.1)                   |
-|tidyr        |0.8.2      |CRAN (R 3.5.1)                   |
-|tidyselect   |0.2.5      |CRAN (R 3.5.1)                   |
-|tinytex      |0.9        |CRAN (R 3.5.1)                   |
-|utf8         |1.1.4      |CRAN (R 3.5.1)                   |
-|vctrs        |0.1.0      |CRAN (R 3.5.1)                   |
-|vipor        |0.4.5      |CRAN (R 3.5.1)                   |
-|viridisLite  |0.3.0      |CRAN (R 3.5.1)                   |
-|withr        |2.1.2      |CRAN (R 3.5.1)                   |
-|xfun         |0.4        |CRAN (R 3.5.1)                   |
-|yaml         |2.2.0      |CRAN (R 3.5.1)                   |
-|zeallot      |0.1.0      |CRAN (R 3.5.1)                   |
+|evaluate     |0.12       |CRAN (R 3.5.2)                   |
+|fansi        |0.4.0      |CRAN (R 3.5.2)                   |
+|ggbeeswarm   |0.6.0      |CRAN (R 3.5.2)                   |
+|ggplot2      |3.1.0      |CRAN (R 3.5.2)                   |
+|glue         |1.3.0.9000 |Github (tidyverse/glue\@3f7012c) |
+|gtable       |0.2.0      |CRAN (R 3.5.2)                   |
+|highr        |0.7        |CRAN (R 3.5.2)                   |
+|htmltools    |0.3.6      |CRAN (R 3.5.2)                   |
+|htmlwidgets  |1.3        |CRAN (R 3.5.2)                   |
+|jsonlite     |1.6        |CRAN (R 3.5.2)                   |
+|knitr        |1.21       |CRAN (R 3.5.2)                   |
+|labeling     |0.3        |CRAN (R 3.5.2)                   |
+|lattice      |0.20-38    |CRAN (R 3.5.2)                   |
+|lazyeval     |0.2.1      |CRAN (R 3.5.2)                   |
+|lobstr       |1.0.1      |CRAN (R 3.5.2)                   |
+|lubridate    |1.7.4      |CRAN (R 3.5.2)                   |
+|magrittr     |1.5        |CRAN (R 3.5.2)                   |
+|markdown     |0.9        |CRAN (R 3.5.2)                   |
+|MASS         |7.3-51.1   |CRAN (R 3.5.2)                   |
+|Matrix       |1.2-15     |CRAN (R 3.5.2)                   |
+|memoise      |1.1.0      |CRAN (R 3.5.2)                   |
+|mgcv         |1.8-26     |CRAN (R 3.5.2)                   |
+|mime         |0.6        |CRAN (R 3.5.2)                   |
+|munsell      |0.5.0      |CRAN (R 3.5.2)                   |
+|nlme         |3.1-137    |CRAN (R 3.5.2)                   |
+|pillar       |1.3.1      |CRAN (R 3.5.2)                   |
+|pkgconfig    |2.0.2      |CRAN (R 3.5.2)                   |
+|plogr        |0.2.0      |CRAN (R 3.5.2)                   |
+|plyr         |1.8.4      |CRAN (R 3.5.2)                   |
+|png          |0.1-7      |CRAN (R 3.5.2)                   |
+|praise       |1.0.0      |CRAN (R 3.5.2)                   |
+|prettyunits  |1.0.2      |CRAN (R 3.5.2)                   |
+|profmem      |0.5.0      |CRAN (R 3.5.2)                   |
+|profvis      |0.3.5      |CRAN (R 3.5.2)                   |
+|purrr        |0.2.5      |CRAN (R 3.5.2)                   |
+|R6           |2.3.0      |CRAN (R 3.5.2)                   |
+|RColorBrewer |1.1-2      |CRAN (R 3.5.2)                   |
+|Rcpp         |1.0.0      |CRAN (R 3.5.2)                   |
+|reshape2     |1.4.3      |CRAN (R 3.5.2)                   |
+|rlang        |0.3.1.9000 |Github (r-lib/rlang\@cb84015)    |
+|rmarkdown    |1.11       |CRAN (R 3.5.2)                   |
+|rprojroot    |1.3-2      |CRAN (R 3.5.2)                   |
+|RSQLite      |2.1.1      |CRAN (R 3.5.2)                   |
+|scales       |1.0.0      |CRAN (R 3.5.2)                   |
+|sessioninfo  |1.1.1      |CRAN (R 3.5.2)                   |
+|sloop        |1.0.0      |CRAN (R 3.5.2)                   |
+|stringi      |1.2.4      |CRAN (R 3.5.2)                   |
+|stringr      |1.3.1      |CRAN (R 3.5.2)                   |
+|testthat     |2.0.1      |CRAN (R 3.5.2)                   |
+|tibble       |2.0.0      |CRAN (R 3.5.2)                   |
+|tidyr        |0.8.2      |CRAN (R 3.5.2)                   |
+|tidyselect   |0.2.5      |CRAN (R 3.5.2)                   |
+|tinytex      |0.9        |CRAN (R 3.5.2)                   |
+|utf8         |1.1.4      |CRAN (R 3.5.2)                   |
+|vctrs        |0.1.0      |CRAN (R 3.5.2)                   |
+|vipor        |0.4.5      |CRAN (R 3.5.2)                   |
+|viridisLite  |0.3.0      |CRAN (R 3.5.2)                   |
+|withr        |2.1.2      |CRAN (R 3.5.2)                   |
+|xfun         |0.4        |CRAN (R 3.5.2)                   |
+|yaml         |2.2.0      |CRAN (R 3.5.2)                   |
+|zeallot      |0.1.0      |CRAN (R 3.5.2)                   |
 
 
 
