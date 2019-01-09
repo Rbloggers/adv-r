@@ -112,7 +112,7 @@ Printing an environment just displays its memory address, which is not terribly 
 
 ```r
 e1
-#> <environment: 0x1bded20>
+#> <environment: 0x279bbd0>
 ```
 
 Instead, we'll use `env_print()` which gives us a little more information:
@@ -120,7 +120,7 @@ Instead, we'll use `env_print()` which gives us a little more information:
 
 ```r
 env_print(e1)
-#> <environment: 0x1bded20>
+#> <environment: 0x279bbd0>
 #> parent: <environment: global>
 #> bindings:
 #>  * a: <lgl>
@@ -184,7 +184,7 @@ You can find the parent of an environment with `env_parent()`:
 
 ```r
 env_parent(e2b)
-#> <environment: 0x4fda770>
+#> <environment: 0x5b98248>
 env_parent(e2a)
 #> <environment: R_GlobalEnv>
 ```
@@ -204,10 +204,10 @@ The ancestors of every environment eventually terminate with the empty environme
 
 ```r
 env_parents(e2b)
-#> [[1]]   <env: 0x4fda770>
+#> [[1]]   <env: 0x5b98248>
 #> [[2]] $ <env: global>
 env_parents(e2d)
-#> [[1]]   <env: 0x5a65388>
+#> [[1]]   <env: 0x6622de0>
 #> [[2]] $ <env: empty>
 ```
 
@@ -216,7 +216,7 @@ By default, `env_parents()` stops when it gets to the global environment. This i
 
 ```r
 env_parents(e2b, last = empty_env())
-#>  [[1]]   <env: 0x4fda770>
+#>  [[1]]   <env: 0x5b98248>
 #>  [[2]] $ <env: global>
 #>  [[3]] $ <env: package:rlang>
 #>  [[4]] $ <env: package:stats>
@@ -378,7 +378,7 @@ There are two more exotic variants of `env_bind()`:
     system.time(print(b))
     #> [1] 1
     #>    user  system elapsed 
-    #>       0       0       1
+    #>   0.004   0.000   1.002
     system.time(print(b))
     #> [1] 1
     #>    user  system elapsed 
@@ -675,7 +675,7 @@ sd
 #> function (x, na.rm = FALSE) 
 #> sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), 
 #>     na.rm = na.rm))
-#> <bytecode: 0x6167a00>
+#> <bytecode: 0x6dce6d8>
 #> <environment: namespace:stats>
 ```
 
@@ -782,7 +782,7 @@ h2 <- function(x) {
 
 e <- h2(x = 10)
 env_print(e)
-#> <environment: 0x6651228>
+#> <environment: 0x72306b0>
 #> parent: <environment: global>
 #> bindings:
 #>  * a: <dbl>
@@ -804,7 +804,7 @@ plus <- function(x) {
 plus_one <- plus(1)
 plus_one
 #> function(y) x + y
-#> <environment: 0x5bcbe48>
+#> <environment: 0x67cc7e8>
 ```
 
 
