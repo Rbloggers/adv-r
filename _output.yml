@@ -14,14 +14,14 @@ bookdown::gitbook:
 bookdown::pdf_book:
   latex_engine: "xelatex"
   keep_tex: true
-  pandoc_args: --top-level-division=chapter #[  "--lua-filter=latex/sidebar.lua" ] #
-  toc_unnumbered: no
-  number_sections: false #true
   includes:
     in_header: header.tex #latex/preamble.tex
     before_body: latex/before_body.tex
     after_body: latex/after_body.tex
   quote_footer: ["\\hspace*{\\fill} ", ""]
+#  pandoc_args: --top-level-division=chapter #[  "--lua-filter=latex/sidebar.lua" ] #
+#  toc_unnumbered: no
+#  number_sections: false #true
 
 
 #bookdown::pdf_book:
