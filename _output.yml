@@ -19,6 +19,7 @@ bookdown::pdf_book:
     before_body: latex/before_body.tex
     after_body: latex/after_body.tex
   quote_footer: ["\\hspace*{\\fill} ", ""]
+  highlight_bw: true # Code to gray scale
 #  pandoc_args: --top-level-division=chapter #[  "--lua-filter=latex/sidebar.lua" ] #
 #  toc_unnumbered: no
 #  number_sections: false #true

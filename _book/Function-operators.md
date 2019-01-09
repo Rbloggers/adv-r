@@ -106,8 +106,8 @@ safe_sum <- safely(sum)
 safe_sum
 #> function (...) 
 #> capture_error(.f(...), otherwise, quiet)
-#> <bytecode: 0x59dcc58>
-#> <environment: 0x59dc7c0>
+#> <bytecode: 0x5710de0>
+#> <environment: 0x5710948>
 ```
 
 Like all function operators, `safely()` takes a function and returns a wrapped function which we can call as usual:
@@ -254,7 +254,7 @@ system.time(print(slow_function(1)))
 system.time(print(slow_function(1)))
 #> [1] 8.34
 #>    user  system elapsed 
-#>   0.004   0.000   1.003
+#>   0.004   0.000   1.004
 ```
 
 When we memoise this function, it's slow when we call it with new arguments. But when we call it with arguments that it's seen before it's instantaneous: it retrieves the previous value of the computation.
@@ -265,7 +265,7 @@ fast_function <- memoise::memoise(slow_function)
 system.time(print(fast_function(1)))
 #> [1] 6.01
 #>    user  system elapsed 
-#>   0.004   0.000   1.001
+#>       0       0       1
 
 system.time(print(fast_function(1)))
 #> [1] 6.01
@@ -283,7 +283,7 @@ fib <- function(n) {
 }
 system.time(fib(23))
 #>    user  system elapsed 
-#>   0.040   0.000   0.039
+#>   0.036   0.000   0.038
 system.time(fib(24))
 #>    user  system elapsed 
 #>   0.060   0.000   0.062
@@ -299,7 +299,7 @@ fib2 <- memoise::memoise(function(n) {
 })
 system.time(fib2(23))
 #>    user  system elapsed 
-#>   0.024   0.000   0.024
+#>   0.024   0.000   0.025
 ```
 
 And future calls can rely on previous computations:
@@ -377,7 +377,7 @@ delay_by <- function(f, amount) {
 }
 system.time(runif(100))
 #>    user  system elapsed 
-#>       0       0       0
+#>   0.000   0.000   0.001
 system.time(delay_by(runif, 0.1)(100))
 #>    user  system elapsed 
 #>     0.0     0.0     0.1

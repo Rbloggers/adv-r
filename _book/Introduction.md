@@ -276,7 +276,7 @@ This version of the book was built with the following version of R and packages.
 |RColorBrewer |1.1-2      |CRAN (R 3.5.2)                   |
 |Rcpp         |1.0.0      |CRAN (R 3.5.2)                   |
 |reshape2     |1.4.3      |CRAN (R 3.5.2)                   |
-|rlang        |0.3.1.9000 |Github (r-lib/rlang\@cb84015)    |
+|rlang        |0.3.1.9000 |Github (r-lib/rlang\@9bac5b6)    |
 |rmarkdown    |1.11       |CRAN (R 3.5.2)                   |
 |rprojroot    |1.3-2      |CRAN (R 3.5.2)                   |
 |RSQLite      |2.1.1      |CRAN (R 3.5.2)                   |
