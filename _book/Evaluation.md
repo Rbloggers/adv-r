@@ -316,7 +316,7 @@ There are three ways to create quosures:
     new_quosure(expr(x + y), env(x = 1, y = 10))
     #> <quosure>
     #> expr: ^x + y
-    #> env:  0x4615d98
+    #> env:  0x45b1cb8
     ```
 
 ### Evaluating
@@ -363,7 +363,7 @@ qs
 #> $f
 #> <quosure>
 #> expr: ^x
-#> env:  0x4e42618
+#> env:  0x4dde538
 ```
 
 That means that when you evaluate them, you get the correct results:
@@ -483,19 +483,19 @@ When you use `expr_print()` in the console, quosures are coloured according to t
     q1
     #> <quosure>
     #> expr: ^x
-    #> env:  0x4511a20
+    #> env:  0x44ad940
     
     q2 <- new_quosure(expr(x + !!q1), env(x = 10))
     q2
     #> <quosure>
     #> expr: ^x + (^x)
-    #> env:  0x46aad88
+    #> env:  0x4646ca8
     
     q3 <- new_quosure(expr(x + !!q2), env(x = 100))
     q3
     #> <quosure>
     #> expr: ^x + (^x + (^x))
-    #> env:  0x494f030
+    #> env:  0x48eaf50
     ```
 
 1.  Write an `enenv()` function that captures the environment associated
@@ -1015,17 +1015,12 @@ There are main three problems:
     
     ```r
     local({
-      y <- 2
+      zzz <- 2
       dfs <- list(data.frame(x = 1:3), data.frame(x = 4:6))
-      lapply(dfs, subset_base, x == y)
+      lapply(dfs, subset_base, x == zzz)
     })
-    #> [[1]]
-    #> [1] x
-    #> <0 rows> (or 0-length row.names)
-    #> 
-    #> [[2]]
-    #> [1] x
-    #> <0 rows> (or 0-length row.names)
+    #> Error in eval(rows, data, caller_env()):
+    #>   object 'zzz' not found
     ```
 
 *   Calling `subset()` from another function requires some care: you have

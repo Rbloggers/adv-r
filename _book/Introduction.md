@@ -210,7 +210,7 @@ This version of the book was built with the following version of R and packages.
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |UTC                          |
-|date     |2019-01-09                   |
+|date     |2019-01-10                   |
 
 
 |package      |version    |source                           |
@@ -232,7 +232,7 @@ This version of the book was built with the following version of R and packages.
 |colorspace   |1.3-2      |CRAN (R 3.5.2)                   |
 |crayon       |1.3.4      |CRAN (R 3.5.2)                   |
 |DBI          |1.0.0      |CRAN (R 3.5.2)                   |
-|dbplyr       |1.2.2      |CRAN (R 3.5.2)                   |
+|dbplyr       |1.3.0      |CRAN (R 3.5.2)                   |
 |desc         |1.2.0      |CRAN (R 3.5.2)                   |
 |digest       |0.6.18     |CRAN (R 3.5.2)                   |
 |dplyr        |0.7.8      |CRAN (R 3.5.2)                   |

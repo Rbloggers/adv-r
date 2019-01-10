@@ -102,14 +102,14 @@ square
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <environment: 0x329ce20>
+#> <environment: 0x287be20>
 
 cube
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x18a1918>
-#> <environment: 0x34707d0>
+#> <bytecode: 0xe80918>
+#> <environment: 0x2a4f7d0>
 ```
 
 It's obvious where `x` comes from, but how does R find the value associated with `exp`? Simply printing the manufactured functions is not revealing because the bodies are identical; it's the contents of the enclosing environment that's important. We can get a little more insight by using `rlang::env_print()`. That shows us that we have two different environments (each of which was originally an execution environment of `power1()`). The environments have the same parent, which is the enclosing environment of `power1()`, the global environment.
@@ -117,13 +117,13 @@ It's obvious where `x` comes from, but how does R find the value associated with
 
 ```r
 env_print(square)
-#> <environment: 0x329ce20>
+#> <environment: 0x287be20>
 #> parent: <environment: global>
 #> bindings:
 #>  * exp: <dbl>
 
 env_print(cube)
-#> <environment: 0x34707d0>
+#> <environment: 0x2a4f7d0>
 #> parent: <environment: global>
 #> bindings:
 #>  * exp: <dbl>
@@ -307,7 +307,7 @@ lobstr::obj_size(g2)
     force
     #> function (x) 
     #> x
-    #> <bytecode: 0x14d6d60>
+    #> <bytecode: 0xab5d60>
     #> <environment: namespace:base>
     ```
     
@@ -532,12 +532,12 @@ plot_dev <- function(ext, dpi = 96) {
 
 plot_dev("pdf")
 #> function(filename, ...) grDevices::pdf(file = filename, ...)
-#> <bytecode: 0x4b90638>
-#> <environment: 0x3d7eb30>
+#> <bytecode: 0x41722a8>
+#> <environment: 0x335e230>
 plot_dev("png")
 #> function(...) grDevices::png(..., res = dpi, units = "in")
-#> <bytecode: 0x4fe6bb8>
-#> <environment: 0x5406b40>
+#> <bytecode: 0x45c8c78>
+#> <environment: 0x49e4f20>
 ```
 
 ### Exercises
@@ -843,8 +843,8 @@ funs$root
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x18a1918>
-#> <environment: 0x4ce9038>
+#> <bytecode: 0xe80918>
+#> <environment: 0x5517e30>
 ```
 
 This idea extends in a straightforward way if your function factory takes two (replace `map()` with `map2()`) or more (replace with `pmap()`) arguments.

@@ -56,20 +56,20 @@ Take this short quiz to determine if you need to read this chapter. If the answe
 ## Selecting multiple elements {#subset-multiple}
 \indexc{[}
 
-Use `[` to select any number elements from a vector. I'll start by applying it to 1D atomic vectors, and then show how it generalises to more complex objects and more dimensions.
+Use `[` to select any number of elements from a vector. To illustrate, I'll apply `[` to 1D atomic vectors, and then show how this generalises to more complex objects and more dimensions.
 
 ### Atomic vectors
 \index{subsetting!atomic vectors} 
 \index{atomic vectors!subsetting} 
 
-Let's explore the different types of subsetting with a simple vector, `x`. 
+Let's explore the different types of subsetting with a simple vector, `x`.  
 
 
 ```r
 x <- c(2.1, 4.2, 3.3, 5.4)
 ```
 
-Note that the number after the decimal point gives the original position in the vector.
+Note that the number after the decimal point represents the original position in the vector.
 
 There are six things that you can use to subset a vector: 
 
@@ -82,7 +82,7 @@ There are six things that you can use to subset a vector:
     x[order(x)]
     #> [1] 2.1 3.3 4.2 5.4
     
-    # Duplicated indices yield duplicated values
+    # Duplicate indices will duplicate values
     x[c(1, 1)]
     #> [1] 2.1 2.1
     
@@ -91,7 +91,7 @@ There are six things that you can use to subset a vector:
     #> [1] 4.2 4.2
     ```
 
-*   __Negative integers__ omit elements at the specified positions:
+*   __Negative integers__ exclude elements at the specified positions:
 
     
     ```r
@@ -99,7 +99,7 @@ There are six things that you can use to subset a vector:
     #> [1] 4.2 5.4
     ```
 
-    You can't mix positive and negative integers in a single subset:
+    Note that you can't mix positive and negative integers in a single subset:
 
     
     ```r
@@ -110,8 +110,8 @@ There are six things that you can use to subset a vector:
 
 *   __Logical vectors__ select elements where the corresponding logical 
     value is `TRUE`. This is probably the most useful type of subsetting
-    because you can write an expression that creates the logical vector:
-
+    because you can write an expression that uses a logical vector:
+    
     
     ```r
     x[c(TRUE, TRUE, FALSE, FALSE)]
@@ -122,10 +122,10 @@ There are six things that you can use to subset a vector:
 
     \index{recycling}
     In `x[y]`, what happens if `x` and `y` are different lengths? The behaviour 
-    is controlled by the __recycling rules__, and the shorter of the two will
-    be "recycled" to the length of the longer. This is convenient and easy to
+    is controlled by the __recycling rules__ where the shorter of the two is
+    "recycled" to the length of the longer. This is convenient and easy to
     understand when one of `x` and `y` is length one, but I recommend avoiding
-    recycling for other lengths because the rules are consistently applied
+    recycling for other lengths because the rules are inconsistently applied
     throughout base R.
   
     
@@ -137,7 +137,7 @@ There are six things that you can use to subset a vector:
     #> [1] 2.1 3.3
     ```
 
-    A missing value in the index always yields a missing value in the output:
+    Note that a missing value in the index always yields a missing value in the output:
 
     
     ```r
@@ -145,8 +145,8 @@ There are six things that you can use to subset a vector:
     #> [1] 2.1 4.2  NA
     ```
 
-*   __Nothing__ returns the original vector. This is not useful for 1d vectors,
-    but as you'll see shortly, is very useful for matrices, data frames, and arrays. 
+*   __Nothing__ returns the original vector. This is not useful for 1D vectors,
+    but, as you'll see shortly, is very useful for matrices, data frames, and arrays. 
     It can also be useful in conjunction with assignment.
 
     
@@ -188,7 +188,7 @@ There are six things that you can use to subset a vector:
     #>   NA   NA
     ```
 
-NB: factors are not treated specially when subsetting. This means that subsetting will use the underlying integer vector, not the character levels. This is typically unexpected, so you should avoid subsetting with factors:
+NB: Factors are not treated specially when subsetting. This means that subsetting will use the underlying integer vector, not the character levels. This is typically unexpected, so you should avoid subsetting with factors:
 
 
 ```r

@@ -112,7 +112,7 @@ Printing an environment just displays its memory address, which is not terribly 
 
 ```r
 e1
-#> <environment: 0x252b5f0>
+#> <environment: 0x1e5b580>
 ```
 
 Instead, we'll use `env_print()` which gives us a little more information:
@@ -120,7 +120,7 @@ Instead, we'll use `env_print()` which gives us a little more information:
 
 ```r
 env_print(e1)
-#> <environment: 0x252b5f0>
+#> <environment: 0x1e5b580>
 #> parent: <environment: global>
 #> bindings:
 #>  * a: <lgl>
@@ -184,7 +184,7 @@ You can find the parent of an environment with `env_parent()`:
 
 ```r
 env_parent(e2b)
-#> <environment: 0x592ea78>
+#> <environment: 0x525ed78>
 env_parent(e2a)
 #> <environment: R_GlobalEnv>
 ```
@@ -204,10 +204,10 @@ The ancestors of every environment eventually terminate with the empty environme
 
 ```r
 env_parents(e2b)
-#> [[1]]   <env: 0x592ea78>
+#> [[1]]   <env: 0x525ed78>
 #> [[2]] $ <env: global>
 env_parents(e2d)
-#> [[1]]   <env: 0x63b9470>
+#> [[1]]   <env: 0x5ce9770>
 #> [[2]] $ <env: empty>
 ```
 
@@ -216,7 +216,7 @@ By default, `env_parents()` stops when it gets to the global environment. This i
 
 ```r
 env_parents(e2b, last = empty_env())
-#>  [[1]]   <env: 0x592ea78>
+#>  [[1]]   <env: 0x525ed78>
 #>  [[2]] $ <env: global>
 #>  [[3]] $ <env: package:rlang>
 #>  [[4]] $ <env: package:stats>
@@ -675,7 +675,7 @@ sd
 #> function (x, na.rm = FALSE) 
 #> sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), 
 #>     na.rm = na.rm))
-#> <bytecode: 0x7161fa0>
+#> <bytecode: 0x6a922a0>
 #> <environment: namespace:stats>
 ```
 
@@ -782,7 +782,7 @@ h2 <- function(x) {
 
 e <- h2(x = 10)
 env_print(e)
-#> <environment: 0x6e45848>
+#> <environment: 0x6692ef8>
 #> parent: <environment: global>
 #> bindings:
 #>  * a: <dbl>
@@ -804,7 +804,7 @@ plus <- function(x) {
 plus_one <- plus(1)
 plus_one
 #> function(y) x + y
-#> <environment: 0x65232c8>
+#> <environment: 0x5e535c8>
 ```
 
 
