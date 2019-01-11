@@ -210,7 +210,7 @@ This version of the book was built with the following version of R and packages.
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |UTC                          |
-|date     |2019-01-10                   |
+|date     |2019-01-11                   |
 
 
 |package      |version    |source                           |
@@ -276,7 +276,7 @@ This version of the book was built with the following version of R and packages.
 |RColorBrewer |1.1-2      |CRAN (R 3.5.2)                   |
 |Rcpp         |1.0.0      |CRAN (R 3.5.2)                   |
 |reshape2     |1.4.3      |CRAN (R 3.5.2)                   |
-|rlang        |0.3.1.9000 |Github (r-lib/rlang\@9bac5b6)    |
+|rlang        |0.3.1.9000 |Github (r-lib/rlang\@923c789)    |
 |rmarkdown    |1.11       |CRAN (R 3.5.2)                   |
 |rprojroot    |1.3-2      |CRAN (R 3.5.2)                   |
 |RSQLite      |2.1.1      |CRAN (R 3.5.2)                   |
@@ -289,7 +289,7 @@ This version of the book was built with the following version of R and packages.
 |tibble       |2.0.0      |CRAN (R 3.5.2)                   |
 |tidyr        |0.8.2      |CRAN (R 3.5.2)                   |
 |tidyselect   |0.2.5      |CRAN (R 3.5.2)                   |
-|tinytex      |0.9        |CRAN (R 3.5.2)                   |
+|tinytex      |0.10       |CRAN (R 3.5.2)                   |
 |utf8         |1.1.4      |CRAN (R 3.5.2)                   |
 |vctrs        |0.1.0      |CRAN (R 3.5.2)                   |
 |vipor        |0.4.5      |CRAN (R 3.5.2)                   |
