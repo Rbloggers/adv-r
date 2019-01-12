@@ -841,7 +841,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
       print(x)
     }
     show_time()
-    #> [1] "2019-01-11 01:13:41 UTC"
+    #> [1] "2019-01-12 04:15:18 UTC"
     ```
 
 1.  How many arguments are required when calling `library()`?

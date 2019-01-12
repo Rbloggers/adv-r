@@ -210,7 +210,7 @@ This version of the book was built with the following version of R and packages.
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |UTC                          |
-|date     |2019-01-11                   |
+|date     |2019-01-12                   |
 
 
 |package      |version    |source                           |
