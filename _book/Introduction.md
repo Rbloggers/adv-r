@@ -210,7 +210,7 @@ This version of the book was built with the following version of R and packages.
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |UTC                          |
-|date     |2019-01-12                   |
+|date     |2019-01-22                   |
 
 
 |package      |version    |source                           |
@@ -229,7 +229,7 @@ This version of the book was built with the following version of R and packages.
 |bookdown     |0.9        |CRAN (R 3.5.2)                   |
 |cli          |1.0.1      |CRAN (R 3.5.2)                   |
 |codetools    |0.2-15     |CRAN (R 3.5.2)                   |
-|colorspace   |1.3-2      |CRAN (R 3.5.2)                   |
+|colorspace   |1.4-0      |CRAN (R 3.5.2)                   |
 |crayon       |1.3.4      |CRAN (R 3.5.2)                   |
 |DBI          |1.0.0      |CRAN (R 3.5.2)                   |
 |dbplyr       |1.3.0      |CRAN (R 3.5.2)                   |
@@ -241,7 +241,7 @@ This version of the book was built with the following version of R and packages.
 |fansi        |0.4.0      |CRAN (R 3.5.2)                   |
 |ggbeeswarm   |0.6.0      |CRAN (R 3.5.2)                   |
 |ggplot2      |3.1.0      |CRAN (R 3.5.2)                   |
-|glue         |1.3.0.9000 |Github (tidyverse/glue\@3f7012c) |
+|glue         |1.3.0.9000 |Github (tidyverse/glue\@0549457) |
 |gtable       |0.2.0      |CRAN (R 3.5.2)                   |
 |highr        |0.7        |CRAN (R 3.5.2)                   |
 |htmltools    |0.3.6      |CRAN (R 3.5.2)                   |
@@ -286,7 +286,7 @@ This version of the book was built with the following version of R and packages.
 |stringi      |1.2.4      |CRAN (R 3.5.2)                   |
 |stringr      |1.3.1      |CRAN (R 3.5.2)                   |
 |testthat     |2.0.1      |CRAN (R 3.5.2)                   |
-|tibble       |2.0.0      |CRAN (R 3.5.2)                   |
+|tibble       |2.0.1      |CRAN (R 3.5.2)                   |
 |tidyr        |0.8.2      |CRAN (R 3.5.2)                   |
 |tidyselect   |0.2.5      |CRAN (R 3.5.2)                   |
 |tinytex      |0.10       |CRAN (R 3.5.2)                   |

@@ -427,19 +427,19 @@ z[1, drop = TRUE]
 \index{subsetting!lists} 
 \index{lists!subsetting}
 
-There are two other subsetting operators: `[[` and `$`. `[[` is used for extracting single items, and `x$y` is a useful shorthand for `x[["y"]]`.
+There are two other subsetting operators: `[[` and `$`. `[[` is used for extracting single items, while `x$y` is a useful shorthand for `x[["y"]]`.
 
 ### `[[`
 \indexc{[[} 
 
-`[[` is most important working with lists because subsetting a list with `[` always returns a smaller list. To help make this easier to understand we can use a metaphor:
+`[[` is most important when working with lists because subsetting a list with `[` always returns a smaller list. To help make this easier to understand we can use a metaphor:
 
 >  "If list `x` is a train carrying objects, then `x[[5]]` is
 > the object in car 5; `x[4:6]` is a train of cars 4-6." 
 >
 > --- \@RLangTip, <https://twitter.com/RLangTip/status/268375867468681216>
 
-Let's make a simple list and draw it as a train:
+Let's use this metaphor to make a simple list:
 
 
 ```r
@@ -448,19 +448,19 @@ x <- list(1:3, "a", 4:6)
 
 \begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train} \end{center}
 
-When extracting a single element, you have two options: you can create a smaller train, or  you can extract the contents of a carriage. This is the difference between `[` and `[[`:
+When extracting a single element, you have two options: you can create a smaller train, i.e., fewer carriages, or you can extract the contents of a particular carriage. This is the difference between `[` and `[[`:
 
 
 \begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train-single} \end{center}
 
-When extracting multiple elements (or zero!), you have to make a smaller train:
+When extracting multiple (or even zero!) elements, you have to make a smaller train:
 
 
 \begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train-multiple} \end{center}
 
-Because it can return only a single item, you must use `[[` with either a single positive integer or a string. If you use a vector with `[[`, it will subset recursively, i.e. `x[[c(1, 2)]]` is equivalent to `x[[1]][[2]]`. This is a quirky feature that few people know about, so I recommend avoiding it in favour of `purrr::pluck()`, which you'll learn about in Section \@ref(subsetting-oob).
+Because `[[` can return only a single item, you must use it with either a single positive integer or a single string. If you use a vector with `[[`, it will subset recursively, i.e. `x[[c(1, 2)]]` is equivalent to `x[[1]][[2]]`. This is a quirky feature that few know about, so I recommend avoiding it in favour of `purrr::pluck()`, which you'll learn about in Section \@ref(subsetting-oob).
 
-You must use `[[` when working with lists, but I also recommend using it with atomic vectors whenever you extract a single value. For example, instead of writing:
+While you must use `[[` when working with lists, I'd also recommend using it with atomic vectors whenever you want to extract a single value. For example, instead of writing:
 
 
 ```r
@@ -478,7 +478,7 @@ for (i in 2:length(x)) {
 }
 ```
 
-Because it reinforces to the reader that you expect to get and set individual values.
+Doing so reinforces the expectation that you are getting and setting individual values.
 
 ### `$`
 \indexc{\$}
@@ -499,7 +499,7 @@ mtcars[[var]]
 #>  [1] 6 6 4 6 8 6 8 4 4 6 6 8 8 8 8 8 8 4 4 4 4 8 8 8 8 4 4 4 8 6 8 4
 ```
 
-There's one important difference between `$` and `[[`. `$` does partial matching from left-to-right:
+The one important difference between `$` and `[[` is that `$` does (left-to-right) partial matching:
 
 
 ```r
@@ -521,7 +521,7 @@ x$a
 #> [1] 1
 ```
 
-(For data frames, you can also avoid this problem by using tibbles instead: they never do partial matching.)
+(For data frames, you can also avoid this problem by using tibbles, which never do partial matching.)
 
 ### Missing/out of bounds indices {#subsetting-oob}
 \index{subsetting!with NA \& NULL} 
@@ -529,19 +529,19 @@ x$a
 \indexc{pluck()}
 \indexc{chuck()}
 
-It's useful to understand what happens with `[[` when you use an "invalid" index. The following tables summarise what happens when you subset a logical vector, list, and `NULL` with an out-of-bounds value (OOB), a missing value (e.g. `NA_integer_`), and a zero-length object (like `NULL` or `logical()`) with `[[` . Each cell shows the result of subsetting the data structure named in the row by the type of index described in the column. I've only shown the results for logical vectors, but other atomic vectors behave similarly, returning elements of the same type.
+It's useful to understand what happens with `[[` when you use an "invalid" index. The following table summarise what happens when you subset a logical vector, list, and `NULL` with a zero-length object (like `NULL` or `logical()`), out-of-bounds values (OOB), or a missing value (e.g. `NA_integer_`) with `[[`. Each cell shows the result of subsetting the data structure named in the row by the type of index described in the column. I've only shown the results for logical vectors, but other atomic vectors behave similarly, returning elements of the same type.
 
 | `row[[col]]` | Zero-length | OOB (int)  | OOB (chr) | Missing  |
 |--------------|-------------|------------|-----------|----------|
-| `NULL`       | `NULL`      | `NULL`     | `NULL`    | `NULL`   |
 | Atomic       | Error       | Error      | Error     | Error    |
 | List         | Error       | Error      | `NULL`    | `NULL`   |
+| `NULL`       | `NULL`      | `NULL`     | `NULL`    | `NULL`   |
 
 
 
 If the vector being indexed is named, then the names of OOB, missing, or `NULL` components will be `"<NA>"`.
 
-The inconsistency of the `[[` table above led to the development of `purrr::pluck()` and `purrr::chuck()`. `pluck()` always returns `NULL` (or the value of the `.default` argument) when the element is missing; `chuck()` always throws an error. The behaviour of `pluck()` makes it well suited for indexing into deeply nested data structures where the component you want does not always exist (as is common when working with JSON data from web APIs). `pluck()` also allows you to mingle integer and character indexes, and to provide an alternative default value if the item does not exist:
+The inconsistencies in the table above led to the development of `purrr::pluck()` and `purrr::chuck()`. When the element is missing, `pluck()` always returns `NULL` (or the value of the `.default` argument) and `chuck()` always throws an error. The behaviour of `pluck()` makes it well suited for indexing into deeply nested data structures where the component you want may not exist (as is common when working with JSON data from web APIs). `pluck()` also allows you to mix integer and character indices, and provides an alternative default value if an item does not exist:
 
 
 ```r
@@ -562,7 +562,7 @@ purrr::pluck(x, "c", 1, .default = NA)
 
 ### `@` and `slot()`
 
-There are also two additional subsetting operators that are needed for S4 objects: `@` (equivalent to `$`), and `slot()` (equivalent to `[[`). `@` is more restrictive than `$` in that it will return an error if the slot does not exist. These are described in more detail in Chapter \@ref(s4).
+There are two additional subsetting operators, which are needed for S4 objects: `@` (equivalent to `$`), and `slot()` (equivalent to `[[`). `@` is more restrictive than `$` in that it will return an error if the slot does not exist. These are described in more detail in Chapter \@ref(s4).
 
 ### Exercises
 
@@ -570,7 +570,7 @@ There are also two additional subsetting operators that are needed for S4 object
     `cyl` variable in the `mtcars` dataset.
 
 1.  Given a linear model, e.g., `mod <- lm(mpg ~ wt, data = mtcars)`, extract
-    the residual degrees of freedom. Extract the R squared from the model
+    the residual degrees of freedom. Then extract the R squared from the model
     summary (`summary(mod)`)
 
 <!-- FIXME: more examples -->
@@ -580,7 +580,7 @@ There are also two additional subsetting operators that are needed for S4 object
 \index{assignment!subassignment}
 \index{lists!removing an element}
 
-All subsetting operators can be combined with assignment to modify selected values of the input vector, so called subassignment. The basic form is `x[i] <- value`:
+All subsetting operators can be combined with assignment to modify selected values of an input vector: this is called subassignment. The basic form is `x[i] <- value`:
 
 
 ```r
@@ -590,7 +590,7 @@ x
 #> [1] 101 102   3   4   5
 ```
 
-I recommend ensuring that `length(value)` and `length(x[i])` are equal, and that `i` is unique. R does recycle if needed, but the rules are complex (particularly if `i` contains missing or duplicated values).
+I recommend that you should make sure that `length(value)` is the same as `length(x[i])`, and that `i` is unique. This is because, while R will recycle if needed, those rules are complex (particularly if `i` contains missing or duplicated values) and may cause problems.
 
 With lists, you can use `x[[i]] <- NULL` to remove a component. To add a literal `NULL`, use `x[i] <- list(NULL)`: 
 
@@ -610,7 +610,7 @@ str(y)
 #>  $ b: NULL
 ```
 
-Subsetting with nothing can be useful in conjunction with assignment because it is designed to preserve the structure of the original object. Compare the following two expressions. In the first, `mtcars` will remain as a data frame because you are changing the contents of `mtcars`, not `mtcars` itself. In the second, `mtcars` becomes a list, because you've changed the object it is bound to.
+Subsetting with nothing can be useful with assignment because it preserves the structure of the original object. Compare the following two expressions. In the first, `mtcars` remains a data frame because you are only changing the contents of `mtcars`, not `mtcars` itself. In the second, `mtcars` becomes a list because you are changing the object it is bound to.
 
 
 ```r
@@ -627,12 +627,12 @@ is.data.frame(mtcars)
 
 ## Applications {#applications}
 
-The basic principles described above give rise to a wide variety of useful applications. Some of the most important are described below. Many of these basic techniques are wrapped up into more concise functions (e.g., `subset()`, `merge()`, `dplyr::arrange()`), but it is useful to understand how they are implemented with basic subsetting. This will allow you to adapt to new situations not handled by existing functions.
+The principles described above have a wide variety of useful applications. Some of the most important are described below. While many of the basic principles of subsetting have already been incorporated into functions like `subset()`, `merge()`, `dplyr::arrange()`, a deeper understanding of how those principles have been implemented will be valuable when you run into situations where the functions you need don't exist.
 
 ### Lookup tables (character subsetting) {#lookup-tables}
 \index{lookup tables}
 
-Character matching provides a powerful way to make lookup tables. Say you want to convert abbreviations: 
+Character matching is a powerful way to create lookup tables. Say you want to convert abbreviations: 
 
 
 ```r
@@ -643,7 +643,7 @@ lookup[x]
 #>   "Male" "Female"       NA "Female" "Female"   "Male"   "Male"
 ```
 
-If you don't want names in the result, use `unname()` to remove them.
+Note that if you don't want names in the result, use `unname()` to remove them.
 
 
 ```r
@@ -655,7 +655,7 @@ unname(lookup[x])
 \index{matching and merging}
 \indexc{match()}
 
-You may have a more complicated lookup table which has multiple columns of information. Suppose we have a vector of integer grades, and a table that describes their properties: 
+You can also have more complicated lookup tables with multiple columns of information. For example, suppose we have a vector of integer grades, and a table that describes their properties:
 
 
 ```r
@@ -668,7 +668,7 @@ info <- data.frame(
 )
 ```
 
-We want to duplicate the `info` table so that we have a row for each value in `grades`. An elegant way to do this is by combining `match()` and integer subsetting (`match(needles, haystack)` returns the position where each `needle` is found in the `haystack`).
+Then, let's say we want to duplicate the `info` table so that we have a row for each value in `grades`. An elegant way to do this is by combining `match()` and integer subsetting (`match(needles, haystack)` returns the position where each `needle` is found in the `haystack`).
 
 
 ```r
@@ -684,13 +684,13 @@ info[id, ]
 #> 3.1     1      Poor  TRUE
 ```
 
-If you have multiple columns to match on, you'll need to first collapse them to a single column (with e.g. `interaction()`), but typically you are better off switching to a function designed specifically for joining multiple tables like `merge()`, or `dplyr::left_join()`.
+If you're matching on multiple columns, you'll need to first collapse them into a single column (with e.g. `interaction()`). Typically, however, you're better off switching to a function designed specifically for joining multiple tables like `merge()`, or `dplyr::left_join()`.
 
 ### Random samples/bootstraps (integer subsetting)
 \index{sampling} 
 \index{bootstrapping}
 
-You can use integer indices to perform random sampling or bootstrapping of a vector or data frame. `sample(n)` generates a random permutation of `1:n`, then subsetting accesses the values: 
+You can use integer indices to randomly sample or bootstrap a vector or data frame. Just use `sample(n)` to generate a random permutation of `1:n`, and then use the results to subset the values: 
 
 
 ```r
@@ -723,15 +723,15 @@ df[sample(nrow(df), 6, replace = TRUE), ]
 #> 2   2 4 b
 ```
 
-The arguments of `sample()` control the number of samples to extract, and whether sampling is performed with or without replacement.
+The arguments of `sample()` control the number of samples to extract, and also whether sampling is done with or without replacement.
 
 ### Ordering (integer subsetting)
 \indexc{order()} 
 \index{sorting}
  
-`order()` takes a vector as input and returns an integer vector describing how the subsetted vector should be ordered[^pull-indices]:
+`order()` takes a vector as its input and returns an integer vector describing how to order the subsetted vector[^pull-indices]:
 
-[^pull-indices]: These are "pull" indices, i.e. `order(x)[i]` is the index in `x` of the element that belongs at location `i`, not the index in the result to which `x[i]` should be sent.
+[^pull-indices]: These are "pull" indices, i.e., `order(x)[i]` is an index of where each `x[i]` is located. It is not an index of where `x[i]` should be sent.
 
 
 ```r
@@ -742,7 +742,7 @@ x[order(x)]
 #> [1] "a" "b" "c"
 ```
 
-To break ties, you can supply additional variables to `order()`, and you can change from ascending to descending order using `decreasing = TRUE`.  By default, any missing values will be put at the end of the vector; however, you can remove them with `na.last = NA` or put at the front with `na.last = FALSE`.
+To break ties, you can supply additional variables to `order()`. You can also change the order from ascending to descending by using `decreasing = TRUE`. By default, any missing values will be put at the end of the vector; however, you can remove them with `na.last = NA` or put them at the front with `na.last = FALSE`.
 
 For two or more dimensions, `order()` and integer subsetting makes it easy to order either the rows or columns of an object:
 
@@ -774,7 +774,7 @@ df2[, order(names(df2))]
 #> 5 2 1 e
 ```
 
-You can sort vectors directly with `sort()`, or use `dplyr::arrange()` or similar to sort a data frame.
+You can sort vectors directly with `sort()`, or similarly `dplyr::arrange(), to sort a data frame.
 
 ### Expanding aggregated counts (integer subsetting)
 
@@ -836,7 +836,7 @@ df[setdiff(names(df), "z")]
 \index{subsetting!with logical vectors}
 \indexc{subset()}
  
-Because logical subsetting allows you to easily combine conditions from multiple columns, it is probably the most commonly used technique for extracting rows out of a data frame. 
+Because logical subsetting allows you to easily combine conditions from multiple columns, it's probably the most commonly used technique for extracting rows out of a data frame.  
 
 
 ```r
@@ -854,7 +854,7 @@ mtcars[mtcars$gear == 5 & mtcars$cyl == 4, ]
 #> Lotus Europa  30.4   4  95.1 113 3.77 1.51 16.9  1  1    5    2
 ```
 
-Remember to use the vector boolean operators `&` and `|`, not the short-circuiting scalar operators `&&` and `||` which are more useful inside if statements. Don't forget [De Morgan's laws][demorgans], which can be useful to simplify negations:
+Remember to use the vector boolean operators `&` and `|`, not the short-circuiting scalar operators `&&` and `||`, which are more useful inside if statements. And don't forget [De Morgan's laws][demorgans], which can be useful to simplify negations:
 
 * `!(X & Y)` is the same as `!X | !Y`
 * `!(X | Y)` is the same as `!X & !Y`
@@ -890,7 +890,7 @@ unwhich(which(x), 10)
 #>  [1] FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE
 ```
 
-Let's create two logical vectors and their integer equivalents and then explore the relationship between boolean and set operations.
+Let's create two logical vectors and their integer equivalents, and then explore the relationship between boolean and set operations.
 
 
 ```r
@@ -928,12 +928,12 @@ setdiff(union(x2, y2), intersect(x2, y2))
 #> [1] 2 4 6 8 5
 ```
 
-When first learning subsetting, a common mistake is to use `x[which(y)]` instead of `x[y]`. Here the `which()` achieves nothing: it switches from logical to integer subsetting but the result will be exactly the same. In more general cases, there are two important differences. 
+When first learning subsetting, a common mistake is to use `x[which(y)]` instead of `x[y]`. Here the `which()` achieves nothing: it switches from logical to integer subsetting but the result is exactly the same. In more general cases, there are two important differences. 
 
 * When the logical vector contains `NA`, logical subsetting replaces these 
-  values by `NA` while `which()` drops these values. It's not uncommon to use
-  `which()` for this side-effect, but I don't recommend it: nothing about 
-  the name "which" implies the removal of missing values.
+  values with `NA` while `which()` simply drops these values. It's not uncommon 
+  to use `which()` for this side-effect, but I don't recommend it: nothing 
+  about the name "which" implies the removal of missing values.
 
 * `x[-which(y)]` is __not__ equivalent to `x[!y]`: if `y` is all FALSE, 
   `which(y)` will be `integer(0)` and `-integer(0)` is still `integer(0)`, so
@@ -959,7 +959,7 @@ In general, avoid switching from logical to integer subsetting unless you want, 
     drop elements; logical vectors keep elements at positions corresponding to
     `TRUE`; character vectors select elements with matching names.
    
-1.  `[` selects sub-lists. It always returns a list; if you use it with a
+1.  `[` selects sub-lists: it always returns a list. If you use it with a
     single positive integer, it returns a list of length one. `[[` selects 
     an element within a list. `$` is a convenient shorthand: `x$y` is
     equivalent to `x[["y"]]`.
@@ -969,8 +969,8 @@ In general, avoid switching from logical to integer subsetting unless you want, 
     always use it when subsetting inside a function.
    
 1.  If `x` is a matrix, `x[] <- 0` will replace every element with 0, 
-    keeping the same number of rows and columns. `x <- 0` completely 
-    replaces the matrix with the value 0.
+    keeping the same number of rows and columns. In contrast, `x <- 0` 
+    completely replaces the matrix with the value 0.
     
 1.  A named character vector can act as a simple lookup table: 
     `c(x = 1, y = 2, z = 3)[c("y", "z", "x")]`

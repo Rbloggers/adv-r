@@ -513,7 +513,7 @@ language & (EN)\tabularnewline
 collate & en\_US.UTF-8\tabularnewline
 ctype & en\_US.UTF-8\tabularnewline
 tz & UTC\tabularnewline
-date & 2019-01-12\tabularnewline
+date & 2019-01-22\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -536,7 +536,7 @@ blob & 1.1.1 & CRAN (R 3.5.2)\tabularnewline
 bookdown & 0.9 & CRAN (R 3.5.2)\tabularnewline
 cli & 1.0.1 & CRAN (R 3.5.2)\tabularnewline
 codetools & 0.2-15 & CRAN (R 3.5.2)\tabularnewline
-colorspace & 1.3-2 & CRAN (R 3.5.2)\tabularnewline
+colorspace & 1.4-0 & CRAN (R 3.5.2)\tabularnewline
 crayon & 1.3.4 & CRAN (R 3.5.2)\tabularnewline
 DBI & 1.0.0 & CRAN (R 3.5.2)\tabularnewline
 dbplyr & 1.3.0 & CRAN (R 3.5.2)\tabularnewline
@@ -548,7 +548,7 @@ evaluate & 0.12 & CRAN (R 3.5.2)\tabularnewline
 fansi & 0.4.0 & CRAN (R 3.5.2)\tabularnewline
 ggbeeswarm & 0.6.0 & CRAN (R 3.5.2)\tabularnewline
 ggplot2 & 3.1.0 & CRAN (R 3.5.2)\tabularnewline
-glue & 1.3.0.9000 & Github (tidyverse/glue@3f7012c)\tabularnewline
+glue & 1.3.0.9000 & Github (tidyverse/glue@0549457)\tabularnewline
 gtable & 0.2.0 & CRAN (R 3.5.2)\tabularnewline
 highr & 0.7 & CRAN (R 3.5.2)\tabularnewline
 htmltools & 0.3.6 & CRAN (R 3.5.2)\tabularnewline
@@ -593,7 +593,7 @@ sloop & 1.0.0 & CRAN (R 3.5.2)\tabularnewline
 stringi & 1.2.4 & CRAN (R 3.5.2)\tabularnewline
 stringr & 1.3.1 & CRAN (R 3.5.2)\tabularnewline
 testthat & 2.0.1 & CRAN (R 3.5.2)\tabularnewline
-tibble & 2.0.0 & CRAN (R 3.5.2)\tabularnewline
+tibble & 2.0.1 & CRAN (R 3.5.2)\tabularnewline
 tidyr & 0.8.2 & CRAN (R 3.5.2)\tabularnewline
 tidyselect & 0.2.5 & CRAN (R 3.5.2)\tabularnewline
 tinytex & 0.10 & CRAN (R 3.5.2)\tabularnewline
@@ -829,9 +829,9 @@ You can access an object's identifier with \texttt{lobstr::obj\_addr()}. Doing s
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{obj_addr}\NormalTok{(x)}
-\CommentTok{#> [1] "0x234ab68"}
+\CommentTok{#> [1] "0x2995b68"}
 \KeywordTok{obj_addr}\NormalTok{(y)}
-\CommentTok{#> [1] "0x234ab68"}
+\CommentTok{#> [1] "0x2995b68"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -995,7 +995,7 @@ The same rules for copying also apply to function calls. Take this code:
 
 \NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
 \KeywordTok{cat}\NormalTok{(}\KeywordTok{tracemem}\NormalTok{(x), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> <0x4208788>}
+\CommentTok{#> <0x4853788>}
 
 \NormalTok{z <-}\StringTok{ }\KeywordTok{f}\NormalTok{(x)}
 \CommentTok{# there's no copy here!}
@@ -1058,15 +1058,15 @@ To see values that are shared across lists, use \texttt{lobstr::ref()}. \texttt{
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ref}\NormalTok{(l1, l2)}
-\CommentTok{#> █ [1:0x76e2518] <list> }
-\CommentTok{#> ├─[2:0x7503ff8] <dbl> }
-\CommentTok{#> ├─[3:0x7503fc0] <dbl> }
-\CommentTok{#> └─[4:0x7503f88] <dbl> }
+\CommentTok{#> █ [1:0x7d332c8] <list> }
+\CommentTok{#> ├─[2:0x7b54d58] <dbl> }
+\CommentTok{#> ├─[3:0x7b54d20] <dbl> }
+\CommentTok{#> └─[4:0x7b54ce8] <dbl> }
 \CommentTok{#>  }
-\CommentTok{#> █ [5:0x8164bb8] <list> }
-\CommentTok{#> ├─[2:0x7503ff8] }
-\CommentTok{#> ├─[3:0x7503fc0] }
-\CommentTok{#> └─[6:0x802d5a8] <dbl>}
+\CommentTok{#> █ [5:0x87afbb8] <list> }
+\CommentTok{#> ├─[2:0x7b54d58] }
+\CommentTok{#> ├─[3:0x7b54d20] }
+\CommentTok{#> └─[6:0x867e308] <dbl>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1129,11 +1129,11 @@ You can request that \texttt{ref()} show these references by setting the \texttt
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ref}\NormalTok{(x, }\DataTypeTok{character =} \OtherTok{TRUE}\NormalTok{)}
-\CommentTok{#> █ [1:0x30a5b78] <chr> }
-\CommentTok{#> ├─[2:0x19db758] <string: "a"> }
-\CommentTok{#> ├─[2:0x19db758] }
-\CommentTok{#> ├─[3:0x4d23cf0] <string: "abc"> }
-\CommentTok{#> └─[4:0x1e91af0] <string: "d">}
+\CommentTok{#> █ [1:0x36f0b78] <chr> }
+\CommentTok{#> ├─[2:0x2026758] <string: "a"> }
+\CommentTok{#> ├─[2:0x2026758] }
+\CommentTok{#> ├─[3:0x536ecf0] <string: "abc"> }
+\CommentTok{#> └─[4:0x24dcaf0] <string: "d">}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1363,7 +1363,7 @@ Two complications make predicting exactly when R applies this optimisation chall
   doesn't need to.
 \item
   Whenever you call the vast majority of functions, it makes a reference to the
-  object. The only exception are specially written ``primitve'' C functions.
+  object. The only exception are specially written ``primitive'' C functions.
   These can only be written by R-core and occur mostly in the base package.
 \end{itemize}
 
@@ -1474,8 +1474,8 @@ One consequence of this is that environments can contain themselves:
 \NormalTok{e}\OperatorTok{$}\NormalTok{self <-}\StringTok{ }\NormalTok{e}
 
 \KeywordTok{ref}\NormalTok{(e)}
-\CommentTok{#> █ [1:0x18954e0] <env> }
-\CommentTok{#> └─self = [1:0x18954e0]}
+\CommentTok{#> █ [1:0x20c39f8] <env> }
+\CommentTok{#> └─self = [1:0x20c39f8]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1551,8 +1551,8 @@ You can force garbage collection by calling \texttt{gc()}. But despite what you 
 \begin{Highlighting}[]
 \KeywordTok{gc}\NormalTok{() }
 \CommentTok{#>           used (Mb) gc trigger (Mb) max used (Mb)}
-\CommentTok{#> Ncells  680371 36.4    1285085 68.7  1285085 68.7}
-\CommentTok{#> Vcells 4696461 35.9   11789889 90.0 11789889 90.0}
+\CommentTok{#> Ncells  682019 36.5    1285085 68.7  1285085 68.7}
+\CommentTok{#> Vcells 4698159 35.9   11789889 90.0 11788930 90.0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1561,7 +1561,7 @@ You can force garbage collection by calling \texttt{gc()}. But despite what you 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{mem_used}\NormalTok{()}
-\CommentTok{#> 75,676,712 B}
+\CommentTok{#> 75,782,584 B}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3512,14 +3512,14 @@ Factor subsetting also has a \texttt{drop} argument, but its meaning is rather d
 \index{subsetting!lists}
 \index{lists!subsetting}
 
-There are two other subsetting operators: \texttt{{[}{[}} and \texttt{\$}. \texttt{{[}{[}} is used for extracting single items, and \texttt{x\$y} is a useful shorthand for \texttt{x{[}{[}"y"{]}{]}}.
+There are two other subsetting operators: \texttt{{[}{[}} and \texttt{\$}. \texttt{{[}{[}} is used for extracting single items, while \texttt{x\$y} is a useful shorthand for \texttt{x{[}{[}"y"{]}{]}}.
 
 \hypertarget{section}{%
 \subsection{\texorpdfstring{\texttt{{[}{[}}}{{[}{[}}}\label{section}}
 
 \indexc{[[}
 
-\texttt{{[}{[}} is most important working with lists because subsetting a list with \texttt{{[}} always returns a smaller list. To help make this easier to understand we can use a metaphor:
+\texttt{{[}{[}} is most important when working with lists because subsetting a list with \texttt{{[}} always returns a smaller list. To help make this easier to understand we can use a metaphor:
 
 \begin{quote}
 ``If list \texttt{x} is a train carrying objects, then \texttt{x{[}{[}5{]}{]}} is
@@ -3528,7 +3528,7 @@ the object in car 5; \texttt{x{[}4:6{]}} is a train of cars 4-6.''
 \hspace*{\fill} --- @RLangTip, \url{https://twitter.com/RLangTip/status/268375867468681216}
 \end{quote}
 
-Let's make a simple list and draw it as a train:
+Let's use this metaphor to make a simple list:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3538,17 +3538,17 @@ Let's make a simple list and draw it as a train:
 
 \begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train} \end{center}
 
-When extracting a single element, you have two options: you can create a smaller train, or you can extract the contents of a carriage. This is the difference between \texttt{{[}} and \texttt{{[}{[}}:
+When extracting a single element, you have two options: you can create a smaller train, i.e., fewer carriages, or you can extract the contents of a particular carriage. This is the difference between \texttt{{[}} and \texttt{{[}{[}}:
 
 \begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train-single} \end{center}
 
-When extracting multiple elements (or zero!), you have to make a smaller train:
+When extracting multiple (or even zero!) elements, you have to make a smaller train:
 
 \begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train-multiple} \end{center}
 
-Because it can return only a single item, you must use \texttt{{[}{[}} with either a single positive integer or a string. If you use a vector with \texttt{{[}{[}}, it will subset recursively, i.e. \texttt{x{[}{[}c(1,\ 2){]}{]}} is equivalent to \texttt{x{[}{[}1{]}{]}{[}{[}2{]}{]}}. This is a quirky feature that few people know about, so I recommend avoiding it in favour of \texttt{purrr::pluck()}, which you'll learn about in Section \ref{subsetting-oob}.
+Because \texttt{{[}{[}} can return only a single item, you must use it with either a single positive integer or a single string. If you use a vector with \texttt{{[}{[}}, it will subset recursively, i.e. \texttt{x{[}{[}c(1,\ 2){]}{]}} is equivalent to \texttt{x{[}{[}1{]}{]}{[}{[}2{]}{]}}. This is a quirky feature that few know about, so I recommend avoiding it in favour of \texttt{purrr::pluck()}, which you'll learn about in Section \ref{subsetting-oob}.
 
-You must use \texttt{{[}{[}} when working with lists, but I also recommend using it with atomic vectors whenever you extract a single value. For example, instead of writing:
+While you must use \texttt{{[}{[}} when working with lists, I'd also recommend using it with atomic vectors whenever you want to extract a single value. For example, instead of writing:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3568,7 +3568,7 @@ It's better to write:
 \end{Highlighting}
 \end{Shaded}
 
-Because it reinforces to the reader that you expect to get and set individual values.
+Doing so reinforces the expectation that you are getting and setting individual values.
 
 \hypertarget{section-1}{%
 \subsection{\texorpdfstring{\texttt{\$}}{\$}}\label{section-1}}
@@ -3590,7 +3590,7 @@ Because it reinforces to the reader that you expect to get and set individual va
 \end{Highlighting}
 \end{Shaded}
 
-There's one important difference between \texttt{\$} and \texttt{{[}{[}}. \texttt{\$} does partial matching from left-to-right:
+The one important difference between \texttt{\$} and \texttt{{[}{[}} is that \texttt{\$} does (left-to-right) partial matching:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3614,7 +3614,7 @@ To help avoid this behaviour I highly recommend setting the global option \textt
 \end{Highlighting}
 \end{Shaded}
 
-(For data frames, you can also avoid this problem by using tibbles instead: they never do partial matching.)
+(For data frames, you can also avoid this problem by using tibbles, which never do partial matching.)
 
 \hypertarget{subsetting-oob}{%
 \subsection{Missing/out of bounds indices}\label{subsetting-oob}}
@@ -3624,22 +3624,22 @@ To help avoid this behaviour I highly recommend setting the global option \textt
 \indexc{pluck()}
 \indexc{chuck()}
 
-It's useful to understand what happens with \texttt{{[}{[}} when you use an ``invalid'' index. The following tables summarise what happens when you subset a logical vector, list, and \texttt{NULL} with an out-of-bounds value (OOB), a missing value (e.g. \texttt{NA\_integer\_}), and a zero-length object (like \texttt{NULL} or \texttt{logical()}) with \texttt{{[}{[}} . Each cell shows the result of subsetting the data structure named in the row by the type of index described in the column. I've only shown the results for logical vectors, but other atomic vectors behave similarly, returning elements of the same type.
+It's useful to understand what happens with \texttt{{[}{[}} when you use an ``invalid'' index. The following table summarise what happens when you subset a logical vector, list, and \texttt{NULL} with a zero-length object (like \texttt{NULL} or \texttt{logical()}), out-of-bounds values (OOB), or a missing value (e.g. \texttt{NA\_integer\_}) with \texttt{{[}{[}}. Each cell shows the result of subsetting the data structure named in the row by the type of index described in the column. I've only shown the results for logical vectors, but other atomic vectors behave similarly, returning elements of the same type.
 
 \begin{longtable}[]{@{}lllll@{}}
 \toprule
 \texttt{row{[}{[}col{]}{]}} & Zero-length & OOB (int) & OOB (chr) & Missing\tabularnewline
 \midrule
 \endhead
-\texttt{NULL} & \texttt{NULL} & \texttt{NULL} & \texttt{NULL} & \texttt{NULL}\tabularnewline
 Atomic & Error & Error & Error & Error\tabularnewline
 List & Error & Error & \texttt{NULL} & \texttt{NULL}\tabularnewline
+\texttt{NULL} & \texttt{NULL} & \texttt{NULL} & \texttt{NULL} & \texttt{NULL}\tabularnewline
 \bottomrule
 \end{longtable}
 
 If the vector being indexed is named, then the names of OOB, missing, or \texttt{NULL} components will be \texttt{"\textless{}NA\textgreater{}"}.
 
-The inconsistency of the \texttt{{[}{[}} table above led to the development of \texttt{purrr::pluck()} and \texttt{purrr::chuck()}. \texttt{pluck()} always returns \texttt{NULL} (or the value of the \texttt{.default} argument) when the element is missing; \texttt{chuck()} always throws an error. The behaviour of \texttt{pluck()} makes it well suited for indexing into deeply nested data structures where the component you want does not always exist (as is common when working with JSON data from web APIs). \texttt{pluck()} also allows you to mingle integer and character indexes, and to provide an alternative default value if the item does not exist:
+The inconsistencies in the table above led to the development of \texttt{purrr::pluck()} and \texttt{purrr::chuck()}. When the element is missing, \texttt{pluck()} always returns \texttt{NULL} (or the value of the \texttt{.default} argument) and \texttt{chuck()} always throws an error. The behaviour of \texttt{pluck()} makes it well suited for indexing into deeply nested data structures where the component you want may not exist (as is common when working with JSON data from web APIs). \texttt{pluck()} also allows you to mix integer and character indices, and provides an alternative default value if an item does not exist:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3662,7 +3662,7 @@ The inconsistency of the \texttt{{[}{[}} table above led to the development of \
 \hypertarget{and-slot}{%
 \subsection{\texorpdfstring{\texttt{@} and \texttt{slot()}}{@ and slot()}}\label{and-slot}}
 
-There are also two additional subsetting operators that are needed for S4 objects: \texttt{@} (equivalent to \texttt{\$}), and \texttt{slot()} (equivalent to \texttt{{[}{[}}). \texttt{@} is more restrictive than \texttt{\$} in that it will return an error if the slot does not exist. These are described in more detail in Chapter \ref{s4}.
+There are two additional subsetting operators, which are needed for S4 objects: \texttt{@} (equivalent to \texttt{\$}), and \texttt{slot()} (equivalent to \texttt{{[}{[}}). \texttt{@} is more restrictive than \texttt{\$} in that it will return an error if the slot does not exist. These are described in more detail in Chapter \ref{s4}.
 
 \hypertarget{exercises-10}{%
 \subsection{Exercises}\label{exercises-10}}
@@ -3674,7 +3674,7 @@ There are also two additional subsetting operators that are needed for S4 object
   \texttt{cyl} variable in the \texttt{mtcars} dataset.
 \item
   Given a linear model, e.g., \texttt{mod\ \textless{}-\ lm(mpg\ \textasciitilde{}\ wt,\ data\ =\ mtcars)}, extract
-  the residual degrees of freedom. Extract the R squared from the model
+  the residual degrees of freedom. Then extract the R squared from the model
   summary (\texttt{summary(mod)})
 \end{enumerate}
 
@@ -3685,7 +3685,7 @@ There are also two additional subsetting operators that are needed for S4 object
 \index{assignment!subassignment}
 \index{lists!removing an element}
 
-All subsetting operators can be combined with assignment to modify selected values of the input vector, so called subassignment. The basic form is \texttt{x{[}i{]}\ \textless{}-\ value}:
+All subsetting operators can be combined with assignment to modify selected values of an input vector: this is called subassignment. The basic form is \texttt{x{[}i{]}\ \textless{}-\ value}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3696,7 +3696,7 @@ All subsetting operators can be combined with assignment to modify selected valu
 \end{Highlighting}
 \end{Shaded}
 
-I recommend ensuring that \texttt{length(value)} and \texttt{length(x{[}i{]})} are equal, and that \texttt{i} is unique. R does recycle if needed, but the rules are complex (particularly if \texttt{i} contains missing or duplicated values).
+I recommend that you should make sure that \texttt{length(value)} is the same as \texttt{length(x{[}i{]})}, and that \texttt{i} is unique. This is because, while R will recycle if needed, those rules are complex (particularly if \texttt{i} contains missing or duplicated values) and may cause problems.
 
 With lists, you can use \texttt{x{[}{[}i{]}{]}\ \textless{}-\ NULL} to remove a component. To add a literal \texttt{NULL}, use \texttt{x{[}i{]}\ \textless{}-\ list(NULL)}:
 
@@ -3717,7 +3717,7 @@ With lists, you can use \texttt{x{[}{[}i{]}{]}\ \textless{}-\ NULL} to remove a 
 \end{Highlighting}
 \end{Shaded}
 
-Subsetting with nothing can be useful in conjunction with assignment because it is designed to preserve the structure of the original object. Compare the following two expressions. In the first, \texttt{mtcars} will remain as a data frame because you are changing the contents of \texttt{mtcars}, not \texttt{mtcars} itself. In the second, \texttt{mtcars} becomes a list, because you've changed the object it is bound to.
+Subsetting with nothing can be useful with assignment because it preserves the structure of the original object. Compare the following two expressions. In the first, \texttt{mtcars} remains a data frame because you are only changing the contents of \texttt{mtcars}, not \texttt{mtcars} itself. In the second, \texttt{mtcars} becomes a list because you are changing the object it is bound to.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3734,14 +3734,14 @@ Subsetting with nothing can be useful in conjunction with assignment because it 
 \hypertarget{applications}{%
 \section{Applications}\label{applications}}
 
-The basic principles described above give rise to a wide variety of useful applications. Some of the most important are described below. Many of these basic techniques are wrapped up into more concise functions (e.g., \texttt{subset()}, \texttt{merge()}, \texttt{dplyr::arrange()}), but it is useful to understand how they are implemented with basic subsetting. This will allow you to adapt to new situations not handled by existing functions.
+The principles described above have a wide variety of useful applications. Some of the most important are described below. While many of the basic principles of subsetting have already been incorporated into functions like \texttt{subset()}, \texttt{merge()}, \texttt{dplyr::arrange()}, a deeper understanding of how those principles have been implemented will be valuable when you run into situations where the functions you need don't exist.
 
 \hypertarget{lookup-tables}{%
 \subsection{Lookup tables (character subsetting)}\label{lookup-tables}}
 
 \index{lookup tables}
 
-Character matching provides a powerful way to make lookup tables. Say you want to convert abbreviations:
+Character matching is a powerful way to create lookup tables. Say you want to convert abbreviations:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3753,7 +3753,7 @@ Character matching provides a powerful way to make lookup tables. Say you want t
 \end{Highlighting}
 \end{Shaded}
 
-If you don't want names in the result, use \texttt{unname()} to remove them.
+Note that if you don't want names in the result, use \texttt{unname()} to remove them.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3768,7 +3768,7 @@ If you don't want names in the result, use \texttt{unname()} to remove them.
 \index{matching and merging}
 \indexc{match()}
 
-You may have a more complicated lookup table which has multiple columns of information. Suppose we have a vector of integer grades, and a table that describes their properties:
+You can also have more complicated lookup tables with multiple columns of information. For example, suppose we have a vector of integer grades, and a table that describes their properties:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3782,7 +3782,7 @@ You may have a more complicated lookup table which has multiple columns of infor
 \end{Highlighting}
 \end{Shaded}
 
-We want to duplicate the \texttt{info} table so that we have a row for each value in \texttt{grades}. An elegant way to do this is by combining \texttt{match()} and integer subsetting (\texttt{match(needles,\ haystack)} returns the position where each \texttt{needle} is found in the \texttt{haystack}).
+Then, let's say we want to duplicate the \texttt{info} table so that we have a row for each value in \texttt{grades}. An elegant way to do this is by combining \texttt{match()} and integer subsetting (\texttt{match(needles,\ haystack)} returns the position where each \texttt{needle} is found in the \texttt{haystack}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3799,7 +3799,7 @@ We want to duplicate the \texttt{info} table so that we have a row for each valu
 \end{Highlighting}
 \end{Shaded}
 
-If you have multiple columns to match on, you'll need to first collapse them to a single column (with e.g. \texttt{interaction()}), but typically you are better off switching to a function designed specifically for joining multiple tables like \texttt{merge()}, or \texttt{dplyr::left\_join()}.
+If you're matching on multiple columns, you'll need to first collapse them into a single column (with e.g. \texttt{interaction()}). Typically, however, you're better off switching to a function designed specifically for joining multiple tables like \texttt{merge()}, or \texttt{dplyr::left\_join()}.
 
 \hypertarget{random-samplesbootstraps-integer-subsetting}{%
 \subsection{Random samples/bootstraps (integer subsetting)}\label{random-samplesbootstraps-integer-subsetting}}
@@ -3807,7 +3807,7 @@ If you have multiple columns to match on, you'll need to first collapse them to 
 \index{sampling}
 \index{bootstrapping}
 
-You can use integer indices to perform random sampling or bootstrapping of a vector or data frame. \texttt{sample(n)} generates a random permutation of \texttt{1:n}, then subsetting accesses the values:
+You can use integer indices to randomly sample or bootstrap a vector or data frame. Just use \texttt{sample(n)} to generate a random permutation of \texttt{1:n}, and then use the results to subset the values:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3841,7 +3841,7 @@ You can use integer indices to perform random sampling or bootstrapping of a vec
 \end{Highlighting}
 \end{Shaded}
 
-The arguments of \texttt{sample()} control the number of samples to extract, and whether sampling is performed with or without replacement.
+The arguments of \texttt{sample()} control the number of samples to extract, and also whether sampling is done with or without replacement.
 
 \hypertarget{ordering-integer-subsetting}{%
 \subsection{Ordering (integer subsetting)}\label{ordering-integer-subsetting}}
@@ -3850,7 +3850,7 @@ The arguments of \texttt{sample()} control the number of samples to extract, and
 
 \index{sorting}
 
-\texttt{order()} takes a vector as input and returns an integer vector describing how the subsetted vector should be ordered\footnote{These are ``pull'' indices, i.e. \texttt{order(x){[}i{]}} is the index in \texttt{x} of the element that belongs at location \texttt{i}, not the index in the result to which \texttt{x{[}i{]}} should be sent.}:
+\texttt{order()} takes a vector as its input and returns an integer vector describing how to order the subsetted vector\footnote{These are ``pull'' indices, i.e., \texttt{order(x){[}i{]}} is an index of where each \texttt{x{[}i{]}} is located. It is not an index of where \texttt{x{[}i{]}} should be sent.}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3862,7 +3862,7 @@ The arguments of \texttt{sample()} control the number of samples to extract, and
 \end{Highlighting}
 \end{Shaded}
 
-To break ties, you can supply additional variables to \texttt{order()}, and you can change from ascending to descending order using \texttt{decreasing\ =\ TRUE}. By default, any missing values will be put at the end of the vector; however, you can remove them with \texttt{na.last\ =\ NA} or put at the front with \texttt{na.last\ =\ FALSE}.
+To break ties, you can supply additional variables to \texttt{order()}. You can also change the order from ascending to descending by using \texttt{decreasing\ =\ TRUE}. By default, any missing values will be put at the end of the vector; however, you can remove them with \texttt{na.last\ =\ NA} or put them at the front with \texttt{na.last\ =\ FALSE}.
 
 For two or more dimensions, \texttt{order()} and integer subsetting makes it easy to order either the rows or columns of an object:
 
@@ -3895,7 +3895,7 @@ For two or more dimensions, \texttt{order()} and integer subsetting makes it eas
 \end{Highlighting}
 \end{Shaded}
 
-You can sort vectors directly with \texttt{sort()}, or use \texttt{dplyr::arrange()} or similar to sort a data frame.
+You can sort vectors directly with \texttt{sort()}, or similarly `dplyr::arrange(), to sort a data frame.
 
 \hypertarget{expanding-aggregated-counts-integer-subsetting}{%
 \subsection{Expanding aggregated counts (integer subsetting)}\label{expanding-aggregated-counts-integer-subsetting}}
@@ -3965,7 +3965,7 @@ If you only know the columns you don't want, use set operations to work out whic
 \index{subsetting!with logical vectors}
 \indexc{subset()}
 
-Because logical subsetting allows you to easily combine conditions from multiple columns, it is probably the most commonly used technique for extracting rows out of a data frame.
+Because logical subsetting allows you to easily combine conditions from multiple columns, it's probably the most commonly used technique for extracting rows out of a data frame.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3984,7 +3984,7 @@ Because logical subsetting allows you to easily combine conditions from multiple
 \end{Highlighting}
 \end{Shaded}
 
-Remember to use the vector boolean operators \texttt{\&} and \texttt{\textbar{}}, not the short-circuiting scalar operators \texttt{\&\&} and \texttt{\textbar{}\textbar{}} which are more useful inside if statements. Don't forget \href{http://en.wikipedia.org/wiki/De_Morgan's_laws}{De Morgan's laws}, which can be useful to simplify negations:
+Remember to use the vector boolean operators \texttt{\&} and \texttt{\textbar{}}, not the short-circuiting scalar operators \texttt{\&\&} and \texttt{\textbar{}\textbar{}}, which are more useful inside if statements. And don't forget \href{http://en.wikipedia.org/wiki/De_Morgan's_laws}{De Morgan's laws}, which can be useful to simplify negations:
 
 \begin{itemize}
 \tightlist
@@ -4031,7 +4031,7 @@ It's useful to be aware of the natural equivalence between set operations (integ
 \end{Highlighting}
 \end{Shaded}
 
-Let's create two logical vectors and their integer equivalents and then explore the relationship between boolean and set operations.
+Let's create two logical vectors and their integer equivalents, and then explore the relationship between boolean and set operations.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4070,14 +4070,14 @@ Let's create two logical vectors and their integer equivalents and then explore 
 \end{Highlighting}
 \end{Shaded}
 
-When first learning subsetting, a common mistake is to use \texttt{x{[}which(y){]}} instead of \texttt{x{[}y{]}}. Here the \texttt{which()} achieves nothing: it switches from logical to integer subsetting but the result will be exactly the same. In more general cases, there are two important differences.
+When first learning subsetting, a common mistake is to use \texttt{x{[}which(y){]}} instead of \texttt{x{[}y{]}}. Here the \texttt{which()} achieves nothing: it switches from logical to integer subsetting but the result is exactly the same. In more general cases, there are two important differences.
 
 \begin{itemize}
 \item
   When the logical vector contains \texttt{NA}, logical subsetting replaces these
-  values by \texttt{NA} while \texttt{which()} drops these values. It's not uncommon to use
-  \texttt{which()} for this side-effect, but I don't recommend it: nothing about
-  the name ``which'' implies the removal of missing values.
+  values with \texttt{NA} while \texttt{which()} simply drops these values. It's not uncommon
+  to use \texttt{which()} for this side-effect, but I don't recommend it: nothing
+  about the name ``which'' implies the removal of missing values.
 \item
   \texttt{x{[}-which(y){]}} is \textbf{not} equivalent to \texttt{x{[}!y{]}}: if \texttt{y} is all FALSE,
   \texttt{which(y)} will be \texttt{integer(0)} and \texttt{-integer(0)} is still \texttt{integer(0)}, so
@@ -4113,7 +4113,7 @@ In general, avoid switching from logical to integer subsetting unless you want, 
   drop elements; logical vectors keep elements at positions corresponding to
   \texttt{TRUE}; character vectors select elements with matching names.
 \item
-  \texttt{{[}} selects sub-lists. It always returns a list; if you use it with a
+  \texttt{{[}} selects sub-lists: it always returns a list. If you use it with a
   single positive integer, it returns a list of length one. \texttt{{[}{[}} selects
   an element within a list. \texttt{\$} is a convenient shorthand: \texttt{x\$y} is
   equivalent to \texttt{x{[}{[}"y"{]}{]}}.
@@ -4123,8 +4123,8 @@ In general, avoid switching from logical to integer subsetting unless you want, 
   always use it when subsetting inside a function.
 \item
   If \texttt{x} is a matrix, \texttt{x{[}{]}\ \textless{}-\ 0} will replace every element with 0,
-  keeping the same number of rows and columns. \texttt{x\ \textless{}-\ 0} completely
-  replaces the matrix with the value 0.
+  keeping the same number of rows and columns. In contrast, \texttt{x\ \textless{}-\ 0}
+  completely replaces the matrix with the value 0.
 \item
   A named character vector can act as a simple lookup table:
   \texttt{c(x\ =\ 1,\ y\ =\ 2,\ z\ =\ 3){[}c("y",\ "z",\ "x"){]}}
@@ -5619,7 +5619,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
   \KeywordTok{print}\NormalTok{(x)}
 \NormalTok{\}}
 \KeywordTok{show_time}\NormalTok{()}
-\CommentTok{#> [1] "2019-01-12 04:15:18 UTC"}
+\CommentTok{#> [1] "2019-01-22 02:01:47 UTC"}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -6658,7 +6658,7 @@ Printing an environment just displays its memory address, which is not terribly 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{e1}
-\CommentTok{#> <environment: 0x25215f0>}
+\CommentTok{#> <environment: 0x32c85f0>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6667,7 +6667,7 @@ Instead, we'll use \texttt{env\_print()} which gives us a little more informatio
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_print}\NormalTok{(e1)}
-\CommentTok{#> <environment: 0x25215f0>}
+\CommentTok{#> <environment: 0x32c85f0>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * a: <lgl>}
@@ -6735,7 +6735,7 @@ You can find the parent of an environment with \texttt{env\_parent()}:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parent}\NormalTok{(e2b)}
-\CommentTok{#> <environment: 0x5924ed8>}
+\CommentTok{#> <environment: 0x66cb758>}
 \KeywordTok{env_parent}\NormalTok{(e2a)}
 \CommentTok{#> <environment: R_GlobalEnv>}
 \end{Highlighting}
@@ -6757,10 +6757,10 @@ The ancestors of every environment eventually terminate with the empty environme
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parents}\NormalTok{(e2b)}
-\CommentTok{#> [[1]]   <env: 0x5924ed8>}
+\CommentTok{#> [[1]]   <env: 0x66cb758>}
 \CommentTok{#> [[2]] $ <env: global>}
 \KeywordTok{env_parents}\NormalTok{(e2d)}
-\CommentTok{#> [[1]]   <env: 0x63af8d0>}
+\CommentTok{#> [[1]]   <env: 0x7156150>}
 \CommentTok{#> [[2]] $ <env: empty>}
 \end{Highlighting}
 \end{Shaded}
@@ -6770,7 +6770,7 @@ By default, \texttt{env\_parents()} stops when it gets to the global environment
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parents}\NormalTok{(e2b, }\DataTypeTok{last =} \KeywordTok{empty_env}\NormalTok{())}
-\CommentTok{#>  [[1]]   <env: 0x5924ed8>}
+\CommentTok{#>  [[1]]   <env: 0x66cb758>}
 \CommentTok{#>  [[2]] $ <env: global>}
 \CommentTok{#>  [[3]] $ <env: package:rlang>}
 \CommentTok{#>  [[4]] $ <env: package:stats>}
@@ -7273,7 +7273,7 @@ For example, take \texttt{sd()}:
 \CommentTok{#> function (x, na.rm = FALSE) }
 \CommentTok{#> sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), }
 \CommentTok{#>     na.rm = na.rm))}
-\CommentTok{#> <bytecode: 0x6f7e180>}
+\CommentTok{#> <bytecode: 0x7e366a0>}
 \CommentTok{#> <environment: namespace:stats>}
 \end{Highlighting}
 \end{Shaded}
@@ -7388,7 +7388,7 @@ An execution environment is usually ephemeral; once the function has completed, 
 
 \NormalTok{e <-}\StringTok{ }\KeywordTok{h2}\NormalTok{(}\DataTypeTok{x =} \DecValTok{10}\NormalTok{)}
 \KeywordTok{env_print}\NormalTok{(e)}
-\CommentTok{#> <environment: 0x6ffe928>}
+\CommentTok{#> <environment: 0x80a5f08>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * a: <dbl>}
@@ -7411,7 +7411,7 @@ There's a lot going on in the diagram because the enclosing environment of \text
 \NormalTok{plus_one <-}\StringTok{ }\KeywordTok{plus}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \NormalTok{plus_one}
 \CommentTok{#> function(y) x + y}
-\CommentTok{#> <environment: 0x6519728>}
+\CommentTok{#> <environment: 0x72bffa8>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8187,7 +8187,7 @@ Built-in conditions are lists with two elements:
 
 Custom conditions may contain other components, which we'll discuss in Section \ref{custom-conditions}.
 
-Conditions also have a \texttt{class} attribute, which makes them S3 objects. We won't disucss S3 until \protect\hyperlink{s3}{S3}, but fortunately, even if you don't know about S3, condition objects are quite simple. The most important thing to know is that the \texttt{class} attribute is a character vector, and it determines which handlers will match the condition.
+Conditions also have a \texttt{class} attribute, which makes them S3 objects. We won't discuss S3 until \protect\hyperlink{s3}{S3}, but fortunately, even if you don't know about S3, condition objects are quite simple. The most important thing to know is that the \texttt{class} attribute is a character vector, and it determines which handlers will match the condition.
 
 \hypertarget{exiting-handlers}{%
 \subsection{Exiting handlers}\label{exiting-handlers}}
@@ -10894,14 +10894,14 @@ Let's start by taking a look at \texttt{square()} and \texttt{cube()}:
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <environment: 0x3748e20>}
+\CommentTok{#> <environment: 0x2e3de20>}
 
 \NormalTok{cube}
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <bytecode: 0x1d4d918>}
-\CommentTok{#> <environment: 0x391c7d0>}
+\CommentTok{#> <bytecode: 0x1442918>}
+\CommentTok{#> <environment: 0x30117d0>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -10910,13 +10910,13 @@ It's obvious where \texttt{x} comes from, but how does R find the value associat
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_print}\NormalTok{(square)}
-\CommentTok{#> <environment: 0x3748e20>}
+\CommentTok{#> <environment: 0x2e3de20>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * exp: <dbl>}
 
 \KeywordTok{env_print}\NormalTok{(cube)}
-\CommentTok{#> <environment: 0x391c7d0>}
+\CommentTok{#> <environment: 0x30117d0>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * exp: <dbl>}
@@ -11120,7 +11120,7 @@ With most functions, you can rely on the garbage collector to clean up any large
 \NormalTok{force}
 \CommentTok{#> function (x) }
 \CommentTok{#> x}
-\CommentTok{#> <bytecode: 0x1982d60>}
+\CommentTok{#> <bytecode: 0x1077d60>}
 \CommentTok{#> <environment: namespace:base>}
 \end{Highlighting}
 \end{Shaded}
@@ -11353,12 +11353,12 @@ A mildly simplified version of \texttt{plot\_dev()} is shown below:
 
 \KeywordTok{plot_dev}\NormalTok{(}\StringTok{"pdf"}\NormalTok{)}
 \CommentTok{#> function(filename, ...) grDevices::pdf(file = filename, ...)}
-\CommentTok{#> <bytecode: 0x503cc70>}
-\CommentTok{#> <environment: 0x422b150>}
+\CommentTok{#> <bytecode: 0x4e92be8>}
+\CommentTok{#> <environment: 0x4475900>}
 \KeywordTok{plot_dev}\NormalTok{(}\StringTok{"png"}\NormalTok{)}
 \CommentTok{#> function(...) grDevices::png(..., res = dpi, units = "in")}
-\CommentTok{#> <bytecode: 0x5495a68>}
-\CommentTok{#> <environment: 0x58b1dd0>}
+\CommentTok{#> <bytecode: 0x5139670>}
+\CommentTok{#> <environment: 0x5525c78>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -11706,8 +11706,8 @@ To finish off the chapter, I'll show how you might combine functionals and funct
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <bytecode: 0x1d4d918>}
-\CommentTok{#> <environment: 0x63ea848>}
+\CommentTok{#> <bytecode: 0x1442918>}
+\CommentTok{#> <environment: 0x4d8b958>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -11944,8 +11944,8 @@ If you do the same thing with a functional, you get no output, making it hard to
 \NormalTok{safe_sum}
 \CommentTok{#> function (...) }
 \CommentTok{#> capture_error(.f(...), otherwise, quiet)}
-\CommentTok{#> <bytecode: 0x4610a70>}
-\CommentTok{#> <environment: 0x46105d8>}
+\CommentTok{#> <bytecode: 0x5503b50>}
+\CommentTok{#> <environment: 0x55036b8>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12103,7 +12103,7 @@ Let's explore this idea with a toy function that simulates an expensive operatio
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(}\KeywordTok{slow_function}\NormalTok{(}\DecValTok{1}\NormalTok{)))}
 \CommentTok{#> [1] 8.34}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>       0       0       1}
+\CommentTok{#>   0.004   0.000   1.003}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12120,7 +12120,7 @@ When we memoise this function, it's slow when we call it with new arguments. But
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(}\KeywordTok{fast_function}\NormalTok{(}\DecValTok{1}\NormalTok{)))}
 \CommentTok{#> [1] 6.01}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.016   0.000   0.016}
+\CommentTok{#>   0.016   0.000   0.015}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12137,7 +12137,7 @@ A relatively realistic use of memoisation is computing the Fibonacci series. The
 \CommentTok{#>    0.04    0.00    0.04}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib}\NormalTok{(}\DecValTok{24}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.064   0.000   0.062}
+\CommentTok{#>   0.060   0.000   0.061}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12151,7 +12151,7 @@ Memoising \texttt{fib()} makes the implementation much faster because each value
 \NormalTok{\})}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib2}\NormalTok{(}\DecValTok{23}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.028   0.000   0.026}
+\CommentTok{#>   0.024   0.000   0.024}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12370,7 +12370,7 @@ Generally in R, functional programming is much more important than object orient
   important to master if you want to extend base R functions to work with new
   types of input.
 \item
-  R6 provides a standardised way to escape R's from copy-on-modify semantics.
+  R6 provides a standardised way to escape R's copy-on-modify semantics.
   This is particularly important if you want to model objects that exist
   independently of R. Today, a common need for R6 is to model data that comes
   from a web API, and where changes come from inside or outside of R.
@@ -12384,7 +12384,7 @@ Generally in R, functional programming is much more important than object orient
 
 The goal of this brief introductory chapter is to give you some important vocabulary and some tools to identify OOP systems in the wild. The following four chapters (Base types, S3, R6, and S4) then dive into the details of R's OOP systems.
 
-This book focusses on the mechanics of OOP, not its effective use, and it may be challenging to fully understand if you have done object oriented programming before. You might wonder why I chose not to provide more immediately useful coverage. I have focussed on mechanics here because they need to be well described somewhere (writing these chapters required a considerable amount of reading, exploration, and synthesis on my behalf), and using OOP effectively is sufficiently complex to require book-length treatment; there's simply not enough room in Advanced R to cover it in the depth required.
+This book focusses on the mechanics of OOP, not its effective use, and it may be challenging to fully understand if you have not done object oriented programming before. You might wonder why I chose not to provide more immediately useful coverage. I have focussed on mechanics here because they need to be well described somewhere (writing these chapters required a considerable amount of reading, exploration, and synthesis on my behalf), and using OOP effectively is sufficiently complex to require book-length treatment; there's simply not enough room in Advanced R to cover it in the depth required.
 
 \hypertarget{oop-systems}{%
 \section*{OOP systems}\label{oop-systems}}
@@ -12931,7 +12931,7 @@ Unlike most functions, you can't see the source code for most S3 methods\footnot
 \KeywordTok{s3_get_method}\NormalTok{(weighted.mean.Date)}
 \CommentTok{#> function (x, w, ...) }
 \CommentTok{#> structure(weighted.mean(unclass(x), w, ...), class = "Date")}
-\CommentTok{#> <bytecode: 0x6d979e8>}
+\CommentTok{#> <bytecode: 0x7126b38>}
 \CommentTok{#> <environment: namespace:stats>}
 \end{Highlighting}
 \end{Shaded}
@@ -13026,7 +13026,7 @@ You can determine the class of an S3 object with \texttt{class(x)}, and see if a
 \end{Highlighting}
 \end{Shaded}
 
-The class name can be any string, but I recommend using only letters and \texttt{\_}. Avoid \texttt{.} because (as mentioned earlier) it can be confused with the \texttt{.} separator between a generic name and a class name. When using a class in a package, I recommend including the package name in the class name. That ensures you won't accidental clash with a class defined by another package.
+The class name can be any string, but I recommend using only letters and \texttt{\_}. Avoid \texttt{.} because (as mentioned earlier) it can be confused with the \texttt{.} separator between a generic name and a class name. When using a class in a package, I recommend including the package name in the class name. That ensures you won't accidentally clash with a class defined by another package.
 
 S3 has no checks for correctness which means you can change the class of existing objects:
 
@@ -13350,7 +13350,7 @@ Most generics are very simple, and consist of only a call to \texttt{UseMethod()
 \NormalTok{mean}
 \CommentTok{#> function (x, ...) }
 \CommentTok{#> UseMethod("mean")}
-\CommentTok{#> <bytecode: 0x264f248>}
+\CommentTok{#> <bytecode: 0x29de248>}
 \CommentTok{#> <environment: namespace:base>}
 \end{Highlighting}
 \end{Shaded}
@@ -13473,7 +13473,7 @@ There are two wrinkles to be aware of when you create a new method:
   There is one exception to this rule: if the generic has \texttt{...}, the method
   can contain a superset of the arguments. This allows methods to take
   arbitrary additional arguments. The downside of using \texttt{...}, however, is
-  that any misspelled arguments will be silently swallowed\footnote{See \url{https://github.com/hadley/ellipsis} for an experimental way of warning when methods fail to use all the argument in \texttt{...}, providing a potential resolution of this issue.},
+  that any misspelled arguments will be silently swallowed\footnote{See \url{https://github.com/hadley/ellipsis} for an experimental way of warning when methods fail to use all the arguments in \texttt{...}, providing a potential resolution of this issue.},
   as mentioned in Section \ref{fun-dot-dot-dot}.
 \end{itemize}
 
@@ -14468,7 +14468,7 @@ You can list all methods and fields with \texttt{names()}:
 \end{Highlighting}
 \end{Shaded}
 
-We defined \texttt{\$name}, \texttt{\$age}, \texttt{\$print}, and \texttt{\$initialize}. As suggested by the name \texttt{.\_\_enclos\_env\_\_} is an internal implementation detail that you shouldn't touch; we'll come back to \texttt{\$clone()} in Section \ref{r6-semantics}.
+We defined \texttt{\$name}, \texttt{\$age}, \texttt{\$print}, and \texttt{\$initialize}. As suggested by the name, \texttt{.\_\_enclos\_env\_\_} is an internal implementation detail that you shouldn't touch; we'll come back to \texttt{\$clone()} in Section \ref{r6-semantics}.
 
 \hypertarget{exercises-44}{%
 \subsection{Exercises}\label{exercises-44}}
@@ -14669,7 +14669,7 @@ Active fields are particularly useful in conjunction with private fields, becaus
   account balance, but you can still withdraw from and deposit to. Throw
   an error if you attempt to go into overdraft.
 \item
-  Create an class with a write-only \texttt{\$password} field. It should have
+  Create a class with a write-only \texttt{\$password} field. It should have
   \texttt{\$check\_password(password)} method that returns \texttt{TRUE} or \texttt{FALSE}, but
   there should be no way to view the complete password.
 \item
@@ -14808,7 +14808,7 @@ The finalize method will be run when the object is deleted (or more precisely, b
 
 \index{mutable default arguments}
 
-A final consequence of reference semantics can crop up where you don't expect it. If you use a R6 class as the default value of a field, it will be shared across all instances of the object! Take the following code: we want to create a temporary database every time we call \texttt{TemporaryDatabase\$new()}, but the current code always uses the same path.
+A final consequence of reference semantics can crop up where you don't expect it. If you use an R6 class as the default value of a field, it will be shared across all instances of the object! Take the following code: we want to create a temporary database every time we call \texttt{TemporaryDatabase\$new()}, but the current code always uses the same path.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14938,7 +14938,7 @@ An important new component of S4 is the \textbf{slot}, a named component of the 
   modify object slots.
 \item
   Section \ref{s4-dispatch} dives into the full details of method dispatch
-  in S4. The basic idea is simple, the it rapidly gets more complex once
+  in S4. The basic idea is simple, then it rapidly gets more complex once
   multiple inheritance and multiple dispatch are combined.
 \item
   Section \ref{s4-s3} discusses the interaction between S4 and S3, showing
@@ -14949,7 +14949,7 @@ An important new component of S4 is the \textbf{slot}, a named component of the 
 \subsection*{Learning more}\label{learning-more}}
 \addcontentsline{toc}{subsection}{Learning more}
 
-Like the other OO chapters, the focus here will be on S4 works, not how to deploy it most effectively. If you do want to use it in practice, there are two main challenges:
+Like the other OO chapters, the focus here will be on how S4 works, not how to deploy it most effectively. If you do want to use it in practice, there are two main challenges:
 
 \begin{itemize}
 \item
@@ -14993,7 +14993,7 @@ All functions related to S4 live in the methods package. This package is always 
 \hypertarget{s4-basics}{%
 \section{Basics}\label{s4-basics}}
 
-We'll start with a quick overview of the main components of S4. You define a S4 class by calling \texttt{setClass()} with the class name and a definition of its slots, the names and classes of the class data:
+We'll start with a quick overview of the main components of S4. You define an S4 class by calling \texttt{setClass()} with the class name and a definition of its slots, and the names and classes of the class data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15020,7 +15020,7 @@ Once the class is defined, you can construct new objects from it by calling \tex
 \index{subsetting!S4}
 \index{S4!subsetting}
 
-Given an S4 object you can see it's class with \texttt{is()} and access slots with \texttt{@} (equivalent to \texttt{\$}) and \texttt{slot()} (equivalent to \texttt{{[}{[}}):
+Given an S4 object you can see its class with \texttt{is()} and access slots with \texttt{@} (equivalent to \texttt{\$}) and \texttt{slot()} (equivalent to \texttt{{[}{[}}):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15137,7 +15137,7 @@ The code below illustrates the three arguments by creating a \texttt{Person} cla
 \index{S4!inheritance}
 \index{inheritance!S4}
 
-There is one other important argument to \texttt{setClass()}: \texttt{contains}. This specifies a class (or classes) to inherit slots and behaviour from. For example, we can create an \texttt{Employee} class that inherits from the \texttt{Person} class, adding an extra slot describes their \texttt{boss}.
+There is one other important argument to \texttt{setClass()}: \texttt{contains}. This specifies a class (or classes) to inherit slots and behaviour from. For example, we can create an \texttt{Employee} class that inherits from the \texttt{Person} class, adding an extra slot that describes their \texttt{boss}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15285,7 +15285,7 @@ You will need to implement more complicated checks (i.e.~checks that involve len
 \end{Highlighting}
 \end{Shaded}
 
-To enforce these additional constraints we write a validator with \texttt{setValidity()}. It takes class and a function that returns \texttt{TRUE} if the input is valid, and otherwise returns a character vector describing the problem(s):
+To enforce these additional constraints we write a validator with \texttt{setValidity()}. It takes a class and a function that returns \texttt{TRUE} if the input is valid, and otherwise returns a character vector describing the problem(s):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15330,7 +15330,7 @@ You can explicitly check the validity yourself by calling \texttt{validObject()}
 \end{Highlighting}
 \end{Shaded}
 
-In Section \ref{accessors}, we'll use \texttt{validObject()} to create accessors can not create invalid objects.
+In Section \ref{accessors}, we'll use \texttt{validObject()} to create accessors that can not create invalid objects.
 
 \hypertarget{exercises-48}{%
 \subsection{Exercises}\label{exercises-48}}
@@ -15426,7 +15426,7 @@ To list all the methods that belong to a generic, or that are associated with a 
 
 \index{S4!show()@\texttt{show()}}
 
-The most commonly defined S4 method controls printing is \texttt{show()}, which controls how the object appears when it is printed. To define a method for an existing generic, you must first determine the arguments. You can get those from the documentation or by looking at the \texttt{args()} of the generic:
+The most commonly defined S4 method that controls printing is \texttt{show()}, which controls how the object appears when it is printed. To define a method for an existing generic, you must first determine the arguments. You can get those from the documentation or by looking at the \texttt{args()} of the generic:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15479,7 +15479,7 @@ Typically, however, you'll define a generic so that multiple classes can use the
 \end{Highlighting}
 \end{Shaded}
 
-If the slot is also writeable, you should provide a setter function. You should always \texttt{validObject()} in the setter to prevent the user from creating invalid objects.
+If the slot is also writeable, you should provide a setter function. You should always include \texttt{validObject()} in the setter to prevent the user from creating invalid objects.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15514,7 +15514,7 @@ If the slot is also writeable, you should provide a setter function. You should 
   name of the generic twice?
 \item
   Why does the \texttt{show()} method defined in Section \ref{show-method} use
-  \texttt{is(object){[}{[}1{]}{]}}. (Hint: try printing the employee subclass.)
+  \texttt{is(object){[}{[}1{]}{]}}? (Hint: try printing the employee subclass.)
 \item
   What happens if you define a method with different argument names to
   the generic?
@@ -15570,7 +15570,7 @@ To find the method that gets called, you start with the most specific class of t
 
 \index{S4!pseudo-classes}
 \indexc{ANY}
-There are two \textbf{pseudo-classes} that you can define methods for. These are called pseudo-classes because they don't actually exist, but allow you to define useful behaviours. The first pseudo-class is \texttt{ANY} which matches any class\footnote{The S4 \texttt{ANY} pseudoclass plays the same same role as the S3 \texttt{default} pseudo-class.}. For technical reasons that we'll get to later, the link to the \texttt{ANY} method is longer than the links between the other classes:
+There are two \textbf{pseudo-classes} that you can define methods for. These are called pseudo-classes because they don't actually exist, but allow you to define useful behaviours. The first pseudo-class is \texttt{ANY} which matches any class\footnote{The S4 \texttt{ANY} pseudo-class plays the same role as the S3 \texttt{default} pseudo-class.}. For technical reasons that we'll get to later, the link to the \texttt{ANY} method is longer than the links between the other classes:
 
 \begin{center}\includegraphics[width=2.8in]{diagrams/s4/single-any} \end{center}
 
@@ -15741,7 +15741,7 @@ In this case, the existing function becomes the default (\texttt{ANY}) method:
 \CommentTok{#> }
 \CommentTok{#> function (x, ...) }
 \CommentTok{#> UseMethod("mean")}
-\CommentTok{#> <bytecode: 0x358ac60>}
+\CommentTok{#> <bytecode: 0x2061c60>}
 \CommentTok{#> <environment: namespace:base>}
 \CommentTok{#> }
 \CommentTok{#> Signatures:}
@@ -15751,7 +15751,7 @@ In this case, the existing function becomes the default (\texttt{ANY}) method:
 \end{Highlighting}
 \end{Shaded}
 
-NB: \texttt{setMethod()} will automatically call \texttt{setGeneric()} if the first argument isn't already a generic, enabling you to turn any existing function into an S4 generic. It is ok to convert an existing S3 generic to S4, but you should avoid converting regular functions to S4 generics in packages because requires careful coordination if done by multiple packages.
+NB: \texttt{setMethod()} will automatically call \texttt{setGeneric()} if the first argument isn't already a generic, enabling you to turn any existing function into an S4 generic. It is ok to convert an existing S3 generic to S4, but you should avoid converting regular functions to S4 generics in packages because that requires careful coordination if done by multiple packages.
 
 \hypertarget{exercises-51}{%
 \subsection{Exercises}\label{exercises-51}}
@@ -15831,8 +15831,8 @@ R6 is a profoundly different OO system from S3 and S4 because it is built on enc
 
 \begin{itemize}
 \item
-  A generic is a regular function so lives in the global namespace. An R6 method
-  belongs to an object so lives in a local namespace. This influences how we
+  A generic is a regular function so it lives in the global namespace. An R6 method
+  belongs to an object so it lives in a local namespace. This influences how we
   think about naming.
 \item
   R6's reference semantics allow methods to simultaneously return a value
@@ -19876,7 +19876,7 @@ There are three ways to create quosures:
 \KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\NormalTok{y), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{, }\DataTypeTok{y =} \DecValTok{10}\NormalTok{))}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + y}
-\CommentTok{#> env:  0x43f5448}
+\CommentTok{#> env:  0x57cecb8}
 \end{Highlighting}
 \end{Shaded}
 \end{itemize}
@@ -19930,7 +19930,7 @@ Quosures are typically just a convenience: they make code cleaner because you on
 \CommentTok{#> $f}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x}
-\CommentTok{#> env:  0x4c21cc8}
+\CommentTok{#> env:  0x5ffb538}
 \end{Highlighting}
 \end{Shaded}
 
@@ -20069,19 +20069,19 @@ When you use \texttt{expr\_print()} in the console, quosures are coloured accord
 \NormalTok{q1}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x}
-\CommentTok{#> env:  0x42f10d0}
+\CommentTok{#> env:  0x56ca940}
 
 \NormalTok{q2 <-}\StringTok{ }\KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\OperatorTok{!!}\NormalTok{q1), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{10}\NormalTok{))}
 \NormalTok{q2}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + (^x)}
-\CommentTok{#> env:  0x448a438}
+\CommentTok{#> env:  0x5863ca8}
 
 \NormalTok{q3 <-}\StringTok{ }\KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\OperatorTok{!!}\NormalTok{q2), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{100}\NormalTok{))}
 \NormalTok{q3}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + (^x + (^x))}
-\CommentTok{#> env:  0x472e6e0}
+\CommentTok{#> env:  0x5b07f50}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -21852,7 +21852,7 @@ We need a closure that will generate the functions for each unknown call:
 \CommentTok{#>     contents <- paste(..., collapse = ", ")}
 \CommentTok{#>     paste0("\textbackslash{}\textbackslash{}mathrm\{foo\}(", contents, ")")}
 \CommentTok{#> \}}
-\CommentTok{#> <environment: 0x56fa0d8>}
+\CommentTok{#> <environment: 0x4b7af80>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -22789,11 +22789,12 @@ A great tool for microbenchmarking in R is the bench package (Hester \protect\hy
 \NormalTok{  x }\OperatorTok{^}\StringTok{ }\FloatTok{0.5}
 \NormalTok{))}
 \CommentTok{#> # A tibble: 2 x 10}
-\CommentTok{#>   expression   min  mean   median    max `itr/sec` mem_alloc  n_gc}
-\CommentTok{#>   <chr>      <bch> <bch> <bch:tm> <bch:>     <dbl> <bch:byt> <dbl>}
-\CommentTok{#> 1 sqrt(x)    592ns 792ns 657.63ns 39.2µs  1262335.      848B     0}
-\CommentTok{#> 2 x^0.5        9µs  10µs   9.43µs   92µs    99991.      848B     0}
-\CommentTok{#> # … with 2 more variables: n_itr <int>, total_time <bch:tm>}
+\CommentTok{#>   expression      min    mean   median   max `itr/sec` mem_alloc}
+\CommentTok{#>   <chr>      <bch:tm> <bch:t> <bch:tm> <bch>     <dbl> <bch:byt>}
+\CommentTok{#> 1 sqrt(x)    589.06ns 779.2ns 656.93ns  43µs  1283365.      848B}
+\CommentTok{#> 2 x^0.5        9.02µs  10.1µs   9.45µs 108µs    99245.      848B}
+\CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
+\CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -22850,8 +22851,8 @@ Because the result is a special type of tibble, you can use \texttt{{[}} to sele
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 sqrt(x)       592ns 657.63ns  1262335.     0}
-\CommentTok{#> 2 x^0.5           9µs   9.43µs    99991.     0}
+\CommentTok{#> 1 sqrt(x)    589.06ns 656.93ns  1283365.     0}
+\CommentTok{#> 2 x^0.5        9.02µs   9.45µs    99245.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23019,8 +23020,8 @@ Now use \texttt{bench::mark()} to precisely compare the variations. \texttt{benc
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean1(x)      227µs    237µs     4174.     0}
-\CommentTok{#> 2 mean2(x)      112µs    114µs     8327.     0}
+\CommentTok{#> 1 mean1(x)      226µs    232µs     4195.     0}
+\CommentTok{#> 2 mean2(x)      112µs    113µs     8368.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23153,8 +23154,8 @@ For example, calling \texttt{mean.default()} is quite a bit faster than calling 
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression           min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>           <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)           2.56µs   3.04µs   287492.     1}
-\CommentTok{#> 2 mean.default(x)   1.23µs   1.43µs   629557.     0}
+\CommentTok{#> 1 mean(x)            2.6µs   2.96µs   304817.     1}
+\CommentTok{#> 2 mean.default(x)   1.22µs   1.38µs   655514.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23173,9 +23174,9 @@ An even riskier optimisation is to directly call the underlying \texttt{.Interna
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression              min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)              2.56µs   2.96µs   292458.     1}
-\CommentTok{#> 2 mean.default(x)      1.22µs   1.47µs   614294.     0}
-\CommentTok{#> 3 .Internal(mean(x)) 338.88ns 357.98ns  2410008.     0}
+\CommentTok{#> 1 mean(x)              2.57µs   2.96µs   295116.     1}
+\CommentTok{#> 2 mean.default(x)      1.22µs    1.4µs   654334.     0}
+\CommentTok{#> 3 .Internal(mean(x))  341.1ns    356ns  2543149.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23192,9 +23193,9 @@ NB: most of these differences arise because \texttt{x} is small. If you increase
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression              min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)              24.9µs   25.3µs    37768.     1}
-\CommentTok{#> 2 mean.default(x)      23.4µs   23.7µs    40697.     0}
-\CommentTok{#> 3 .Internal(mean(x))   22.4µs   22.5µs    43031.     0}
+\CommentTok{#> 1 mean(x)              24.9µs   25.2µs    38108.     1}
+\CommentTok{#> 2 mean.default(x)      23.4µs   23.6µs    41059.     0}
+\CommentTok{#> 3 .Internal(mean(x))   22.4µs   22.4µs    42602.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23223,8 +23224,8 @@ Knowing that you're dealing with a specific type of input can be another way to 
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression         min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>         <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 as.data.frame   1.09ms   1.16ms      851.     7}
-\CommentTok{#> 2 quick_df        6.22µs   7.37µs   120949.     2}
+\CommentTok{#> 1 as.data.frame   1.04ms   1.12ms      879.     7}
+\CommentTok{#> 2 quick_df        6.12µs    7.2µs   124551.     2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23332,9 +23333,9 @@ The downside of vectorisation is that it makes it harder to predict how operatio
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression        min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>        <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 lookup[x1]   498.02ns 606.99ns  1407336.     0}
-\CommentTok{#> 2 lookup[x10]    1.52µs   1.71µs   489859.     0}
-\CommentTok{#> 3 lookup[x100]    4.4µs   6.08µs   152376.     0}
+\CommentTok{#> 1 lookup[x1]   489.06ns 574.98ns  1576753.     0}
+\CommentTok{#> 2 lookup[x10]    1.51µs   1.68µs   515780.     1}
+\CommentTok{#> 3 lookup[x100]   4.38µs   5.04µs   180009.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23392,10 +23393,10 @@ You saw one example of this type of problem in Section \ref{memory-profiling}, s
 \CommentTok{#> # A tibble: 4 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 loop10      20.16µs  22.24µs    42969.     3}
-\CommentTok{#> 2 loop100    816.34µs 842.09µs     1168.     1}
-\CommentTok{#> 3 vec10        4.94µs   5.19µs   183588.     1}
-\CommentTok{#> 4 vec100      39.28µs  40.14µs    23934.     0}
+\CommentTok{#> 1 loop10      19.83µs  21.89µs    43770.     3}
+\CommentTok{#> 2 loop100    802.08µs 826.97µs     1197.     2}
+\CommentTok{#> 3 vec10        4.87µs   5.16µs   172361.     0}
+\CommentTok{#> 4 vec100      39.09µs  40.31µs    23915.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23427,14 +23428,14 @@ For data in this form, there are two ways to use \texttt{t.test()}. We can eithe
 \NormalTok{  \}}
 \NormalTok{)}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.864   0.000   0.865}
+\CommentTok{#>   0.844   0.000   0.846}
 \KeywordTok{system.time}\NormalTok{(}
   \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{m) \{}
     \KeywordTok{t.test}\NormalTok{(X[i, grp }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], X[i, grp }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{])}\OperatorTok{$}\NormalTok{statistic}
 \NormalTok{  \}}
 \NormalTok{)}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.204   0.000   0.206}
+\CommentTok{#>   0.196   0.000   0.197}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23447,7 +23448,7 @@ Of course, a for loop computes, but doesn't save the values. We can \texttt{map\
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(t1 <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map_dbl}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{m, compT))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.208   0.000   0.209}
+\CommentTok{#>   0.204   0.000   0.203}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23501,7 +23502,7 @@ Now that we have a fairly simple function, we can make it faster still by vector
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(t3 <-}\StringTok{ }\KeywordTok{rowtstat}\NormalTok{(X, grp))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.012   0.000   0.012}
+\CommentTok{#>   0.012   0.000   0.011}
 \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{all.equal}\NormalTok{(t1, t3))}
 \end{Highlighting}
 \end{Shaded}
@@ -23641,7 +23642,7 @@ You'll also need a working C++ compiler. To get it:
 \CommentTok{# add works like a regular R function}
 \NormalTok{add}
 \CommentTok{#> function (x, y, z) }
-\CommentTok{#> .Call(<pointer: 0x7f64f2bfef60>, x, y, z)}
+\CommentTok{#> .Call(<pointer: 0x7ff3961edf60>, x, y, z)}
 \KeywordTok{add}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
 \CommentTok{#> [1] 6}
 \end{Highlighting}
@@ -23829,9 +23830,9 @@ This is a good example of where C++ is much more efficient than R. As shown by t
 \CommentTok{#> # A tibble: 3 x 6}
 \CommentTok{#>   expression      min     mean   median      max `itr/sec`}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>}
-\CommentTok{#> 1 sum(x)       1.31µs   1.52µs   1.34µs  87.53µs   659460.}
-\CommentTok{#> 2 sumC(x)      3.24µs   4.62µs   4.74µs   1.06ms   216700.}
-\CommentTok{#> 3 sumR(x)     38.33µs  40.37µs  39.06µs 123.49µs    24771.}
+\CommentTok{#> 1 sum(x)        1.3µs   1.52µs   1.34µs  88.17µs   656438.}
+\CommentTok{#> 2 sumC(x)      3.27µs   4.63µs   4.74µs   1.07ms   215789.}
+\CommentTok{#> 3 sumR(x)     38.31µs  40.48µs     39µs 250.83µs    24701.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23887,8 +23888,8 @@ Note that because the R version is fully vectorised, it's already going to be fa
 \CommentTok{#> # A tibble: 2 x 6}
 \CommentTok{#>   expression          min     mean   median      max `itr/sec`}
 \CommentTok{#>   <chr>          <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>}
-\CommentTok{#> 1 pdistR(0.5, y)   8.67ms   9.08ms   9.09ms   11.4ms      110.}
-\CommentTok{#> 2 pdistC(0.5, y)   4.76ms   4.98ms   4.88ms    6.4ms      201.}
+\CommentTok{#> 1 pdistR(0.5, y)   8.56ms   8.88ms    8.7ms  12.11ms      113.}
+\CommentTok{#> 2 pdistC(0.5, y)   4.69ms    4.8ms   4.77ms   5.91ms      208.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -24731,10 +24732,10 @@ Benchmarking the two implementations yields:
   \DataTypeTok{check =} \OtherTok{FALSE}
 \NormalTok{)}
 \CommentTok{#> # A tibble: 2 x 10}
-\CommentTok{#>   expression      min     mean   median    max `itr/sec` mem_alloc}
-\CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:>     <dbl> <bch:byt>}
-\CommentTok{#> 1 gibbs_r(1…   6.09ms   6.37ms   6.25ms 7.59ms      157.    4.97MB}
-\CommentTok{#> 2 gibbs_cpp… 321.39µs 377.53µs 370.28µs 3.38ms     2649.     4.1KB}
+\CommentTok{#>   expression      min    mean  median    max `itr/sec` mem_alloc}
+\CommentTok{#>   <chr>      <bch:tm> <bch:t> <bch:t> <bch:>     <dbl> <bch:byt>}
+\CommentTok{#> 1 gibbs_r(1…   5.68ms   5.9ms   5.8ms 7.07ms      170.    4.97MB}
+\CommentTok{#> 2 gibbs_cpp… 301.07µs 354.3µs 347.6µs 3.12ms     2822.     4.1KB}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
@@ -24848,9 +24849,9 @@ The original blog post forgot to do this, and introduced a bug in the C++ versio
 \CommentTok{#> # A tibble: 3 x 10}
 \CommentTok{#>   expression     min     mean   median      max `itr/sec` mem_alloc}
 \CommentTok{#>   <chr>      <bch:t> <bch:tm> <bch:tm> <bch:tm>     <dbl> <bch:byt>}
-\CommentTok{#> 1 vacc1       1.81ms   1.99ms   1.96ms   4.94ms      503.    7.86KB}
-\CommentTok{#> 2 vacc2      97.99µs 115.83µs 105.83µs 334.74µs     8633.     224KB}
-\CommentTok{#> 3 vacc3      29.35µs  31.77µs  30.29µs 146.22µs    31473.   14.48KB}
+\CommentTok{#> 1 vacc1       1.82ms   1.98ms   1.96ms   2.42ms      506.    7.86KB}
+\CommentTok{#> 2 vacc2      97.41µs 118.92µs  106.5µs   3.65ms     8409.  223.98KB}
+\CommentTok{#> 3 vacc3      29.36µs  31.61µs  30.37µs 137.62µs    31633.   14.48KB}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}

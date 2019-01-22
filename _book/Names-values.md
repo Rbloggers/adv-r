@@ -123,9 +123,9 @@ You can access an object's identifier with `lobstr::obj_addr()`. Doing so allows
 
 ```r
 obj_addr(x)
-#> [1] "0x234ab68"
+#> [1] "0x2995b68"
 obj_addr(y)
-#> [1] "0x234ab68"
+#> [1] "0x2995b68"
 ```
 
 These identifiers are long, and change every time you restart R.
@@ -275,7 +275,7 @@ f <- function(a) {
 
 x <- c(1, 2, 3)
 cat(tracemem(x), "\n")
-#> <0x4208788>
+#> <0x4853788>
 
 z <- f(x)
 # there's no copy here!
@@ -336,15 +336,15 @@ To see values that are shared across lists, use `lobstr::ref()`. `ref()` prints 
 
 ```r
 ref(l1, l2)
-#> █ [1:0x76e2518] <list> 
-#> ├─[2:0x7503ff8] <dbl> 
-#> ├─[3:0x7503fc0] <dbl> 
-#> └─[4:0x7503f88] <dbl> 
+#> █ [1:0x7d332c8] <list> 
+#> ├─[2:0x7b54d58] <dbl> 
+#> ├─[3:0x7b54d20] <dbl> 
+#> └─[4:0x7b54ce8] <dbl> 
 #>  
-#> █ [5:0x8164bb8] <list> 
-#> ├─[2:0x7503ff8] 
-#> ├─[3:0x7503fc0] 
-#> └─[6:0x802d5a8] <dbl>
+#> █ [5:0x87afbb8] <list> 
+#> ├─[2:0x7b54d58] 
+#> ├─[3:0x7b54d20] 
+#> └─[6:0x867e308] <dbl>
 ```
 
 ### Data frames {#df-modify}
@@ -402,11 +402,11 @@ You can request that `ref()` show these references by setting the `character` ar
 
 ```r
 ref(x, character = TRUE)
-#> █ [1:0x30a5b78] <chr> 
-#> ├─[2:0x19db758] <string: "a"> 
-#> ├─[2:0x19db758] 
-#> ├─[3:0x4d23cf0] <string: "abc"> 
-#> └─[4:0x1e91af0] <string: "d">
+#> █ [1:0x36f0b78] <chr> 
+#> ├─[2:0x2026758] <string: "a"> 
+#> ├─[2:0x2026758] 
+#> ├─[3:0x536ecf0] <string: "abc"> 
+#> └─[4:0x24dcaf0] <string: "d">
 ```
 
 This has a profound impact on the amount of memory a character vector uses but is otherwise generally unimportant, so elsewhere in the book I'll draw character vectors as if the strings lived inside a vector.
@@ -605,7 +605,7 @@ Two complications make predicting exactly when R applies this optimisation chall
   doesn't need to.
   
 * Whenever you call the vast majority of functions, it makes a reference to the 
-  object. The only exception are specially written "primitve" C functions. 
+  object. The only exception are specially written "primitive" C functions. 
   These can only be written by R-core and occur mostly in the base package.
 
 [^refcnt]: By the time you read this, this may have changed, as plans are afoot to improve reference counting: https://developer.r-project.org/Refcnt.html
@@ -713,8 +713,8 @@ e <- rlang::env()
 e$self <- e
 
 ref(e)
-#> █ [1:0x18954e0] <env> 
-#> └─self = [1:0x18954e0]
+#> █ [1:0x20c39f8] <env> 
+#> └─self = [1:0x20c39f8]
 ```
 
 \begin{center}\includegraphics[width=1.48in]{diagrams/name-value/e-self} \end{center}
@@ -780,8 +780,8 @@ You can force garbage collection by calling `gc()`. But despite what you might h
 ```r
 gc() 
 #>           used (Mb) gc trigger (Mb) max used (Mb)
-#> Ncells  680371 36.4    1285085 68.7  1285085 68.7
-#> Vcells 4696461 35.9   11789889 90.0 11789889 90.0
+#> Ncells  682019 36.5    1285085 68.7  1285085 68.7
+#> Vcells 4698159 35.9   11789889 90.0 11788930 90.0
 ```
 
 `lobstr::mem_used()` is a wrapper around `gc()` that prints the total number of bytes used:
@@ -789,7 +789,7 @@ gc()
 
 ```r
 mem_used()
-#> 75,676,712 B
+#> 75,782,584 B
 ```
 
 This number won't agree with the amount of memory reported by your operating system. There are three reasons:
