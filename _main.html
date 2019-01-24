@@ -1307,9 +1307,9 @@ a name.</p></li>
 <p>You might have noticed that the value <code>c(1, 2, 3)</code> has a label: <code>0x74b</code>. While the vector doesn’t have a name, I’ll occasionally need to refer to an object independent of its bindings. To make that possible, I’ll label values with a unique identifier. These identifiers have a special form that looks like the object’s memory “address”, i.e. the location in memory where the object is stored. But because the actual memory addresses changes every time the code is run, we use these identifiers instead.</p>
 <p>You can access an object’s identifier with <code>lobstr::obj_addr()</code>. Doing so allows you to see that both <code>x</code> and <code>y</code> point to the same identifier:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">obj_addr</span>(x)
-<span class="co">#&gt; [1] &quot;0x1902a98&quot;</span>
+<span class="co">#&gt; [1] &quot;0x18bca48&quot;</span>
 <span class="kw">obj_addr</span>(y)
-<span class="co">#&gt; [1] &quot;0x1902a98&quot;</span></code></pre>
+<span class="co">#&gt; [1] &quot;0x18bca48&quot;</span></code></pre>
 <p>These identifiers are long, and change every time you restart R.</p>
 <p>It can take some time to get your head around the distinction between names and values, but understanding this is really helpful in functional programming where functions can have different names in different contexts.</p>
 <div id="non-syntactic" class="section level3">
@@ -1403,7 +1403,7 @@ y[[<span class="dv">3</span>]] &lt;-<span class="st"> </span>4L
 
 x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
 <span class="kw">cat</span>(<span class="kw">tracemem</span>(x), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
-<span class="co">#&gt; &lt;0x3f44658&gt;</span>
+<span class="co">#&gt; &lt;0x3efe658&gt;</span>
 
 z &lt;-<span class="st"> </span><span class="kw">f</span>(x)
 <span class="co"># there&#39;s no copy here!</span>
@@ -1431,15 +1431,15 @@ z &lt;-<span class="st"> </span><span class="kw">f</span>(x)
 <p>Like vectors, lists use copy-on-modify behaviour; the original list is left unchanged, and R creates a modified copy. This, however, is a <strong>shallow</strong> copy: the list object and its bindings are copied, but the values pointed to by the bindings are not. The opposite of a shallow copy is a deep copy where the contents of every reference are copied. Prior to R 3.1.0, copies were always deep copies.</p>
 <p>To see values that are shared across lists, use <code>lobstr::ref()</code>. <code>ref()</code> prints the memory address of each object, along with a local ID so that you can easily cross-reference shared components.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ref</span>(l1, l2)
-<span class="co">#&gt; █ [1:0x18c3778] &lt;list&gt; </span>
-<span class="co">#&gt; ├─[2:0x6d16f48] &lt;dbl&gt; </span>
-<span class="co">#&gt; ├─[3:0x6d16f10] &lt;dbl&gt; </span>
-<span class="co">#&gt; └─[4:0x6d16ed8] &lt;dbl&gt; </span>
+<span class="co">#&gt; █ [1:0x187d728] &lt;list&gt; </span>
+<span class="co">#&gt; ├─[2:0x6cd0f48] &lt;dbl&gt; </span>
+<span class="co">#&gt; ├─[3:0x6cd0f10] &lt;dbl&gt; </span>
+<span class="co">#&gt; └─[4:0x6cd0ed8] &lt;dbl&gt; </span>
 <span class="co">#&gt;  </span>
-<span class="co">#&gt; █ [5:0x71294a8] &lt;list&gt; </span>
-<span class="co">#&gt; ├─[2:0x6d16f48] </span>
-<span class="co">#&gt; ├─[3:0x6d16f10] </span>
-<span class="co">#&gt; └─[6:0x71b1be0] &lt;dbl&gt;</span></code></pre>
+<span class="co">#&gt; █ [5:0x70e7338] &lt;list&gt; </span>
+<span class="co">#&gt; ├─[2:0x6cd0f48] </span>
+<span class="co">#&gt; ├─[3:0x6cd0f10] </span>
+<span class="co">#&gt; └─[6:0x716bbe0] &lt;dbl&gt;</span></code></pre>
 </div>
 <div id="df-modify" class="section level3">
 <h3><span class="header-section-number">2.3.4</span> Data frames</h3>
@@ -1465,11 +1465,11 @@ d3[<span class="dv">1</span>, ] &lt;-<span class="st"> </span>d3[<span class="dv
 <p><img src="diagrams/name-value/character-2.png" width="250" style="display: block; margin: auto;" /></p>
 <p>You can request that <code>ref()</code> show these references by setting the <code>character</code> argument to <code>TRUE</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ref</span>(x, <span class="dt">character =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; █ [1:0x3ea6ee8] &lt;chr&gt; </span>
-<span class="co">#&gt; ├─[2:0xf68758] &lt;string: &quot;a&quot;&gt; </span>
-<span class="co">#&gt; ├─[2:0xf68758] </span>
-<span class="co">#&gt; ├─[3:0x2b22630] &lt;string: &quot;abc&quot;&gt; </span>
-<span class="co">#&gt; └─[4:0x141eaf0] &lt;string: &quot;d&quot;&gt;</span></code></pre>
+<span class="co">#&gt; █ [1:0x3e609e8] &lt;chr&gt; </span>
+<span class="co">#&gt; ├─[2:0xf22758] &lt;string: &quot;a&quot;&gt; </span>
+<span class="co">#&gt; ├─[2:0xf22758] </span>
+<span class="co">#&gt; ├─[3:0x2adc668] &lt;string: &quot;abc&quot;&gt; </span>
+<span class="co">#&gt; └─[4:0x13d8af0] &lt;string: &quot;d&quot;&gt;</span></code></pre>
 <p>This has a profound impact on the amount of memory a character vector uses but is otherwise generally unimportant, so elsewhere in the book I’ll draw character vectors as if the strings lived inside a vector.</p>
 </div>
 <div id="exercises-1" class="section level3">
@@ -1659,8 +1659,8 @@ e2<span class="op">$</span>c
 e<span class="op">$</span>self &lt;-<span class="st"> </span>e
 
 <span class="kw">ref</span>(e)
-<span class="co">#&gt; █ [1:0x18f6338] &lt;env&gt; </span>
-<span class="co">#&gt; └─self = [1:0x18f6338]</span></code></pre>
+<span class="co">#&gt; █ [1:0x18b0370] &lt;env&gt; </span>
+<span class="co">#&gt; └─self = [1:0x18b0370]</span></code></pre>
 <p><img src="diagrams/name-value/e-self.png" width="142" style="display: block; margin: auto;" /></p>
 <p>This is a unique property of environments!</p>
 </div>
@@ -1697,7 +1697,7 @@ You can force garbage collection by calling <code>gc()</code>. But despite what 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gc</span>() 
 <span class="co">#&gt;           used (Mb) gc trigger (Mb) max used (Mb)</span>
 <span class="co">#&gt; Ncells  682246 36.5    1286114 68.7  1286114 68.7</span>
-<span class="co">#&gt; Vcells 4696152 35.9   11787922 90.0 11786967 90.0</span></code></pre>
+<span class="co">#&gt; Vcells 4696152 35.9   11787922 90.0 11786989 90.0</span></code></pre>
 <p><code>lobstr::mem_used()</code> is a wrapper around <code>gc()</code> that prints the total number of bytes used:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mem_used</span>()
 <span class="co">#&gt; 75,780,760 B</span></code></pre>
@@ -4299,7 +4299,7 @@ value for <code>breaks</code> is <code>&quot;Sturges&quot;</code>, and</p>
   <span class="kw">print</span>(x)
 }
 <span class="kw">show_time</span>()
-<span class="co">#&gt; [1] &quot;2019-01-24 05:56:07 UTC&quot;</span></code></pre></li>
+<span class="co">#&gt; [1] &quot;2019-01-24 06:45:58 UTC&quot;</span></code></pre></li>
 <li><p>How many arguments are required when calling <code>library()</code>?</p></li>
 </ol>
 </div>
@@ -4908,10 +4908,10 @@ environments are useful data structures for solving other problems.</p></li>
 <p><img src="diagrams/environments/loop.png" width="293" style="display: block; margin: auto;" /></p>
 <p>Printing an environment just displays its memory address, which is not terribly useful:</p>
 <pre class="sourceCode r"><code class="sourceCode r">e1
-<span class="co">#&gt; &lt;environment: 0x2a77c88&gt;</span></code></pre>
+<span class="co">#&gt; &lt;environment: 0x1552cc0&gt;</span></code></pre>
 <p>Instead, we’ll use <code>env_print()</code> which gives us a little more information:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">env_print</span>(e1)
-<span class="co">#&gt; &lt;environment: 0x2a77c88&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x1552cc0&gt;</span>
 <span class="co">#&gt; parent: &lt;environment: global&gt;</span>
 <span class="co">#&gt; bindings:</span>
 <span class="co">#&gt;  * a: &lt;lgl&gt;</span>
@@ -4952,7 +4952,7 @@ e2b &lt;-<span class="st"> </span><span class="kw">env</span>(e2a, <span class="
 <p>To save space, I typically won’t draw all the ancestors; just remember whenever you see a pale blue circle, there’s a parent environment somewhere.</p>
 <p>You can find the parent of an environment with <code>env_parent()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">env_parent</span>(e2b)
-<span class="co">#&gt; &lt;environment: 0x55d51f8&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x40adf78&gt;</span>
 <span class="kw">env_parent</span>(e2a)
 <span class="co">#&gt; &lt;environment: R_GlobalEnv&gt;</span></code></pre>
 <p>Only one environment doesn’t have a parent: the <strong>empty</strong> environment. I draw the empty environment with a hollow parent environment, and where space allows I’ll label it with <code>R_EmptyEnv</code>, the name R uses.</p>
@@ -4961,14 +4961,14 @@ e2d &lt;-<span class="st"> </span><span class="kw">env</span>(e2c, <span class="
 <p><img src="diagrams/environments/parents-empty.png" width="359" style="display: block; margin: auto;" /></p>
 <p>The ancestors of every environment eventually terminate with the empty environment. You can list see all ancestors with <code>env_parents()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">env_parents</span>(e2b)
-<span class="co">#&gt; [[1]]   &lt;env: 0x55d51f8&gt;</span>
+<span class="co">#&gt; [[1]]   &lt;env: 0x40adf78&gt;</span>
 <span class="co">#&gt; [[2]] $ &lt;env: global&gt;</span>
 <span class="kw">env_parents</span>(e2d)
-<span class="co">#&gt; [[1]]   &lt;env: 0x678db50&gt;</span>
+<span class="co">#&gt; [[1]]   &lt;env: 0x5268c10&gt;</span>
 <span class="co">#&gt; [[2]] $ &lt;env: empty&gt;</span></code></pre>
 <p>By default, <code>env_parents()</code> stops when it gets to the global environment. This is useful because the ancestors of the global environment include every attached package, which you can see if you override the default behaviour as below. We’ll come back to these environments in Section <a href="#search-path">7.4.1</a>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">env_parents</span>(e2b, <span class="dt">last =</span> <span class="kw">empty_env</span>())
-<span class="co">#&gt;  [[1]]   &lt;env: 0x55d51f8&gt;</span>
+<span class="co">#&gt;  [[1]]   &lt;env: 0x40adf78&gt;</span>
 <span class="co">#&gt;  [[2]] $ &lt;env: global&gt;</span>
 <span class="co">#&gt;  [[3]] $ &lt;env: package:rlang&gt;</span>
 <span class="co">#&gt;  [[4]] $ &lt;env: package:stats&gt;</span>
@@ -5293,7 +5293,7 @@ e<span class="op">$</span>g &lt;-<span class="st"> </span><span class="cf">funct
 <span class="co">#&gt; function (x, na.rm = FALSE) </span>
 <span class="co">#&gt; sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), </span>
 <span class="co">#&gt;     na.rm = na.rm))</span>
-<span class="co">#&gt; &lt;bytecode: 0x2c4a7b8&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x17257f0&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:stats&gt;</span></code></pre>
 <p><code>sd()</code> is defined in terms of <code>var()</code>, so you might worry that the result of <code>sd()</code> would be affected by any function called <code>var()</code> either in the global environment, or in one of the other attached packages. R avoids this problem by taking advantage of the function vs. binding environment described above. Every function in a package is associated with a pair of environments: the package environment, which you learned about earlier, and the <strong>namespace</strong> environment.</p>
 <ul>
@@ -5366,7 +5366,7 @@ y &lt;-<span class="st"> </span><span class="kw">h</span>(<span class="dv">1</sp
 
 e &lt;-<span class="st"> </span><span class="kw">h2</span>(<span class="dt">x =</span> <span class="dv">10</span>)
 <span class="kw">env_print</span>(e)
-<span class="co">#&gt; &lt;environment: 0x8256f08&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x63a5d98&gt;</span>
 <span class="co">#&gt; parent: &lt;environment: global&gt;</span>
 <span class="co">#&gt; bindings:</span>
 <span class="co">#&gt;  * a: &lt;dbl&gt;</span>
@@ -5382,7 +5382,7 @@ e &lt;-<span class="st"> </span><span class="kw">h2</span>(<span class="dt">x =<
 plus_one &lt;-<span class="st"> </span><span class="kw">plus</span>(<span class="dv">1</span>)
 plus_one
 <span class="co">#&gt; function(y) x + y</span>
-<span class="co">#&gt; &lt;environment: 0x69e0630&gt;</span></code></pre>
+<span class="co">#&gt; &lt;environment: 0x55d9890&gt;</span></code></pre>
 <p><img src="diagrams/environments/closure.png" width="162" style="display: block; margin: auto;" /></p>
 <p>What happens when we call <code>plus_one()</code>? Its execution environment will have the captured execution environment of <code>plus()</code> as its parent:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plus_one</span>(<span class="dv">2</span>)
@@ -7694,23 +7694,23 @@ environment of the function factory.</p>
 <span class="co">#&gt; function(x) {</span>
 <span class="co">#&gt;     x ^ exp</span>
 <span class="co">#&gt;   }</span>
-<span class="co">#&gt; &lt;environment: 0x36fce18&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x285ee50&gt;</span>
 
 cube
 <span class="co">#&gt; function(x) {</span>
 <span class="co">#&gt;     x ^ exp</span>
 <span class="co">#&gt;   }</span>
-<span class="co">#&gt; &lt;bytecode: 0x30f44f0&gt;</span>
-<span class="co">#&gt; &lt;environment: 0x3766528&gt;</span></code></pre>
+<span class="co">#&gt; &lt;bytecode: 0x2256528&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x28c8560&gt;</span></code></pre>
 <p>It’s obvious where <code>x</code> comes from, but how does R find the value associated with <code>exp</code>? Simply printing the manufactured functions is not revealing because the bodies are identical; it’s the contents of the enclosing environment that’s important. We can get a little more insight by using <code>rlang::env_print()</code>. That shows us that we have two different environments (each of which was originally an execution environment of <code>power1()</code>). The environments have the same parent, which is the enclosing environment of <code>power1()</code>, the global environment.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">env_print</span>(square)
-<span class="co">#&gt; &lt;environment: 0x36fce18&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x285ee50&gt;</span>
 <span class="co">#&gt; parent: &lt;environment: global&gt;</span>
 <span class="co">#&gt; bindings:</span>
 <span class="co">#&gt;  * exp: &lt;dbl&gt;</span>
 
 <span class="kw">env_print</span>(cube)
-<span class="co">#&gt; &lt;environment: 0x3766528&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x28c8560&gt;</span>
 <span class="co">#&gt; parent: &lt;environment: global&gt;</span>
 <span class="co">#&gt; bindings:</span>
 <span class="co">#&gt;  * exp: &lt;dbl&gt;</span></code></pre>
@@ -7832,7 +7832,7 @@ lobstr<span class="op">::</span><span class="kw">obj_size</span>(g2)
 <pre class="sourceCode r"><code class="sourceCode r">force
 <span class="co">#&gt; function (x) </span>
 <span class="co">#&gt; x</span>
-<span class="co">#&gt; &lt;bytecode: 0x1994d60&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0xaf6d60&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:base&gt;</span></code></pre>
 <p>Why is it better to <code>force(x)</code> instead of just <code>x</code>?</p></li>
 <li><p>Base R contains two function factories, <code>approxfun()</code> and <code>ecdf()</code>.
@@ -7992,12 +7992,12 @@ by default, but the vector graphics use inches.</p></li>
 
 <span class="kw">plot_dev</span>(<span class="st">&quot;pdf&quot;</span>)
 <span class="co">#&gt; function(filename, ...) grDevices::pdf(file = filename, ...)</span>
-<span class="co">#&gt; &lt;bytecode: 0x5393b28&gt;</span>
-<span class="co">#&gt; &lt;environment: 0x44301f8&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x44eb9c0&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x3592ce8&gt;</span>
 <span class="kw">plot_dev</span>(<span class="st">&quot;png&quot;</span>)
 <span class="co">#&gt; function(...) grDevices::png(..., res = dpi, units = &quot;in&quot;)</span>
-<span class="co">#&gt; &lt;bytecode: 0x56cc8b8&gt;</span>
-<span class="co">#&gt; &lt;environment: 0x5ce0440&gt;</span></code></pre>
+<span class="co">#&gt; &lt;bytecode: 0x4820808&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x4e42778&gt;</span></code></pre>
 </div>
 <div id="exercises-33" class="section level3">
 <h3><span class="header-section-number">10.3.4</span> Exercises</h3>
@@ -8223,8 +8223,8 @@ funs<span class="op">$</span>root
 <span class="co">#&gt; function(x) {</span>
 <span class="co">#&gt;     x ^ exp</span>
 <span class="co">#&gt;   }</span>
-<span class="co">#&gt; &lt;bytecode: 0x30f44f0&gt;</span>
-<span class="co">#&gt; &lt;environment: 0x279dde0&gt;</span></code></pre>
+<span class="co">#&gt; &lt;bytecode: 0x2256528&gt;</span>
+<span class="co">#&gt; &lt;environment: 0xc6d130&gt;</span></code></pre>
 <p>This idea extends in a straightforward way if your function factory takes two (replace <code>map()</code> with <code>map2()</code>) or more (replace with <code>pmap()</code>) arguments.</p>
 
 <p>One downside of the current construction is that you have to prefix every function call with <code>funs$</code>. There are three ways to eliminate this additional syntax:</p>
@@ -8373,8 +8373,8 @@ out
 safe_sum
 <span class="co">#&gt; function (...) </span>
 <span class="co">#&gt; capture_error(.f(...), otherwise, quiet)</span>
-<span class="co">#&gt; &lt;bytecode: 0x621d3c0&gt;</span>
-<span class="co">#&gt; &lt;environment: 0x621cf28&gt;</span></code></pre>
+<span class="co">#&gt; &lt;bytecode: 0x6224520&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x6224088&gt;</span></code></pre>
 <p>Like all function operators, <code>safely()</code> takes a function and returns a wrapped function which we can call as usual:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(<span class="kw">safe_sum</span>(x[[<span class="dv">1</span>]]))
 <span class="co">#&gt; List of 2</span>
@@ -8486,7 +8486,7 @@ function when there’s an error.</p></li>
 <span class="kw">system.time</span>(<span class="kw">print</span>(<span class="kw">slow_function</span>(<span class="dv">1</span>)))
 <span class="co">#&gt; [1] 8.34</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.004   0.000   1.004</span></code></pre>
+<span class="co">#&gt;       0       0       1</span></code></pre>
 <p>When we memoise this function, it’s slow when we call it with new arguments. But when we call it with arguments that it’s seen before it’s instantaneous: it retrieves the previous value of the computation.</p>
 <pre class="sourceCode r"><code class="sourceCode r">fast_function &lt;-<span class="st"> </span>memoise<span class="op">::</span><span class="kw">memoise</span>(slow_function)
 <span class="kw">system.time</span>(<span class="kw">print</span>(<span class="kw">fast_function</span>(<span class="dv">1</span>)))
@@ -8497,7 +8497,7 @@ function when there’s an error.</p></li>
 <span class="kw">system.time</span>(<span class="kw">print</span>(<span class="kw">fast_function</span>(<span class="dv">1</span>)))
 <span class="co">#&gt; [1] 6.01</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.012   0.004   0.015</span></code></pre>
+<span class="co">#&gt;   0.016   0.000   0.015</span></code></pre>
 <p>A relatively realistic use of memoisation is computing the Fibonacci series. The Fibonacci series is defined recursively: the first two values are defined by convention, <span class="math inline">\(f(0) = 0\)</span>, <span class="math inline">\(f(n) = 1\)</span>, and then <span class="math inline">\(f(n) = f(n - 1) + f(n - 2)\)</span> (for any positive integer). A naive version is slow because, for example, <code>fib(10)</code> computes <code>fib(9)</code> and <code>fib(8)</code>, and <code>fib(9)</code> computes <code>fib(8)</code> and <code>fib(7)</code>, and so on.</p>
 <pre class="sourceCode r"><code class="sourceCode r">fib &lt;-<span class="st"> </span><span class="cf">function</span>(n) {
   <span class="cf">if</span> (n <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>) <span class="kw">return</span>(<span class="dv">1</span>)
@@ -8508,7 +8508,7 @@ function when there’s an error.</p></li>
 <span class="co">#&gt;   0.036   0.000   0.039</span>
 <span class="kw">system.time</span>(<span class="kw">fib</span>(<span class="dv">24</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;    0.06    0.00    0.06</span></code></pre>
+<span class="co">#&gt;   0.060   0.000   0.062</span></code></pre>
 <p>Memoising <code>fib()</code> makes the implementation much faster because each value is computed only once:</p>
 <pre class="sourceCode r"><code class="sourceCode r">fib2 &lt;-<span class="st"> </span>memoise<span class="op">::</span><span class="kw">memoise</span>(<span class="cf">function</span>(n) {
   <span class="cf">if</span> (n <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>) <span class="kw">return</span>(<span class="dv">1</span>)
@@ -8516,11 +8516,11 @@ function when there’s an error.</p></li>
 })
 <span class="kw">system.time</span>(<span class="kw">fib2</span>(<span class="dv">23</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.024   0.000   0.026</span></code></pre>
+<span class="co">#&gt;   0.024   0.000   0.024</span></code></pre>
 <p>And future calls can rely on previous computations:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">fib2</span>(<span class="dv">24</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.004   0.000   0.001</span></code></pre>
+<span class="co">#&gt;   0.000   0.000   0.001</span></code></pre>
 <p>This is an example of <strong>dynamic programming</strong>, where a complex problem can be broken down into many overlapping subproblems, and remembering the results of a subproblem considerably improves performance.</p>
 <p>Think carefully before memoising a function. If the function is not <strong>pure</strong>, i.e. the output does not depend only on the input, you will get misleading and confusing results. I created a subtle bug in devtools because I memoised the results of <code>available.packages()</code>, which is rather slow because it has to download a large file from CRAN. The available packages don’t change that frequently, but if you have an R process that’s been running for a few days, the changes can become important, and because the problem only arose in long-running R processes, the bug was very painful to find.</p>
 </div>
@@ -9010,7 +9010,7 @@ Unlike most functions, you can’t see the source code for most S3 methods<span 
 <span class="kw">s3_get_method</span>(weighted.mean.Date)
 <span class="co">#&gt; function (x, w, ...) </span>
 <span class="co">#&gt; structure(weighted.mean(unclass(x), w, ...), class = &quot;Date&quot;)</span>
-<span class="co">#&gt; &lt;bytecode: 0x6f04610&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x6a9c390&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:stats&gt;</span></code></pre>
 <div id="exercises-38" class="section level3">
 <h3><span class="header-section-number">13.2.1</span> Exercises</h3>
@@ -9285,7 +9285,7 @@ do?</p></li>
 <pre class="sourceCode r"><code class="sourceCode r">mean
 <span class="co">#&gt; function (x, ...) </span>
 <span class="co">#&gt; UseMethod(&quot;mean&quot;)</span>
-<span class="co">#&gt; &lt;bytecode: 0x3536858&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x30ce890&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:base&gt;</span></code></pre>
 <p>Creating your own generic is similarly simple:</p>
 <pre class="sourceCode r"><code class="sourceCode r">my_new_generic &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
@@ -10794,7 +10794,7 @@ rn<span class="op">@</span>.Data
 <span class="co">#&gt; </span>
 <span class="co">#&gt; function (x, ...) </span>
 <span class="co">#&gt; UseMethod(&quot;mean&quot;)</span>
-<span class="co">#&gt; &lt;bytecode: 0x2a31d50&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x2c82d88&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:base&gt;</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Signatures:</span>
@@ -13369,7 +13369,7 @@ learning, so is used a lot in this chapter.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">new_quosure</span>(<span class="kw">expr</span>(x <span class="op">+</span><span class="st"> </span>y), <span class="kw">env</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">10</span>))
 <span class="co">#&gt; &lt;quosure&gt;</span>
 <span class="co">#&gt; expr: ^x + y</span>
-<span class="co">#&gt; env:  0x57ab8a8</span></code></pre></li>
+<span class="co">#&gt; env:  0x4f688a8</span></code></pre></li>
 </ul>
 </div>
 <div id="evaluating" class="section level3">
@@ -13408,7 +13408,7 @@ qs
 <span class="co">#&gt; $f</span>
 <span class="co">#&gt; &lt;quosure&gt;</span>
 <span class="co">#&gt; expr: ^x</span>
-<span class="co">#&gt; env:  0x5398020</span></code></pre>
+<span class="co">#&gt; env:  0x4b55020</span></code></pre>
 <p>That means that when you evaluate them, you get the correct results:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_dbl</span>(qs, eval_tidy)
 <span class="co">#&gt; global      f </span>
@@ -13474,19 +13474,19 @@ evaluated.</p>
 q1
 <span class="co">#&gt; &lt;quosure&gt;</span>
 <span class="co">#&gt; expr: ^x</span>
-<span class="co">#&gt; env:  0x4fb69f0</span>
+<span class="co">#&gt; env:  0x4773a28</span>
 
 q2 &lt;-<span class="st"> </span><span class="kw">new_quosure</span>(<span class="kw">expr</span>(x <span class="op">+</span><span class="st"> </span><span class="op">!!</span>q1), <span class="kw">env</span>(<span class="dt">x =</span> <span class="dv">10</span>))
 q2
 <span class="co">#&gt; &lt;quosure&gt;</span>
 <span class="co">#&gt; expr: ^x + (^x)</span>
-<span class="co">#&gt; env:  0x56d2fa0</span>
+<span class="co">#&gt; env:  0x4e8ffd8</span>
 
 q3 &lt;-<span class="st"> </span><span class="kw">new_quosure</span>(<span class="kw">expr</span>(x <span class="op">+</span><span class="st"> </span><span class="op">!!</span>q2), <span class="kw">env</span>(<span class="dt">x =</span> <span class="dv">100</span>))
 q3
 <span class="co">#&gt; &lt;quosure&gt;</span>
 <span class="co">#&gt; expr: ^x + (^x + (^x))</span>
-<span class="co">#&gt; env:  0x59791d0</span></code></pre></li>
+<span class="co">#&gt; env:  0x5136208</span></code></pre></li>
 <li><p>Write an <code>enenv()</code> function that captures the environment associated
 with an argument. (Hint: this should only require two function calls.)</p></li>
 </ol>
@@ -14665,7 +14665,7 @@ all_calls &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
 <span class="co">#&gt;     contents &lt;- paste(..., collapse = &quot;, &quot;)</span>
 <span class="co">#&gt;     paste0(&quot;\\mathrm{foo}(&quot;, contents, &quot;)&quot;)</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;environment: 0x491d6b8&gt;</span></code></pre>
+<span class="co">#&gt; &lt;environment: 0x564a728&gt;</span></code></pre>
 <p>And again we update <code>latex_env()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">latex_env &lt;-<span class="st"> </span><span class="cf">function</span>(expr) {
   calls &lt;-<span class="st"> </span><span class="kw">all_calls</span>(expr)
@@ -15327,10 +15327,10 @@ surprising? Read the source code of <code>rm()</code> to figure out what’s goi
   x <span class="op">^</span><span class="st"> </span><span class="fl">0.5</span>
 ))
 <span class="co">#&gt; # A tibble: 2 x 10</span>
-<span class="co">#&gt;   expression   min   mean   median    max `itr/sec` mem_alloc  n_gc n_itr</span>
-<span class="co">#&gt;   &lt;chr&gt;      &lt;bch&gt; &lt;bch:&gt; &lt;bch:tm&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt; &lt;dbl&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1 sqrt(x)    597ns 1.06µs 991.98ns 26.3µs   943200.      848B     0 10000</span>
-<span class="co">#&gt; 2 x^0.5        9µs 9.87µs   9.41µs 91.1µs   101341.      848B     0 10000</span>
+<span class="co">#&gt;   expression      min   mean median    max `itr/sec` mem_alloc  n_gc n_itr</span>
+<span class="co">#&gt;   &lt;chr&gt;      &lt;bch:tm&gt; &lt;bch:&gt; &lt;bch:&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt; &lt;dbl&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1 sqrt(x)    527.01ns 1.23µs 1.02µs 36.1µs   810528.      848B     0 10000</span>
+<span class="co">#&gt; 2 x^0.5        8.15µs 9.94µs 9.41µs 36.1µs   100605.      848B     0 10000</span>
 <span class="co">#&gt; # … with 1 more variable: total_time &lt;bch:tm&gt;</span></code></pre>
 <p>By default, <code>bench::mark()</code> runs each expression at least once (<code>min_iterations = 1</code>), and at most enough times to take 0.5s (<code>min_time = 0.5</code>). It checks that each run returns the same value which is typically what you when microbenchmarking; if you want to compare the speed of expressions that return different values, set <code>check = FALSE</code>.</p>
 <div id="benchmark-results" class="section level3">
@@ -15365,18 +15365,18 @@ raw underlying data.</p></li>
 <span class="co">#&gt; # A tibble: 2 x 5</span>
 <span class="co">#&gt;   expression      min   median `itr/sec`  n_gc</span>
 <span class="co">#&gt;   &lt;chr&gt;      &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 sqrt(x)       597ns 991.98ns   943200.     0</span>
-<span class="co">#&gt; 2 x^0.5           9µs   9.41µs   101341.     0</span></code></pre>
+<span class="co">#&gt; 1 sqrt(x)    527.01ns   1.02µs   810528.     0</span>
+<span class="co">#&gt; 2 x^0.5        8.15µs   9.41µs   100605.     0</span></code></pre>
 </div>
 <div id="interpreting-results" class="section level3">
 <h3><span class="header-section-number">23.3.2</span> Interpreting results</h3>
-<p>As with all microbenchmarks, pay careful attention to the units: here, each computation takes about 600 ns, 600 billionths of a second. To help calibrate the impact of a microbenchmark on run time, it’s useful to think about how many times a function needs to run before it takes a second. If a microbenchmark takes:</p>
+<p>As with all microbenchmarks, pay careful attention to the units: here, each computation takes about 530 ns, 530 billionths of a second. To help calibrate the impact of a microbenchmark on run time, it’s useful to think about how many times a function needs to run before it takes a second. If a microbenchmark takes:</p>
 <ul>
 <li>1 ms, then one thousand calls takes a second.</li>
 <li>1 µs, then one million calls takes a second.</li>
 <li>1 ns, then one billion calls takes a second.</li>
 </ul>
-<p>The <code>sqrt()</code> function takes about 600 ns, or 0.6 µs, to compute the square root of 100 numbers. That means if you repeated the operation a million times, it would take 0.6 s, and hence changing the way you compute the square root is unlikely to significantly affect real code. This is the reason you need to exercise care when generalising microbenchmarking results.</p>
+<p>The <code>sqrt()</code> function takes about 530 ns, or 0.53 µs, to compute the square root of 100 numbers. That means if you repeated the operation a million times, it would take 0.53 s, and hence changing the way you compute the square root is unlikely to significantly affect real code. This is the reason you need to exercise care when generalising microbenchmarking results.</p>
 </div>
 <div id="exercises-69" class="section level3">
 <h3><span class="header-section-number">23.3.3</span> Exercises</h3>
@@ -15465,8 +15465,8 @@ mean2 &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span cl
 <span class="co">#&gt; # A tibble: 2 x 5</span>
 <span class="co">#&gt;   expression      min   median `itr/sec`  n_gc</span>
 <span class="co">#&gt;   &lt;chr&gt;      &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 mean1(x)      227µs    230µs     4240.     0</span>
-<span class="co">#&gt; 2 mean2(x)      112µs    114µs     8428.     0</span></code></pre>
+<span class="co">#&gt; 1 mean1(x)    191.9µs    233µs     4087.     0</span>
+<span class="co">#&gt; 2 mean2(x)     94.9µs    113µs     8394.     0</span></code></pre>
 <p>(You might be surprised by the results: <code>mean(x)</code> is considerably slower than <code>sum(x) / length(x)</code>. This is because, among other reasons, <code>mean(x)</code> makes two passes over the vector to be more numerically accurate.)</p>
 <p>If you’d like to see this strategy in action, I’ve used it a few times on stackoverflow:</p>
 <ul>
@@ -15551,8 +15551,8 @@ bench<span class="op">::</span><span class="kw">mark</span>(
 <span class="co">#&gt; # A tibble: 2 x 5</span>
 <span class="co">#&gt;   expression           min   median `itr/sec`  n_gc</span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 mean(x)           2.63µs   3.06µs   286989.     1</span>
-<span class="co">#&gt; 2 mean.default(x)   1.25µs   1.44µs   632597.     0</span></code></pre>
+<span class="co">#&gt; 1 mean(x)           2.55µs   2.95µs   305101.     1</span>
+<span class="co">#&gt; 2 mean.default(x)   1.23µs   1.44µs   636438.     0</span></code></pre>
 <p>This optimisation is a little risky. While <code>mean.default()</code> is almost twice as fast for 100 values, it will fail in surprising ways if <code>x</code> is not a numeric vector.</p>
 <p>An even riskier optimisation is to directly call the underlying <code>.Internal</code> function. This is faster because it doesn’t do any input checking or handle NA’s, so you are buying speed at the cost of safety.</p>
 <pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="fl">1e2</span>)
@@ -15564,9 +15564,9 @@ bench<span class="op">::</span><span class="kw">mark</span>(
 <span class="co">#&gt; # A tibble: 3 x 5</span>
 <span class="co">#&gt;   expression              min   median `itr/sec`  n_gc</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 mean(x)              2.62µs   2.95µs   303379.     1</span>
-<span class="co">#&gt; 2 mean.default(x)      1.23µs   1.45µs   617598.     0</span>
-<span class="co">#&gt; 3 .Internal(mean(x)) 340.17ns 356.11ns  2495978.     0</span></code></pre>
+<span class="co">#&gt; 1 mean(x)              2.55µs    2.9µs   303827.     1</span>
+<span class="co">#&gt; 2 mean.default(x)      1.23µs   1.49µs   593845.     0</span>
+<span class="co">#&gt; 3 .Internal(mean(x)) 342.96ns 367.06ns  2460196.     0</span></code></pre>
 <p>NB: most of these differences arise because <code>x</code> is small. If you increase the size the differences basically disappear, because most of the time is now spent computing the mean, not finding the underlying implementation. This is a good reminder that the size of the input matters, and you should motivate your optimisations based on realistic data.</p>
 <pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="fl">1e4</span>)
 bench<span class="op">::</span><span class="kw">mark</span>(
@@ -15577,9 +15577,9 @@ bench<span class="op">::</span><span class="kw">mark</span>(
 <span class="co">#&gt; # A tibble: 3 x 5</span>
 <span class="co">#&gt;   expression              min   median `itr/sec`  n_gc</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 mean(x)              24.8µs   25.2µs    38489.     1</span>
-<span class="co">#&gt; 2 mean.default(x)      23.4µs   23.6µs    41314.     0</span>
-<span class="co">#&gt; 3 .Internal(mean(x))   22.4µs   22.4µs    43452.     0</span></code></pre>
+<span class="co">#&gt; 1 mean(x)                21µs   25.1µs    38782.     1</span>
+<span class="co">#&gt; 2 mean.default(x)      23.4µs   23.6µs    41369.     0</span>
+<span class="co">#&gt; 3 .Internal(mean(x))   22.4µs   22.4µs    43478.     0</span></code></pre>
 </div>
 <div id="as.data.frame" class="section level3">
 <h3><span class="header-section-number">24.4.2</span> <code>as.data.frame()</code></h3>
@@ -15601,8 +15601,8 @@ bench<span class="op">::</span><span class="kw">mark</span>(
 <span class="co">#&gt; # A tibble: 2 x 5</span>
 <span class="co">#&gt;   expression         min   median `itr/sec`  n_gc</span>
 <span class="co">#&gt;   &lt;chr&gt;         &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 as.data.frame   1.03ms   1.11ms      890.     7</span>
-<span class="co">#&gt; 2 quick_df         6.1µs   7.15µs   122674.     2</span></code></pre>
+<span class="co">#&gt; 1 as.data.frame   1.03ms   1.12ms      888.     7</span>
+<span class="co">#&gt; 2 quick_df        6.19µs   7.29µs   124847.     2</span></code></pre>
 <p>Again, note the trade-off. This method is fast because it’s dangerous. If you give it bad inputs, you’ll get a corrupt data frame:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quickdf</span>(<span class="kw">list</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>))
 <span class="co">#&gt; Warning in format.data.frame(if (omit) x[seq_len(n0), , drop = FALSE] else</span>
@@ -15673,9 +15673,9 @@ bench<span class="op">::</span><span class="kw">mark</span>(
 <span class="co">#&gt; # A tibble: 3 x 5</span>
 <span class="co">#&gt;   expression        min   median `itr/sec`  n_gc</span>
 <span class="co">#&gt;   &lt;chr&gt;        &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 lookup[x1]   497.91ns 626.08ns  1312669.     0</span>
-<span class="co">#&gt; 2 lookup[x10]     1.5µs   1.66µs   533097.     1</span>
-<span class="co">#&gt; 3 lookup[x100]   4.36µs   5.15µs   178037.     0</span></code></pre>
+<span class="co">#&gt; 1 lookup[x1]   501.17ns 594.07ns  1467915.     0</span>
+<span class="co">#&gt; 2 lookup[x10]    1.51µs   1.67µs   532832.     1</span>
+<span class="co">#&gt; 3 lookup[x100]   4.18µs   4.93µs   187157.     0</span></code></pre>
 <p>Vectorisation won’t solve every problem, and rather than torturing an existing algorithm into one that uses a vectorised approach, you’re often better off writing your own vectorised function in C++. You’ll learn how to do so in Chapter <a href="#rcpp">25</a>.</p>
 <div id="exercises-72" class="section level3">
 <h3><span class="header-section-number">24.5.1</span> Exercises</h3>
@@ -15719,10 +15719,10 @@ bench<span class="op">::</span><span class="kw">mark</span>(
 <span class="co">#&gt; # A tibble: 4 x 5</span>
 <span class="co">#&gt;   expression      min   median `itr/sec`  n_gc</span>
 <span class="co">#&gt;   &lt;chr&gt;      &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 loop10      19.64µs  21.67µs    44368.     3</span>
-<span class="co">#&gt; 2 loop100    795.43µs 823.49µs     1202.     2</span>
-<span class="co">#&gt; 3 vec10        4.93µs   5.18µs   185099.     0</span>
-<span class="co">#&gt; 4 vec100      39.87µs   40.9µs    23664.     0</span></code></pre>
+<span class="co">#&gt; 1 loop10       17.2µs  21.17µs    45235.     3</span>
+<span class="co">#&gt; 2 loop100       726µs 824.87µs     1206.     2</span>
+<span class="co">#&gt; 3 vec10         4.9µs   5.18µs   185694.     0</span>
+<span class="co">#&gt; 4 vec100       33.4µs  40.19µs    24305.     0</span></code></pre>
 <p>Modifying an object in a loop, e.g., <code>x[i] &lt;- y</code>, can also create a copy, depending on the class of <code>x</code>. Section <a href="#single-binding">2.5.1</a> discusses this issue in more depth and gives you some tools to determine when you’re making copies.</p>
 </div>
 <div id="t-test" class="section level2">
@@ -15740,21 +15740,21 @@ grp &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1
   }
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.824   0.000   0.825</span>
+<span class="co">#&gt;   0.804   0.000   0.807</span>
 <span class="kw">system.time</span>(
   <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>m) {
     <span class="kw">t.test</span>(X[i, grp <span class="op">==</span><span class="st"> </span><span class="dv">1</span>], X[i, grp <span class="op">==</span><span class="st"> </span><span class="dv">2</span>])<span class="op">$</span>statistic
   }
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.192   0.000   0.193</span></code></pre>
+<span class="co">#&gt;   0.188   0.000   0.191</span></code></pre>
 <p>Of course, a for loop computes, but doesn’t save the values. We can <code>map_dbl()</code> (Section <a href="#map-atomic">9.2.1</a>) to do that. This adds a little overhead:</p>
 <pre class="sourceCode r"><code class="sourceCode r">compT &lt;-<span class="st"> </span><span class="cf">function</span>(i){
   <span class="kw">t.test</span>(X[i, grp <span class="op">==</span><span class="st"> </span><span class="dv">1</span>], X[i, grp <span class="op">==</span><span class="st"> </span><span class="dv">2</span>])<span class="op">$</span>statistic
 }
 <span class="kw">system.time</span>(t1 &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">map_dbl</span>(<span class="dv">1</span><span class="op">:</span>m, compT))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.192   0.000   0.192</span></code></pre>
+<span class="co">#&gt;   0.192   0.000   0.191</span></code></pre>
 <p>How can we make this faster? First, we could try doing less work. If you look at the source code of <code>stats:::t.test.default()</code>, you’ll see that it does a lot more than just compute the t-statistic. It also computes the p-value and formats the output for printing. We can try to make our code faster by stripping out those pieces.</p>
 <pre class="sourceCode r"><code class="sourceCode r">my_t &lt;-<span class="st"> </span><span class="cf">function</span>(x, grp) {
   t_stat &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
@@ -15774,7 +15774,7 @@ grp &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1
 
 <span class="kw">system.time</span>(t2 &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">map_dbl</span>(<span class="dv">1</span><span class="op">:</span>m, <span class="op">~</span><span class="st"> </span><span class="kw">my_t</span>(X[.,], grp)))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.028   0.000   0.030</span>
+<span class="co">#&gt;   0.028   0.000   0.029</span>
 <span class="kw">stopifnot</span>(<span class="kw">all.equal</span>(t1, t2))</code></pre>
 <p>This gives us about a 6x speed improvement.</p>
 <p>Now that we have a fairly simple function, we can make it faster still by vectorising it. Instead of looping over the array outside the function, we will modify <code>t_stat()</code> to work with a matrix of values. Thus, <code>mean()</code> becomes <code>rowMeans()</code>, <code>length()</code> becomes <code>ncol()</code>, and <code>sum()</code> becomes <code>rowSums()</code>. The rest of the code stays the same.</p>
@@ -15890,7 +15890,7 @@ more resources to help you learn Rcpp and C++.</p></li>
 <span class="co"># add works like a regular R function</span>
 add
 <span class="co">#&gt; function (x, y, z) </span>
-<span class="co">#&gt; .Call(&lt;pointer: 0x7fb8a1a0bf60&gt;, x, y, z)</span>
+<span class="co">#&gt; .Call(&lt;pointer: 0x7f26c89c3f60&gt;, x, y, z)</span>
 <span class="kw">add</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
 <span class="co">#&gt; [1] 6</span></code></pre>
 <p>When you run this code, Rcpp will compile the C++ code and construct an R function that connects to the compiled C++ function. There’s a lot going on underneath the hood but Rcpp takes care of all the details so you don’t need to worry about it.</p>
@@ -16009,9 +16009,9 @@ bench<span class="op">::</span><span class="kw">mark</span>(
 <span class="co">#&gt; # A tibble: 3 x 6</span>
 <span class="co">#&gt;   expression      min     mean   median      max `itr/sec`</span>
 <span class="co">#&gt;   &lt;chr&gt;      &lt;bch:tm&gt; &lt;bch:tm&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 sum(x)       1.22µs   1.46µs   1.25µs  75.12µs   683427.</span>
-<span class="co">#&gt; 2 sumC(x)      3.24µs   4.75µs   4.76µs   1.05ms   210627.</span>
-<span class="co">#&gt; 3 sumR(x)     38.33µs  40.33µs  39.02µs 213.57µs    24794.</span></code></pre>
+<span class="co">#&gt; 1 sum(x)       1.27µs   1.51µs   1.33µs   79.5µs   663131.</span>
+<span class="co">#&gt; 2 sumC(x)      3.15µs   4.68µs   4.73µs   1.04ms   213699.</span>
+<span class="co">#&gt; 3 sumR(x)     34.95µs  40.36µs  38.97µs 466.81µs    24777.</span></code></pre>
 </div>
 <div id="vector-input-vector-output" class="section level3">
 <h3><span class="header-section-number">25.2.4</span> Vector input, vector output</h3>
@@ -16046,8 +16046,8 @@ bench<span class="op">::</span><span class="kw">mark</span>(
 <span class="co">#&gt; # A tibble: 2 x 6</span>
 <span class="co">#&gt;   expression          min     mean   median      max `itr/sec`</span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;bch:tm&gt; &lt;bch:tm&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 pdistR(0.5, y)    9.2ms   9.59ms   9.41ms  12.58ms      104.</span>
-<span class="co">#&gt; 2 pdistC(0.5, y)   5.08ms   5.38ms   5.29ms   6.47ms      186.</span></code></pre>
+<span class="co">#&gt; 1 pdistR(0.5, y)   8.11ms    8.8ms   8.72ms  11.52ms      114.</span>
+<span class="co">#&gt; 2 pdistC(0.5, y)   4.38ms   4.75ms   4.76ms   6.02ms      210.</span></code></pre>
 <p>On my computer, it takes around 5 ms with a 1 million element <code>y</code> vector. The C++ function is about 2.5x faster, ~2 ms, but assuming it took you 10 minutes to write the C++ function, you’d need to run it ~200,000 times to make rewriting worthwhile. The reason why the C++ function is faster is subtle, and relates to memory management. The R version needs to create an intermediate vector the same length as y (<code>x - ys</code>), and allocating memory is an expensive operation. The C++ function avoids this overhead because it uses an intermediate scalar.</p>
 </div>
 <div id="sourceCpp" class="section level3">
@@ -16624,8 +16624,8 @@ NumericMatrix gibbs_cpp(<span class="dt">int</span> N, <span class="dt">int</spa
 <span class="co">#&gt; # A tibble: 2 x 10</span>
 <span class="co">#&gt;   expression      min     mean   median    max `itr/sec` mem_alloc  n_gc</span>
 <span class="co">#&gt;   &lt;chr&gt;      &lt;bch:tm&gt; &lt;bch:tm&gt; &lt;bch:tm&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 gibbs_r(1…   5.54ms   5.81ms   5.72ms  8.1ms      172.    4.97MB    12</span>
-<span class="co">#&gt; 2 gibbs_cpp… 308.36µs 349.67µs 344.43µs 1.53ms     2860.     4.1KB     8</span>
+<span class="co">#&gt; 1 gibbs_r(1…   5.38ms   5.82ms   5.76ms 6.99ms      172.    4.97MB    12</span>
+<span class="co">#&gt; 2 gibbs_cpp… 300.03µs 346.69µs 341.95µs 1.47ms     2884.     4.1KB     8</span>
 <span class="co">#&gt; # … with 2 more variables: n_itr &lt;int&gt;, total_time &lt;bch:tm&gt;</span></code></pre>
 </div>
 <div id="r-vectorisation-vs.c-vectorisation" class="section level3">
@@ -16699,11 +16699,11 @@ ily &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw
   <span class="dt">vacc3 =</span> <span class="kw">vacc3</span>(age, female, ily)
 )
 <span class="co">#&gt; # A tibble: 3 x 10</span>
-<span class="co">#&gt;   expression      min     mean   median      max `itr/sec` mem_alloc  n_gc</span>
-<span class="co">#&gt;   &lt;chr&gt;      &lt;bch:tm&gt; &lt;bch:tm&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 vacc1        1.82ms   2.02ms   1.98ms   4.51ms      494.    7.86KB    10</span>
-<span class="co">#&gt; 2 vacc2      102.03µs 120.18µs 110.43µs 305.46µs     8321.     224KB    18</span>
-<span class="co">#&gt; 3 vacc3       29.35µs  31.69µs  30.54µs 148.33µs    31558.   14.48KB     3</span>
+<span class="co">#&gt;   expression    min     mean   median      max `itr/sec` mem_alloc  n_gc</span>
+<span class="co">#&gt;   &lt;chr&gt;      &lt;bch:&gt; &lt;bch:tm&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 vacc1       1.8ms   1.98ms   1.96ms   2.75ms      506.    7.86KB    10</span>
+<span class="co">#&gt; 2 vacc2      88.5µs 116.64µs 106.01µs 294.38µs     8573.     224KB    12</span>
+<span class="co">#&gt; 3 vacc3      28.6µs  31.43µs  30.38µs  63.46µs    31812.   14.48KB     2</span>
 <span class="co">#&gt; # … with 2 more variables: n_itr &lt;int&gt;, total_time &lt;bch:tm&gt;</span></code></pre>
 <p>Not surprisingly, our original approach with loops is very slow. Vectorising in R gives a huge speedup, and we can eke out even more performance (~10x) with the C++ loop. I was a little surprised that the C++ was so much faster, but it is because the R version has to create 11 vectors to store intermediate results, where the C++ code only needs to create 1.</p>
 </div>
