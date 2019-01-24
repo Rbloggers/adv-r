@@ -81,7 +81,7 @@ cppFunction('int add(int x, int y, int z) {
 # add works like a regular R function
 add
 #> function (x, y, z) 
-#> .Call(<pointer: 0x7fe0abb09f60>, x, y, z)
+#> .Call(<pointer: 0x7fdef4c9bf60>, x, y, z)
 add(1, 2, 3)
 #> [1] 6
 ```
@@ -242,9 +242,9 @@ bench::mark(
 #> # A tibble: 3 x 6
 #>   expression      min     mean   median      max `itr/sec`
 #>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>
-#> 1 sum(x)       1.31µs    1.5µs   1.33µs  74.29µs   666828.
-#> 2 sumC(x)      3.23µs   4.67µs   4.72µs   1.01ms   214160.
-#> 3 sumR(x)     37.32µs   40.1µs  38.92µs 141.75µs    24940.
+#> 1 sum(x)        1.3µs   1.52µs   1.33µs 101.58µs   657197.
+#> 2 sumC(x)      3.26µs   4.72µs   4.79µs   1.08ms   211720.
+#> 3 sumR(x)     38.27µs  40.24µs  39.03µs 389.39µs    24850.
 ```
 
 ### Vector input, vector output
@@ -295,8 +295,8 @@ bench::mark(
 #> # A tibble: 2 x 6
 #>   expression          min     mean   median      max `itr/sec`
 #>   <chr>          <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>
-#> 1 pdistR(0.5, y)   7.58ms   8.42ms    8.4ms  11.78ms      119.
-#> 2 pdistC(0.5, y)   3.92ms   4.47ms   4.58ms   4.74ms      224.
+#> 1 pdistR(0.5, y)   8.67ms   8.97ms   8.87ms  11.44ms      111.
+#> 2 pdistC(0.5, y)   4.63ms   4.85ms   4.81ms   6.15ms      206.
 ```
 
 On my computer, it takes around 5 ms with a 1 million element `y` vector. The C++ function is about 2.5x faster, ~2 ms, but assuming it took you 10 minutes to write the C++ function, you'd need to run it ~200,000 times to make rewriting worthwhile. The reason why the C++ function is faster is subtle, and relates to memory management. The R version needs to create an intermediate vector the same length as y (`x - ys`), and allocating memory is an expensive operation. The C++ function avoids this overhead because it uses an intermediate scalar.
@@ -1045,10 +1045,10 @@ bench::mark(
   check = FALSE
 )
 #> # A tibble: 2 x 10
-#>   expression      min     mean   median    max `itr/sec` mem_alloc  n_gc
-#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:>     <dbl> <bch:byt> <dbl>
-#> 1 gibbs_r(1…   5.51ms   5.73ms   5.66ms 6.71ms      174.    4.97MB    12
-#> 2 gibbs_cpp… 298.57µs 346.37µs 338.47µs 1.46ms     2887.     4.1KB     8
+#>   expression     min     mean   median    max `itr/sec` mem_alloc  n_gc
+#>   <chr>      <bch:t> <bch:tm> <bch:tm> <bch:>     <dbl> <bch:byt> <dbl>
+#> 1 gibbs_r(1…   5.7ms   6.04ms   5.96ms 6.91ms      166.    4.97MB    15
+#> 2 gibbs_cpp… 313.5µs 363.56µs 354.67µs 1.64ms     2751.     4.1KB     7
 #> # … with 2 more variables: n_itr <int>, total_time <bch:tm>
 ```
 
@@ -1156,9 +1156,9 @@ bench::mark(
 #> # A tibble: 3 x 10
 #>   expression     min     mean   median      max `itr/sec` mem_alloc  n_gc
 #>   <chr>      <bch:t> <bch:tm> <bch:tm> <bch:tm>     <dbl> <bch:byt> <dbl>
-#> 1 vacc1       1.82ms   1.94ms   1.92ms   2.75ms      515.    7.86KB    10
-#> 2 vacc2      98.37µs 117.28µs 108.62µs 926.77µs     8526.     224KB    18
-#> 3 vacc3      28.77µs  32.18µs  30.44µs 493.14µs    31076.   14.48KB     4
+#> 1 vacc1        1.9ms   2.06ms   2.01ms   5.71ms      487.    7.86KB     9
+#> 2 vacc2      102.6µs 122.84µs 113.06µs 476.88µs     8140.  223.98KB    17
+#> 3 vacc3       29.6µs  32.39µs   31.2µs 165.05µs    30872.   14.48KB     3
 #> # … with 2 more variables: n_itr <int>, total_time <bch:tm>
 ```
 

@@ -316,7 +316,7 @@ There are three ways to create quosures:
     new_quosure(expr(x + y), env(x = 1, y = 10))
     #> <quosure>
     #> expr: ^x + y
-    #> env:  0x5558ca0
+    #> env:  0x4e00240
     ```
 
 ### Evaluating
@@ -363,7 +363,7 @@ qs
 #> $f
 #> <quosure>
 #> expr: ^x
-#> env:  0x5aa82a8
+#> env:  0x49e6c58
 ```
 
 That means that when you evaluate them, you get the correct results:
@@ -483,19 +483,19 @@ When you use `expr_print()` in the console, quosures are coloured according to t
     q1
     #> <quosure>
     #> expr: ^x
-    #> env:  0x52b06d8
+    #> env:  0x460d548
     
     q2 <- new_quosure(expr(x + !!q1), env(x = 10))
     q2
     #> <quosure>
     #> expr: ^x + (^x)
-    #> env:  0x5480638
+    #> env:  0x4d27bd8
     
     q3 <- new_quosure(expr(x + !!q2), env(x = 100))
     q3
     #> <quosure>
     #> expr: ^x + (^x + (^x))
-    #> env:  0x5e7eca8
+    #> env:  0x4fcde08
     ```
 
 1.  Write an `enenv()` function that captures the environment associated

@@ -106,8 +106,8 @@ safe_sum <- safely(sum)
 safe_sum
 #> function (...) 
 #> capture_error(.f(...), otherwise, quiet)
-#> <bytecode: 0x53418a0>
-#> <environment: 0x5341408>
+#> <bytecode: 0x5827c30>
+#> <environment: 0x5827798>
 ```
 
 Like all function operators, `safely()` takes a function and returns a wrapped function which we can call as usual:
@@ -254,7 +254,7 @@ system.time(print(slow_function(1)))
 system.time(print(slow_function(1)))
 #> [1] 8.34
 #>    user  system elapsed 
-#>   0.004   0.000   1.003
+#>       0       0       1
 ```
 
 When we memoise this function, it's slow when we call it with new arguments. But when we call it with arguments that it's seen before it's instantaneous: it retrieves the previous value of the computation.
@@ -270,7 +270,7 @@ system.time(print(fast_function(1)))
 system.time(print(fast_function(1)))
 #> [1] 6.01
 #>    user  system elapsed 
-#>   0.016   0.000   0.014
+#>   0.016   0.000   0.016
 ```
 
 A relatively realistic use of memoisation is computing the Fibonacci series. The Fibonacci series is defined recursively: the first two values are defined by convention, $f(0) = 0$, $f(n) = 1$, and then $f(n) = f(n - 1) + f(n - 2)$ (for any positive integer). A naive version is slow because, for example, `fib(10)` computes `fib(9)` and `fib(8)`, and `fib(9)` computes `fib(8)` and `fib(7)`, and so on. 
@@ -283,10 +283,10 @@ fib <- function(n) {
 }
 system.time(fib(23))
 #>    user  system elapsed 
-#>   0.036   0.000   0.038
+#>   0.036   0.000   0.039
 system.time(fib(24))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.060   0.000   0.062
 ```
 
 Memoising `fib()` makes the implementation much faster because each value is computed only once:
@@ -299,7 +299,7 @@ fib2 <- memoise::memoise(function(n) {
 })
 system.time(fib2(23))
 #>    user  system elapsed 
-#>   0.024   0.000   0.024
+#>   0.024   0.000   0.025
 ```
 
 And future calls can rely on previous computations:
@@ -380,7 +380,7 @@ system.time(runif(100))
 #>       0       0       0
 system.time(delay_by(runif, 0.1)(100))
 #>    user  system elapsed 
-#>     0.0     0.0     0.1
+#>   0.000   0.000   0.101
 ```
 
 And we can use it with the original `walk2()`:
