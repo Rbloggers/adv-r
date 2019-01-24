@@ -183,7 +183,7 @@ I would like to thank the many contributors to R-devel and R-help and, more rece
 
 This book was [written in the open](https://github.com/hadley/adv-r/), and chapters were advertised on [twitter](https://twitter.com/hadleywickham) when complete. It is truly a community effort: many people read drafts, fixed typos, suggested improvements, and contributed content. Without those contributors, the book wouldn't be nearly as good as it is, and I'm deeply grateful for their help. Special thanks go to Jeff Hammerbacher, Peter Li, and Greg Wilson, who all read the book from cover-to-cover and provided many fixes and suggestions.  
 
-```{r, eval = FALSE, echo = FALSE}
+```{r eval=FALSE, include=FALSE}
 library(tidyverse)
 contribs_all_json <- gh::gh("/repos/:owner/:repo/contributors",
   owner = "hadley",
@@ -217,7 +217,7 @@ contribs_all <- contribs_all %>%
 write_csv(contribs_all, "contributors.csv")
 ```
 
-```{r, results = "asis", echo = FALSE, message = FALSE}
+```{r eval=FALSE, message=FALSE, results="asis"}
 library(dplyr)
 contributors <- read.csv("contributors.csv", stringsAsFactors = FALSE)
 contributors <- contributors %>% 
@@ -245,13 +245,13 @@ This book was written in [bookdown](http://bookdown.org/) inside [RStudio](http:
 
 This version of the book was built with the following version of R and packages.
 
-```{r, echo = FALSE, results="asis"}
+```{r eval=FALSE, include=FALSE, results="asis"}
 plat <- sessioninfo::platform_info()
 df <- data.frame(setting = names(plat), value = as.character(unclass(plat)))
 knitr::kable(df, format = "markdown")
 ```
 
-```{r, echo = FALSE, results="asis"}
+```{r eval=FALSE, include=FALSE, results="asis"}
 deps <- desc::desc_get_deps()$package[-1]
 
 pkgs <- sessioninfo::package_info(deps)
@@ -263,7 +263,7 @@ df <- tibble(
 knitr::kable(df, format = "markdown")
 ```
 
-```{r, include = FALSE}
+```{r eval=FALSE, include=FALSE}
 ruler <- function(width = getOption("width")) {
   x <- seq_len(width)
   y <- case_when(
@@ -276,7 +276,7 @@ ruler <- function(width = getOption("width")) {
 }
 ```
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 ruler()
 ```
 

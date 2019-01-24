@@ -121,9 +121,9 @@ You can access an object's identifier with `lobstr::obj_addr()`. Doing so allows
 
 ```r
 obj_addr(x)
-#> [1] "0x2fffa48"
+#> [1] "0x1902a98"
 obj_addr(y)
-#> [1] "0x2fffa48"
+#> [1] "0x1902a98"
 ```
 
 These identifiers are long, and change every time you restart R.
@@ -272,7 +272,7 @@ f <- function(a) {
 
 x <- c(1, 2, 3)
 cat(tracemem(x), "\n")
-#> <0x563fee8>
+#> <0x3f44658>
 
 z <- f(x)
 # there's no copy here!
@@ -328,15 +328,15 @@ To see values that are shared across lists, use `lobstr::ref()`. `ref()` prints 
 
 ```r
 ref(l1, l2)
-#> █ [1:0x2fc0778] <list> 
-#> ├─[2:0x8411038] <dbl> 
-#> ├─[3:0x8411000] <dbl> 
-#> └─[4:0x8410fc8] <dbl> 
+#> █ [1:0x18c3778] <list> 
+#> ├─[2:0x6d16f48] <dbl> 
+#> ├─[3:0x6d16f10] <dbl> 
+#> └─[4:0x6d16ed8] <dbl> 
 #>  
-#> █ [5:0x8823548] <list> 
-#> ├─[2:0x8411038] 
-#> ├─[3:0x8411000] 
-#> └─[6:0x88abcd0] <dbl>
+#> █ [5:0x71294a8] <list> 
+#> ├─[2:0x6d16f48] 
+#> ├─[3:0x6d16f10] 
+#> └─[6:0x71b1be0] <dbl>
 ```
 
 ### Data frames {#df-modify}
@@ -389,11 +389,11 @@ You can request that `ref()` show these references by setting the `character` ar
 
 ```r
 ref(x, character = TRUE)
-#> █ [1:0x55a26a8] <chr> 
-#> ├─[2:0x2665758] <string: "a"> 
-#> ├─[2:0x2665758] 
-#> ├─[3:0x421f630] <string: "abc"> 
-#> └─[4:0x2b1baf0] <string: "d">
+#> █ [1:0x3ea6ee8] <chr> 
+#> ├─[2:0xf68758] <string: "a"> 
+#> ├─[2:0xf68758] 
+#> ├─[3:0x2b22630] <string: "abc"> 
+#> └─[4:0x141eaf0] <string: "d">
 ```
 
 This has a profound impact on the amount of memory a character vector uses but is otherwise generally unimportant, so elsewhere in the book I'll draw character vectors as if the strings lived inside a vector.
@@ -696,8 +696,8 @@ e <- rlang::env()
 e$self <- e
 
 ref(e)
-#> █ [1:0x2ff3338] <env> 
-#> └─self = [1:0x2ff3338]
+#> █ [1:0x18f6338] <env> 
+#> └─self = [1:0x18f6338]
 ```
 <img src="diagrams/name-value/e-self.png" width="142" style="display: block; margin: auto;" />
 
@@ -760,7 +760,7 @@ You can force garbage collection by calling `gc()`. But despite what you might h
 gc() 
 #>           used (Mb) gc trigger (Mb) max used (Mb)
 #> Ncells  682246 36.5    1286114 68.7  1286114 68.7
-#> Vcells 4696153 35.9   11787922 90.0 11786902 90.0
+#> Vcells 4696152 35.9   11787922 90.0 11786967 90.0
 ```
 
 `lobstr::mem_used()` is a wrapper around `gc()` that prints the total number of bytes used:
@@ -768,7 +768,7 @@ gc()
 
 ```r
 mem_used()
-#> 75,780,768 B
+#> 75,780,760 B
 ```
 
 This number won't agree with the amount of memory reported by your operating system. There are three reasons:

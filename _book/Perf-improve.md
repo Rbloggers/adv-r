@@ -90,8 +90,8 @@ bench::mark(
 #> # A tibble: 2 x 5
 #>   expression      min   median `itr/sec`  n_gc
 #>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 mean1(x)      226µs    237µs     4176.     0
-#> 2 mean2(x)      112µs    114µs     8423.     0
+#> 1 mean1(x)      227µs    230µs     4240.     0
+#> 2 mean2(x)      112µs    114µs     8428.     0
 ```
 
 (You might be surprised by the results: `mean(x)` is considerably slower than `sum(x) / length(x)`. This is because, among other reasons, `mean(x)` makes two passes over the vector to be more numerically accurate.)
@@ -195,8 +195,8 @@ bench::mark(
 #> # A tibble: 2 x 5
 #>   expression           min   median `itr/sec`  n_gc
 #>   <chr>           <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 mean(x)           2.65µs   3.08µs   288809.     1
-#> 2 mean.default(x)   1.24µs   1.44µs   624814.     0
+#> 1 mean(x)           2.63µs   3.06µs   286989.     1
+#> 2 mean.default(x)   1.25µs   1.44µs   632597.     0
 ```
 
 This optimisation is a little risky. While `mean.default()` is almost twice as fast for 100 values, it will fail in surprising ways if `x` is not a numeric vector. 
@@ -214,9 +214,9 @@ bench::mark(
 #> # A tibble: 3 x 5
 #>   expression              min   median `itr/sec`  n_gc
 #>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 mean(x)              2.63µs   3.05µs   289314.     1
-#> 2 mean.default(x)      1.22µs   1.48µs   608189.     0
-#> 3 .Internal(mean(x)) 341.91ns 367.99ns  2396308.     0
+#> 1 mean(x)              2.62µs   2.95µs   303379.     1
+#> 2 mean.default(x)      1.23µs   1.45µs   617598.     0
+#> 3 .Internal(mean(x)) 340.17ns 356.11ns  2495978.     0
 ```
 
 NB: most of these differences arise because `x` is small. If you increase the size the differences basically disappear, because most of the time is now spent computing the mean, not finding the underlying implementation. This is a good reminder that the size of the input matters, and you should motivate your optimisations based on realistic data.
@@ -232,9 +232,9 @@ bench::mark(
 #> # A tibble: 3 x 5
 #>   expression              min   median `itr/sec`  n_gc
 #>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 mean(x)              24.8µs   25.4µs    37816.     0
-#> 2 mean.default(x)      23.4µs   23.7µs    40342.     0
-#> 3 .Internal(mean(x))   22.4µs   22.5µs    42508.     0
+#> 1 mean(x)              24.8µs   25.2µs    38489.     1
+#> 2 mean.default(x)      23.4µs   23.6µs    41314.     0
+#> 3 .Internal(mean(x))   22.4µs   22.4µs    43452.     0
 ```
 
 
@@ -261,8 +261,8 @@ bench::mark(
 #> # A tibble: 2 x 5
 #>   expression         min   median `itr/sec`  n_gc
 #>   <chr>         <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 as.data.frame   1.07ms   1.16ms      853.     7
-#> 2 quick_df        6.17µs   7.46µs   117987.     2
+#> 1 as.data.frame   1.03ms   1.11ms      890.     7
+#> 2 quick_df         6.1µs   7.15µs   122674.     2
 ```
 
 Again, note the trade-off. This method is fast because it's dangerous. If you give it bad inputs, you'll get a corrupt data frame:
@@ -353,9 +353,9 @@ bench::mark(
 #> # A tibble: 3 x 5
 #>   expression        min   median `itr/sec`  n_gc
 #>   <chr>        <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 lookup[x1]   501.05ns 608.04ns  1482455.     0
-#> 2 lookup[x10]     1.5µs   1.69µs   497352.     0
-#> 3 lookup[x100]   4.49µs   6.23µs   146875.     0
+#> 1 lookup[x1]   497.91ns 626.08ns  1312669.     0
+#> 2 lookup[x10]     1.5µs   1.66µs   533097.     1
+#> 3 lookup[x100]   4.36µs   5.15µs   178037.     0
 ```
 
 Vectorisation won't solve every problem, and rather than torturing an existing algorithm into one that uses a vectorised approach, you're often better off writing your own vectorised function in C++. You'll learn how to do so in Chapter \@ref(rcpp). 
@@ -405,10 +405,10 @@ bench::mark(
 #> # A tibble: 4 x 5
 #>   expression      min   median `itr/sec`  n_gc
 #>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 loop10      19.94µs  22.32µs    42649.     3
-#> 2 loop100     812.2µs 847.71µs     1153.     1
-#> 3 vec10        4.89µs   5.16µs   178558.     1
-#> 4 vec100       39.2µs  40.37µs    23463.     0
+#> 1 loop10      19.64µs  21.67µs    44368.     3
+#> 2 loop100    795.43µs 823.49µs     1202.     2
+#> 3 vec10        4.93µs   5.18µs   185099.     0
+#> 4 vec100      39.87µs   40.9µs    23664.     0
 ```
 
 Modifying an object in a loop, e.g., `x[i] <- y`, can also create a copy, depending on the class of `x`. Section \@ref(single-binding) discusses this issue in more depth and gives you some tools to determine when you're making copies.
@@ -437,14 +437,14 @@ system.time(
   }
 )
 #>    user  system elapsed 
-#>   0.860   0.000   0.861
+#>   0.824   0.000   0.825
 system.time(
   for (i in 1:m) {
     t.test(X[i, grp == 1], X[i, grp == 2])$statistic
   }
 )
 #>    user  system elapsed 
-#>   0.200   0.000   0.201
+#>   0.192   0.000   0.193
 ```
 
 Of course, a for loop computes, but doesn't save the values. We can `map_dbl()` (Section \@ref(map-atomic)) to do that. This adds a little overhead:
@@ -456,7 +456,7 @@ compT <- function(i){
 }
 system.time(t1 <- purrr::map_dbl(1:m, compT))
 #>    user  system elapsed 
-#>   0.200   0.000   0.202
+#>   0.192   0.000   0.192
 ```
 
 How can we make this faster? First, we could try doing less work. If you look at the source code of `stats:::t.test.default()`, you'll see that it does a lot more than just compute the t-statistic. It also computes the p-value and formats the output for printing. We can try to make our code faster by stripping out those pieces.
@@ -508,7 +508,7 @@ rowtstat <- function(X, grp){
 }
 system.time(t3 <- rowtstat(X, grp))
 #>    user  system elapsed 
-#>   0.012   0.000   0.012
+#>   0.012   0.000   0.011
 stopifnot(all.equal(t1, t3))
 ```
 

@@ -23,7 +23,7 @@ links-to-footnotes: true # option for pagedown
 paged-footnotes: true    # option for pagedown
 ---
 
- 
+<!--'
 
 # Welcome {-}
 
@@ -52,4 +52,5 @@ You may also be interested in:
 * __"[R Packages](http://r-pkgs.had.co.nz/)"__ which teaches you 
   how to make the most of R's fantastic package system.
 
+-->
 

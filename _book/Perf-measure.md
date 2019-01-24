@@ -219,10 +219,10 @@ x <- runif(100)
   x ^ 0.5
 ))
 #> # A tibble: 2 x 10
-#>   expression      min    mean median    max `itr/sec` mem_alloc  n_gc n_itr
-#>   <chr>      <bch:tm> <bch:t> <bch:> <bch:>     <dbl> <bch:byt> <dbl> <int>
-#> 1 sqrt(x)    588.95ns  1.54µs 1.16µs 89.1µs   649335.      848B     0 10000
-#> 2 x^0.5        9.01µs 10.14µs 9.43µs 77.7µs    98607.      848B     0 10000
+#>   expression   min   mean   median    max `itr/sec` mem_alloc  n_gc n_itr
+#>   <chr>      <bch> <bch:> <bch:tm> <bch:>     <dbl> <bch:byt> <dbl> <int>
+#> 1 sqrt(x)    597ns 1.06µs 991.98ns 26.3µs   943200.      848B     0 10000
+#> 2 x^0.5        9µs 9.87µs   9.41µs 91.1µs   101341.      848B     0 10000
 #> # … with 1 more variable: total_time <bch:tm>
 ```
 
@@ -273,21 +273,21 @@ lb[c("expression", "min", "median", "itr/sec", "n_gc")]
 #> # A tibble: 2 x 5
 #>   expression      min   median `itr/sec`  n_gc
 #>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 sqrt(x)    588.95ns   1.16µs   649335.     0
-#> 2 x^0.5        9.01µs   9.43µs    98607.     0
+#> 1 sqrt(x)       597ns 991.98ns   943200.     0
+#> 2 x^0.5           9µs   9.41µs   101341.     0
 ```
 
 ### Interpreting results
 
 
 
-As with all microbenchmarks, pay careful attention to the units: here, each computation takes about 590 ns, 590 billionths of a second. To help calibrate the impact of a microbenchmark on run time, it's useful to think about how many times a function needs to run before it takes a second. If a microbenchmark takes:
+As with all microbenchmarks, pay careful attention to the units: here, each computation takes about 600 ns, 600 billionths of a second. To help calibrate the impact of a microbenchmark on run time, it's useful to think about how many times a function needs to run before it takes a second. If a microbenchmark takes:
 
 * 1 ms, then one thousand calls takes a second.
 * 1 µs, then one million calls takes a second.
 * 1 ns, then one billion calls takes a second.
 
-The `sqrt()` function takes about 590 ns, or 0.59 µs, to compute the square root of 100 numbers. That means if you repeated the operation a million times, it would take 0.59 s, and hence changing the way you compute the square root is unlikely to significantly affect real code. This is the reason you need to exercise care when generalising microbenchmarking results.
+The `sqrt()` function takes about 600 ns, or 0.6 µs, to compute the square root of 100 numbers. That means if you repeated the operation a million times, it would take 0.6 s, and hence changing the way you compute the square root is unlikely to significantly affect real code. This is the reason you need to exercise care when generalising microbenchmarking results.
 
 ### Exercises
 

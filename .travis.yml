@@ -50,6 +50,7 @@ after_success:
   - pdftk adv-r_cover.pdf adv-r_ori.pdf cat output adv-r.pdf && rm -r adv-r_*.pdf
   - cd -
   - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::book_crc")'
+  - mv _bookdown_files/_main_files /_main_files
 
 
 deploy:

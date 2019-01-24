@@ -759,7 +759,7 @@ unknown_op("foo")
 #>     contents <- paste(..., collapse = ", ")
 #>     paste0("\\mathrm{foo}(", contents, ")")
 #> }
-#> <environment: 0x5c0a728>
+#> <environment: 0x491d6b8>
 ```
 
 And again we update `latex_env()`:
