@@ -106,8 +106,8 @@ safe_sum <- safely(sum)
 safe_sum
 #> function (...) 
 #> capture_error(.f(...), otherwise, quiet)
-#> <bytecode: 0x591a3c0>
-#> <environment: 0x5919f28>
+#> <bytecode: 0x4b162e0>
+#> <environment: 0x4b15e48>
 ```
 
 Like all function operators, `safely()` takes a function and returns a wrapped function which we can call as usual:
@@ -254,7 +254,7 @@ system.time(print(slow_function(1)))
 system.time(print(slow_function(1)))
 #> [1] 8.34
 #>    user  system elapsed 
-#>   0.004   0.000   1.004
+#>       0       0       1
 ```
 
 When we memoise this function, it's slow when we call it with new arguments. But when we call it with arguments that it's seen before it's instantaneous: it retrieves the previous value of the computation.
@@ -265,7 +265,7 @@ fast_function <- memoise::memoise(slow_function)
 system.time(print(fast_function(1)))
 #> [1] 6.01
 #>    user  system elapsed 
-#>       0       0       1
+#>   0.004   0.000   1.002
 
 system.time(print(fast_function(1)))
 #> [1] 6.01
@@ -283,10 +283,10 @@ fib <- function(n) {
 }
 system.time(fib(23))
 #>    user  system elapsed 
-#>   0.044   0.000   0.042
+#>   0.040   0.000   0.039
 system.time(fib(24))
 #>    user  system elapsed 
-#>   0.060   0.000   0.062
+#>   0.060   0.000   0.063
 ```
 
 Memoising `fib()` makes the implementation much faster because each value is computed only once:
@@ -299,7 +299,7 @@ fib2 <- memoise::memoise(function(n) {
 })
 system.time(fib2(23))
 #>    user  system elapsed 
-#>   0.024   0.000   0.025
+#>   0.028   0.000   0.027
 ```
 
 And future calls can rely on previous computations:
@@ -308,7 +308,7 @@ And future calls can rely on previous computations:
 ```r
 system.time(fib2(24))
 #>    user  system elapsed 
-#>   0.004   0.000   0.001
+#>   0.000   0.000   0.001
 ```
 
 This is an example of __dynamic programming__, where a complex problem can be broken down into many overlapping subproblems, and remembering the results of a subproblem considerably improves performance. 
@@ -380,7 +380,7 @@ system.time(runif(100))
 #>       0       0       0
 system.time(delay_by(runif, 0.1)(100))
 #>    user  system elapsed 
-#>     0.0     0.0     0.1
+#>   0.000   0.000   0.101
 ```
 
 And we can use it with the original `walk2()`:
