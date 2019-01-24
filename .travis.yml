@@ -31,7 +31,7 @@ before_install:
 
 script:
   - echo 'hi'
-  - Rscript -e 'devtools::install_github("rstudio/pagedown")'
+  #- Rscript -e 'devtools::install_github("rstudio/pagedown")'
   #- Rscript -e 'bookdown::render_book("index.rmd")'
   #- mv _book/_main.html _book/index.html
   # LaTeX book
@@ -49,8 +49,8 @@ after_success:
   - pdftk _main.pdf cat 2-r1 output adv-r_ori.pdf
   - pdftk adv-r_cover.pdf adv-r_ori.pdf cat output adv-r.pdf && rm -r adv-r_*.pdf
   - cd -
-  - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::book_crc")'
-  - mv _bookdown_files/_main_files _main_files
+  #- Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::book_crc")'
+  #- mv _bookdown_files/_main_files _main_files
 
 
 deploy:
@@ -58,6 +58,6 @@ deploy:
   skip-cleanup: true
   github-token: $GH_TOKEN  # Set in travis-ci.org dashboard, marked secure
   keep-history: true
-#  local-dir: _book # Book output directory
+  local-dir: _book # Book output directory
   on:
     branch: master
