@@ -26,9 +26,8 @@ bookdown::pdf_book:
 
 pagedown::book_crc:
   toc: true
-  number_sections: false
+  number_sections: true
   self_contained: false
-  split_by: rmd
   #dev: "png"
 
 
