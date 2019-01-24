@@ -80,8 +80,7 @@ We'll start by introducing some conventions for drawing ASTs, beginning with a s
 
 *   By "hand" (i.e. with OmniGraffle):
 
-    
-    \begin{center}\includegraphics[width=1.97in]{diagrams/expressions/simple} \end{center}
+    <img src="diagrams/expressions/simple.png" width="189" style="display: block; margin: auto;" />
 
 *   With `lobstr::ast()`:
 
@@ -112,8 +111,7 @@ Colours will be shown when _you_ call `ast()`, but do not appear in the book for
 
 The above example only contained one function call, making for a very shallow tree. Most expressions will contain considerably more calls, creating trees with multiple levels. For example, consider the AST for `f(g(1, 2), h(3, 4, i()))`:
 
-
-\begin{center}\includegraphics[width=3.15in]{diagrams/expressions/complicated} \end{center}
+<img src="diagrams/expressions/complicated.png" width="302" style="display: block; margin: auto;" />
 
 ```r
 lobstr::ast(f(g(1, 2), h(3, 4, i())))
@@ -174,8 +172,7 @@ And they both have this AST[^ast-infix]:
 
 [^ast-infix]: The names of non-prefix functions are non-syntactic so I surround them with ``` `` ```, as in Section \@ref(non-syntactic).
 
-
-\begin{center}\includegraphics[width=2.26in]{diagrams/expressions/prefix} \end{center}
+<img src="diagrams/expressions/prefix.png" width="217" style="display: block; margin: auto;" />
 
 ```r
 lobstr::ast(y <- x * 10)
@@ -459,8 +456,7 @@ lobstr::ast(foo(1)(2))
 #> │ └─1 
 #> └─2
 ```
-
-\begin{center}\includegraphics[width=4.03in]{diagrams/expressions/call-call} \end{center}
+<img src="diagrams/expressions/call-call.png" width="387" style="display: block; margin: auto;" />
 
 #### Constructing {#call2}
 \index{call objects!constructing}
@@ -569,8 +565,7 @@ Infix functions introduce two sources of ambiguity[^ambig]. The first source of 
 
 [^ambig]: This ambiguity does not exist in languages with only prefix or postfix calls. It's interesting to compare a simple arithmetic operation in Lisp (prefix) and Forth (postfix). In Lisp you'd write `(* (+ 1 2) 3))`; this avoids ambiguity by requiring parentheses everywhere. In Forth, you'd write `1 2 + 3 *`; this doesn't require any parentheses, but does require more thought when reading.
 
-
-\begin{center}\includegraphics[width=3.89in]{diagrams/expressions/ambig-order} \end{center}
+<img src="diagrams/expressions/ambig-order.png" width="373" style="display: block; margin: auto;" />
 
 Programming languages use conventions called __operator precedence__ to resolve this ambiguity. We can use `ast()` to see what R does:
 

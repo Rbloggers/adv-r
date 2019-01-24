@@ -210,7 +210,7 @@ This version of the book was built with the following version of R and packages.
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |UTC                          |
-|date     |2019-01-22                   |
+|date     |2019-01-24                   |
 
 
 |package      |version    |source                           |
@@ -276,7 +276,7 @@ This version of the book was built with the following version of R and packages.
 |RColorBrewer |1.1-2      |CRAN (R 3.5.2)                   |
 |Rcpp         |1.0.0      |CRAN (R 3.5.2)                   |
 |reshape2     |1.4.3      |CRAN (R 3.5.2)                   |
-|rlang        |0.3.1.9000 |Github (r-lib/rlang\@923c789)    |
+|rlang        |0.3.1.9000 |Github (r-lib/rlang\@02bff45)    |
 |rmarkdown    |1.11       |CRAN (R 3.5.2)                   |
 |rprojroot    |1.3-2      |CRAN (R 3.5.2)                   |
 |RSQLite      |2.1.1      |CRAN (R 3.5.2)                   |
@@ -304,8 +304,8 @@ This version of the book was built with the following version of R and packages.
 
 ```r
 ruler()
-#> ----+----1----+----2----+----3----+----4----+----5----+----6----+----
-#> 123456789012345678901234567890123456789012345678901234567890123456789
+#> ----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+
+#> 123456789012345678901234567890123456789012345678901234567890123456789012345
 ```
 
 

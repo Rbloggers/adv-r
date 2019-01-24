@@ -16,9 +16,14 @@ indent: true
 subparagraph: yes
 linestretch: 1.15
 geometry: b5paper, bottom=0.72in
+toc-title: 'Contents' # option for pagedown
+lot: false  # option for pagedown
+lof: false  # option for pagedown
+links-to-footnotes: true # option for pagedown
+paged-footnotes: true    # option for pagedown
 ---
 
-<!-- 
+ 
 
 # Welcome {-}
 
@@ -47,4 +52,4 @@ You may also be interested in:
 * __"[R Packages](http://r-pkgs.had.co.nz/)"__ which teaches you 
   how to make the most of R's fantastic package system.
 
--->
+

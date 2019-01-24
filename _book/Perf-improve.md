@@ -90,8 +90,8 @@ bench::mark(
 #> # A tibble: 2 x 5
 #>   expression      min   median `itr/sec`  n_gc
 #>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 mean1(x)      226µs    232µs     4195.     0
-#> 2 mean2(x)      112µs    113µs     8368.     0
+#> 1 mean1(x)      226µs    229µs     4287.     0
+#> 2 mean2(x)      112µs    113µs     8600.     0
 ```
 
 (You might be surprised by the results: `mean(x)` is considerably slower than `sum(x) / length(x)`. This is because, among other reasons, `mean(x)` makes two passes over the vector to be more numerically accurate.)
@@ -195,8 +195,8 @@ bench::mark(
 #> # A tibble: 2 x 5
 #>   expression           min   median `itr/sec`  n_gc
 #>   <chr>           <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 mean(x)            2.6µs   2.96µs   304817.     1
-#> 2 mean.default(x)   1.22µs   1.38µs   655514.     0
+#> 1 mean(x)           2.61µs   3.01µs   287619.     1
+#> 2 mean.default(x)   1.24µs    1.4µs   654738.     0
 ```
 
 This optimisation is a little risky. While `mean.default()` is almost twice as fast for 100 values, it will fail in surprising ways if `x` is not a numeric vector. 
@@ -214,9 +214,9 @@ bench::mark(
 #> # A tibble: 3 x 5
 #>   expression              min   median `itr/sec`  n_gc
 #>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 mean(x)              2.57µs   2.96µs   295116.     1
-#> 2 mean.default(x)      1.22µs    1.4µs   654334.     0
-#> 3 .Internal(mean(x))  341.1ns    356ns  2543149.     0
+#> 1 mean(x)              2.61µs   2.98µs   293690.     1
+#> 2 mean.default(x)      1.23µs   1.44µs   635011.     0
+#> 3 .Internal(mean(x)) 337.02ns 347.03ns  2588450.     0
 ```
 
 NB: most of these differences arise because `x` is small. If you increase the size the differences basically disappear, because most of the time is now spent computing the mean, not finding the underlying implementation. This is a good reminder that the size of the input matters, and you should motivate your optimisations based on realistic data.
@@ -232,9 +232,9 @@ bench::mark(
 #> # A tibble: 3 x 5
 #>   expression              min   median `itr/sec`  n_gc
 #>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 mean(x)              24.9µs   25.2µs    38108.     1
-#> 2 mean.default(x)      23.4µs   23.6µs    41059.     0
-#> 3 .Internal(mean(x))   22.4µs   22.4µs    42602.     0
+#> 1 mean(x)              24.8µs   25.2µs    38545.     1
+#> 2 mean.default(x)      23.4µs   23.6µs    41425.     0
+#> 3 .Internal(mean(x))   21.6µs   22.4µs    43524.     0
 ```
 
 
@@ -261,8 +261,8 @@ bench::mark(
 #> # A tibble: 2 x 5
 #>   expression         min   median `itr/sec`  n_gc
 #>   <chr>         <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 as.data.frame   1.04ms   1.12ms      879.     7
-#> 2 quick_df        6.12µs    7.2µs   124551.     2
+#> 1 as.data.frame   1.03ms   1.09ms      907.     7
+#> 2 quick_df        6.11µs   7.15µs   125683.     2
 ```
 
 Again, note the trade-off. This method is fast because it's dangerous. If you give it bad inputs, you'll get a corrupt data frame:
@@ -270,9 +270,8 @@ Again, note the trade-off. This method is fast because it's dangerous. If you gi
 
 ```r
 quickdf(list(x = 1, y = 1:2))
-#> Warning in format.data.frame(if (omit) x[seq_len(n0), , drop = FALSE]
-#> else x, : corrupt data frame: columns will be truncated or padded
-#> with NAs
+#> Warning in format.data.frame(if (omit) x[seq_len(n0), , drop = FALSE] else
+#> x, : corrupt data frame: columns will be truncated or padded with NAs
 #>   x y
 #> 1 1 1
 ```
@@ -354,9 +353,9 @@ bench::mark(
 #> # A tibble: 3 x 5
 #>   expression        min   median `itr/sec`  n_gc
 #>   <chr>        <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 lookup[x1]   489.06ns 574.98ns  1576753.     0
-#> 2 lookup[x10]    1.51µs   1.68µs   515780.     1
-#> 3 lookup[x100]   4.38µs   5.04µs   180009.     0
+#> 1 lookup[x1]   492.09ns 545.06ns  1582401.     0
+#> 2 lookup[x10]    1.54µs   1.67µs   527178.     0
+#> 3 lookup[x100]   4.32µs    5.1µs   179620.     0
 ```
 
 Vectorisation won't solve every problem, and rather than torturing an existing algorithm into one that uses a vectorised approach, you're often better off writing your own vectorised function in C++. You'll learn how to do so in Chapter \@ref(rcpp). 
@@ -406,10 +405,10 @@ bench::mark(
 #> # A tibble: 4 x 5
 #>   expression      min   median `itr/sec`  n_gc
 #>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 loop10      19.83µs  21.89µs    43770.     3
-#> 2 loop100    802.08µs 826.97µs     1197.     2
-#> 3 vec10        4.87µs   5.16µs   172361.     0
-#> 4 vec100      39.09µs  40.31µs    23915.     0
+#> 1 loop10      19.66µs  21.58µs    45007.     2
+#> 2 loop100    797.34µs 820.76µs     1206.     2
+#> 3 vec10        4.87µs   5.12µs   185924.     0
+#> 4 vec100      38.19µs  40.25µs    24131.     0
 ```
 
 Modifying an object in a loop, e.g., `x[i] <- y`, can also create a copy, depending on the class of `x`. Section \@ref(single-binding) discusses this issue in more depth and gives you some tools to determine when you're making copies.
@@ -438,14 +437,14 @@ system.time(
   }
 )
 #>    user  system elapsed 
-#>   0.844   0.000   0.846
+#>   0.816   0.000   0.816
 system.time(
   for (i in 1:m) {
     t.test(X[i, grp == 1], X[i, grp == 2])$statistic
   }
 )
 #>    user  system elapsed 
-#>   0.196   0.000   0.197
+#>   0.188   0.000   0.190
 ```
 
 Of course, a for loop computes, but doesn't save the values. We can `map_dbl()` (Section \@ref(map-atomic)) to do that. This adds a little overhead:
@@ -457,7 +456,7 @@ compT <- function(i){
 }
 system.time(t1 <- purrr::map_dbl(1:m, compT))
 #>    user  system elapsed 
-#>   0.204   0.000   0.203
+#>   0.188   0.000   0.190
 ```
 
 How can we make this faster? First, we could try doing less work. If you look at the source code of `stats:::t.test.default()`, you'll see that it does a lot more than just compute the t-statistic. It also computes the p-value and formats the output for printing. We can try to make our code faster by stripping out those pieces.
@@ -482,7 +481,7 @@ my_t <- function(x, grp) {
 
 system.time(t2 <- purrr::map_dbl(1:m, ~ my_t(X[.,], grp)))
 #>    user  system elapsed 
-#>   0.028   0.000   0.029
+#>   0.028   0.000   0.028
 stopifnot(all.equal(t1, t2))
 ```
 

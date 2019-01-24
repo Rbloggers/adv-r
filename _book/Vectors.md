@@ -11,8 +11,7 @@ This chapter discusses the most important family of data types in base R: vector
 
 Vectors come in two flavours: atomic vectors and lists[^generic-vectors]. They differ in terms of their elements' types: for atomic vectors, all elements must have the same type; for lists, elements can have different types. While not a vector, `NULL` is closely related to vectors and often serves the role of a generic zero length vector. This diagram, which we'll be expanding on throughout this chapter, illustrates the basic relationships:
 
-
-\begin{center}\includegraphics[width=2.07in]{diagrams/vectors/summary-tree} \end{center}
+<img src="diagrams/vectors/summary-tree.png" width="198" style="display: block; margin: auto;" />
 
 [^generic-vectors]: A few places in R's documentation call lists generic vectors to emphasise their difference from atomic vectors.
 
@@ -70,8 +69,7 @@ Take this short quiz to determine if you need to read this chapter. If the answe
 
 There are four primary types of atomic vectors: logical, integer, double, and character (which contains strings). Collectively integer and double vectors are known as numeric vectors[^numeric]. There are two rare types: complex and raw. I won't discuss them further because complex numbers are rarely needed in statistics, and raw vectors are a special type that's only needed when handling binary data. 
 
-
-\begin{center}\includegraphics[width=3in]{diagrams/vectors/summary-tree-atomic} \end{center}
+<img src="diagrams/vectors/summary-tree-atomic.png" width="288" style="display: block; margin: auto;" />
 
 [^numeric]: This is a slight simplification as R does not use "numeric" consistently, which we'll come back to in Section \@ref(numeric-type).
 
@@ -133,8 +131,7 @@ c(c(1, 2), c(3, 4))
 
 In diagrams, I'll depict vectors as connected rectangles, so the above code could be drawn as follows:
 
-
-\begin{center}\includegraphics[width=3.64in]{diagrams/vectors/atomic} \end{center}
+<img src="diagrams/vectors/atomic.png" width="350" style="display: block; margin: auto;" />
 
 You can determine the type of a vector with `typeof()`[^mode] and its length with `length()`.
 
@@ -255,8 +252,7 @@ str(attributes(a))
 #>  $ y: int [1:3] 4 5 6
 ```
 
-
-\begin{center}\includegraphics[width=2.02in]{diagrams/vectors/attr} \end{center}
+<img src="diagrams/vectors/attr.png" width="194" style="display: block; margin: auto;" />
 
 Attributes should generally be thought of as ephemeral. For example, most attributes are lost by most operations:
 
@@ -300,13 +296,11 @@ Avoid using `attr(x, "names")` as it requires more typing and is less readable t
 
 To be technically correct, when drawing the named vector `x`, I should draw it like so:
 
-
-\begin{center}\includegraphics[width=2.56in]{diagrams/vectors/attr-names-1} \end{center}
+<img src="diagrams/vectors/attr-names-1.png" width="246" style="display: block; margin: auto;" />
 
 However, names are so special and so important, that unless I'm trying specifically to draw attention to the attributes data structure, I'll use them to label the vector directly:
 
-
-\begin{center}\includegraphics[width=1.08in]{diagrams/vectors/attr-names-2} \end{center}
+<img src="diagrams/vectors/attr-names-2.png" width="104" style="display: block; margin: auto;" />
 
 To be useful with character subsetting (e.g. Section \@ref(lookup-tables)) names should be unique, and non-missing, but this is not enforced by R. Depending on how the names are set, missing names may be either `""` or `NA_character_`. If all names are missing, `names()` will return `NULL`.
 
@@ -425,8 +419,7 @@ In this section, we'll discuss four important S3 vectors used in base R:
   
 * Durations, which are stored in __difftime__ vectors.
 
-
-\begin{center}\includegraphics[width=3.1in]{diagrams/vectors/summary-tree-s3-1} \end{center}
+<img src="diagrams/vectors/summary-tree-s3-1.png" width="298" style="display: block; margin: auto;" />
 
 ### Factors
 \indexc{factor}
@@ -450,8 +443,7 @@ attributes(x)
 #> $class
 #> [1] "factor"
 ```
-
-\begin{center}\includegraphics[width=2.56in]{diagrams/vectors/factor} \end{center}
+<img src="diagrams/vectors/factor.png" width="246" style="display: block; margin: auto;" />
 
 Factors are useful when you know the set of possible values but they're not all present in a given dataset. In contrast to a character vector, when you tabulate a factor you'll get counts of all categories, even unobserved ones:
 
@@ -658,8 +650,7 @@ lobstr::obj_size(l2)
 
 Lists can contain complex objects so it's not possible to pick a single visual style that works for every list. Generally I'll draw lists like vectors, using colour to remind you of the hierarchy.
 
-
-\begin{center}\includegraphics[width=4.67in]{diagrams/vectors/list} \end{center}
+<img src="diagrams/vectors/list.png" width="449" style="display: block; margin: auto;" />
 
 Lists are sometimes called __recursive__ vectors because a list can contain other lists. This makes them fundamentally different from atomic vectors.
 
@@ -672,8 +663,7 @@ str(l3)
 #>   ..$ :List of 1
 #>   .. ..$ : num 1
 ```
-
-\begin{center}\includegraphics[width=1.08in]{diagrams/vectors/list-recursive} \end{center}
+<img src="diagrams/vectors/list-recursive.png" width="104" style="display: block; margin: auto;" />
 
 `c()` will combine several lists into one. If given a combination of atomic vectors and lists, `c()` will coerce the vectors to lists before combining them. Compare the results of `list()` and `c()`:
 
@@ -694,8 +684,7 @@ str(l5)
 #>  $ : num 3
 #>  $ : num 4
 ```
-
-\begin{center}\includegraphics[width=2.51in]{diagrams/vectors/list-c} \end{center}
+<img src="diagrams/vectors/list-c.png" width="241" style="display: block; margin: auto;" />
 
 ### Testing and coercion {#list-types}
 
@@ -757,8 +746,7 @@ These data structures are relatively esoteric but they can be useful if you want
 
 The two most important S3 vectors built on top of lists are data frames and tibbles. 
 
-
-\begin{center}\includegraphics[width=1.67in]{diagrams/vectors/summary-tree-s3-2} \end{center}
+<img src="diagrams/vectors/summary-tree-s3-2.png" width="160" style="display: block; margin: auto;" />
 
 If you do data analysis in R, you're going to be using data frames. A data frame is a named list of vectors with attributes for (column) `names`, `row.names`[^rownames], and its class, "data.frame":
 
@@ -927,13 +915,11 @@ tibble(
 
 When drawing data frames and tibbles, rather than focussing on the implementation details, i.e. the attributes:
 
-
-\begin{center}\includegraphics[width=2.65in]{diagrams/vectors/data-frame-1} \end{center}
+<img src="diagrams/vectors/data-frame-1.png" width="255" style="display: block; margin: auto;" />
 
 I'll draw them the same way as a named list, but arrange them to emphasise their columnar structure.
 
-
-\begin{center}\includegraphics[width=1.08in]{diagrams/vectors/data-frame-2} \end{center}
+<img src="diagrams/vectors/data-frame-2.png" width="104" style="display: block; margin: auto;" />
 
 ### Row names {#rownames}
 \indexc{row.names}
@@ -1016,21 +1002,20 @@ One of the most obvious differences between tibbles and data frames is how they 
 ```r
 dplyr::starwars
 #> # A tibble: 87 x 13
-#>    name  height  mass hair_color skin_color eye_color birth_year
-#>    <chr>  <int> <dbl> <chr>      <chr>      <chr>          <dbl>
-#>  1 Luke…    172    77 blond      fair       blue            19  
-#>  2 C-3PO    167    75 <NA>       gold       yellow         112  
-#>  3 R2-D2     96    32 <NA>       white, bl… red             33  
-#>  4 Dart…    202   136 none       white      yellow          41.9
-#>  5 Leia…    150    49 brown      light      brown           19  
-#>  6 Owen…    178   120 brown, gr… light      blue            52  
-#>  7 Beru…    165    75 brown      light      blue            47  
-#>  8 R5-D4     97    32 <NA>       white, red red             NA  
-#>  9 Bigg…    183    84 black      light      brown           24  
-#> 10 Obi-…    182    77 auburn, w… fair       blue-gray       57  
-#> # … with 77 more rows, and 6 more variables: gender <chr>,
-#> #   homeworld <chr>, species <chr>, films <list>, vehicles <list>,
-#> #   starships <list>
+#>    name  height  mass hair_color skin_color eye_color birth_year gender
+#>    <chr>  <int> <dbl> <chr>      <chr>      <chr>          <dbl> <chr> 
+#>  1 Luke…    172    77 blond      fair       blue            19   male  
+#>  2 C-3PO    167    75 <NA>       gold       yellow         112   <NA>  
+#>  3 R2-D2     96    32 <NA>       white, bl… red             33   <NA>  
+#>  4 Dart…    202   136 none       white      yellow          41.9 male  
+#>  5 Leia…    150    49 brown      light      brown           19   female
+#>  6 Owen…    178   120 brown, gr… light      blue            52   male  
+#>  7 Beru…    165    75 brown      light      blue            47   female
+#>  8 R5-D4     97    32 <NA>       white, red red             NA   <NA>  
+#>  9 Bigg…    183    84 black      light      brown           24   male  
+#> 10 Obi-…    182    77 auburn, w… fair       blue-gray       57   male  
+#> # … with 77 more rows, and 5 more variables: homeworld <chr>,
+#> #   species <chr>, films <list>, vehicles <list>, starships <list>
 ```
 
 * Tibbles only show the first 10 rows and all the columns that will fit on 
@@ -1130,8 +1115,7 @@ data.frame(
 #> 3 3 1, 2, 3, 4
 ```
 
-
-\begin{center}\includegraphics[width=1.97in]{diagrams/vectors/data-frame-list} \end{center}
+<img src="diagrams/vectors/data-frame-list.png" width="189" style="display: block; margin: auto;" />
 
 List columns are easier to use with tibbles because they can be directly included inside tibble() and they will be printed tidily:
 
@@ -1170,8 +1154,7 @@ str(dfm)
 #>   ..$ a: int  3 2 1
 #>   ..$ b: chr  "a" "b" "c"
 ```
-
-\begin{center}\includegraphics[width=2.6in]{diagrams/vectors/data-frame-matrix} \end{center}
+<img src="diagrams/vectors/data-frame-matrix.png" width="250" style="display: block; margin: auto;" />
 
 Matrix and data frame columns require a little caution. Many functions that work with data frames assume that all columns are vectors. Also, the printed display can be confusing.
 

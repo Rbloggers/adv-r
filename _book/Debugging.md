@@ -117,13 +117,11 @@ i <- function(d) {
 
 When we run `f("a")` code in RStudio we see:
 
-
-\begin{center}\includegraphics[width=1\linewidth]{screenshots/debugging/rstudio-error} \end{center}
+<img src="screenshots/debugging/rstudio-error.png" width="100%" style="display: block; margin: auto;" />
 
 Two options appear to the right of the error message: "Show Traceback" and "Rerun with Debug".  If you click "Show traceback" you see:
 
-
-\begin{center}\includegraphics[width=1\linewidth]{screenshots/debugging/rstudio-traceback} \end{center}
+<img src="screenshots/debugging/rstudio-traceback.png" width="100%" style="display: block; margin: auto;" />
 
 If you're not using RStudio, you can use `traceback()` to get the same information (sans pretty formatting):
 
@@ -236,14 +234,10 @@ In RStudio, you'll see the corresponding code in the editor (with the statement 
 
 As well as allowing you to run regular R code, `browser()` provides a few special commands. You can use them by either typing short text commands, or by clicking a button in the RStudio toolbar, Figure \@ref(fig:debug-toolbar):
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{screenshots/debug-toolbar} 
-
-}
-
-\caption{RStudio debugging toolbar}(\#fig:debug-toolbar)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="screenshots/debug-toolbar.png" alt="RStudio debugging toolbar" width="50%" />
+<p class="caption">(\#fig:debug-toolbar)RStudio debugging toolbar</p>
+</div>
 
 * Next, `n`: executes the next step in the function. If you have a
   variable named `n`, you'll need `print(n)` to display its value.

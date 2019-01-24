@@ -1095,7 +1095,7 @@ str(safety(stop("Error!")))
 #>  $ result: NULL
 #>  $ error :List of 2
 #>   ..$ message: chr "Error!"
-#>   ..$ call   : language doTryCatch(return(expr), name, parentenv, h..
+#>   ..$ call   : language doTryCatch(return(expr), name, parentenv, handler)
 #>   ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
 ```
 

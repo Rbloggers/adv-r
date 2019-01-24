@@ -4,9 +4,9 @@
 
 ## Introduction
 
-There are two primary tools of control flow: choices and loops. Choices, like `if` statements and `switch()` calls, allow you to run different code depending on the input. Loops, like `for` or `while`, allow you to repeatedly run code, typically with changing options. I expect that you're already familiar with the basics of these functions so I'll briefly cover some technical details and introduce you to some useful, but lesser known, features.
+There are two primary tools of control flow: choices and loops. Choices, like `if` statements and `switch()` calls, allow you to run different code depending on the input. Loops, like `for` and `while`, allow you to repeatedly run code, typically with changing options. I'd expect that you're already familiar with the basics of these functions so I'll briefly cover some technical details and then introduce some useful, but lesser known, features.
 
-The condition system (messages, warnings, and errors) also provides "non-local" control flow. You'll learn about them in Chapter \@ref(conditions). 
+The condition system (messages, warnings, and errors), which you'll learn about them in Chapter \@ref(conditions), also provides "non-local" control flow. 
 
 ### Quiz {-}
 
@@ -36,7 +36,7 @@ Want to skip this chapter? Go for it, if you can answer the questions below. Fin
 ## Choices
 \indexc{if}
 
-The basic form of R's if statement is as follows:
+The basic form of an if statement in R is as follows:
 
 
 ```r
@@ -44,7 +44,7 @@ if (condition) true_action
 if (condition) true_action else false_action
 ```
 
-If `condition` is `TRUE`, `true_action` will be evaluated; if `condition` is `FALSE`, the optional `else` statement will be evaluated. 
+If `condition` is `TRUE`, `true_action` is evaluated; if `condition` is `FALSE`, the optional `false_action` is evaluated. 
 
 Typically the actions are compound statements contained within `{`:
 
@@ -74,9 +74,9 @@ c(x1, x2)
 #> [1] 1 2
 ```
 
-(I recommend using assigning the results of an entire `if` statement only when the whole thing fits one line; otherwise it tends to be hard to read.)
+(I recommend assigning the results of an `if` statement only when the entire expression fits on one line; otherwise it tends to be hard to read.)
 
-When you use the single argument form without an else statement, `if` invisibly (Section \@ref(invisible)) returns `NULL` if the condtion is `FALSE`. Since functions like `c()` and `paste()` drop `NULL` inputs, this allows for a compact expression of certain idioms:
+When you use the single argument form without an else statement, `if` invisibly (Section \@ref(invisible)) returns `NULL` if the condition is `FALSE`. Since functions like `c()` and `paste()` drop `NULL` inputs, this allows for a compact expression of certain idioms:
 
 
 ```r
@@ -94,7 +94,7 @@ greet("Jaime", TRUE)
 
 ### Invalid inputs
 
-The `condition` should evaluate to a single `TRUE` or `FALSE`. Most other inputs generate an error:
+The `condition` should evaluate to a single `TRUE` or `FALSE`. Most other inputs will generate an error:
 
 
 ```r
@@ -109,19 +109,19 @@ if (NA) 1
 #>   missing value where TRUE/FALSE needed
 ```
 
-The exception is a logical vector of length greater than 1, which only generates a warning:
+The exception is a logical vector of length greater than 1, which generates a warning:
 
 
 
 
 ```r
 if (c(TRUE, FALSE)) 1
-#> Warning in if (c(TRUE, FALSE)) 1: the condition has length > 1 and
-#> only the first element will be used
+#> Warning in if (c(TRUE, FALSE)) 1: the condition has length > 1 and only the
+#> first element will be used
 #> [1] 1
 ```
 
-In R 3.5.0 and greater, thanks to [Henrik Bengtsson](https://github.com/HenrikBengtsson/Wishlist-for-R/issues/38), you can turn this an error by setting an environment variable:
+In R 3.5.0 and greater, thanks to [Henrik Bengtsson](https://github.com/HenrikBengtsson/Wishlist-for-R/issues/38), you can turn this into an error by setting an environment variable:
 
 
 ```r
@@ -131,7 +131,7 @@ if (c(TRUE, FALSE)) 1
 #>   the condition has length > 1
 ```
 
-I think it's good practice to set this environment variable, as it reveals a clear mistake that you might miss if only shown as a warning.
+I think this is good practice as it reveals a clear mistake that you might otherwise miss if it were only shown as a warning.
 
 ### Vectorised if
 \indexc{ifelse()}
@@ -145,13 +145,12 @@ ifelse(x %% 5 == 0, "XXX", as.character(x))
 #>  [1] "1"   "2"   "3"   "4"   "XXX" "6"   "7"   "8"   "9"   "XXX"
 
 ifelse(x %% 2 == 0, "even", "odd")
-#>  [1] "odd"  "even" "odd"  "even" "odd"  "even" "odd"  "even" "odd" 
-#> [10] "even"
+#>  [1] "odd"  "even" "odd"  "even" "odd"  "even" "odd"  "even" "odd"  "even"
 ```
 
-Missing values will be propagated into the output.
+Note that missing values will be propagated into the output.
 
-I recommend only using `ifelse()` when the `yes` and `no` vectors are the same type, as it is otherwise hard to predict the output type. See about <https://vctrs.r-lib.org/articles/stability.html#ifelse> for additional discussion.
+I recommend using `ifelse()` only when the `yes` and `no` vectors are the same type as it is otherwise hard to predict the output type. See about <https://vctrs.r-lib.org/articles/stability.html#ifelse> for additional discussion.
 
 Another vectorised equivalent is the more general `dplyr::case_when()`. It uses a special syntax to allow any number of condition-vector pairs:
 
@@ -164,8 +163,7 @@ dplyr::case_when(
   is.na(x) ~ "???",
   TRUE ~ as.character(x)
 )
-#>  [1] "1"    "2"    "3"    "4"    "fizz" "6"    "buzz" "8"    "9"   
-#> [10] "fizz"
+#>  [1] "1"    "2"    "3"    "4"    "fizz" "6"    "buzz" "8"    "9"    "fizz"
 ```
 
 ### `switch()` statement {#switch}
@@ -231,7 +229,7 @@ legs("dog")
 #> [1] 4
 ```
 
-It is also possible to use `switch()` with numeric `x`, but is harder to read, and has undesirable failure modes if `x` is a not a whole number. I recommend using `switch()` only with character inputs.
+It is also possible to use `switch()` with a numeric `x`, but is harder to read, and has undesirable failure modes if `x` is a not a whole number. I recommend using `switch()` only with character inputs.
 
 ### Exercises
 

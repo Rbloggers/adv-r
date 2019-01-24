@@ -81,7 +81,7 @@ cppFunction('int add(int x, int y, int z) {
 # add works like a regular R function
 add
 #> function (x, y, z) 
-#> .Call(<pointer: 0x7ff3961edf60>, x, y, z)
+#> .Call(<pointer: 0x7fe0abb09f60>, x, y, z)
 add(1, 2, 3)
 #> [1] 6
 ```
@@ -242,9 +242,9 @@ bench::mark(
 #> # A tibble: 3 x 6
 #>   expression      min     mean   median      max `itr/sec`
 #>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>
-#> 1 sum(x)        1.3µs   1.52µs   1.34µs  88.17µs   656438.
-#> 2 sumC(x)      3.27µs   4.63µs   4.74µs   1.07ms   215789.
-#> 3 sumR(x)     38.31µs  40.48µs     39µs 250.83µs    24701.
+#> 1 sum(x)       1.31µs    1.5µs   1.33µs  74.29µs   666828.
+#> 2 sumC(x)      3.23µs   4.67µs   4.72µs   1.01ms   214160.
+#> 3 sumR(x)     37.32µs   40.1µs  38.92µs 141.75µs    24940.
 ```
 
 ### Vector input, vector output
@@ -295,8 +295,8 @@ bench::mark(
 #> # A tibble: 2 x 6
 #>   expression          min     mean   median      max `itr/sec`
 #>   <chr>          <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>
-#> 1 pdistR(0.5, y)   8.56ms   8.88ms    8.7ms  12.11ms      113.
-#> 2 pdistC(0.5, y)   4.69ms    4.8ms   4.77ms   5.91ms      208.
+#> 1 pdistR(0.5, y)   7.58ms   8.42ms    8.4ms  11.78ms      119.
+#> 2 pdistC(0.5, y)   3.92ms   4.47ms   4.58ms   4.74ms      224.
 ```
 
 On my computer, it takes around 5 ms with a 1 million element `y` vector. The C++ function is about 2.5x faster, ~2 ms, but assuming it took you 10 minutes to write the C++ function, you'd need to run it ~200,000 times to make rewriting worthwhile. The reason why the C++ function is faster is subtle, and relates to memory management. The R version needs to create an intermediate vector the same length as y (`x - ys`), and allocating memory is an expensive operation. The C++ function avoids this overhead because it uses an intermediate scalar.
@@ -1045,12 +1045,11 @@ bench::mark(
   check = FALSE
 )
 #> # A tibble: 2 x 10
-#>   expression      min    mean  median    max `itr/sec` mem_alloc
-#>   <chr>      <bch:tm> <bch:t> <bch:t> <bch:>     <dbl> <bch:byt>
-#> 1 gibbs_r(1…   5.68ms   5.9ms   5.8ms 7.07ms      170.    4.97MB
-#> 2 gibbs_cpp… 301.07µs 354.3µs 347.6µs 3.12ms     2822.     4.1KB
-#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,
-#> #   total_time <bch:tm>
+#>   expression      min     mean   median    max `itr/sec` mem_alloc  n_gc
+#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:>     <dbl> <bch:byt> <dbl>
+#> 1 gibbs_r(1…   5.51ms   5.73ms   5.66ms 6.71ms      174.    4.97MB    12
+#> 2 gibbs_cpp… 298.57µs 346.37µs 338.47µs 1.46ms     2887.     4.1KB     8
+#> # … with 2 more variables: n_itr <int>, total_time <bch:tm>
 ```
 
 ### R vectorisation vs. C++ vectorisation
@@ -1155,13 +1154,12 @@ bench::mark(
   vacc3 = vacc3(age, female, ily)
 )
 #> # A tibble: 3 x 10
-#>   expression     min     mean   median      max `itr/sec` mem_alloc
-#>   <chr>      <bch:t> <bch:tm> <bch:tm> <bch:tm>     <dbl> <bch:byt>
-#> 1 vacc1       1.82ms   1.98ms   1.96ms   2.42ms      506.    7.86KB
-#> 2 vacc2      97.41µs 118.92µs  106.5µs   3.65ms     8409.  223.98KB
-#> 3 vacc3      29.36µs  31.61µs  30.37µs 137.62µs    31633.   14.48KB
-#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,
-#> #   total_time <bch:tm>
+#>   expression     min     mean   median      max `itr/sec` mem_alloc  n_gc
+#>   <chr>      <bch:t> <bch:tm> <bch:tm> <bch:tm>     <dbl> <bch:byt> <dbl>
+#> 1 vacc1       1.82ms   1.94ms   1.92ms   2.75ms      515.    7.86KB    10
+#> 2 vacc2      98.37µs 117.28µs 108.62µs 926.77µs     8526.     224KB    18
+#> 3 vacc3      28.77µs  32.18µs  30.44µs 493.14µs    31076.   14.48KB     4
+#> # … with 2 more variables: n_itr <int>, total_time <bch:tm>
 ```
 
 Not surprisingly, our original approach with loops is very slow.  Vectorising in R gives a huge speedup, and we can eke out even more performance (~10x) with the C++ loop. I was a little surprised that the C++ was so much faster, but it is because the R version has to create 11 vectors to store intermediate results, where the C++ code only needs to create 1.

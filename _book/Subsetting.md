@@ -445,18 +445,15 @@ Let's use this metaphor to make a simple list:
 ```r
 x <- list(1:3, "a", 4:6)
 ```
-
-\begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train} \end{center}
+<img src="diagrams/subsetting/train.png" width="444" style="display: block; margin: auto;" />
 
 When extracting a single element, you have two options: you can create a smaller train, i.e., fewer carriages, or you can extract the contents of a particular carriage. This is the difference between `[` and `[[`:
 
-
-\begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train-single} \end{center}
+<img src="diagrams/subsetting/train-single.png" width="444" style="display: block; margin: auto;" />
 
 When extracting multiple (or even zero!) elements, you have to make a smaller train:
 
-
-\begin{center}\includegraphics[width=4.62in]{diagrams/subsetting/train-multiple} \end{center}
+<img src="diagrams/subsetting/train-multiple.png" width="444" style="display: block; margin: auto;" />
 
 Because `[[` can return only a single item, you must use it with either a single positive integer or a single string. If you use a vector with `[[`, it will subset recursively, i.e. `x[[c(1, 2)]]` is equivalent to `x[[1]][[2]]`. This is a quirky feature that few know about, so I recommend avoiding it in favour of `purrr::pluck()`, which you'll learn about in Section \@ref(subsetting-oob).
 

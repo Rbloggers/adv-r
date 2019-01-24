@@ -109,38 +109,26 @@ There are two ways to use profvis:
 
 After profiling is complete, profvis will open an interactive HTML document that allows you to explore the results. There are two panes, as shown in Figure \@ref(fig:flamegraph). 
 
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{screenshots/performance/flamegraph} 
-
-}
-
-\caption{profvis output showing source on top and flame graph below.}(\#fig:flamegraph)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="screenshots/performance/flamegraph.png" alt="profvis output showing source on top and flame graph below." width="100%" />
+<p class="caption">(\#fig:flamegraph)profvis output showing source on top and flame graph below.</p>
+</div>
 
 The top pane shows the source code, overlaid with bar graphs for memory and execution time for each line of code. Here I'll focus on time, and we'll come back to memory shortly. This display gives you a good overall feel for the bottlenecks but doesn't always help you precisely identify the cause. Here, for example, you can see that `h()` takes 150ms, twice as long as `g()`; that's not because the function itself is slower, but because it's called twice as often.
 
 The bottom pane displays a __flame graph__ showing the full call stack. This allows you to see the full sequence of calls leading to each function, allowing you to see that `h()` is called from two different places. In this display you can mouse over individual calls to get more information, and see the corresponding line of source code, as in Figure \@ref(fig:perf-info).
 
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{screenshots/performance/info} 
-
-}
-
-\caption{Hovering over a call in the flamegraph highlights the corresponding line of code, and displays additional information about performance.}(\#fig:perf-info)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="screenshots/performance/info.png" alt="Hovering over a call in the flamegraph highlights the corresponding line of code, and displays additional information about performance." width="100%" />
+<p class="caption">(\#fig:perf-info)Hovering over a call in the flamegraph highlights the corresponding line of code, and displays additional information about performance.</p>
+</div>
 
 Alternatively, you can use the __data tab__, Figure \@ref(fig:perf-tree) lets you interactively dive into the tree of performance data. This is basically the same display as the flame graph (rotated 90°), but it's more useful when you have very large or deeply nested call stacks because you can choose to interactively zoom into only selected components.
 
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{screenshots/performance/tree} 
-
-}
-
-\caption{The data gives an interactive tree that allows you to selectively zoom into key components}(\#fig:perf-tree)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="screenshots/performance/tree.png" alt="The data gives an interactive tree that allows you to selectively zoom into key components" width="100%" />
+<p class="caption">(\#fig:perf-tree)The data gives an interactive tree that allows you to selectively zoom into key components</p>
+</div>
 
 ### Memory profiling
 \index{profiling!memory}
@@ -159,14 +147,10 @@ for (i in 1:1e4) {
 
 If you profile it, you'll see that most of the time is spent in the garbage collector, Figure \@ref(fig:perf-memory).
 
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{screenshots/performance/memory} 
-
-}
-
-\caption{Profiling a loop that modifies an existing variable reveals that most time is spent in the garbage collector (`<GC>`)}(\#fig:perf-memory)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="screenshots/performance/memory.png" alt="Profiling a loop that modifies an existing variable reveals that most time is spent in the garbage collector (`&lt;GC&gt;`)" width="100%" />
+<p class="caption">(\#fig:perf-memory)Profiling a loop that modifies an existing variable reveals that most time is spent in the garbage collector (`<GC>`)</p>
+</div>
 
 When you see the garbage collector taking up a lot of time in your own code, you can often figure out the source of the problem by looking at the memory column: you'll see a line where large amounts of memory are being allocated (the bar on the right) and freed (the bar on the left). Here the problem arises because of copy-on-modify (Section \@ref(copy-on-modify)): each iteration of the loop creates another copy of `x`. You'll learn strategies to resolve this type of problem in Section \@ref(avoid-copies).
 
@@ -235,12 +219,11 @@ x <- runif(100)
   x ^ 0.5
 ))
 #> # A tibble: 2 x 10
-#>   expression      min    mean   median   max `itr/sec` mem_alloc
-#>   <chr>      <bch:tm> <bch:t> <bch:tm> <bch>     <dbl> <bch:byt>
-#> 1 sqrt(x)    589.06ns 779.2ns 656.93ns  43µs  1283365.      848B
-#> 2 x^0.5        9.02µs  10.1µs   9.45µs 108µs    99245.      848B
-#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,
-#> #   total_time <bch:tm>
+#>   expression      min   mean median    max `itr/sec` mem_alloc  n_gc n_itr
+#>   <chr>      <bch:tm> <bch:> <bch:> <bch:>     <dbl> <bch:byt> <dbl> <int>
+#> 1 sqrt(x)    588.01ns 1.19µs  1.1µs 23.8µs   840776.      848B     0 10000
+#> 2 x^0.5        8.72µs 9.91µs 9.46µs 45.8µs   100902.      848B     0 10000
+#> # … with 1 more variable: total_time <bch:tm>
 ```
 
 By default, `bench::mark()` runs each expression at least once (`min_iterations = 1`), and at most enough times to take 0.5s (`min_time = 0.5`). It checks that each run returns the same value which is typically what you when microbenchmarking; if you want to compare the speed of expressions that return different values, set `check = FALSE`.
@@ -263,9 +246,7 @@ By default, `bench::mark()` runs each expression at least once (`min_iterations 
     plot(lb)
     ```
     
-    
-    
-    \begin{center}\includegraphics[width=0.7\linewidth]{Perf-measure_files/figure-latex/unnamed-chunk-9-1} \end{center}
+    <img src="Perf-measure_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
 
     The distribution tends to be heavily right-skewed (note that the x-axis is 
     already on a log scale!), which is why you should avoid comparing means. 
@@ -292,8 +273,8 @@ lb[c("expression", "min", "median", "itr/sec", "n_gc")]
 #> # A tibble: 2 x 5
 #>   expression      min   median `itr/sec`  n_gc
 #>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 sqrt(x)    589.06ns 656.93ns  1283365.     0
-#> 2 x^0.5        9.02µs   9.45µs    99245.     0
+#> 1 sqrt(x)    588.01ns    1.1µs   840776.     0
+#> 2 x^0.5        8.72µs   9.46µs   100902.     0
 ```
 
 ### Interpreting results
