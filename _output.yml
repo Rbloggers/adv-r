@@ -24,6 +24,13 @@ bookdown::pdf_book:
 #  toc_unnumbered: no
 #  number_sections: false #true
 
+pagedown::book_crc:
+  toc: true
+  number_sections: false
+  self_contained: false
+  split_by: rmd
+  #dev: "png"
+
 
 #bookdown::pdf_book:
 #  latex_engine: "xelatex"

@@ -16,6 +16,11 @@ indent: true
 subparagraph: yes
 linestretch: 1.15
 geometry: b5paper, bottom=0.72in
+toc-title: 'Contents' # option for pagedown
+lot: false  # option for pagedown
+lof: false  # option for pagedown
+links-to-footnotes: true # option for pagedown
+paged-footnotes: true    # option for pagedown
 ---
 
 `r if (knitr::is_latex_output()) '<!--'` 
