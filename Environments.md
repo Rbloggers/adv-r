@@ -112,7 +112,7 @@ Printing an environment just displays its memory address, which is not terribly 
 
 ```r
 e1
-#> <environment: 0x1c123b8>
+#> <environment: 0x1da7428>
 ```
 
 Instead, we'll use `env_print()` which gives us a little more information:
@@ -120,7 +120,7 @@ Instead, we'll use `env_print()` which gives us a little more information:
 
 ```r
 env_print(e1)
-#> <environment: 0x1c123b8>
+#> <environment: 0x1da7428>
 #> parent: <environment: global>
 #> bindings:
 #>  * a: <lgl>
@@ -184,7 +184,7 @@ You can find the parent of an environment with `env_parent()`:
 
 ```r
 env_parent(e2b)
-#> <environment: 0x5017ae0>
+#> <environment: 0x51a9a30>
 env_parent(e2a)
 #> <environment: R_GlobalEnv>
 ```
@@ -199,15 +199,15 @@ e2d <- env(e2c, a = 1, b = 2, c = 3)
 
 \begin{center}\includegraphics[width=3.74in]{diagrams/environments/parents-empty} \end{center}
 
-The ancestors of every environment eventually terminate with the empty environment. You can list see all ancestors with `env_parents()`:
+The ancestors of every environment eventually terminate with the empty environment. You can see all ancestors with `env_parents()`:
 
 
 ```r
 env_parents(e2b)
-#> [[1]]   <env: 0x5017ae0>
+#> [[1]]   <env: 0x51a9a30>
 #> [[2]] $ <env: global>
 env_parents(e2d)
-#> [[1]]   <env: 0x5aa2698>
+#> [[1]]   <env: 0x5c345e8>
 #> [[2]] $ <env: empty>
 ```
 
@@ -216,7 +216,7 @@ By default, `env_parents()` stops when it gets to the global environment. This i
 
 ```r
 env_parents(e2b, last = empty_env())
-#>  [[1]]   <env: 0x5017ae0>
+#>  [[1]]   <env: 0x51a9a30>
 #>  [[2]] $ <env: global>
 #>  [[3]] $ <env: package:rlang>
 #>  [[4]] $ <env: package:stats>
@@ -336,7 +336,7 @@ env_has(e3, "a")
 #> TRUE
 ```
 
-Unlike lists, setting an element to `NULL` does not remove it, because sometimes you want an name that refers to `NULL`. Instead, use `env_unbind()`:
+Unlike lists, setting an element to `NULL` does not remove it, because sometimes you want a name that refers to `NULL`. Instead, use `env_unbind()`:
 
 
 ```r
@@ -385,7 +385,7 @@ There are two more exotic variants of `env_bind()`:
     #>       0       0       0
     ```
 
-    The primary use of delayed bindings is in `autoload()`, which makes 
+    The primary use of delayed bindings is in `autoload()`, which 
     allows R packages to provide datasets that behave like they are loaded in
     memory, even though they're only loaded from disk when needed.
 
@@ -675,7 +675,7 @@ sd
 #> function (x, na.rm = FALSE) 
 #> sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), 
 #>     na.rm = na.rm))
-#> <bytecode: 0x5617fc0>
+#> <bytecode: 0x5cb1f60>
 #> <environment: namespace:stats>
 ```
 
@@ -782,7 +782,7 @@ h2 <- function(x) {
 
 e <- h2(x = 10)
 env_print(e)
-#> <environment: 0x593b810>
+#> <environment: 0x6842da0>
 #> parent: <environment: global>
 #> bindings:
 #>  * a: <dbl>
@@ -804,7 +804,7 @@ plus <- function(x) {
 plus_one <- plus(1)
 plus_one
 #> function(y) x + y
-#> <environment: 0x5c256d0>
+#> <environment: 0x5db7620>
 ```
 
 

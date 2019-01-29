@@ -34,7 +34,7 @@ If you're interested in learning more about domain specific languages in general
 
 ### Prerequisites {-}
 
-This chapter together pulls together many techniques discussed elsewhere in the book. In particular, you'll need to understand environments, expressions, tidy evaluation, and a little functional programming and S3. We'll use [rlang](https://rlang.r-lib.org) for metaprogramming tools, and [purrr](https://purrr.tidyverse.org) for functional programming.
+This chapter pulls together many techniques discussed elsewhere in the book. In particular, you'll need to understand environments, expressions, tidy evaluation, and a little functional programming and S3. We'll use [rlang](https://rlang.r-lib.org) for metaprogramming tools, and [purrr](https://purrr.tidyverse.org) for functional programming.
 
 
 ```r
@@ -759,7 +759,7 @@ unknown_op("foo")
 #>     contents <- paste(..., collapse = ", ")
 #>     paste0("\\mathrm{foo}(", contents, ")")
 #> }
-#> <environment: 0x56291a0>
+#> <environment: 0x4d16bb0>
 ```
 
 And again we update `latex_env()`:

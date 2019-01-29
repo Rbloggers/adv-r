@@ -159,7 +159,13 @@ All map functions always return an output vector the same length as the input, w
 ```r
 pair <- function(x) c(x, x)
 map_dbl(1:2, pair)
-#> Error: Result 1 is not a length 1 atomic vector
+#> Error: Result 1 must be a single double, not an integer vector of length 2
+#> Backtrace:
+#>     █
+#>  1. ├─purrr::map_dbl(1:2, pair)
+#>  2. └─purrr:::stop_bad_element_vector(...)
+#>  3.   └─purrr:::stop_bad_vector(...)
+#>  4.     └─purrr:::stop_bad_type(...)
 ```
 
 This is similar to the error you'll get if `.f` returns the wrong type of result:
@@ -271,7 +277,13 @@ map_dbl(x, list("y", 1))
 
 # You'll get an error if a component doesn't exist:
 map_chr(x, "z")
-#> Error: Result 3 is not a length 1 atomic vector
+#> Error: Result 3 must be a single string, not NULL of length 0
+#> Backtrace:
+#>     █
+#>  1. ├─purrr::map_chr(x, "z")
+#>  2. └─purrr:::stop_bad_element_vector(...)
+#>  3.   └─purrr:::stop_bad_vector(...)
+#>  4.     └─purrr:::stop_bad_type(...)
 
 # Unless you supply a .default value
 map_chr(x, "z", .default = NA)

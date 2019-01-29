@@ -185,11 +185,11 @@ The foundations of R have not changed in the five years since the 1st edition, b
   programming.
 \item
   Chapter \ref{vectors-chap}, ``Vectors'' (previously called data structures),
-  and has been rewritten to focus on vector types like integers, factors, and
+  has been rewritten to focus on vector types like integers, factors, and
   data frames. It contains more details of important S3 vectors (like dates
   and date-times), discusses the data frame variation provided by the
-  \href{https://tibble.tidyverse.org}{tibble}, and generally reflect my improved
-  understand of vector data types.
+  \href{https://tibble.tidyverse.org}{tibble}, and generally reflects my improved
+  understanding of vector data types.
 \item
   Chapter \ref{subsetting}, ``Subsetting'', now distinguishes between \texttt{{[}} and
   \texttt{{[}{[}} by their intention: \texttt{{[}} extracts many values and \texttt{{[}{[}} extracts a
@@ -727,9 +727,9 @@ You can access an object's identifier with \texttt{lobstr::obj\_addr()}. Doing s
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{obj_addr}\NormalTok{(x)}
-\CommentTok{#> [1] "0x1562c58"}
+\CommentTok{#> [1] "0x1f8fc58"}
 \KeywordTok{obj_addr}\NormalTok{(y)}
-\CommentTok{#> [1] "0x1562c58"}
+\CommentTok{#> [1] "0x1f8fc58"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -893,7 +893,7 @@ The same rules for copying also apply to function calls. Take this code:
 
 \NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
 \KeywordTok{cat}\NormalTok{(}\KeywordTok{tracemem}\NormalTok{(x), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> <0x2dbb598>}
+\CommentTok{#> <0x37e8598>}
 
 \NormalTok{z <-}\StringTok{ }\KeywordTok{f}\NormalTok{(x)}
 \CommentTok{# there's no copy here!}
@@ -956,15 +956,15 @@ To see values that are shared across lists, use \texttt{lobstr::ref()}. \texttt{
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ref}\NormalTok{(l1, l2)}
-\CommentTok{#> █ [1:0x68fef78] <list> }
-\CommentTok{#> ├─[2:0x6720af8] <dbl> }
-\CommentTok{#> ├─[3:0x6720ac0] <dbl> }
-\CommentTok{#> └─[4:0x6720a88] <dbl> }
+\CommentTok{#> █ [1:0x7331738] <list> }
+\CommentTok{#> ├─[2:0x7153268] <dbl> }
+\CommentTok{#> ├─[3:0x7153230] <dbl> }
+\CommentTok{#> └─[4:0x71531f8] <dbl> }
 \CommentTok{#>  }
-\CommentTok{#> █ [5:0x737d738] <list> }
-\CommentTok{#> ├─[2:0x6720af8] }
-\CommentTok{#> ├─[3:0x6720ac0] }
-\CommentTok{#> └─[6:0x724a0a8] <dbl>}
+\CommentTok{#> █ [5:0x7da8278] <list> }
+\CommentTok{#> ├─[2:0x7153268] }
+\CommentTok{#> ├─[3:0x7153230] }
+\CommentTok{#> └─[6:0x7c7c818] <dbl>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1027,11 +1027,11 @@ You can request that \texttt{ref()} show these references by setting the \texttt
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ref}\NormalTok{(x, }\DataTypeTok{character =} \OtherTok{TRUE}\NormalTok{)}
-\CommentTok{#> █ [1:0x22bdb28] <chr> }
-\CommentTok{#> ├─[2:0xbf3758] <string: "a"> }
-\CommentTok{#> ├─[2:0xbf3758] }
-\CommentTok{#> ├─[3:0x3270230] <string: "abc"> }
-\CommentTok{#> └─[4:0x10a9af0] <string: "d">}
+\CommentTok{#> █ [1:0x2d72758] <chr> }
+\CommentTok{#> ├─[2:0x1620758] <string: "a"> }
+\CommentTok{#> ├─[2:0x1620758] }
+\CommentTok{#> ├─[3:0x3c9b310] <string: "abc"> }
+\CommentTok{#> └─[4:0x1ad6af0] <string: "d">}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1372,8 +1372,8 @@ One consequence of this is that environments can contain themselves:
 \NormalTok{e}\OperatorTok{$}\NormalTok{self <-}\StringTok{ }\NormalTok{e}
 
 \KeywordTok{ref}\NormalTok{(e)}
-\CommentTok{#> █ [1:0xda6688] <env> }
-\CommentTok{#> └─self = [1:0xda6688]}
+\CommentTok{#> █ [1:0x184d398] <env> }
+\CommentTok{#> └─self = [1:0x184d398]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1449,8 +1449,8 @@ You can force garbage collection by calling \texttt{gc()}. But despite what you 
 \begin{Highlighting}[]
 \KeywordTok{gc}\NormalTok{() }
 \CommentTok{#>           used (Mb) gc trigger (Mb) max used (Mb)}
-\CommentTok{#> Ncells  682019 36.5    1285085 68.7  1285085 68.7}
-\CommentTok{#> Vcells 4698158 35.9   11789889 90.0 11788913 90.0}
+\CommentTok{#> Ncells  683545 36.6    1285085 68.7  1285085 68.7}
+\CommentTok{#> Vcells 4699882 35.9   11789889 90.0 11788306 90.0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1459,7 +1459,7 @@ You can force garbage collection by calling \texttt{gc()}. But despite what you 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{mem_used}\NormalTok{()}
-\CommentTok{#> 75,782,576 B}
+\CommentTok{#> 75,881,824 B}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4341,7 +4341,7 @@ For loops are used to iterate over items in a vector. They have the following ba
 \end{Highlighting}
 \end{Shaded}
 
-\texttt{perform\_action} is called once for each item in \texttt{vector}, rebinding the value of \texttt{item} each time.
+For each item in \texttt{vector}, \texttt{perform\_action} is called once; updating the value of \texttt{item} each time.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4356,7 +4356,7 @@ For loops are used to iterate over items in a vector. They have the following ba
 
 (When iterating over a vector of indices, it's conventional to use very short variable names like \texttt{i}, \texttt{j}, or \texttt{k}.)
 
-NB: \texttt{for} assigns the \texttt{item} in the current environment, so that an existing variable with the same name will be overwritten:
+N.B.: \texttt{for} assigns the \texttt{item} to the current environment, overwritting any existing variable with the same name:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4375,7 +4375,7 @@ There are two ways to terminate a for loop early:
 \begin{itemize}
 \tightlist
 \item
-  \texttt{next} terminates the current iteration and advances to the next.
+  \texttt{next} exits the current iteration.
 \item
   \texttt{break} exits the entire for loop.
 \end{itemize}
@@ -4402,7 +4402,7 @@ There are two ways to terminate a for loop early:
 
 \index{loops!common pitfalls}
 
-There are three common problems that you might encounter when using \texttt{for}. First, if you're generating data, make sure to preallocate the output. Otherwise the loop will be very slow; see Sections \ref{memory-profiling} and \ref{avoid-copies} for more details. The \texttt{vector()} function is helpful here.
+There are three common pitfalls to watch out for when using \texttt{for}. First, if you're generating data, make sure to preallocate the output container. Otherwise the loop will be very slow; see Sections \ref{memory-profiling} and \ref{avoid-copies} for more details. The \texttt{vector()} function is helpful here.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4414,7 +4414,7 @@ There are three common problems that you might encounter when using \texttt{for}
 \end{Highlighting}
 \end{Shaded}
 
-Next, beware iterating over \texttt{1:length(x)}. This will fail in unhelpful ways if \texttt{x} has length 0:
+Next, beware of iterating over \texttt{1:length(x)}, which will fail in unhelpful ways if \texttt{x} has length 0:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4428,7 +4428,7 @@ Next, beware iterating over \texttt{1:length(x)}. This will fail in unhelpful wa
 \end{Highlighting}
 \end{Shaded}
 
-That's because \texttt{:} works with both positive and increasing sequences:
+This occurs because \texttt{:} works with both increasing and decreasing sequences:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4437,7 +4437,7 @@ That's because \texttt{:} works with both positive and increasing sequences:
 \end{Highlighting}
 \end{Shaded}
 
-Instead switch to \texttt{seq\_along(x)} which always returns a value the same length as \texttt{x}:
+Use \texttt{seq\_along(x)} instead. It always returns a value the same length as \texttt{x}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4482,20 +4482,20 @@ Work around this by calling \texttt{{[}{[}} yourself:
 \indexc{while}
 \indexc{repeat}
 
-\texttt{for} loops are useful if you know in advance the set of values that you want to iterate over. There are two related tools with more flexible specifications:
+\texttt{for} loops are useful if you know in advance the set of values that you want to iterate over. If you don't know, there are two related tools with more flexible specifications:
 
 \begin{itemize}
 \item
   \texttt{while(condition)\ action}: performs \texttt{action} while \texttt{condition} is \texttt{TRUE}.
 \item
-  \texttt{repeat(action)}: repeats action forever (i.e.~until it encounters \texttt{break}).
+  \texttt{repeat(action)}: repeats \texttt{action} forever (i.e.~until it encounters \texttt{break}).
 \end{itemize}
 
 R does not have an equivalent to the \texttt{do\ \{action\}\ while\ (condition)} syntax found in other languages.
 
-You can rewrite any \texttt{for} loop to use \texttt{while} instead, and you can rewrite any \texttt{while} loop to use \texttt{repeat}, but the converses are not true. That means \texttt{while} is more flexible than \texttt{for}, and \texttt{repeat} is more flexible than \texttt{while}. It's good practice to use the least-flexible solution to a problem, which means that you should use \texttt{for} where possible.
+You can rewrite any \texttt{for} loop to use \texttt{while} instead, and you can rewrite any \texttt{while} loop to use \texttt{repeat}, but the converses are not true. That means \texttt{while} is more flexible than \texttt{for}, and \texttt{repeat} is more flexible than \texttt{while}. It's good practice, however, to use the least-flexible solution to a problem, so you should use \texttt{for} wherever possible.
 
-Generally speaking you should not need to use for loops for data analysis tasks, as \texttt{map()}/\texttt{apply()} functions provide an even less flexible solution to most problems. You'll learn more in Chapter \ref{functionals}.
+Generally speaking you shouldn't need to use for loops for data analysis tasks, as \texttt{map()} and \texttt{apply()} already provide less flexible solutions to most problems. You'll learn more in Chapter \ref{functionals}.
 
 \hypertarget{exercises-13}{%
 \subsection{Exercises}\label{exercises-13}}
@@ -4516,8 +4516,8 @@ Generally speaking you should not need to use for loops for data analysis tasks,
 \end{Highlighting}
 \end{Shaded}
 \item
-  What does the following code tell you about when the vector being
-  iterated over is evaluated?
+  When the following code is evaluated, what can you say about the
+  vector being iterated?
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4552,7 +4552,7 @@ Generally speaking you should not need to use for loops for data analysis tasks,
 \item
   \texttt{if} works with scalars; \texttt{ifelse()} works with vectors.
 \item
-  When \texttt{x} is \texttt{TRUE}, \texttt{y} will be \texttt{3}, when \texttt{FALSE} \texttt{y} will be \texttt{NULL},
+  When \texttt{x} is \texttt{TRUE}, \texttt{y} will be \texttt{3}; when \texttt{FALSE}, \texttt{y} will be \texttt{NULL};
   when \texttt{NA} the if statement will throw an error.
 \item
   This \texttt{switch()} statement makes use of fall-through so it will return 2.
@@ -5517,7 +5517,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
   \KeywordTok{print}\NormalTok{(x)}
 \NormalTok{\}}
 \KeywordTok{show_time}\NormalTok{()}
-\CommentTok{#> [1] "2019-01-24 07:32:07 UTC"}
+\CommentTok{#> [1] "2019-01-29 08:11:47 UTC"}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -6556,7 +6556,7 @@ Printing an environment just displays its memory address, which is not terribly 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{e1}
-\CommentTok{#> <environment: 0x1c123b8>}
+\CommentTok{#> <environment: 0x1da7428>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6565,7 +6565,7 @@ Instead, we'll use \texttt{env\_print()} which gives us a little more informatio
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_print}\NormalTok{(e1)}
-\CommentTok{#> <environment: 0x1c123b8>}
+\CommentTok{#> <environment: 0x1da7428>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * a: <lgl>}
@@ -6633,7 +6633,7 @@ You can find the parent of an environment with \texttt{env\_parent()}:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parent}\NormalTok{(e2b)}
-\CommentTok{#> <environment: 0x5017ae0>}
+\CommentTok{#> <environment: 0x51a9a30>}
 \KeywordTok{env_parent}\NormalTok{(e2a)}
 \CommentTok{#> <environment: R_GlobalEnv>}
 \end{Highlighting}
@@ -6650,15 +6650,15 @@ Only one environment doesn't have a parent: the \textbf{empty} environment. I dr
 
 \begin{center}\includegraphics[width=3.74in]{diagrams/environments/parents-empty} \end{center}
 
-The ancestors of every environment eventually terminate with the empty environment. You can list see all ancestors with \texttt{env\_parents()}:
+The ancestors of every environment eventually terminate with the empty environment. You can see all ancestors with \texttt{env\_parents()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parents}\NormalTok{(e2b)}
-\CommentTok{#> [[1]]   <env: 0x5017ae0>}
+\CommentTok{#> [[1]]   <env: 0x51a9a30>}
 \CommentTok{#> [[2]] $ <env: global>}
 \KeywordTok{env_parents}\NormalTok{(e2d)}
-\CommentTok{#> [[1]]   <env: 0x5aa2698>}
+\CommentTok{#> [[1]]   <env: 0x5c345e8>}
 \CommentTok{#> [[2]] $ <env: empty>}
 \end{Highlighting}
 \end{Shaded}
@@ -6668,7 +6668,7 @@ By default, \texttt{env\_parents()} stops when it gets to the global environment
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parents}\NormalTok{(e2b, }\DataTypeTok{last =} \KeywordTok{empty_env}\NormalTok{())}
-\CommentTok{#>  [[1]]   <env: 0x5017ae0>}
+\CommentTok{#>  [[1]]   <env: 0x51a9a30>}
 \CommentTok{#>  [[2]] $ <env: global>}
 \CommentTok{#>  [[3]] $ <env: package:rlang>}
 \CommentTok{#>  [[4]] $ <env: package:stats>}
@@ -6801,7 +6801,7 @@ You can determine if an environment has a binding with \texttt{env\_has()}:
 \end{Highlighting}
 \end{Shaded}
 
-Unlike lists, setting an element to \texttt{NULL} does not remove it, because sometimes you want an name that refers to \texttt{NULL}. Instead, use \texttt{env\_unbind()}:
+Unlike lists, setting an element to \texttt{NULL} does not remove it, because sometimes you want a name that refers to \texttt{NULL}. Instead, use \texttt{env\_unbind()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6854,7 +6854,7 @@ There are two more exotic variants of \texttt{env\_bind()}:
 \end{Highlighting}
 \end{Shaded}
 
-  The primary use of delayed bindings is in \texttt{autoload()}, which makes
+  The primary use of delayed bindings is in \texttt{autoload()}, which
   allows R packages to provide datasets that behave like they are loaded in
   memory, even though they're only loaded from disk when needed.
 \item
@@ -7171,7 +7171,7 @@ For example, take \texttt{sd()}:
 \CommentTok{#> function (x, na.rm = FALSE) }
 \CommentTok{#> sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), }
 \CommentTok{#>     na.rm = na.rm))}
-\CommentTok{#> <bytecode: 0x5617fc0>}
+\CommentTok{#> <bytecode: 0x5cb1f60>}
 \CommentTok{#> <environment: namespace:stats>}
 \end{Highlighting}
 \end{Shaded}
@@ -7286,7 +7286,7 @@ An execution environment is usually ephemeral; once the function has completed, 
 
 \NormalTok{e <-}\StringTok{ }\KeywordTok{h2}\NormalTok{(}\DataTypeTok{x =} \DecValTok{10}\NormalTok{)}
 \KeywordTok{env_print}\NormalTok{(e)}
-\CommentTok{#> <environment: 0x593b810>}
+\CommentTok{#> <environment: 0x6842da0>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * a: <dbl>}
@@ -7309,7 +7309,7 @@ There's a lot going on in the diagram because the enclosing environment of \text
 \NormalTok{plus_one <-}\StringTok{ }\KeywordTok{plus}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \NormalTok{plus_one}
 \CommentTok{#> function(y) x + y}
-\CommentTok{#> <environment: 0x5c256d0>}
+\CommentTok{#> <environment: 0x5db7620>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -9322,7 +9322,13 @@ All map functions always return an output vector the same length as the input, w
 \begin{Highlighting}[]
 \NormalTok{pair <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{c}\NormalTok{(x, x)}
 \KeywordTok{map_dbl}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{, pair)}
-\CommentTok{#> Error: Result 1 is not a length 1 atomic vector}
+\CommentTok{#> Error: Result 1 must be a single double, not an integer vector of length 2}
+\CommentTok{#> Backtrace:}
+\CommentTok{#>     █}
+\CommentTok{#>  1. ├─purrr::map_dbl(1:2, pair)}
+\CommentTok{#>  2. └─purrr:::stop_bad_element_vector(...)}
+\CommentTok{#>  3.   └─purrr:::stop_bad_vector(...)}
+\CommentTok{#>  4.     └─purrr:::stop_bad_type(...)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -9441,7 +9447,13 @@ The map functions also have shortcuts for extracting elements from a vector, pow
 
 \CommentTok{# You'll get an error if a component doesn't exist:}
 \KeywordTok{map_chr}\NormalTok{(x, }\StringTok{"z"}\NormalTok{)}
-\CommentTok{#> Error: Result 3 is not a length 1 atomic vector}
+\CommentTok{#> Error: Result 3 must be a single string, not NULL of length 0}
+\CommentTok{#> Backtrace:}
+\CommentTok{#>     █}
+\CommentTok{#>  1. ├─purrr::map_chr(x, "z")}
+\CommentTok{#>  2. └─purrr:::stop_bad_element_vector(...)}
+\CommentTok{#>  3.   └─purrr:::stop_bad_vector(...)}
+\CommentTok{#>  4.     └─purrr:::stop_bad_type(...)}
 
 \CommentTok{# Unless you supply a .default value}
 \KeywordTok{map_chr}\NormalTok{(x, }\StringTok{"z"}\NormalTok{, }\DataTypeTok{.default =} \OtherTok{NA}\NormalTok{)}
@@ -10792,14 +10804,14 @@ Let's start by taking a look at \texttt{square()} and \texttt{cube()}:
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <environment: 0x35921e0>}
+\CommentTok{#> <environment: 0x38c21a8>}
 
 \NormalTok{cube}
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <bytecode: 0x1b9b080>}
-\CommentTok{#> <environment: 0x3765b90>}
+\CommentTok{#> <bytecode: 0x1ec73a0>}
+\CommentTok{#> <environment: 0x3a95b58>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -10808,13 +10820,13 @@ It's obvious where \texttt{x} comes from, but how does R find the value associat
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_print}\NormalTok{(square)}
-\CommentTok{#> <environment: 0x35921e0>}
+\CommentTok{#> <environment: 0x38c21a8>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * exp: <dbl>}
 
 \KeywordTok{env_print}\NormalTok{(cube)}
-\CommentTok{#> <environment: 0x3765b90>}
+\CommentTok{#> <environment: 0x3a95b58>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * exp: <dbl>}
@@ -11018,7 +11030,7 @@ With most functions, you can rely on the garbage collector to clean up any large
 \NormalTok{force}
 \CommentTok{#> function (x) }
 \CommentTok{#> x}
-\CommentTok{#> <bytecode: 0x17ccd60>}
+\CommentTok{#> <bytecode: 0x1afcd60>}
 \CommentTok{#> <environment: namespace:base>}
 \end{Highlighting}
 \end{Shaded}
@@ -11251,12 +11263,12 @@ A mildly simplified version of \texttt{plot\_dev()} is shown below:
 
 \KeywordTok{plot_dev}\NormalTok{(}\StringTok{"pdf"}\NormalTok{)}
 \CommentTok{#> function(filename, ...) grDevices::pdf(file = filename, ...)}
-\CommentTok{#> <bytecode: 0x55bfb50>}
-\CommentTok{#> <environment: 0x4ba3560>}
+\CommentTok{#> <bytecode: 0x59b9910>}
+\CommentTok{#> <environment: 0x4f7ee90>}
 \KeywordTok{plot_dev}\NormalTok{(}\StringTok{"png"}\NormalTok{)}
 \CommentTok{#> function(...) grDevices::png(..., res = dpi, units = "in")}
-\CommentTok{#> <bytecode: 0x5872008>}
-\CommentTok{#> <environment: 0x5c616b8>}
+\CommentTok{#> <bytecode: 0x5c52758>}
+\CommentTok{#> <environment: 0x604fb70>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -11298,7 +11310,7 @@ The Box-Cox transformation (a type of \href{https://en.wikipedia.org/wiki/Power_
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{boxcox1 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, lambda) \{}
-  \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{length}\NormalTok{(lambda) }\OperatorTok{!=}\StringTok{ }\DecValTok{1}\NormalTok{)}
+  \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{length}\NormalTok{(lambda) }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)}
   
   \ControlFlowTok{if}\NormalTok{ (lambda }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) \{}
     \KeywordTok{log}\NormalTok{(x)}
@@ -11604,8 +11616,8 @@ To finish off the chapter, I'll show how you might combine functionals and funct
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <bytecode: 0x1b9b080>}
-\CommentTok{#> <environment: 0x53df700>}
+\CommentTok{#> <bytecode: 0x1ec73a0>}
+\CommentTok{#> <environment: 0x5883c80>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -11842,8 +11854,8 @@ If you do the same thing with a functional, you get no output, making it hard to
 \NormalTok{safe_sum}
 \CommentTok{#> function (...) }
 \CommentTok{#> capture_error(.f(...), otherwise, quiet)}
-\CommentTok{#> <bytecode: 0x5c9bfe0>}
-\CommentTok{#> <environment: 0x5c9bb48>}
+\CommentTok{#> <bytecode: 0x5791188>}
+\CommentTok{#> <environment: 0x5790cf0>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12001,7 +12013,7 @@ Let's explore this idea with a toy function that simulates an expensive operatio
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(}\KeywordTok{slow_function}\NormalTok{(}\DecValTok{1}\NormalTok{)))}
 \CommentTok{#> [1] 8.34}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>       0       0       1}
+\CommentTok{#>   0.004   0.000   1.004}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12018,7 +12030,7 @@ When we memoise this function, it's slow when we call it with new arguments. But
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(}\KeywordTok{fast_function}\NormalTok{(}\DecValTok{1}\NormalTok{)))}
 \CommentTok{#> [1] 6.01}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.012   0.004   0.016}
+\CommentTok{#>   0.012   0.000   0.016}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12035,7 +12047,7 @@ A relatively realistic use of memoisation is computing the Fibonacci series. The
 \CommentTok{#>    0.04    0.00    0.04}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib}\NormalTok{(}\DecValTok{24}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.064   0.000   0.062}
+\CommentTok{#>   0.064   0.000   0.064}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12049,7 +12061,7 @@ Memoising \texttt{fib()} makes the implementation much faster because each value
 \NormalTok{\})}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib2}\NormalTok{(}\DecValTok{23}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.024   0.000   0.024}
+\CommentTok{#>   0.024   0.000   0.026}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12143,7 +12155,7 @@ First, let's write an function operator that adds a small delay. I'm going to ca
 \CommentTok{#>       0       0       0}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{delay_by}\NormalTok{(runif, }\FloatTok{0.1}\NormalTok{)(}\DecValTok{100}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>     0.0     0.0     0.1}
+\CommentTok{#>   0.000   0.000   0.101}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12829,7 +12841,7 @@ Unlike most functions, you can't see the source code for most S3 methods\footnot
 \KeywordTok{s3_get_method}\NormalTok{(weighted.mean.Date)}
 \CommentTok{#> function (x, w, ...) }
 \CommentTok{#> structure(weighted.mean(unclass(x), w, ...), class = "Date")}
-\CommentTok{#> <bytecode: 0x6e69960>}
+\CommentTok{#> <bytecode: 0x5db9120>}
 \CommentTok{#> <environment: namespace:stats>}
 \end{Highlighting}
 \end{Shaded}
@@ -13248,7 +13260,7 @@ Most generics are very simple, and consist of only a call to \texttt{UseMethod()
 \NormalTok{mean}
 \CommentTok{#> function (x, ...) }
 \CommentTok{#> UseMethod("mean")}
-\CommentTok{#> <bytecode: 0x2720678>}
+\CommentTok{#> <bytecode: 0x15f7640>}
 \CommentTok{#> <environment: namespace:base>}
 \end{Highlighting}
 \end{Shaded}
@@ -15639,7 +15651,7 @@ In this case, the existing function becomes the default (\texttt{ANY}) method:
 \CommentTok{#> }
 \CommentTok{#> function (x, ...) }
 \CommentTok{#> UseMethod("mean")}
-\CommentTok{#> <bytecode: 0x203a090>}
+\CommentTok{#> <bytecode: 0x3798090>}
 \CommentTok{#> <environment: namespace:base>}
 \CommentTok{#> }
 \CommentTok{#> Signatures:}
@@ -15944,37 +15956,37 @@ The primary advantage of method chaining is that you can get useful autocomplete
 \index{metaprogramming}
 \index{non-standard evaluation}
 
-One of the most intriguing things about R is its capability for \textbf{metaprogramming}: the idea that code is itself data, and can be inspected and modified programmatically. This is a powerful idea and deeply influences much R code. At a simple level it allows you to write \texttt{library(purrr)} instead of \texttt{library("purrr")} and enables \texttt{plot(x,\ sin(x))} to label the axes with \texttt{x} and \texttt{sin(x)}. At a deeper level it allows \texttt{y\ \textasciitilde{}\ x1\ +\ x2} to represent a model that predicts the value of \texttt{y} from \texttt{x1} and \texttt{x2}, \texttt{subset(df,\ x\ ==\ y)} to be translated to \texttt{df{[}df\$x\ ==\ df\$y,\ ,\ drop\ =\ FALSE{]}}, and \texttt{dplyr::filter(db,\ is.na(x))} to generate the SQL \texttt{WHERE\ x\ IS\ NULL} when \texttt{db} is a remote database table.
+One of the most intriguing things about R is its ability to do \textbf{metaprogramming}. This is the idea that code is data, and can be inspected and modified programmatically. This is a powerful idea; one that deeply influences much R code. At the most basic level, it allows you to do things like write \texttt{library(purrr)} instead of \texttt{library("purrr")} and enable \texttt{plot(x,\ sin(x))} to automatically label the axes with \texttt{x} and \texttt{sin(x)}. At a deeper level, it allows you to do things like use \texttt{y\ \textasciitilde{}\ x1\ +\ x2} to represent a model that predicts the value of \texttt{y} from \texttt{x1} and \texttt{x2}, to translate \texttt{subset(df,\ x\ ==\ y)} into \texttt{df{[}df\$x\ ==\ df\$y,\ ,\ drop\ =\ FALSE{]}}, and to use \texttt{dplyr::filter(db,\ is.na(x))} to generate the SQL \texttt{WHERE\ x\ IS\ NULL} when \texttt{db} is a remote database table.
 
-Closely related to metaprogramming is \textbf{non-standard evaluation}, or NSE for short. This term is commonly used to describe the behaviour of R functions, but there are two problems with it. Firstly, NSE is actually a property of an argument (or arguments) of a function, so talking about NSE functions is a little sloppy. Secondly, it's confusing to define something by what it is not (standard), so in this book I'll teach you more precise vocabulary.
+Closely related to metaprogramming is \textbf{non-standard evaluation}, NSE for short. This term, which is commonly used to describe the behaviour of R functions, is problematic in two ways. Firstly, NSE is actually a property of the argument (or arguments) of a function, so talking about NSE functions is a little sloppy. Secondly, it's confusing to define something by what it's not (standard), so in this book I'll introduce more precise vocabulary.
 
-Specifically, this book focuses on tidy evaluation (sometimes called tidy eval for short). Tidy evaluation is implemented in the rlang package (Henry and Wickham \protect\hyperlink{ref-rlang}{2018}\protect\hyperlink{ref-rlang}{b}), and I'll use rlang extensively in these chapters. This will allow you to focus on the big ideas, without being distracted by implementation quirks that arise from R's history. After I introduce each big idea with rlang, I'll then circle back to talk about how those ideas are expressed in base R. This approach seems backward to some, but it's analogous to learning how to drive an automatic transmission before a manual one so you can focus on the big picture before learning the details. This book focusses on the theoretical side of tidy evaluation, so you can fully understand how it works from the ground up. If you are looking for a practical introduction, I recommend the ``tidy evaluation book'', \url{https://tidyeval.tidyverse.org}\footnote{The tidy evaluation book is a work-in-progress at the time I wrote this chapter, but will hopefully be finished by the time you read it.}.
+Specifically, this book focuses on tidy evaluation (sometimes called tidy eval for short). Tidy evaluation is implemented in the rlang package (Henry and Wickham \protect\hyperlink{ref-rlang}{2018}\protect\hyperlink{ref-rlang}{b}), and I'll use rlang extensively in these chapters. This will allow you to focus on the big ideas, without being distracted by the quirks of implementation that arise from R's history. After I introduce each big idea with rlang, I'll then circle back to talk about how those ideas are expressed in base R. This approach may seem backward to some, but it's like learning how to drive using an automatic transmission rather than a stick shift: it allows you to focus on the big picture before having to learn the details. This book focusses on the theoretical side of tidy evaluation, so you can fully understand how it works from the ground up. If you are looking for a more practical introduction, I recommend the ``tidy evaluation book'', \url{https://tidyeval.tidyverse.org}\footnote{As I write this chapter, the tidy evaluation book is still a work-in-progress, but by the time you read this it will hopefully be finished.}.
 
 You'll learn about metaprogramming and tidy evaluation in the following five chapters:
 
 \begin{itemize}
 \item
-  In \textbf{Big picture}, Chapter \ref{meta-big-picture}, you'll get a glimpse of
-  the whole metaprogramming story, briefly learning about each of the major
-  components and how they fit together into a cohesive whole.
+  In \textbf{Big picture}, Chapter \ref{meta-big-picture}, you'll get a sense of
+  the whole metaprogramming story, briefly learning about each major component
+  and how they fit together to form a cohesive whole.
 \item
   In \textbf{Expressions}, Chapter \ref{expressions}, you'll learn that all R code
-  can be described as a tree. You'll learn how to visualise that tree, how the
-  rules of R's grammar convert linear sequences of characters into a tree, and
-  how to use recursive functions to work with code trees.
+  can be described as a tree. You'll learn how to visualise these trees, how
+  the rules of R's grammar convert linear sequences of characters into these
+  trees, and how to use recursive functions to work with code trees.
 \item
   In \textbf{Quasiquotation}, Chapter \ref{quasiquotation}, you'll learn to use
   tools from rlang to capture (``quote'') unevaluated function arguments. You'll
-  also learn about quasiquotation, which provides a set of techniques for
-  ``unquoting'' input that makes it possible to easily generate new trees from
+  also learn about quasiquotation, which provides a set of techniques to
+  ``unquote'' input to make it possible to easily generate new trees from
   code fragments.
 \item
   In \textbf{Evaluation}, Chapter \ref{evaluation}, you'll learn how to evaluate
   captured code. Here you'll learn about an important data structure, the
   \textbf{quosure}, which ensures correct evaluation by capturing both the code
   to evaluate, and the environment in which to evaluate it. This chapter will
-  show you how to put all the pieces together to understand how NSE in base
-  R works, and how to write your own functions that work like \texttt{subset()}.
+  show you how to put all the pieces together to understand how NSE works in
+  base R, and how to write functions that work like \texttt{subset()}.
 \item
   Finally, in \textbf{Translating R code}, Chapter \ref{translation}, you'll see
   how to combine first-class environments, lexical scoping, and metaprogramming
@@ -16208,7 +16220,7 @@ Dealing with weird names\footnote{More technically, these are called non-syntact
 \hypertarget{eval-intro}{%
 \section{Evaluation runs code}\label{eval-intro}}
 
-Inspecting and modifying code gives you one set of powerful tools. You get another set of powerful tools when you \textbf{evaluate}, i.e.~execute or run, an expression. Evaluating an expression requires an environment, which tells R what the symbols mean in the expression mean. You'll learn the details of evaluation in Chapter \ref{evaluation}.
+Inspecting and modifying code gives you one set of powerful tools. You get another set of powerful tools when you \textbf{evaluate}, i.e.~execute or run, an expression. Evaluating an expression requires an environment, which tells R what the symbols in the expression mean. You'll learn the details of evaluation in Chapter \ref{evaluation}.
 
 The primary tool for evaluating expressions is \texttt{base::eval()}, which takes an expression and an environment:
 
@@ -19774,7 +19786,7 @@ There are three ways to create quosures:
 \KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\NormalTok{y), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{, }\DataTypeTok{y =} \DecValTok{10}\NormalTok{))}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + y}
-\CommentTok{#> env:  0x536ed68}
+\CommentTok{#> env:  0x50a2ae8}
 \end{Highlighting}
 \end{Shaded}
 \end{itemize}
@@ -19828,7 +19840,7 @@ Quosures are typically just a convenience: they make code cleaner because you on
 \CommentTok{#> $f}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x}
-\CommentTok{#> env:  0x5b9b5e8}
+\CommentTok{#> env:  0x58dae18}
 \end{Highlighting}
 \end{Shaded}
 
@@ -19967,19 +19979,19 @@ When you use \texttt{expr\_print()} in the console, quosures are coloured accord
 \NormalTok{q1}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x}
-\CommentTok{#> env:  0x526a9f0}
+\CommentTok{#> env:  0x4f88060}
 
 \NormalTok{q2 <-}\StringTok{ }\KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\OperatorTok{!!}\NormalTok{q1), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{10}\NormalTok{))}
 \NormalTok{q2}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + (^x)}
-\CommentTok{#> env:  0x5403d58}
+\CommentTok{#> env:  0x511bef0}
 
 \NormalTok{q3 <-}\StringTok{ }\KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\OperatorTok{!!}\NormalTok{q2), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{100}\NormalTok{))}
 \NormalTok{q3}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + (^x + (^x))}
-\CommentTok{#> env:  0x56a8000}
+\CommentTok{#> env:  0x53bf2f0}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -20946,7 +20958,7 @@ If you're interested in learning more about domain specific languages in general
 \subsection*{Prerequisites}\label{prerequisites-14}}
 \addcontentsline{toc}{subsection}{Prerequisites}
 
-This chapter together pulls together many techniques discussed elsewhere in the book. In particular, you'll need to understand environments, expressions, tidy evaluation, and a little functional programming and S3. We'll use \href{https://rlang.r-lib.org}{rlang} for metaprogramming tools, and \href{https://purrr.tidyverse.org}{purrr} for functional programming.
+This chapter pulls together many techniques discussed elsewhere in the book. In particular, you'll need to understand environments, expressions, tidy evaluation, and a little functional programming and S3. We'll use \href{https://rlang.r-lib.org}{rlang} for metaprogramming tools, and \href{https://purrr.tidyverse.org}{purrr} for functional programming.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -21750,7 +21762,7 @@ We need a closure that will generate the functions for each unknown call:
 \CommentTok{#>     contents <- paste(..., collapse = ", ")}
 \CommentTok{#>     paste0("\textbackslash{}\textbackslash{}mathrm\{foo\}(", contents, ")")}
 \CommentTok{#> \}}
-\CommentTok{#> <environment: 0x56291a0>}
+\CommentTok{#> <environment: 0x4d16bb0>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -22687,10 +22699,10 @@ A great tool for microbenchmarking in R is the bench package (Hester \protect\hy
 \NormalTok{  x }\OperatorTok{^}\StringTok{ }\FloatTok{0.5}
 \NormalTok{))}
 \CommentTok{#> # A tibble: 2 x 10}
-\CommentTok{#>   expression      min  mean   median     max `itr/sec` mem_alloc}
-\CommentTok{#>   <chr>      <bch:tm> <bch> <bch:tm> <bch:t>     <dbl> <bch:byt>}
-\CommentTok{#> 1 sqrt(x)    580.91ns 768ns    639ns  32.2µs  1301585.      848B}
-\CommentTok{#> 2 x^0.5        9.04µs  10µs   9.44µs 111.7µs    99511.      848B}
+\CommentTok{#>   expression      min    mean   median     max `itr/sec` mem_alloc}
+\CommentTok{#>   <chr>      <bch:tm> <bch:t> <bch:tm> <bch:t>     <dbl> <bch:byt>}
+\CommentTok{#> 1 sqrt(x)    591.04ns 846.8ns 703.03ns  45.7µs  1180958.      848B}
+\CommentTok{#> 2 x^0.5        9.05µs  10.2µs   9.45µs 176.6µs    98200.      848B}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
@@ -22749,15 +22761,15 @@ Because the result is a special type of tibble, you can use \texttt{{[}} to sele
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 sqrt(x)    580.91ns    639ns  1301585.     0}
-\CommentTok{#> 2 x^0.5        9.04µs   9.44µs    99511.     0}
+\CommentTok{#> 1 sqrt(x)    591.04ns 703.03ns  1180958.     0}
+\CommentTok{#> 2 x^0.5        9.05µs   9.45µs    98200.     0}
 \end{Highlighting}
 \end{Shaded}
 
 \hypertarget{interpreting-results}{%
 \subsection{Interpreting results}\label{interpreting-results}}
 
-As with all microbenchmarks, pay careful attention to the units: here, each computation takes about 580 ns, 580 billionths of a second. To help calibrate the impact of a microbenchmark on run time, it's useful to think about how many times a function needs to run before it takes a second. If a microbenchmark takes:
+As with all microbenchmarks, pay careful attention to the units: here, each computation takes about 590 ns, 590 billionths of a second. To help calibrate the impact of a microbenchmark on run time, it's useful to think about how many times a function needs to run before it takes a second. If a microbenchmark takes:
 
 \begin{itemize}
 \tightlist
@@ -22769,7 +22781,7 @@ As with all microbenchmarks, pay careful attention to the units: here, each comp
   1 ns, then one billion calls takes a second.
 \end{itemize}
 
-The \texttt{sqrt()} function takes about 580 ns, or 0.58 µs, to compute the square root of 100 numbers. That means if you repeated the operation a million times, it would take 0.58 s, and hence changing the way you compute the square root is unlikely to significantly affect real code. This is the reason you need to exercise care when generalising microbenchmarking results.
+The \texttt{sqrt()} function takes about 590 ns, or 0.59 µs, to compute the square root of 100 numbers. That means if you repeated the operation a million times, it would take 0.59 s, and hence changing the way you compute the square root is unlikely to significantly affect real code. This is the reason you need to exercise care when generalising microbenchmarking results.
 
 \hypertarget{exercises-69}{%
 \subsection{Exercises}\label{exercises-69}}
@@ -22918,8 +22930,8 @@ Now use \texttt{bench::mark()} to precisely compare the variations. \texttt{benc
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean1(x)      227µs    236µs     4216.     0}
-\CommentTok{#> 2 mean2(x)      112µs    114µs     8395.     0}
+\CommentTok{#> 1 mean1(x)      227µs    237µs     4156.     0}
+\CommentTok{#> 2 mean2(x)      113µs    114µs     8252.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23052,8 +23064,8 @@ For example, calling \texttt{mean.default()} is quite a bit faster than calling 
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression           min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>           <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)           2.61µs      3µs   297912.     1}
-\CommentTok{#> 2 mean.default(x)   1.22µs    1.4µs   639699.     0}
+\CommentTok{#> 1 mean(x)           2.47µs      3µs   294991.     1}
+\CommentTok{#> 2 mean.default(x)   1.23µs   1.44µs   609829.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23072,9 +23084,9 @@ An even riskier optimisation is to directly call the underlying \texttt{.Interna
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression              min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)               2.6µs   2.98µs   293179.     1}
-\CommentTok{#> 2 mean.default(x)      1.22µs   1.43µs   618873.     0}
-\CommentTok{#> 3 .Internal(mean(x)) 340.98ns 356.93ns  2505741.     0}
+\CommentTok{#> 1 mean(x)              2.52µs   2.95µs   300312.     1}
+\CommentTok{#> 2 mean.default(x)      1.22µs   1.46µs   611937.     0}
+\CommentTok{#> 3 .Internal(mean(x)) 342.03ns 356.11ns  2556882.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23091,9 +23103,9 @@ NB: most of these differences arise because \texttt{x} is small. If you increase
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression              min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)              24.8µs   25.2µs    38324.     1}
-\CommentTok{#> 2 mean.default(x)      23.4µs   23.6µs    40954.     0}
-\CommentTok{#> 3 .Internal(mean(x))   22.4µs   22.4µs    43474.     0}
+\CommentTok{#> 1 mean(x)              24.8µs   25.3µs    37723.     1}
+\CommentTok{#> 2 mean.default(x)      23.4µs   23.7µs    40383.     0}
+\CommentTok{#> 3 .Internal(mean(x))   22.4µs   22.5µs    42974.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23122,8 +23134,8 @@ Knowing that you're dealing with a specific type of input can be another way to 
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression         min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>         <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 as.data.frame   1.05ms   1.11ms      874.     7}
-\CommentTok{#> 2 quick_df        6.14µs   7.19µs   124317.     2}
+\CommentTok{#> 1 as.data.frame   1.06ms   1.17ms      846.     7}
+\CommentTok{#> 2 quick_df         6.1µs   7.54µs   112022.     1}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23231,9 +23243,9 @@ The downside of vectorisation is that it makes it harder to predict how operatio
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression        min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>        <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 lookup[x1]   518.05ns 630.04ns  1260315.     0}
-\CommentTok{#> 2 lookup[x10]    1.55µs   1.71µs   502616.     1}
-\CommentTok{#> 3 lookup[x100]   4.21µs    4.8µs   190540.     0}
+\CommentTok{#> 1 lookup[x1]   491.04ns 615.02ns  1413996.     0}
+\CommentTok{#> 2 lookup[x10]    1.56µs   1.73µs   478549.     0}
+\CommentTok{#> 3 lookup[x100]   4.54µs   6.31µs   146240.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23291,10 +23303,10 @@ You saw one example of this type of problem in Section \ref{memory-profiling}, s
 \CommentTok{#> # A tibble: 4 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 loop10      19.65µs  21.89µs    43224.     3}
-\CommentTok{#> 2 loop100    805.56µs 829.48µs     1195.     2}
-\CommentTok{#> 3 vec10        4.89µs   5.12µs   185903.     0}
-\CommentTok{#> 4 vec100      39.15µs   40.2µs    23660.     0}
+\CommentTok{#> 1 loop10       19.7µs  22.16µs    42498.     3}
+\CommentTok{#> 2 loop100    808.71µs 847.73µs     1166.     1}
+\CommentTok{#> 3 vec10        4.83µs   5.08µs   184056.     1}
+\CommentTok{#> 4 vec100      39.31µs  40.12µs    23790.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23326,14 +23338,14 @@ For data in this form, there are two ways to use \texttt{t.test()}. We can eithe
 \NormalTok{  \}}
 \NormalTok{)}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.840   0.000   0.839}
+\CommentTok{#>   0.872   0.004   0.872}
 \KeywordTok{system.time}\NormalTok{(}
   \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{m) \{}
     \KeywordTok{t.test}\NormalTok{(X[i, grp }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], X[i, grp }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{])}\OperatorTok{$}\NormalTok{statistic}
 \NormalTok{  \}}
 \NormalTok{)}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.200   0.000   0.197}
+\CommentTok{#>   0.208   0.000   0.206}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23346,7 +23358,7 @@ Of course, a for loop computes, but doesn't save the values. We can \texttt{map\
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(t1 <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map_dbl}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{m, compT))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>     0.2     0.0     0.2}
+\CommentTok{#>   0.200   0.004   0.204}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23400,7 +23412,7 @@ Now that we have a fairly simple function, we can make it faster still by vector
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(t3 <-}\StringTok{ }\KeywordTok{rowtstat}\NormalTok{(X, grp))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.012   0.000   0.012}
+\CommentTok{#>   0.012   0.000   0.011}
 \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{all.equal}\NormalTok{(t1, t3))}
 \end{Highlighting}
 \end{Shaded}
@@ -23540,7 +23552,7 @@ You'll also need a working C++ compiler. To get it:
 \CommentTok{# add works like a regular R function}
 \NormalTok{add}
 \CommentTok{#> function (x, y, z) }
-\CommentTok{#> .Call(<pointer: 0x7f9eb8e55f60>, x, y, z)}
+\CommentTok{#> .Call(<pointer: 0x7fdd5b9f1f60>, x, y, z)}
 \KeywordTok{add}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
 \CommentTok{#> [1] 6}
 \end{Highlighting}
@@ -23728,9 +23740,9 @@ This is a good example of where C++ is much more efficient than R. As shown by t
 \CommentTok{#> # A tibble: 3 x 6}
 \CommentTok{#>   expression      min     mean   median      max `itr/sec`}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>}
-\CommentTok{#> 1 sum(x)       1.31µs   1.52µs   1.33µs   76.8µs   658975.}
-\CommentTok{#> 2 sumC(x)      3.24µs   4.66µs   4.75µs      1ms   214615.}
-\CommentTok{#> 3 sumR(x)     38.24µs  40.45µs  39.05µs    148µs    24722.}
+\CommentTok{#> 1 sum(x)       1.31µs    1.6µs   1.34µs  322.2µs   625687.}
+\CommentTok{#> 2 sumC(x)      3.25µs   4.98µs   4.84µs   1.15ms   200984.}
+\CommentTok{#> 3 sumR(x)     38.36µs  41.59µs  39.15µs 218.15µs    24043.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23786,8 +23798,8 @@ Note that because the R version is fully vectorised, it's already going to be fa
 \CommentTok{#> # A tibble: 2 x 6}
 \CommentTok{#>   expression          min     mean   median      max `itr/sec`}
 \CommentTok{#>   <chr>          <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>}
-\CommentTok{#> 1 pdistR(0.5, y)   8.64ms   9.17ms    9.1ms   12.4ms      109.}
-\CommentTok{#> 2 pdistC(0.5, y)   4.75ms   4.97ms   4.88ms   6.48ms      201.}
+\CommentTok{#> 1 pdistR(0.5, y)   9.16ms   9.52ms   9.44ms   12.3ms      105.}
+\CommentTok{#> 2 pdistC(0.5, y)   4.96ms   5.22ms    5.2ms    6.7ms      191.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -24630,10 +24642,10 @@ Benchmarking the two implementations yields:
   \DataTypeTok{check =} \OtherTok{FALSE}
 \NormalTok{)}
 \CommentTok{#> # A tibble: 2 x 10}
-\CommentTok{#>   expression      min     mean   median    max `itr/sec` mem_alloc}
-\CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:>     <dbl> <bch:byt>}
-\CommentTok{#> 1 gibbs_r(1…   5.65ms   5.92ms   5.78ms 9.35ms      169.    4.97MB}
-\CommentTok{#> 2 gibbs_cpp… 308.08µs 356.66µs 347.83µs 1.47ms     2804.     4.1KB}
+\CommentTok{#>   expression      min  mean   median     max `itr/sec` mem_alloc}
+\CommentTok{#>   <chr>      <bch:tm> <bch> <bch:tm> <bch:t>     <dbl> <bch:byt>}
+\CommentTok{#> 1 gibbs_r(1…   5.68ms   6ms   5.86ms 10.47ms      167.    4.97MB}
+\CommentTok{#> 2 gibbs_cpp… 305.02µs 355µs 349.19µs  1.47ms     2819.     4.1KB}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
@@ -24745,11 +24757,11 @@ The original blog post forgot to do this, and introduced a bug in the C++ versio
   \DataTypeTok{vacc3 =} \KeywordTok{vacc3}\NormalTok{(age, female, ily)}
 \NormalTok{)}
 \CommentTok{#> # A tibble: 3 x 10}
-\CommentTok{#>   expression      min    mean   median      max `itr/sec` mem_alloc}
-\CommentTok{#>   <chr>      <bch:tm> <bch:t> <bch:tm> <bch:tm>     <dbl> <bch:byt>}
-\CommentTok{#> 1 vacc1        1.85ms     2ms   1.95ms   5.54ms      500.    7.86KB}
-\CommentTok{#> 2 vacc2      101.98µs 121.8µs 110.67µs 334.92µs     8210.  223.98KB}
-\CommentTok{#> 3 vacc3       29.08µs  31.9µs  30.32µs 175.17µs    31334.   14.48KB}
+\CommentTok{#>   expression      min     mean   median      max `itr/sec` mem_alloc}
+\CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl> <bch:byt>}
+\CommentTok{#> 1 vacc1        1.87ms   2.04ms   1.99ms   7.02ms      491.    7.86KB}
+\CommentTok{#> 2 vacc2      101.53µs 123.73µs  111.1µs 584.29µs     8082.     224KB}
+\CommentTok{#> 3 vacc3       29.14µs  31.86µs  30.53µs 195.84µs    31392.   14.48KB}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}

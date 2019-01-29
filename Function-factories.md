@@ -102,14 +102,14 @@ square
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <environment: 0x35921e0>
+#> <environment: 0x38c21a8>
 
 cube
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x1b9b080>
-#> <environment: 0x3765b90>
+#> <bytecode: 0x1ec73a0>
+#> <environment: 0x3a95b58>
 ```
 
 It's obvious where `x` comes from, but how does R find the value associated with `exp`? Simply printing the manufactured functions is not revealing because the bodies are identical; it's the contents of the enclosing environment that's important. We can get a little more insight by using `rlang::env_print()`. That shows us that we have two different environments (each of which was originally an execution environment of `power1()`). The environments have the same parent, which is the enclosing environment of `power1()`, the global environment.
@@ -117,13 +117,13 @@ It's obvious where `x` comes from, but how does R find the value associated with
 
 ```r
 env_print(square)
-#> <environment: 0x35921e0>
+#> <environment: 0x38c21a8>
 #> parent: <environment: global>
 #> bindings:
 #>  * exp: <dbl>
 
 env_print(cube)
-#> <environment: 0x3765b90>
+#> <environment: 0x3a95b58>
 #> parent: <environment: global>
 #> bindings:
 #>  * exp: <dbl>
@@ -307,7 +307,7 @@ lobstr::obj_size(g2)
     force
     #> function (x) 
     #> x
-    #> <bytecode: 0x17ccd60>
+    #> <bytecode: 0x1afcd60>
     #> <environment: namespace:base>
     ```
     
@@ -532,12 +532,12 @@ plot_dev <- function(ext, dpi = 96) {
 
 plot_dev("pdf")
 #> function(filename, ...) grDevices::pdf(file = filename, ...)
-#> <bytecode: 0x55bfb50>
-#> <environment: 0x4ba3560>
+#> <bytecode: 0x59b9910>
+#> <environment: 0x4f7ee90>
 plot_dev("png")
 #> function(...) grDevices::png(..., res = dpi, units = "in")
-#> <bytecode: 0x5872008>
-#> <environment: 0x5c616b8>
+#> <bytecode: 0x5c52758>
+#> <environment: 0x604fb70>
 ```
 
 ### Exercises
@@ -563,7 +563,7 @@ The Box-Cox transformation (a type of [power transformation](https://en.wikipedi
 
 ```r
 boxcox1 <- function(x, lambda) {
-  stopifnot(length(lambda) != 1)
+  stopifnot(length(lambda) == 1)
   
   if (lambda == 0) {
     log(x)
@@ -843,8 +843,8 @@ funs$root
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x1b9b080>
-#> <environment: 0x53df700>
+#> <bytecode: 0x1ec73a0>
+#> <environment: 0x5883c80>
 ```
 
 This idea extends in a straightforward way if your function factory takes two (replace `map()` with `map2()`) or more (replace with `pmap()`) arguments.
