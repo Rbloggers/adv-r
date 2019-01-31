@@ -43,6 +43,6 @@ rmd_files:
     "Perf-improve.Rmd",
     "Rcpp.Rmd",
 
-    #"References.Rmd",
+    "References.Rmd",
   ]
 
