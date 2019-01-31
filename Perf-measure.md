@@ -235,12 +235,11 @@ x <- runif(100)
   x ^ 0.5
 ))
 #> # A tibble: 2 x 10
-#>   expression      min    mean   median     max `itr/sec` mem_alloc
-#>   <chr>      <bch:tm> <bch:t> <bch:tm> <bch:t>     <dbl> <bch:byt>
-#> 1 sqrt(x)    591.04ns 846.8ns 703.03ns  45.7µs  1180958.      848B
-#> 2 x^0.5        9.05µs  10.2µs   9.45µs 176.6µs    98200.      848B
-#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,
-#> #   total_time <bch:tm>
+#>   expression      min   mean median    max `itr/sec` mem_alloc  n_gc
+#>   <chr>      <bch:tm> <bch:> <bch:> <bch:>     <dbl> <bch:byt> <dbl>
+#> 1 sqrt(x)    594.88ns 1.12µs 1.06µs 35.6µs   895499.      848B     0
+#> 2 x^0.5        9.01µs 9.84µs 9.42µs 54.4µs   101657.      848B     0
+#> # … with 2 more variables: n_itr <int>, total_time <bch:tm>
 ```
 
 By default, `bench::mark()` runs each expression at least once (`min_iterations = 1`), and at most enough times to take 0.5s (`min_time = 0.5`). It checks that each run returns the same value which is typically what you when microbenchmarking; if you want to compare the speed of expressions that return different values, set `check = FALSE`.
@@ -292,8 +291,8 @@ lb[c("expression", "min", "median", "itr/sec", "n_gc")]
 #> # A tibble: 2 x 5
 #>   expression      min   median `itr/sec`  n_gc
 #>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 sqrt(x)    591.04ns 703.03ns  1180958.     0
-#> 2 x^0.5        9.05µs   9.45µs    98200.     0
+#> 1 sqrt(x)    594.88ns   1.06µs   895499.     0
+#> 2 x^0.5        9.01µs   9.42µs   101657.     0
 ```
 
 ### Interpreting results

@@ -99,14 +99,11 @@ The `condition` should evaluate to a single `TRUE` or `FALSE`. Most other inputs
 
 ```r
 if ("x") 1
-#> Error in if ("x") 1:
-#>   argument is not interpretable as logical
+#> Error in if ("x") 1: argument is not interpretable as logical
 if (logical()) 1
-#> Error in if (logical()) 1:
-#>   argument is of length zero
+#> Error in if (logical()) 1: argument is of length zero
 if (NA) 1
-#> Error in if (NA) 1:
-#>   missing value where TRUE/FALSE needed
+#> Error in if (NA) 1: missing value where TRUE/FALSE needed
 ```
 
 The exception is a logical vector of length greater than 1, which generates a warning:
@@ -127,8 +124,7 @@ In R 3.5.0 and greater, thanks to [Henrik Bengtsson](https://github.com/HenrikBe
 ```r
 Sys.setenv("_R_CHECK_LENGTH_1_CONDITION_" = "true")
 if (c(TRUE, FALSE)) 1
-#> Error in if (c(TRUE, FALSE)) 1:
-#>   the condition has length > 1
+#> Error in if (c(TRUE, FALSE)) 1: the condition has length > 1
 ```
 
 I think this is good practice as it reveals a clear mistake that you might otherwise miss if it were only shown as a warning.
@@ -342,8 +338,7 @@ out <- vector("list", length(means))
 for (i in 1:length(means)) {
   out[[i]] <- rnorm(10, means[[i]])
 }
-#> Error in rnorm(10, means[[i]]):
-#>   invalid arguments
+#> Error in rnorm(10, means[[i]]): invalid arguments
 ```
 
 This occurs because `:` works with both increasing and decreasing sequences:

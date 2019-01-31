@@ -159,13 +159,8 @@ All map functions always return an output vector the same length as the input, w
 ```r
 pair <- function(x) c(x, x)
 map_dbl(1:2, pair)
-#> Error: Result 1 must be a single double, not an integer vector of length 2
-#> Backtrace:
-#>     █
-#>  1. ├─purrr::map_dbl(1:2, pair)
-#>  2. └─purrr:::stop_bad_element_vector(...)
-#>  3.   └─purrr:::stop_bad_vector(...)
-#>  4.     └─purrr:::stop_bad_type(...)
+#> Error: Result 1 must be a single double, not an integer vector of
+#> length 2
 ```
 
 This is similar to the error you'll get if `.f` returns the wrong type of result:
@@ -278,12 +273,6 @@ map_dbl(x, list("y", 1))
 # You'll get an error if a component doesn't exist:
 map_chr(x, "z")
 #> Error: Result 3 must be a single string, not NULL of length 0
-#> Backtrace:
-#>     █
-#>  1. ├─purrr::map_chr(x, "z")
-#>  2. └─purrr:::stop_bad_element_vector(...)
-#>  3.   └─purrr:::stop_bad_vector(...)
-#>  4.     └─purrr:::stop_bad_type(...)
 
 # Unless you supply a .default value
 map_chr(x, "z", .default = NA)
@@ -355,8 +344,8 @@ boostrap_summary <- function(x, f) {
 }
 
 simple_map(mtcars, boostrap_summary, f = mean)
-#> Error in mean.default(x[[i]], ...):
-#>   'trim' must be numeric of length one
+#> Error in mean.default(x[[i]], ...): 'trim' must be numeric of length
+#> one
 ```
 
 <!-- GVW: a diagram here showing how the various f's and x's are matched to one another in the example above would be very helpful -->
@@ -471,8 +460,7 @@ You'll see one more alternative in Section \@ref(pmap).
     
     triple <- function(x) x * 3
     map(x, map, .f = triple)
-    #> Error in .f(.x[[i]], ...):
-    #>   unused argument (map)
+    #> Error in .f(.x[[i]], ...): unused argument (map)
     ```
 
 1.  Use `map()` to fit linear models to the `mtcars` dataset using the formulas
@@ -662,8 +650,8 @@ But passing `ws` as an additional argument doesn't work because arguments after 
 
 ```r
 map_dbl(xs, weighted.mean, w = ws)
-#> Error in weighted.mean.default(.x[[i]], ...):
-#>   'x' and 'w' must have the same length
+#> Error in weighted.mean.default(.x[[i]], ...): 'x' and 'w' must have
+#> the same length
 ```
 
 \begin{center}\includegraphics[width=3.59in]{diagrams/functionals/map-arg-recycle} \end{center}
@@ -1096,8 +1084,7 @@ This also ensures that `reduce()` checks that length 1 inputs are valid for the 
 
 ```r
 reduce("a", `+`, .init = 0)
-#> Error in .x + .y:
-#>   non-numeric argument to binary operator
+#> Error in .x + .y: non-numeric argument to binary operator
 ```
 
 If you want to get algebraic about it, 0 is called the __identity__ of the real numbers under the operation of addition: if you add a 0 to any number, you get the same number back. R applies the same principle to determine what a summary function with a zero length input should return:

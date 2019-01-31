@@ -137,8 +137,7 @@ library(MASS)
 
 # fails
 MASS
-#> Error in eval(expr, envir, enclos):
-#>   object 'MASS' not found
+#> Error in eval(expr, envir, enclos): object 'MASS' not found
 ```
 
 Talking about whether an argument is quoted or evaluated is a more precise way of stating whether or not a function uses non-standard evaluation (NSE). I will sometimes use "quoting function" as short-hand for a "function that quotes one or more arguments", but generally, I'll talk about quoted arguments since that is the level at which the difference applies.
@@ -520,8 +519,7 @@ Very occasionally it is useful to unquote a missing argument (Section \@ref(empt
 ```r
 arg <- missing_arg()
 expr(foo(!!arg, !!arg))
-#> Error in enexpr(expr):
-#>   argument "arg" is missing, with no default
+#> Error in enexpr(expr): argument "arg" is missing, with no default
 ```
 
 You can work around this with the `rlang::maybe_missing()` helper:
@@ -607,8 +605,7 @@ The biggest downside[^bang-bang-print] to using a fake operator is that you migh
 ```r
 x <- quote(variable)
 !!x
-#> Error in !x:
-#>   invalid argument type
+#> Error in !x: invalid argument type
 ```
 
 But you can get silently incorrect results when working with numeric values:
@@ -1073,11 +1070,6 @@ data.frame(
     str(dots_list(x = 1, x = 2, .homonyms = "error"))
     #> Error: Arguments can't have the same name.
     #> We found multiple arguments named `x` at positions 1 and 2
-    #> Backtrace:
-    #>     █
-    #>  1. ├─utils::str(dots_list(x = 1, x = 2, .homonyms = "error"))
-    #>  2. ├─rlang::dots_list(x = 1, x = 2, .homonyms = "error")
-    #>  3. └─rlang:::abort_dots_homonyms(x, y)
     ```
 
 * If there are empty arguments that are not ignored, `.preserve_empty`
@@ -1171,8 +1163,7 @@ At the time I discovered it, I found this technique particularly compelling so y
       x
     }
     set_attr(1:10, x = 10)
-    #> Error in attributes(x) <- attr:
-    #>   attributes must be named
+    #> Error in attributes(x) <- attr: attributes must be named
     ```
 
 

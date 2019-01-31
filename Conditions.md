@@ -75,7 +75,7 @@ There are three conditions that you can signal in code: errors, warnings, and me
 * Errors are the most severe; they indicate that there is no way for a function 
   to continue and execution must stop. 
 
-* Warnings fall somewhat in between errors and warnings, and typically indicate 
+* Warnings fall somewhat in between errors and message, and typically indicate 
   that something has gone wrong but the function has been able to at least 
   partially recover. 
   
@@ -84,13 +84,12 @@ There are three conditions that you can signal in code: errors, warnings, and me
   
 There is a final condition that can only be generated interactively: an interrupt, which indicates that the user has "interrupted" execution by pressing Escape, Ctrl + Break, or Ctrl + C (depending on the platform).
 
-Conditions are usually displayed prominently, in a bold font or coloured red, depending on the R interface. You can tell them apart because errors always start with "Error", warnings with "Warning message", and messages with nothing.
+Conditions are usually displayed prominently, in a bold font or coloured red, depending on the R interface. You can tell them apart because errors always start with "Error", warnings with "Warning" or "Warning message", and messages with nothing.
 
 
 ```r
 stop("This is what an error looks like")
-#> Error in eval(expr, envir, enclos):
-#>   This is what an error looks like
+#> Error in eval(expr, envir, enclos): This is what an error looks like
 
 warning("This is what a warning looks like")
 #> Warning: This is what a warning looks like
@@ -115,8 +114,7 @@ g <- function() h()
 h <- function() stop("This is an error!")
 
 f()
-#> Error in h():
-#>   This is an error!
+#> Error in h(): This is an error!
 ```
 
 By default, the error message includes the call, but this is typically not useful (and recapitulates information that you can easily get from `traceback()`), so I think it's good practice to use `call. = FALSE`[^trailing-dot]:
@@ -137,11 +135,6 @@ The rlang equivalent to `stop()`, `rlang::abort()`, does this automatically. We'
 h <- function() abort("This is an error!")
 f()
 #> Error: This is an error!
-#> Backtrace:
-#>     █
-#>  1. └─global::f()
-#>  2.   └─global::g()
-#>  3.     └─global::h()
 ```
 
 (NB: `stop()` pastes together multiple inputs, while `abort()` does not. To create complex error messages with abort, I recommend using `glue::glue()`. This allows us to use other arguments to `abort()` for useful features that you'll learn about in Section \@ref(custom-conditions).)
@@ -322,8 +315,7 @@ f1 <- function(x) {
   10
 }
 f1("x")
-#> Error in log(x):
-#>   non-numeric argument to mathematical function
+#> Error in log(x): non-numeric argument to mathematical function
 ```
 
 However, if you wrap the statement that creates the error in `try()`, the error message will be displayed[^silent] but execution will continue:
@@ -792,11 +784,10 @@ To explore these ideas in more depth, let's take `base::log()`. It does the mini
 
 ```r
 log(letters)
-#> Error in log(letters):
-#>   non-numeric argument to mathematical function
+#> Error in log(letters): non-numeric argument to mathematical function
 log(1:10, base = letters)
-#> Error in log(1:10, base = letters):
-#>   non-numeric argument to mathematical function
+#> Error in log(1:10, base = letters): non-numeric argument to
+#> mathematical function
 ```
 
 I think we can do better by being explicit about which argument is the problem (i.e. `x` or `base`), and saying what the problematic input is (not just what it isn't).
@@ -821,14 +812,8 @@ This gives us:
 ```r
 my_log(letters)
 #> Error: `x` must be a numeric vector; not character.
-#> Backtrace:
-#>     █
-#>  1. └─global::my_log(letters)
 my_log(1:10, base = letters)
 #> Error: `base` must be a numeric vector; not character.
-#> Backtrace:
-#>     █
-#>  1. └─global::my_log(1:10, base = letters)
 ```
 
 This is an improvement for interactive usage as the error messages are more likely to guide the user towards a correct fix. However, they're no better if you want to programmatically handle the errors: all the useful metadata about the error is jammed into a single string.
@@ -874,7 +859,9 @@ stop_custom <- function(.subclass, message, call = NULL, ...) {
   stop(err)
 }
 
-err <- catch_cnd(stop_custom("error_new", "This is a custom error", x = 10))
+err <- catch_cnd(
+  stop_custom("error_new", "This is a custom error", x = 10)
+)
 class(err)
 err$x
 ```
@@ -903,16 +890,8 @@ my_log <- function(x, base = exp(1)) {
 ```r
 my_log(letters)
 #> Error: `x` must be numeric; not character.
-#> Backtrace:
-#>     █
-#>  1. └─global::my_log(letters)
-#>  2.   └─global::abort_bad_argument("x", must = "be numeric", not = x)
 my_log(1:10, base = letters)
 #> Error: `base` must be numeric; not character.
-#> Backtrace:
-#>     █
-#>  1. └─global::my_log(1:10, base = letters)
-#>  2.   └─global::abort_bad_argument("base", must = "be numeric", not = base)
 ```
 
 ### Handling
@@ -923,11 +902,6 @@ These structured condition objects are much easier to program with. The first pl
 
 ```r
 library(testthat)
-#> 
-#> Attaching package: 'testthat'
-#> The following objects are masked from 'package:rlang':
-#> 
-#>     is_false, is_null, is_true
 
 err <- catch_cnd(my_log("a"))
 expect_s3_class(err, "error_bad_argument")
@@ -1123,16 +1097,6 @@ warning2error({
   warn("Hello")
 })
 #> Error: Hello
-#> Backtrace:
-#>     █
-#>  1. ├─global::warning2error(...)
-#>  2. │ └─base::withCallingHandlers(...)
-#>  3. ├─rlang::warn("Hello")
-#>  4. │ └─base::warning(cnd)
-#>  5. │   └─base::withRestarts(...)
-#>  6. │     └─base:::withOneRestart(expr, restarts[[1L]])
-#>  7. │       └─base:::doWithOneRestart(return(expr), restart)
-#>  8. └─(function (cnd) ...
 ```
 
 You could write a similar function if you were trying to find the source of an annoying message. More on this in Section \@ref(non-error-failures).

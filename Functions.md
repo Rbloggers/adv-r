@@ -547,8 +547,7 @@ To solve this problem, you can manually change the function's environment to the
 ```r
 environment(g12) <- emptyenv()
 g12()
-#> Error in x + 1:
-#>   could not find function "+"
+#> Error in x + 1: could not find function "+"
 ```
 
 The problem and its solution reveal why this seemingly undesirable behaviour exists: R relies on lexical scoping to find _everything_, from the obvious, like `mean()`, to the less obvious, like `+` or even `{`. This gives R's scoping rules a rather beautiful simplicity.
@@ -841,7 +840,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
       print(x)
     }
     show_time()
-    #> [1] "2019-01-29 08:11:47 UTC"
+    #> [1] "2019-01-31 06:54:17 UTC"
     ```
 
 1.  How many arguments are required when calling `library()`?
@@ -1096,8 +1095,7 @@ j05 <- function() {
   return(10)
 }
 j05()
-#> Error in j05():
-#>   I'm an error
+#> Error in j05(): I'm an error
 ```
 
 An error indicates that something has gone wrong, and forces the user to deal with the problem. Some languages (like C, Go, and Rust) rely on special return values to indicate problems, but in R you should always throw an error. You'll learn more about errors, and how to handle them, in [Conditions].
@@ -1128,8 +1126,7 @@ j06(TRUE)
 
 j06(FALSE)
 #> Hello
-#> Error in j06(FALSE):
-#>   Error
+#> Error in j06(FALSE): Error
 #> Goodbye!
 ```
 
@@ -1354,8 +1351,8 @@ str(k01(2, 3, a = 1))
 
 # But this doesn't work because abbreviation is ambiguous
 str(k01(1, 3, b = 1))
-#> Error in k01(1, 3, b = 1):
-#>   argument 3 matches multiple formal arguments
+#> Error in k01(1, 3, b = 1): argument 3 matches multiple formal
+#> arguments
 ```
 
 In general, use positional matching only for the first one or two arguments; they will be the most commonly used, and most readers will know what they are. Avoid using positional matching for less commonly used arguments, and never use partial matching. Unfortunately you can't disable partial matching, but you can turn it into a warning with the `warnPartialMatchArgs` option:

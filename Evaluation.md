@@ -130,11 +130,9 @@ foo <- local({
 foo
 #> [1] 210
 x
-#> Error in eval(expr, envir, enclos):
-#>   object 'x' not found
+#> Error in eval(expr, envir, enclos): object 'x' not found
 y
-#> Error in eval(expr, envir, enclos):
-#>   object 'y' not found
+#> Error in eval(expr, envir, enclos): object 'y' not found
 ```
 
 The essence of `local()` is quite simple and re-implemented below. We capture the input expression, and create a new environment in which to evaluate it. This is a new environment (so assignment doesn't affect the existing environment) with the caller environment as parent (so that `expr` can still access variables in that environment). This effectively emulates running `expr` as if it was inside a function (i.e. it's lexically scoped, Section \@ref(lexical-scoping)).
@@ -155,11 +153,9 @@ foo <- local2({
 foo
 #> [1] 210
 x
-#> Error in eval(expr, envir, enclos):
-#>   object 'x' not found
+#> Error in eval(expr, envir, enclos): object 'x' not found
 y
-#> Error in eval(expr, envir, enclos):
-#>   object 'y' not found
+#> Error in eval(expr, envir, enclos): object 'y' not found
 ```
 
 Understanding how `base::local()` works is harder, as it uses `eval()` and `substitute()` together in rather complicated ways. Figuring out exactly what's going on is good practice if you really want to understand the subtleties of `substitute()` and the base `eval()` functions, so is included in the exercises below.
@@ -316,7 +312,7 @@ There are three ways to create quosures:
     new_quosure(expr(x + y), env(x = 1, y = 10))
     #> <quosure>
     #> expr: ^x + y
-    #> env:  0x50a2ae8
+    #> env:  0x4bacb78
     ```
 
 ### Evaluating
@@ -363,7 +359,7 @@ qs
 #> $f
 #> <quosure>
 #> expr: ^x
-#> env:  0x58dae18
+#> env:  0x53c5408
 ```
 
 That means that when you evaluate them, you get the correct results:
@@ -483,19 +479,19 @@ When you use `expr_print()` in the console, quosures are coloured according to t
     q1
     #> <quosure>
     #> expr: ^x
-    #> env:  0x4f88060
+    #> env:  0x4a95750
     
     q2 <- new_quosure(expr(x + !!q1), env(x = 10))
     q2
     #> <quosure>
     #> expr: ^x + (^x)
-    #> env:  0x511bef0
+    #> env:  0x4c330a0
     
     q3 <- new_quosure(expr(x + !!q2), env(x = 100))
     q3
     #> <quosure>
     #> expr: ^x + (^x + (^x))
-    #> env:  0x53bf2f0
+    #> env:  0x4ebb3a0
     ```
 
 1.  Write an `enenv()` function that captures the environment associated
@@ -584,14 +580,6 @@ You can also subset `.data` and `.env` using `[[`, e.g. `.data[["x"]]`. Otherwis
 ```r
 with2(df, .data$y)
 #> Error: Column `y` not found in `.data`
-#> Backtrace:
-#>     █
-#>  1. ├─global::with2(df, .data$y)
-#>  2. │ └─rlang::eval_tidy(expr, data)
-#>  3. ├─y
-#>  4. ├─rlang:::`$.rlang_data_pronoun`(.data, y)
-#>  5. │ └─rlang:::data_pronoun_get(x, nm)
-#>  6. └─rlang:::abort_data_pronoun(x)
 ```
 
 ### Application: `subset()` {#subset}
@@ -795,8 +783,7 @@ subsample <- function(df, cond, n = nrow(df)) {
 
 df <- data.frame(x = c(1, 1, 1, 2, 2), y = 1:5)
 subsample(df, x == 1)
-#> Error in eval_tidy(rows, data):
-#>   object 'x' not found
+#> Error in eval_tidy(rows, data): object 'x' not found
 ```
 
 `subsample()` doesn't quote any arguments so `cond` is evaluated normally (not in a data mask), and we get an error when it tries to find a binding for  `x`. To fix this problem we need to quote `cond`, and then unquote it when we pass it on ot `subset2()`:
@@ -869,15 +856,6 @@ threshold_x <- function(df, val) {
 x <- 10
 threshold_x(no_x, 2)
 #> Error: Column `x` not found in `.data`
-#> Backtrace:
-#>     █
-#>  1. ├─global::threshold_x(no_x, 2)
-#>  2. │ └─global::subset2(df, .data$x >= .env$val)
-#>  3. │   └─rlang::eval_tidy(rows, data)
-#>  4. ├─x
-#>  5. ├─rlang:::`$.rlang_data_pronoun`(.data, x)
-#>  6. │ └─rlang:::data_pronoun_get(x, nm)
-#>  7. └─rlang:::abort_data_pronoun(x)
 threshold_x(has_val, 2)
 #>   x val
 #> 2 2  10
@@ -1019,8 +997,7 @@ There are main three problems:
       dfs <- list(data.frame(x = 1:3), data.frame(x = 4:6))
       lapply(dfs, subset_base, x == zzz)
     })
-    #> Error in eval(rows, data, caller_env()):
-    #>   object 'zzz' not found
+    #> Error in eval(rows, data, caller_env()): object 'zzz' not found
     ```
 
 *   Calling `subset()` from another function requires some care: you have
@@ -1215,8 +1192,7 @@ resample_lm0 <- function(formula, data, env = caller_env()) {
 df <- data.frame(x = 1:10, y = 5 + 3 * (1:10) + round(rnorm(10), 2))
 resample_lm0(y ~ x, data = df)
 #> lm(y ~ x, data = resample_data)
-#> Error in is.data.frame(data):
-#>   object 'resample_data' not found
+#> Error in is.data.frame(data): object 'resample_data' not found
 ```
 
 Why doesn't this code work? We're evaluating `lm_call` in the caller environment, but `resample_data` exists in the execution environment. We could instead evaluate in the execution environment of `resample_lm0()`, but there's no guarantee that `formula` could be evaluated in that environment.
@@ -1286,8 +1262,8 @@ There are two basic ways to overcome this challenge:
       eval(lm_call, caller_env())
     }
     lm3a(mpg ~ disp, mtcars)$call
-    #> Error in as.data.frame.default(data, optional = TRUE):
-    #>   cannot coerce class '"function"' to a data.frame
+    #> Error in as.data.frame.default(data, optional = TRUE): cannot coerce
+    #> class '"function"' to a data.frame
     ```
 
 1.  When model building, typically the response and data are relatively

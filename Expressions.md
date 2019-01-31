@@ -10,8 +10,7 @@ To compute on the language, we first need to understand its structure. That requ
 
 ```r
 y <- x * 10
-#> Error in eval(expr, envir, enclos):
-#>   object 'x' not found
+#> Error in eval(expr, envir, enclos): object 'x' not found
 ```
 
 It would be nice if we could capture the intent of the code without executing it. In other words, how can we separate our description of the action from the action itself? 
@@ -1186,8 +1185,8 @@ The empty symbol has a peculiar property: if you bind it to a variable, then acc
 ```r
 m <- missing_arg()
 m
-#> Error in eval(expr, envir, enclos):
-#>   argument "m" is missing, with no default
+#> Error in eval(expr, envir, enclos): argument "m" is missing, with no
+#> default
 ```
 
 But you won't if you store it inside another data structure!

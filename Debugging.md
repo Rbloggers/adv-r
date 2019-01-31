@@ -170,16 +170,6 @@ You can using `rlang::with_abort()` and `rlang::last_trace()` to see the call tr
 ```r
 rlang::with_abort(f(j()))
 #> Error: Oops!
-#> Backtrace:
-#>     █
-#>  1. ├─rlang::with_abort(f(j()))
-#>  2. │ └─base::withCallingHandlers(...)
-#>  3. ├─global::f(j())
-#>  4. │ └─global::g(a)
-#>  5. │   └─global::h(b)
-#>  6. │     └─global::i(c)
-#>  7. └─global::j()
-#>  8.   └─global::k()
 rlang::last_trace()
 #>     █
 #>  1. ├─rlang::with_abort(f(j()))
@@ -485,13 +475,6 @@ There are other ways for a function to fail apart from throwing an error:
       
     rlang::with_abort(f(), "message")
     #> Error: Hi!
-    #> 
-    #> Backtrace:
-    #>     █
-    #>  1. ├─rlang::with_abort(f(), "message")
-    #>  2. │ └─base::withCallingHandlers(...)
-    #>  3. └─global::f()
-    #>  4.   └─global::g()
     rlang::last_trace()
     #>     █
     #>  1. ├─rlang::with_abort(f(), "message")

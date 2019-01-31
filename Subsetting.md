@@ -104,8 +104,7 @@ There are six things that you can use to subset a vector:
     
     ```r
     x[c(-1, 2)]
-    #> Error in x[c(-1, 2)]:
-    #>   only 0's may be mixed with negative subscripts
+    #> Error in x[c(-1, 2)]: only 0's may be mixed with negative subscripts
     ```
 
 *   __Logical vectors__ select elements where the corresponding logical 

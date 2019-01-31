@@ -123,9 +123,9 @@ You can access an object's identifier with `lobstr::obj_addr()`. Doing so allows
 
 ```r
 obj_addr(x)
-#> [1] "0x1f8fc58"
+#> [1] "0x15cda28"
 obj_addr(y)
-#> [1] "0x1f8fc58"
+#> [1] "0x15cda28"
 ```
 
 These identifiers are long, and change every time you restart R.
@@ -208,7 +208,7 @@ You _can_ also create non-syntactic bindings using single or double quotes (e.g.
 ## Copy-on-modify
 \index{copy-on-modify}
 
-Consider the following code. It binds `x` and `y` to the same underlying value, then modifies `y`.[^double-bracket]
+Consider the following code. It binds `x` and `y` to the same underlying value, then modifies `y`[^double-bracket].
 
 [^double-bracket]: You may be surprised to see `[[` used to subset a numeric vector. We'll come back to this in Section \@ref(subset-single), but in brief, I think you should always use `[[` when you are getting or setting a single element.
 
@@ -275,7 +275,7 @@ f <- function(a) {
 
 x <- c(1, 2, 3)
 cat(tracemem(x), "\n")
-#> <0x37e8598>
+#> <0x2610f48>
 
 z <- f(x)
 # there's no copy here!
@@ -336,15 +336,15 @@ To see values that are shared across lists, use `lobstr::ref()`. `ref()` prints 
 
 ```r
 ref(l1, l2)
-#> █ [1:0x7331738] <list> 
-#> ├─[2:0x7153268] <dbl> 
-#> ├─[3:0x7153230] <dbl> 
-#> └─[4:0x71531f8] <dbl> 
+#> █ [1:0x6969ee8] <list> 
+#> ├─[2:0x6789b10] <dbl> 
+#> ├─[3:0x6789ad8] <dbl> 
+#> └─[4:0x6789aa0] <dbl> 
 #>  
-#> █ [5:0x7da8278] <list> 
-#> ├─[2:0x7153268] 
-#> ├─[3:0x7153230] 
-#> └─[6:0x7c7c818] <dbl>
+#> █ [5:0x73e86a8] <list> 
+#> ├─[2:0x6789b10] 
+#> ├─[3:0x6789ad8] 
+#> └─[6:0x72b4fe0] <dbl>
 ```
 
 ### Data frames {#df-modify}
@@ -402,11 +402,11 @@ You can request that `ref()` show these references by setting the `character` ar
 
 ```r
 ref(x, character = TRUE)
-#> █ [1:0x2d72758] <chr> 
-#> ├─[2:0x1620758] <string: "a"> 
-#> ├─[2:0x1620758] 
-#> ├─[3:0x3c9b310] <string: "abc"> 
-#> └─[4:0x1ad6af0] <string: "d">
+#> █ [1:0x208e918] <chr> 
+#> ├─[2:0xc5e758] <string: "a"> 
+#> ├─[2:0xc5e758] 
+#> ├─[3:0x32db1f8] <string: "abc"> 
+#> └─[4:0x1114af0] <string: "d">
 ```
 
 This has a profound impact on the amount of memory a character vector uses but is otherwise generally unimportant, so elsewhere in the book I'll draw character vectors as if the strings lived inside a vector.
@@ -713,8 +713,8 @@ e <- rlang::env()
 e$self <- e
 
 ref(e)
-#> █ [1:0x184d398] <env> 
-#> └─self = [1:0x184d398]
+#> █ [1:0xeef768] <env> 
+#> └─self = [1:0xeef768]
 ```
 
 \begin{center}\includegraphics[width=1.48in]{diagrams/name-value/e-self} \end{center}
@@ -780,8 +780,8 @@ You can force garbage collection by calling `gc()`. But despite what you might h
 ```r
 gc() 
 #>           used (Mb) gc trigger (Mb) max used (Mb)
-#> Ncells  683545 36.6    1285085 68.7  1285085 68.7
-#> Vcells 4699882 35.9   11789889 90.0 11788306 90.0
+#> Ncells  683549 36.6    1285097 68.7  1285097 68.7
+#> Vcells 4699901 35.9   11789892 90.0 11788429 90.0
 ```
 
 `lobstr::mem_used()` is a wrapper around `gc()` that prints the total number of bytes used:
@@ -789,7 +789,7 @@ gc()
 
 ```r
 mem_used()
-#> 75,881,824 B
+#> 75,882,200 B
 ```
 
 This number won't agree with the amount of memory reported by your operating system. There are three reasons:

@@ -139,7 +139,7 @@
 \thispagestyle{empty}
 
 \begin{center}
-To Mina, my constant companion.
+To Mina, the best book writing companion.
 
 \includegraphics[width=0.33\textwidth]{mina.jpg}
 
@@ -172,7 +172,7 @@ Welcome to the 2nd edition of Advanced R. I had three main goals for this editio
 
 If you're familiar with the 1st edition, this preface describes the major changes so that you can focus your reading on the new areas. If you're reading a printed version of this book you'll notice one big change very quickly: Advanced R is now in colour! This has considerably improved the syntax highlighting of code chunks, and made it much easier to create helpful diagrams. I have taken advantage of this and included over 100 new diagrams throughout the book.
 
-Another big change in this version is the use of packages, particularly \href{http://rlang.r-lib.org}{rlang}, which provides a clean interface to low-level data structures and operations. The 1st edition used base R functions almost exclusively, which created some pedagogical challenges because many functions evolved independently over multiple years, making it hard to see the big underlying ideas hidden amongst the incidental variations in function names and arguments. I continue to show base equivalents in sidebars, footnotes, and where needed, in individual sections, but if you want to see the purest base R expression of the ideas in this book, I recommend reading the 1st edition, which you can find online at \url{http://adv-r.had.co.nz}.
+Another big change in this version is the use of new packages, particularly \href{http://rlang.r-lib.org}{rlang}, which provides a clean interface to low-level data structures and operations. The 1st edition used base R functions almost exclusively, which created some pedagogical challenges because many functions evolved independently over multiple years, making it hard to see the big underlying ideas hidden amongst the incidental variations in function names and arguments. I continue to show base equivalents in sidebars, footnotes, and where needed, in individual sections, but if you want to see the purest base R expression of the ideas in this book, I recommend reading the 1st edition, which you can find online at \url{http://adv-r.had.co.nz}.
 
 The foundations of R have not changed in the five years since the 1st edition, but my understanding of them certainly has. Thus, the overall structure of ``Foundations'' has remained roughly the same, but many of the individual chapters have been considerably improved:
 
@@ -188,8 +188,8 @@ The foundations of R have not changed in the five years since the 1st edition, b
   has been rewritten to focus on vector types like integers, factors, and
   data frames. It contains more details of important S3 vectors (like dates
   and date-times), discusses the data frame variation provided by the
-  \href{https://tibble.tidyverse.org}{tibble}, and generally reflects my improved
-  understanding of vector data types.
+  tibble package (Müller and Wickham \protect\hyperlink{ref-tibble}{2018}), and generally reflects my improved understanding
+  of vector data types.
 \item
   Chapter \ref{subsetting}, ``Subsetting'', now distinguishes between \texttt{{[}} and
   \texttt{{[}{[}} by their intention: \texttt{{[}} extracts many values and \texttt{{[}{[}} extracts a
@@ -199,8 +199,8 @@ The foundations of R have not changed in the five years since the 1st edition, b
   provide more consistent behaviour for out-of-bounds indices.
 \item
   Chapter \ref{control-flow}, ``Control flow'', is a new chapter: somehow
-  I previously managed to forget about such important tools like \texttt{if} and
-  \texttt{for}!
+  I previously forgot about important tools like \texttt{if} statements and \texttt{for}
+  loops!
 \item
   Chapter \ref{functions}, ``Functions'', has an improved ordering,
   introduces the pipe (\texttt{\%\textgreater{}\%}) as a third way to compose functions (Section
@@ -208,8 +208,8 @@ The foundations of R have not changed in the five years since the 1st edition, b
   function forms (Section \ref{function-forms}).
 \item
   Chapter \ref{environments}, ``Environments'', has a reorganised treatment of
-  special environments (Section \ref{special-environments}), and a much improved
-  discussion of the call stack (Section \ref{call-stack}).
+  special environments (Section \ref{special-environments}), and a much
+  improved discussion of the call stack (Section \ref{call-stack}).
 \item
   Chapter \ref{conditions}, ``Conditions'', contains material previously
   in ``Exceptions and debugging'', and much new content on how R's condition
@@ -227,11 +227,11 @@ The chapters following foundations have been re-organised around the three most 
   (Chapter \ref{function-operators}). I've focussed in on ideas that have
   practical applications in data science and reduced the amount of pure theory.
 
-  These chapters now use functions provided by the purrr package, which allow
-  me to focus more on the underlying ideas and less on the incidental
-  details. This also lead to a considerable simplification of the function
-  operators chapter since a major use was to work around the absence of \texttt{...}
-  in base functionals.
+  These chapters now use functions provided by the purrr package (Henry and Wickham \protect\hyperlink{ref-purrr}{2018}\protect\hyperlink{ref-purrr}{a}),
+  which allow me to focus more on the underlying ideas and less on the
+  incidental details. This lead to a considerable simplification of the
+  function operators chapter since a major use was to work around the absence
+  of \texttt{...} in base functionals.
 \item
   Object oriented programming (OOP) now forms a major section of the book with
   completely new chapters on base types (Chapter \ref{base-types}),
@@ -248,12 +248,13 @@ The chapters following foundations have been re-organised around the three most 
   1st edition this material has been substantially expanded and now focusses on
   ``tidy evaluation'', a set of ideas and theory that that make metaprogramming
   safe, well-principled, and accessible to many more R programmers.
-  Chapter \ref{expressions}, ``Expressions'', describes the underlying data
-  structures; Chapter \ref{quasiquotation}, ``Quasiquotation'', quoting and
-  unquoting; Chapter \ref{evaluation}, ``Evaluation'', evaluating code in
-  special environments; and Chapter \ref{translation}, ``Translations'', pulls
-  all the themes together to show how you might translate from one
-  (programming) language to another.
+  Chapter \ref{meta-big-picture}, ``Big picture'' coarsely lays out how all
+  the pieces fig together; Chapter \ref{expressions}, ``Expressions'', describes
+  the underlying data structures; Chapter \ref{quasiquotation},
+  ``Quasiquotation'', quoting and unquoting; Chapter \ref{evaluation},
+  ``Evaluation'', evaluating code in special environments; and Chapter
+  \ref{translation}, ``Translations'', pulls all the themes together to show
+  how you might translate from one (programming) language to another.
 \end{itemize}
 
 The final section of the book pulls together the chapters on programming techniques: profiling, measuring and improving performance, and Rcpp. The contents are very similar to the first edition, although the organisation is a little different. I have made light updates throughout these chapters particularly to use newer packges (microbenchmark -\textgreater{} bench, lineprof -\textgreater{} profvis), but the majority of the text is the same.
@@ -268,7 +269,7 @@ While the 2nd edition has mostly expanded coverage of existing material, there w
 \item
   The style chapter has been replaced with an online style guide,
   \url{http://style.tidyverse.org/}. The style guide is paired with the new
-  \href{http://styler.r-lib.org/}{styler} package which can automatically apply many of the rules.
+  styler package (Müller and Walthert \protect\hyperlink{ref-styler}{2018}) which can automatically apply many of the rules.
 \item
   The C chapter has been moved to a new repo,
   \url{https://github.com/hadley/r-internals}, which, over time, will provide
@@ -278,8 +279,8 @@ While the 2nd edition has mostly expanded coverage of existing material, there w
   into Chapter \ref{names-values} and the remainder felt excessively technical
   and not that important to understand.
 \item
-  The chapter on R's performance as a language was removed. This delivered
-  few actionable insights, and easily becomes out date as R itself changes.
+  The chapter on R's performance as a language was removed. It delivered
+  few actionable insights, and became dated as R itself changed.
 \end{itemize}
 
 \hypertarget{introduction}{%
@@ -478,9 +479,9 @@ Some good general advice:
 \hypertarget{intro-ack}{%
 \section{Acknowledgments}\label{intro-ack}}
 
-I would like to thank the many contributors to R-devel and R-help and, more recently, Stack Overflow and RStudio Community. There are too many to name individually, but I'd particularly like to thank Luke Tierney, John Chambers, Dirk Eddelbuettel, JJ Allaire, and Brian Ripley for generously giving their time and correcting my countless misunderstandings.
+I would like to thank the many contributors to R-devel and R-help and, more recently, Stack Overflow and RStudio Community. There are too many to name individually, but I'd particularly like to thank Luke Tierney, John Chambers, JJ Allaire, and Brian Ripley for generously giving their time and correcting my countless misunderstandings.
 
-This book was \href{https://github.com/hadley/adv-r/}{written in the open}, and chapters were advertised on \href{https://twitter.com/hadleywickham}{twitter} when complete. It is truly a community effort: many people read drafts, fixed typos, suggested improvements, and contributed content. Without those contributors, the book wouldn't be nearly as good as it is, and I'm deeply grateful for their help. Special thanks go to Jeff Hammerbacher, Peter Li, and Greg Wilson, who all read the book from cover-to-cover and provided many fixes and suggestions.
+This book was \href{https://github.com/hadley/adv-r/}{written in the open}, and chapters were advertised on \href{https://twitter.com/hadleywickham}{twitter} when complete. It is truly a community effort: many people read drafts, fixed typos, suggested improvements, and contributed content. Without those contributors, the book wouldn't be nearly as good as it is, and I'm deeply grateful for their help. Special thanks go to Jeff Hammerbacher, Peter Li, Duncan Murdoch, and Greg Wilson, who all read the book from cover-to-cover and provided many fixes and suggestions.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -521,28 +522,27 @@ This version of the book was built with the following version of R and packages.
 \chapter*{Introduction}\label{foundations-intro}}
 \addcontentsline{toc}{chapter}{Introduction}
 
-To start your journey in mastering R, the following six chapters will help you learn what I consider to be the foundational components of R. I expect that you've already seen many of these pieces before, but you probably have not studied them deeply. To help check your existing knowledge, each chapter starts with a quiz; if you get all the questions right, feel free to skip to the next chapter!
+To start your journey in mastering R, the following six chapters will help you learn the foundational components of R. I expect that you've already seen many of these pieces before, but you probably have not studied them deeply. To help check your existing knowledge, each chapter starts with a quiz; if you get all the questions right, feel free to skip to the next chapter!
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  In Chapter \ref{names-values}, you'll learn about one of the most
-  important distinctions you haven't previously needed to grapple with:
-  the difference between an object and its name. Improving your mental model
-  here will help you make better predictions about when R copies data
-  and hence which basic operations are cheap and which are expensive.
+  In Chapter \ref{names-values}, you'll learn about an important distinction
+  that you probably haven't thought deeply about: the difference between an
+  object and its name. Improving your mental model here will help you make
+  better predictions about when R copies data and hence which basic
+  operations are cheap and which are expensive.
 \item
-  Every day you've used R, you've used vectors, so Chapter \ref{vectors-chap}
-  will dive into the details, helping you learn how the different types of
-  vector fit together. You'll also learn about attributes, which allow you to
-  store arbitrary metadata, and form the basis for two of R's object
-  oriented programming toolkits
+  You use vectors every day in R, so Chapter \ref{vectors-chap} will dive
+  into the details, helping you learn how the different types of vector fit
+  together. You'll also learn about attributes, which allow you to store
+  arbitrary metadata, and form the basis for two of R's object oriented
+  programming toolkits.
 \item
-  To write concise and performant R code it is important to fully appreciate
-  the power of subsetting with \texttt{{[}}, \texttt{{[}{[}} and \texttt{\$}, as described in Chapter
-  \ref{subsetting}. Understanding the fundamental components of subsetting
-  will allow you to solve new problems by combining the building blocks in
-  novel ways.
+  To write clear, concise, and efficient R code it is important to fully
+  appreciate the power of subsetting with as described in Chapter
+  \ref{subsetting}. Understanding the fundamental components will allow you
+  to solve new problems by combining the building blocks in novel ways.
 \item
   The tools of control flow allow you to only execute code under certain
   conditions, or to repeatedly execute code with changing inputs. In Chapter
@@ -550,20 +550,20 @@ To start your journey in mastering R, the following six chapters will help you l
   as well as related tools like \texttt{switch()} and \texttt{while}.
 \item
   Functions are the most important building block of R code, and in Chapter
-  \ref{functions}, you'll learn exactly how they work, including
-  the \textbf{scoping} rules, which govern how R looks up values from names.
-  You'll also learn more of the details behind R's lazy evaluation, and
-  how you can control what happens when you exit a function.
+  \ref{functions}, you'll learn exactly how they work, including the
+  scoping rules, which govern how R looks up values from names. You'll also
+  learn more of the details behind lazy evaluation, and how you can
+  control what happens when you exit a function.
 \item
   In Chapter \ref{environments}, you'll learn about a data structure that
   is crucial for understanding how R works, but quite unimportant for data
   analysis: the environment. Environments are the data structure that binds
-  names to values, and they power tools like package namespaces. Unlike most
-  programming languages, environments in R are ``first class'' which means that
-  you can manipulate them just like other objects.
+  names to values, and they power important tools like package namespaces.
+  Unlike most programming languages, environments in R are ``first class''
+  which means that you can manipulate them just like other objects.
 \item
-  Chapter \ref{conditions} concludes this section of the book with a
-  discussion of ``conditions'', the umbrella term used to describe errors,
+  Chapter \ref{conditions} concludes the foundations of R with an
+  exploration of ``conditions'', the umbrella term used to describe errors,
   warnings, and messages. You've certainly encountered these before, so in
   this chapter you learn how to signal them appropriately in your own
   functions, and how to handle them when signalled elsewhere.
@@ -727,9 +727,9 @@ You can access an object's identifier with \texttt{lobstr::obj\_addr()}. Doing s
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{obj_addr}\NormalTok{(x)}
-\CommentTok{#> [1] "0x1f8fc58"}
+\CommentTok{#> [1] "0x15cda28"}
 \KeywordTok{obj_addr}\NormalTok{(y)}
-\CommentTok{#> [1] "0x1f8fc58"}
+\CommentTok{#> [1] "0x15cda28"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -822,7 +822,7 @@ You \emph{can} also create non-syntactic bindings using single or double quotes 
 
 \index{copy-on-modify}
 
-Consider the following code. It binds \texttt{x} and \texttt{y} to the same underlying value, then modifies \texttt{y}.\footnote{You may be surprised to see \texttt{{[}{[}} used to subset a numeric vector. We'll come back to this in Section \ref{subset-single}, but in brief, I think you should always use \texttt{{[}{[}} when you are getting or setting a single element.}
+Consider the following code. It binds \texttt{x} and \texttt{y} to the same underlying value, then modifies \texttt{y}\footnote{You may be surprised to see \texttt{{[}{[}} used to subset a numeric vector. We'll come back to this in Section \ref{subset-single}, but in brief, I think you should always use \texttt{{[}{[}} when you are getting or setting a single element.}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -893,7 +893,7 @@ The same rules for copying also apply to function calls. Take this code:
 
 \NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
 \KeywordTok{cat}\NormalTok{(}\KeywordTok{tracemem}\NormalTok{(x), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> <0x37e8598>}
+\CommentTok{#> <0x2610f48>}
 
 \NormalTok{z <-}\StringTok{ }\KeywordTok{f}\NormalTok{(x)}
 \CommentTok{# there's no copy here!}
@@ -956,15 +956,15 @@ To see values that are shared across lists, use \texttt{lobstr::ref()}. \texttt{
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ref}\NormalTok{(l1, l2)}
-\CommentTok{#> █ [1:0x7331738] <list> }
-\CommentTok{#> ├─[2:0x7153268] <dbl> }
-\CommentTok{#> ├─[3:0x7153230] <dbl> }
-\CommentTok{#> └─[4:0x71531f8] <dbl> }
+\CommentTok{#> █ [1:0x6969ee8] <list> }
+\CommentTok{#> ├─[2:0x6789b10] <dbl> }
+\CommentTok{#> ├─[3:0x6789ad8] <dbl> }
+\CommentTok{#> └─[4:0x6789aa0] <dbl> }
 \CommentTok{#>  }
-\CommentTok{#> █ [5:0x7da8278] <list> }
-\CommentTok{#> ├─[2:0x7153268] }
-\CommentTok{#> ├─[3:0x7153230] }
-\CommentTok{#> └─[6:0x7c7c818] <dbl>}
+\CommentTok{#> █ [5:0x73e86a8] <list> }
+\CommentTok{#> ├─[2:0x6789b10] }
+\CommentTok{#> ├─[3:0x6789ad8] }
+\CommentTok{#> └─[6:0x72b4fe0] <dbl>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1027,11 +1027,11 @@ You can request that \texttt{ref()} show these references by setting the \texttt
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ref}\NormalTok{(x, }\DataTypeTok{character =} \OtherTok{TRUE}\NormalTok{)}
-\CommentTok{#> █ [1:0x2d72758] <chr> }
-\CommentTok{#> ├─[2:0x1620758] <string: "a"> }
-\CommentTok{#> ├─[2:0x1620758] }
-\CommentTok{#> ├─[3:0x3c9b310] <string: "abc"> }
-\CommentTok{#> └─[4:0x1ad6af0] <string: "d">}
+\CommentTok{#> █ [1:0x208e918] <chr> }
+\CommentTok{#> ├─[2:0xc5e758] <string: "a"> }
+\CommentTok{#> ├─[2:0xc5e758] }
+\CommentTok{#> ├─[3:0x32db1f8] <string: "abc"> }
+\CommentTok{#> └─[4:0x1114af0] <string: "d">}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1372,8 +1372,8 @@ One consequence of this is that environments can contain themselves:
 \NormalTok{e}\OperatorTok{$}\NormalTok{self <-}\StringTok{ }\NormalTok{e}
 
 \KeywordTok{ref}\NormalTok{(e)}
-\CommentTok{#> █ [1:0x184d398] <env> }
-\CommentTok{#> └─self = [1:0x184d398]}
+\CommentTok{#> █ [1:0xeef768] <env> }
+\CommentTok{#> └─self = [1:0xeef768]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1449,8 +1449,8 @@ You can force garbage collection by calling \texttt{gc()}. But despite what you 
 \begin{Highlighting}[]
 \KeywordTok{gc}\NormalTok{() }
 \CommentTok{#>           used (Mb) gc trigger (Mb) max used (Mb)}
-\CommentTok{#> Ncells  683545 36.6    1285085 68.7  1285085 68.7}
-\CommentTok{#> Vcells 4699882 35.9   11789889 90.0 11788306 90.0}
+\CommentTok{#> Ncells  683549 36.6    1285097 68.7  1285097 68.7}
+\CommentTok{#> Vcells 4699901 35.9   11789892 90.0 11788429 90.0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1459,7 +1459,7 @@ You can force garbage collection by calling \texttt{gc()}. But despite what you 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{mem_used}\NormalTok{()}
-\CommentTok{#> 75,881,824 B}
+\CommentTok{#> 75,882,200 B}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1598,34 +1598,28 @@ There are four primary types of atomic vectors: logical, integer, double, and ch
 \subsection{Scalars}\label{scalars}}
 
 \index{scalars}
-\indexc{NA}
-\index{missing values|see {\texttt{NA}}}
 \indexc{NaN}
 \indexc{Inf}
 \indexc{L}
 \indexc{""}
 \indexc{'}
 
-Each of the four primary types has a special syntax to create an individual value, AKA a \textbf{scalar}\footnote{Technically, the R language does not possess scalars. Everything that looks like a scalar is actually a vector of length one. This is mostly a theoretical distinction, but it does mean that expressions like \texttt{1{[}1{]}} work.}, and its own missing value.
+Each of the four primary types has a special syntax to create an individual value, AKA a \textbf{scalar}\footnote{Technically, the R language does not possess scalars. Everything that looks like a scalar is actually a vector of length one. This is mostly a theoretical distinction, but it does mean that expressions like \texttt{1{[}1{]}} work.}:
 
 \begin{itemize}
 \item
   Strings are surrounded by \texttt{"} (\texttt{"hi"}) or \texttt{\textquotesingle{}} (\texttt{\textquotesingle{}bye\textquotesingle{}}). Special characters
-  are escaped with \texttt{\textbackslash{}}; see \texttt{?Quotes} for full details. The missing value
-  for strings is \texttt{NA\_character\_}.
+  are escaped with \texttt{\textbackslash{}}; see \texttt{?Quotes} for full details.
 \item
   Doubles can be specified in decimal (\texttt{0.1234}), scientific (\texttt{1.23e4}), or
   hexadecimal (\texttt{0xcafe}) form. There are three special values unique to
   doubles: \texttt{Inf}, \texttt{-Inf}, and \texttt{NaN} (not a number). These are special values
-  defined by the floating point standard. The missing value for doubles is
-  \texttt{NA\_real\_}.
+  defined by the floating point standard.
 \item
-  Integers are written similarly to doubles but must be followed by \texttt{L}\footnote{\texttt{L} is not intuitive, and you might wonder where it comes from. At the time \texttt{L} was added to R, R's integer type was equivalent to a long integer in C, and C code could use a suffix of \texttt{l} or \texttt{L} to force a number to be a long integer. It was decided that \texttt{l} was too visually similar to \texttt{i} (used for complex numbers in R), leaving \texttt{L}.}
-  (\texttt{1234L}, \texttt{1e4L}, or \texttt{0xcafeL}), and can not include decimals. The integer
-  missing value is \texttt{NA\_integer\_}.
+  Integers are written similarly to doubles but must be followed by
+  \texttt{L}\footnote{\texttt{L} is not intuitive, and you might wonder where it comes from. At the time \texttt{L} was added to R, R's integer type was equivalent to a long integer in C, and C code could use a suffix of \texttt{l} or \texttt{L} to force a number to be a long integer. It was decided that \texttt{l} was too visually similar to \texttt{i} (used for complex numbers in R), leaving \texttt{L}.} (\texttt{1234L}, \texttt{1e4L}, or \texttt{0xcafeL}), and can not include decimals.
 \item
   Logicals can be spelt out (\texttt{TRUE} or \texttt{FALSE}), or abbreviated (\texttt{T} or \texttt{F}).
-  The missing value for logicals is \texttt{NA}.
 \end{itemize}
 
 \hypertarget{atomic-constructing}{%
@@ -1673,6 +1667,61 @@ You can determine the type of a vector with \texttt{typeof()}\footnote{You may h
 \CommentTok{#> [1] "character"}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{missing-values}{%
+\subsection{Missing values}\label{missing-values}}
+
+\indexc{NA}
+\indexc{is.na}
+
+\index{missing values|see {\texttt{NA}}}
+
+R can represent missing, or unknown values, using a special sentinel: \texttt{NA} (short for not applicable). Missing values tend to be infectious: most computations involving a missing value will return another missing value.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OtherTok{NA} \OperatorTok{>}\StringTok{ }\DecValTok{5}
+\CommentTok{#> [1] NA}
+\DecValTok{10} \OperatorTok{*}\StringTok{ }\OtherTok{NA}
+\CommentTok{#> [1] NA}
+\OperatorTok{!}\OtherTok{NA}
+\CommentTok{#> [1] NA}
+\end{Highlighting}
+\end{Shaded}
+
+There are only a few exceptions to this rule. These occur when some identity holds for all possible inputs:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OtherTok{NA} \OperatorTok{^}\StringTok{ }\DecValTok{0}
+\CommentTok{#> [1] 1}
+\OtherTok{NA} \OperatorTok{|}\StringTok{ }\OtherTok{TRUE}
+\CommentTok{#> [1] TRUE}
+\OtherTok{NA} \OperatorTok{&}\StringTok{ }\OtherTok{FALSE}
+\CommentTok{#> [1] FALSE}
+\end{Highlighting}
+\end{Shaded}
+
+Propagation of missingness leads to a common mistake when determining which values in a vector are missing:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DecValTok{5}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{x }\OperatorTok{==}\StringTok{ }\OtherTok{NA}
+\CommentTok{#> [1] NA NA NA NA}
+\end{Highlighting}
+\end{Shaded}
+
+This result is correct (if a little surprising) because there's no reason to believe that one missing value has the same value as another. Instead, use \texttt{is.na()} to test for the presence of missingness:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.na}\NormalTok{(x)}
+\CommentTok{#> [1]  TRUE FALSE  TRUE FALSE}
+\end{Highlighting}
+\end{Shaded}
+
+NB: Technically there are four missing values, one for each of the atomic types: \texttt{NA} (logical), \texttt{NA\_integer\_} (integer), \texttt{NA\_real\_} (double), and \texttt{NA\_character\_} (character). This distinction is rarely important because \texttt{NA} will be automatically coerced to the correct type when needed.
 
 \hypertarget{testing-and-coercion}{%
 \subsection{Testing and coercion}\label{testing-and-coercion}}
@@ -2490,8 +2539,8 @@ While every element of a data frame (or tibble) must have the same length, both 
 \CommentTok{#> 3 3 1}
 \CommentTok{#> 4 4 2}
 \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{, }\DataTypeTok{y =} \DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{)}
-\CommentTok{#> Error in data.frame(x = 1:4, y = 1:3):}
-\CommentTok{#>   arguments imply differing number of rows: 4, 3}
+\CommentTok{#> Error in data.frame(x = 1:4, y = 1:3): arguments imply differing}
+\CommentTok{#> number of rows: 4, 3}
 
 \KeywordTok{tibble}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{, }\DataTypeTok{y =} \DecValTok{1}\NormalTok{)}
 \CommentTok{#> # A tibble: 4 x 2}
@@ -2502,14 +2551,10 @@ While every element of a data frame (or tibble) must have the same length, both 
 \CommentTok{#> 3     3     1}
 \CommentTok{#> 4     4     1}
 \KeywordTok{tibble}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{, }\DataTypeTok{y =} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{)}
-\CommentTok{#> Error: Tibble columns must have consistent lengths, only values of length one are recycled:}
+\CommentTok{#> Error: Tibble columns must have consistent lengths, only values of}
+\CommentTok{#> length one are recycled:}
 \CommentTok{#> * Length 2: Column `y`}
 \CommentTok{#> * Length 4: Column `x`}
-\CommentTok{#> Backtrace:}
-\CommentTok{#>     █}
-\CommentTok{#>  1. └─tibble::tibble(x = 1:4, y = 1:2)}
-\CommentTok{#>  2.   └─tibble:::lst_to_tibble(xlq$output, .rows, .name_repair, lengths = xlq$lengths)}
-\CommentTok{#>  3.     └─tibble:::recycle_columns(x, .rows, lengths)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2779,7 +2824,7 @@ List columns are easier to use with tibbles because they can be directly include
 
 \index{data frames!matrix-columns}
 
-As long as the number of rows matches the data frame, it's also possible to have a matrix or array as a column of a data. (This requires a slight extension to our definition of a data frame: it's not the \texttt{length()} of each column that must be equal, but the \texttt{NROW()}.) Like with list-columns, you must either add it after creation, or wrap it in \texttt{I()}.
+As long as the number of rows matches the data frame, it's also possible to have a matrix or array as a column of a data frame. (This requires a slight extension to our definition of a data frame: it's not the \texttt{length()} of each column that must be equal, but the \texttt{NROW()}.) Like with list-columns, you must either add it after creation, or wrap it in \texttt{I()}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2845,8 +2890,7 @@ To finish up this chapter, I want to talk about one final important data structu
 
 \NormalTok{x <-}\StringTok{ }\OtherTok{NULL}
 \KeywordTok{attr}\NormalTok{(x, }\StringTok{"y"}\NormalTok{) <-}\StringTok{ }\DecValTok{1}
-\CommentTok{#> Error in attr(x, "y") <- 1:}
-\CommentTok{#>   attempt to set an attribute on NULL}
+\CommentTok{#> Error in attr(x, "y") <- 1: attempt to set an attribute on NULL}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3040,8 +3084,7 @@ There are six things that you can use to subset a vector:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{x[}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)]}
-\CommentTok{#> Error in x[c(-1, 2)]:}
-\CommentTok{#>   only 0's may be mixed with negative subscripts}
+\CommentTok{#> Error in x[c(-1, 2)]: only 0's may be mixed with negative subscripts}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -4147,14 +4190,11 @@ The \texttt{condition} should evaluate to a single \texttt{TRUE} or \texttt{FALS
 \begin{Shaded}
 \begin{Highlighting}[]
 \ControlFlowTok{if}\NormalTok{ (}\StringTok{"x"}\NormalTok{) }\DecValTok{1}
-\CommentTok{#> Error in if ("x") 1:}
-\CommentTok{#>   argument is not interpretable as logical}
+\CommentTok{#> Error in if ("x") 1: argument is not interpretable as logical}
 \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{logical}\NormalTok{()) }\DecValTok{1}
-\CommentTok{#> Error in if (logical()) 1:}
-\CommentTok{#>   argument is of length zero}
+\CommentTok{#> Error in if (logical()) 1: argument is of length zero}
 \ControlFlowTok{if}\NormalTok{ (}\OtherTok{NA}\NormalTok{) }\DecValTok{1}
-\CommentTok{#> Error in if (NA) 1:}
-\CommentTok{#>   missing value where TRUE/FALSE needed}
+\CommentTok{#> Error in if (NA) 1: missing value where TRUE/FALSE needed}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4175,8 +4215,7 @@ In R 3.5.0 and greater, thanks to \href{https://github.com/HenrikBengtsson/Wishl
 \begin{Highlighting}[]
 \KeywordTok{Sys.setenv}\NormalTok{(}\StringTok{"_R_CHECK_LENGTH_1_CONDITION_"}\NormalTok{ =}\StringTok{ "true"}\NormalTok{)}
 \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{)) }\DecValTok{1}
-\CommentTok{#> Error in if (c(TRUE, FALSE)) 1:}
-\CommentTok{#>   the condition has length > 1}
+\CommentTok{#> Error in if (c(TRUE, FALSE)) 1: the condition has length > 1}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4423,8 +4462,7 @@ Next, beware of iterating over \texttt{1:length(x)}, which will fail in unhelpfu
 \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(means)) \{}
 \NormalTok{  out[[i]] <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10}\NormalTok{, means[[i]])}
 \NormalTok{\}}
-\CommentTok{#> Error in rnorm(10, means[[i]]):}
-\CommentTok{#>   invalid arguments}
+\CommentTok{#> Error in rnorm(10, means[[i]]): invalid arguments}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5186,8 +5224,7 @@ To solve this problem, you can manually change the function's environment to the
 \begin{Highlighting}[]
 \KeywordTok{environment}\NormalTok{(g12) <-}\StringTok{ }\KeywordTok{emptyenv}\NormalTok{()}
 \KeywordTok{g12}\NormalTok{()}
-\CommentTok{#> Error in x + 1:}
-\CommentTok{#>   could not find function "+"}
+\CommentTok{#> Error in x + 1: could not find function "+"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5517,7 +5554,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
   \KeywordTok{print}\NormalTok{(x)}
 \NormalTok{\}}
 \KeywordTok{show_time}\NormalTok{()}
-\CommentTok{#> [1] "2019-01-29 08:11:47 UTC"}
+\CommentTok{#> [1] "2019-01-31 06:54:17 UTC"}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -5812,8 +5849,7 @@ If a function cannot complete its assigned task, it should throw an error with \
   \KeywordTok{return}\NormalTok{(}\DecValTok{10}\NormalTok{)}
 \NormalTok{\}}
 \KeywordTok{j05}\NormalTok{()}
-\CommentTok{#> Error in j05():}
-\CommentTok{#>   I'm an error}
+\CommentTok{#> Error in j05(): I'm an error}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5848,8 +5884,7 @@ Sometimes a function needs to make temporary changes to the global state. But ha
 
 \KeywordTok{j06}\NormalTok{(}\OtherTok{FALSE}\NormalTok{)}
 \CommentTok{#> Hello}
-\CommentTok{#> Error in j06(FALSE):}
-\CommentTok{#>   Error}
+\CommentTok{#> Error in j06(FALSE): Error}
 \CommentTok{#> Goodbye!}
 \end{Highlighting}
 \end{Shaded}
@@ -6108,8 +6143,8 @@ As illustrated by the following chunk, arguments are matched by exact name, then
 
 \CommentTok{# But this doesn't work because abbreviation is ambiguous}
 \KeywordTok{str}\NormalTok{(}\KeywordTok{k01}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DataTypeTok{b =} \DecValTok{1}\NormalTok{))}
-\CommentTok{#> Error in k01(1, 3, b = 1):}
-\CommentTok{#>   argument 3 matches multiple formal arguments}
+\CommentTok{#> Error in k01(1, 3, b = 1): argument 3 matches multiple formal}
+\CommentTok{#> arguments}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6556,7 +6591,7 @@ Printing an environment just displays its memory address, which is not terribly 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{e1}
-\CommentTok{#> <environment: 0x1da7428>}
+\CommentTok{#> <environment: 0x17baf58>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6565,7 +6600,7 @@ Instead, we'll use \texttt{env\_print()} which gives us a little more informatio
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_print}\NormalTok{(e1)}
-\CommentTok{#> <environment: 0x1da7428>}
+\CommentTok{#> <environment: 0x17baf58>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * a: <lgl>}
@@ -6602,8 +6637,8 @@ To compare environments, you need to use \texttt{identical()} and not \texttt{==
 \CommentTok{#> [1] TRUE}
 
 \KeywordTok{global_env}\NormalTok{() }\OperatorTok{==}\StringTok{ }\KeywordTok{current_env}\NormalTok{()}
-\CommentTok{#> Error in global_env() == current_env():}
-\CommentTok{#>   comparison (1) is possible only for atomic and list types}
+\CommentTok{#> Error in global_env() == current_env(): comparison (1) is possible}
+\CommentTok{#> only for atomic and list types}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6633,7 +6668,7 @@ You can find the parent of an environment with \texttt{env\_parent()}:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parent}\NormalTok{(e2b)}
-\CommentTok{#> <environment: 0x51a9a30>}
+\CommentTok{#> <environment: 0x4bfa1e8>}
 \KeywordTok{env_parent}\NormalTok{(e2a)}
 \CommentTok{#> <environment: R_GlobalEnv>}
 \end{Highlighting}
@@ -6655,10 +6690,10 @@ The ancestors of every environment eventually terminate with the empty environme
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parents}\NormalTok{(e2b)}
-\CommentTok{#> [[1]]   <env: 0x51a9a30>}
+\CommentTok{#> [[1]]   <env: 0x4bfa1e8>}
 \CommentTok{#> [[2]] $ <env: global>}
 \KeywordTok{env_parents}\NormalTok{(e2d)}
-\CommentTok{#> [[1]]   <env: 0x5c345e8>}
+\CommentTok{#> [[1]]   <env: 0x5684fb0>}
 \CommentTok{#> [[2]] $ <env: empty>}
 \end{Highlighting}
 \end{Shaded}
@@ -6668,7 +6703,7 @@ By default, \texttt{env\_parents()} stops when it gets to the global environment
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parents}\NormalTok{(e2b, }\DataTypeTok{last =} \KeywordTok{empty_env}\NormalTok{())}
-\CommentTok{#>  [[1]]   <env: 0x51a9a30>}
+\CommentTok{#>  [[1]]   <env: 0x4bfa1e8>}
 \CommentTok{#>  [[2]] $ <env: global>}
 \CommentTok{#>  [[3]] $ <env: package:rlang>}
 \CommentTok{#>  [[4]] $ <env: package:stats>}
@@ -6733,12 +6768,11 @@ But you can't use \texttt{{[}{[}} with numeric indices, and you can't use \textt
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{e3[[}\DecValTok{1}\NormalTok{]]}
-\CommentTok{#> Error in e3[[1]]:}
-\CommentTok{#>   wrong arguments for subsetting an environment}
+\CommentTok{#> Error in e3[[1]]: wrong arguments for subsetting an environment}
 
 \NormalTok{e3[}\KeywordTok{c}\NormalTok{(}\StringTok{"x"}\NormalTok{, }\StringTok{"y"}\NormalTok{)]}
-\CommentTok{#> Error in e3[c("x", "y")]:}
-\CommentTok{#>   object of type 'environment' is not subsettable}
+\CommentTok{#> Error in e3[c("x", "y")]: object of type 'environment' is not}
+\CommentTok{#> subsettable}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6750,8 +6784,7 @@ But you can't use \texttt{{[}{[}} with numeric indices, and you can't use \textt
 \CommentTok{#> NULL}
 
 \KeywordTok{env_get}\NormalTok{(e3, }\StringTok{"xyz"}\NormalTok{)}
-\CommentTok{#> Error in env_get(e3, "xyz"):}
-\CommentTok{#>   object 'xyz' not found}
+\CommentTok{#> Error in env_get(e3, "xyz"): object 'xyz' not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6850,7 +6883,7 @@ There are two more exotic variants of \texttt{env\_bind()}:
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(b))}
 \CommentTok{#> [1] 1}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>       0       0       0}
+\CommentTok{#>   0.000   0.000   0.001}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7077,7 +7110,7 @@ Most environments are not created by you (e.g.~with \texttt{env()}) but are inst
 
 Each package attached by \texttt{library()} or \texttt{require()} becomes one of the parents of the global environment. The immediate parent of the global environment is the last package you attached\footnote{Note the difference between attached and loaded. A package is loaded automatically if you access one of its functions using \texttt{::}; it is only \textbf{attached} to the search path by \texttt{library()} or \texttt{require()}.}, the parent of that package is the second to last package you attached, \ldots{}
 
-\begin{center}\includegraphics[width=4.33in]{diagrams/environments/search-path} \end{center}
+\begin{center}\includegraphics[width=5.41in]{diagrams/environments/search-path} \end{center}
 
 If you follow all the parents back, you see the order in which every package has been attached. This is known as the \textbf{search path} because all objects in these environments can be found from the top-level interactive workspace. You can see the names of these environments with \texttt{base::search()}, or the environments themselves with \texttt{rlang::search\_envs()}:
 
@@ -7118,7 +7151,7 @@ The last two environments on the search path are always the same:
 
 Note that when you attach another package with \texttt{library()}, the parent environment of the global environment changes:
 
-\begin{center}\includegraphics[width=4.33in]{diagrams/environments/search-path-2} \end{center}
+\begin{center}\includegraphics[width=5.41in]{diagrams/environments/search-path-2} \end{center}
 
 \hypertarget{function-environments}{%
 \subsection{The function environment}\label{function-environments}}
@@ -7126,7 +7159,7 @@ Note that when you attach another package with \texttt{library()}, the parent en
 \index{environments!function}
 \indexc{fn\_env()}
 
-A function binds the current environment when it is created. This is called the \textbf{function environment}, and is used for lexical scoping. Across computer languages, functions that capture their environments are called \textbf{closures}, which is why this term is often used interchangeably with function in R's documentation.
+A function binds the current environment when it is created. This is called the \textbf{function environment}, and is used for lexical scoping. Across computer languages, functions that capture (or enclose) their environments are called \textbf{closures}, which is why this term is often used interchangeably with function in R's documentation.
 
 You can get the function environment with \texttt{fn\_env()}:
 
@@ -7143,7 +7176,7 @@ Use \texttt{environment(f)} to access the environment of function \texttt{f}.
 
 In diagrams, I'll draw a function as a rectangle with a rounded end that binds an environment.
 
-\begin{center}\includegraphics[width=1.85in]{diagrams/environments/binding} \end{center}
+\begin{center}\includegraphics[width=2.31in]{diagrams/environments/binding} \end{center}
 
 In this case, \texttt{f()} binds the environment that binds the name \texttt{f} to the function. But that's not always the case: in the following example \texttt{g} is bound in a new environment \texttt{e}, but \texttt{g()} binds the global environment. The distinction between binding and being bound by is subtle but important; the difference is how we find \texttt{g} vs.~how \texttt{g} finds its variables.
 
@@ -7154,7 +7187,7 @@ In this case, \texttt{f()} binds the environment that binds the name \texttt{f} 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1.73in]{diagrams/environments/binding-2} \end{center}
+\begin{center}\includegraphics[width=2.16in]{diagrams/environments/binding-2} \end{center}
 
 \hypertarget{namespaces}{%
 \subsection{Namespaces}\label{namespaces}}
@@ -7171,7 +7204,7 @@ For example, take \texttt{sd()}:
 \CommentTok{#> function (x, na.rm = FALSE) }
 \CommentTok{#> sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), }
 \CommentTok{#>     na.rm = na.rm))}
-\CommentTok{#> <bytecode: 0x5cb1f60>}
+\CommentTok{#> <bytecode: 0x5e58e18>}
 \CommentTok{#> <environment: namespace:stats>}
 \end{Highlighting}
 \end{Shaded}
@@ -7192,7 +7225,7 @@ For example, take \texttt{sd()}:
 
 Every binding in the package environment is also found in the namespace environment; this ensures every function can use every other function in the package. But some bindings only occur in the namespace environment. These are known as internal or non-exported objects, which make it possible to hide internal implementation details from the user.
 
-\begin{center}\includegraphics[width=2.08in]{diagrams/environments/namespace-bind} \end{center}
+\begin{center}\includegraphics[width=2.6in]{diagrams/environments/namespace-bind} \end{center}
 
 Every namespace environment has the same set of ancestors:
 
@@ -7215,11 +7248,11 @@ Every namespace environment has the same set of ancestors:
   to how S3 method dispatch works.
 \end{itemize}
 
-\begin{center}\includegraphics[width=4.13in]{diagrams/environments/namespace-env} \end{center}
+\begin{center}\includegraphics[width=5.17in]{diagrams/environments/namespace-env} \end{center}
 
 Putting all these diagrams together we get:
 
-\begin{center}\includegraphics[width=4.13in]{diagrams/environments/namespace} \end{center}
+\begin{center}\includegraphics[width=5.17in]{diagrams/environments/namespace} \end{center}
 
 So when \texttt{sd()} looks for the value of \texttt{var} it always finds it in a sequence of environments determined by the package developer, but not by the package user. This ensures that package code always works the same way regardless of what packages have been attached by the user.
 
@@ -7260,7 +7293,7 @@ Think about it for a moment before you read on.
 \end{Highlighting}
 \end{Shaded}
 
-This function returns the same value every time because of the fresh start principle, described in Section \ref{fresh-start}. Each time a function is called, a new environment is created to host execution. This is called the execution environment, and its parent is the function environment. Let's illustrate that process with a simpler function. I'll draw execution environments with an indirect parent; the parent environment is found via the function environment.
+This function returns the same value every time because of the fresh start principle, described in Section \ref{fresh-start}. Each time a function is called, a new environment is created to host execution. This is called the execution environment, and its parent is the function environment. Let's illustrate that process with a simpler function. Figure \ref{fig:execution-env} illustrates the graphical conventions: I draw execution environments with an indirect parent; the parent environment is found via the function environment.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7273,7 +7306,14 @@ This function returns the same value every time because of the fresh start princ
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=2.64in]{diagrams/environments/execution} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=3.3in]{diagrams/environments/execution} 
+
+}
+
+\caption{The execution environment of a simple function call. Note that the parent of the execution environment is the function environment.}\label{fig:execution-env}
+\end{figure}
 
 An execution environment is usually ephemeral; once the function has completed, the environment will be garbage collected. There are several ways to make it stay around for longer. The first is to explicitly return it:
 
@@ -7286,7 +7326,7 @@ An execution environment is usually ephemeral; once the function has completed, 
 
 \NormalTok{e <-}\StringTok{ }\KeywordTok{h2}\NormalTok{(}\DataTypeTok{x =} \DecValTok{10}\NormalTok{)}
 \KeywordTok{env_print}\NormalTok{(e)}
-\CommentTok{#> <environment: 0x6842da0>}
+\CommentTok{#> <environment: 0x6450f58>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * a: <dbl>}
@@ -7309,11 +7349,11 @@ There's a lot going on in the diagram because the enclosing environment of \text
 \NormalTok{plus_one <-}\StringTok{ }\KeywordTok{plus}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \NormalTok{plus_one}
 \CommentTok{#> function(y) x + y}
-\CommentTok{#> <environment: 0x5db7620>}
+\CommentTok{#> <environment: 0x570c228>}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1.69in]{diagrams/environments/closure} \end{center}
+\begin{center}\includegraphics[width=2.11in]{diagrams/environments/closure} \end{center}
 
 What happens when we call \texttt{plus\_one()}? Its execution environment will have the captured execution environment of \texttt{plus()} as its parent:
 
@@ -7324,7 +7364,7 @@ What happens when we call \texttt{plus\_one()}? Its execution environment will h
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1.69in]{diagrams/environments/closure-call} \end{center}
+\begin{center}\includegraphics[width=2.11in]{diagrams/environments/closure-call} \end{center}
 
 You'll learn more about function factories in Section \ref{factory-fundamentals}.
 
@@ -7371,8 +7411,8 @@ There is one last environment we need to explain, the \textbf{caller} environmen
 
 To fully understand the caller environment we need to discuss two related concepts: the \textbf{call stack}, which is made up of \textbf{frames}. Executing a function creates two types of context. You've learned about one already: the execution environment is a child of the function environment, which is determined by where the function was created. There's another type of context created by where the function was called: this is called the call stack.
 
-\hypertarget{simple-call-stacks}{%
-\subsection{Simple call stacks}\label{simple-call-stacks}}
+\hypertarget{simple-stack}{%
+\subsection{Simple call stacks}\label{simple-stack}}
 
 \indexc{cst()}
 \indexc{traceback()}
@@ -7430,7 +7470,7 @@ This shows us that \texttt{cst()} was called from \texttt{h()}, which was called
 
 \index{lazy evaluation}
 
-The call stack above is simple - while you get a hint that there's some tree-like structure involved, everything happens on a single branch. This is typical of a call stack when all arguments are eagerly evaluated.
+The call stack above is simple: while you get a hint that there's some tree-like structure involved, everything happens on a single branch. This is typical of a call stack when all arguments are eagerly evaluated.
 
 Let's create a more complicated example that involves some lazy evaluation. We'll create a sequence of functions, \texttt{a()}, \texttt{b()}, \texttt{c()}, that pass along an argument \texttt{x}.
 
@@ -7460,8 +7500,7 @@ Let's create a more complicated example that involves some lazy evaluation. We'l
 \index{frame}
 \indexc{parent.frame()}
 
-Each element of the call stack is a \textbf{frame}\footnote{NB: \texttt{?environment} uses frame in a different sense: ``Environments consist of a \emph{frame}, or collection of named objects, and a pointer to an enclosing environment.''. We avoid this sense of frame, which comes from S, because it's very specific and not widely used in base R. For example, the ``frame'' in \texttt{parent.frame()} is an execution context, not a collection of named objects.}, also known as an evaluation context.
-The frame is an extremely important internal data structure, and R code can only access a small part of the data structure because it's so critical. A frame has three main components that are accessible from R:
+Each element of the call stack is a \textbf{frame}\footnote{NB: \texttt{?environment} uses frame in a different sense: ``Environments consist of a \emph{frame}, or collection of named objects, and a pointer to an enclosing environment.''. We avoid this sense of frame, which comes from S, because it's very specific and not widely used in base R. For example, the ``frame'' in \texttt{parent.frame()} is an execution context, not a collection of named objects.}, also known as an evaluation context. The frame is an extremely important internal data structure, and R code can only access a small part of the data structure because tampering with it will break R. A frame has three key components:
 
 \begin{itemize}
 \item
@@ -7476,18 +7515,27 @@ The frame is an extremely important internal data structure, and R code can only
   A parent, the previous call in the call stack (shown by a grey arrow).
 \end{itemize}
 
-\begin{center}\includegraphics[width=3.58in]{diagrams/environments/calling} \end{center}
+Figure \ref{fig:calling} illustrates the stack for the call to \texttt{f(x\ =\ 1)} shown in Section \ref{simple-stack}.
+
+\begin{figure}
+
+{\centering \includegraphics[width=4.47in]{diagrams/environments/calling} 
+
+}
+
+\caption{The graphical depiction of a simple call stack}\label{fig:calling}
+\end{figure}
 
 (To focus on the calling environments, I have omitted the bindings in the global environment from \texttt{f}, \texttt{g}, and \texttt{h} to the respective function objects.)
 
-The frame also holds exit handlers created with \texttt{on.exit()}, restarts and handlers for the condition system, and which context to \texttt{return()} to when a function completes. These are important for the internal operation of R, but are not directly accessible.
+The frame also holds exit handlers created with \texttt{on.exit()}, restarts and handlers for the condition system, and which context to \texttt{return()} to when a function completes. These are important internal details that are not accessible with R code.
 
 \hypertarget{dynamic-scope}{%
 \subsection{Dynamic scope}\label{dynamic-scope}}
 
 \index{scoping!dynamic}
 
-Looking up variables in the calling stack rather than in the enclosing environment is called \textbf{dynamic scoping}. Few languages implement dynamic scoping (Emacs Lisp is a \href{http://www.gnu.org/software/emacs/emacs-paper.html\#SEC15}{notable exception}.) This is because dynamic scoping makes it much harder to reason about how a function operates: not only do you need to know how it was defined, you also need to know the context in which it was called. Dynamic scoping is primarily useful for developing functions that aid interactive data analysis. It is one of the topics discussed in Chapter \ref{evaluation}.
+Looking up variables in the calling stack rather than in the enclosing environment is called \textbf{dynamic scoping}. Few languages implement dynamic scoping (Emacs Lisp is a \href{http://www.gnu.org/software/emacs/emacs-paper.html\#SEC15}{notable exception}.) This is because dynamic scoping makes it much harder to reason about how a function operates: not only do you need to know how it was defined, you also need to know the context in which it was called. Dynamic scoping is primarily useful for developing functions that aid interactive data analysis, and one of the topics discussed in Chapter \ref{evaluation}.
 
 \hypertarget{exercises-23}{%
 \subsection{Exercises}\label{exercises-23}}
@@ -7666,7 +7714,7 @@ There are three conditions that you can signal in code: errors, warnings, and me
   Errors are the most severe; they indicate that there is no way for a function
   to continue and execution must stop.
 \item
-  Warnings fall somewhat in between errors and warnings, and typically indicate
+  Warnings fall somewhat in between errors and message, and typically indicate
   that something has gone wrong but the function has been able to at least
   partially recover.
 \item
@@ -7676,13 +7724,12 @@ There are three conditions that you can signal in code: errors, warnings, and me
 
 There is a final condition that can only be generated interactively: an interrupt, which indicates that the user has ``interrupted'' execution by pressing Escape, Ctrl + Break, or Ctrl + C (depending on the platform).
 
-Conditions are usually displayed prominently, in a bold font or coloured red, depending on the R interface. You can tell them apart because errors always start with ``Error'', warnings with ``Warning message'', and messages with nothing.
+Conditions are usually displayed prominently, in a bold font or coloured red, depending on the R interface. You can tell them apart because errors always start with ``Error'', warnings with ``Warning'' or ``Warning message'', and messages with nothing.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{stop}\NormalTok{(}\StringTok{"This is what an error looks like"}\NormalTok{)}
-\CommentTok{#> Error in eval(expr, envir, enclos):}
-\CommentTok{#>   This is what an error looks like}
+\CommentTok{#> Error in eval(expr, envir, enclos): This is what an error looks like}
 
 \KeywordTok{warning}\NormalTok{(}\StringTok{"This is what a warning looks like"}\NormalTok{)}
 \CommentTok{#> Warning: This is what a warning looks like}
@@ -7710,8 +7757,7 @@ In base R, errors are signalled, or \textbf{thrown}, by \texttt{stop()}:
 \NormalTok{h <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() }\KeywordTok{stop}\NormalTok{(}\StringTok{"This is an error!"}\NormalTok{)}
 
 \KeywordTok{f}\NormalTok{()}
-\CommentTok{#> Error in h():}
-\CommentTok{#>   This is an error!}
+\CommentTok{#> Error in h(): This is an error!}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7732,11 +7778,6 @@ The rlang equivalent to \texttt{stop()}, \texttt{rlang::abort()}, does this auto
 \NormalTok{h <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() }\KeywordTok{abort}\NormalTok{(}\StringTok{"This is an error!"}\NormalTok{)}
 \KeywordTok{f}\NormalTok{()}
 \CommentTok{#> Error: This is an error!}
-\CommentTok{#> Backtrace:}
-\CommentTok{#>     █}
-\CommentTok{#>  1. └─global::f()}
-\CommentTok{#>  2.   └─global::g()}
-\CommentTok{#>  3.     └─global::h()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7947,8 +7988,7 @@ These functions are heavy handed as you can't use them to suppress a single type
   \DecValTok{10}
 \NormalTok{\}}
 \KeywordTok{f1}\NormalTok{(}\StringTok{"x"}\NormalTok{)}
-\CommentTok{#> Error in log(x):}
-\CommentTok{#>   non-numeric argument to mathematical function}
+\CommentTok{#> Error in log(x): non-numeric argument to mathematical function}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8463,11 +8503,10 @@ To explore these ideas in more depth, let's take \texttt{base::log()}. It does t
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{log}\NormalTok{(letters)}
-\CommentTok{#> Error in log(letters):}
-\CommentTok{#>   non-numeric argument to mathematical function}
+\CommentTok{#> Error in log(letters): non-numeric argument to mathematical function}
 \KeywordTok{log}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{base =}\NormalTok{ letters)}
-\CommentTok{#> Error in log(1:10, base = letters):}
-\CommentTok{#>   non-numeric argument to mathematical function}
+\CommentTok{#> Error in log(1:10, base = letters): non-numeric argument to}
+\CommentTok{#> mathematical function}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8494,14 +8533,8 @@ This gives us:
 \begin{Highlighting}[]
 \KeywordTok{my_log}\NormalTok{(letters)}
 \CommentTok{#> Error: `x` must be a numeric vector; not character.}
-\CommentTok{#> Backtrace:}
-\CommentTok{#>     █}
-\CommentTok{#>  1. └─global::my_log(letters)}
 \KeywordTok{my_log}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{base =}\NormalTok{ letters)}
 \CommentTok{#> Error: `base` must be a numeric vector; not character.}
-\CommentTok{#> Backtrace:}
-\CommentTok{#>     █}
-\CommentTok{#>  1. └─global::my_log(1:10, base = letters)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8549,7 +8582,9 @@ If you want to throw a custom error without adding a dependency on rlang, you ca
   \KeywordTok{stop}\NormalTok{(err)}
 \NormalTok{\}}
 
-\NormalTok{err <-}\StringTok{ }\KeywordTok{catch_cnd}\NormalTok{(}\KeywordTok{stop_custom}\NormalTok{(}\StringTok{"error_new"}\NormalTok{, }\StringTok{"This is a custom error"}\NormalTok{, }\DataTypeTok{x =} \DecValTok{10}\NormalTok{))}
+\NormalTok{err <-}\StringTok{ }\KeywordTok{catch_cnd}\NormalTok{(}
+  \KeywordTok{stop_custom}\NormalTok{(}\StringTok{"error_new"}\NormalTok{, }\StringTok{"This is a custom error"}\NormalTok{, }\DataTypeTok{x =} \DecValTok{10}\NormalTok{)}
+\NormalTok{)}
 \KeywordTok{class}\NormalTok{(err)}
 \NormalTok{err}\OperatorTok{$}\NormalTok{x}
 \end{Highlighting}
@@ -8578,16 +8613,8 @@ We can now rewrite \texttt{my\_log()} to use this new helper:
 \begin{Highlighting}[]
 \KeywordTok{my_log}\NormalTok{(letters)}
 \CommentTok{#> Error: `x` must be numeric; not character.}
-\CommentTok{#> Backtrace:}
-\CommentTok{#>     █}
-\CommentTok{#>  1. └─global::my_log(letters)}
-\CommentTok{#>  2.   └─global::abort_bad_argument("x", must = "be numeric", not = x)}
 \KeywordTok{my_log}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{base =}\NormalTok{ letters)}
 \CommentTok{#> Error: `base` must be numeric; not character.}
-\CommentTok{#> Backtrace:}
-\CommentTok{#>     █}
-\CommentTok{#>  1. └─global::my_log(1:10, base = letters)}
-\CommentTok{#>  2.   └─global::abort_bad_argument("base", must = "be numeric", not = base)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8601,11 +8628,6 @@ These structured condition objects are much easier to program with. The first pl
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(testthat)}
-\CommentTok{#> }
-\CommentTok{#> Attaching package: 'testthat'}
-\CommentTok{#> The following objects are masked from 'package:rlang':}
-\CommentTok{#> }
-\CommentTok{#>     is_false, is_null, is_true}
 
 \NormalTok{err <-}\StringTok{ }\KeywordTok{catch_cnd}\NormalTok{(}\KeywordTok{my_log}\NormalTok{(}\StringTok{"a"}\NormalTok{))}
 \KeywordTok{expect_s3_class}\NormalTok{(err, }\StringTok{"error_bad_argument"}\NormalTok{)}
@@ -8822,16 +8844,6 @@ As well as returning default values when a condition is signalled, handlers can 
   \KeywordTok{warn}\NormalTok{(}\StringTok{"Hello"}\NormalTok{)}
 \NormalTok{\})}
 \CommentTok{#> Error: Hello}
-\CommentTok{#> Backtrace:}
-\CommentTok{#>     █}
-\CommentTok{#>  1. ├─global::warning2error(...)}
-\CommentTok{#>  2. │ └─base::withCallingHandlers(...)}
-\CommentTok{#>  3. ├─rlang::warn("Hello")}
-\CommentTok{#>  4. │ └─base::warning(cnd)}
-\CommentTok{#>  5. │   └─base::withRestarts(...)}
-\CommentTok{#>  6. │     └─base:::withOneRestart(expr, restarts[[1L]])}
-\CommentTok{#>  7. │       └─base:::doWithOneRestart(return(expr), restart)}
-\CommentTok{#>  8. └─(function (cnd) ...}
 \end{Highlighting}
 \end{Shaded}
 
@@ -9322,13 +9334,8 @@ All map functions always return an output vector the same length as the input, w
 \begin{Highlighting}[]
 \NormalTok{pair <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{c}\NormalTok{(x, x)}
 \KeywordTok{map_dbl}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{, pair)}
-\CommentTok{#> Error: Result 1 must be a single double, not an integer vector of length 2}
-\CommentTok{#> Backtrace:}
-\CommentTok{#>     █}
-\CommentTok{#>  1. ├─purrr::map_dbl(1:2, pair)}
-\CommentTok{#>  2. └─purrr:::stop_bad_element_vector(...)}
-\CommentTok{#>  3.   └─purrr:::stop_bad_vector(...)}
-\CommentTok{#>  4.     └─purrr:::stop_bad_type(...)}
+\CommentTok{#> Error: Result 1 must be a single double, not an integer vector of}
+\CommentTok{#> length 2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -9448,12 +9455,6 @@ The map functions also have shortcuts for extracting elements from a vector, pow
 \CommentTok{# You'll get an error if a component doesn't exist:}
 \KeywordTok{map_chr}\NormalTok{(x, }\StringTok{"z"}\NormalTok{)}
 \CommentTok{#> Error: Result 3 must be a single string, not NULL of length 0}
-\CommentTok{#> Backtrace:}
-\CommentTok{#>     █}
-\CommentTok{#>  1. ├─purrr::map_chr(x, "z")}
-\CommentTok{#>  2. └─purrr:::stop_bad_element_vector(...)}
-\CommentTok{#>  3.   └─purrr:::stop_bad_vector(...)}
-\CommentTok{#>  4.     └─purrr:::stop_bad_type(...)}
 
 \CommentTok{# Unless you supply a .default value}
 \KeywordTok{map_chr}\NormalTok{(x, }\StringTok{"z"}\NormalTok{, }\DataTypeTok{.default =} \OtherTok{NA}\NormalTok{)}
@@ -9527,8 +9528,8 @@ This is the reason why the arguments to \texttt{map()} are a little odd: instead
 \NormalTok{\}}
 
 \KeywordTok{simple_map}\NormalTok{(mtcars, boostrap_summary, }\DataTypeTok{f =}\NormalTok{ mean)}
-\CommentTok{#> Error in mean.default(x[[i]], ...):}
-\CommentTok{#>   'trim' must be numeric of length one}
+\CommentTok{#> Error in mean.default(x[[i]], ...): 'trim' must be numeric of length}
+\CommentTok{#> one}
 \end{Highlighting}
 \end{Shaded}
 
@@ -9659,8 +9660,7 @@ You'll see one more alternative in Section \ref{pmap}.
 
 \NormalTok{triple <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) x }\OperatorTok{*}\StringTok{ }\DecValTok{3}
 \KeywordTok{map}\NormalTok{(x, map, }\DataTypeTok{.f =}\NormalTok{ triple)}
-\CommentTok{#> Error in .f(.x[[i]], ...):}
-\CommentTok{#>   unused argument (map)}
+\CommentTok{#> Error in .f(.x[[i]], ...): unused argument (map)}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -9885,8 +9885,8 @@ But passing \texttt{ws} as an additional argument doesn't work because arguments
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{map_dbl}\NormalTok{(xs, weighted.mean, }\DataTypeTok{w =}\NormalTok{ ws)}
-\CommentTok{#> Error in weighted.mean.default(.x[[i]], ...):}
-\CommentTok{#>   'x' and 'w' must have the same length}
+\CommentTok{#> Error in weighted.mean.default(.x[[i]], ...): 'x' and 'w' must have}
+\CommentTok{#> the same length}
 \end{Highlighting}
 \end{Shaded}
 
@@ -10356,8 +10356,7 @@ This also ensures that \texttt{reduce()} checks that length 1 inputs are valid f
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{reduce}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{`}\DataTypeTok{+}\StringTok{`}\NormalTok{, }\DataTypeTok{.init =} \DecValTok{0}\NormalTok{)}
-\CommentTok{#> Error in .x + .y:}
-\CommentTok{#>   non-numeric argument to binary operator}
+\CommentTok{#> Error in .x + .y: non-numeric argument to binary operator}
 \end{Highlighting}
 \end{Shaded}
 
@@ -10804,14 +10803,14 @@ Let's start by taking a look at \texttt{square()} and \texttt{cube()}:
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <environment: 0x38c21a8>}
+\CommentTok{#> <environment: 0x35bbf78>}
 
 \NormalTok{cube}
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <bytecode: 0x1ec73a0>}
-\CommentTok{#> <environment: 0x3a95b58>}
+\CommentTok{#> <bytecode: 0x1bc4a98>}
+\CommentTok{#> <environment: 0x3794028>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -10820,13 +10819,13 @@ It's obvious where \texttt{x} comes from, but how does R find the value associat
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_print}\NormalTok{(square)}
-\CommentTok{#> <environment: 0x38c21a8>}
+\CommentTok{#> <environment: 0x35bbf78>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * exp: <dbl>}
 
 \KeywordTok{env_print}\NormalTok{(cube)}
-\CommentTok{#> <environment: 0x3a95b58>}
+\CommentTok{#> <environment: 0x3794028>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * exp: <dbl>}
@@ -11030,7 +11029,7 @@ With most functions, you can rely on the garbage collector to clean up any large
 \NormalTok{force}
 \CommentTok{#> function (x) }
 \CommentTok{#> x}
-\CommentTok{#> <bytecode: 0x1afcd60>}
+\CommentTok{#> <bytecode: 0x17f4d60>}
 \CommentTok{#> <environment: namespace:base>}
 \end{Highlighting}
 \end{Shaded}
@@ -11263,12 +11262,12 @@ A mildly simplified version of \texttt{plot\_dev()} is shown below:
 
 \KeywordTok{plot_dev}\NormalTok{(}\StringTok{"pdf"}\NormalTok{)}
 \CommentTok{#> function(filename, ...) grDevices::pdf(file = filename, ...)}
-\CommentTok{#> <bytecode: 0x59b9910>}
-\CommentTok{#> <environment: 0x4f7ee90>}
+\CommentTok{#> <bytecode: 0x56ff328>}
+\CommentTok{#> <environment: 0x4cdbfb0>}
 \KeywordTok{plot_dev}\NormalTok{(}\StringTok{"png"}\NormalTok{)}
 \CommentTok{#> function(...) grDevices::png(..., res = dpi, units = "in")}
-\CommentTok{#> <bytecode: 0x5c52758>}
-\CommentTok{#> <environment: 0x604fb70>}
+\CommentTok{#> <bytecode: 0x5984010>}
+\CommentTok{#> <environment: 0x5d85a20>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -11616,8 +11615,8 @@ To finish off the chapter, I'll show how you might combine functionals and funct
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <bytecode: 0x1ec73a0>}
-\CommentTok{#> <environment: 0x5883c80>}
+\CommentTok{#> <bytecode: 0x1bc4a98>}
+\CommentTok{#> <environment: 0x554c8d0>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -11829,8 +11828,7 @@ One advantage of for-loops is that if one of the iterations fails, you can still
 \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_along}\NormalTok{(x)) \{}
 \NormalTok{  out[[i]] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(x[[i]])}
 \NormalTok{\}}
-\CommentTok{#> Error in sum(x[[i]]):}
-\CommentTok{#>   invalid 'type' (character) of argument}
+\CommentTok{#> Error in sum(x[[i]]): invalid 'type' (character) of argument}
 \NormalTok{out}
 \CommentTok{#> [1] 1.39 1.27 2.17   NA}
 \end{Highlighting}
@@ -11841,8 +11839,8 @@ If you do the same thing with a functional, you get no output, making it hard to
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{map_dbl}\NormalTok{(x, sum)}
-\CommentTok{#> Error in .Primitive("sum")(..., na.rm = na.rm):}
-\CommentTok{#>   invalid 'type' (character) of argument}
+\CommentTok{#> Error in .Primitive("sum")(..., na.rm = na.rm): invalid 'type'}
+\CommentTok{#> (character) of argument}
 \end{Highlighting}
 \end{Shaded}
 
@@ -11854,8 +11852,8 @@ If you do the same thing with a functional, you get no output, making it hard to
 \NormalTok{safe_sum}
 \CommentTok{#> function (...) }
 \CommentTok{#> capture_error(.f(...), otherwise, quiet)}
-\CommentTok{#> <bytecode: 0x5791188>}
-\CommentTok{#> <environment: 0x5790cf0>}
+\CommentTok{#> <bytecode: 0x57a6fb8>}
+\CommentTok{#> <environment: 0x57a6b20>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12030,7 +12028,7 @@ When we memoise this function, it's slow when we call it with new arguments. But
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(}\KeywordTok{fast_function}\NormalTok{(}\DecValTok{1}\NormalTok{)))}
 \CommentTok{#> [1] 6.01}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.012   0.000   0.016}
+\CommentTok{#>   0.016   0.000   0.015}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12044,10 +12042,10 @@ A relatively realistic use of memoisation is computing the Fibonacci series. The
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib}\NormalTok{(}\DecValTok{23}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>    0.04    0.00    0.04}
+\CommentTok{#>   0.040   0.000   0.039}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib}\NormalTok{(}\DecValTok{24}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.064   0.000   0.064}
+\CommentTok{#>   0.060   0.000   0.064}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12061,7 +12059,7 @@ Memoising \texttt{fib()} makes the implementation much faster because each value
 \NormalTok{\})}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib2}\NormalTok{(}\DecValTok{23}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.024   0.000   0.026}
+\CommentTok{#>   0.024   0.000   0.024}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12835,13 +12833,13 @@ Unlike most functions, you can't see the source code for most S3 methods\footnot
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{weighted.mean.Date}
-\CommentTok{#> Error in eval(expr, envir, enclos):}
-\CommentTok{#>   object 'weighted.mean.Date' not found}
+\CommentTok{#> Error in eval(expr, envir, enclos): object 'weighted.mean.Date' not}
+\CommentTok{#> found}
 
 \KeywordTok{s3_get_method}\NormalTok{(weighted.mean.Date)}
 \CommentTok{#> function (x, w, ...) }
 \CommentTok{#> structure(weighted.mean(unclass(x), w, ...), class = "Date")}
-\CommentTok{#> <bytecode: 0x5db9120>}
+\CommentTok{#> <bytecode: 0x6d70a70>}
 \CommentTok{#> <environment: namespace:stats>}
 \end{Highlighting}
 \end{Shaded}
@@ -12960,8 +12958,8 @@ S3 has no checks for correctness which means you can change the class of existin
 
 \CommentTok{# Unsurprisingly this doesn't work very well}
 \KeywordTok{print}\NormalTok{(mod)}
-\CommentTok{#> Error in as.POSIXlt.Date(x):}
-\CommentTok{#>   (list) object cannot be coerced to type 'double'}
+\CommentTok{#> Error in as.POSIXlt.Date(x): (list) object cannot be coerced to type}
+\CommentTok{#> 'double'}
 \end{Highlighting}
 \end{Shaded}
 
@@ -13070,11 +13068,9 @@ More complicated classes require more complicated checks for validity. Take fact
 \NormalTok{\}}
 
 \KeywordTok{new_factor}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{, }\StringTok{"a"}\NormalTok{)}
-\CommentTok{#> Error in as.character.factor(x):}
-\CommentTok{#>   malformed factor}
+\CommentTok{#> Error in as.character.factor(x): malformed factor}
 \KeywordTok{new_factor}\NormalTok{(}\DecValTok{0}\OperatorTok{:}\DecValTok{1}\NormalTok{, }\StringTok{"a"}\NormalTok{)}
-\CommentTok{#> Error in as.character.factor(x):}
-\CommentTok{#>   malformed factor}
+\CommentTok{#> Error in as.character.factor(x): malformed factor}
 \end{Highlighting}
 \end{Shaded}
 
@@ -13104,7 +13100,8 @@ Rather than encumbering the constructor with complicated checks, it's better to 
 \NormalTok{\}}
 
 \KeywordTok{validate_factor}\NormalTok{(}\KeywordTok{new_factor}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{, }\StringTok{"a"}\NormalTok{))}
-\CommentTok{#> Error: There must at least as many `levels` as possible values in `x`}
+\CommentTok{#> Error: There must at least as many `levels` as possible values in}
+\CommentTok{#> `x`}
 \KeywordTok{validate_factor}\NormalTok{(}\KeywordTok{new_factor}\NormalTok{(}\DecValTok{0}\OperatorTok{:}\DecValTok{1}\NormalTok{, }\StringTok{"a"}\NormalTok{))}
 \CommentTok{#> Error: All `x` values must be non-missing and greater than zero}
 \end{Highlighting}
@@ -13144,8 +13141,7 @@ The last bullet is the trickiest, and it's hard to give general advice. However,
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{new_difftime}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
-\CommentTok{#> Error in new_difftime(1:10):}
-\CommentTok{#>   is.double(x) is not TRUE}
+\CommentTok{#> Error in new_difftime(1:10): is.double(x) is not TRUE}
 \end{Highlighting}
 \end{Shaded}
 
@@ -13260,7 +13256,7 @@ Most generics are very simple, and consist of only a call to \texttt{UseMethod()
 \NormalTok{mean}
 \CommentTok{#> function (x, ...) }
 \CommentTok{#> UseMethod("mean")}
-\CommentTok{#> <bytecode: 0x15f7640>}
+\CommentTok{#> <bytecode: 0x25b12f8>}
 \CommentTok{#> <environment: namespace:base>}
 \end{Highlighting}
 \end{Shaded}
@@ -14247,7 +14243,7 @@ There are two important methods that should be defined for most classes: \texttt
 
 \NormalTok{hadley <-}\StringTok{ }\NormalTok{Person}\OperatorTok{$}\KeywordTok{new}\NormalTok{(}\StringTok{"Hadley"}\NormalTok{, }\DataTypeTok{age =} \StringTok{"thirty-eight"}\NormalTok{)}
 \CommentTok{#> Error in .subset2(public_bind_env, "initialize")(...):}
-\CommentTok{#>   is.numeric(age) is not TRUE}
+\CommentTok{#> is.numeric(age) is not TRUE}
 
 \NormalTok{hadley <-}\StringTok{ }\NormalTok{Person}\OperatorTok{$}\KeywordTok{new}\NormalTok{(}\StringTok{"Hadley"}\NormalTok{, }\DataTypeTok{age =} \DecValTok{38}\NormalTok{)}
 \end{Highlighting}
@@ -14562,8 +14558,7 @@ Active fields are particularly useful in conjunction with private fields, becaus
 \NormalTok{hadley4}\OperatorTok{$}\NormalTok{name}
 \CommentTok{#> [1] "Hadley"}
 \NormalTok{hadley4}\OperatorTok{$}\NormalTok{name <-}\StringTok{ }\DecValTok{10}
-\CommentTok{#> Error in (function (value) :}
-\CommentTok{#>   is.character(value) is not TRUE}
+\CommentTok{#> Error in (function (value) : is.character(value) is not TRUE}
 \NormalTok{hadley4}\OperatorTok{$}\NormalTok{age <-}\StringTok{ }\DecValTok{20}
 \CommentTok{#> Error: `$age` is read only}
 \end{Highlighting}
@@ -15113,8 +15108,8 @@ In most programming languages, class definition occurs at compile-time and objec
 \NormalTok{a}
 \CommentTok{#> An object of class "A"}
 \CommentTok{#> Slot "a_different_slot":}
-\CommentTok{#> Error in slot(object, what):}
-\CommentTok{#>   no slot of name "a_different_slot" for this object of class "A"}
+\CommentTok{#> Error in slot(object, what): no slot of name "a_different_slot" for}
+\CommentTok{#> this object of class "A"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -15174,10 +15169,9 @@ The constructor automatically checks that the slots have correct classes:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{Person}\NormalTok{(mtcars)}
-\CommentTok{#> Error in validObject(.Object):}
-\CommentTok{#>   Error in validObject(.Object): invalid class "Person" object:}
-\CommentTok{#>   invalid object for slot "name" in class "Person": got class}
-\CommentTok{#>   "data.frame", should be or extend class "character"}
+\CommentTok{#> Error in validObject(.Object): invalid class "Person" object:}
+\CommentTok{#> invalid object for slot "name" in class "Person": got class}
+\CommentTok{#> "data.frame", should be or extend class "character"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -15214,8 +15208,8 @@ Now we can no longer create an invalid object:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{Person}\NormalTok{(}\StringTok{"Hadley"}\NormalTok{, }\DataTypeTok{age =} \KeywordTok{c}\NormalTok{(}\DecValTok{30}\NormalTok{, }\DecValTok{37}\NormalTok{))}
-\CommentTok{#> Error in validObject(.Object):}
-\CommentTok{#>   invalid class "Person" object: @name and @age must be same length}
+\CommentTok{#> Error in validObject(.Object): invalid class "Person" object: @name}
+\CommentTok{#> and @age must be same length}
 \end{Highlighting}
 \end{Shaded}
 
@@ -15235,8 +15229,8 @@ You can explicitly check the validity yourself by calling \texttt{validObject()}
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{validObject}\NormalTok{(alex)}
-\CommentTok{#> Error in validObject(alex):}
-\CommentTok{#>   invalid class "Person" object: @name and @age must be same length}
+\CommentTok{#> Error in validObject(alex): invalid class "Person" object: @name and}
+\CommentTok{#> @age must be same length}
 \end{Highlighting}
 \end{Shaded}
 
@@ -15405,8 +15399,8 @@ If the slot is also writeable, you should provide a setter function. You should 
 \CommentTok{#> [1] "Jon Smythe"}
 
 \KeywordTok{name}\NormalTok{(john) <-}\StringTok{ }\NormalTok{letters}
-\CommentTok{#> Error in validObject(x):}
-\CommentTok{#>   invalid class "Person" object: @name and @age must be same length}
+\CommentTok{#> Error in validObject(x): invalid class "Person" object: @name and}
+\CommentTok{#> @age must be same length}
 \end{Highlighting}
 \end{Shaded}
 
@@ -15651,7 +15645,7 @@ In this case, the existing function becomes the default (\texttt{ANY}) method:
 \CommentTok{#> }
 \CommentTok{#> function (x, ...) }
 \CommentTok{#> UseMethod("mean")}
-\CommentTok{#> <bytecode: 0x3798090>}
+\CommentTok{#> <bytecode: 0x29f3b40>}
 \CommentTok{#> <environment: namespace:base>}
 \CommentTok{#> }
 \CommentTok{#> Signatures:}
@@ -16400,8 +16394,7 @@ To compute on the language, we first need to understand its structure. That requ
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{y <-}\StringTok{ }\NormalTok{x }\OperatorTok{*}\StringTok{ }\DecValTok{10}
-\CommentTok{#> Error in eval(expr, envir, enclos):}
-\CommentTok{#>   object 'x' not found}
+\CommentTok{#> Error in eval(expr, envir, enclos): object 'x' not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -17704,8 +17697,8 @@ The empty symbol has a peculiar property: if you bind it to a variable, then acc
 \begin{Highlighting}[]
 \NormalTok{m <-}\StringTok{ }\KeywordTok{missing_arg}\NormalTok{()}
 \NormalTok{m}
-\CommentTok{#> Error in eval(expr, envir, enclos):}
-\CommentTok{#>   argument "m" is missing, with no default}
+\CommentTok{#> Error in eval(expr, envir, enclos): argument "m" is missing, with no}
+\CommentTok{#> default}
 \end{Highlighting}
 \end{Shaded}
 
@@ -17923,8 +17916,7 @@ If you're ever unsure about whether an argument is quoted or evaluated, try exec
 
 \CommentTok{# fails}
 \NormalTok{MASS}
-\CommentTok{#> Error in eval(expr, envir, enclos):}
-\CommentTok{#>   object 'MASS' not found}
+\CommentTok{#> Error in eval(expr, envir, enclos): object 'MASS' not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -18386,8 +18378,7 @@ Very occasionally it is useful to unquote a missing argument (Section \ref{empty
 \begin{Highlighting}[]
 \NormalTok{arg <-}\StringTok{ }\KeywordTok{missing_arg}\NormalTok{()}
 \KeywordTok{expr}\NormalTok{(}\KeywordTok{foo}\NormalTok{(}\OperatorTok{!!}\NormalTok{arg, }\OperatorTok{!!}\NormalTok{arg))}
-\CommentTok{#> Error in enexpr(expr):}
-\CommentTok{#>   argument "arg" is missing, with no default}
+\CommentTok{#> Error in enexpr(expr): argument "arg" is missing, with no default}
 \end{Highlighting}
 \end{Shaded}
 
@@ -18482,8 +18473,7 @@ The biggest downside\footnote{Prior to R 3.5.1, there was another major downside
 \begin{Highlighting}[]
 \NormalTok{x <-}\StringTok{ }\KeywordTok{quote}\NormalTok{(variable)}
 \OperatorTok{!!}\NormalTok{x}
-\CommentTok{#> Error in !x:}
-\CommentTok{#>   invalid argument type}
+\CommentTok{#> Error in !x: invalid argument type}
 \end{Highlighting}
 \end{Shaded}
 
@@ -18998,11 +18988,6 @@ And finally, it's useful if you have a vector of function names or a list of fun
 \KeywordTok{str}\NormalTok{(}\KeywordTok{dots_list}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{, }\DataTypeTok{x =} \DecValTok{2}\NormalTok{, }\DataTypeTok{.homonyms =} \StringTok{"error"}\NormalTok{))}
 \CommentTok{#> Error: Arguments can't have the same name.}
 \CommentTok{#> We found multiple arguments named `x` at positions 1 and 2}
-\CommentTok{#> Backtrace:}
-\CommentTok{#>     █}
-\CommentTok{#>  1. ├─utils::str(dots_list(x = 1, x = 2, .homonyms = "error"))}
-\CommentTok{#>  2. ├─rlang::dots_list(x = 1, x = 2, .homonyms = "error")}
-\CommentTok{#>  3. └─rlang:::abort_dots_homonyms(x, y)}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -19112,8 +19097,7 @@ At the time I discovered it, I found this technique particularly compelling so y
 \NormalTok{  x}
 \NormalTok{\}}
 \KeywordTok{set_attr}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{x =} \DecValTok{10}\NormalTok{)}
-\CommentTok{#> Error in attributes(x) <- attr:}
-\CommentTok{#>   attributes must be named}
+\CommentTok{#> Error in attributes(x) <- attr: attributes must be named}
 \end{Highlighting}
 \end{Shaded}
 \end{enumerate}
@@ -19574,11 +19558,9 @@ Sometimes you want to perform a chunk of calculation that creates some intermedi
 \NormalTok{foo}
 \CommentTok{#> [1] 210}
 \NormalTok{x}
-\CommentTok{#> Error in eval(expr, envir, enclos):}
-\CommentTok{#>   object 'x' not found}
+\CommentTok{#> Error in eval(expr, envir, enclos): object 'x' not found}
 \NormalTok{y}
-\CommentTok{#> Error in eval(expr, envir, enclos):}
-\CommentTok{#>   object 'y' not found}
+\CommentTok{#> Error in eval(expr, envir, enclos): object 'y' not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -19600,11 +19582,9 @@ The essence of \texttt{local()} is quite simple and re-implemented below. We cap
 \NormalTok{foo}
 \CommentTok{#> [1] 210}
 \NormalTok{x}
-\CommentTok{#> Error in eval(expr, envir, enclos):}
-\CommentTok{#>   object 'x' not found}
+\CommentTok{#> Error in eval(expr, envir, enclos): object 'x' not found}
 \NormalTok{y}
-\CommentTok{#> Error in eval(expr, envir, enclos):}
-\CommentTok{#>   object 'y' not found}
+\CommentTok{#> Error in eval(expr, envir, enclos): object 'y' not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -19786,7 +19766,7 @@ There are three ways to create quosures:
 \KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\NormalTok{y), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{, }\DataTypeTok{y =} \DecValTok{10}\NormalTok{))}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + y}
-\CommentTok{#> env:  0x50a2ae8}
+\CommentTok{#> env:  0x4bacb78}
 \end{Highlighting}
 \end{Shaded}
 \end{itemize}
@@ -19840,7 +19820,7 @@ Quosures are typically just a convenience: they make code cleaner because you on
 \CommentTok{#> $f}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x}
-\CommentTok{#> env:  0x58dae18}
+\CommentTok{#> env:  0x53c5408}
 \end{Highlighting}
 \end{Shaded}
 
@@ -19979,19 +19959,19 @@ When you use \texttt{expr\_print()} in the console, quosures are coloured accord
 \NormalTok{q1}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x}
-\CommentTok{#> env:  0x4f88060}
+\CommentTok{#> env:  0x4a95750}
 
 \NormalTok{q2 <-}\StringTok{ }\KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\OperatorTok{!!}\NormalTok{q1), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{10}\NormalTok{))}
 \NormalTok{q2}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + (^x)}
-\CommentTok{#> env:  0x511bef0}
+\CommentTok{#> env:  0x4c330a0}
 
 \NormalTok{q3 <-}\StringTok{ }\KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\OperatorTok{!!}\NormalTok{q2), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{100}\NormalTok{))}
 \NormalTok{q3}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + (^x + (^x))}
-\CommentTok{#> env:  0x53bf2f0}
+\CommentTok{#> env:  0x4ebb3a0}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -20099,14 +20079,6 @@ You can also subset \texttt{.data} and \texttt{.env} using \texttt{{[}{[}}, e.g.
 \begin{Highlighting}[]
 \KeywordTok{with2}\NormalTok{(df, .data}\OperatorTok{$}\NormalTok{y)}
 \CommentTok{#> Error: Column `y` not found in `.data`}
-\CommentTok{#> Backtrace:}
-\CommentTok{#>     █}
-\CommentTok{#>  1. ├─global::with2(df, .data$y)}
-\CommentTok{#>  2. │ └─rlang::eval_tidy(expr, data)}
-\CommentTok{#>  3. ├─y}
-\CommentTok{#>  4. ├─rlang:::`$.rlang_data_pronoun`(.data, y)}
-\CommentTok{#>  5. │ └─rlang:::data_pronoun_get(x, nm)}
-\CommentTok{#>  6. └─rlang:::abort_data_pronoun(x)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -20332,8 +20304,7 @@ We want to create a new function that allows us to resample and subset in a sing
 
 \NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{y =} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
 \KeywordTok{subsample}\NormalTok{(df, x }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)}
-\CommentTok{#> Error in eval_tidy(rows, data):}
-\CommentTok{#>   object 'x' not found}
+\CommentTok{#> Error in eval_tidy(rows, data): object 'x' not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -20414,15 +20385,6 @@ These failure modes arise because tidy evaluation is ambiguous: each variable ca
 \NormalTok{x <-}\StringTok{ }\DecValTok{10}
 \KeywordTok{threshold_x}\NormalTok{(no_x, }\DecValTok{2}\NormalTok{)}
 \CommentTok{#> Error: Column `x` not found in `.data`}
-\CommentTok{#> Backtrace:}
-\CommentTok{#>     █}
-\CommentTok{#>  1. ├─global::threshold_x(no_x, 2)}
-\CommentTok{#>  2. │ └─global::subset2(df, .data$x >= .env$val)}
-\CommentTok{#>  3. │   └─rlang::eval_tidy(rows, data)}
-\CommentTok{#>  4. ├─x}
-\CommentTok{#>  5. ├─rlang:::`$.rlang_data_pronoun`(.data, x)}
-\CommentTok{#>  6. │ └─rlang:::data_pronoun_get(x, nm)}
-\CommentTok{#>  7. └─rlang:::abort_data_pronoun(x)}
 \KeywordTok{threshold_x}\NormalTok{(has_val, }\DecValTok{2}\NormalTok{)}
 \CommentTok{#>   x val}
 \CommentTok{#> 2 2  10}
@@ -20590,8 +20552,7 @@ There are main three problems:
 \NormalTok{  dfs <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{), }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =} \DecValTok{4}\OperatorTok{:}\DecValTok{6}\NormalTok{))}
   \KeywordTok{lapply}\NormalTok{(dfs, subset_base, x }\OperatorTok{==}\StringTok{ }\NormalTok{zzz)}
 \NormalTok{\})}
-\CommentTok{#> Error in eval(rows, data, caller_env()):}
-\CommentTok{#>   object 'zzz' not found}
+\CommentTok{#> Error in eval(rows, data, caller_env()): object 'zzz' not found}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -20809,8 +20770,7 @@ What if you want to mingle objects supplied by the user with objects that you cr
 \NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{y =} \DecValTok{5} \OperatorTok{+}\StringTok{ }\DecValTok{3} \OperatorTok{*}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{round}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10}\NormalTok{), }\DecValTok{2}\NormalTok{))}
 \KeywordTok{resample_lm0}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{data =}\NormalTok{ df)}
 \CommentTok{#> lm(y ~ x, data = resample_data)}
-\CommentTok{#> Error in is.data.frame(data):}
-\CommentTok{#>   object 'resample_data' not found}
+\CommentTok{#> Error in is.data.frame(data): object 'resample_data' not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -20891,8 +20851,8 @@ There are two basic ways to overcome this challenge:
   \KeywordTok{eval}\NormalTok{(lm_call, }\KeywordTok{caller_env}\NormalTok{())}
 \NormalTok{\}}
 \KeywordTok{lm3a}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{disp, mtcars)}\OperatorTok{$}\NormalTok{call}
-\CommentTok{#> Error in as.data.frame.default(data, optional = TRUE):}
-\CommentTok{#>   cannot coerce class '"function"' to a data.frame}
+\CommentTok{#> Error in as.data.frame.default(data, optional = TRUE): cannot coerce}
+\CommentTok{#> class '"function"' to a data.frame}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -21762,7 +21722,7 @@ We need a closure that will generate the functions for each unknown call:
 \CommentTok{#>     contents <- paste(..., collapse = ", ")}
 \CommentTok{#>     paste0("\textbackslash{}\textbackslash{}mathrm\{foo\}(", contents, ")")}
 \CommentTok{#> \}}
-\CommentTok{#> <environment: 0x4d16bb0>}
+\CommentTok{#> <environment: 0x4d8c5d8>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -22018,16 +21978,6 @@ You can using \texttt{rlang::with\_abort()} and \texttt{rlang::last\_trace()} to
 \begin{Highlighting}[]
 \NormalTok{rlang}\OperatorTok{::}\KeywordTok{with_abort}\NormalTok{(}\KeywordTok{f}\NormalTok{(}\KeywordTok{j}\NormalTok{()))}
 \CommentTok{#> Error: Oops!}
-\CommentTok{#> Backtrace:}
-\CommentTok{#>     █}
-\CommentTok{#>  1. ├─rlang::with_abort(f(j()))}
-\CommentTok{#>  2. │ └─base::withCallingHandlers(...)}
-\CommentTok{#>  3. ├─global::f(j())}
-\CommentTok{#>  4. │ └─global::g(a)}
-\CommentTok{#>  5. │   └─global::h(b)}
-\CommentTok{#>  6. │     └─global::i(c)}
-\CommentTok{#>  7. └─global::j()}
-\CommentTok{#>  8.   └─global::k()}
 \NormalTok{rlang}\OperatorTok{::}\KeywordTok{last_trace}\NormalTok{()}
 \CommentTok{#>     █}
 \CommentTok{#>  1. ├─rlang::with_abort(f(j()))}
@@ -22389,13 +22339,6 @@ There are other ways for a function to fail apart from throwing an error:
 
 \NormalTok{rlang}\OperatorTok{::}\KeywordTok{with_abort}\NormalTok{(}\KeywordTok{f}\NormalTok{(), }\StringTok{"message"}\NormalTok{)}
 \CommentTok{#> Error: Hi!}
-\CommentTok{#> }
-\CommentTok{#> Backtrace:}
-\CommentTok{#>     █}
-\CommentTok{#>  1. ├─rlang::with_abort(f(), "message")}
-\CommentTok{#>  2. │ └─base::withCallingHandlers(...)}
-\CommentTok{#>  3. └─global::f()}
-\CommentTok{#>  4.   └─global::g()}
 \NormalTok{rlang}\OperatorTok{::}\KeywordTok{last_trace}\NormalTok{()}
 \CommentTok{#>     █}
 \CommentTok{#>  1. ├─rlang::with_abort(f(), "message")}
@@ -22699,12 +22642,11 @@ A great tool for microbenchmarking in R is the bench package (Hester \protect\hy
 \NormalTok{  x }\OperatorTok{^}\StringTok{ }\FloatTok{0.5}
 \NormalTok{))}
 \CommentTok{#> # A tibble: 2 x 10}
-\CommentTok{#>   expression      min    mean   median     max `itr/sec` mem_alloc}
-\CommentTok{#>   <chr>      <bch:tm> <bch:t> <bch:tm> <bch:t>     <dbl> <bch:byt>}
-\CommentTok{#> 1 sqrt(x)    591.04ns 846.8ns 703.03ns  45.7µs  1180958.      848B}
-\CommentTok{#> 2 x^0.5        9.05µs  10.2µs   9.45µs 176.6µs    98200.      848B}
-\CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
-\CommentTok{#> #   total_time <bch:tm>}
+\CommentTok{#>   expression      min   mean median    max `itr/sec` mem_alloc  n_gc}
+\CommentTok{#>   <chr>      <bch:tm> <bch:> <bch:> <bch:>     <dbl> <bch:byt> <dbl>}
+\CommentTok{#> 1 sqrt(x)    594.88ns 1.12µs 1.06µs 35.6µs   895499.      848B     0}
+\CommentTok{#> 2 x^0.5        9.01µs 9.84µs 9.42µs 54.4µs   101657.      848B     0}
+\CommentTok{#> # … with 2 more variables: n_itr <int>, total_time <bch:tm>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -22761,8 +22703,8 @@ Because the result is a special type of tibble, you can use \texttt{{[}} to sele
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 sqrt(x)    591.04ns 703.03ns  1180958.     0}
-\CommentTok{#> 2 x^0.5        9.05µs   9.45µs    98200.     0}
+\CommentTok{#> 1 sqrt(x)    594.88ns   1.06µs   895499.     0}
+\CommentTok{#> 2 x^0.5        9.01µs   9.42µs   101657.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -22930,8 +22872,8 @@ Now use \texttt{bench::mark()} to precisely compare the variations. \texttt{benc
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean1(x)      227µs    237µs     4156.     0}
-\CommentTok{#> 2 mean2(x)      113µs    114µs     8252.     0}
+\CommentTok{#> 1 mean1(x)      226µs    230µs     4284.     0}
+\CommentTok{#> 2 mean2(x)      112µs    113µs     8602.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23064,8 +23006,8 @@ For example, calling \texttt{mean.default()} is quite a bit faster than calling 
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression           min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>           <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)           2.47µs      3µs   294991.     1}
-\CommentTok{#> 2 mean.default(x)   1.23µs   1.44µs   609829.     0}
+\CommentTok{#> 1 mean(x)           2.58µs      3µs   295981.     1}
+\CommentTok{#> 2 mean.default(x)   1.23µs    1.4µs   663625.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23084,9 +23026,9 @@ An even riskier optimisation is to directly call the underlying \texttt{.Interna
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression              min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)              2.52µs   2.95µs   300312.     1}
-\CommentTok{#> 2 mean.default(x)      1.22µs   1.46µs   611937.     0}
-\CommentTok{#> 3 .Internal(mean(x)) 342.03ns 356.11ns  2556882.     0}
+\CommentTok{#> 1 mean(x)              2.58µs   2.93µs   305133.     1}
+\CommentTok{#> 2 mean.default(x)      1.24µs   1.44µs   635391.     0}
+\CommentTok{#> 3 .Internal(mean(x)) 345.87ns 357.98ns  2591703.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23103,9 +23045,9 @@ NB: most of these differences arise because \texttt{x} is small. If you increase
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression              min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)              24.8µs   25.3µs    37723.     1}
-\CommentTok{#> 2 mean.default(x)      23.4µs   23.7µs    40383.     0}
-\CommentTok{#> 3 .Internal(mean(x))   22.4µs   22.5µs    42974.     0}
+\CommentTok{#> 1 mean(x)              24.8µs   25.2µs    38452.     1}
+\CommentTok{#> 2 mean.default(x)      23.4µs   23.6µs    41288.     0}
+\CommentTok{#> 3 .Internal(mean(x))   22.4µs   22.5µs    43551.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23134,8 +23076,8 @@ Knowing that you're dealing with a specific type of input can be another way to 
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression         min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>         <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 as.data.frame   1.06ms   1.17ms      846.     7}
-\CommentTok{#> 2 quick_df         6.1µs   7.54µs   112022.     1}
+\CommentTok{#> 1 as.data.frame   1.04ms    1.1ms      894.     7}
+\CommentTok{#> 2 quick_df        6.13µs   7.26µs   124954.     2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23243,9 +23185,9 @@ The downside of vectorisation is that it makes it harder to predict how operatio
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression        min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>        <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 lookup[x1]   491.04ns 615.02ns  1413996.     0}
-\CommentTok{#> 2 lookup[x10]    1.56µs   1.73µs   478549.     0}
-\CommentTok{#> 3 lookup[x100]   4.54µs   6.31µs   146240.     0}
+\CommentTok{#> 1 lookup[x1]   501.87ns 621.89ns  1313801.     1}
+\CommentTok{#> 2 lookup[x10]    1.55µs   1.68µs   529579.     0}
+\CommentTok{#> 3 lookup[x100]   4.14µs   4.95µs   187754.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23303,10 +23245,10 @@ You saw one example of this type of problem in Section \ref{memory-profiling}, s
 \CommentTok{#> # A tibble: 4 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 loop10       19.7µs  22.16µs    42498.     3}
-\CommentTok{#> 2 loop100    808.71µs 847.73µs     1166.     1}
-\CommentTok{#> 3 vec10        4.83µs   5.08µs   184056.     1}
-\CommentTok{#> 4 vec100      39.31µs  40.12µs    23790.     0}
+\CommentTok{#> 1 loop10      19.83µs  21.84µs    44545.     3}
+\CommentTok{#> 2 loop100    799.27µs 822.83µs     1205.     2}
+\CommentTok{#> 3 vec10        4.93µs   5.21µs   182433.     0}
+\CommentTok{#> 4 vec100      39.15µs  40.22µs    24185.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23338,14 +23280,14 @@ For data in this form, there are two ways to use \texttt{t.test()}. We can eithe
 \NormalTok{  \}}
 \NormalTok{)}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.872   0.004   0.872}
+\CommentTok{#>   0.824   0.000   0.824}
 \KeywordTok{system.time}\NormalTok{(}
   \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{m) \{}
     \KeywordTok{t.test}\NormalTok{(X[i, grp }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], X[i, grp }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{])}\OperatorTok{$}\NormalTok{statistic}
 \NormalTok{  \}}
 \NormalTok{)}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.208   0.000   0.206}
+\CommentTok{#>   0.192   0.000   0.193}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23358,7 +23300,7 @@ Of course, a for loop computes, but doesn't save the values. We can \texttt{map\
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(t1 <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map_dbl}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{m, compT))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.200   0.004   0.204}
+\CommentTok{#>   0.196   0.000   0.193}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23412,7 +23354,7 @@ Now that we have a fairly simple function, we can make it faster still by vector
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(t3 <-}\StringTok{ }\KeywordTok{rowtstat}\NormalTok{(X, grp))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.012   0.000   0.011}
+\CommentTok{#>   0.012   0.000   0.012}
 \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{all.equal}\NormalTok{(t1, t3))}
 \end{Highlighting}
 \end{Shaded}
@@ -23552,7 +23494,7 @@ You'll also need a working C++ compiler. To get it:
 \CommentTok{# add works like a regular R function}
 \NormalTok{add}
 \CommentTok{#> function (x, y, z) }
-\CommentTok{#> .Call(<pointer: 0x7fdd5b9f1f60>, x, y, z)}
+\CommentTok{#> .Call(<pointer: 0x7fb922c09f60>, x, y, z)}
 \KeywordTok{add}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
 \CommentTok{#> [1] 6}
 \end{Highlighting}
@@ -23740,9 +23682,9 @@ This is a good example of where C++ is much more efficient than R. As shown by t
 \CommentTok{#> # A tibble: 3 x 6}
 \CommentTok{#>   expression      min     mean   median      max `itr/sec`}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>}
-\CommentTok{#> 1 sum(x)       1.31µs    1.6µs   1.34µs  322.2µs   625687.}
-\CommentTok{#> 2 sumC(x)      3.25µs   4.98µs   4.84µs   1.15ms   200984.}
-\CommentTok{#> 3 sumR(x)     38.36µs  41.59µs  39.15µs 218.15µs    24043.}
+\CommentTok{#> 1 sum(x)        1.3µs    1.5µs   1.33µs  81.73µs   665138.}
+\CommentTok{#> 2 sumC(x)      3.25µs    4.6µs   4.72µs   1.07ms   217234.}
+\CommentTok{#> 3 sumR(x)     38.32µs     40µs  38.99µs 151.78µs    24984.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23798,8 +23740,8 @@ Note that because the R version is fully vectorised, it's already going to be fa
 \CommentTok{#> # A tibble: 2 x 6}
 \CommentTok{#>   expression          min     mean   median      max `itr/sec`}
 \CommentTok{#>   <chr>          <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>}
-\CommentTok{#> 1 pdistR(0.5, y)   9.16ms   9.52ms   9.44ms   12.3ms      105.}
-\CommentTok{#> 2 pdistC(0.5, y)   4.96ms   5.22ms    5.2ms    6.7ms      191.}
+\CommentTok{#> 1 pdistR(0.5, y)   8.55ms   8.95ms   8.79ms  11.38ms      112.}
+\CommentTok{#> 2 pdistC(0.5, y)   4.66ms   4.86ms   4.81ms   6.02ms      206.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -24642,10 +24584,10 @@ Benchmarking the two implementations yields:
   \DataTypeTok{check =} \OtherTok{FALSE}
 \NormalTok{)}
 \CommentTok{#> # A tibble: 2 x 10}
-\CommentTok{#>   expression      min  mean   median     max `itr/sec` mem_alloc}
-\CommentTok{#>   <chr>      <bch:tm> <bch> <bch:tm> <bch:t>     <dbl> <bch:byt>}
-\CommentTok{#> 1 gibbs_r(1…   5.68ms   6ms   5.86ms 10.47ms      167.    4.97MB}
-\CommentTok{#> 2 gibbs_cpp… 305.02µs 355µs 349.19µs  1.47ms     2819.     4.1KB}
+\CommentTok{#>   expression      min     mean   median    max `itr/sec` mem_alloc}
+\CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:>     <dbl> <bch:byt>}
+\CommentTok{#> 1 gibbs_r(1…   5.63ms   5.81ms   5.74ms 6.71ms      172.    4.97MB}
+\CommentTok{#> 2 gibbs_cpp… 305.35µs 349.52µs 339.77µs 1.53ms     2861.     4.1KB}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
@@ -24757,11 +24699,11 @@ The original blog post forgot to do this, and introduced a bug in the C++ versio
   \DataTypeTok{vacc3 =} \KeywordTok{vacc3}\NormalTok{(age, female, ily)}
 \NormalTok{)}
 \CommentTok{#> # A tibble: 3 x 10}
-\CommentTok{#>   expression      min     mean   median      max `itr/sec` mem_alloc}
-\CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl> <bch:byt>}
-\CommentTok{#> 1 vacc1        1.87ms   2.04ms   1.99ms   7.02ms      491.    7.86KB}
-\CommentTok{#> 2 vacc2      101.53µs 123.73µs  111.1µs 584.29µs     8082.     224KB}
-\CommentTok{#> 3 vacc3       29.14µs  31.86µs  30.53µs 195.84µs    31392.   14.48KB}
+\CommentTok{#>   expression     min     mean   median      max `itr/sec` mem_alloc}
+\CommentTok{#>   <chr>      <bch:t> <bch:tm> <bch:tm> <bch:tm>     <dbl> <bch:byt>}
+\CommentTok{#> 1 vacc1       1.85ms   1.96ms   1.94ms   2.54ms      511.    7.86KB}
+\CommentTok{#> 2 vacc2      99.76µs 123.34µs 111.38µs 561.79µs     8107.     224KB}
+\CommentTok{#> 3 vacc3      29.49µs  32.05µs  30.49µs  84.12µs    31198.   14.48KB}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
@@ -24959,14 +24901,17 @@ Meyers, Scott. 2001. \emph{Effective STL: 50 Specific Ways to Improve Your Use o
 \leavevmode\hypertarget{ref-r-design}{}%
 Morandat, Floréal, Brandon Hill, Leo Osvald, and Jan Vitek. 2012. ``Evaluating the Design of the R Language.'' In \emph{European Conference on Object-Oriented Programming}, 104--31. Springer. \url{http://r.cs.purdue.edu/pub/ecoop12.pdf}.
 
+\leavevmode\hypertarget{ref-styler}{}%
+Müller, Kirill, and Lorenz Walthert. 2018. \emph{Styler: Non-Invasive Pretty Printing of R Code}. \url{http://styler.r-lib.org}.
+
 \leavevmode\hypertarget{ref-tibble}{}%
 Müller, Kirill, and Hadley Wickham. 2018. \emph{Tibble: Simple Data Frames}. \url{http://tibble.tidyverse.org/}.
 
 \leavevmode\hypertarget{ref-r-ints}{}%
-R Core Team. 2018a. ``R Internals.'' \emph{R Foundation for Statistical Computing}. \url{https://cran.r-project.org/doc/manuals/r-devel/R-exts.html}.
+R Core Team. 2018a. ``R Internals.'' \emph{R Foundation for Statistical Computing}. \url{https://cran.r-project.org/doc/manuals/r-devel/R-ints.html}.
 
 \leavevmode\hypertarget{ref-r-exts}{}%
----------. 2018b. ``Writing R Extensions.'' \emph{R Foundation for Statistical Computing}. \url{https://cran.r-project.org/doc/manuals/r-devel/R-ints.html}.
+---------. 2018b. ``Writing R Extensions.'' \emph{R Foundation for Statistical Computing}. \url{https://cran.r-project.org/doc/manuals/r-devel/R-exts.html}.
 
 \leavevmode\hypertarget{ref-alg-design-man}{}%
 Skiena, Steven S. 1998. \emph{The Algorithm Design Manual}. Springer Science \& Business Media. \url{http://amzn.com/0387948600}.

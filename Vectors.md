@@ -77,32 +77,26 @@ There are four primary types of atomic vectors: logical, integer, double, and ch
 
 ### Scalars
 \index{scalars}
-\indexc{NA}
-\index{missing values|see {\texttt{NA}}}
 \indexc{NaN}
 \indexc{Inf} 
 \indexc{L}
 \indexc{""}
 \indexc{'}
 
-Each of the four primary types has a special syntax to create an individual value, AKA a __scalar__[^scalar], and its own missing value.
+Each of the four primary types has a special syntax to create an individual value, AKA a __scalar__[^scalar]:
 
 * Strings are surrounded by `"` (`"hi"`) or `'` (`'bye'`). Special characters
-  are escaped with `\`; see `?Quotes` for full details. The missing value 
-  for strings is `NA_character_`. 
+  are escaped with `\`; see `?Quotes` for full details.
 
 * Doubles can be specified in decimal (`0.1234`), scientific (`1.23e4`), or 
   hexadecimal (`0xcafe`) form. There are three special values unique to
   doubles: `Inf`, `-Inf`, and `NaN` (not a number). These are special values
-  defined by the floating point standard. The missing value for doubles is 
-  `NA_real_`.
+  defined by the floating point standard. 
   
-* Integers are written similarly to doubles but must be followed by `L`[^L-suffix]
-  (`1234L`, `1e4L`, or `0xcafeL`), and can not include decimals. The integer
-  missing value is `NA_integer_`.
+* Integers are written similarly to doubles but must be followed by 
+  `L`[^L-suffix] (`1234L`, `1e4L`, or `0xcafeL`), and can not include decimals. 
 
 * Logicals can be spelt out (`TRUE` or `FALSE`), or abbreviated (`T` or `F`).
-  The missing value for logicals is `NA`.
 
 [^L-suffix]: `L` is not intuitive, and you might wonder where it comes from. At the time `L` was added to R, R's integer type was equivalent to a long integer in C, and C code could use a suffix of `l` or `L` to force a number to be a long integer. It was decided that `l` was too visually similar to `i` (used for complex numbers in R), leaving `L`.
 
@@ -151,6 +145,54 @@ typeof(chr_var)
 ```
 
 [^mode]: You may have heard of the related `mode()` and `storage.mode()` functions. Do not use them: they exist only for compatibility with S.
+
+### Missing values
+\indexc{NA}
+\indexc{is.na}
+\index{missing values|see {\texttt{NA}}}
+
+R can represent missing, or unknown values, using a special sentinel: `NA` (short for not applicable).  Missing values tend to be infectious: most computations involving a missing value will return another missing value.
+
+
+```r
+NA > 5
+#> [1] NA
+10 * NA
+#> [1] NA
+!NA
+#> [1] NA
+```
+
+There are only a few exceptions to this rule. These occur when some identity holds for all possible inputs:
+
+
+```r
+NA ^ 0
+#> [1] 1
+NA | TRUE
+#> [1] TRUE
+NA & FALSE
+#> [1] FALSE
+```
+
+Propagation of missingness leads to a common mistake when determining which values in a vector are missing:
+
+
+```r
+x <- c(NA, 5, NA, 10)
+x == NA
+#> [1] NA NA NA NA
+```
+
+This result is correct (if a little surprising) because there's no reason to believe that one missing value has the same value as another. Instead, use `is.na()` to test for the presence of missingness:
+
+
+```r
+is.na(x)
+#> [1]  TRUE FALSE  TRUE FALSE
+```
+
+NB: Technically there are four missing values, one for each of the atomic types: `NA` (logical), `NA_integer_` (integer), `NA_real_` (double), and `NA_character_` (character). This distinction is rarely important because `NA` will be automatically coerced to the correct type when needed.
 
 ### Testing and coercion
 \index{coercion}
@@ -885,8 +927,8 @@ data.frame(x = 1:4, y = 1:2)
 #> 3 3 1
 #> 4 4 2
 data.frame(x = 1:4, y = 1:3)
-#> Error in data.frame(x = 1:4, y = 1:3):
-#>   arguments imply differing number of rows: 4, 3
+#> Error in data.frame(x = 1:4, y = 1:3): arguments imply differing
+#> number of rows: 4, 3
 
 tibble(x = 1:4, y = 1)
 #> # A tibble: 4 x 2
@@ -897,14 +939,10 @@ tibble(x = 1:4, y = 1)
 #> 3     3     1
 #> 4     4     1
 tibble(x = 1:4, y = 1:2)
-#> Error: Tibble columns must have consistent lengths, only values of length one are recycled:
+#> Error: Tibble columns must have consistent lengths, only values of
+#> length one are recycled:
 #> * Length 2: Column `y`
 #> * Length 4: Column `x`
-#> Backtrace:
-#>     █
-#>  1. └─tibble::tibble(x = 1:4, y = 1:2)
-#>  2.   └─tibble:::lst_to_tibble(xlq$output, .rows, .name_repair, lengths = xlq$lengths)
-#>  3.     └─tibble:::recycle_columns(x, .rows, lengths)
 ```
 
 There is one final difference: `tibble()` allows you to refer to variables created during construction:
@@ -1152,7 +1190,7 @@ tibble(
 ### Matrix and data frame columns
 \index{data frames!matrix-columns}
 
-As long as the number of rows matches the data frame, it's also possible to have a matrix or array as a column of a data. (This requires a slight extension to our definition of a data frame: it's not the `length()` of each column that must be equal, but the `NROW()`.) Like with list-columns, you must either add it after creation, or wrap it in `I()`.
+As long as the number of rows matches the data frame, it's also possible to have a matrix or array as a column of a data frame. (This requires a slight extension to our definition of a data frame: it's not the `length()` of each column that must be equal, but the `NROW()`.) Like with list-columns, you must either add it after creation, or wrap it in `I()`.
 
 
 ```r
@@ -1209,8 +1247,7 @@ length(NULL)
 
 x <- NULL
 attr(x, "y") <- 1
-#> Error in attr(x, "y") <- 1:
-#>   attempt to set an attribute on NULL
+#> Error in attr(x, "y") <- 1: attempt to set an attribute on NULL
 ```
 
 You can test for `NULL`s with `is.null()`:
