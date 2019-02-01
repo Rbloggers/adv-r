@@ -3978,7 +3978,7 @@ There are three ways to create quosures:
 \KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\NormalTok{y), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{, }\DataTypeTok{y =} \DecValTok{10}\NormalTok{))}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + y}
-\CommentTok{#> env:  0x518afd8}
+\CommentTok{#> env:  0x60bcc58}
 \end{Highlighting}
 \end{Shaded}
 \end{itemize}
@@ -4032,7 +4032,7 @@ Quosures are typically just a convenience: they make code cleaner because you on
 \CommentTok{#> $f}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x}
-\CommentTok{#> env:  0x59a3868}
+\CommentTok{#> env:  0x68d54e8}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4171,19 +4171,19 @@ When you use \texttt{expr\_print()} in the console, quosures are coloured accord
 \NormalTok{q1}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x}
-\CommentTok{#> env:  0x5073be8}
+\CommentTok{#> env:  0x5fa5830}
 
 \NormalTok{q2 <-}\StringTok{ }\KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\OperatorTok{!!}\NormalTok{q1), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{10}\NormalTok{))}
 \NormalTok{q2}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + (^x)}
-\CommentTok{#> env:  0x5211538}
+\CommentTok{#> env:  0x6143180}
 
 \NormalTok{q3 <-}\StringTok{ }\KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\OperatorTok{!!}\NormalTok{q2), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{100}\NormalTok{))}
 \NormalTok{q3}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + (^x + (^x))}
-\CommentTok{#> env:  0x5499838}
+\CommentTok{#> env:  0x63cb480}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -5934,7 +5934,7 @@ We need a closure that will generate the functions for each unknown call:
 \CommentTok{#>     contents <- paste(..., collapse = ", ")}
 \CommentTok{#>     paste0("\textbackslash{}\textbackslash{}mathrm\{foo\}(", contents, ")")}
 \CommentTok{#> \}}
-\CommentTok{#> <environment: 0x526a5d8>}
+\CommentTok{#> <environment: 0x6914b88>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6856,8 +6856,8 @@ A great tool for microbenchmarking in R is the bench package (Hester \protect\hy
 \CommentTok{#> # A tibble: 2 x 10}
 \CommentTok{#>   expression      min    mean   median     max `itr/sec` mem_alloc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:t> <bch:tm> <bch:t>     <dbl> <bch:byt>}
-\CommentTok{#> 1 sqrt(x)    585.92ns 740.9ns 620.03ns  22.5µs  1349755.      848B}
-\CommentTok{#> 2 x^0.5        9.03µs  10.1µs   9.44µs 745.8µs    99089.      848B}
+\CommentTok{#> 1 sqrt(x)    584.06ns  1.11µs 983.01ns  34.5µs   901308.      848B}
+\CommentTok{#> 2 x^0.5        9.04µs 10.32µs   9.46µs 832.2µs    96858.      848B}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
@@ -6916,15 +6916,15 @@ Because the result is a special type of tibble, you can use \texttt{{[}} to sele
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 sqrt(x)    585.92ns 620.03ns  1349755.     0}
-\CommentTok{#> 2 x^0.5        9.03µs   9.44µs    99089.     0}
+\CommentTok{#> 1 sqrt(x)    584.06ns 983.01ns   901308.     0}
+\CommentTok{#> 2 x^0.5        9.04µs   9.46µs    96858.     0}
 \end{Highlighting}
 \end{Shaded}
 
 \hypertarget{interpreting-results}{%
 \subsection{Interpreting results}\label{interpreting-results}}
 
-As with all microbenchmarks, pay careful attention to the units: here, each computation takes about 590 ns, 590 billionths of a second. To help calibrate the impact of a microbenchmark on run time, it's useful to think about how many times a function needs to run before it takes a second. If a microbenchmark takes:
+As with all microbenchmarks, pay careful attention to the units: here, each computation takes about 580 ns, 580 billionths of a second. To help calibrate the impact of a microbenchmark on run time, it's useful to think about how many times a function needs to run before it takes a second. If a microbenchmark takes:
 
 \begin{itemize}
 \tightlist
@@ -6936,7 +6936,7 @@ As with all microbenchmarks, pay careful attention to the units: here, each comp
   1 ns, then one billion calls takes a second.
 \end{itemize}
 
-The \texttt{sqrt()} function takes about 590 ns, or 0.59 µs, to compute the square root of 100 numbers. That means if you repeated the operation a million times, it would take 0.59 s, and hence changing the way you compute the square root is unlikely to significantly affect real code. This is the reason you need to exercise care when generalising microbenchmarking results.
+The \texttt{sqrt()} function takes about 580 ns, or 0.58 µs, to compute the square root of 100 numbers. That means if you repeated the operation a million times, it would take 0.58 s, and hence changing the way you compute the square root is unlikely to significantly affect real code. This is the reason you need to exercise care when generalising microbenchmarking results.
 
 \hypertarget{exercises-17}{%
 \subsection{Exercises}\label{exercises-17}}
@@ -7085,8 +7085,8 @@ Now use \texttt{bench::mark()} to precisely compare the variations. \texttt{benc
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean1(x)      226µs    232µs     4288.     0}
-\CommentTok{#> 2 mean2(x)      112µs    113µs     8598.     0}
+\CommentTok{#> 1 mean1(x)      226µs    237µs     4176.     0}
+\CommentTok{#> 2 mean2(x)      112µs    113µs     8508.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7219,8 +7219,8 @@ For example, calling \texttt{mean.default()} is quite a bit faster than calling 
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression           min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>           <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)           2.58µs      3µs   293376.     1}
-\CommentTok{#> 2 mean.default(x)   1.22µs   1.42µs   636357.     0}
+\CommentTok{#> 1 mean(x)           2.63µs   3.05µs   292542.     1}
+\CommentTok{#> 2 mean.default(x)   1.25µs   1.42µs   632864.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7239,9 +7239,9 @@ An even riskier optimisation is to directly call the underlying \texttt{.Interna
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression              min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)              2.56µs   2.92µs   301966.     1}
-\CommentTok{#> 2 mean.default(x)      1.23µs   1.44µs   637912.     0}
-\CommentTok{#> 3 .Internal(mean(x)) 338.07ns 352.16ns  2604387.     0}
+\CommentTok{#> 1 mean(x)              2.62µs   2.97µs   301884.     1}
+\CommentTok{#> 2 mean.default(x)      1.22µs   1.45µs   632223.     0}
+\CommentTok{#> 3 .Internal(mean(x)) 340.98ns 357.98ns  2453083.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7258,9 +7258,9 @@ NB: most of these differences arise because \texttt{x} is small. If you increase
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression              min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)              24.8µs   25.2µs    38690.     1}
-\CommentTok{#> 2 mean.default(x)      23.4µs   23.6µs    41457.     0}
-\CommentTok{#> 3 .Internal(mean(x))   22.4µs   22.4µs    43542.     0}
+\CommentTok{#> 1 mean(x)              24.8µs   25.3µs    37906.     1}
+\CommentTok{#> 2 mean.default(x)      23.4µs   23.7µs    40687.     0}
+\CommentTok{#> 3 .Internal(mean(x))   22.4µs   22.4µs    43237.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7289,8 +7289,8 @@ Knowing that you're dealing with a specific type of input can be another way to 
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression         min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>         <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 as.data.frame   1.05ms   1.11ms      877.     7}
-\CommentTok{#> 2 quick_df        6.15µs   7.36µs   122097.     2}
+\CommentTok{#> 1 as.data.frame   1.08ms   1.15ms      860.     7}
+\CommentTok{#> 2 quick_df         6.2µs   7.43µs   121139.     2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7398,9 +7398,9 @@ The downside of vectorisation is that it makes it harder to predict how operatio
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression        min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>        <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 lookup[x1]   503.15ns 599.07ns  1541776.     0}
-\CommentTok{#> 2 lookup[x10]    1.53µs    1.7µs   505659.     1}
-\CommentTok{#> 3 lookup[x100]   4.12µs   4.74µs   194377.     0}
+\CommentTok{#> 1 lookup[x1]      495ns 593.02ns  1430091.     0}
+\CommentTok{#> 2 lookup[x10]    1.54µs   1.68µs   508457.     0}
+\CommentTok{#> 3 lookup[x100]   4.39µs   6.03µs   161245.     1}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7458,10 +7458,10 @@ You saw one example of this type of problem in Section \ref{memory-profiling}, s
 \CommentTok{#> # A tibble: 4 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 loop10      19.76µs  21.81µs    44236.     3}
-\CommentTok{#> 2 loop100    798.34µs 818.24µs     1208.     2}
-\CommentTok{#> 3 vec10        4.88µs   5.12µs   186470.     0}
-\CommentTok{#> 4 vec100      39.05µs  40.26µs    24015.     0}
+\CommentTok{#> 1 loop10      20.12µs  22.26µs    42970.     3}
+\CommentTok{#> 2 loop100    807.91µs 832.18µs     1185.     1}
+\CommentTok{#> 3 vec10        4.92µs   5.14µs   184634.     1}
+\CommentTok{#> 4 vec100       39.3µs  40.24µs    23810.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7493,14 +7493,14 @@ For data in this form, there are two ways to use \texttt{t.test()}. We can eithe
 \NormalTok{  \}}
 \NormalTok{)}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.832   0.000   0.829}
+\CommentTok{#>   0.860   0.012   0.872}
 \KeywordTok{system.time}\NormalTok{(}
   \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{m) \{}
     \KeywordTok{t.test}\NormalTok{(X[i, grp }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], X[i, grp }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{])}\OperatorTok{$}\NormalTok{statistic}
 \NormalTok{  \}}
 \NormalTok{)}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.192   0.000   0.191}
+\CommentTok{#>   0.200   0.000   0.199}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7513,7 +7513,7 @@ Of course, a for loop computes, but doesn't save the values. We can \texttt{map\
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(t1 <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map_dbl}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{m, compT))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.192   0.000   0.192}
+\CommentTok{#>   0.204   0.000   0.202}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7539,7 +7539,7 @@ How can we make this faster? First, we could try doing less work. If you look at
 
 \KeywordTok{system.time}\NormalTok{(t2 <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map_dbl}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{m, }\OperatorTok{~}\StringTok{ }\KeywordTok{my_t}\NormalTok{(X[.,], grp)))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.028   0.000   0.028}
+\CommentTok{#>   0.028   0.000   0.029}
 \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{all.equal}\NormalTok{(t1, t2))}
 \end{Highlighting}
 \end{Shaded}
@@ -7707,7 +7707,7 @@ You'll also need a working C++ compiler. To get it:
 \CommentTok{# add works like a regular R function}
 \NormalTok{add}
 \CommentTok{#> function (x, y, z) }
-\CommentTok{#> .Call(<pointer: 0x7f4cf3546f60>, x, y, z)}
+\CommentTok{#> .Call(<pointer: 0x7fbf9f5b3f60>, x, y, z)}
 \KeywordTok{add}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
 \CommentTok{#> [1] 6}
 \end{Highlighting}
@@ -7895,9 +7895,9 @@ This is a good example of where C++ is much more efficient than R. As shown by t
 \CommentTok{#> # A tibble: 3 x 6}
 \CommentTok{#>   expression      min     mean   median      max `itr/sec`}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>}
-\CommentTok{#> 1 sum(x)       1.31µs    1.5µs   1.34µs  82.39µs   667838.}
-\CommentTok{#> 2 sumC(x)      3.26µs   4.53µs   4.73µs   1.02ms   220900.}
-\CommentTok{#> 3 sumR(x)     38.86µs  40.69µs  39.44µs 100.97µs    24579.}
+\CommentTok{#> 1 sum(x)       1.31µs   1.55µs   1.34µs  79.36µs   646199.}
+\CommentTok{#> 2 sumC(x)      3.26µs   4.75µs   4.76µs   1.17ms   210591.}
+\CommentTok{#> 3 sumR(x)     38.28µs  41.08µs  39.14µs  167.2µs    24345.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7953,8 +7953,8 @@ Note that because the R version is fully vectorised, it's already going to be fa
 \CommentTok{#> # A tibble: 2 x 6}
 \CommentTok{#>   expression          min     mean   median      max `itr/sec`}
 \CommentTok{#>   <chr>          <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>}
-\CommentTok{#> 1 pdistR(0.5, y)   8.43ms   8.66ms   8.57ms  11.84ms      115.}
-\CommentTok{#> 2 pdistC(0.5, y)   4.47ms   4.75ms   4.74ms   5.93ms      210.}
+\CommentTok{#> 1 pdistR(0.5, y)   8.57ms   8.98ms   8.82ms  11.68ms      111.}
+\CommentTok{#> 2 pdistC(0.5, y)   4.71ms   4.87ms   4.83ms   6.04ms      205.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8797,10 +8797,10 @@ Benchmarking the two implementations yields:
   \DataTypeTok{check =} \OtherTok{FALSE}
 \NormalTok{)}
 \CommentTok{#> # A tibble: 2 x 10}
-\CommentTok{#>   expression     min     mean   median    max `itr/sec` mem_alloc}
-\CommentTok{#>   <chr>      <bch:t> <bch:tm> <bch:tm> <bch:>     <dbl> <bch:byt>}
-\CommentTok{#> 1 gibbs_r(1…   5.6ms   5.81ms   5.73ms 6.82ms      172.    4.97MB}
-\CommentTok{#> 2 gibbs_cpp…   302µs 348.11µs 341.45µs 1.54ms     2873.     4.1KB}
+\CommentTok{#>   expression      min     mean   median    max `itr/sec` mem_alloc}
+\CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:>     <dbl> <bch:byt>}
+\CommentTok{#> 1 gibbs_r(1…   5.69ms   5.91ms   5.82ms 6.96ms      169.    4.97MB}
+\CommentTok{#> 2 gibbs_cpp… 303.32µs 360.62µs 350.91µs 2.01ms     2773.     4.1KB}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
@@ -8914,9 +8914,9 @@ The original blog post forgot to do this, and introduced a bug in the C++ versio
 \CommentTok{#> # A tibble: 3 x 10}
 \CommentTok{#>   expression      min     mean   median      max `itr/sec` mem_alloc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl> <bch:byt>}
-\CommentTok{#> 1 vacc1        1.91ms   2.01ms   1.99ms   2.38ms      498.    7.86KB}
-\CommentTok{#> 2 vacc2      103.26µs 119.98µs 111.41µs  339.4µs     8334.  223.98KB}
-\CommentTok{#> 3 vacc3       29.24µs  31.48µs   30.3µs 722.96µs    31771.   14.48KB}
+\CommentTok{#> 1 vacc1        1.86ms   2.01ms   1.97ms   2.94ms      498.    7.86KB}
+\CommentTok{#> 2 vacc2      101.26µs 123.23µs 110.62µs   4.94ms     8115.     224KB}
+\CommentTok{#> 3 vacc3       29.33µs  32.65µs   30.6µs 212.63µs    30627.   14.48KB}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
@@ -9015,6 +9015,10 @@ Writing performance code may also require you to rethink your basic approach: a 
 \section{Acknowledgments}\label{acknowledgments}}
 
 I'd like to thank the Rcpp-mailing list for many helpful conversations, particularly Romain Francois and Dirk Eddelbuettel who have not only provided detailed answers to many of my questions, but have been incredibly responsive at improving Rcpp. This chapter would not have been possible without JJ Allaire; he encouraged me to learn C++ and then answered many of my dumb questions along the way.
+
+\hypertarget{references}{%
+\chapter*{References}\label{references}}
+\addcontentsline{toc}{chapter}{References}
 
 \hypertarget{refs}{}
 \leavevmode\hypertarget{ref-errorist}{}%
