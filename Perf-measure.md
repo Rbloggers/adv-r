@@ -235,12 +235,11 @@ x <- runif(100)
   x ^ 0.5
 ))
 #> # A tibble: 2 x 10
-#>   expression      min    mean   median     max `itr/sec` mem_alloc
-#>   <chr>      <bch:tm> <bch:t> <bch:tm> <bch:t>     <dbl> <bch:byt>
-#> 1 sqrt(x)    589.06ns 790.7ns 669.04ns  30.2µs  1264693.      848B
-#> 2 x^0.5        9.04µs  10.1µs   9.44µs 785.8µs    98952.      848B
-#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,
-#> #   total_time <bch:tm>
+#>   expression      min   mean   median   max `itr/sec` mem_alloc  n_gc
+#>   <chr>      <bch:tm> <bch:> <bch:tm> <bch>     <dbl> <bch:byt> <dbl>
+#> 1 sqrt(x)    581.03ns 1.01µs 898.43ns  28µs   988060.      848B     0
+#> 2 x^0.5        9.02µs 9.99µs   9.43µs 752µs   100053.      848B     0
+#> # … with 2 more variables: n_itr <int>, total_time <bch:tm>
 ```
 
 By default, `bench::mark()` runs each expression at least once (`min_iterations = 1`), and at most enough times to take 0.5s (`min_time = 0.5`). It checks that each run returns the same value which is typically what you when microbenchmarking; if you want to compare the speed of expressions that return different values, set `check = FALSE`.
@@ -292,21 +291,21 @@ lb[c("expression", "min", "median", "itr/sec", "n_gc")]
 #> # A tibble: 2 x 5
 #>   expression      min   median `itr/sec`  n_gc
 #>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 sqrt(x)    589.06ns 669.04ns  1264693.     0
-#> 2 x^0.5        9.04µs   9.44µs    98952.     0
+#> 1 sqrt(x)    581.03ns 898.43ns   988060.     0
+#> 2 x^0.5        9.02µs   9.43µs   100053.     0
 ```
 
 ### Interpreting results
 
 
 
-As with all microbenchmarks, pay careful attention to the units: here, each computation takes about 590 ns, 590 billionths of a second. To help calibrate the impact of a microbenchmark on run time, it's useful to think about how many times a function needs to run before it takes a second. If a microbenchmark takes:
+As with all microbenchmarks, pay careful attention to the units: here, each computation takes about 580 ns, 580 billionths of a second. To help calibrate the impact of a microbenchmark on run time, it's useful to think about how many times a function needs to run before it takes a second. If a microbenchmark takes:
 
 * 1 ms, then one thousand calls takes a second.
 * 1 µs, then one million calls takes a second.
 * 1 ns, then one billion calls takes a second.
 
-The `sqrt()` function takes about 590 ns, or 0.59 µs, to compute the square root of 100 numbers. That means if you repeated the operation a million times, it would take 0.59 s, and hence changing the way you compute the square root is unlikely to significantly affect real code. This is the reason you need to exercise care when generalising microbenchmarking results.
+The `sqrt()` function takes about 580 ns, or 0.58 µs, to compute the square root of 100 numbers. That means if you repeated the operation a million times, it would take 0.58 s, and hence changing the way you compute the square root is unlikely to significantly affect real code. This is the reason you need to exercise care when generalising microbenchmarking results.
 
 ### Exercises
 
