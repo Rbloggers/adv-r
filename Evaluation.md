@@ -312,7 +312,7 @@ There are three ways to create quosures:
     new_quosure(expr(x + y), env(x = 1, y = 10))
     #> <quosure>
     #> expr: ^x + y
-    #> env:  0x4524fd8
+    #> env:  0x5919520
     ```
 
 ### Evaluating
@@ -359,7 +359,7 @@ qs
 #> $f
 #> <quosure>
 #> expr: ^x
-#> env:  0x4d3d868
+#> env:  0x6131db0
 ```
 
 That means that when you evaluate them, you get the correct results:
@@ -479,19 +479,19 @@ When you use `expr_print()` in the console, quosures are coloured according to t
     q1
     #> <quosure>
     #> expr: ^x
-    #> env:  0x440dbb0
+    #> env:  0x5802408
     
     q2 <- new_quosure(expr(x + !!q1), env(x = 10))
     q2
     #> <quosure>
     #> expr: ^x + (^x)
-    #> env:  0x45ab500
+    #> env:  0x599fd58
     
     q3 <- new_quosure(expr(x + !!q2), env(x = 100))
     q3
     #> <quosure>
     #> expr: ^x + (^x + (^x))
-    #> env:  0x4833800
+    #> env:  0x5c28058
     ```
 
 1.  Write an `enenv()` function that captures the environment associated
@@ -907,7 +907,7 @@ It's not possible to evaluate `expr` only the data mask, because the data mask d
 ### Exercises
 
 1.  I've included an alternative implementation of `threshold_var()` below.
-    What makes it different to the approach I used above? What make it harder?
+    What makes it different to the approach I used above? What makes it harder?
 
     
     ```r
