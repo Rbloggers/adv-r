@@ -312,7 +312,7 @@ There are three ways to create quosures:
     new_quosure(expr(x + y), env(x = 1, y = 10))
     #> <quosure>
     #> expr: ^x + y
-    #> env:  0x5919520
+    #> env:  0x4809710
     ```
 
 ### Evaluating
@@ -359,7 +359,7 @@ qs
 #> $f
 #> <quosure>
 #> expr: ^x
-#> env:  0x6131db0
+#> env:  0x50237c0
 ```
 
 That means that when you evaluate them, you get the correct results:
@@ -479,19 +479,19 @@ When you use `expr_print()` in the console, quosures are coloured according to t
     q1
     #> <quosure>
     #> expr: ^x
-    #> env:  0x5802408
+    #> env:  0x46ffc90
     
     q2 <- new_quosure(expr(x + !!q1), env(x = 10))
     q2
     #> <quosure>
     #> expr: ^x + (^x)
-    #> env:  0x599fd58
+    #> env:  0x48991b8
     
     q3 <- new_quosure(expr(x + !!q2), env(x = 100))
     q3
     #> <quosure>
     #> expr: ^x + (^x + (^x))
-    #> env:  0x5c28058
+    #> env:  0x4b264e8
     ```
 
 1.  Write an `enenv()` function that captures the environment associated
@@ -638,7 +638,7 @@ transform(df, x = -x, y2 = 2 * y)
 #> 3 -1 0.6008 1.202
 ```
 
-Again, our own `transform2()` requires little code. We capture the unevalated `...`  with `enquos(...)`, and then evaluate each expression using a for loop. Real code would do more error checking to ensure that each input is named and evaluates to a vector the same length as `data`.
+Again, our own `transform2()` requires little code. We capture the unevaluated `...`  with `enquos(...)`, and then evaluate each expression using a for loop. Real code would do more error checking to ensure that each input is named and evaluates to a vector the same length as `data`.
 
 
 ```r
@@ -1278,6 +1278,6 @@ There are two basic ways to overcome this challenge:
     ```
 
 1.  Another way to way to write `resample_lm()` would be to include the
-    resmaple expression (`data[sample(nrow(data), replace = TRUE), , drop = FALSE]`)
+    resample expression (`data[sample(nrow(data), replace = TRUE), , drop = FALSE]`)
     in the data argument. Implement that approach. What are the advantages?
     What are the disadvantages?
