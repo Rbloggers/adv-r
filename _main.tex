@@ -155,8 +155,8 @@ To Mina, the best book writing companion.
 \hypertarget{part-metaprogramming}{%
 \part{Metaprogramming}\label{part-metaprogramming}}
 
-\hypertarget{introduction}{%
-\chapter*{Introduction}\label{introduction}}
+\hypertarget{metaprogramming}{%
+\chapter*{Introduction}\label{metaprogramming}}
 \addcontentsline{toc}{chapter}{Introduction}
 
 \index{metaprogramming}
@@ -202,8 +202,8 @@ You'll learn about metaprogramming and tidy evaluation in the following five cha
 \hypertarget{meta-big-picture}{%
 \chapter{Big picture}\label{meta-big-picture}}
 
-\hypertarget{introduction-1}{%
-\section{Introduction}\label{introduction-1}}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
 
 Metaprogramming is the hardest topic in this book because it brings together many formerly unrelated topics and forces you grapple with issues that you probably haven't thought about before. You'll also need to learn a lot of new vocabulary, and at first it will seem like every new term is defined by three other terms that you haven't heard of. Even if you're an experienced programmer in another language, your existing skills are unlikely to be much help as few modern popular languages expose the level of metaprogramming that R provides. So don't be surprised if you're frustrated or confused at first; this is a natural part of the process that happens to everyone!
 
@@ -596,8 +596,8 @@ Whenever you use a data mask, you must always use \texttt{enquo()} instead of \t
 \hypertarget{expressions}{%
 \chapter{Expressions}\label{expressions}}
 
-\hypertarget{introduction-2}{%
-\section{Introduction}\label{introduction-2}}
+\hypertarget{introduction-1}{%
+\section{Introduction}\label{introduction-1}}
 
 \index{expressions}
 
@@ -1969,8 +1969,8 @@ Conceptually, an expression vector is just a list of expressions. The only diffe
 \hypertarget{quasiquotation}{%
 \chapter{Quasiquotation}\label{quasiquotation}}
 
-\hypertarget{introduction-3}{%
-\section{Introduction}\label{introduction-3}}
+\hypertarget{introduction-2}{%
+\section{Introduction}\label{introduction-2}}
 
 Now that you understand the tree structure of R code, it's time to return to one of the fundamental ideas that make \texttt{expr()} and \texttt{ast()} work: quotation. In tidy evaluation, all quoting functions are actually quasiquoting functions because they also support unquoting. Where quotation is the act of capturing an unevaluated expression, \textbf{unquotation} is the ability to selectively evaluate parts of an otherwise quoted expression. Together, this is called quasiquotation. Quasiquotation makes it easy to create functions that combine code written by the function's author with code written by the function's user. This helps to solve a wide variety of challenging problems.
 
@@ -3622,13 +3622,13 @@ Quasiquotation was first used in a programming language, LISP, in the mid-1970s 
 
 In R, however, many functions quote one or more inputs. This introduces ambiguity (because you need to read the documentation to determine if an argument is quoted or not), but allows for concise and elegant data exploration code. In base R, only one function supports quasiquotation: \texttt{bquote()}, written in 2003 by Thomas Lumley. However, \texttt{bquote()} has some major limitations which prevented it from having a wide impact on R code (Section \ref{base-nonquote}).
 
-My attempt to resolve these limitations lead to the lazyeval package (2014-2015). Unfortunately, my analysis of the problem was incomplete and while lazyeval solves some problems, it create others. It was not until I started working with Lionel Henry on the problem that all the pieces finally fell into place and we create the full tidy evaluation framework (2017). Despite the newness of tidy evaluation, I teach it here because it is a rich and powerful theory that, once mastered, makes many hard problems much easier.
+My attempt to resolve these limitations lead to the lazyeval package (2014-2015). Unfortunately, my analysis of the problem was incomplete and while lazyeval solves some problems, it creates others. It was not until I started working with Lionel Henry on the problem that all the pieces finally fell into place and we create the full tidy evaluation framework (2017). Despite the newness of tidy evaluation, I teach it here because it is a rich and powerful theory that, once mastered, makes many hard problems much easier.
 
 \hypertarget{evaluation}{%
 \chapter{Evaluation}\label{evaluation}}
 
-\hypertarget{introduction-4}{%
-\section{Introduction}\label{introduction-4}}
+\hypertarget{introduction-3}{%
+\section{Introduction}\label{introduction-3}}
 
 The user-facing inverse of quotation is unquotation: it gives the \emph{user} the ability to selectively evaluate parts of an otherwise quoted argument. The developer-facing complement of quotation is evaluation: this gives the \emph{developer} the ability to evaluate quoted expressions in custom environments to achieve specific goals.
 
@@ -3978,7 +3978,7 @@ There are three ways to create quosures:
 \KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\NormalTok{y), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{, }\DataTypeTok{y =} \DecValTok{10}\NormalTok{))}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + y}
-\CommentTok{#> env:  0x4809710}
+\CommentTok{#> env:  0x5f64378}
 \end{Highlighting}
 \end{Shaded}
 \end{itemize}
@@ -4032,7 +4032,7 @@ Quosures are typically just a convenience: they make code cleaner because you on
 \CommentTok{#> $f}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x}
-\CommentTok{#> env:  0x50237c0}
+\CommentTok{#> env:  0x677c508}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4171,19 +4171,19 @@ When you use \texttt{expr\_print()} in the console, quosures are coloured accord
 \NormalTok{q1}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x}
-\CommentTok{#> env:  0x46ffc90}
+\CommentTok{#> env:  0x5e597a0}
 
 \NormalTok{q2 <-}\StringTok{ }\KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\OperatorTok{!!}\NormalTok{q1), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{10}\NormalTok{))}
 \NormalTok{q2}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + (^x)}
-\CommentTok{#> env:  0x48991b8}
+\CommentTok{#> env:  0x5ff4360}
 
 \NormalTok{q3 <-}\StringTok{ }\KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\OperatorTok{!!}\NormalTok{q2), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{100}\NormalTok{))}
 \NormalTok{q3}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + (^x + (^x))}
-\CommentTok{#> env:  0x4b264e8}
+\CommentTok{#> env:  0x627d860}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -5089,8 +5089,8 @@ There are two basic ways to overcome this challenge:
 \hypertarget{translation}{%
 \chapter{Translating R code}\label{translation}}
 
-\hypertarget{introduction-5}{%
-\section{Introduction}\label{introduction-5}}
+\hypertarget{introduction-4}{%
+\section{Introduction}\label{introduction-4}}
 
 The combination of first-class environments, lexical scoping, and metaprogramming gives us a powerful toolkit for translating R code into other languages. One fully-fledged example of this idea is dbplyr, which powers the database backends for dplyr, allowing you to express data manipulation in R and automatically translate it into SQL. You can see the key idea in \texttt{translate\_sql()} which takes R code and returns the equivalent SQL:
 
@@ -5934,7 +5934,7 @@ We need a closure that will generate the functions for each unknown call:
 \CommentTok{#>     contents <- paste(..., collapse = ", ")}
 \CommentTok{#>     paste0("\textbackslash{}\textbackslash{}mathrm\{foo\}(", contents, ")")}
 \CommentTok{#> \}}
-\CommentTok{#> <environment: 0x648ed08>}
+\CommentTok{#> <environment: 0x680b138>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5990,8 +5990,8 @@ You could certainly take this idea further and translate types of mathematical e
 \hypertarget{part-techniques}{%
 \part{Techniques}\label{part-techniques}}
 
-\hypertarget{introduction-6}{%
-\chapter*{Introduction}\label{introduction-6}}
+\hypertarget{techniques}{%
+\chapter*{Introduction}\label{techniques}}
 \addcontentsline{toc}{chapter}{Introduction}
 
 The final four chapters cover two general programming techniques: finding and fixing bugs, and finding and fixing performance issues.
@@ -6003,8 +6003,8 @@ The remaining three chapters focus on performance, first measuring it (Chapter \
 \hypertarget{debugging}{%
 \chapter{Debugging}\label{debugging}}
 
-\hypertarget{introduction-7}{%
-\section{Introduction}\label{introduction-7}}
+\hypertarget{introduction-5}{%
+\section{Introduction}\label{introduction-5}}
 
 \index{debugging}
 \index{bugs|see {debugging}}
@@ -6583,8 +6583,8 @@ There are other ways for a function to fail apart from throwing an error:
 
 \index{performance!measuring}
 
-\hypertarget{introduction-8}{%
-\section{Introduction}\label{introduction-8}}
+\hypertarget{introduction-6}{%
+\section{Introduction}\label{introduction-6}}
 
 \begin{quote}
 ``Programmers waste enormous amounts of time thinking about, or worrying
@@ -6856,8 +6856,8 @@ A great tool for microbenchmarking in R is the bench package (Hester \protect\hy
 \CommentTok{#> # A tibble: 2 x 10}
 \CommentTok{#>   expression      min    mean   median     max `itr/sec` mem_alloc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:t> <bch:tm> <bch:t>     <dbl> <bch:byt>}
-\CommentTok{#> 1 sqrt(x)    584.99ns   783ns 642.96ns  28.6µs  1277138.      848B}
-\CommentTok{#> 2 x^0.5        8.99µs  10.4µs   9.44µs 115.1µs    95923.      848B}
+\CommentTok{#> 1 sqrt(x)    586.03ns 791.9ns 647.97ns  33.7µs  1262844.      848B}
+\CommentTok{#> 2 x^0.5        9.01µs  10.1µs   9.45µs 293.4µs    99351.      848B}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
@@ -6916,15 +6916,15 @@ Because the result is a special type of tibble, you can use \texttt{{[}} to sele
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 sqrt(x)    584.99ns 642.96ns  1277138.     0}
-\CommentTok{#> 2 x^0.5        8.99µs   9.44µs    95923.     0}
+\CommentTok{#> 1 sqrt(x)    586.03ns 647.97ns  1262844.     0}
+\CommentTok{#> 2 x^0.5        9.01µs   9.45µs    99351.     0}
 \end{Highlighting}
 \end{Shaded}
 
 \hypertarget{interpreting-results}{%
 \subsection{Interpreting results}\label{interpreting-results}}
 
-As with all microbenchmarks, pay careful attention to the units: here, each computation takes about 580 ns, 580 billionths of a second. To help calibrate the impact of a microbenchmark on run time, it's useful to think about how many times a function needs to run before it takes a second. If a microbenchmark takes:
+As with all microbenchmarks, pay careful attention to the units: here, each computation takes about 590 ns, 590 billionths of a second. To help calibrate the impact of a microbenchmark on run time, it's useful to think about how many times a function needs to run before it takes a second. If a microbenchmark takes:
 
 \begin{itemize}
 \tightlist
@@ -6936,7 +6936,7 @@ As with all microbenchmarks, pay careful attention to the units: here, each comp
   1 ns, then one billion calls takes a second.
 \end{itemize}
 
-The \texttt{sqrt()} function takes about 580 ns, or 0.58 µs, to compute the square root of 100 numbers. That means if you repeated the operation a million times, it would take 0.58 s, and hence changing the way you compute the square root is unlikely to significantly affect real code. This is the reason you need to exercise care when generalising microbenchmarking results.
+The \texttt{sqrt()} function takes about 590 ns, or 0.59 µs, to compute the square root of 100 numbers. That means if you repeated the operation a million times, it would take 0.59 s, and hence changing the way you compute the square root is unlikely to significantly affect real code. This is the reason you need to exercise care when generalising microbenchmarking results.
 
 \hypertarget{exercises-17}{%
 \subsection{Exercises}\label{exercises-17}}
@@ -6975,8 +6975,8 @@ The \texttt{sqrt()} function takes about 580 ns, or 0.58 µs, to compute the squ
 \hypertarget{perf-improve}{%
 \chapter{Improving performance}\label{perf-improve}}
 
-\hypertarget{introduction-9}{%
-\section{Introduction}\label{introduction-9}}
+\hypertarget{introduction-7}{%
+\section{Introduction}\label{introduction-7}}
 
 \index{performance!improving}
 
@@ -7085,8 +7085,8 @@ Now use \texttt{bench::mark()} to precisely compare the variations. \texttt{benc
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean1(x)      227µs    237µs     3811.     0}
-\CommentTok{#> 2 mean2(x)      113µs    154µs     5857.     0}
+\CommentTok{#> 1 mean1(x)      226µs    230µs     4163.     0}
+\CommentTok{#> 2 mean2(x)      112µs    113µs     8380.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7219,8 +7219,8 @@ For example, calling \texttt{mean.default()} is quite a bit faster than calling 
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression           min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>           <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)           2.69µs   3.25µs   217977.     0}
-\CommentTok{#> 2 mean.default(x)   1.25µs    1.5µs   371168.     0}
+\CommentTok{#> 1 mean(x)           2.65µs   3.08µs   285381.     1}
+\CommentTok{#> 2 mean.default(x)   1.25µs   1.45µs   603663.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7239,9 +7239,9 @@ An even riskier optimisation is to directly call the underlying \texttt{.Interna
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression              min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)              2.68µs   3.21µs   200324.     1}
-\CommentTok{#> 2 mean.default(x)      1.26µs    1.6µs   357896.     0}
-\CommentTok{#> 3 .Internal(mean(x)) 337.02ns 352.16ns  1028976.     0}
+\CommentTok{#> 1 mean(x)              2.64µs   2.99µs   296913.     1}
+\CommentTok{#> 2 mean.default(x)      1.26µs   1.51µs   580967.     0}
+\CommentTok{#> 3 .Internal(mean(x)) 340.05ns 354.95ns  2443049.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7258,9 +7258,9 @@ NB: most of these differences arise because \texttt{x} is small. If you increase
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression              min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)              24.9µs   33.2µs    23653.     1}
-\CommentTok{#> 2 mean.default(x)      23.4µs   31.3µs    24367.     0}
-\CommentTok{#> 3 .Internal(mean(x))   22.4µs   28.3µs    26279.     0}
+\CommentTok{#> 1 mean(x)              24.9µs   25.4µs    37083.     1}
+\CommentTok{#> 2 mean.default(x)      23.4µs   23.7µs    39313.     0}
+\CommentTok{#> 3 .Internal(mean(x))   22.4µs   22.4µs    42632.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7289,8 +7289,8 @@ Knowing that you're dealing with a specific type of input can be another way to 
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression         min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>         <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 as.data.frame   1.25ms   1.61ms      584.     5}
-\CommentTok{#> 2 quick_df        6.24µs   8.32µs    72468.     1}
+\CommentTok{#> 1 as.data.frame   1.09ms   1.17ms      831.     7}
+\CommentTok{#> 2 quick_df        6.19µs   7.49µs   117156.     1}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7398,9 +7398,9 @@ The downside of vectorisation is that it makes it harder to predict how operatio
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression        min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>        <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 lookup[x1]   500.94ns 607.92ns   951101.     0}
-\CommentTok{#> 2 lookup[x10]    1.57µs   1.72µs   392258.     0}
-\CommentTok{#> 3 lookup[x100]   4.29µs   6.09µs   116168.     0}
+\CommentTok{#> 1 lookup[x1]   513.97ns 583.01ns  1464288.     0}
+\CommentTok{#> 2 lookup[x10]    1.56µs   1.74µs   476452.     0}
+\CommentTok{#> 3 lookup[x100]   4.53µs   6.26µs   144052.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7458,10 +7458,10 @@ You saw one example of this type of problem in Section \ref{memory-profiling}, s
 \CommentTok{#> # A tibble: 4 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 loop10       20.2µs  23.98µs    28252.     3}
-\CommentTok{#> 2 loop100     832.1µs   1.47ms      644.     1}
-\CommentTok{#> 3 vec10         4.9µs   5.32µs   117985.     0}
-\CommentTok{#> 4 vec100       39.3µs  47.72µs    17882.     0}
+\CommentTok{#> 1 loop10      20.25µs  22.42µs    42512.     3}
+\CommentTok{#> 2 loop100     810.6µs  842.3µs     1157.     1}
+\CommentTok{#> 3 vec10        4.93µs   5.21µs   178078.     1}
+\CommentTok{#> 4 vec100      39.15µs  39.99µs    23788.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7493,14 +7493,14 @@ For data in this form, there are two ways to use \texttt{t.test()}. We can eithe
 \NormalTok{  \}}
 \NormalTok{)}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.884   0.000   0.882}
+\CommentTok{#>   0.884   0.000   0.880}
 \KeywordTok{system.time}\NormalTok{(}
   \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{m) \{}
     \KeywordTok{t.test}\NormalTok{(X[i, grp }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], X[i, grp }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{])}\OperatorTok{$}\NormalTok{statistic}
 \NormalTok{  \}}
 \NormalTok{)}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.204   0.000   0.205}
+\CommentTok{#>   0.208   0.000   0.210}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7513,7 +7513,7 @@ Of course, a for loop computes, but doesn't save the values. We can \texttt{map\
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(t1 <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map_dbl}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{m, compT))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.208   0.000   0.207}
+\CommentTok{#>   0.204   0.004   0.208}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7539,7 +7539,7 @@ How can we make this faster? First, we could try doing less work. If you look at
 
 \KeywordTok{system.time}\NormalTok{(t2 <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map_dbl}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{m, }\OperatorTok{~}\StringTok{ }\KeywordTok{my_t}\NormalTok{(X[.,], grp)))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.032   0.000   0.029}
+\CommentTok{#>   0.032   0.000   0.032}
 \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{all.equal}\NormalTok{(t1, t2))}
 \end{Highlighting}
 \end{Shaded}
@@ -7567,7 +7567,7 @@ Now that we have a fairly simple function, we can make it faster still by vector
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(t3 <-}\StringTok{ }\KeywordTok{rowtstat}\NormalTok{(X, grp))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.012   0.000   0.012}
+\CommentTok{#>   0.008   0.000   0.012}
 \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{all.equal}\NormalTok{(t1, t3))}
 \end{Highlighting}
 \end{Shaded}
@@ -7609,8 +7609,8 @@ You can also reach out to the community for help. StackOverflow can be a useful 
 \hypertarget{rcpp}{%
 \chapter{Rewriting R code in C++}\label{rcpp}}
 
-\hypertarget{introduction-10}{%
-\section{Introduction}\label{introduction-10}}
+\hypertarget{introduction-8}{%
+\section{Introduction}\label{introduction-8}}
 
 Sometimes R code just isn't fast enough. You've used profiling to figure out where your bottlenecks are, and you've done everything you can in R, but your code still isn't fast enough. In this chapter you'll learn how to improve performance by rewriting key functions in C++. This magic comes by way of the \href{http://www.rcpp.org/}{Rcpp} package (Eddelbuettel and François \protect\hyperlink{ref-Rcpp}{2011}) (with key contributions by Doug Bates, John Chambers, and JJ Allaire).
 
@@ -7707,7 +7707,7 @@ You'll also need a working C++ compiler. To get it:
 \CommentTok{# add works like a regular R function}
 \NormalTok{add}
 \CommentTok{#> function (x, y, z) }
-\CommentTok{#> .Call(<pointer: 0x7f64bf97ff60>, x, y, z)}
+\CommentTok{#> .Call(<pointer: 0x7fedc98daf60>, x, y, z)}
 \KeywordTok{add}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
 \CommentTok{#> [1] 6}
 \end{Highlighting}
@@ -7895,9 +7895,9 @@ This is a good example of where C++ is much more efficient than R. As shown by t
 \CommentTok{#> # A tibble: 3 x 6}
 \CommentTok{#>   expression      min     mean   median      max `itr/sec`}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>}
-\CommentTok{#> 1 sum(x)        1.3µs   1.63µs   1.33µs  97.96µs   612561.}
-\CommentTok{#> 2 sumC(x)      3.26µs   4.64µs   4.71µs    1.1ms   215557.}
-\CommentTok{#> 3 sumR(x)     38.12µs   40.7µs  39.02µs   3.22ms    24567.}
+\CommentTok{#> 1 sum(x)        1.3µs   1.53µs   1.33µs  86.59µs   652424.}
+\CommentTok{#> 2 sumC(x)      3.25µs   4.95µs   4.78µs   1.35ms   201925.}
+\CommentTok{#> 3 sumR(x)     38.24µs  41.16µs  39.13µs   4.58ms    24294.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7953,8 +7953,8 @@ Note that because the R version is fully vectorised, it's already going to be fa
 \CommentTok{#> # A tibble: 2 x 6}
 \CommentTok{#>   expression          min     mean   median      max `itr/sec`}
 \CommentTok{#>   <chr>          <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>}
-\CommentTok{#> 1 pdistR(0.5, y)   8.82ms   9.32ms   9.27ms  12.85ms      107.}
-\CommentTok{#> 2 pdistC(0.5, y)   4.91ms   5.19ms   5.09ms   6.53ms      193.}
+\CommentTok{#> 1 pdistR(0.5, y)   8.66ms   9.15ms   8.96ms   12.1ms      109.}
+\CommentTok{#> 2 pdistC(0.5, y)    4.8ms   5.28ms   5.24ms   9.29ms      189.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -8797,10 +8797,10 @@ Benchmarking the two implementations yields:
   \DataTypeTok{check =} \OtherTok{FALSE}
 \NormalTok{)}
 \CommentTok{#> # A tibble: 2 x 10}
-\CommentTok{#>   expression      min     mean  median    max `itr/sec` mem_alloc}
-\CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:t> <bch:>     <dbl> <bch:byt>}
-\CommentTok{#> 1 gibbs_r(1…   5.75ms   6.04ms   5.9ms 8.06ms      165.    4.97MB}
-\CommentTok{#> 2 gibbs_cpp… 312.32µs 354.93µs 348.4µs 1.63ms     2817.     4.1KB}
+\CommentTok{#>   expression     min     mean   median    max `itr/sec` mem_alloc}
+\CommentTok{#>   <chr>      <bch:t> <bch:tm> <bch:tm> <bch:>     <dbl> <bch:byt>}
+\CommentTok{#> 1 gibbs_r(1…   5.7ms   5.94ms   5.88ms 7.13ms      168.    4.97MB}
+\CommentTok{#> 2 gibbs_cpp… 308.9µs 361.07µs 350.49µs 4.89ms     2770.     4.1KB}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
@@ -8912,11 +8912,11 @@ The original blog post forgot to do this, and introduced a bug in the C++ versio
   \DataTypeTok{vacc3 =} \KeywordTok{vacc3}\NormalTok{(age, female, ily)}
 \NormalTok{)}
 \CommentTok{#> # A tibble: 3 x 10}
-\CommentTok{#>   expression      min     mean   median     max `itr/sec` mem_alloc}
-\CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:t>     <dbl> <bch:byt>}
-\CommentTok{#> 1 vacc1        1.89ms   2.05ms   1.99ms   3.1ms      488.    7.86KB}
-\CommentTok{#> 2 vacc2      102.99µs 124.55µs 112.41µs 409.7µs     8029.  223.98KB}
-\CommentTok{#> 3 vacc3        29.4µs  31.93µs   30.7µs   182µs    31315.   14.48KB}
+\CommentTok{#>   expression      min     mean   median      max `itr/sec` mem_alloc}
+\CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl> <bch:byt>}
+\CommentTok{#> 1 vacc1        1.88ms   2.01ms   1.99ms   2.93ms      497.    7.86KB}
+\CommentTok{#> 2 vacc2      101.48µs 125.19µs 111.96µs   4.88ms     7988.     224KB}
+\CommentTok{#> 3 vacc3       29.37µs  32.08µs   30.7µs 207.17µs    31172.   14.48KB}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
