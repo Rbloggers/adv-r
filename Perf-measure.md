@@ -237,8 +237,8 @@ x <- runif(100)
 #> # A tibble: 2 x 10
 #>   expression      min    mean   median     max `itr/sec` mem_alloc
 #>   <chr>      <bch:tm> <bch:t> <bch:tm> <bch:t>     <dbl> <bch:byt>
-#> 1 sqrt(x)    586.03ns 791.9ns 647.97ns  33.7µs  1262844.      848B
-#> 2 x^0.5        9.01µs  10.1µs   9.45µs 293.4µs    99351.      848B
+#> 1 sqrt(x)    586.03ns 793.8ns 667.99ns 31.42µs  1259799.      848B
+#> 2 x^0.5        9.03µs  10.6µs   9.48µs  4.47ms    94248.      848B
 #> # … with 3 more variables: n_gc <dbl>, n_itr <int>,
 #> #   total_time <bch:tm>
 ```
@@ -292,8 +292,8 @@ lb[c("expression", "min", "median", "itr/sec", "n_gc")]
 #> # A tibble: 2 x 5
 #>   expression      min   median `itr/sec`  n_gc
 #>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 sqrt(x)    586.03ns 647.97ns  1262844.     0
-#> 2 x^0.5        9.01µs   9.45µs    99351.     0
+#> 1 sqrt(x)    586.03ns 667.99ns  1259799.     0
+#> 2 x^0.5        9.03µs   9.48µs    94248.     0
 ```
 
 ### Interpreting results
