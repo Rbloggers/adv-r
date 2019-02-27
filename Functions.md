@@ -840,7 +840,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
       print(x)
     }
     show_time()
-    #> [1] "2019-02-27 15:02:39 UTC"
+    #> [1] "2019-02-27 15:36:21 UTC"
     ```
 
 1.  How many arguments are required when calling `library()`?
@@ -1159,7 +1159,7 @@ with_dir <- function(dir, code) {
 }
 
 getwd()
-#> [1] "/home/travis/build/liao961120/adv-r"
+#> [1] "/home/travis/build/Rbloggers/adv-r"
 with_dir("~", getwd())
 #> [1] "/home/travis"
 ```

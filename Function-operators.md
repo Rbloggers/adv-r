@@ -105,8 +105,8 @@ safe_sum <- safely(sum)
 safe_sum
 #> function (...) 
 #> capture_error(.f(...), otherwise, quiet)
-#> <bytecode: 0x5fcd230>
-#> <environment: 0x5fccd98>
+#> <bytecode: 0x44ce110>
+#> <environment: 0x44cdc78>
 ```
 
 Like all function operators, `safely()` takes a function and returns a wrapped function which we can call as usual:
@@ -282,7 +282,7 @@ fib <- function(n) {
 }
 system.time(fib(23))
 #>    user  system elapsed 
-#>   0.040   0.000   0.039
+#>    0.04    0.00    0.04
 system.time(fib(24))
 #>    user  system elapsed 
 #>   0.064   0.000   0.063
