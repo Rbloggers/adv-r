@@ -476,29 +476,6 @@ Some good general advice:
   the \href{https://reprex.tidyverse.org/}{reprex} package.
 \end{itemize}
 
-\hypertarget{intro-ack}{%
-\section{Acknowledgments}\label{intro-ack}}
-
-I would like to thank the many contributors to R-devel and R-help and, more recently, Stack Overflow and RStudio Community. There are too many to name individually, but I'd particularly like to thank Luke Tierney, John Chambers, JJ Allaire, and Brian Ripley for generously giving their time and correcting my countless misunderstandings.
-
-This book was \href{https://github.com/hadley/adv-r/}{written in the open}, and chapters were advertised on \href{https://twitter.com/hadleywickham}{twitter} when complete. It is truly a community effort: many people read drafts, fixed typos, suggested improvements, and contributed content. Without those contributors, the book wouldn't be nearly as good as it is, and I'm deeply grateful for their help. Special thanks go to Jeff Hammerbacher, Peter Li, Duncan Murdoch, and Greg Wilson, who all read the book from cover-to-cover and provided many fixes and suggestions.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(dplyr)}
-\NormalTok{contributors <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"contributors.csv"}\NormalTok{, }\DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
-\NormalTok{contributors <-}\StringTok{ }\NormalTok{contributors }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
-    \DataTypeTok{login =} \KeywordTok{paste0}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{@"}\NormalTok{, login),}
-    \DataTypeTok{desc =} \KeywordTok{ifelse}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(name), login, }\KeywordTok{paste0}\NormalTok{(name, }\StringTok{" ("}\NormalTok{, login, }\StringTok{")"}\NormalTok{))}
-\NormalTok{  )}
-
-\KeywordTok{cat}\NormalTok{(}\StringTok{"A big thank you to all "}\NormalTok{, }\KeywordTok{nrow}\NormalTok{(contributors), }\StringTok{" contributors (in alphabetical order): "}\NormalTok{, }\DataTypeTok{sep =} \StringTok{""}\NormalTok{)}
-\KeywordTok{cat}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(contributors}\OperatorTok{$}\NormalTok{desc, }\DataTypeTok{collapse =} \StringTok{", "}\NormalTok{))}
-\KeywordTok{cat}\NormalTok{(}\StringTok{".}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \hypertarget{conventions}{%
 \section{Conventions}\label{conventions}}
 
@@ -507,13 +484,6 @@ Throughout this book I use \texttt{f()} to refer to functions, \texttt{g} to ref
 Larger code blocks intermingle input and output. Output is commented (\texttt{\#\textgreater{}}) so that if you have an electronic version of the book, e.g., \url{https://adv-r.hadley.nz/}, you can easily copy and paste examples into R.
 
 Many examples use random numbers. These are made reproducible by \texttt{set.seed(1014)}, which is executed automatically at the start of each chapter.
-
-\hypertarget{colophon}{%
-\section{Colophon}\label{colophon}}
-
-This book was written in \href{http://bookdown.org/}{bookdown} inside \href{http://www.rstudio.com/ide/}{RStudio}. The \href{https://adv-r.hadley.nz/}{website} is hosted with \href{http://netlify.com/}{netlify}, and automatically updated after every commit by \href{https://travis-ci.org/}{travis-ci}. The complete source is available from \href{https://github.com/hadley/adv-r}{GitHub}. Code in the printed book is set in \href{http://levien.com/type/myfonts/inconsolata.html}{inconsolata}. Emoji images in the printed book come from the open-licensed \href{https://github.com/twitter/twemoji}{Twitter Emoji}.
-
-This version of the book was built with the following version of R and packages.
 
 \hypertarget{part-foundations}{%
 \part{Foundations}\label{part-foundations}}
@@ -727,9 +697,9 @@ You can access an object's identifier with \texttt{lobstr::obj\_addr()}. Doing s
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{obj_addr}\NormalTok{(x)}
-\CommentTok{#> [1] "0x1e633e8"}
+\CommentTok{#> [1] "0x2699488"}
 \KeywordTok{obj_addr}\NormalTok{(y)}
-\CommentTok{#> [1] "0x1e633e8"}
+\CommentTok{#> [1] "0x2699488"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -893,7 +863,7 @@ The same rules for copying also apply to function calls. Take this code:
 
 \NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
 \KeywordTok{cat}\NormalTok{(}\KeywordTok{tracemem}\NormalTok{(x), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> <0x155fc98>}
+\CommentTok{#> <0x1d96058>}
 
 \NormalTok{z <-}\StringTok{ }\KeywordTok{f}\NormalTok{(x)}
 \CommentTok{# there's no copy here!}
@@ -956,15 +926,15 @@ To see values that are shared across lists, use \texttt{lobstr::ref()}. \texttt{
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ref}\NormalTok{(l1, l2)}
-\CommentTok{#> █ [1:0x72196e8] <list> }
-\CommentTok{#> ├─[2:0x7037190] <dbl> }
-\CommentTok{#> ├─[3:0x7037158] <dbl> }
-\CommentTok{#> └─[4:0x7037120] <dbl> }
+\CommentTok{#> █ [1:0x7a498e8] <list> }
+\CommentTok{#> ├─[2:0x786d190] <dbl> }
+\CommentTok{#> ├─[3:0x786d158] <dbl> }
+\CommentTok{#> └─[4:0x786d120] <dbl> }
 \CommentTok{#>  }
-\CommentTok{#> █ [5:0x7c92b38] <list> }
-\CommentTok{#> ├─[2:0x7037190] }
-\CommentTok{#> ├─[3:0x7037158] }
-\CommentTok{#> └─[6:0x7b64440] <dbl>}
+\CommentTok{#> █ [5:0x84c85b8] <list> }
+\CommentTok{#> ├─[2:0x786d190] }
+\CommentTok{#> ├─[3:0x786d158] }
+\CommentTok{#> └─[6:0x839a440] <dbl>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1027,11 +997,11 @@ You can request that \texttt{ref()} show these references by setting the \texttt
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ref}\NormalTok{(x, }\DataTypeTok{character =} \OtherTok{TRUE}\NormalTok{)}
-\CommentTok{#> █ [1:0x2f5d218] <chr> }
-\CommentTok{#> ├─[2:0x14f4758] <string: "a"> }
-\CommentTok{#> ├─[2:0x14f4758] }
-\CommentTok{#> ├─[3:0x42fcf48] <string: "abc"> }
-\CommentTok{#> └─[4:0x19aaaf0] <string: "d">}
+\CommentTok{#> █ [1:0x3793268] <chr> }
+\CommentTok{#> ├─[2:0x1d2a758] <string: "a"> }
+\CommentTok{#> ├─[2:0x1d2a758] }
+\CommentTok{#> ├─[3:0x4b32f48] <string: "abc"> }
+\CommentTok{#> └─[4:0x21e0af0] <string: "d">}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1372,8 +1342,8 @@ One consequence of this is that environments can contain themselves:
 \NormalTok{e}\OperatorTok{$}\NormalTok{self <-}\StringTok{ }\NormalTok{e}
 
 \KeywordTok{ref}\NormalTok{(e)}
-\CommentTok{#> █ [1:0x141aea8] <env> }
-\CommentTok{#> └─self = [1:0x141aea8]}
+\CommentTok{#> █ [1:0x1c52348] <env> }
+\CommentTok{#> └─self = [1:0x1c52348]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1459,7 +1429,7 @@ You can force garbage collection by calling \texttt{gc()}. But despite what you 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{mem_used}\NormalTok{()}
-\CommentTok{#> 76,001,536 B}
+\CommentTok{#> 76,001,504 B}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5554,7 +5524,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
   \KeywordTok{print}\NormalTok{(x)}
 \NormalTok{\}}
 \KeywordTok{show_time}\NormalTok{()}
-\CommentTok{#> [1] "2019-02-27 15:36:21 UTC"}
+\CommentTok{#> [1] "2019-02-27 16:01:05 UTC"}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -6591,7 +6561,7 @@ Printing an environment just displays its memory address, which is not terribly 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{e1}
-\CommentTok{#> <environment: 0x17bc460>}
+\CommentTok{#> <environment: 0x2de3428>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6600,7 +6570,7 @@ Instead, we'll use \texttt{env\_print()} which gives us a little more informatio
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_print}\NormalTok{(e1)}
-\CommentTok{#> <environment: 0x17bc460>}
+\CommentTok{#> <environment: 0x2de3428>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * a: <lgl>}
@@ -6668,7 +6638,7 @@ You can find the parent of an environment with \texttt{env\_parent()}:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parent}\NormalTok{(e2b)}
-\CommentTok{#> <environment: 0x4cb8b98>}
+\CommentTok{#> <environment: 0x62dfb88>}
 \KeywordTok{env_parent}\NormalTok{(e2a)}
 \CommentTok{#> <environment: R_GlobalEnv>}
 \end{Highlighting}
@@ -6690,10 +6660,10 @@ The ancestors of every environment eventually terminate with the empty environme
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parents}\NormalTok{(e2b)}
-\CommentTok{#> [[1]]   <env: 0x4cb8b98>}
+\CommentTok{#> [[1]]   <env: 0x62dfb88>}
 \CommentTok{#> [[2]] $ <env: global>}
 \KeywordTok{env_parents}\NormalTok{(e2d)}
-\CommentTok{#> [[1]]   <env: 0x574b518>}
+\CommentTok{#> [[1]]   <env: 0x6d72508>}
 \CommentTok{#> [[2]] $ <env: empty>}
 \end{Highlighting}
 \end{Shaded}
@@ -6703,7 +6673,7 @@ By default, \texttt{env\_parents()} stops when it gets to the global environment
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_parents}\NormalTok{(e2b, }\DataTypeTok{last =} \KeywordTok{empty_env}\NormalTok{())}
-\CommentTok{#>  [[1]]   <env: 0x4cb8b98>}
+\CommentTok{#>  [[1]]   <env: 0x62dfb88>}
 \CommentTok{#>  [[2]] $ <env: global>}
 \CommentTok{#>  [[3]] $ <env: package:rlang>}
 \CommentTok{#>  [[4]] $ <env: package:stats>}
@@ -6879,7 +6849,7 @@ There are two more exotic variants of \texttt{env\_bind()}:
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(b))}
 \CommentTok{#> [1] 1}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>       0       0       1}
+\CommentTok{#>   0.000   0.004   1.001}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(b))}
 \CommentTok{#> [1] 1}
 \CommentTok{#>    user  system elapsed }
@@ -7204,7 +7174,7 @@ For example, take \texttt{sd()}:
 \CommentTok{#> function (x, na.rm = FALSE) }
 \CommentTok{#> sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), }
 \CommentTok{#>     na.rm = na.rm))}
-\CommentTok{#> <bytecode: 0x4c45780>}
+\CommentTok{#> <bytecode: 0x6337230>}
 \CommentTok{#> <environment: namespace:stats>}
 \end{Highlighting}
 \end{Shaded}
@@ -7326,7 +7296,7 @@ An execution environment is usually ephemeral; once the function has completed, 
 
 \NormalTok{e <-}\StringTok{ }\KeywordTok{h2}\NormalTok{(}\DataTypeTok{x =} \DecValTok{10}\NormalTok{)}
 \KeywordTok{env_print}\NormalTok{(e)}
-\CommentTok{#> <environment: 0x56190c0>}
+\CommentTok{#> <environment: 0x7723b80>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * a: <dbl>}
@@ -7349,7 +7319,7 @@ There's a lot going on in the diagram because the enclosing environment of \text
 \NormalTok{plus_one <-}\StringTok{ }\KeywordTok{plus}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \NormalTok{plus_one}
 \CommentTok{#> function(y) x + y}
-\CommentTok{#> <environment: 0x57f5a88>}
+\CommentTok{#> <environment: 0x6e1ca78>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -10803,14 +10773,14 @@ Let's start by taking a look at \texttt{square()} and \texttt{cube()}:
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <environment: 0x2bb4660>}
+\CommentTok{#> <environment: 0x3d4c698>}
 
 \NormalTok{cube}
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <bytecode: 0x123d450>}
-\CommentTok{#> <environment: 0x2d9dd50>}
+\CommentTok{#> <bytecode: 0x23d5488>}
+\CommentTok{#> <environment: 0x3f35d88>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -10819,13 +10789,13 @@ It's obvious where \texttt{x} comes from, but how does R find the value associat
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{env_print}\NormalTok{(square)}
-\CommentTok{#> <environment: 0x2bb4660>}
+\CommentTok{#> <environment: 0x3d4c698>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * exp: <dbl>}
 
 \KeywordTok{env_print}\NormalTok{(cube)}
-\CommentTok{#> <environment: 0x2d9dd50>}
+\CommentTok{#> <environment: 0x3f35d88>}
 \CommentTok{#> parent: <environment: global>}
 \CommentTok{#> bindings:}
 \CommentTok{#>  * exp: <dbl>}
@@ -11029,7 +10999,7 @@ With most functions, you can rely on the garbage collector to clean up any large
 \NormalTok{force}
 \CommentTok{#> function (x) }
 \CommentTok{#> x}
-\CommentTok{#> <bytecode: 0xddbd60>}
+\CommentTok{#> <bytecode: 0x1f73d60>}
 \CommentTok{#> <environment: namespace:base>}
 \end{Highlighting}
 \end{Shaded}
@@ -11262,12 +11232,12 @@ A mildly simplified version of \texttt{plot\_dev()} is shown below:
 
 \KeywordTok{plot_dev}\NormalTok{(}\StringTok{"pdf"}\NormalTok{)}
 \CommentTok{#> function(filename, ...) grDevices::pdf(file = filename, ...)}
-\CommentTok{#> <bytecode: 0x4f3f1a0>}
-\CommentTok{#> <environment: 0x4990b88>}
+\CommentTok{#> <bytecode: 0x60d72a0>}
+\CommentTok{#> <environment: 0x5b2c9d8>}
 \KeywordTok{plot_dev}\NormalTok{(}\StringTok{"png"}\NormalTok{)}
 \CommentTok{#> function(...) grDevices::png(..., res = dpi, units = "in")}
-\CommentTok{#> <bytecode: 0x523d438>}
-\CommentTok{#> <environment: 0x5607ff8>}
+\CommentTok{#> <bytecode: 0x63d5490>}
+\CommentTok{#> <environment: 0x67a00c0>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -11615,8 +11585,8 @@ To finish off the chapter, I'll show how you might combine functionals and funct
 \CommentTok{#> function(x) \{}
 \CommentTok{#>     x ^ exp}
 \CommentTok{#>   \}}
-\CommentTok{#> <bytecode: 0x123d450>}
-\CommentTok{#> <environment: 0x520fa48>}
+\CommentTok{#> <bytecode: 0x23d5488>}
+\CommentTok{#> <environment: 0x63b4928>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -11852,8 +11822,8 @@ If you do the same thing with a functional, you get no output, making it hard to
 \NormalTok{safe_sum}
 \CommentTok{#> function (...) }
 \CommentTok{#> capture_error(.f(...), otherwise, quiet)}
-\CommentTok{#> <bytecode: 0x44ce110>}
-\CommentTok{#> <environment: 0x44cdc78>}
+\CommentTok{#> <bytecode: 0x556d230>}
+\CommentTok{#> <environment: 0x556cd98>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12011,7 +11981,7 @@ Let's explore this idea with a toy function that simulates an expensive operatio
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(}\KeywordTok{slow_function}\NormalTok{(}\DecValTok{1}\NormalTok{)))}
 \CommentTok{#> [1] 8.34}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.004   0.000   1.003}
+\CommentTok{#>   0.004   0.000   1.005}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12028,7 +11998,7 @@ When we memoise this function, it's slow when we call it with new arguments. But
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{print}\NormalTok{(}\KeywordTok{fast_function}\NormalTok{(}\DecValTok{1}\NormalTok{)))}
 \CommentTok{#> [1] 6.01}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.016   0.000   0.016}
+\CommentTok{#>   0.016   0.000   0.015}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12042,10 +12012,10 @@ A relatively realistic use of memoisation is computing the Fibonacci series. The
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib}\NormalTok{(}\DecValTok{23}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>    0.04    0.00    0.04}
+\CommentTok{#>   0.040   0.000   0.039}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib}\NormalTok{(}\DecValTok{24}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.064   0.000   0.063}
+\CommentTok{#>   0.060   0.000   0.063}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12069,7 +12039,7 @@ And future calls can rely on previous computations:
 \begin{Highlighting}[]
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{fib2}\NormalTok{(}\DecValTok{24}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.000   0.000   0.001}
+\CommentTok{#>       0       0       0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12153,7 +12123,7 @@ First, let's write an function operator that adds a small delay. I'm going to ca
 \CommentTok{#>       0       0       0}
 \KeywordTok{system.time}\NormalTok{(}\KeywordTok{delay_by}\NormalTok{(runif, }\FloatTok{0.1}\NormalTok{)(}\DecValTok{100}\NormalTok{))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>     0.0     0.0     0.1}
+\CommentTok{#>   0.000   0.000   0.101}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12839,7 +12809,7 @@ Unlike most functions, you can't see the source code for most S3 methods\footnot
 \KeywordTok{s3_get_method}\NormalTok{(weighted.mean.Date)}
 \CommentTok{#> function (x, w, ...) }
 \CommentTok{#> structure(weighted.mean(unclass(x), w, ...), class = "Date")}
-\CommentTok{#> <bytecode: 0x617e438>}
+\CommentTok{#> <bytecode: 0x69d1888>}
 \CommentTok{#> <environment: namespace:stats>}
 \end{Highlighting}
 \end{Shaded}
@@ -13256,7 +13226,7 @@ Most generics are very simple, and consist of only a call to \texttt{UseMethod()
 \NormalTok{mean}
 \CommentTok{#> function (x, ...) }
 \CommentTok{#> UseMethod("mean")}
-\CommentTok{#> <bytecode: 0x172e8b8>}
+\CommentTok{#> <bytecode: 0x1f818f0>}
 \CommentTok{#> <environment: namespace:base>}
 \end{Highlighting}
 \end{Shaded}
@@ -15645,7 +15615,7 @@ In this case, the existing function becomes the default (\texttt{ANY}) method:
 \CommentTok{#> }
 \CommentTok{#> function (x, ...) }
 \CommentTok{#> UseMethod("mean")}
-\CommentTok{#> <bytecode: 0x17e0a50>}
+\CommentTok{#> <bytecode: 0x3434a88>}
 \CommentTok{#> <environment: namespace:base>}
 \CommentTok{#> }
 \CommentTok{#> Signatures:}
@@ -19766,7 +19736,7 @@ There are three ways to create quosures:
 \KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\NormalTok{y), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{, }\DataTypeTok{y =} \DecValTok{10}\NormalTok{))}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + y}
-\CommentTok{#> env:  0x5193780}
+\CommentTok{#> env:  0x4e52620}
 \end{Highlighting}
 \end{Shaded}
 \end{itemize}
@@ -19820,7 +19790,7 @@ Quosures are typically just a convenience: they make code cleaner because you on
 \CommentTok{#> $f}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x}
-\CommentTok{#> env:  0x59af6e0}
+\CommentTok{#> env:  0x566e580}
 \end{Highlighting}
 \end{Shaded}
 
@@ -19959,19 +19929,19 @@ When you use \texttt{expr\_print()} in the console, quosures are coloured accord
 \NormalTok{q1}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x}
-\CommentTok{#> env:  0x5083e78}
+\CommentTok{#> env:  0x4d42d18}
 
 \NormalTok{q2 <-}\StringTok{ }\KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\OperatorTok{!!}\NormalTok{q1), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{10}\NormalTok{))}
 \NormalTok{q2}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + (^x)}
-\CommentTok{#> env:  0x5220d48}
+\CommentTok{#> env:  0x4edfbe8}
 
 \NormalTok{q3 <-}\StringTok{ }\KeywordTok{new_quosure}\NormalTok{(}\KeywordTok{expr}\NormalTok{(x }\OperatorTok{+}\StringTok{ }\OperatorTok{!!}\NormalTok{q2), }\KeywordTok{env}\NormalTok{(}\DataTypeTok{x =} \DecValTok{100}\NormalTok{))}
 \NormalTok{q3}
 \CommentTok{#> <quosure>}
 \CommentTok{#> expr: ^x + (^x + (^x))}
-\CommentTok{#> env:  0x54ac168}
+\CommentTok{#> env:  0x516b008}
 \end{Highlighting}
 \end{Shaded}
 \item
@@ -21722,7 +21692,7 @@ We need a closure that will generate the functions for each unknown call:
 \CommentTok{#>     contents <- paste(..., collapse = ", ")}
 \CommentTok{#>     paste0("\textbackslash{}\textbackslash{}mathrm\{foo\}(", contents, ")")}
 \CommentTok{#> \}}
-\CommentTok{#> <environment: 0x4cda9e0>}
+\CommentTok{#> <environment: 0x62600c0>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -22642,10 +22612,10 @@ A great tool for microbenchmarking in R is the bench package (Hester \protect\hy
 \NormalTok{  x }\OperatorTok{^}\StringTok{ }\FloatTok{0.5}
 \NormalTok{))}
 \CommentTok{#> # A tibble: 2 x 10}
-\CommentTok{#>   expression      min    mean   median     max `itr/sec` mem_alloc}
-\CommentTok{#>   <chr>      <bch:tm> <bch:t> <bch:tm> <bch:t>     <dbl> <bch:byt>}
-\CommentTok{#> 1 sqrt(x)    589.99ns 829.3ns 706.99ns  37.2µs  1205794.      848B}
-\CommentTok{#> 2 x^0.5        9.05µs  10.1µs   9.46µs 178.8µs    99024.      848B}
+\CommentTok{#>   expression      min     mean   median    max `itr/sec` mem_alloc}
+\CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:>     <dbl> <bch:byt>}
+\CommentTok{#> 1 sqrt(x)    591.97ns 950.73ns 875.56ns 21.6µs  1051821.      848B}
+\CommentTok{#> 2 x^0.5        9.04µs   9.85µs   9.43µs   38µs   101483.      848B}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
@@ -22704,8 +22674,8 @@ Because the result is a special type of tibble, you can use \texttt{{[}} to sele
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 sqrt(x)    589.99ns 706.99ns  1205794.     0}
-\CommentTok{#> 2 x^0.5        9.05µs   9.46µs    99024.     0}
+\CommentTok{#> 1 sqrt(x)    591.97ns 875.56ns  1051821.     0}
+\CommentTok{#> 2 x^0.5        9.04µs   9.43µs   101483.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -22873,8 +22843,8 @@ Now use \texttt{bench::mark()} to precisely compare the variations. \texttt{benc
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean1(x)      226µs    236µs     4174.     0}
-\CommentTok{#> 2 mean2(x)      112µs    114µs     8443.     0}
+\CommentTok{#> 1 mean1(x)      226µs    231µs     4290.     0}
+\CommentTok{#> 2 mean2(x)      112µs    113µs     8626.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23007,8 +22977,8 @@ For example, calling \texttt{mean.default()} is quite a bit faster than calling 
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression           min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>           <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)           2.57µs      3µs   298095.     1}
-\CommentTok{#> 2 mean.default(x)   1.23µs    1.4µs   648761.     0}
+\CommentTok{#> 1 mean(x)           2.59µs   3.03µs   291703.     1}
+\CommentTok{#> 2 mean.default(x)   1.22µs   1.39µs   663713.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23027,9 +22997,9 @@ An even riskier optimisation is to directly call the underlying \texttt{.Interna
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression              min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)              2.57µs   2.94µs   305528.     1}
-\CommentTok{#> 2 mean.default(x)      1.21µs   1.43µs   638344.     0}
-\CommentTok{#> 3 .Internal(mean(x)) 342.96ns 361.94ns  2552340.     0}
+\CommentTok{#> 1 mean(x)              2.59µs   2.97µs   291408.     1}
+\CommentTok{#> 2 mean.default(x)      1.23µs   1.41µs   653075.     0}
+\CommentTok{#> 3 .Internal(mean(x))  346.1ns 364.03ns  2480567.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23046,9 +23016,9 @@ NB: most of these differences arise because \texttt{x} is small. If you increase
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression              min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 mean(x)              24.8µs   25.2µs    38258.     1}
-\CommentTok{#> 2 mean.default(x)      23.4µs   23.8µs    38623.     0}
-\CommentTok{#> 3 .Internal(mean(x))   22.4µs   22.5µs    42254.     0}
+\CommentTok{#> 1 mean(x)              24.8µs   25.2µs    38672.     1}
+\CommentTok{#> 2 mean.default(x)      23.4µs   23.6µs    41552.     0}
+\CommentTok{#> 3 .Internal(mean(x))   22.4µs   22.5µs    43781.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23077,8 +23047,8 @@ Knowing that you're dealing with a specific type of input can be another way to 
 \CommentTok{#> # A tibble: 2 x 5}
 \CommentTok{#>   expression         min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>         <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 as.data.frame   1.07ms   1.12ms      855.     7}
-\CommentTok{#> 2 quick_df        6.15µs   7.33µs   122759.     2}
+\CommentTok{#> 1 as.data.frame   1.06ms   1.12ms      889.     7}
+\CommentTok{#> 2 quick_df        6.15µs   7.19µs   125411.     2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23186,9 +23156,9 @@ The downside of vectorisation is that it makes it harder to predict how operatio
 \CommentTok{#> # A tibble: 3 x 5}
 \CommentTok{#>   expression        min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>        <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 lookup[x1]   509.08ns 613.04ns  1448014.     0}
-\CommentTok{#> 2 lookup[x10]    1.55µs   1.69µs   497792.     0}
-\CommentTok{#> 3 lookup[x100]   4.51µs   6.17µs   150740.     0}
+\CommentTok{#> 1 lookup[x1]   495.93ns 567.99ns  1554798.     0}
+\CommentTok{#> 2 lookup[x10]    1.54µs   1.67µs   513994.     1}
+\CommentTok{#> 3 lookup[x100]   4.19µs   4.99µs   183993.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23246,10 +23216,10 @@ You saw one example of this type of problem in Section \ref{memory-profiling}, s
 \CommentTok{#> # A tibble: 4 x 5}
 \CommentTok{#>   expression      min   median `itr/sec`  n_gc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>}
-\CommentTok{#> 1 loop10      19.92µs   22.1µs    41699.     3}
-\CommentTok{#> 2 loop100    813.71µs  839.8µs     1160.     1}
-\CommentTok{#> 3 vec10        4.87µs    5.1µs   181319.     1}
-\CommentTok{#> 4 vec100      39.06µs   40.1µs    23635.     0}
+\CommentTok{#> 1 loop10      19.86µs  21.75µs    44499.     3}
+\CommentTok{#> 2 loop100    800.04µs  820.3µs     1208.     2}
+\CommentTok{#> 3 vec10        4.88µs   5.14µs   186965.     0}
+\CommentTok{#> 4 vec100      39.13µs  40.25µs    24072.     0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23281,14 +23251,14 @@ For data in this form, there are two ways to use \texttt{t.test()}. We can eithe
 \NormalTok{  \}}
 \NormalTok{)}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.856   0.000   0.859}
+\CommentTok{#>    0.84    0.00    0.84}
 \KeywordTok{system.time}\NormalTok{(}
   \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{m) \{}
     \KeywordTok{t.test}\NormalTok{(X[i, grp }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{], X[i, grp }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{])}\OperatorTok{$}\NormalTok{statistic}
 \NormalTok{  \}}
 \NormalTok{)}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.192   0.004   0.200}
+\CommentTok{#>   0.196   0.000   0.196}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23301,7 +23271,7 @@ Of course, a for loop computes, but doesn't save the values. We can \texttt{map\
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(t1 <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map_dbl}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{m, compT))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.200   0.000   0.202}
+\CommentTok{#>   0.196   0.004   0.199}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23327,7 +23297,7 @@ How can we make this faster? First, we could try doing less work. If you look at
 
 \KeywordTok{system.time}\NormalTok{(t2 <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map_dbl}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{m, }\OperatorTok{~}\StringTok{ }\KeywordTok{my_t}\NormalTok{(X[.,], grp)))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.028   0.000   0.030}
+\CommentTok{#>   0.028   0.000   0.028}
 \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{all.equal}\NormalTok{(t1, t2))}
 \end{Highlighting}
 \end{Shaded}
@@ -23355,7 +23325,7 @@ Now that we have a fairly simple function, we can make it faster still by vector
 \NormalTok{\}}
 \KeywordTok{system.time}\NormalTok{(t3 <-}\StringTok{ }\KeywordTok{rowtstat}\NormalTok{(X, grp))}
 \CommentTok{#>    user  system elapsed }
-\CommentTok{#>   0.012   0.000   0.011}
+\CommentTok{#>   0.012   0.000   0.012}
 \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{all.equal}\NormalTok{(t1, t3))}
 \end{Highlighting}
 \end{Shaded}
@@ -23495,7 +23465,7 @@ You'll also need a working C++ compiler. To get it:
 \CommentTok{# add works like a regular R function}
 \NormalTok{add}
 \CommentTok{#> function (x, y, z) }
-\CommentTok{#> .Call(<pointer: 0x7fc5f3257f60>, x, y, z)}
+\CommentTok{#> .Call(<pointer: 0x7fcf15afff60>, x, y, z)}
 \KeywordTok{add}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
 \CommentTok{#> [1] 6}
 \end{Highlighting}
@@ -23683,9 +23653,9 @@ This is a good example of where C++ is much more efficient than R. As shown by t
 \CommentTok{#> # A tibble: 3 x 6}
 \CommentTok{#>   expression      min     mean   median      max `itr/sec`}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>}
-\CommentTok{#> 1 sum(x)        1.3µs   1.53µs   1.33µs  90.58µs   652212.}
-\CommentTok{#> 2 sumC(x)      3.23µs   4.65µs   4.73µs   1.08ms   214896.}
-\CommentTok{#> 3 sumR(x)     38.38µs  41.13µs  39.07µs   4.17ms    24311.}
+\CommentTok{#> 1 sum(x)       1.31µs   1.54µs   1.34µs  97.09µs   649066.}
+\CommentTok{#> 2 sumC(x)      3.29µs   4.62µs   4.72µs   1.11ms   216254.}
+\CommentTok{#> 3 sumR(x)     43.02µs  44.87µs  43.78µs 110.83µs    22287.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -23741,8 +23711,8 @@ Note that because the R version is fully vectorised, it's already going to be fa
 \CommentTok{#> # A tibble: 2 x 6}
 \CommentTok{#>   expression          min     mean   median      max `itr/sec`}
 \CommentTok{#>   <chr>          <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl>}
-\CommentTok{#> 1 pdistR(0.5, y)   8.77ms   9.14ms   9.12ms  11.63ms      109.}
-\CommentTok{#> 2 pdistC(0.5, y)   4.78ms   5.06ms   4.91ms   9.05ms      198.}
+\CommentTok{#> 1 pdistR(0.5, y)   8.86ms    9.1ms   8.95ms   11.8ms      110.}
+\CommentTok{#> 2 pdistC(0.5, y)   4.84ms   5.05ms   4.98ms   9.18ms      198.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -24587,8 +24557,8 @@ Benchmarking the two implementations yields:
 \CommentTok{#> # A tibble: 2 x 10}
 \CommentTok{#>   expression      min     mean   median    max `itr/sec` mem_alloc}
 \CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:>     <dbl> <bch:byt>}
-\CommentTok{#> 1 gibbs_r(1…   5.68ms   6.01ms   5.93ms 7.13ms      166.    4.97MB}
-\CommentTok{#> 2 gibbs_cpp… 300.14µs  353.7µs 346.94µs 1.53ms     2827.     4.1KB}
+\CommentTok{#> 1 gibbs_r(1…   5.67ms   5.93ms   5.85ms 7.09ms      169.    4.97MB}
+\CommentTok{#> 2 gibbs_cpp… 308.15µs 352.87µs 346.48µs 1.64ms     2834.     4.1KB}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}
@@ -24700,11 +24670,11 @@ The original blog post forgot to do this, and introduced a bug in the C++ versio
   \DataTypeTok{vacc3 =} \KeywordTok{vacc3}\NormalTok{(age, female, ily)}
 \NormalTok{)}
 \CommentTok{#> # A tibble: 3 x 10}
-\CommentTok{#>   expression     min     mean   median      max `itr/sec` mem_alloc}
-\CommentTok{#>   <chr>      <bch:t> <bch:tm> <bch:tm> <bch:tm>     <dbl> <bch:byt>}
-\CommentTok{#> 1 vacc1       1.87ms   2.08ms   1.99ms   5.42ms      482.    7.86KB}
-\CommentTok{#> 2 vacc2      99.83µs 122.35µs 111.25µs 365.61µs     8173.     224KB}
-\CommentTok{#> 3 vacc3      29.14µs  32.06µs  30.36µs 185.97µs    31190.   14.48KB}
+\CommentTok{#>   expression      min     mean   median      max `itr/sec` mem_alloc}
+\CommentTok{#>   <chr>      <bch:tm> <bch:tm> <bch:tm> <bch:tm>     <dbl> <bch:byt>}
+\CommentTok{#> 1 vacc1        1.84ms   1.99ms   1.96ms   2.72ms      502.    7.86KB}
+\CommentTok{#> 2 vacc2      105.29µs  124.3µs 113.92µs 944.53µs     8045.  223.98KB}
+\CommentTok{#> 3 vacc3       29.11µs  31.99µs  30.34µs  91.64µs    31261.   14.48KB}
 \CommentTok{#> # … with 3 more variables: n_gc <dbl>, n_itr <int>,}
 \CommentTok{#> #   total_time <bch:tm>}
 \end{Highlighting}

@@ -174,6 +174,7 @@ Some good general advice:
 
 <!-- GVW: is someone going to go through once you're done and create a glossary? If you've flagged things like "reprex" in bold, it ought to be easy to find terms. -->
 
+<!--
 
 ## Acknowledgments {#intro-ack}
 
@@ -184,19 +185,7 @@ This book was [written in the open](https://github.com/hadley/adv-r/), and chapt
 
 
 
-```r
-library(dplyr)
-contributors <- read.csv("contributors.csv", stringsAsFactors = FALSE)
-contributors <- contributors %>% 
-  mutate(
-    login = paste0("\\@", login),
-    desc = ifelse(is.na(name), login, paste0(name, " (", login, ")"))
-  )
-
-cat("A big thank you to all ", nrow(contributors), " contributors (in alphabetical order): ", sep = "")
-cat(paste0(contributors$desc, collapse = ", "))
-cat(".\n")
-```
+-->
 
 ## Conventions {#conventions}
 
@@ -206,6 +195,7 @@ Larger code blocks intermingle input and output. Output is commented (`#>`) so t
 
 Many examples use random numbers. These are made reproducible by `set.seed(1014)`, which is executed automatically at the start of each chapter.
 
+<!--
 ## Colophon {#colophon}
 
 This book was written in [bookdown](http://bookdown.org/) inside [RStudio](http://www.rstudio.com/ide/). The [website](https://adv-r.hadley.nz/) is hosted with [netlify](http://netlify.com/), and automatically updated after every commit by [travis-ci](https://travis-ci.org/). The complete source is available from [GitHub](https://github.com/hadley/adv-r). Code in the printed book is set in [inconsolata](http://levien.com/type/myfonts/inconsolata.html). Emoji images in the printed book come from the open-licensed [Twitter Emoji](https://github.com/twitter/twemoji).
@@ -219,6 +209,7 @@ This version of the book was built with the following version of R and packages.
 
 
 
+-->
 
 
 [r-help]: https://stat.ethz.ch/mailman/listinfo/r-help

@@ -123,9 +123,9 @@ You can access an object's identifier with `lobstr::obj_addr()`. Doing so allows
 
 ```r
 obj_addr(x)
-#> [1] "0x1e633e8"
+#> [1] "0x2699488"
 obj_addr(y)
-#> [1] "0x1e633e8"
+#> [1] "0x2699488"
 ```
 
 These identifiers are long, and change every time you restart R.
@@ -275,7 +275,7 @@ f <- function(a) {
 
 x <- c(1, 2, 3)
 cat(tracemem(x), "\n")
-#> <0x155fc98>
+#> <0x1d96058>
 
 z <- f(x)
 # there's no copy here!
@@ -336,15 +336,15 @@ To see values that are shared across lists, use `lobstr::ref()`. `ref()` prints 
 
 ```r
 ref(l1, l2)
-#> █ [1:0x72196e8] <list> 
-#> ├─[2:0x7037190] <dbl> 
-#> ├─[3:0x7037158] <dbl> 
-#> └─[4:0x7037120] <dbl> 
+#> █ [1:0x7a498e8] <list> 
+#> ├─[2:0x786d190] <dbl> 
+#> ├─[3:0x786d158] <dbl> 
+#> └─[4:0x786d120] <dbl> 
 #>  
-#> █ [5:0x7c92b38] <list> 
-#> ├─[2:0x7037190] 
-#> ├─[3:0x7037158] 
-#> └─[6:0x7b64440] <dbl>
+#> █ [5:0x84c85b8] <list> 
+#> ├─[2:0x786d190] 
+#> ├─[3:0x786d158] 
+#> └─[6:0x839a440] <dbl>
 ```
 
 ### Data frames {#df-modify}
@@ -402,11 +402,11 @@ You can request that `ref()` show these references by setting the `character` ar
 
 ```r
 ref(x, character = TRUE)
-#> █ [1:0x2f5d218] <chr> 
-#> ├─[2:0x14f4758] <string: "a"> 
-#> ├─[2:0x14f4758] 
-#> ├─[3:0x42fcf48] <string: "abc"> 
-#> └─[4:0x19aaaf0] <string: "d">
+#> █ [1:0x3793268] <chr> 
+#> ├─[2:0x1d2a758] <string: "a"> 
+#> ├─[2:0x1d2a758] 
+#> ├─[3:0x4b32f48] <string: "abc"> 
+#> └─[4:0x21e0af0] <string: "d">
 ```
 
 This has a profound impact on the amount of memory a character vector uses but is otherwise generally unimportant, so elsewhere in the book I'll draw character vectors as if the strings lived inside a vector.
@@ -713,8 +713,8 @@ e <- rlang::env()
 e$self <- e
 
 ref(e)
-#> █ [1:0x141aea8] <env> 
-#> └─self = [1:0x141aea8]
+#> █ [1:0x1c52348] <env> 
+#> └─self = [1:0x1c52348]
 ```
 
 \begin{center}\includegraphics[width=1.48in]{diagrams/name-value/e-self} \end{center}
@@ -789,7 +789,7 @@ gc()
 
 ```r
 mem_used()
-#> 76,001,536 B
+#> 76,001,504 B
 ```
 
 This number won't agree with the amount of memory reported by your operating system. There are three reasons:
