@@ -203,7 +203,7 @@ There are some other limitations to profiling:
     j(i())
     ```
     
-    If this is confusing, use `force()` (Section \@ref{forcing-evaluation}) to 
+    If this is confusing, use `force()` (Section \@ref(forcing-evaluation)) to 
     force computation to happen earlier.
 
 ### Exercises
@@ -237,8 +237,8 @@ x <- runif(100)
 #> # A tibble: 2 x 10
 #>   expression      min    mean   median     max `itr/sec` mem_alloc
 #>   <chr>      <bch:tm> <bch:t> <bch:tm> <bch:t>     <dbl> <bch:byt>
-#> 1 sqrt(x)    586.03ns 793.8ns 667.99ns 31.42µs  1259799.      848B
-#> 2 x^0.5        9.03µs  10.6µs   9.48µs  4.47ms    94248.      848B
+#> 1 sqrt(x)    589.06ns  1.11µs 991.98ns  37.3µs   899482.      848B
+#> 2 x^0.5        9.02µs 10.39µs   9.45µs 106.6µs    96208.      848B
 #> # … with 3 more variables: n_gc <dbl>, n_itr <int>,
 #> #   total_time <bch:tm>
 ```
@@ -292,8 +292,8 @@ lb[c("expression", "min", "median", "itr/sec", "n_gc")]
 #> # A tibble: 2 x 5
 #>   expression      min   median `itr/sec`  n_gc
 #>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 sqrt(x)    586.03ns 667.99ns  1259799.     0
-#> 2 x^0.5        9.03µs   9.48µs    94248.     0
+#> 1 sqrt(x)    589.06ns 991.98ns   899482.     0
+#> 2 x^0.5        9.02µs   9.45µs    96208.     0
 ```
 
 ### Interpreting results
