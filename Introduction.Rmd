@@ -176,6 +176,7 @@ Some good general advice:
 
 <!-- GVW: is someone going to go through once you're done and create a glossary? If you've flagged things like "reprex" in bold, it ought to be easy to find terms. -->
 
+<!--
 
 ## Acknowledgments {#intro-ack}
 
@@ -217,7 +218,7 @@ contribs_all <- contribs_all %>%
 write_csv(contribs_all, "contributors.csv")
 ```
 
-```{r eval=FALSE, message=FALSE, results="asis"}
+```{r eval=FALSE, message=FALSE, results="asis", include=FALSE}
 library(dplyr)
 contributors <- read.csv("contributors.csv", stringsAsFactors = FALSE)
 contributors <- contributors %>% 
@@ -230,6 +231,7 @@ cat("A big thank you to all ", nrow(contributors), " contributors (in alphabetic
 cat(paste0(contributors$desc, collapse = ", "))
 cat(".\n")
 ```
+-->
 
 ## Conventions {#conventions}
 
@@ -239,6 +241,7 @@ Larger code blocks intermingle input and output. Output is commented (`#>`) so t
 
 Many examples use random numbers. These are made reproducible by `set.seed(1014)`, which is executed automatically at the start of each chapter.
 
+<!--
 ## Colophon {#colophon}
 
 This book was written in [bookdown](http://bookdown.org/) inside [RStudio](http://www.rstudio.com/ide/). The [website](https://adv-r.hadley.nz/) is hosted with [netlify](http://netlify.com/), and automatically updated after every commit by [travis-ci](https://travis-ci.org/). The complete source is available from [GitHub](https://github.com/hadley/adv-r). Code in the printed book is set in [inconsolata](http://levien.com/type/myfonts/inconsolata.html). Emoji images in the printed book come from the open-licensed [Twitter Emoji](https://github.com/twitter/twemoji).
@@ -279,6 +282,7 @@ ruler <- function(width = getOption("width")) {
 ruler()
 ```
 
+-->
 
 
 [r-help]: https://stat.ethz.ch/mailman/listinfo/r-help
