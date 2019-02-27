@@ -15,7 +15,7 @@ link-citations: yes
 indent: true
 subparagraph: yes
 linestretch: 1.15
-geometry: b5paper, bottom=0.72in
+geometry: b5paper,bottom=1.85cm,left=2.5cm,right=2.5cm,top=2cm
 toc-title: 'Contents' # option for pagedown
 lot: false  # option for pagedown
 lof: false  # option for pagedown
