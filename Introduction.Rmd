@@ -5,7 +5,7 @@ source("common.R")
 
 # Introduction
 
-I have now been programming in R for over 15 years, and have been doing it full-time for the last five years. This has given me the luxury of time to spend understanding how the language works. This book is my attempt to pass on what I've learned so that you can understand the intricacies of R as quickly and painlessly as possible. Reading it will help you avoid the mistakes I've made and dead ends I've gone down, and will teach you useful tools, techniques, and idioms that can help you to attack many types of problems. In the process, I hope to show that, despite its sometimes frustrating quirks, R is, at its heart, an elegant and beautiful language, well tailored for data science.
+I have now been programming in R for over 15 years, and have been doing it full-time for the last five years. This has given me the luxury of time to examine how the language works. This book is my attempt to pass on what I've learned so that you can understand the intricacies of R as quickly and painlessly as possible. Reading it will help you avoid the mistakes I've made and dead ends I've gone down, and will teach you useful tools, techniques, and idioms that can help you to attack many types of problems. In the process, I hope to show that, despite its sometimes frustrating quirks, R is, at its heart, an elegant and beautiful language, well tailored for data science.
 
 ## Why R?
 
@@ -28,7 +28,7 @@ If you are new to R, you might wonder what makes learning such a quirky language
   to do it and you can learn from their efforts.
 
 * Powerful tools for communicating your results. [RMarkdown][rmarkdown] makes
-  it easy to turn your results into R packages into HTML, PDFs, Word documents,
+  it easy to turn your results into HTML files, PDFs, Word documents,
   PowerPoint presentations, dashboards and more. [Shiny][shiny] allows you to
   make beautiful interactive apps without any knowledge of HTML or javascript.
 
@@ -132,9 +132,9 @@ After reading this book, you will:
 
 ## What you will not learn
 
-This book is about R the programming language, not R the data analysis tool. If you are looking to improve your data science skills, I instead recommend that you learn about the [tidyverse](https://www.tidyverse.org/), a collection of consistent packages developed by me and my colleagues. In this book you'll learn the techniques used to develop the tidyverse packages; if you want to instead learn how to use them, I recommend ["R for Data Science"](http://r4ds.had.co.nz/).
+This book is about R the programming language, not R the data analysis tool. If you are looking to improve your data science skills, I instead recommend that you learn about the [tidyverse](https://www.tidyverse.org/), a collection of consistent packages developed by me and my colleagues. In this book you'll learn the techniques used to develop the tidyverse packages; if you want to instead learn how to use them, I recommend [_R for Data Science_](http://r4ds.had.co.nz/).
 
-If you want to share your R code with others, you will need to make an R package. This allows you to bundle code along with documentation and unit tests, and easily distribute it via CRAN. In my opinion, the easiest way to develop packages is with [devtools](http://devtools.r-lib.org), [roxygen2](http://klutometis.github.io/roxygen/), [testthat](http://testthat.r-lib.org), and [usethis](http://usethis.r-lib.org). You can learn about using these packages to make your own package in ["R packages"](http://r-pkgs.had.co.nz/).
+If you want to share your R code with others, you will need to make an R package. This allows you to bundle code along with documentation and unit tests, and easily distribute it via CRAN. In my opinion, the easiest way to develop packages is with [devtools](http://devtools.r-lib.org), [roxygen2](http://klutometis.github.io/roxygen/), [testthat](http://testthat.r-lib.org), and [usethis](http://usethis.r-lib.org). You can learn about using these packages to make your own package in [_R packages_](http://r-pkgs.had.co.nz/).
 
 ## Meta-techniques {#meta-techniques}
 
@@ -142,19 +142,19 @@ There are two meta-techniques that are tremendously helpful for improving your s
 
 Reading source code is important because it will help you write better code. A great place to start developing this skill is to look at the source code of the functions and packages you use most often. You'll find things that are worth emulating in your own code and you'll develop a sense of taste for what makes good R code. You will also see things that you don't like, either because its virtues are not obvious or it offends your sensibilities. Such code is nonetheless valuable, because it helps make concrete your opinions on good and bad code.
 
-A scientific mindset is extremely helpful when learning R. If you don't understand how something works, develop a hypothesis, design some experiments, run them, and record the results. This exercise is extremely useful since if you can't figure something out and need to get help, you can easily show others what you tried. Also, when you learn the right answer, you'll be mentally prepared to update your world view.
+A scientific mindset is extremely helpful when learning R. If you don't understand how something works, you should develop a hypothesis, design some experiments, run them, and record the results. This exercise is extremely useful since if you can't figure something out and need to get help, you can easily show others what you tried. Also, when you learn the right answer, you'll be mentally prepared to update your world view.
 
 ## Recommended reading {#recommended-reading}
 
 Because the R community mostly consists of data scientists, not computer scientists, there are relatively few books that go deep in the technical underpinnings of R. In my personal journey to understand R, I've found it particularly helpful to use resources from other programming languages. R has aspects of both functional and object-oriented (OO) programming languages. Learning how these concepts are expressed in R will help you leverage your existing knowledge of other programming languages, and will help you identify areas where you can improve.
 
-To understand why R's object systems work the way they do, I found "The Structure and Interpretation of Computer Programs"[^SICP] [@SICP] (SICP) by Harold Abelson and Gerald Jay Sussman, to be particularly helpful. It's a concise but deep book, and after reading it, I felt for the first time that I could actually design my own object-oriented system. The book was my first introduction to the encapsulated paradigm of object oriented programming found in R, and it helped me understand the strengths and weaknesses of this system. SICP also teaches the functional mindset where you create functions that are simple individually, and which become powerful when composed together.
+To understand why R's object systems work the way they do, I found _The Structure and Interpretation of Computer Programs_[^SICP] [@SICP] (SICP) to be particularly helpful. It's a concise but deep book, and after reading it, I felt for the first time that I could actually design my own object-oriented system. The book was my first introduction to the encapsulated paradigm of object-oriented programming found in R, and it helped me understand the strengths and weaknesses of this system. SICP also teaches the functional mindset where you create functions that are simple individually, and which become powerful when composed together.
 
 [^SICP]: You can read it online for free at <https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html>
 
-To understand the trade-offs that R has made compared to other programming languages, I found "Concepts, Techniques and Models of Computer Programming" [@ctmcp] extremely helpful. It helped me understand that R's copy-on-modify semantics make it substantially easier to reason about code, and that while its current implementation is not particularly efficient, it is a solvable problem.
+To understand the trade-offs that R has made compared to other programming languages, I found _Concepts, Techniques and Models of Computer Programming_ [@ctmcp] extremely helpful. It helped me understand that R's copy-on-modify semantics make it substantially easier to reason about code, and that while its current implementation is not particularly efficient, it is a solvable problem.
 
-If you want to learn to be a better programmer, there's no place better to turn than "The Pragmatic Programmer" [@pragprog] by Andrew Hunt and David Thomas. This book is language agnostic, and provides great advice for how to be a better programmer.
+If you want to learn to be a better programmer, there's no place better to turn than _The Pragmatic Programmer_ [@pragprog]. This book is language agnostic, and provides great advice for how to be a better programmer.
 
 ## Getting help {#getting-help}
 \index{help}
@@ -176,7 +176,11 @@ Some good general advice:
 
 <!-- GVW: is someone going to go through once you're done and create a glossary? If you've flagged things like "reprex" in bold, it ought to be easy to find terms. -->
 
+
 <!--
+
+
+If you are looking for specific help solving the exercises in this book, solutions from Malte Grosser and Henning Bumann are available at <https://advanced-r-solutions.rbind.io>.
 
 ## Acknowledgments {#intro-ack}
 
@@ -222,12 +226,13 @@ write_csv(contribs_all, "contributors.csv")
 library(dplyr)
 contributors <- read.csv("contributors.csv", stringsAsFactors = FALSE)
 contributors <- contributors %>% 
+  filter(login != "hadley") %>% 
   mutate(
     login = paste0("\\@", login),
     desc = ifelse(is.na(name), login, paste0(name, " (", login, ")"))
   )
 
-cat("A big thank you to all ", nrow(contributors), " contributors (in alphabetical order): ", sep = "")
+cat("A big thank you to all ", nrow(contributors), " contributors (in alphabetical order by username): ", sep = "")
 cat(paste0(contributors$desc, collapse = ", "))
 cat(".\n")
 ```
