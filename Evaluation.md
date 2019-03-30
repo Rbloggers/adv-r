@@ -25,9 +25,9 @@ Together, quasiquotation, quosures, and data masks form what we call __tidy eval
 
 * Section \@ref(quosures) introduces a new data structure, the quosure, which
   combines an expression with an environment. You'll learn how to capture
-  them from promises, and evaluate them using `rlang::eval_tidy()`.
+  quosures from promises, and evaluate them using `rlang::eval_tidy()`.
 
-* Section \@ref(data-masks) extends evaluation with the "data mask", which
+* Section \@ref(data-masks) extends evaluation with the data mask, which
   makes it trivial to intermingle symbols bound in an environment with
   variables found in a data frame.
 
@@ -57,7 +57,7 @@ library(purrr)
 
 Here we'll explore the details of `eval()` which we briefly mentioned in the last chapter. It has two key arguments: `expr` and `envir`. The first argument, `expr`, is the object to evaluate, typically a symbol or expression[^non-expr]. None of the evaluation functions quote their inputs, so you'll usually use them with `expr()` or similar:
 
-[^non-expr]: All other objects yield themselves when evaluated; i.e. `eval_bare(x)` yields `x`, except when `x` is a symbol or expression.
+[^non-expr]: All other objects yield themselves when evaluated; i.e. `eval(x)` yields `x`, except when `x` is a symbol or expression.
 
 
 ```r
@@ -89,25 +89,6 @@ eval(print(x + 1), env(x = 1000))
 eval(expr(print(x + 1)), env(x = 1000))
 #> [1] 1001
 ```
-
-
-::: sidebar
-**Expression vectors**
-\index{expression vectors}
-
-`base::eval()` has special behaviour for expression _vectors_, evaluating each component in turn. This makes for a very compact implementation of `source2()` because `base::parse()` also returns an expression object:
-
-
-```r
-source3 <- function(file, env = parent.frame()) {
-  lines <- parse(file)
-  res <- eval(lines, envir = env)
-  invisible(res)
-}
-```
-
-While `source3()` is considerably more concise than `source2()`, this is the only advantage to expression vectors. Overall I don't believe this benefit outweighs the cost of introducing a new data structure, and hence this book avoids the use of expression vectors.
-:::
 
 Now that you've seen the basics, let's explore some applications. We'll focus primarily on base R functions that you might have used before, reimplementing the underlying principles using rlang.
 
@@ -141,7 +122,7 @@ The essence of `local()` is quite simple and re-implemented below. We capture th
 ```r
 local2 <- function(expr) {
   env <- env(caller_env())
-  eval_bare(enexpr(expr), env)
+  eval(enexpr(expr), env)
 }
 
 foo <- local2({
@@ -158,12 +139,12 @@ y
 #> Error in eval(expr, envir, enclos): object 'y' not found
 ```
 
-Understanding how `base::local()` works is harder, as it uses `eval()` and `substitute()` together in rather complicated ways. Figuring out exactly what's going on is good practice if you really want to understand the subtleties of `substitute()` and the base `eval()` functions, so is included in the exercises below.
+Understanding how `base::local()` works is harder, as it uses `eval()` and `substitute()` together in rather complicated ways. Figuring out exactly what's going on is good practice if you really want to understand the subtleties of `substitute()` and the base `eval()` functions, so they are included in the exercises below.
 
 ### Application: `source()`
 \indexc{source()}
 
-We can create a simple version of `source()` by combining `eval()` with `parse_expr()` from Section \@ref(parsing). We read in the file from disk, use `parse_expr()` to parse the string into a list of expressions, and then use `eval_bare()` to evaluate each element in turn. This version evaluates the code in the caller environment, and invisibly returns the result of the last expression in the file just like `base::source()`.
+We can create a simple version of `source()` by combining `eval()` with `parse_expr()` from Section \@ref(parsing). We read in the file from disk, use `parse_expr()` to parse the string into a list of expressions, and then use `eval()` to evaluate each element in turn. This version evaluates the code in the caller environment, and invisibly returns the result of the last expression in the file just like `base::source()`.
 
 
 ```r
@@ -182,11 +163,31 @@ source2 <- function(path, env = caller_env()) {
 
 The real `source()` is considerably more complicated because it can `echo` input and output, and has many other settings that control its behaviour.
 
+
+::: sidebar
+**Expression vectors**
+\index{expression vectors}
+
+`base::eval()` has special behaviour for expression _vectors_, evaluating each component in turn. This makes for a very compact implementation of `source2()` because `base::parse()` also returns an expression object:
+
+
+```r
+source3 <- function(file, env = parent.frame()) {
+  lines <- parse(file)
+  res <- eval(lines, envir = env)
+  invisible(res)
+}
+```
+
+While `source3()` is considerably more concise than `source2()`, this is the only advantage to expression vectors. Overall I don't believe this benefit outweighs the cost of introducing a new data structure, and hence this book avoids the use of expression vectors.
+:::
+
+
 ### Gotcha: `function()`
 \index{evaluation!functions}
 \indexc{srcref}
 
-There's one small gotcha that you should be aware of if you're using `eval_bare()` and `expr()` to generate functions:
+There's one small gotcha that you should be aware of if you're using `eval()` and `expr()` to generate functions:
 
 
 ```r
@@ -235,7 +236,7 @@ f
 1.  Fill in the function bodies below to re-implement `get()` using `sym()` 
     and `eval()`, and`assign()` using `sym()`, `expr()`, and `eval()`. Don't 
     worry about the multiple ways of choosing an environment that `get()` and
-    `assign()` support; assume that the user supplies it explicitly
+    `assign()` support; assume that the user supplies it explicitly.
 
     
     ```r
@@ -312,7 +313,7 @@ There are three ways to create quosures:
     new_quosure(expr(x + y), env(x = 1, y = 10))
     #> <quosure>
     #> expr: ^x + y
-    #> env:  0x4e52620
+    #> env:  0x5f91118
     ```
 
 ### Evaluating
@@ -329,12 +330,12 @@ eval_tidy(q1)
 #> [1] 11
 ```
 
-For this simple case, `eval_tidy(q1)` is basically a shortcut for `eval_bare(get_expr(q1), get_env(q2))`. However, it has two important features that you'll learn about later in the chapter: it supports nested quosures (Section \@ref(nested-quosures)) and pronouns (Section \@ref(pronouns)).
+For this simple case, `eval_tidy(q1)` is basically a shortcut for `eval(get_expr(q1), get_env(q2))`. However, it has two important features that you'll learn about later in the chapter: it supports nested quosures (Section \@ref(nested-quosures)) and pronouns (Section \@ref(pronouns)).
 
 ### Dots {#quosure-dots}
 \indexc{...}
 
-Quosures are typically just a convenience: they make code cleaner because you only have one object to pass around, instead of two. They are, however, essential when it comes to working with `...` because it's possible for each argument passed to ... to be associated with a different environment. In the following example note that both quosures have the same expression, `x`, but a different environment:
+Quosures are typically just a convenience: they make code cleaner because you only have one object to pass around, instead of two. They are, however, essential when it comes to working with `...` because it's possible for each argument passed to `...` to be associated with a different environment. In the following example note that both quosures have the same expression, `x`, but a different environment:
 
 
 ```r
@@ -359,7 +360,7 @@ qs
 #> $f
 #> <quosure>
 #> expr: ^x
-#> env:  0x566e580
+#> env:  0x67b9648
 ```
 
 That means that when you evaluate them, you get the correct results:
@@ -398,7 +399,7 @@ class(q4)
 #> [1] "quosure" "formula"
 ```
 
-Which means that under the hood, quosures, like formulas, are a call object:
+which means that under the hood, quosures, like formulas, are call objects:
 
 
 ```r
@@ -411,7 +412,7 @@ q4[[2]]
 #> x + y + z
 ```
 
-With an attribute that stores the environment:
+with an attribute that stores the environment:
 
 
 ```r
@@ -470,7 +471,7 @@ When you use `expr_print()` in the console, quosures are coloured according to t
 
 ### Exercises
 
-1.  Predict what evaluating each of the following quosures will return if
+1.  Predict what each of the following quosures will return if
     evaluated.
 
     
@@ -479,19 +480,19 @@ When you use `expr_print()` in the console, quosures are coloured according to t
     q1
     #> <quosure>
     #> expr: ^x
-    #> env:  0x4d42d18
+    #> env:  0x5e5e490
     
     q2 <- new_quosure(expr(x + !!q1), env(x = 10))
     q2
     #> <quosure>
     #> expr: ^x + (^x)
-    #> env:  0x4edfbe8
+    #> env:  0x5ff37c8
     
     q3 <- new_quosure(expr(x + !!q2), env(x = 100))
     q3
     #> <quosure>
     #> expr: ^x + (^x + (^x))
-    #> env:  0x516b008
+    #> env:  0x6292b08
     ```
 
 1.  Write an `enenv()` function that captures the environment associated
@@ -505,7 +506,7 @@ In this section, you'll learn about the __data mask__, a data frame where the ev
 ### Basics
 \indexc{eval\_tidy()}
 
-The data mask allows you to mingle variables from an environment and and data frame in a single expression. You supply the data mask as the second argument to `eval_tidy()`:
+The data mask allows you to mingle variables from an environment and a data frame in a single expression. You supply the data mask as the second argument to `eval_tidy()`:
 
 
 ```r
@@ -516,7 +517,7 @@ eval_tidy(q1, df)
 #>  [1]  100  200  300  400  500  600  700  800  900 1000
 ```
 
-This code is a little hard to follow because there's so much syntax as we're creating every object from from scratch. It's easier to see what's going on if we make a little wrapper. I call this `with2()` because it's equivalent to `base::with()`.
+This code is a little hard to follow because there's so much syntax as we're creating every object from scratch. It's easier to see what's going on if we make a little wrapper. I call this `with2()` because it's equivalent to `base::with()`.
 \indexc{with()}
 
 
@@ -574,11 +575,14 @@ with2(df, .env$x)
 #> [1] 1
 ```
 
-You can also subset `.data` and `.env` using `[[`, e.g. `.data[["x"]]`. Otherwise the pronouns are special objects and you shouldn't expect them to behave like data frames or environments. In particular, they throw error if the object isn't found:
+You can also subset `.data` and `.env` using `[[`, e.g. `.data[["x"]]`. Otherwise the pronouns are special objects and you shouldn't expect them to behave like data frames or environments. In particular, they throw an error if the object isn't found:
 
 
 ```r
 with2(df, .data$y)
+#> Warning: `rlang__backtrace_on_error` is no longer experimental.
+#> It has been renamed to `rlang_backtrace_on_error`. Please update your RProfile.
+#> This warning is displayed once per session.
 #> Error: Column `y` not found in `.data`
 ```
 
@@ -662,7 +666,7 @@ transform2(df, x2 = x * 2, y = -y)
 #> 3 1 -0.6008  2
 ```
 
-NB: I named the first argument `.data` to avoid problems if the user tried to create a variable called `data`. They will still have problems if they attempt to create a variable called `.data`, but this is much less likely. This is the same reasoning that leads to the `.x` and `.f` arguments to `map()` (Section \@ref(argument-names)).
+NB: I named the first argument `.data` to avoid problems if users tried to create a variable called `data`. They will still have problems if they attempt to create a variable called `.data`, but this is much less likely. This is the same reasoning that leads to the `.x` and `.f` arguments to `map()` (Section \@ref(argument-names)).
 
 ### Application: `select()` {#select}
 \indexc{select()}
@@ -804,7 +808,7 @@ subsample(df, x == 1)
 #> 2   1 2
 ```
 
-This is a very common pattern; whenever you call a quoting function with arguments from the user, you need to quote them yourself and then unquote.
+This is a very common pattern; whenever you call a quoting function with arguments from the user, you need to quote them and then unquote.
 
 <!-- GVW: I really, really want a diagram here to show the various objects in play at each step - it took me a long time to figure out why quote/unquote was needed, and I still have to go back and review it each time I run into it. -->
 
@@ -902,7 +906,7 @@ threshold_expr <- function(df, expr, val) {
 }
 ```
 
-It's not possible to evaluate `expr` only the data mask, because the data mask doesn't include any functions like `+` or `==`. Here, it's the user's responsibility to avoid ambiguity. As a general rule of thumb, as a function author it's your responsibility to avoid ambiguity with any expressions that you create; it's the user's responsibility to avoid ambiguity in expressions that they create.
+It's not possible to evaluate `expr` only in the data mask, because the data mask doesn't include any functions like `+` or `==`. Here, it's the user's responsibility to avoid ambiguity. As a general rule of thumb, as a function author it's your responsibility to avoid ambiguity with any expressions that you create; it's the user's responsibility to avoid ambiguity in expressions that they create.
 
 ### Exercises
 
@@ -923,13 +927,13 @@ It's not possible to evaluate `expr` only the data mask, because the data mask d
 Now that you understand tidy evaluation, it's time to come back to the alternative approaches taken by base R. Here I'll explore the two most common uses in base R:
 
 * `substitute()` and evaluation in the caller environment, as used by
-  `subset()`. I'll use this technique to motivate why this technique is not
+  `subset()`. I'll use this technique to demonstrate why this technique is not
   programming friendly, as warned about in the `subset()` documentation.
 
 * `match.call()`, call manipulation, and evaluation in the caller environment,
-  as used by `write.csv()` and `lm()`. I'll use this technique to motivate how
-  quasiquotation and (regular) evaluation can help you write wrappers such 
-  functions.
+  as used by `write.csv()` and `lm()`. I'll use this technique to demonstrate how
+  quasiquotation and (regular) evaluation can help you write wrappers around 
+  such functions.
 
 These two approaches are common forms of non-standard evaluation (NSE).
 
@@ -967,7 +971,7 @@ The documentation of `subset()` includes the following warning:
 > and in particular the non-standard evaluation of argument `subset` can have
 > unanticipated consequences.
 
-There are main three problems:
+There are three main problems:
 
 *   `base::subset()` always evaluates `rows` in the calling environment, but
     if `...` has been used, then the expression might need to be evaluated
@@ -1174,7 +1178,7 @@ lm3(!!resp ~ !!disp1 + !!disp2, mtcars)
 #>       33.00         3.15        -4.44
 ```
 
-#### The evaluation environment
+#### Evaluation environment
 
 What if you want to mingle objects supplied by the user with objects that you create in the function?  For example, imagine you want to make an auto-resampling version of `lm()`. You might write it like this:
 
@@ -1277,7 +1281,7 @@ There are two basic ways to overcome this challenge:
     lm(mpg ~ disp * cyl, data = mtcars)
     ```
 
-1.  Another way to way to write `resample_lm()` would be to include the
+1.  Another way to write `resample_lm()` would be to include the
     resample expression (`data[sample(nrow(data), replace = TRUE), , drop = FALSE]`)
     in the data argument. Implement that approach. What are the advantages?
     What are the disadvantages?

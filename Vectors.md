@@ -16,7 +16,7 @@ Vectors come in two flavours: atomic vectors and lists[^generic-vectors]. They d
 
 [^generic-vectors]: A few places in R's documentation call lists generic vectors to emphasise their difference from atomic vectors.
 
-Every vector can also have __attributes__, which you can think of as a named list of arbitrary metadata. Two attributes are particularly important. The **dim**ension attribute turns vectors into matrices and arrays and the __class__ attribute powers the S3 object system. While you'll learn how to use S3 in Chapter \@ref(s3)), here you'll learn about some of the most important S3 vectors: factors, date/times, data frames, and tibbles. And while 2D structures like matrices and data frames are not necessarily what come to mind when you think of vectors, you'll also learn why R considers them to be vectors.
+Every vector can also have __attributes__, which you can think of as a named list of arbitrary metadata. Two attributes are particularly important. The __dimension__ attribute turns vectors into matrices and arrays and the __class__ attribute powers the S3 object system. While you'll learn how to use S3 in Chapter \@ref(s3), here you'll learn about some of the most important S3 vectors: factors, date and times, data frames, and tibbles. And while 2D structures like matrices and data frames are not necessarily what come to mind when you think of vectors, you'll also learn why R considers them to be vectors.
 
 ### Quiz {-}
 
@@ -85,18 +85,20 @@ There are four primary types of atomic vectors: logical, integer, double, and ch
 
 Each of the four primary types has a special syntax to create an individual value, AKA a __scalar__[^scalar]:
 
-* Strings are surrounded by `"` (`"hi"`) or `'` (`'bye'`). Special characters
-  are escaped with `\`; see `?Quotes` for full details.
+* Logicals can be written in full (`TRUE` or `FALSE`), or abbreviated 
+  (`T` or `F`).
 
 * Doubles can be specified in decimal (`0.1234`), scientific (`1.23e4`), or 
   hexadecimal (`0xcafe`) form. There are three special values unique to
   doubles: `Inf`, `-Inf`, and `NaN` (not a number). These are special values
   defined by the floating point standard. 
-  
-* Integers are written similarly to doubles but must be followed by 
-  `L`[^L-suffix] (`1234L`, `1e4L`, or `0xcafeL`), and can not include decimals. 
 
-* Logicals can be spelt out (`TRUE` or `FALSE`), or abbreviated (`T` or `F`).
+* Integers are written similarly to doubles but must be followed by 
+  `L`[^L-suffix] (`1234L`, `1e4L`, or `0xcafeL`), and can not contain
+  fractional values. 
+
+* Strings are surrounded by `"` (`"hi"`) or `'` (`'bye'`). Special characters
+  are escaped with `\`; see `?Quotes` for full details.
 
 [^L-suffix]: `L` is not intuitive, and you might wonder where it comes from. At the time `L` was added to R, R's integer type was equivalent to a long integer in C, and C code could use a suffix of `l` or `L` to force a number to be a long integer. It was decided that `l` was too visually similar to `i` (used for complex numbers in R), leaving `L`.
 
@@ -111,9 +113,9 @@ To create longer vectors from shorter ones, use `c()`, short for combine:
 
 
 ```r
-dbl_var <- c(1, 2.5, 4.5)
-int_var <- c(1L, 6L, 10L)
 lgl_var <- c(TRUE, FALSE)
+int_var <- c(1L, 6L, 10L)
+dbl_var <- c(1, 2.5, 4.5)
 chr_var <- c("these are", "some strings")
 ```
 
@@ -134,12 +136,12 @@ You can determine the type of a vector with `typeof()`[^mode] and its length wit
 
 
 ```r
-typeof(dbl_var)
-#> [1] "double"
-typeof(int_var)
-#> [1] "integer"
 typeof(lgl_var)
 #> [1] "logical"
+typeof(int_var)
+#> [1] "integer"
+typeof(dbl_var)
+#> [1] "double"
 typeof(chr_var)
 #> [1] "character"
 ```
@@ -151,7 +153,7 @@ typeof(chr_var)
 \indexc{is.na}
 \index{missing values|see {\texttt{NA}}}
 
-R can represent missing, or unknown values, using a special sentinel: `NA` (short for not applicable).  Missing values tend to be infectious: most computations involving a missing value will return another missing value.
+R represents missing, or unknown values, with special sentinel value: `NA` (short for not applicable). Missing values tend to be infectious: most computations involving a missing value will return another missing value.
 
 
 ```r
@@ -192,7 +194,7 @@ is.na(x)
 #> [1]  TRUE FALSE  TRUE FALSE
 ```
 
-NB: Technically there are four missing values, one for each of the atomic types: `NA` (logical), `NA_integer_` (integer), `NA_real_` (double), and `NA_character_` (character). This distinction is rarely important because `NA` will be automatically coerced to the correct type when needed.
+NB: Technically there are four missing values, one for each of the atomic types: `NA` (logical), `NA_integer_` (integer), `NA_real_` (double), and `NA_character_` (character). This distinction is usually unimportant because `NA` will be automatically coerced to the correct type when needed.
 
 ### Testing and coercion
 \index{coercion}
@@ -200,7 +202,7 @@ NB: Technically there are four missing values, one for each of the atomic types:
 \indexc{is.atomic()}
 \indexc{is.numeric()}
 
-Generally, you can __test__ if a vector is of a given type with an `is.*()` function, but they need to be used with care. `is.character()`, `is.double()`, `is.integer()`, and `is.logical()` do what you might expect: they test if a vector is a character, double, integer, or logical. Avoid `is.vector()`, `is.atomic()`, and `is.numeric()`: they don't test if you have a vector, atomic vector, or numeric vector; you'll need to carefully read the docs to figure out what they actually do.
+Generally, you can __test__ if a vector is of a given type with an `is.*()` function, but these functions need to be used with care. `is.logical()`, `is.integer()`, `is.double()`, and `is.character()` do what you might expect: they test if a vector is a character, double, integer, or logical. Avoid `is.vector()`, `is.atomic()`, and `is.numeric()`: they don't test if you have a vector, atomic vector, or numeric vector; you'll need to carefully read the documentation to figure out what they actually do.
 
 For atomic vectors, type is a property of the entire vector: all elements must be the same type. When you attempt to combine different types they will be __coerced__ in a fixed order: character → double → integer → logical. For example, combining a character and an integer yields a character:
 
@@ -227,7 +229,7 @@ mean(x)
 #> [1] 0.333
 ```
 
-Generally, you can deliberately coerce by using an `as.*()` function, like `as.character()`, `as.double()`, `as.integer()`, or `as.logical()`. Failed coercion of strings generates a warning and a missing value:
+Generally, you can deliberately coerce by using an `as.*()` function, like `as.logical()`, `as.integer()`, `as.double()`, or `as.character()`. Failed coercion of strings generates a warning and a missing value:
 
 
 ```r
@@ -239,7 +241,7 @@ as.integer(c("1", "1.5", "a"))
 ### Exercises
 
 1. How do you create raw and complex scalars? (See `?raw` and 
-   `?complex`)
+   `?complex`.)
 
 1. Test your knowledge of the vector coercion rules by predicting the output of
    the following uses of `c()`:
@@ -261,7 +263,7 @@ as.integer(c("1", "1.5", "a"))
 ## Attributes {#attributes}
 \index{attributes}
 
-You might have noticed that the set of atomic vectors does not include a number of important data structures like matrices and arrays, factors and date/times. These types are built on top of atomic vectors by adding attributes. In this section, you'll learn the basics of attributes, and how the dim attribute makes matrices and arrays. In the next section you'll learn how the class attribute is used to create S3 vectors, including factors, dates, and date-times.
+You might have noticed that the set of atomic vectors does not include a number of important data structures like matrices, arrays, factors, or date-times. These types are built on top of atomic vectors by adding attributes. In this section, you'll learn the basics of attributes, and how the dim attribute makes matrices and arrays. In the next section you'll learn how the class attribute is used to create S3 vectors, including factors, dates, and date-times.
 
 ### Getting and setting
 \indexc{attr()}
@@ -357,7 +359,7 @@ To be useful with character subsetting (e.g. Section \@ref(lookup-tables)) names
 \index{matrices|see {arrays}}
 \index{attributes!dimensions}
 
-Adding a `dim` attribute to a vector allows it to behave like a 2-dimensional __matrix__ or a multi-dimensional __array__. Matrices and arrays are primarily mathematical/statistical tools, not programming tools, so they'll be used infrequently and only covered briefly in this book. Their most important feature is multidimensional subsetting, which is covered in Section \@ref(matrix-subsetting).
+Adding a `dim` attribute to a vector allows it to behave like a 2-dimensional __matrix__ or a multi-dimensional __array__. Matrices and arrays are primarily mathematical and statistical tools, not programming tools, so they'll be used infrequently and only covered briefly in this book. Their most important feature is multidimensional subsetting, which is covered in Section \@ref(matrix-subsetting).
 
 You can create matrices and arrays with `matrix()` and `array()`, or by using the assignment form of `dim()`:
 
@@ -424,7 +426,7 @@ str(array(1:3, 3))         # "array" vector
 1.  How is `setNames()` implemented? How is `unname()` implemented?
     Read the source code.
 
-1.  What does `dim()` return when applied to a 1D vector?
+1.  What does `dim()` return when applied to a 1-dimensional vector?
     When might you use `NROW()` or `NCOL()`?
 
 1.  How would you describe the following three objects? What makes them
@@ -512,7 +514,7 @@ table(sex_factor)
 #> 3 0
 ```
 
-A minor variation on factors are __ordered__ factors. In general, they behave like regular factors, but the order of the levels is meaningful ("low", "medium", "high") (a property that is automatically leveraged by some modelling and visualisation functions).
+__Ordered__ factors are a minor variation of factors. In general, they behave like regular factors, but the order of the levels is meaningful (low, medium, high) (a property that is automatically leveraged by some modelling and visualisation functions).
 
 
 ```r
@@ -522,9 +524,9 @@ grade
 #> Levels: c < b < a
 ```
 
-In base R[^tidyverse-factors] you tend to encounter factors very frequently because many base R functions (like `read.csv()` and `data.frame()`) automatically convert character vectors to factors. This is suboptimal because there's no way for those functions to know the set of all possible levels or their correct order: the levels are a property of theory or experimental design, not of the data. Instead, use the argument `stringsAsFactors = FALSE` to suppress this behaviour, and then manually convert character vectors to factors using your knowledge of the "theoretical" data. To learn about the historical context of this behaviour, I recommend [*stringsAsFactors: An unauthorized
-biography*](http://simplystatistics.org/2015/07/24/stringsasfactors-an-unauthorized-biography/) by Roger Peng, and [*stringsAsFactors = 
-\<sigh\>*](http://notstatschat.tumblr.com/post/124987394001/stringsasfactors-sigh) by Thomas Lumley.
+In base R[^tidyverse-factors] you tend to encounter factors very frequently because many base R functions (like `read.csv()` and `data.frame()`) automatically convert character vectors to factors. This is suboptimal because there's no way for those functions to know the set of all possible levels or their correct order: the levels are a property of theory or experimental design, not of the data. Instead, use the argument `stringsAsFactors = FALSE` to suppress this behaviour, and then manually convert character vectors to factors using your knowledge of the "theoretical" data. To learn about the historical context of this behaviour, I recommend [_stringsAsFactors: An unauthorized
+biography_](http://simplystatistics.org/2015/07/24/stringsasfactors-an-unauthorized-biography/) by Roger Peng, and [_stringsAsFactors = 
+\<sigh\>_](http://notstatschat.tumblr.com/post/124987394001/stringsasfactors-sigh) by Thomas Lumley.
 
 [^tidyverse-factors]: The tidyverse never automatically coerces characters to factors, and provides the forcats [@forcats] package specifically for working with factors.
 
@@ -555,7 +557,7 @@ unclass(date)
 #> [1] 31
 ```
 
-[^epoch]: This is special date is known as the Unix Epoch.
+[^epoch]: This special date is known as the Unix Epoch.
 
 ### Date-times
 \index{date-times|see {\texttt{POSIXct}}}
@@ -599,7 +601,7 @@ structure(now_ct, tzone = "Europe/Paris")
 \index{durations|see {difftime}}
 \indexc{difftime}
 
-Durations, the amount of time between two dates or date times, are stored in difftimes. Difftimes are built on top of doubles, and have a units attribute that determines how the integer should be interpreted:
+Durations, which represent the amount of time between pairs of dates or date-times, are stored in difftimes. Difftimes are built on top of doubles, and have a units attribute that determines how the integer should be interpreted:
 
 
 ```r
@@ -939,6 +941,9 @@ tibble(x = 1:4, y = 1)
 #> 3     3     1
 #> 4     4     1
 tibble(x = 1:4, y = 1:2)
+#> Warning: `rlang__backtrace_on_error` is no longer experimental.
+#> It has been renamed to `rlang_backtrace_on_error`. Please update your RProfile.
+#> This warning is displayed once per session.
 #> Error: Tibble columns must have consistent lengths, only values of
 #> length one are recycled:
 #> * Length 2: Column `y`
@@ -976,7 +981,7 @@ I'll draw them the same way as a named list, but arrange them to emphasise their
 ### Row names {#rownames}
 \indexc{row.names}
 
-Data frames allow you to label each row with a "name", a character vector containing only unique values:
+Data frames allow you to label each row with a name, a character vector containing only unique values:
 
 
 ```r
@@ -1147,7 +1152,7 @@ You can coerce an object to a data frame with `as.data.frame()` or to a tibble w
 \index{data frames!list-columns}
 \indexc{I()}
 
-Since a data frame is a list of vectors, it is possible for a data frame to have a column that is a list. This is very useful because a list can contain any other object: this means you can put any object in a data frame. This allows you to keep related objects together in a row, no matter how complex the individual objects are. You can see an application of this in the "Many Models" chapter of "R for Data Science", <http://r4ds.had.co.nz/many-models.html>.
+Since a data frame is a list of vectors, it is possible for a data frame to have a column that is a list. This is very useful because a list can contain any other object: this means you can put any object in a data frame. This allows you to keep related objects together in a row, no matter how complex the individual objects are. You can see an application of this in the "Many Models" chapter of _R for Data Science_, <http://r4ds.had.co.nz/many-models.html>.
 
 List-columns are allowed in data frames but you have to do a little extra work by either adding the list-column after creation or wrapping the list in `I()`[^identity].
 
@@ -1190,7 +1195,7 @@ tibble(
 ### Matrix and data frame columns
 \index{data frames!matrix-columns}
 
-As long as the number of rows matches the data frame, it's also possible to have a matrix or array as a column of a data frame. (This requires a slight extension to our definition of a data frame: it's not the `length()` of each column that must be equal, but the `NROW()`.) Like with list-columns, you must either add it after creation, or wrap it in `I()`.
+As long as the number of rows matches the data frame, it's also possible to have a matrix or array as a column of a data frame. (This requires a slight extension to our definition of a data frame: it's not the `length()` of each column that must be equal, but the `NROW()`.) As for list-columns, you must either add it after creation, or wrap it in `I()`.
 
 
 ```r
@@ -1278,7 +1283,7 @@ There are two common uses of `NULL`:
 
 If you're familiar with SQL, you'll know about relational `NULL` and might expect it to be the same as R's. However, the database `NULL` is actually equivalent to R's `NA`.
 
-## Answers {#data-structure-answers}
+## Quiz answers {#data-structure-answers}
 
 1.  The four common types of atomic vector are logical, integer, double 
     and character. The two rarer types are complex and raw.
@@ -1293,7 +1298,7 @@ If you're familiar with SQL, you'll know about relational `NULL` and might expec
     a matrix must be the same type; in a data frame, different columns can have 
     different types.
     
-1.  You can make a "list-array" by assigning dimensions to a list. You can
+1.  You can make a list-array by assigning dimensions to a list. You can
     make a matrix a column of a data frame with `df$x <- matrix()`, or by
     using `I()` when creating a new data frame `data.frame(x = I(matrix()))`.
 

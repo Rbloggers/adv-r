@@ -1,24 +1,24 @@
-# (PART) Object oriented programming {-}
+# (PART) Object-oriented programming {-}
 \index{object-oriented programming}
 
 
 
 # Introduction {#oo .unnumbered}
 
-In the following five chapters you'll learn about __object oriented programming__ (OOP). OOP is a little more challenging in R than in other languages because:
+In the following five chapters you'll learn about __object-oriented programming__ (OOP). OOP is a little more challenging in R than in other languages because:
 
 * There are multiple OOP systems to choose from. In this book, I'll focus 
   on the three that I believe are most important: __S3__,  __R6__, and __S4__. 
   S3 and S4 are provided by base R. R6 is provided by the R6 package, and is 
-  similar to the "Reference Classes", or __RC__ for short, from base R.
+  similar to the Reference Classes, or __RC__ for short, from base R.
 
 * There is disagreement about the relative importance of the OOP systems. 
   I think S3 is most important, followed by R6, then S4. Others believe that 
   S4 is most important, followed by RC, and that S3 should be avoided. This 
   means that different R communities use different systems.
 
-* S3 and S4 use "generic function OOP" which is rather different from the 
-  "encapsulated OOP" used by most languages popular today[^julia]. We'll come 
+* S3 and S4 use generic function OOP which is rather different from the 
+  encapsulated OOP used by most languages popular today[^julia]. We'll come 
   back to precisely what those terms mean shortly, but basically, while the 
   underlying ideas of OOP are the same across languages, their expressions are
   rather different. This means that you can't immediately transfer your 
@@ -26,7 +26,7 @@ In the following five chapters you'll learn about __object oriented programming_
 
 [^julia]: The exception is Julia, which also uses generic function OOP. Compared to R, Julia's implementation is fully developed and extremely performant.
 
-Generally in R, functional programming is much more important than object oriented programming, because you typically solve complex problems by decomposing them into simple functions, not simple objects. Nevertheless, there are important reasons to learn each of the three systems:
+Generally in R, functional programming is much more important than object-oriented programming, because you typically solve complex problems by decomposing them into simple functions, not simple objects. Nevertheless, there are important reasons to learn each of the three systems:
 
 * S3 allows your functions to return rich results with user-friendly display
   and programmer-friendly internals. S3 is used throughout base R, so it's 
@@ -42,11 +42,27 @@ Generally in R, functional programming is much more important than object orient
   design. It's particularly well-suited for building large systems that evolve 
   over time  and will receive contributions from many programmers. This is
   why it is used by the Bioconductor project, so another reason to learn S4
-  is in order to contribute to that project.
+  is to equip you to contribute to that project.
 
-The goal of this brief introductory chapter is to give you some important vocabulary and some tools to identify OOP systems in the wild. The following four chapters (Base types, S3, R6, and S4) then dive into the details of R's OOP systems. 
+The goal of this brief introductory chapter is to give you some important vocabulary and some tools to identify OOP systems in the wild. The following chapters then dive into the details of R's OOP systems:
 
-This book focusses on the mechanics of OOP, not its effective use, and it may be challenging to fully understand if you have not done object oriented programming before. You might wonder why I chose not to provide more immediately useful coverage. I have focussed on mechanics here because they need to be well described somewhere (writing these chapters required a considerable amount of reading, exploration, and synthesis on my behalf), and using OOP effectively is sufficiently complex to require book-length treatment; there's simply not enough room in Advanced R to cover it in the depth required.
+1.  Chapter \@ref(base-types) details the base types which form the foundation
+    underlying all other OO system.
+    
+1.  Chapter \@ref(s3) introduces S3, the simplest and most commonly used
+    OO system.
+  
+1.  Chapter \@ref(r6) discusses R6, a encapsulated OO system built on 
+    top of environments.
+
+1.  Chapter \@ref(s4) introduces S4, which is similar to S3 but more formal and 
+    more strict. 
+    
+1.  Chapter \@ref(oo-tradeoffs) compares these three main OO systems. By
+    understanding the trade-offs of each system you can appreciate when to use 
+    one or the other. 
+
+This book focusses on the mechanics of OOP, not its effective use, and it may be challenging to fully understand if you have not done object-oriented programming before. You might wonder why I chose not to provide more immediately useful coverage. I have focussed on mechanics here because they need to be well described somewhere (writing these chapters required a considerable amount of reading, exploration, and synthesis on my behalf), and using OOP effectively is sufficiently complex to require book-length treatment; there's simply not enough room in Advanced R to cover it in the depth required.
 
 ## OOP systems {-}
 
@@ -71,7 +87,7 @@ summary(diamonds$cut)
 
 You could imagine `summary()` containing a series of if-else statements, but that would mean only the original author could add new implementations. An OOP system makes it possible for any developer to extend the interface with implementations for new types of input. 
 
-To be more precise, OO systems call the "type" of an object its __class__, and an implementation for a specific class is called a __method__. Roughly speaking, a class defines what an object _is_ and methods describe what that object can _do_. 
+To be more precise, OO systems call the type of an object its __class__, and an implementation for a specific class is called a __method__. Roughly speaking, a class defines what an object _is_ and methods describe what that object can _do_. 
 The class defines the __fields__, the data possessed by every instance of that class. Classes are organised in a hierarchy so that if a method does not exist for one class, its parent's method is used, and the child is said to __inherit__ behaviour. For example, in R, an ordered factor inherits from a regular factor, and a generalised linear model inherits from a linear model. The process of finding the correct method given a class is called __method dispatch__.
 
 There are two main paradigms of object-oriented programming which differ in how methods and classes are related. In this book, we'll borrow the terminology of _Extending R_ [@extending-R] and call these paradigms encapsulated and functional:
@@ -157,3 +173,4 @@ otype(mle_obj)
 ```
 
 Use this function to figure out which chapter to read to understand how to work with an existing object.
+

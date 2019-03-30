@@ -45,7 +45,7 @@ library(purrr)
 ## HTML {#html}
 \index{HTML}
 
-HTML (HyperText Markup Language) is the language that underlies the majority of the web. It's a special case of SGML (Standard Generalised Markup Language), and it's similar but not identical to XML (eXtensible Markup Language). HTML looks like this:
+HTML (HyperText Markup Language) underlies the majority of the web. It's a special case of SGML (Standard Generalised Markup Language), and it's similar but not identical to XML (eXtensible Markup Language). HTML looks like this:
 
 ```html
 <body>
@@ -184,8 +184,13 @@ We could list all the possible attributes of the `<p>` tag in the function defin
 ```r
 dots_partition <- function(...) {
   dots <- list2(...)
-
+  
+ if (is.null(names(dots))) {
+  is_named <- rep(FALSE, length(dots))
+} else {
   is_named <- names(dots) != ""
+}
+  
   list(
     named = dots[is_named],
     unnamed = dots[!is_named]
@@ -222,7 +227,7 @@ p <- function(...) {
 }
 
 p("Some text")
-#> <HTML> <p></p>
+#> <HTML> <p>Some text</p>
 p("Some text", id = "myid")
 #> <HTML> <p id='myid'>Some text</p>
 p("Some text", class = "important", `data-value` = 10)
@@ -273,7 +278,8 @@ p <- tag("p")
 b <- tag("b")
 i <- tag("i")
 p("Some text. ", b(i("some bold italic text")), class = "mypara")
-#> <HTML> <p class='mypara'>Some text. <b></b></p>
+#> <HTML> <p class='mypara'>Some text. <b><i>some bold italic
+#> text</i></b></p>
 ```
 
 Before we generate functions for every possible HTML tag, we need to create a variant that handles void tags. `void_tag()` is quite similar to `tag()`, but it throws an error if there are any unnamed tags, and the tag itself looks a little different.
@@ -358,7 +364,8 @@ html_tags$p(
   html_tags$b(html_tags$i("some bold italic text")),
   class = "mypara"
 )
-#> <HTML> <p class='mypara'>Some text. <b></b></p>
+#> <HTML> <p class='mypara'>Some text. <b><i>some bold italic
+#> text</i></b></p>
 ```
 
 We can then finish off our HTML DSL with a function that allows us to evaluate code in the context of that list. Here we slightly abuse the data mask, passing it a list of functions rather than a data frame. This is quick hack to mingle the execution environment of `code` with the functions in `html_tags`.
@@ -383,7 +390,9 @@ with_html(
     img(src = "myimg.png", width = 100, height = 100)
   )
 )
-#> <HTML> <body></body>
+#> <HTML> <body><h1 id='first'>A heading</h1><p>Some text
+#> &amp;<b>some bold text.</b></p><img src='myimg.png'
+#> width='100' height='100' /></body>
 ```
 
 If you want to access the R function overridden by an HTML tag with the same name inside `with_html()`, you can use the full `package::function` specification.
@@ -440,14 +449,14 @@ If you want to access the R function overridden by an HTML tag with the same nam
 
 1.  Currently the HTML doesn't look terribly pretty, and it's hard to see the
     structure. How could you adapt `tag()` to do indenting and formatting?
-    (You may need to do some research into block vs inline tags.)
+    (You may need to do some research into block and inline tags.)
 
 ## LaTeX {#latex}
 \index{LaTeX}
 
 The next DSL will convert R expressions into their LaTeX math equivalents. (This is a bit like `?plotmath`, but for text instead of plots.) LaTeX is the lingua franca of mathematicians and statisticians: it's common to use LaTeX notation whenever you want to express an equation in text, like in email. Since many reports are produced using both R and LaTeX, it might be useful to be able to automatically convert mathematical expressions from one language to the other.
 
-Because we need to convert both functions and names, this mathematical DSL will be more complicated than the HTML DSL. We'll also need to create a "default" conversion, so that symbols that we don't know about get a standard conversion. This means that we can no longer use just evaluation: we also need to walk the abstract syntax tree (AST).
+Because we need to convert both functions and names, this mathematical DSL will be more complicated than the HTML DSL. We'll also need to create a default conversion, so that symbols that we don't know about get a standard conversion. This means that we can no longer use just evaluation: we also need to walk the abstract syntax tree (AST).
 
 ### LaTeX mathematics
 
@@ -456,7 +465,7 @@ Before we begin, let's quickly cover how formulas are expressed in LaTeX. The fu
 * Most simple mathematical equations are written in the same way you'd type
   them in R: `x * y`, `z ^ 5`. Subscripts are written using `_` (e.g., `x_1`).
 
-* Special characters start with a `\`: `\pi` = π, `\pm` = ±, and so on.
+* Special characters start with a `\`: `\pi` = $\pi$, `\pm` = $\pm$, and so on.
   There are a huge number of symbols available in LaTeX: searching online for
   `latex math symbols` returns many
   [lists](http://www.sunilpatel.co.uk/latex-type/latex-math-symbols/).
@@ -467,7 +476,7 @@ Before we begin, let's quickly cover how formulas are expressed in LaTeX. The fu
   write a fraction you'd use `\frac{a}{b}`. To write a square root, you'd use
   `\sqrt{a}`.
 
-* To group elements together use `{}`: i.e., `x ^ a + b` vs. `x ^ {a + b}`.
+* To group elements together use `{}`: i.e., `x ^ a + b` versus `x ^ {a + b}`.
 
 * In good math typesetting, a distinction is made between variables and
   functions. But without extra information, LaTeX doesn't know whether
@@ -523,7 +532,7 @@ Next we'll build up `latex_env()`, starting simply and getting progressively mor
 
 ### Known symbols
 
-Our first step is to create an environment that will convert the special LaTeX symbols used for Greek character, e.g., `pi` to `\pi`. We'll use the trick from Section \@ref(subset) to bind the symbol `pi` to the value `"\pi"`.
+Our first step is to create an environment that will convert the special LaTeX symbols used for Greek characters, e.g., `pi` to `\pi`. We'll use the trick from Section \@ref(subset) to bind the symbol `pi` to the value `"\pi"`.
 
 
 ```r
@@ -557,7 +566,7 @@ Looks good so far!
 
 ### Unknown symbols
 
-If a symbol isn't Greek, we want to leave it as is. This is tricky because we don't know in advance what symbols will be used, and we can't possibly generate them all. Instead, we'll use the approach described in Section \@ref(ast-funs): walking the AST and to find all symbols. This gives us `all_names_rec()` and helper `all_names()`:
+If a symbol isn't Greek, we want to leave it as is. This is tricky because we don't know in advance what symbols will be used, and we can't possibly generate them all. Instead, we'll use the approach described in Section \@ref(ast-funs): walking the AST to find all symbols. This gives us `all_names_rec()` and helper `all_names()`:
 
 
 
@@ -717,7 +726,7 @@ to_math(sin(sin))
 
 ### Unknown functions
 
-Finally, we'll add a default for functions that we don't yet know about. Like the unknown names, we can't know in advance what these will be, so we again walk the AST to find them:
+Finally, we'll add a default for functions that we don't yet know about. We can't know in advance what the unknown funtions will be so we again walk the AST to find them:
 
 
 ```r
@@ -759,7 +768,7 @@ unknown_op("foo")
 #>     contents <- paste(..., collapse = ", ")
 #>     paste0("\\mathrm{foo}(", contents, ")")
 #> }
-#> <environment: 0x62600c0>
+#> <environment: 0x63b13c0>
 ```
 
 And again we update `latex_env()`:

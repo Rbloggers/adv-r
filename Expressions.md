@@ -34,7 +34,7 @@ y
 #> [1] 40
 ```
 
-The focus of this chapter is the data structures that underlie expressions. Mastering this knowledge will allow you to inspect and modify captured code, and to generate code with code. We'll come back to `expr()` in Section \@ref(quasiquotation), and to `eval()` in Chapter \@ref(evaluation).
+The focus of this chapter is the data structures that underlie expressions. Mastering this knowledge will allow you to inspect and modify captured code, and to generate code with code. We'll come back to `expr()` in Chapter \@ref(quasiquotation), and to `eval()` in Chapter \@ref(evaluation).
 
 ### Outline {-}
 
@@ -50,7 +50,7 @@ The focus of this chapter is the data structures that underlie expressions. Mast
   some details of R's grammar.
 
 * Section \@ref(ast-funs) shows you how you can use recursive functions to
-  "compute on the language", writing functions that compute with expressions. 
+  compute on the language, writing functions that compute with expressions. 
 
 * Section \@ref(expression-special) circles back to three more 
   specialised data structures: pairlists, missing arguments, and expression
@@ -193,7 +193,7 @@ expr(`<-`(y, `*`(x, 10)))
 #> y <- x * 10
 ```
 
-The order in which infix operators are applied is governed by a set of rules called operator precedence, and we'll `lobstr::ast()` to explore them in Section \@ref(operator-precedence).
+The order in which infix operators are applied is governed by a set of rules called operator precedence, and we'll use `lobstr::ast()` to explore them in Section \@ref(operator-precedence).
 
 ### Exercises
 
@@ -217,7 +217,7 @@ The order in which infix operators are applied is governed by a set of rules cal
     #> └─z
     ```
 
-1.  Draw the following trees by hand then check your answers with
+1.  Draw the following trees by hand and then check your answers with
     `lobstr::ast()`.
 
     
@@ -227,7 +227,7 @@ The order in which infix operators are applied is governed by a set of rules cal
     f(g(1, 2), h(3, i(4, 5)))
     ```
 
-1.  What's happening with the ASTs below? (Hint: carefully read `?"^"`)
+1.  What's happening with the ASTs below? (Hint: carefully read `?"^"`.)
 
     
     ```r
@@ -246,7 +246,7 @@ The order in which infix operators are applied is governed by a set of rules cal
     ```
 
 1.  What is special about the AST below? (Hint: re-read Section
-    \@ref(fun-components))
+    \@ref(fun-components).)
 
     
     ```r
@@ -277,7 +277,7 @@ NB: In base R documentation "expression" is used to mean two things. As well as 
 
 Scalar constants are the simplest component of the AST. More precisely, a __constant__ is either `NULL` or a length-1 atomic vector (or scalar, Section \@ref(scalars)) like `TRUE`, `1L`, `2.5` or `"x"`. You can test for a constant with `rlang::is_syntactic_literal()`.
 
-Constants are "self-quoting" in the sense that the expression used to represent a constant is the constant itself:
+Constants are self-quoting in the sense that the expression used to represent a constant is the same constant:
 
 
 ```r
@@ -358,7 +358,7 @@ is.call(x)
 #### Subsetting
 \index{call objects!subsetting}
 
-Calls generally behave like lists, i.e. you can use standard subsetting tools. The first element of the call object is the function to call, which is a usually a symbol:
+Calls generally behave like lists, i.e. you can use standard subsetting tools. The first element of the call object is the function to call, which is usually a symbol:
 
 
 ```r
@@ -500,6 +500,10 @@ The following table summarises the appearance of the different expression subtyp
 
 
 Both base R and rlang provide functions for testing for each type of input, although the types covered are slightly different. You can easily tell them apart because all the base functions start with `is.` and the rlang functions start with `is_`.
+
+\newpage
+
+<!-- New page so that there's no beak inside the table -->
 
 |                   | base                | rlang                    |
 |-------------------|---------------------|--------------------------|
@@ -679,7 +683,7 @@ rlang::parse_exprs(x3)
 #> a + 1
 ```
 
-If you find yourself working with strings containing code very frequently, you should reconsider your process. Read Chapter \@ref(quasiquotation) and consider if you can instead more safely generate expressions using quasiquotation.
+If you find yourself working with strings containing code very frequently, you should reconsider your process. Read Chapter \@ref(quasiquotation) and consider whether you can generate expressions using quasiquotation more safely.
 
 ::: base
 \indexc{parsing!parse@\texttt{parse()}}
@@ -696,7 +700,7 @@ as.list(parse(text = x1))
 \index{deparsing}
 \indexc{expr\_text()}
 
-The inverse of parsing is __deparsing__: given an expression, you want the string that would generate it. This happens automatically when you print an expression, and you can get the string yourself with `rlang::expr_text()`:
+The inverse of parsing is __deparsing__: given an expression, you want the string that would generate it. This happens automatically when you print an expression, and you can get the string with `rlang::expr_text()`:
 
 
 ```r
@@ -771,7 +775,7 @@ Be careful when using the base R equivalent, `deparse()`: it returns a character
     character vector. Can you construct an input that violates this expectation?
     What happens?
 
-## Walking the AST with recursive functions {#ast-funs}
+## Walking AST with recursive functions {#ast-funs}
 \index{recursion!over ASTs}
 \index{ASTs!computing with}
 
@@ -852,13 +856,13 @@ recurse_call <- function(x) {
 }
 ```
 
-Typically, solving the base case is easy, so we'll do that first, then check the results. The recursive cases are a little more tricky, and will often require some functional programming.
+Typically, solving the base case is easy, so we'll do that first, then check the results. The recursive cases are trickier, and will often require some functional programming.
 
 ### Finding F and T
 
 We'll start with a function that determines whether another function uses the logical abbreviations `T` and `F` because using them is often considered to be poor coding practice. Our goal is to return `TRUE` if the input contains a logical abbreviation, and `FALSE` otherwise. 
 
-Let's first the type of `T` vs. `TRUE`:
+Let's first find the type of `T` versus `TRUE`:
 
 
 ```r
@@ -972,7 +976,7 @@ flat_map_chr(letters[1:3], ~ rep(., sample(3, 1)))
 #> [1] "a" "b" "b" "b" "c" "c"
 ```
 
-The recursive case for pairlists is straightforward: we iterate over every element of the pairlist (i.e. each function argument) and combine the results. The case for calls is a little bit more complex - if this is a call to `<-` then we should return the second element of the call:
+The recursive case for pairlists is straightforward: we iterate over every element of the pairlist (i.e. each function argument) and combine the results. The case for calls is a little bit more complex: if this is a call to `<-` then we should return the second element of the call:
 
 
 ```r
@@ -1081,7 +1085,7 @@ The complete version of this function is quite complicated, it's important to re
     `logical_abbr_rec()` so that it ignores function calls that use `T` or `F`?
 
 1.  `logical_abbr()` works with expressions. It currently fails when you give it
-    a function. Why not? How could you modify `logical_abbr()` to make it
+    a function. Why? How could you modify `logical_abbr()` to make it
     work? What components of a function will you need to recurse over?
 
     
@@ -1091,7 +1095,7 @@ The complete version of this function is quite complicated, it's important to re
     })
     ```
 
-1.  Modify find assignment to also detect assignment using replacement
+1.  Modify `find_assign` to also detect assignment using replacement
     functions, i.e. `names(x) <- y`.
 
 1.  Write a function that extracts all calls to a specified function.
@@ -1104,7 +1108,7 @@ There are two data structures and one special symbol that we need to cover for t
 ### Pairlists
 \index{pairlists}
 
-Pairlists are a remnant of R's past and have been replaced by lists almost everywhere. The only place you are likely to see pairlists in R[^pairlists-c] is when working with calls to the "function" function, as the formal arguments to a function are stored in a pairlist:
+Pairlists are a remnant of R's past and have been replaced by lists almost everywhere. The only place you are likely to see pairlists in R[^pairlists-c] is when working with calls to the `function` function, as the formal arguments to a function are stored in a pairlist:
 
 
 ```r

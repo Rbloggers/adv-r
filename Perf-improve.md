@@ -5,19 +5,19 @@
 ## Introduction
 \index{performance!improving}
 
-> "We should forget about small efficiencies, say about 97% of the time: 
+> We should forget about small efficiencies, say about 97% of the time: 
 > premature optimization is the root of all evil. Yet we should not pass up our 
 > opportunities in that critical 3%. A good programmer will not be lulled 
 > into complacency by such reasoning, he will be wise to look carefully at 
-> the critical code; but only after that code has been identified."
+> the critical code; but only after that code has been identified.
 > 
-> --- Donald Knuth.
+> --- Donald Knuth
 
 Once you've used profiling to identify a bottleneck, you need to make it faster. It's difficult to provide general advice on improving performance, but I try my best with four techniques that can be applied in many situations. I'll also suggest a general strategy for performance optimisation that helps ensure that your faster code is still correct.
 
 It's easy to get caught up in trying to remove all bottlenecks. Don't! Your time is valuable and is better spent analysing your data, not eliminating possible inefficiencies in your code. Be pragmatic: don't spend hours of your time to save seconds of computer time. To enforce this advice, you should set a goal time for your code and optimise only up to that goal. This means you will not eliminate all bottlenecks. Some you will not get to because you've met your goal. Others you may need to pass over and accept either because there is no quick and easy solution or because the code is already well optimised and no significant improvement is possible. Accept these possibilities and move on to the next candidate. 
 
-If you'd like to learn more about the performance characteristics of the R language itself, I'd highly recommend "Evaluating the Design of the R Language" [@r-design]. It draws conclusions by combining a modified R interpreter with a wide set of code found in the wild.
+If you'd like to learn more about the performance characteristics of the R language, I'd highly recommend _Evaluating the Design of the R Language_ [@r-design]. It draws conclusions by combining a modified R interpreter with a wide set of code found in the wild.
 
 ### Outline {-}
 
@@ -38,7 +38,7 @@ If you'd like to learn more about the performance characteristics of the R langu
   copying data. 
 
 * Section \@ref(t-test) pulls all the pieces together into a case
-  study showing how to speed up repeated t-tests by ~1000x.
+  study showing how to speed up repeated t-tests by about a thousand times. 
 
 * Section \@ref(more-techniques) finishes the chapter with pointers to
   more resources that will help you write fast code.
@@ -72,7 +72,7 @@ mean2 <- function(x) sum(x) / length(x)
 
 I recommend that you keep a record of everything you try, even the failures. If a similar problem occurs in the future, it'll be useful to see everything you've tried. To do this I recommend RMarkdown, which makes it easy to intermingle code with detailed comments and notes.
 
-Next, generate a representative test case. The case should be big enough to capture the essence of your problem but small enough that it only a few seconds at most. You don't want it to take too long because you'll need to run the test case many times to compare approaches. On the other hand, you don't want the case to be too small because then results might not scale up to the real problem. Hre I'm going to use 100,000 numbers:
+Next, generate a representative test case. The case should be big enough to capture the essence of your problem but small enough that it only takes a few seconds at most. You don't want it to take too long because you'll need to run the test case many times to compare approaches. On the other hand, you don't want the case to be too small because then results might not scale up to the real problem. Here I'm going to use 100,000 numbers:
 
 
 ```r
@@ -90,8 +90,8 @@ bench::mark(
 #> # A tibble: 2 x 5
 #>   expression      min   median `itr/sec`  n_gc
 #>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 mean1(x)      226µs    231µs     4290.     0
-#> 2 mean2(x)      112µs    113µs     8626.     0
+#> 1 mean1(x)      226µs    228µs     4264.     0
+#> 2 mean2(x)      112µs    113µs     8629.     0
 ```
 
 (You might be surprised by the results: `mean(x)` is considerably slower than `sum(x) / length(x)`. This is because, among other reasons, `mean(x)` makes two passes over the vector to be more numerically accurate.)
@@ -102,7 +102,7 @@ If you'd like to see this strategy in action, I've used it a few times on stacko
 * <http://stackoverflow.com/questions/22515175#22515856>
 * <http://stackoverflow.com/questions/3476015#22511936>
 
-## Check for existing solutions {#already-solved}
+## Checking for existing solutions {#already-solved}
 
 Once you've organised your code and captured all the variations you can think of, it's natural to see what others have done. You are part of a large community, and it's quite possible that someone has already tackled the same problem. Two good places to start are:
 
@@ -133,7 +133,7 @@ Record all solutions that you find, not just those that immediately appear to be
 
 1.  What are the alternatives to `optim()`?
 
-## Do as little as possible {#be-lazy}
+## Doing as little as possible {#be-lazy}
 
 The easiest way to make a function faster is to let it do less work. One way to do that is use a function tailored to a more specific type of input or output, or to a more specific problem. For example:
 
@@ -195,8 +195,8 @@ bench::mark(
 #> # A tibble: 2 x 5
 #>   expression           min   median `itr/sec`  n_gc
 #>   <chr>           <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 mean(x)           2.59µs   3.03µs   291703.     1
-#> 2 mean.default(x)   1.22µs   1.39µs   663713.     0
+#> 1 mean(x)            2.6µs   3.06µs   294315.     1
+#> 2 mean.default(x)   1.22µs   1.43µs   624552.     0
 ```
 
 This optimisation is a little risky. While `mean.default()` is almost twice as fast for 100 values, it will fail in surprising ways if `x` is not a numeric vector. 
@@ -214,9 +214,9 @@ bench::mark(
 #> # A tibble: 3 x 5
 #>   expression              min   median `itr/sec`  n_gc
 #>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 mean(x)              2.59µs   2.97µs   291408.     1
-#> 2 mean.default(x)      1.23µs   1.41µs   653075.     0
-#> 3 .Internal(mean(x))  346.1ns 364.03ns  2480567.     0
+#> 1 mean(x)              2.62µs   2.99µs   302581.     1
+#> 2 mean.default(x)      1.22µs   1.47µs   610128.     0
+#> 3 .Internal(mean(x)) 342.96ns 365.89ns  2511950.     0
 ```
 
 NB: most of these differences arise because `x` is small. If you increase the size the differences basically disappear, because most of the time is now spent computing the mean, not finding the underlying implementation. This is a good reminder that the size of the input matters, and you should motivate your optimisations based on realistic data.
@@ -232,9 +232,9 @@ bench::mark(
 #> # A tibble: 3 x 5
 #>   expression              min   median `itr/sec`  n_gc
 #>   <chr>              <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 mean(x)              24.8µs   25.2µs    38672.     1
-#> 2 mean.default(x)      23.4µs   23.6µs    41552.     0
-#> 3 .Internal(mean(x))   22.4µs   22.5µs    43781.     0
+#> 1 mean(x)              24.8µs   25.4µs    38476.     0
+#> 2 mean.default(x)      23.4µs   23.7µs    41193.     0
+#> 3 .Internal(mean(x))   22.4µs   22.5µs    43078.     0
 ```
 
 
@@ -261,8 +261,8 @@ bench::mark(
 #> # A tibble: 2 x 5
 #>   expression         min   median `itr/sec`  n_gc
 #>   <chr>         <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 as.data.frame   1.06ms   1.12ms      889.     7
-#> 2 quick_df        6.15µs   7.19µs   125411.     2
+#> 1 as.data.frame   1.11ms   1.16ms      852.     7
+#> 2 quick_df        6.27µs   7.57µs   119001.     1
 ```
 
 Again, note the trade-off. This method is fast because it's dangerous. If you give it bad inputs, you'll get a corrupt data frame:
@@ -295,7 +295,7 @@ To come up with this minimal method, I carefully read through and then rewrote t
 ## Vectorise {#vectorise}
 \index{vectorisation}
 
-If you've used R for any length of time, you've probably heard the admonishment to "vectorise your code". But what does that actually mean? Vectorising your code is not just about avoiding for loops, although that's often a step. Vectorising is about taking a "whole object" approach to a problem, thinking about vectors, not scalars. There are two key attributes of a vectorised function: 
+If you've used R for any length of time, you've probably heard the admonishment to "vectorise your code". But what does that actually mean? Vectorising your code is not just about avoiding for loops, although that's often a step. Vectorising is about taking a whole-object approach to a problem, thinking about vectors, not scalars. There are two key attributes of a vectorised function: 
 
 * It makes many problems simpler. Instead of having to think about the 
   components of a vector, you only think about entire vectors.
@@ -335,7 +335,7 @@ Vectorised functions that apply to many common performance bottlenecks include:
 
 Matrix algebra is a general example of vectorisation. There loops are executed by highly tuned external libraries like BLAS. If you can figure out a way to use matrix algebra to solve your problem, you'll often get a very fast solution. The ability to solve problems with matrix algebra is a product of experience. A good place to start is to ask people with experience in your domain.
 
-The downside of vectorisation is that it makes it harder to predict how operations will scale. The following example measures how long it takes to use character subsetting to lookup 1, 10, and 100 elements from a list. You might expect that looking up 10 elements would take 10x as long as looking up 1, and that looking up 100 elements would take 10x longer again. In fact, the following example shows that it only takes about ~10x longer to look up 100 elements than it does to look up 1. That happens because once you get to a certain size, the internal implementation switches to a strategy that has a higher set up cost, but scales better.
+Vectorisation has a downside: it is harder to predict how operations will scale. The following example measures how long it takes to use character subsetting to look up 1, 10, and 100 elements from a list. You might expect that looking up 10 elements would take 10 times as long as looking up 1, and that looking up 100 elements would take 10 times longer again. In fact, the following example shows that it only takes about ~10x longer to look up 100 elements than it does to look up 1. That happens because once you get to a certain size, the internal implementation switches to a strategy that has a higher set up cost, but scales better.
 
 
 ```r
@@ -354,9 +354,9 @@ bench::mark(
 #> # A tibble: 3 x 5
 #>   expression        min   median `itr/sec`  n_gc
 #>   <chr>        <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 lookup[x1]   495.93ns 567.99ns  1554798.     0
-#> 2 lookup[x10]    1.54µs   1.67µs   513994.     1
-#> 3 lookup[x100]   4.19µs   4.99µs   183993.     0
+#> 1 lookup[x1]   496.98ns 569.04ns  1508876.     0
+#> 2 lookup[x10]    1.58µs   1.71µs   493802.     0
+#> 3 lookup[x100]   4.16µs   5.97µs   157230.     0
 ```
 
 Vectorisation won't solve every problem, and rather than torturing an existing algorithm into one that uses a vectorised approach, you're often better off writing your own vectorised function in C++. You'll learn how to do so in Chapter \@ref(rcpp). 
@@ -372,11 +372,11 @@ Vectorisation won't solve every problem, and rather than torturing an existing a
 1.  How can you use `crossprod()` to compute a weighted sum? How much faster is
     it than the naive `sum(x * w)`?
 
-## Avoid copies {#avoid-copies}
+## Avoiding copies {#avoid-copies}
 \index{loops!avoiding copies in}
 \indexc{paste()}
 
-A pernicious source of slow R code is growing an object with a loop. Whenever you use `c()`, `append()`, `cbind()`, `rbind()`, or `paste()` to create a bigger object, R must first allocate space for the new object and then copy the old object to its new home. If you're repeating this many times, like in a for loop, this can be quite expensive. You've entered Circle 2 of the ["R inferno"](http://www.burns-stat.com/pages/Tutor/R_inferno.pdf). 
+A pernicious source of slow R code is growing an object with a loop. Whenever you use `c()`, `append()`, `cbind()`, `rbind()`, or `paste()` to create a bigger object, R must first allocate space for the new object and then copy the old object to its new home. If you're repeating this many times, like in a for loop, this can be quite expensive. You've entered Circle 2 of the [_R inferno_](http://www.burns-stat.com/pages/Tutor/R_inferno.pdf). 
 
 You saw one example of this type of problem in Section \@ref(memory-profiling), so here I'll show a slightly more complex example of the same basic issue. We first generate some random strings, and then combine them either iteratively with a loop using `collapse()`, or in a single pass using `paste()`. Note that the performance of `collapse()` gets relatively worse as the number of strings grows: combining 100 strings takes almost 30 times longer than combining 10 strings.
 
@@ -406,17 +406,17 @@ bench::mark(
 #> # A tibble: 4 x 5
 #>   expression      min   median `itr/sec`  n_gc
 #>   <chr>      <bch:tm> <bch:tm>     <dbl> <dbl>
-#> 1 loop10      19.86µs  21.75µs    44499.     3
-#> 2 loop100    800.04µs  820.3µs     1208.     2
-#> 3 vec10        4.88µs   5.14µs   186965.     0
-#> 4 vec100      39.13µs  40.25µs    24072.     0
+#> 1 loop10      20.39µs  22.62µs    42701.     3
+#> 2 loop100    809.57µs 833.95µs     1183.     1
+#> 3 vec10        4.89µs   5.15µs   172376.     1
+#> 4 vec100      39.21µs  40.03µs    24326.     0
 ```
 
 Modifying an object in a loop, e.g., `x[i] <- y`, can also create a copy, depending on the class of `x`. Section \@ref(single-binding) discusses this issue in more depth and gives you some tools to determine when you're making copies.
 
 ## Case study: t-test {#t-test}
 
-The following case study shows how to make t-tests faster using some of the techniques described above. It's based on an example in ["Computing thousands of test statistics simultaneously in R"](http://stat-computing.org/newsletter/issues/scgn-18-1.pdf) by Holger Schwender and Tina Müller. I thoroughly recommend reading the paper in full to see the same idea applied to other tests.
+The following case study shows how to make t-tests faster using some of the techniques described above. It's based on an example in [_Computing thousands of test statistics simultaneously in R_](http://stat-computing.org/newsletter/issues/scgn-18-1.pdf) by Holger Schwender and Tina Müller. I thoroughly recommend reading the paper in full to see the same idea applied to other tests.
 
 Imagine we have run 1000 experiments (rows), each of which collects data on 50 individuals (columns). The first 25 individuals in each experiment are assigned to group 1 and the rest to group 2. We'll first generate some random data to represent this problem:
 
@@ -438,14 +438,14 @@ system.time(
   }
 )
 #>    user  system elapsed 
-#>    0.84    0.00    0.84
+#>   0.872   0.000   0.875
 system.time(
   for (i in 1:m) {
     t.test(X[i, grp == 1], X[i, grp == 2])$statistic
   }
 )
 #>    user  system elapsed 
-#>   0.196   0.000   0.196
+#>   0.208   0.000   0.211
 ```
 
 Of course, a for loop computes, but doesn't save the values. We can `map_dbl()` (Section \@ref(map-atomic)) to do that. This adds a little overhead:
@@ -457,7 +457,7 @@ compT <- function(i){
 }
 system.time(t1 <- purrr::map_dbl(1:m, compT))
 #>    user  system elapsed 
-#>   0.196   0.004   0.199
+#>   0.212   0.000   0.211
 ```
 
 How can we make this faster? First, we could try doing less work. If you look at the source code of `stats:::t.test.default()`, you'll see that it does a lot more than just compute the t-statistic. It also computes the p-value and formats the output for printing. We can try to make our code faster by stripping out those pieces.
@@ -482,11 +482,11 @@ my_t <- function(x, grp) {
 
 system.time(t2 <- purrr::map_dbl(1:m, ~ my_t(X[.,], grp)))
 #>    user  system elapsed 
-#>   0.028   0.000   0.028
+#>   0.032   0.000   0.030
 stopifnot(all.equal(t1, t2))
 ```
 
-This gives us about a 6x speed improvement.
+This gives us about a six-fold speed improvement.
 
 Now that we have a fairly simple function, we can make it faster still by vectorising it. Instead of looping over the array outside the function, we will modify `t_stat()` to work with a matrix of values. Thus, `mean()` becomes `rowMeans()`, `length()` becomes `ncol()`, and `sum()` becomes `rowSums()`. The rest of the code stays the same.
 
@@ -513,7 +513,9 @@ system.time(t3 <- rowtstat(X, grp))
 stopifnot(all.equal(t1, t3))
 ```
 
-That's much faster! It's at least 40x faster than our previous effort, and around 1000x faster than where we started.
+That's much faster! It's at least 40 times faster than our previous effort, and around 1000 times faster than where we started.
+
+<!-- These timing comparisons are not reflected in the code. In the pdf copy this last function takes 0.011 s while the original version takes 0.191 s (about 17 times slower). Maybe there was improvement in the base version of t.test? -->
 
 ## Other techniques {#more-techniques}
 
@@ -523,7 +525,7 @@ Being able to write fast R code is part of being a good R programmer. Beyond the
   problems other people have struggled with, and how they have made their
   code faster.
 
-* Read other R programming books, like "The Art of R Programming" 
+* Read other R programming books, like _The Art of R Programming_ 
   [@art-r-prog] or Patrick Burns'
   [_R Inferno_](http://www.burns-stat.com/documents/books/the-r-inferno/) to
   learn about common traps.
@@ -535,10 +537,10 @@ Being able to write fast R code is part of being a good R programmer. Beyond the
   Coursera.
   
 * Learn how to parallelise your code. Two places to start are
-  "Parallel R" [@parallel-r] and "Parallel Computing for Data Science"
+  _Parallel R_ [@parallel-r] and _Parallel Computing for Data Science_
   [@parcomp-ds].
 
-* Read general books about optimisation like "Mature optimisation" [@mature-opt]
-  or the "Pragmatic Programmer" [@pragprog].
+* Read general books about optimisation like _Mature optimisation_ [@mature-opt]
+  or the _Pragmatic Programmer_ [@pragprog].
   
 You can also reach out to the community for help. StackOverflow can be a useful resource. You'll need to put some effort into creating an easily digestible example that also captures the salient features of your problem. If your example is too complex, few people will have the time and motivation to attempt a solution. If it's too simple, you'll get answers that solve the toy problem but not the real problem. If you also try to answer questions on StackOverflow, you'll quickly get a feel for what makes a good question.  

@@ -32,7 +32,7 @@ Function operators are closely related to function factories; indeed they're jus
 
 Function operators are typically paired with functionals. If you're using a for-loop, there's rarely a reason to use a function operator, as it will make your code more complex for little gain.
 
-If you're familiar with Python, decorators are just another name for function operators.
+If you're familiar with Python, decorators is just another name for function operators.
 
 ### Outline {-}
 
@@ -97,7 +97,7 @@ map_dbl(x, sum)
 #> (character) of argument
 ```
 
-`purrr::safely()` provides a tool to help with this problem. `safely()` is a function operator that transforms a function to turn errors into data. (You can learn the basic idea that makes it work in Section \@ref(try-success-failure)). Let's start by taking a look at it outside of `map_dbl()`:
+`purrr::safely()` provides a tool to help with this problem. `safely()` is a function operator that transforms a function to turn errors into data. (You can learn the basic idea that makes it work in Section \@ref(try-success-failure).) Let's start by taking a look at it outside of `map_dbl()`:
 
 
 ```r
@@ -105,8 +105,8 @@ safe_sum <- safely(sum)
 safe_sum
 #> function (...) 
 #> capture_error(.f(...), otherwise, quiet)
-#> <bytecode: 0x556d230>
-#> <environment: 0x556cd98>
+#> <bytecode: 0x4942ea8>
+#> <environment: 0x4942a10>
 ```
 
 Like all function operators, `safely()` takes a function and returns a wrapped function which we can call as usual:
@@ -152,7 +152,7 @@ str(out)
 #>   .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condit"..
 ```
 
-The output is in a slightly inconvenient form, since we have four lists, each of which is a list containing the `result` and the `error`. We can make the output easier to use with `purrr::transpose()`. This turns it "inside-out" so that we get a list of `result`s and a list of `error`s:
+The output is in a slightly inconvenient form, since we have four lists, each of which is a list containing the `result` and the `error`. We can make the output easier to use by turning it "inside-out" with `purrr::transpose()`, so that we get a list of `result`s and a list of `error`s:
 
 
 ```r
@@ -235,7 +235,7 @@ See their documentation for more details.
 \index{memoisation}
 \index{Fibonacci series}
 
-Another handy function operator is `memoise::memoise()`. It __memoises__ a function, meaning that the function will remember previous inputs and return cached results. Memoisation is an example of the classic computer science tradeoff of memory versus speed. A memoised function can run much faster because it stores all of the previous inputs and outputs, using more memory.
+Another handy function operator is `memoise::memoise()`. It __memoises__ a function, meaning that the function will remember previous inputs and return cached results. Memoisation is an example of the classic computer science tradeoff of memory versus speed. A memoised function can run much faster, but because it stores all of the previous inputs and outputs, it uses more memory.
 
 Let's explore this idea with a toy function that simulates an expensive operation:
 
@@ -248,12 +248,12 @@ slow_function <- function(x) {
 system.time(print(slow_function(1)))
 #> [1] 0.808
 #>    user  system elapsed 
-#>       0       0       1
+#>   0.004   0.000   1.002
 
 system.time(print(slow_function(1)))
 #> [1] 8.34
 #>    user  system elapsed 
-#>   0.004   0.000   1.005
+#>       0       0       1
 ```
 
 When we memoise this function, it's slow when we call it with new arguments. But when we call it with arguments that it's seen before it's instantaneous: it retrieves the previous value of the computation.
@@ -269,7 +269,7 @@ system.time(print(fast_function(1)))
 system.time(print(fast_function(1)))
 #> [1] 6.01
 #>    user  system elapsed 
-#>   0.016   0.000   0.015
+#>   0.016   0.000   0.016
 ```
 
 A relatively realistic use of memoisation is computing the Fibonacci series. The Fibonacci series is defined recursively: the first two values are defined by convention, $f(0) = 0$, $f(n) = 1$, and then $f(n) = f(n - 1) + f(n - 2)$ (for any positive integer). A naive version is slow because, for example, `fib(10)` computes `fib(9)` and `fib(8)`, and `fib(9)` computes `fib(8)` and `fib(7)`, and so on. 
@@ -282,10 +282,10 @@ fib <- function(n) {
 }
 system.time(fib(23))
 #>    user  system elapsed 
-#>   0.040   0.000   0.039
+#>   0.040   0.000   0.041
 system.time(fib(24))
 #>    user  system elapsed 
-#>   0.060   0.000   0.063
+#>   0.060   0.000   0.064
 ```
 
 Memoising `fib()` makes the implementation much faster because each value is computed only once:
@@ -298,7 +298,7 @@ fib2 <- memoise::memoise(function(n) {
 })
 system.time(fib2(23))
 #>    user  system elapsed 
-#>   0.024   0.000   0.025
+#>   0.024   0.000   0.026
 ```
 
 And future calls can rely on previous computations:
@@ -307,7 +307,7 @@ And future calls can rely on previous computations:
 ```r
 system.time(fib2(24))
 #>    user  system elapsed 
-#>       0       0       0
+#>   0.004   0.000   0.001
 ```
 
 This is an example of __dynamic programming__, where a complex problem can be broken down into many overlapping subproblems, and remembering the results of a subproblem considerably improves performance. 
@@ -324,7 +324,7 @@ Think carefully before memoising a function. If the function is not __pure__, i.
 1.  Read the source code for `safely()`. How does it work?
 
 
-## Case study: creating your own function operators {#fo-case-study}
+## Case study: Creating your own function operators {#fo-case-study}
 \index{loops}
 
 `meomoise()` and `safely()` are very useful but also quite complex. In this case study you'll learn how to create your own simpler function operators. Imagine you have a named vector of URLs and you'd like to download each one to disk. That's pretty simple with `walk2()` and `file.download()`:
@@ -341,7 +341,7 @@ path <- paste(tempdir(), names(urls), ".html")
 walk2(urls, path, download.file, quiet = TRUE)
 ```
 
-This approach is fine for a handful of URLs, but as the vector gets longer, it'd be nice to add a couple more features:
+This approach is fine for a handful of URLs, but as the vector gets longer, you might want to add a couple more features:
 
 * Add a small delay between each request to avoid hammering the server.
 
@@ -379,7 +379,7 @@ system.time(runif(100))
 #>       0       0       0
 system.time(delay_by(runif, 0.1)(100))
 #>    user  system elapsed 
-#>   0.000   0.000   0.101
+#>     0.0     0.0     0.1
 ```
 
 And we can use it with the original `walk2()`:
@@ -436,10 +436,10 @@ The pipe works well here because I've carefully chosen the function names to yie
 ### Exercises
 
 1.  Weigh the pros and cons of 
-    `download.file %>% dot_every(10) %>% delay_by(0.1)` vs
+    `download.file %>% dot_every(10) %>% delay_by(0.1)` versus
     `download.file %>% delay_by(0.1) %>% dot_every(10)`.
     
-1.  Should you memoise `file.download()`? Why/why not?
+1.  Should you memoise `file.download()`? Why or why not?
 
 1.  Create a function operator that reports whenever a file is created or 
     deleted in the working directory, using `dir()` and `setdiff()`. What other 

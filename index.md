@@ -27,11 +27,11 @@ paged-footnotes: true    # option for pagedown
 
 # Welcome {-}
 
-<img src="cover.png" width="250" height="366" align="right" alt="Cover image" />
+<a href="https://amzn.to/2WoabjB"><img src="cover.png" width="250" height="366" align="right" alt="Cover image" /></a>
 
-This is the website for work-in-progress 2nd edition of __"[Advanced R](http://amzn.com/1466586966?tag=devtools-20)"__, a book in Chapman & Hall's R Series. The book is designed primarily for R users who want to improve their programming skills and understanding of the language.  It should also be useful for programmers coming to R from other languages, as it explains some of R's quirks and shows how some parts that seem horrible do have a positive side.
+This is the website for 2nd edition of __"[Advanced R](https://amzn.to/2WoabjB)"__, a book in Chapman & Hall's R Series. The book is designed primarily for R users who want to improve their programming skills and understanding of the language. It should also be useful for programmers coming to R from other languages, as help you to understand why R works the way it does.
 
-This edition is a work in progress. If you're looking for the electronic version of the 1st edition, you can find it online at <http://adv-r.had.co.nz/>.
+If you're looking for the electronic version of the 1st edition, you can find it online at <http://adv-r.had.co.nz/>.
 
 ## License {-}
 
@@ -44,6 +44,10 @@ The code contained in this book is simultaneously available under the [MIT licen
 ## Other books {-}
 
 You may also be interested in:
+
+* __"[Advanced R solutions](http://advanced-r-solutions.rbind.io)"__ by
+  Malte Grosser and Henning Bumann, provides worked solutions to the exercises
+  in this book.
 
 * __"[R for Data Science](http://r4ds.had.co.nz/)"__ which introduces you to R 
   as a tool for doing data science, focussing on a consistent

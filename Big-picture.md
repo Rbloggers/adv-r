@@ -11,25 +11,20 @@ But I think it's easier to learn metaprogramming now than ever before. Over the 
 
 Each section in this chapter introduces one big new idea:
 
-* Section \@ref(code-data): Code is data and captured code is called an
-  expression.
-  
-* Section \@ref(code-tree): Code has a tree-like structure called an 
-  abstract syntax tree.
+* Section \@ref(code-data) shows that code is data and teaches you how to create and modify expressions by capturing code.
 
-* Section \@ref(coding-code): Code can create new expressions programmatically.
+* Section \@ref(code-tree) describes the tree-like structure of code, called an 
+abstract syntax tree.
 
-* Section \@ref(eval-intro): To "execute" code, you evaluate an expression in 
-  an environment.
+* Section \@ref(coding-code) shows how to create new expressions programmatically.
 
-* Section \@ref(eval-funs): You can customise evaluation by supplying custom
-  functions in a new environment.
+* Section \@ref(eval-intro) shows how to execute expressions by evaluating them in an environment.
 
-* Section \@ref(eval-data): You can also customise evaluation by supplying a 
-  data mask, which blurs the line between environments and data frames.
+* Section \@ref(eval-funs) illustrates how to customise evaluation by supplying custom functions in a new environment.
 
-* Section \@ref(quosure-intro): All this is made simpler (and more correct) 
-  with a new data structure called the quosure.
+* Section \@ref(eval-data) extends that customisation to data masks, which blur the line between environments and data frames.
+
+* Section \@ref(quosure-intro) introduces a new data structure called the quosure that makes all this simpler and more correct. 
 
 ### Prerequisites {-}
 
@@ -45,7 +40,7 @@ Make sure that you're also familiar with the environment (Section \@ref(env-basi
 
 ## Code is data {#code-data}
 
-The first big idea is that code is data: you can capture code and compute on it like any other type of data. The first way you can to capture code is with `rlang::expr()`. You can think of `expr()` as returning exactly what you pass in:
+The first big idea is that code is data: you can capture code and compute on as you can with any other type of data. The first way you can capture code is with `rlang::expr()`. You can think of `expr()` as returning exactly what you pass in:
 
 
 ```r
@@ -68,7 +63,7 @@ capture_it(a + b + c)
 #> x
 ```
 
-Here you need to use a function specifically designed to capture user input in a function argument: `enexpr()`. Think of the "en" like in "enrich": `enexpr()` takes a lazily evaluted argument and turns it into an expression:
+Here you need to use a function specifically designed to capture user input in a function argument: `enexpr()`. Think of the "en" in the context of "enrich": `enexpr()` takes a lazily evaluated argument and turns it into an expression:
 
 
 ```r
@@ -79,7 +74,7 @@ capture_it(a + b + c)
 #> a + b + c
 ```
 
-Because `capture_it()` uses `enexpr()` we say that it automatically "quotes" its first argument. You'll learn more about this term in Section \@ref(vocabulary).
+Because `capture_it()` uses `enexpr()` we say that it automatically quotes its first argument. You'll learn more about this term in Section \@ref(vocabulary).
 
 Once you have captured an expression, you can inspect and modify it. Complex expressions behave much like lists. That means you can modify them using `[[` and `$`:
 
@@ -129,7 +124,7 @@ lobstr::ast(f1(f2(a, b), f3(1, f4(2))))
 #>     └─2
 ```
 
-Because all function forms in can be written in prefix form (Section \@ref(prefix-form)), every R expression can be displayed in this way:
+Because all function forms can be written in prefix form (Section \@ref(prefix-form)), every R expression can be displayed in this way:
 
 
 ```r
@@ -172,7 +167,7 @@ expr(!!xx / !!yy)
 
 Notice that the output preserves the operator precedence so we get `(x + x) / (y + y)` not `x + x / y + y` (i.e. `x + (x / y) + y`). This is important, particularly if you've been wondering if it wouldn't be easier to just paste strings together.
 
-Unquoting gets even more useful when you wrap it up into a function, first using `enexpr()` to capture the user's expression, then `expr()` and `!!` to create an new expression using a template. The example below shows how you can generate an expression that computes the coefficient of variation:
+Unquoting gets even more useful when you wrap it up into a function, first using `enexpr()` to capture the user's expression, then `expr()` and `!!` to create a new expression using a template. The example below shows how you can generate an expression that computes the coefficient of variation:
 
 
 ```r
@@ -298,7 +293,7 @@ eval_tidy(expr(x + y), df)
 #> [1] 2 6 5 9 8
 ```
 
-Evaluating with a data mask is a useful technique for interactive analysis because it allows you to write `x + y` rather than `df$x + df$y`. However, that convenience comes at a cost: ambiguity. In Section \@ref(data-masks) you'll learn how to deal ambiguity using special `.data` and `.env` pronouns.
+Evaluating with a data mask is a useful technique for interactive analysis because it allows you to write `x + y` rather than `df$x + df$y`. However, that convenience comes at a cost: ambiguity. In Section \@ref(data-masks) you'll learn how to deal with ambiguity using special `.data` and `.env` pronouns.
 
 We can wrap this pattern up into a function by using `enexpr()`. This gives us a function very similar to `base::with()`:
 
@@ -338,7 +333,7 @@ with2(df, x + a)
 
 The problem arises because we need to evaluate the captured expression in the environment where it was written (where `a` is 10), not the environment inside of `with2()` (where `a` is 1000).
 
-Fortunately we call solve this problem by using a new data structure: the __quosure__ which bundles an expression with an environment. `eval_tidy()` knows how to work with quosures so all we need to do is switch out `enexpr()` for `enquo()`:
+Fortunately we can solve this problem by using a new data structure: the __quosure__ which bundles an expression with an environment. `eval_tidy()` knows how to work with quosures so all we need to do is switch out `enexpr()` for `enquo()`:
 
 
 ```r

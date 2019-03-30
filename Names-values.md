@@ -79,7 +79,7 @@ library(lobstr)
 
 ### Sources {-}
 
-The details of R's memory management are not documented in a single place. Much of the information in this chapter was gleaned from a close reading of the documentation (particularly `?Memory` and `?gc`), the [memory profiling](http://cran.r-project.org/doc/manuals/R-exts.html#Profiling-R-code-for-memory-use) section of "Writing R extensions" [@r-exts], and the [SEXPs](http://cran.r-project.org/doc/manuals/R-ints.html#SEXPs) section of "R internals" [@r-ints]. The rest I figured out by reading the C source code, performing small experiments, and asking questions on R-devel. Any mistakes are entirely mine.
+The details of R's memory management are not documented in a single place. Much of the information in this chapter was gleaned from a close reading of the documentation (particularly `?Memory` and `?gc`), the [memory profiling](http://cran.r-project.org/doc/manuals/R-exts.html#Profiling-R-code-for-memory-use) section of _Writing R extensions_ [@r-exts], and the [SEXPs](http://cran.r-project.org/doc/manuals/R-ints.html#SEXPs) section of _R internals_ [@r-ints]. The rest I figured out by reading the C source code, performing small experiments, and asking questions on R-devel. Any mistakes are entirely mine.
 
 ## Binding basics
 \index{bindings|seealso {assignment}}
@@ -123,9 +123,9 @@ You can access an object's identifier with `lobstr::obj_addr()`. Doing so allows
 
 ```r
 obj_addr(x)
-#> [1] "0x2699488"
+#> [1] "0x62e70b8"
 obj_addr(y)
-#> [1] "0x2699488"
+#> [1] "0x62e70b8"
 ```
 
 These identifiers are long, and change every time you restart R.
@@ -275,7 +275,7 @@ f <- function(a) {
 
 x <- c(1, 2, 3)
 cat(tracemem(x), "\n")
-#> <0x1d96058>
+#> <0x3095ad8>
 
 z <- f(x)
 # there's no copy here!
@@ -299,14 +299,14 @@ Once `f()` completes, `x` and `z` will point to the same object. `0x74b` never g
 \indexc{ref()}
 \index{lists}
 
-It's not just names (i.e. variables) that point to values; elements of lists do too. Take this list, which is superficially very similar to the numeric vector above:
+It's not just names (i.e. variables) that point to values; elements of lists do too. Consider this list, which is superficially very similar to the numeric vector above:
 
 
 ```r
 l1 <- list(1, 2, 3)
 ```
 
-This list is more complex because instead of storing the values itself, it instead stores references to them:
+This list is more complex because instead of storing the values itself, it stores references to them:
 
 
 \begin{center}\includegraphics[width=1.97in]{diagrams/name-value/list} \end{center}
@@ -336,15 +336,15 @@ To see values that are shared across lists, use `lobstr::ref()`. `ref()` prints 
 
 ```r
 ref(l1, l2)
-#> █ [1:0x7a498e8] <list> 
-#> ├─[2:0x786d190] <dbl> 
-#> ├─[3:0x786d158] <dbl> 
-#> └─[4:0x786d120] <dbl> 
+#> █ [1:0x67c96c8] <list> 
+#> ├─[2:0x662a180] <dbl> 
+#> ├─[3:0x662a148] <dbl> 
+#> └─[4:0x662a110] <dbl> 
 #>  
-#> █ [5:0x84c85b8] <list> 
-#> ├─[2:0x786d190] 
-#> ├─[3:0x786d158] 
-#> └─[6:0x839a440] <dbl>
+#> █ [5:0x728b6d8] <list> 
+#> ├─[2:0x662a180] 
+#> ├─[3:0x662a148] 
+#> └─[6:0x7149520] <dbl>
 ```
 
 ### Data frames {#df-modify}
@@ -402,11 +402,11 @@ You can request that `ref()` show these references by setting the `character` ar
 
 ```r
 ref(x, character = TRUE)
-#> █ [1:0x3793268] <chr> 
-#> ├─[2:0x1d2a758] <string: "a"> 
-#> ├─[2:0x1d2a758] 
-#> ├─[3:0x4b32f48] <string: "abc"> 
-#> └─[4:0x21e0af0] <string: "d">
+#> █ [1:0x25d1f88] <chr> 
+#> ├─[2:0xafe758] <string: "a"> 
+#> ├─[2:0xafe758] 
+#> ├─[3:0x3ac8f38] <string: "abc"> 
+#> └─[4:0xfb4af0] <string: "d">
 ```
 
 This has a profound impact on the amount of memory a character vector uses but is otherwise generally unimportant, so elsewhere in the book I'll draw character vectors as if the strings lived inside a vector.
@@ -506,7 +506,7 @@ obj_size(x, y)
 #> 8,000,128 B
 ```
 
-Finally, R 3.5.0 and later have a feature that might lead to surprises: ALTREP, short for __alternative representation__. This allows R to represent certain types of vectors very compactly. The place you are most like to see this is with `:` because instead of storing every single number in the sequence, R just stores the first and last number. This means that every sequence, no matter how large, is the same size:
+Finally, R 3.5.0 and later versions have a feature that might lead to surprises: ALTREP, short for __alternative representation__. This allows R to represent certain types of vectors very compactly. The place you are most likely to see this is with `:` because instead of storing every single number in the sequence, R just stores the first and last number. This means that every sequence, no matter how large, is the same size:
 
 
 ```r
@@ -659,7 +659,7 @@ In fact, each iteration copies the data frame not once, not twice, but three tim
 
 [^shallow-copy]: These copies are shallow: they only copy the reference to each individual column, not the contents of the columns. This means the performance isn't terrible, but it's obviously not as good as it could be.
 
-We can reduce the number of copies by using a list instead of a data frame. Modifying a list uses internal C code, so the refs are not incremented and only a single copy is made:
+We can reduce the number of copies by using a list instead of a data frame. Modifying a list uses internal C code, so the references are not incremented and only a single copy is made:
 
 
 ```r
@@ -703,7 +703,7 @@ e2$c
 
 \begin{center}\includegraphics[width=1.92in]{diagrams/name-value/e-modify-2} \end{center}
 
-This basic idea can be used to create functions that "remember" their previous state. See Section \@ref(stateful-funs) for more details. This property is also used to implement the R6 object oriented programming system, the topic of Chapter \@ref(r6).
+This basic idea can be used to create functions that "remember" their previous state. See Section \@ref(stateful-funs) for more details. This property is also used to implement the R6 object-oriented programming system, the topic of Chapter \@ref(r6).
 
 One consequence of this is that environments can contain themselves:
 
@@ -713,8 +713,8 @@ e <- rlang::env()
 e$self <- e
 
 ref(e)
-#> █ [1:0x1c52348] <env> 
-#> └─self = [1:0x1c52348]
+#> █ [1:0x77cb780] <env> 
+#> └─self = [1:0x77cb780]
 ```
 
 \begin{center}\includegraphics[width=1.48in]{diagrams/name-value/e-self} \end{center}
@@ -780,8 +780,8 @@ You can force garbage collection by calling `gc()`. But despite what you might h
 ```r
 gc() 
 #>           used (Mb) gc trigger (Mb) max used (Mb)
-#> Ncells  685272 36.6    1285834 68.7  1285834 68.7
-#> Vcells 4702757 35.9   11790318 90.0 11790318 90.0
+#> Ncells  687014 36.7    1290182   69  1290182   69
+#> Vcells 4704237 35.9   17101086  130 17051767  130
 ```
 
 `lobstr::mem_used()` is a wrapper around `gc()` that prints the total number of bytes used:
@@ -789,7 +789,7 @@ gc()
 
 ```r
 mem_used()
-#> 76,001,504 B
+#> 76,109,504 B
 ```
 
 This number won't agree with the amount of memory reported by your operating system. There are three reasons:
@@ -803,7 +803,7 @@ This number won't agree with the amount of memory reported by your operating sys
 1. R counts the memory occupied by objects but there may be empty gaps due to 
    deleted objects. This problem is known as memory fragmentation.
 
-## Answers {#names-values-answers}
+## Quiz answers {#names-values-answers}
 
 1.  You must quote non-syntactic names with backticks: `` ` ``: for example,
     the variables `1`, `2`, and `3`.

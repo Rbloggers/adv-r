@@ -12,7 +12,7 @@ Understanding environments is not necessary for day-to-day use of R. But they ar
 
 If you can answer the following questions correctly, you already know the most important topics in this chapter. You can find the answers at the end of the chapter in Section \@ref(env-answers).
 
-1.  List at least three ways that an environment is different to a list.
+1.  List at least three ways that an environment differs from a list.
 
 1.  What is the parent of the global environment? What is the only 
     environment that doesn't have a parent?
@@ -38,9 +38,9 @@ If you can answer the following questions correctly, you already know the most i
   function execution.
   
 * Section \@ref(call-stack) explains the last important environment: the 
-  caller environment. This requires you to learn about the "call stack",
+  caller environment. This requires you to learn about the call stack,
   that describes how a function was called. You'll have seen the call stack 
-  before if you've ever called `traceback()` to aid debugging.
+  if you've ever called `traceback()` to aid debugging.
   
 * Section \@ref(explicit-envs) briefly discusses three places where
   environments are useful data structures for solving other problems.
@@ -97,7 +97,7 @@ The job of an environment is to associate, or __bind__, a set of names to a set 
 
 \begin{center}\includegraphics[width=3.05in]{diagrams/environments/bindings} \end{center}
 
-As discussed in Section \@ref(env-modify), environments have reference semantics: unlike most R objects, when you modify them, you modify them in place, and don't create a copy. One important implication is that environments can "contain" themselves. 
+As discussed in Section \@ref(env-modify), environments have reference semantics: unlike most R objects, when you modify them, you modify them in place, and don't create a copy. One important implication is that environments can contain themselves. 
 
 
 ```r
@@ -112,7 +112,7 @@ Printing an environment just displays its memory address, which is not terribly 
 
 ```r
 e1
-#> <environment: 0x2de3428>
+#> <environment: 0x2eec7f8>
 ```
 
 Instead, we'll use `env_print()` which gives us a little more information:
@@ -120,7 +120,7 @@ Instead, we'll use `env_print()` which gives us a little more information:
 
 ```r
 env_print(e1)
-#> <environment: 0x2de3428>
+#> <environment: 0x2eec7f8>
 #> parent: <environment: global>
 #> bindings:
 #>  * a: <lgl>
@@ -184,7 +184,7 @@ You can find the parent of an environment with `env_parent()`:
 
 ```r
 env_parent(e2b)
-#> <environment: 0x62dfb88>
+#> <environment: 0x69d2558>
 env_parent(e2a)
 #> <environment: R_GlobalEnv>
 ```
@@ -204,10 +204,10 @@ The ancestors of every environment eventually terminate with the empty environme
 
 ```r
 env_parents(e2b)
-#> [[1]]   <env: 0x62dfb88>
+#> [[1]]   <env: 0x69d2558>
 #> [[2]] $ <env: global>
 env_parents(e2d)
-#> [[1]]   <env: 0x6d72508>
+#> [[1]]   <env: 0x74625f0>
 #> [[2]] $ <env: empty>
 ```
 
@@ -216,7 +216,7 @@ By default, `env_parents()` stops when it gets to the global environment. This i
 
 ```r
 env_parents(e2b, last = empty_env())
-#>  [[1]]   <env: 0x62dfb88>
+#>  [[1]]   <env: 0x69d2558>
 #>  [[2]] $ <env: global>
 #>  [[3]] $ <env: package:rlang>
 #>  [[4]] $ <env: package:stats>
@@ -376,7 +376,7 @@ There are two more exotic variants of `env_bind()`:
     system.time(print(b))
     #> [1] 1
     #>    user  system elapsed 
-    #>   0.000   0.004   1.001
+    #>       0       0       1
     system.time(print(b))
     #> [1] 1
     #>    user  system elapsed 
@@ -534,7 +534,7 @@ f <- function(..., env = caller_env()) {
 ```
 
 ::: sidebar
-### Iteration vs recursion {-}
+### Iteration versus recursion {-}
 
 It's possible to use a loop instead of recursion. I think it's harder to understand than the recursive version, but I include it because you might find it easier to see what's happening if you haven't written many recursive functions.
 
@@ -648,7 +648,7 @@ In diagrams, I'll draw a function as a rectangle with a rounded end that binds a
 
 \begin{center}\includegraphics[width=2.31in]{diagrams/environments/binding} \end{center}
 
-In this case, `f()` binds the environment that binds the name `f` to the function. But that's not always the case: in the following example `g` is bound in a new environment `e`, but `g()` binds the global environment. The distinction between binding and being bound by is subtle but important; the difference is how we find `g` vs. how `g` finds its variables.
+In this case, `f()` binds the environment that binds the name `f` to the function. But that's not always the case: in the following example `g` is bound in a new environment `e`, but `g()` binds the global environment. The distinction between binding and being bound by is subtle but important; the difference is how we find `g` versus how `g` finds its variables.
 
 
 ```r
@@ -673,11 +673,11 @@ sd
 #> function (x, na.rm = FALSE) 
 #> sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), 
 #>     na.rm = na.rm))
-#> <bytecode: 0x6337230>
+#> <bytecode: 0x76af6e0>
 #> <environment: namespace:stats>
 ```
 
-`sd()` is defined in terms of `var()`, so you might worry that the result of `sd()` would be affected by any function called `var()` either in the global environment, or in one of the other attached packages. R avoids this problem by taking advantage of the function vs. binding environment described above. Every function in a package is associated with a pair of environments: the package environment, which you learned about earlier, and the __namespace__ environment. 
+`sd()` is defined in terms of `var()`, so you might worry that the result of `sd()` would be affected by any function called `var()` either in the global environment, or in one of the other attached packages. R avoids this problem by taking advantage of the function versus binding environment described above. Every function in a package is associated with a pair of environments: the package environment, which you learned about earlier, and the __namespace__ environment. 
 
 *   The package environment is the external interface to the package. It's how 
     you, the R user, find a function in an attached package or with `::`. Its 
@@ -786,7 +786,7 @@ h2 <- function(x) {
 
 e <- h2(x = 10)
 env_print(e)
-#> <environment: 0x7723b80>
+#> <environment: 0x7ec6ae0>
 #> parent: <environment: global>
 #> bindings:
 #>  * a: <dbl>
@@ -808,7 +808,7 @@ plus <- function(x) {
 plus_one <- plus(1)
 plus_one
 #> function(y) x + y
-#> <environment: 0x6e1ca78>
+#> <environment: 0x7553bb8>
 ```
 
 
@@ -829,7 +829,7 @@ You'll learn more about function factories in Section \@ref(factory-fundamentals
 
 ### Exercises
 
-1.  How is `search_envs()` different to `env_parents(global_env())`?
+1.  How is `search_envs()` different from `env_parents(global_env())`?
 
 1.  Draw a diagram that shows the enclosing environments of this function:
     
@@ -851,7 +851,7 @@ You'll learn more about function factories in Section \@ref(factory-fundamentals
     about functions. Show where the function was found and what environment 
     it was defined in.
 
-## The call stack {#call-stack}
+## Call stacks {#call-stack}
 \index{environments!calling}
 \indexc{parent.frame()}
 \index{call stacks}
@@ -959,7 +959,7 @@ Each element of the call stack is a __frame__[^frame], also known as an evaluati
 
 Figure \@ref(fig:calling) illustrates the stack for the call to `f(x = 1)` shown in Section \@ref(simple-stack).
 
-[^frame]: NB: `?environment` uses frame in a different sense: "Environments consist of a _frame_, or collection of named objects, and a pointer to an enclosing environment.". We avoid this sense of frame, which comes from S, because it's very specific and not widely used in base R. For example, the "frame" in `parent.frame()` is an execution context, not a collection of named objects.
+[^frame]: NB: `?environment` uses frame in a different sense: "Environments consist of a _frame_, or collection of named objects, and a pointer to an enclosing environment." We avoid this sense of frame, which comes from S, because it's very specific and not widely used in base R. For example, the frame in `parent.frame()` is an execution context, not a collection of named objects.
 
 \begin{figure}
 

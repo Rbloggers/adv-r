@@ -35,7 +35,7 @@ cube(3)
 
 You have already learned about the individual components that make function factories possible:
 
-* In Section \@ref(first-class-functions), you learned about R's "first-class" 
+* In Section \@ref(first-class-functions), you learned about R's first-class 
   functions. In R, you bind a function to a name in the same way as you bind
   any object to a name: with `<-`.
 
@@ -47,16 +47,16 @@ You have already learned about the individual components that make function fact
   is usually ephemeral, but here it becomes the enclosing environment of 
   the manufactured function.
 
-In this chapter, you'll learn how the non-obvious combination of these three features lead to the function factory. You'll also see examples of their usage in visualisation and statistics.
+In this chapter, you'll learn how the non-obvious combination of these three features leads to the function factory. You'll also see examples of their usage in visualisation and statistics.
 
-Of the three main functional programming tools (functionals, function factories, and function operators), function factories are the least commonly used. Generally, they don't tend to reduce overall code complexity but instead partition complexity into more easily digested chunks. Function factories are also an important building block for the very useful function operators, which you'll learn about in Chapter \@ref(function-operators).
+Of the three main functional programming tools (functionals, function factories, and function operators), function factories are the least used. Generally, they don't tend to reduce overall code complexity but instead partition complexity into more easily digested chunks. Function factories are also an important building block for the very useful function operators, which you'll learn about in Chapter \@ref(function-operators).
 
 ### Outline {-}
 
 * Section \@ref(factory-fundamentals) begins the chapter with an explanation
   of how function factories work, pulling together ideas from scoping and 
   environments. You'll also see how function factories can be used to implement
-  a "memory" for functions, allowing data to persist across calls.
+  a memory for functions, allowing data to persist across calls.
 
 * Section \@ref(graph-fact) illustrates the use of function factories with 
   examples from ggplot2. You'll see two examples of how ggplot2 works
@@ -102,28 +102,28 @@ square
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <environment: 0x3d4c698>
+#> <environment: 0x2a00dd0>
 
 cube
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x23d5488>
-#> <environment: 0x3f35d88>
+#> <bytecode: 0x1451a60>
+#> <environment: 0x2d2dfa0>
 ```
 
-It's obvious where `x` comes from, but how does R find the value associated with `exp`? Simply printing the manufactured functions is not revealing because the bodies are identical; it's the contents of the enclosing environment that's important. We can get a little more insight by using `rlang::env_print()`. That shows us that we have two different environments (each of which was originally an execution environment of `power1()`). The environments have the same parent, which is the enclosing environment of `power1()`, the global environment.
+It's obvious where `x` comes from, but how does R find the value associated with `exp`? Simply printing the manufactured functions is not revealing because the bodies are identical; the contents of the enclosing environment are the important factors. We can get a little more insight by using `rlang::env_print()`. That shows us that we have two different environments (each of which was originally an execution environment of `power1()`). The environments have the same parent, which is the enclosing environment of `power1()`, the global environment.
 
 
 ```r
 env_print(square)
-#> <environment: 0x3d4c698>
+#> <environment: 0x2a00dd0>
 #> parent: <environment: global>
 #> bindings:
 #>  * exp: <dbl>
 
 env_print(cube)
-#> <environment: 0x3f35d88>
+#> <environment: 0x2d2dfa0>
 #> parent: <environment: global>
 #> bindings:
 #>  * exp: <dbl>
@@ -307,7 +307,7 @@ lobstr::obj_size(g2)
     force
     #> function (x) 
     #> x
-    #> <bytecode: 0x1f73d60>
+    #> <bytecode: 0xa6ed60>
     #> <environment: namespace:base>
     ```
     
@@ -377,7 +377,7 @@ We'll begin our exploration of useful function factories with a few examples fro
 
 ### Labelling
 
-One of the goals of the [scales](http://scales.r-lib.org) package is to make it easy to customise the labels on ggplot2. It provides many functions to control the fine details of axes and legends. One useful class of functions are the formatter functions[^suffix] which make it easier to control the appearance of axis breaks. The design of these functions might initially seem a little odd: they all return a function, which you have to call in order to format a number.
+One of the goals of the [scales](http://scales.r-lib.org) package is to make it easy to customise the labels on ggplot2. It provides many functions to control the fine details of axes and legends. The formatter functions[^suffix] are a useful class of functions which make it easier to control the appearance of axis breaks. The design of these functions might initially seem a little odd: they all return a function, which you have to call in order to format a number.
 
 
 ```r
@@ -462,7 +462,7 @@ ggplot(df, aes(x)) +
 
 \begin{center}\includegraphics[width=0.9\linewidth]{Function-factories_files/figure-latex/unnamed-chunk-27-1} \end{center}
 
-We could use this same pattern to wrap around the base R functions that automatically find the "optimal"[^optimal] binwidth, `nclass.Sturges()`, `nclass.scott()`, and `nclass.FD()`:
+We could use this same pattern to wrap around the base R functions that automatically find the so-called optimal[^optimal] binwidth, `nclass.Sturges()`, `nclass.scott()`, and `nclass.FD()`:
 
 
 ```r
@@ -532,12 +532,12 @@ plot_dev <- function(ext, dpi = 96) {
 
 plot_dev("pdf")
 #> function(filename, ...) grDevices::pdf(file = filename, ...)
-#> <bytecode: 0x60d72a0>
-#> <environment: 0x5b2c9d8>
+#> <bytecode: 0x3ee4150>
+#> <environment: 0x27fefe8>
 plot_dev("png")
 #> function(...) grDevices::png(..., res = dpi, units = "in")
-#> <bytecode: 0x63d5490>
-#> <environment: 0x67a00c0>
+#> <bytecode: 0x41f8f80>
+#> <environment: 0x497e2e8>
 ```
 
 ### Exercises
@@ -659,7 +659,7 @@ I use `rm(mod)` because linear model objects are quite large (they include compl
 \indexc{optimise()}
 \indexc{optim()}
 
-The goal of maximum likelihood estimation (MLE) is to find the parameter values for a distribution that make the observed data "most likely". To do MLE, you start with a probability function. For example, take the Poisson distribution. If we know $\lambda$, we can compute the probability of getting a vector $\mathbf{x}$ of values ($x_1$, $x_2$, ..., $x_n$) by multiplying the Poisson probability function as follows:
+The goal of maximum likelihood estimation (MLE) is to find the parameter values for a distribution that make the observed data most likely. To do MLE, you start with a probability function. For example, take the Poisson distribution. If we know $\lambda$, we can compute the probability of getting a vector $\mathbf{x}$ of values ($x_1$, $x_2$, ..., $x_n$) by multiplying the Poisson probability function as follows:
 
 \[ P(\lambda, \mathbf{x}) = \prod_{i=1}^{n} \frac{\lambda ^ {x_i} e^{-\lambda}}{x_i!} \]
 
@@ -713,7 +713,7 @@ lprob_poisson(30, x1)
 #> [1] -31
 ```
 
-So far we’ve been thinking of `lambda` as fixed and known and the function told us the probability of getting different values of `x`. But in real-life, we observe `x` and it is `lambda` that is unknown. The likelihood is the probability function seen through this lens: we want to find the `lambda` that makes the observed `x` the “most likely”. That is, given `x`, what value of `lambda` gives us the highest value of `lprob_poisson`()?
+So far we’ve been thinking of `lambda` as fixed and known and the function told us the probability of getting different values of `x`. But in real-life, we observe `x` and it is `lambda` that is unknown. The likelihood is the probability function seen through this lens: we want to find the `lambda` that makes the observed `x` the most likely. That is, given `x`, what value of `lambda` gives us the highest value of `lprob_poisson`()?
 
 In statistics, we highlight this change in perspective by writing $f_{\mathbf{x}}(\lambda)$ instead of $f(\lambda, \mathbf{x})$. In R, we can use a function factory. We provide `x` and generate a function with a single parameter, `lambda`:
 
@@ -785,7 +785,7 @@ optimise(lprob_poisson, c(0, 100), x = x1, maximum = TRUE)
 
 The advantage of using a function factory here is fairly small, but there are two niceties:
 
-* We can precompute some values in the factory itself, saving computation time
+* We can precompute some values in the factory, saving computation time
   in each iteration.
   
 * The two-level design better reflects the mathematical structure of 
@@ -843,8 +843,8 @@ funs$root
 #> function(x) {
 #>     x ^ exp
 #>   }
-#> <bytecode: 0x23d5488>
-#> <environment: 0x63b4928>
+#> <bytecode: 0x1451a60>
+#> <environment: 0x54e5f08>
 ```
 
 This idea extends in a straightforward way if your function factory takes two (replace `map()` with `map2()`) or more (replace with `pmap()`) arguments.

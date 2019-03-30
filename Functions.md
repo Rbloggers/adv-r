@@ -41,7 +41,7 @@ Answer the following questions to see if you can safely skip this chapter. You c
     mean(, TRUE, x = c(1:10, NA))
     ```
 
-1.  Does the following code throw an error when executed? Why/why not?
+1.  Does the following code throw an error when executed? Why or why not?
 
     
     ```r
@@ -137,12 +137,12 @@ environment(f02)
 #> <environment: R_GlobalEnv>
 ```
 
-I'll draw functions as in the following diagram. The black dot on the left is the environment. The two blocks to the right are the function arguments. I won't draw the body, because it's usually large, and doesn't help you understand the "shape" of the function.
+I'll draw functions as in the following diagram. The black dot on the left is the environment. The two blocks to the right are the function arguments. I won't draw the body, because it's usually large, and doesn't help you understand the shape of the function.
 
 
 \begin{center}\includegraphics[width=1.23in]{diagrams/functions/components} \end{center}
 
-Like all objects in R, functions can also possess any number of additional `attributes()`. One attribute used by base R is "srcref", short for source reference. It points to the source code used to create the function. The srcref is used for printing because, unlike `body()`, it contains code comments and other formatting.  
+Like all objects in R, functions can also possess any number of additional `attributes()`. One attribute used by base R is `srcref`, short for source reference. It points to the source code used to create the function. The `srcref` is used for printing because, unlike `body()`, it contains code comments and other formatting.  
 
 
 ```r
@@ -168,7 +168,7 @@ sum
 #> .Primitive("[")
 ```
 
-They have type "builtin" or "special":
+They have either type `builtin` or type `special`.
 
 
 ```r
@@ -356,8 +356,8 @@ Each of the three options has its own strengths and weaknesses:
 * Nesting, `f(g(x))`, is concise, and well suited for short sequences. But
   longer sequences are hard to read because they are read inside out and
   right to left. As a result, arguments can get spread out over long distances
-  creating the "[Dagwood
-  sandwich](https://en.wikipedia.org/wiki/Dagwood_sandwich)" problem.
+  creating the [Dagwood
+  sandwich](https://en.wikipedia.org/wiki/Dagwood_sandwich) problem.
 
 * Intermediate objects, `y <- f(x); g(y)`, requires you to name intermediate
   objects. This is a strength when objects are important, but a weakness when
@@ -393,12 +393,12 @@ g01()
 
 In this section, you'll learn the formal rules of scoping as well as some of its more subtle details. A deeper understanding of scoping will help you to use more advanced functional programming tools, and eventually, even to write tools that translate R code into other languages.
 
-R uses __lexical scoping__[^dyn-scope]: it looks up the values of names based on how a function is defined, not how it is called. "Lexical" here is not the English adjective "relating to words or a vocabulary". It's a technical CS term that tells us that the scoping rules use a parse-time, rather than a run-time structure. 
+R uses __lexical scoping__[^dyn-scope]: it looks up the values of names based on how a function is defined, not how it is called. "Lexical" here is not the English adjective that means relating to words or a vocabulary. It's a technical CS term that tells us that the scoping rules use a parse-time, rather than a run-time structure. 
 
 R's lexical scoping follows four primary rules:
 
 * Name masking
-* Functions vs. variables
+* Functions versus variables
 * A fresh start
 * Dynamic lookup
 
@@ -461,7 +461,7 @@ g04()
 
 The same rules also apply to functions created by other functions, which I call manufactured functions, the topic of Chapter \@ref(function-factories). 
 
-### Functions vs. variables
+### Functions versus variables
 
 In R, functions are ordinary objects. This means the scoping rules described above also apply to functions:
 
@@ -512,7 +512,7 @@ g11()
 g11()
 ```
 
-You might be surprised that `g11()` always returns the same value. This happens because every time a function is called a new environment is created to host its execution. This means that a function has no way to tell what happened the last time it was run; each invocation is completely independent. (We'll see some ways to get around this in Section \@ref(stateful-funs))
+You might be surprised that `g11()` always returns the same value. This happens because every time a function is called a new environment is created to host its execution. This means that a function has no way to tell what happened the last time it was run; each invocation is completely independent. We'll see some ways to get around this in Section \@ref(stateful-funs).
 
 ### Dynamic lookup
 \indexc{findGlobals()}
@@ -658,7 +658,7 @@ A promise has three components:
     #> [1] 40 40
     ```
 
-You cannot manipulate promises with R code. Promises are like a quantum state: any attempt to inspect them with R code will force an immediate evaluation, making the promise disappear. Later, in Section \@ref(quosures), you'll learn about quosures, which reify promises into an R object where you can easily inspect the expression and the environment.
+You cannot manipulate promises with R code. Promises are like a quantum state: any attempt to inspect them with R code will force an immediate evaluation, making the promise disappear. Later, in Section \@ref(quosures), you'll learn about quosures, which convert promises into an R object where you can easily inspect the expression and the environment.
 
 
 ### Default arguments
@@ -729,7 +729,7 @@ args(sample)
 #> NULL
 ```
  
-It looks like both `x` and `size` are required, but in fact if it's not supplied, `sample()` uses `missing()` to provide a default for `size`. If I were to rewrite sample, I'd use an explicit `NULL` to indicate that `size` is not required but can be supplied:
+It looks like both `x` and `size` are required, but if `size` is not supplied, `sample()` uses `missing()` to provide a default. If I were to rewrite sample, I'd use an explicit `NULL` to indicate that `size` is not required but can be supplied:
 
 
 ```r
@@ -840,7 +840,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
       print(x)
     }
     show_time()
-    #> [1] "2019-02-27 16:01:05 UTC"
+    #> [1] "2019-03-30 09:57:18 UTC"
     ```
 
 1.  How many arguments are required when calling `library()`?
@@ -851,7 +851,7 @@ Because of lazy evaluation, you don't need to worry about unnecessary computatio
 \index{ellipsis|see {...}}
 \index{dot-dot-dot|see {...}}
 
-Functions can have a special argument `...` (pronounced dot-dot-dot). With it, a function can take any number of additional arguments. In other programming languages, this type of argument is often called a varargs, and a function that uses it is said to be variadic. 
+Functions can have a special argument `...` (pronounced dot-dot-dot). With it, a function can take any number of additional arguments. In other programming languages, this type of argument is often called _varargs_ (short for variable arguments), and a function that uses it is said to be variadic. 
 
 You can also use `...` to pass those additional arguments on to another function.
 
@@ -919,8 +919,8 @@ There are two primary uses of `...`, both of which we'll come back to later in t
 *   If your function is an S3 generic, you need some way to allow methods to 
     take arbitrary extra arguments. For example, take the `print()` function. 
     Because there are different options for printing depending on the type of 
-    object, there's no way to pre-specify every possible argument. `...` is 
-    what allow individual methods to have different arguments:
+    object, there's no way to pre-specify every possible argument and `...` 
+    allows individual methods to have different arguments:
 
     
     ```r
@@ -981,11 +981,11 @@ Using `...` comes with two downsides:
 
 ## Exiting a function
 
-Most functions exit in one of two ways[^esoterica]: they either return a value, indicating success, or they throw an error, indicating failure. This section describes return values (implicit vs. explicit; visible vs. invisible), briefly discusses errors, and introduces exit handlers, which allow you to run code when a function exits.
+Most functions exit in one of two ways[^esoterica]: they either return a value, indicating success, or they throw an error, indicating failure. This section describes return values (implicit versus explicit; visible versus invisible), briefly discusses errors, and introduces exit handlers, which allow you to run code when a function exits.
 
 [^esoterica]: Functions can exit in other more esoteric ways like signalling a condition that is caught by an exit handler, invoking a restart, or pressing "Q" in an interactive browser.
 
-### Implicit vs. explicit returns
+### Implicit versus explicit returns
 \index{functions!return value}
 \indexc{return()}
 
@@ -1231,10 +1231,10 @@ j09()
     
 ## Function forms
 
-> "To understand computations in R, two slogans are helpful:
+> To understand computations in R, two slogans are helpful:
 >
 > * Everything that exists is an object.
-> * Everything that happens is a function call."
+> * Everything that happens is a function call.
 >
 > --- John Chambers
 
@@ -1295,21 +1295,29 @@ rm("(")
 
 Of course, overriding built-in functions like this is a bad idea, but, as you'll learn in Section \@ref(html-env), it's possible to apply it only to selected code blocks. This provides a clean and elegant approach to writing domain specific languages and translators to other languages.
 
-A more useful application comes up when using functional programming tools. For example, you could use `sapply()` to add 3 to every element of a list by first defining a function `add()`:
+A more useful application comes up when using functional programming tools. For example, you could use `lapply()` to add 3 to every element of a list by first defining a function `add()`:
 
 
 ```r
 add <- function(x, y) x + y
-sapply(1:10, add, 3)
-#>  [1]  4  5  6  7  8  9 10 11 12 13
+lapply(list(1:3, 4:5), add, 3)
+#> [[1]]
+#> [1] 4 5 6
+#> 
+#> [[2]]
+#> [1] 7 8
 ```
 
 But we can also get the same result simply by relying on the existing `+` function:
 
 
 ```r
-sapply(1:5, `+`, 3)
-#> [1] 4 5 6 7 8
+lapply(list(1:3, 4:5), `+`, 3)
+#> [[1]]
+#> [1] 4 5 6
+#> 
+#> [[2]]
+#> [1] 7 8
 ```
 
 We'll explore this idea in detail in Section \@ref(functionals).
@@ -1371,7 +1379,7 @@ x <- k01(a = 1, 2, 3)
 \index{infix functions} 
 \indexc{\%\%}
 
-Infix functions get their name from the fact the function name comes **in**between its arguments, and hence have two arguments. R comes with a number of built-in infix operators: `:`, `::`, `:::`, `$`, `@`, `^`, `*`, `/`, `+`, `-`, `>`, `>=`, `<`, `<=`, `==`, `!=`, `!`, `&`, `&&`, `|`, `||`, `~`, `<-`, and `<<-`. You can also create your own infix functions that start and end with `%`. Base R uses this pattern to define `%%`, `%*%`, `%/%`, `%in%`, `%o%`, and `%x%`.
+Infix functions get their name from the fact the function name comes inbetween its arguments, and hence have two arguments. R comes with a number of built-in infix operators: `:`, `::`, `:::`, `$`, `@`, `^`, `*`, `/`, `+`, `-`, `>`, `>=`, `<`, `<=`, `==`, `!=`, `!`, `&`, `&&`, `|`, `||`, `~`, `<-`, and `<<-`. You can also create your own infix functions that start and end with `%`. Base R uses this pattern to define `%%`, `%*%`, `%/%`, `%in%`, `%o%`, and `%x%`.
 
 Defining your own infix function is simple. You create a two argument function and bind it to a name that starts and ends with `%`:
 
@@ -1382,7 +1390,7 @@ Defining your own infix function is simple. You create a two argument function a
 #> [1] "new string"
 ```
 
-The names of infix functions are more flexible than regular R functions: they can contain any sequence of characters except "%". You will need to escape any special characters in the string used to define the function, but not when you call it:
+The names of infix functions are more flexible than regular R functions: they can contain any sequence of characters except for `%`. You will need to escape any special characters in the string used to define the function, but not when you call it:
 
 
 ```r
@@ -1438,7 +1446,7 @@ x
 #>  [1]  1  5  3  4  5  6  7  8  9 10
 ```
 
-I say they "act" like they modify their arguments in place, because, as discussed in [Modify-in-place], they actually create a modified copy. We can see that by using `tracemem()`:
+I say they act like they modify their arguments in place, because, as explained in Section \@ref(modify-in-place), they actually create a modified copy. We can see that by using `tracemem()`:
 
 
 ```r
@@ -1484,7 +1492,7 @@ names(x)
 #> [1] "a"   "two" "c"
 ```
 
-Is translated into:
+is translated into:
 
 
 ```r
@@ -1493,7 +1501,7 @@ x <- `names<-`(`*tmp*`, `[<-`(names(`*tmp*`), 2, "two"))
 rm(`*tmp*`)
 ```
 
-(Yes, it really does create a local variable named *tmp*, which is removed afterwards.)
+(Yes, it really does create a local variable named `*tmp*`, which is removed afterwards.)
 
 ### Special forms
 \index{special forms}
@@ -1519,7 +1527,7 @@ And the tools of control flow:
 * `next` (`` `next`() ``)
 * `break` (`` `break`() ``)
 
-Finally, the most complex is the "function" function:
+Finally, the most complex is the `function` function:
 
 * `function(arg1, arg2) {body}` (`` `function`(alist(arg1, arg2), body, env)``)
 
@@ -1580,7 +1588,7 @@ All special forms are implemented as primitive functions (i.e. in C); this means
     ```
 
 1. Create a list of all the replacement functions found in the base package. 
-   Which ones are primitive functions? (Hint: use `apropos()`)
+   Which ones are primitive functions? (Hint: use `apropos()`.)
 
 1. What are valid names for user-created infix functions?
 

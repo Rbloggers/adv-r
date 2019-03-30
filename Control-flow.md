@@ -6,7 +6,7 @@
 
 There are two primary tools of control flow: choices and loops. Choices, like `if` statements and `switch()` calls, allow you to run different code depending on the input. Loops, like `for` and `while`, allow you to repeatedly run code, typically with changing options. I'd expect that you're already familiar with the basics of these functions so I'll briefly cover some technical details and then introduce some useful, but lesser known, features.
 
-The condition system (messages, warnings, and errors), which you'll learn about them in Chapter \@ref(conditions), also provides "non-local" control flow. 
+The condition system (messages, warnings, and errors), which you'll learn about in Chapter \@ref(conditions), also provides non-local control flow. 
 
 ### Quiz {-}
 
@@ -282,7 +282,7 @@ for (i in 1:3) {
 
 (When iterating over a vector of indices, it's conventional to use very short variable names like `i`, `j`, or `k`.)
 
-N.B.: `for` assigns the `item` to the current environment, overwritting any existing variable with the same name:
+N.B.: `for` assigns the `item` to the current environment, overwriting any existing variable with the same name:
 
 
 ```r
@@ -441,7 +441,7 @@ Generally speaking you shouldn't need to use for loops for data analysis tasks, 
     #> [1] 6
     ```
 
-## Answers {#control-flow-answers}
+## Quiz answers {#control-flow-answers}
 
 * `if` works with scalars; `ifelse()` works with vectors.
 
